@@ -15,6 +15,7 @@ import {
   Gauge,
   Map,
   Cpu,
+  Crosshair,
   Boxes,
   AlertTriangle,
   Eye,
