@@ -5,7 +5,7 @@ from app.persistence.repositories import PersistenceRepository, CloudEventReposi
 
 
 class PortalIndexService:
-    service_name = "TRFMC_UNIFIED_NAVIGATION_PORTAL_INDEX_V0_21"
+    service_name = "TRFMC_UNIFIED_NAVIGATION_PORTAL_INDEX_V0_22"
 
     def now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -112,6 +112,16 @@ class PortalIndexService:
                 "description": "Backup runtime, manifest, hash SHA256, DB/evidence vault e controllo operativo.",
                 "status": "ACTIVE",
             },
+            {
+                "id": "restore-readiness",
+                "title": "Restore Readiness & Disaster Recovery Drill",
+                "version": "v0.22",
+                "path": "/restore_readiness_console_v22.html",
+                "url": "http://127.0.0.1:5173/restore_readiness_console_v22.html",
+                "category": "recovery",
+                "description": "Verifica backup, manifest, SHA256, piano cold restore e drill non distruttivo.",
+                "status": "ACTIVE",
+            },
         ]
 
     def release_chain(self) -> List[Dict[str, Any]]:
@@ -136,6 +146,7 @@ class PortalIndexService:
             {"version": "v0.19", "title": "Unified Navigation & Portal Index"},
             {"version": "v0.20", "title": "Persistent Report Archive & Evidence Vault"},
             {"version": "v0.21", "title": "Operational Backup & Recovery Control"},
+            {"version": "v0.22", "title": "Restore Readiness & Disaster Recovery Drill"},
         ]
 
     def api_endpoints(self) -> List[Dict[str, Any]]:
@@ -164,6 +175,10 @@ class PortalIndexService:
             {"method": "POST", "path": "/api/ops/backup/create-runtime", "domain": "ops"},
             {"method": "GET", "path": "/api/ops/backup/list", "domain": "ops"},
             {"method": "GET", "path": "/api/ops/backup/latest-manifest", "domain": "ops"},
+            {"method": "GET", "path": "/api/restore/readiness", "domain": "restore"},
+            {"method": "GET", "path": "/api/restore/plan", "domain": "restore"},
+            {"method": "GET", "path": "/api/restore/verify-backup", "domain": "restore"},
+            {"method": "GET", "path": "/api/restore/drill", "domain": "restore"},
         ]
 
     def operator_commands(self) -> List[Dict[str, str]]:
@@ -181,7 +196,7 @@ class PortalIndexService:
             "timestamp": self.now(),
             "project": "Telco RF Mission Control Platform",
             "short_name": "TRFMC",
-            "version": "0.21.0",
+            "version": "0.22.0",
             "operational_mode": "SIMULATION_ONLY",
             "frontend_base": "http://127.0.0.1:5173",
             "backend_base": "http://127.0.0.1:8000",
@@ -216,7 +231,7 @@ class PortalIndexService:
             "service": self.service_name,
             "timestamp": self.now(),
             "overall_status": "OK" if persistence.get("exists") else "ATTENTION_REQUIRED",
-            "version": "0.21.0",
+            "version": "0.22.0",
             "persistence": persistence,
             "event_count_sample": event_count,
             "high_value_counts": {

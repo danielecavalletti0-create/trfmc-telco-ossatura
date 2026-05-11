@@ -48,7 +48,7 @@ sudo fuser -k "${TRFMC_BACKEND_PORT}/tcp" 2>/dev/null || true
 sudo fuser -k "${TRFMC_FRONTEND_PORT}/tcp" 2>/dev/null || true
 
 echo
-echo "=== 3. Build backend v0.21 ==="
+echo "=== 3. Build backend v0.22 ==="
 sudo docker build --no-cache -t "$TRFMC_BACKEND_IMAGE" ./backend
 
 echo
@@ -85,8 +85,8 @@ from pathlib import Path
 
 data = json.loads(Path("/tmp/trfmc_health.json").read_text())
 version = data.get("version")
-if version != "0.21.0":
-    raise SystemExit(f"ERRORE: backend non è v0.21.0, rilevato: {version}")
+if version != "0.22.0":
+    raise SystemExit(f"ERRORE: backend non è v0.22.0, rilevato: {version}")
 PYCHECK
 
 echo

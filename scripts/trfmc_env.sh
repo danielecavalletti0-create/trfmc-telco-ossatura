@@ -2,9 +2,9 @@
 
 export TRFMC_ROOT="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
 
-export TRFMC_BACKEND_IMAGE="trfmc-backend:v0.21"
-export TRFMC_BACKEND_CONTAINER="trfmc_backend_v21"
-export TRFMC_FRONTEND_CONTAINER="trfmc_frontend_v21"
+export TRFMC_BACKEND_IMAGE="trfmc-backend:v0.22"
+export TRFMC_BACKEND_CONTAINER="trfmc_backend_v22"
+export TRFMC_FRONTEND_CONTAINER="trfmc_frontend_v22"
 
 export TRFMC_BACKEND_PORT="8000"
 export TRFMC_FRONTEND_PORT="5173"
