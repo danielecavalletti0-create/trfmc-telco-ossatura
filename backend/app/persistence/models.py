@@ -101,4 +101,25 @@ DDL_STATEMENTS = [
     );
     """
 
+
+    ,
+    """
+    CREATE TABLE IF NOT EXISTS asset_links (
+        link_id TEXT PRIMARY KEY,
+        source_asset_id TEXT NOT NULL,
+        target_asset_id TEXT NOT NULL,
+        relation_type TEXT NOT NULL,
+        data_json TEXT NOT NULL,
+        created_at TEXT NOT NULL
+    );
+    """,
+    """
+    CREATE INDEX IF NOT EXISTS idx_asset_links_source
+    ON asset_links(source_asset_id);
+    """,
+    """
+    CREATE INDEX IF NOT EXISTS idx_asset_links_target
+    ON asset_links(target_asset_id);
+    """
+
 ]

@@ -16,6 +16,10 @@ for path in \
   "/network-fabric/path?destination=New%20York" \
   /telco-mns/status \
   /assets/demo \
+  /assets/list \
+  /assets/graph \
+  /assets/mission-map \
+  /persistence/asset-links \
   /access-trust/rat/demo \
   /access-trust/wifi/demo \
   /soc-noc/model \

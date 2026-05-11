@@ -36,6 +36,8 @@ function App() {
       ['network','/network-fabric/path?destination=New%20York'],
       ['mns','/telco-mns/status'],
       ['assets','/assets/demo'],
+      ['assetGraph','/assets/graph'],
+      ['assetLinks','/persistence/asset-links'],
       ['rat','/access-trust/rat/demo'],
       ['wifi','/access-trust/wifi/demo'],
       ['soc','/soc-noc/correlation/demo'],
@@ -86,7 +88,7 @@ function App() {
         <h1>TELCO RF MISSION CONTROL PLATFORM</h1>
         <p>Full Telco Skeleton · Mission Orchestrator · CloudEvents · RF/EM/DSP · GWAN · Global Time Cursor</p>
       </div>
-      <div className="badge">v0.5 · {data.health?.operational_mode ?? 'BOOT'} · WS {wsState}</div>
+      <div className="badge">v0.6 · {data.health?.operational_mode ?? 'BOOT'} · WS {wsState}</div>
     </header>
 
     <section className="layout">
@@ -133,6 +135,21 @@ function App() {
 
         <Panel title="Live Event Stream / CloudEvents" icon={<Database/>}>
           <pre>{JSON.stringify(stream.length ? stream : data.timeline, null, 2)}</pre>
+        </Panel>
+
+        
+        <Panel title="Asset Digital Twin Registry" icon={<Database/>}>
+          <div className="metric">Assets: {data.assetGraph?.nodes?.length ?? '—'}</div>
+          <div className="metric">Links: {data.assetGraph?.links?.length ?? '—'}</div>
+          <div className="asset-grid">
+            {data.assetGraph?.nodes?.slice(0, 18).map((n:any) => (
+              <div className="asset-card" key={n.id}>
+                <b>{n.id}</b>
+                <span>{n.type}</span>
+                <em>{n.domain} · {n.status}</em>
+              </div>
+            ))}
+          </div>
         </Panel>
 
         <Panel title="Telco MnS / 3GPP OAM Predisposition" icon={<Server/>}>

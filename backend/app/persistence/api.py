@@ -9,6 +9,7 @@ from app.persistence.repositories import (
     DeviceTrustRepository,
     NetworkPathRepository,
     IncidentRepository,
+    AssetLinkRepository,
 )
 
 router = APIRouter(prefix="/api/persistence", tags=["persistence"])
@@ -52,3 +53,8 @@ def network_paths():
 @router.get("/incidents")
 def incidents():
     return IncidentRepository().list()
+
+
+@router.get("/asset-links")
+def asset_links():
+    return AssetLinkRepository().list()

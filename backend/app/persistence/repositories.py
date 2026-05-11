@@ -254,3 +254,73 @@ class TimeCursorRepository:
                 "SELECT * FROM time_cursors ORDER BY updated_at DESC"
             ).fetchall()
             return [row_to_dict(r) for r in rows]
+
+
+class AssetLinkRepository:
+    def add(
+        self,
+        link_id: str,
+        source_asset_id: str,
+        target_asset_id: str,
+        relation_type: str,
+        data: Dict[str, Any],
+    ) -> None:
+        ts = now_iso()
+        with get_connection() as conn:
+            conn.execute(
+                """
+                INSERT OR REPLACE INTO asset_links
+                (link_id, source_asset_id, target_asset_id, relation_type, data_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?);
+                """,
+                (
+                    link_id,
+                    source_asset_id,
+                    target_asset_id,
+                    relation_type,
+                    as_json(data),
+                    ts,
+                ),
+            )
+
+    def list(self) -> List[Dict[str, Any]]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM asset_links ORDER BY relation_type, source_asset_id, target_asset_id"
+            ).fetchall()
+            return [row_to_dict(r) for r in rows]
+
+    def for_asset(self, asset_id: str) -> List[Dict[str, Any]]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                """
+                SELECT * FROM asset_links
+                WHERE source_asset_id=? OR target_asset_id=?
+                ORDER BY relation_type, source_asset_id, target_asset_id
+                """,
+                (asset_id, asset_id),
+            ).fetchall()
+            return [row_to_dict(r) for r in rows]
+
+
+def asset_get(asset_id: str) -> Optional[Dict[str, Any]]:
+    with get_connection() as conn:
+        row = conn.execute(
+            "SELECT * FROM assets WHERE asset_id=?",
+            (asset_id,),
+        ).fetchone()
+        return row_to_dict(row) if row else None
+
+
+def asset_events(asset_id: str, limit: int = 50) -> List[Dict[str, Any]]:
+    with get_connection() as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM cloud_events
+            WHERE subject=? OR data_json LIKE ?
+            ORDER BY time DESC
+            LIMIT ?
+            """,
+            (asset_id, f"%{asset_id}%", limit),
+        ).fetchall()
+        return [row_to_dict(r) for r in rows]
