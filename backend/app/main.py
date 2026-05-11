@@ -1,3 +1,4 @@
+from app.domains.portal_index.api import router as portal_index_router
 from app.domains.security_baseline.api import router as security_baseline_router
 from app.domains.reports.api import router as reports_router
 from app.domains.scenarios.api import router as scenarios_router
@@ -29,8 +30,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.18.0",
-    description="Telco RF Mission Control Platform — security baseline and access guard.",
+    version="0.19.0",
+    description="Telco RF Mission Control Platform — unified navigation and portal index.",
 )
 
 app.add_middleware(
@@ -47,7 +48,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.18.0",
+        "version": "0.19.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
@@ -76,3 +77,4 @@ app.include_router(correlation_router)
 app.include_router(scenarios_router)
 app.include_router(reports_router)
 app.include_router(security_baseline_router)
+app.include_router(portal_index_router)
