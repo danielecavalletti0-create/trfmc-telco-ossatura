@@ -1,3 +1,32 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+ROOT="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
+cd "$ROOT"
+
+echo "============================================================"
+echo "APPLY v0.10 RF VISUALIZATION / INSTRUMENT PANEL"
+echo "============================================================"
+
+python3 - <<'PY'
+from pathlib import Path
+import re
+
+p = Path("backend/app/main.py")
+s = p.read_text()
+
+s = re.sub(r'version="0\.\d+\.0"', 'version="0.10.0"', s)
+s = re.sub(r'"version": "0\.\d+\.0"', '"version": "0.10.0"', s)
+
+s = s.replace(
+    'description="Telco RF Mission Control Platform — RF field, antenna and Fresnel engine skeleton."',
+    'description="Telco RF Mission Control Platform — RF visualization and enterprise instrument panel."'
+)
+
+p.write_text(s)
+PY
+
+cat > frontend/src/app/main.tsx <<'TSX'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import {
@@ -352,3 +381,172 @@ function App() {
 }
 
 createRoot(document.getElementById('root')!).render(<App />)
+TSX
+
+cat >> frontend/src/styles.css <<'CSS'
+
+.instrument-shell {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(88,214,249,.12), transparent 30%),
+    radial-gradient(circle at 80% 20%, rgba(210,153,34,.10), transparent 25%),
+    linear-gradient(135deg, #061019 0%, #08111d 45%, #02060c 100%);
+}
+
+.instrument-ribbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.instrument-ribbon .metric,
+.instrument-kpis .metric {
+  border: 1px solid rgba(88,214,249,.18);
+  background: rgba(4,18,29,.72);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.metric span {
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.metric b {
+  color: #f2f7fb;
+  margin-right: 5px;
+}
+
+.metric em {
+  color: var(--cyan);
+  font-style: normal;
+}
+
+.instrument-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 8px;
+}
+
+.wave-visual {
+  height: 120px;
+  border: 1px solid rgba(88,214,249,.16);
+  border-radius: 12px;
+  margin-top: 12px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(88,214,249,.04), rgba(210,153,34,.04));
+}
+
+.wave-line {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  top: 50%;
+  border-radius: 999px;
+}
+
+.wave-e {
+  background: rgba(88,214,249,.85);
+  box-shadow: 0 0 22px rgba(88,214,249,.65);
+  transform: translateY(-18px) skewX(-20deg);
+}
+
+.wave-h {
+  background: rgba(210,153,34,.85);
+  box-shadow: 0 0 22px rgba(210,153,34,.55);
+  transform: translateY(18px) skewX(20deg);
+}
+
+.wave-axis {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  color: var(--cyan);
+  font: 800 12px Consolas, monospace;
+}
+
+.target-card {
+  margin-top: 12px;
+  border: 1px solid rgba(88,214,249,.18);
+  background: rgba(88,214,249,.055);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font: 12px Consolas, monospace;
+}
+
+.target-card b {
+  color: var(--cyan);
+}
+
+.pattern-wrap {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 12px;
+}
+
+.pattern-bars {
+  min-height: 130px;
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  border: 1px solid rgba(88,214,249,.16);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(88,214,249,.035);
+}
+
+.pattern-bar {
+  flex: 1;
+  min-width: 4px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(to top, rgba(88,214,249,.35), rgba(88,214,249,.9));
+  box-shadow: 0 0 10px rgba(88,214,249,.20);
+}
+
+.fresnel-state {
+  margin: 10px 0;
+  border-radius: 10px;
+  padding: 9px;
+  font: 800 12px Consolas, monospace;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.fresnel-state.clear {
+  color: #baffc9;
+  background: rgba(63,185,80,.12);
+}
+
+.fresnel-state.partial_block {
+  color: #ffe0a3;
+  background: rgba(210,153,34,.13);
+}
+
+.fresnel-state.blocked {
+  color: #ffd6df;
+  background: rgba(255,77,109,.14);
+}
+
+.instrument-coverage {
+  max-width: 620px;
+}
+
+.summary-line {
+  margin-top: 10px;
+  color: var(--muted);
+  font: 11px Consolas, monospace;
+}
+
+.panel-wide {
+  grid-column: 1 / -1;
+}
+CSS
+
+echo "=== VERIFICA v0.10 ==="
+grep -n 'version=' backend/app/main.py
+grep -n '"version":' backend/app/main.py
+grep -n "RF Instrument" frontend/src/app/main.tsx | head
