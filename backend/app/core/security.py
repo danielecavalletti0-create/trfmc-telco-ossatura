@@ -1,0 +1,25 @@
+from enum import StrEnum
+from fastapi import HTTPException, status
+
+class Role(StrEnum):
+    PLATFORM_OWNER = "PLATFORM_OWNER"
+    SECURITY_ADMIN = "SECURITY_ADMIN"
+    TELCO_ADMIN = "TELCO_ADMIN"
+    RF_ENGINEER = "RF_ENGINEER"
+    NOC_OPERATOR = "NOC_OPERATOR"
+    SOC_ANALYST = "SOC_ANALYST"
+    AUDITOR = "AUDITOR"
+    RESTRICTED_RESEARCHER = "RESTRICTED_RESEARCHER"
+
+class OperationalMode(StrEnum):
+    READONLY = "READONLY"
+    DRY_RUN = "DRY_RUN"
+    SIMULATION_ONLY = "SIMULATION_ONLY"
+    SIMULATED_EXECUTE = "SIMULATED_EXECUTE"
+    CONTROLLED_LAB = "CONTROLLED_LAB"
+    SHIELDED_RF_LAB = "SHIELDED_RF_LAB"
+    PRODUCTION_LOCKED = "PRODUCTION_LOCKED"
+    RESTRICTED_LOCKED = "RESTRICTED_LOCKED"
+
+def restricted_locked():
+    raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="Restricted Intelligence compartment is LOCKED in v0.2 skeleton.")

@@ -1,0 +1,3 @@
+class AssetRegistryService:
+    def demo_assets(self):
+        return {"sites":[{"asset_id":"SITE-REMOTE-001","type":"RADIO_SITE","status":"ACTIVE","backhaul":"MICROWAVE_OR_SAT"},{"asset_id":"SITE-URBAN-001","type":"URBAN_MACRO","status":"ACTIVE","backhaul":"FIBER"}], "radio":[{"asset_id":"AAU-N78-A","type":"AAU_64T64R","frequency_hz":3.5e9,"status":"ACTIVE"},{"asset_id":"GNB-REMOTE-001","type":"GNB","status":"ACTIVE"}], "devices":[{"asset_id":"UE-REMOTE-001","type":"UE","rat":"5G_NR","trust":"NOMINAL"},{"asset_id":"UAV-ALPHA-001","type":"UAV","state":"AIRBORNE"},{"asset_id":"IOT-FIRE-001","type":"IOT_SENSOR","state":"MONITORING"},{"asset_id":"V2X-CAR-001","type":"AUTONOMOUS_VEHICLE","state":"MOVING"}]}

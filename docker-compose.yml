@@ -1,0 +1,58 @@
+services:
+  backend:
+    build: ./backend
+    container_name: trfmc_backend_v02
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - TRFMC_ENV=dev
+      - TRFMC_OPERATIONAL_MODE=SIMULATION_ONLY
+      - TRFMC_RESTRICTED_ENABLED=false
+    volumes:
+      - ./backend:/app
+      - ./runtime:/runtime
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    image: node:22-alpine
+    container_name: trfmc_frontend_v02
+    working_dir: /app
+    ports:
+      - "127.0.0.1:5173:5173"
+    volumes:
+      - ./frontend:/app
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 5173"
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: trfmc_postgres_v02
+    profiles: ["infra"]
+    environment:
+      POSTGRES_USER: trfmc
+      POSTGRES_PASSWORD: trfmc_dev_change_me
+      POSTGRES_DB: trfmc
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - trfmc_pgdata:/var/lib/postgresql/data
+
+  redpanda:
+    image: redpandadata/redpanda:v24.3.3
+    container_name: trfmc_redpanda_v02
+    profiles: ["infra"]
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --memory=512M
+      - --overprovisioned
+      - --node-id=0
+      - --check=false
+    ports:
+      - "127.0.0.1:9092:9092"
+
+volumes:
+  trfmc_pgdata:
