@@ -20,8 +20,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.3.0",
-    description="Telco RF Mission Control Platform — persistence layer skeleton.",
+    version="0.4.0",
+    description="Telco RF Mission Control Platform — event stream and global time cursor skeleton.",
 )
 
 app.add_middleware(
@@ -38,11 +38,12 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.3.0",
+        "version": "0.4.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
         "persistence": "sqlite",
+        "event_stream": "websocket",
     }
 
 

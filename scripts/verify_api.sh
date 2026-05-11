@@ -32,3 +32,11 @@ do
   echo "--- $path"
   curl -fsS "$BASE$path" | python3 -m json.tool | head -n 80
 done
+
+echo
+echo "--- POST /events/publish-demo"
+curl -fsS -X POST "$BASE/events/publish-demo" | python3 -m json.tool | head -n 120
+
+echo
+echo "--- /persistence/events"
+curl -fsS "$BASE/persistence/events" | python3 -m json.tool | head -n 120
