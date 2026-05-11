@@ -79,10 +79,15 @@ done
 
 cat /tmp/trfmc_health.json | python3 -m json.tool
 
-if ! grep -q '"version": "0.12.0"' /tmp/trfmc_health.json; then
-  echo "ERRORE: backend non è v0.12.0"
-  exit 1
-fi
+python3 - <<'PYCHECK'
+import json
+from pathlib import Path
+
+data = json.loads(Path("/tmp/trfmc_health.json").read_text())
+version = data.get("version")
+if version != "0.12.0":
+    raise SystemExit(f"ERRORE: backend non è v0.12.0, rilevato: {version}")
+PYCHECK
 
 echo
 echo "=== 6. Start frontend ==="

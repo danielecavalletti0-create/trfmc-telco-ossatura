@@ -11,10 +11,17 @@ echo "============================================================"
 HEALTH="$(curl -fsS "$TRFMC_BACKEND_URL/api/health")"
 echo "$HEALTH" | python3 -m json.tool
 
-echo "$HEALTH" | grep '"version": "0.12.0"' >/dev/null || {
-  echo "ERRORE: versione backend inattesa."
-  exit 1
-}
+printf '%s' "$HEALTH" > /tmp/trfmc_verify_health.json
+
+python3 - <<'PYCHECK'
+import json
+from pathlib import Path
+
+data = json.loads(Path("/tmp/trfmc_verify_health.json").read_text())
+version = data.get("version")
+if version != "0.12.0":
+    raise SystemExit(f"ERRORE: versione backend inattesa: {version}")
+PYCHECK
 
 curl -fsS "$TRFMC_BACKEND_URL/api/rf-field/demo" | python3 -m json.tool | head -n 80
 curl -fsS "$TRFMC_BACKEND_URL/api/rf-coverage/demo" | python3 -m json.tool | head -n 80
