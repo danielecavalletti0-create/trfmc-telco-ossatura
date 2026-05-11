@@ -34,6 +34,8 @@ class PersistenceRepository:
             "device_trust_events",
             "network_paths",
             "incidents",
+            "asset_links",
+            "time_cursors",
         ]
         out = {}
         with get_connection() as conn:
