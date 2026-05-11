@@ -203,7 +203,7 @@ function App() {
       <header className="mc-header">
         <div>
           <h1>TELCO RF MISSION CONTROL PLATFORM</h1>
-          <p>v0.11 · Normalized Mission Control Layout · Telco · RF · SOC/NOC · Digital Twin</p>
+          <p>v0.12 · Normalized Mission Control Layout · Telco · RF · SOC/NOC · Digital Twin</p>
         </div>
         <div className="mc-header-status">
           <span>{data.health?.version ?? '—'}</span>
@@ -429,7 +429,7 @@ function App() {
       </section>
 
       <footer className="mc-footer">
-        TRFMC v0.11 · Mission Control Layout · RF / Telco / SOC / Assets / Network / Evidence
+        TRFMC v0.12 · Mission Control Layout · RF / Telco / SOC / Assets / Network / Evidence
       </footer>
     </main>
   )

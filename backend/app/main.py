@@ -23,8 +23,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.11.0",
-    description="Telco RF Mission Control Platform — normalized mission control layout.",
+    version="0.12.0",
+    description="Telco RF Mission Control Platform — hardened operational launcher and service lifecycle.",
 )
 
 app.add_middleware(
@@ -41,7 +41,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.11.0",
+        "version": "0.12.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,

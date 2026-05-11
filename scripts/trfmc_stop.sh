@@ -1,20 +1,47 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-echo "============================================================"
-echo "TRFMC STOP"
-echo "============================================================"
+source "$(dirname "$0")/trfmc_env.sh"
+cd "$TRFMC_ROOT"
 
-sudo docker rm -f \
-  trfmc_backend_v02 \
-  trfmc_backend_v03 \
-  trfmc_backend_v04 \
-  trfmc_backend_v05 \
-  trfmc_frontend_v02 \
-  trfmc_frontend_v05 \
-  2>/dev/null || true
+mkdir -p logs
 
-echo
-echo "Container TRFMC fermati."
-echo
-sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}' || true
+{
+  echo "============================================================"
+  echo "TRFMC STOP"
+  echo "Data: $(date)"
+  echo "============================================================"
+
+  sudo docker rm -f \
+    trfmc_backend_v02 \
+    trfmc_backend_v03 \
+    trfmc_backend_v04 \
+    trfmc_backend_v05 \
+    trfmc_backend_v06 \
+    trfmc_backend_v07 \
+    trfmc_backend_v08 \
+    trfmc_backend_v09 \
+    trfmc_backend_v10 \
+    trfmc_backend_v11 \
+    trfmc_backend_v12 \
+    trfmc_frontend_v05 \
+    trfmc_frontend_v06 \
+    trfmc_frontend_v07 \
+    trfmc_frontend_v08 \
+    trfmc_frontend_v09 \
+    trfmc_frontend_v10 \
+    trfmc_frontend_v11 \
+    trfmc_frontend_v12 \
+    2>/dev/null || true
+
+  sudo fuser -k "${TRFMC_BACKEND_PORT}/tcp" 2>/dev/null || true
+  sudo fuser -k "${TRFMC_FRONTEND_PORT}/tcp" 2>/dev/null || true
+
+  echo
+  echo "Container TRFMC fermati."
+  sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}' || true
+
+  echo
+  echo "Porte residue:"
+  sudo ss -ltnp | grep -E ":(${TRFMC_BACKEND_PORT}|${TRFMC_FRONTEND_PORT})\b" || true
+} | tee logs/trfmc_stop_last.log
