@@ -5,7 +5,7 @@ from app.persistence.repositories import PersistenceRepository, CloudEventReposi
 
 
 class PortalIndexService:
-    service_name = "TRFMC_UNIFIED_NAVIGATION_PORTAL_INDEX_V0_20"
+    service_name = "TRFMC_UNIFIED_NAVIGATION_PORTAL_INDEX_V0_21"
 
     def now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -102,6 +102,16 @@ class PortalIndexService:
                 "description": "Archivio persistente per report scenario, export HTML, timeline snapshot, correlation graph e CloudEvents.",
                 "status": "ACTIVE",
             },
+            {
+                "id": "operational-backup",
+                "title": "Operational Backup & Recovery Control",
+                "version": "v0.21",
+                "path": "/operational_backup_console_v21.html",
+                "url": "http://127.0.0.1:5173/operational_backup_console_v21.html",
+                "category": "backup",
+                "description": "Backup runtime, manifest, hash SHA256, DB/evidence vault e controllo operativo.",
+                "status": "ACTIVE",
+            },
         ]
 
     def release_chain(self) -> List[Dict[str, Any]]:
@@ -125,6 +135,7 @@ class PortalIndexService:
             {"version": "v0.18", "title": "Security Baseline & Access Guard"},
             {"version": "v0.19", "title": "Unified Navigation & Portal Index"},
             {"version": "v0.20", "title": "Persistent Report Archive & Evidence Vault"},
+            {"version": "v0.21", "title": "Operational Backup & Recovery Control"},
         ]
 
     def api_endpoints(self) -> List[Dict[str, Any]]:
@@ -149,6 +160,10 @@ class PortalIndexService:
             {"method": "GET", "path": "/api/vault/reports", "domain": "vault"},
             {"method": "GET", "path": "/api/vault/reports/{run_id}", "domain": "vault"},
             {"method": "GET", "path": "/api/vault/snapshot/latest", "domain": "vault"},
+            {"method": "GET", "path": "/api/ops/backup/status", "domain": "ops"},
+            {"method": "POST", "path": "/api/ops/backup/create-runtime", "domain": "ops"},
+            {"method": "GET", "path": "/api/ops/backup/list", "domain": "ops"},
+            {"method": "GET", "path": "/api/ops/backup/latest-manifest", "domain": "ops"},
         ]
 
     def operator_commands(self) -> List[Dict[str, str]]:
@@ -166,7 +181,7 @@ class PortalIndexService:
             "timestamp": self.now(),
             "project": "Telco RF Mission Control Platform",
             "short_name": "TRFMC",
-            "version": "0.20.0",
+            "version": "0.21.0",
             "operational_mode": "SIMULATION_ONLY",
             "frontend_base": "http://127.0.0.1:5173",
             "backend_base": "http://127.0.0.1:8000",
@@ -201,7 +216,7 @@ class PortalIndexService:
             "service": self.service_name,
             "timestamp": self.now(),
             "overall_status": "OK" if persistence.get("exists") else "ATTENTION_REQUIRED",
-            "version": "0.20.0",
+            "version": "0.21.0",
             "persistence": persistence,
             "event_count_sample": event_count,
             "high_value_counts": {
