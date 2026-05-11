@@ -119,3 +119,36 @@ button:hover {
   font: 10px Consolas, monospace;
   font-style: normal;
 }
+
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.asset-card {
+  border: 1px solid rgba(88,214,249,.20);
+  background: rgba(88,214,249,.055);
+  border-radius: 10px;
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.asset-card b {
+  color: var(--cyan);
+  font: 800 11px Consolas, monospace;
+}
+
+.asset-card span {
+  color: #f2f7fb;
+  font: 700 11px Consolas, monospace;
+}
+
+.asset-card em {
+  color: var(--muted);
+  font: 10px Consolas, monospace;
+  font-style: normal;
+}
