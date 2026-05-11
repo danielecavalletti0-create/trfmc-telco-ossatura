@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
+from app.persistence.bootstrap import bootstrap_database
+
 from app.domains.mission.api import router as mission_router
 from app.domains.events.api import router as events_router
 from app.domains.scientific_core.api import router as scientific_router
@@ -12,8 +14,15 @@ from app.domains.access_trust.api import router as access_trust_router
 from app.domains.soc_noc.api import router as soc_noc_router
 from app.domains.evidence.api import router as evidence_router
 from app.domains.restricted.api import router as restricted_router
+from app.persistence.api import router as persistence_router
 
-app = FastAPI(title="TRFMC Full Telco Skeleton", version="0.2.0")
+bootstrap_database()
+
+app = FastAPI(
+    title="TRFMC Full Telco Skeleton",
+    version="0.3.0",
+    description="Telco RF Mission Control Platform — persistence layer skeleton.",
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,16 +32,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/api/health", tags=["health"])
 def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.2.0",
+        "version": "0.3.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
+        "persistence": "sqlite",
     }
+
 
 app.include_router(mission_router)
 app.include_router(events_router)
@@ -44,3 +56,4 @@ app.include_router(access_trust_router)
 app.include_router(soc_noc_router)
 app.include_router(evidence_router)
 app.include_router(restricted_router)
+app.include_router(persistence_router)
