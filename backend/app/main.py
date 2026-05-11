@@ -8,6 +8,7 @@ from app.domains.mission.api import router as mission_router
 from app.domains.events.api import router as events_router
 from app.domains.scientific_core.api import router as scientific_router
 from app.domains.network_fabric.api import router as network_router
+from app.domains.rf_coverage.api import router as rf_coverage_router
 from app.domains.telco_mns.api import router as telco_mns_router
 from app.domains.assets.api import router as assets_router
 from app.domains.access_trust.api import router as access_trust_router
@@ -21,8 +22,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.7.0",
-    description="Telco RF Mission Control Platform — network journey digital twin skeleton.",
+    version="0.8.0",
+    description="Telco RF Mission Control Platform — RF propagation and urban coverage skeleton.",
 )
 
 app.add_middleware(
@@ -39,7 +40,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.7.0",
+        "version": "0.8.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
@@ -52,6 +53,7 @@ app.include_router(mission_router)
 app.include_router(events_router)
 app.include_router(scientific_router)
 app.include_router(network_router)
+app.include_router(rf_coverage_router)
 app.include_router(telco_mns_router)
 app.include_router(assets_router)
 app.include_router(access_trust_router)

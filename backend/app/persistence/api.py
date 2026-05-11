@@ -5,11 +5,13 @@ from app.persistence.repositories import (
     MissionRepository,
     CloudEventRepository,
     AssetRepository,
+    AssetLinkRepository,
     EvidenceRepository,
     DeviceTrustRepository,
     NetworkPathRepository,
     IncidentRepository,
-    AssetLinkRepository,
+    RfCoverageRunRepository,
+    RfObstacleRepository,
 )
 
 router = APIRouter(prefix="/api/persistence", tags=["persistence"])
@@ -35,6 +37,11 @@ def assets():
     return AssetRepository().list()
 
 
+@router.get("/asset-links")
+def asset_links():
+    return AssetLinkRepository().list()
+
+
 @router.get("/evidence")
 def evidence():
     return EvidenceRepository().list()
@@ -55,6 +62,11 @@ def incidents():
     return IncidentRepository().list()
 
 
-@router.get("/asset-links")
-def asset_links():
-    return AssetLinkRepository().list()
+@router.get("/rf-runs")
+def rf_runs():
+    return RfCoverageRunRepository().list()
+
+
+@router.get("/rf-obstacles")
+def rf_obstacles():
+    return RfObstacleRepository().list()

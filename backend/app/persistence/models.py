@@ -122,4 +122,39 @@ DDL_STATEMENTS = [
     ON asset_links(target_asset_id);
     """
 
+
+    ,
+    """
+    CREATE TABLE IF NOT EXISTS rf_obstacles (
+        obstacle_id TEXT PRIMARY KEY,
+        obstacle_type TEXT NOT NULL,
+        material TEXT NOT NULL,
+        x_m REAL NOT NULL,
+        y_m REAL NOT NULL,
+        width_m REAL NOT NULL,
+        depth_m REAL NOT NULL,
+        height_m REAL NOT NULL,
+        loss_db REAL NOT NULL,
+        data_json TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+    );
+    """,
+    """
+    CREATE TABLE IF NOT EXISTS rf_coverage_runs (
+        run_id TEXT PRIMARY KEY,
+        mission_id TEXT NOT NULL,
+        cell_asset_id TEXT NOT NULL,
+        target_asset_id TEXT,
+        model_name TEXT NOT NULL,
+        frequency_hz REAL NOT NULL,
+        data_json TEXT NOT NULL,
+        created_at TEXT NOT NULL
+    );
+    """,
+    """
+    CREATE INDEX IF NOT EXISTS idx_rf_coverage_runs_mission
+    ON rf_coverage_runs(mission_id);
+    """
+
 ]

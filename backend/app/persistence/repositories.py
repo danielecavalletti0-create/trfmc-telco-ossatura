@@ -36,6 +36,8 @@ class PersistenceRepository:
             "incidents",
             "asset_links",
             "time_cursors",
+            "rf_obstacles",
+            "rf_coverage_runs",
         ]
         out = {}
         with get_connection() as conn:
@@ -326,3 +328,66 @@ def asset_events(asset_id: str, limit: int = 50) -> List[Dict[str, Any]]:
             (asset_id, f"%{asset_id}%", limit),
         ).fetchall()
         return [row_to_dict(r) for r in rows]
+
+
+
+class RfObstacleRepository:
+    def upsert(self, obstacle_id: str, obstacle_type: str, material: str,
+               x_m: float, y_m: float, width_m: float, depth_m: float,
+               height_m: float, loss_db: float, data: Dict[str, Any]) -> None:
+        ts = now_iso()
+        with get_connection() as conn:
+            conn.execute(
+                """
+                INSERT INTO rf_obstacles
+                (obstacle_id, obstacle_type, material, x_m, y_m, width_m, depth_m,
+                 height_m, loss_db, data_json, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(obstacle_id) DO UPDATE SET
+                    obstacle_type=excluded.obstacle_type,
+                    material=excluded.material,
+                    x_m=excluded.x_m,
+                    y_m=excluded.y_m,
+                    width_m=excluded.width_m,
+                    depth_m=excluded.depth_m,
+                    height_m=excluded.height_m,
+                    loss_db=excluded.loss_db,
+                    data_json=excluded.data_json,
+                    updated_at=excluded.updated_at;
+                """,
+                (obstacle_id, obstacle_type, material, x_m, y_m, width_m,
+                 depth_m, height_m, loss_db, as_json(data), ts, ts),
+            )
+
+    def list(self) -> List[Dict[str, Any]]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM rf_obstacles ORDER BY obstacle_type, obstacle_id"
+            ).fetchall()
+            return [row_to_dict(r) for r in rows]
+
+
+class RfCoverageRunRepository:
+    def add(self, run_id: str, mission_id: str, cell_asset_id: str,
+            target_asset_id: Optional[str], model_name: str,
+            frequency_hz: float, data: Dict[str, Any]) -> None:
+        ts = now_iso()
+        with get_connection() as conn:
+            conn.execute(
+                """
+                INSERT OR REPLACE INTO rf_coverage_runs
+                (run_id, mission_id, cell_asset_id, target_asset_id,
+                 model_name, frequency_hz, data_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                """,
+                (run_id, mission_id, cell_asset_id, target_asset_id,
+                 model_name, frequency_hz, as_json(data), ts),
+            )
+
+    def list(self, limit: int = 50) -> List[Dict[str, Any]]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM rf_coverage_runs ORDER BY created_at DESC LIMIT ?",
+                (limit,),
+            ).fetchall()
+            return [row_to_dict(r) for r in rows]
