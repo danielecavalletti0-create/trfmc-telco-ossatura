@@ -90,4 +90,15 @@ DDL_STATEMENTS = [
         updated_at TEXT NOT NULL
     );
     """
+
+    ,
+    """
+    CREATE TABLE IF NOT EXISTS time_cursors (
+        mission_id TEXT PRIMARY KEY,
+        cursor_ms INTEGER NOT NULL,
+        data_json TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+    );
+    """
+
 ]

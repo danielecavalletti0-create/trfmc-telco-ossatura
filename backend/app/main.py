@@ -15,13 +15,14 @@ from app.domains.soc_noc.api import router as soc_noc_router
 from app.domains.evidence.api import router as evidence_router
 from app.domains.restricted.api import router as restricted_router
 from app.persistence.api import router as persistence_router
+from app.domains.time_cursor.api import router as time_cursor_router
 
 bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.4.0",
-    description="Telco RF Mission Control Platform — event stream and global time cursor skeleton.",
+    version="0.5.0",
+    description="Telco RF Mission Control Platform — global time cursor and synchronized timeline skeleton.",
 )
 
 app.add_middleware(
@@ -38,7 +39,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.4.0",
+        "version": "0.5.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
@@ -58,3 +59,4 @@ app.include_router(soc_noc_router)
 app.include_router(evidence_router)
 app.include_router(restricted_router)
 app.include_router(persistence_router)
+app.include_router(time_cursor_router)

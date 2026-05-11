@@ -221,3 +221,36 @@ class IncidentRepository:
         with get_connection() as conn:
             rows = conn.execute("SELECT * FROM incidents ORDER BY updated_at DESC").fetchall()
             return [row_to_dict(r) for r in rows]
+
+
+class TimeCursorRepository:
+    def upsert(self, mission_id: str, cursor_ms: int, data: Dict[str, Any]) -> None:
+        ts = now_iso()
+        with get_connection() as conn:
+            conn.execute(
+                """
+                INSERT INTO time_cursors
+                (mission_id, cursor_ms, data_json, updated_at)
+                VALUES (?, ?, ?, ?)
+                ON CONFLICT(mission_id) DO UPDATE SET
+                    cursor_ms=excluded.cursor_ms,
+                    data_json=excluded.data_json,
+                    updated_at=excluded.updated_at;
+                """,
+                (mission_id, cursor_ms, as_json(data), ts),
+            )
+
+    def get(self, mission_id: str) -> Optional[Dict[str, Any]]:
+        with get_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM time_cursors WHERE mission_id=?",
+                (mission_id,),
+            ).fetchone()
+            return row_to_dict(row) if row else None
+
+    def list(self) -> List[Dict[str, Any]]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM time_cursors ORDER BY updated_at DESC"
+            ).fetchall()
+            return [row_to_dict(r) for r in rows]

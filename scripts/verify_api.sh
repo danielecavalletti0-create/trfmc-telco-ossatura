@@ -26,11 +26,14 @@ for path in \
   /persistence/missions \
   /persistence/assets \
   /persistence/evidence \
-  /persistence/incidents
+  /persistence/incidents \
+  /persistence/events \
+  /time-cursor/status \
+  /time-cursor/timeline
 do
   echo
   echo "--- $path"
-  curl -fsS "$BASE$path" | python3 -m json.tool | head -n 80
+  curl -fsS "$BASE$path" | python3 -m json.tool | head -n 100
 done
 
 echo
@@ -38,5 +41,12 @@ echo "--- POST /events/publish-demo"
 curl -fsS -X POST "$BASE/events/publish-demo" | python3 -m json.tool | head -n 120
 
 echo
-echo "--- /persistence/events"
-curl -fsS "$BASE/persistence/events" | python3 -m json.tool | head -n 120
+echo "--- POST /time-cursor/set"
+curl -fsS -X POST "$BASE/time-cursor/set" \
+  -H 'Content-Type: application/json' \
+  -d '{"mission_id":"MISSION-FULL-TELCO-BOOT-001","cursor_ms":1200,"reason":"verify_api"}' \
+  | python3 -m json.tool | head -n 120
+
+echo
+echo "--- /persistence/status after publish"
+curl -fsS "$BASE/persistence/status" | python3 -m json.tool
