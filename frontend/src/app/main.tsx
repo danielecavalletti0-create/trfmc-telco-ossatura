@@ -34,6 +34,8 @@ function App() {
       ['events','/events/demo'],
       ['plane','/scientific/plane-wave/demo'],
       ['network','/network-fabric/path?destination=New%20York'],
+      ['networkOverview','/network-fabric/overview'],
+      ['networkPaths','/network-fabric/paths'],
       ['mns','/telco-mns/status'],
       ['assets','/assets/demo'],
       ['assetGraph','/assets/graph'],
@@ -88,7 +90,7 @@ function App() {
         <h1>TELCO RF MISSION CONTROL PLATFORM</h1>
         <p>Full Telco Skeleton · Mission Orchestrator · CloudEvents · RF/EM/DSP · GWAN · Global Time Cursor</p>
       </div>
-      <div className="badge">v0.6 · {data.health?.operational_mode ?? 'BOOT'} · WS {wsState}</div>
+      <div className="badge">v0.7 · {data.health?.operational_mode ?? 'BOOT'} · WS {wsState}</div>
     </header>
 
     <section className="layout">
@@ -138,6 +140,21 @@ function App() {
         </Panel>
 
         
+        
+        <Panel title="Network Journey Digital Twin" icon={<Network/>}>
+          <div className="metric">Demo global destinations: {data.networkOverview?.paths?.length ?? '—'}</div>
+          <div className="metric">Persisted paths: {data.networkPaths?.length ?? 0}</div>
+          <div className="journey-grid">
+            {data.networkOverview?.paths?.slice(0, 9).map((p:any) => (
+              <div className="journey-card" key={p.path_id}>
+                <b>{p.destination_label}</b>
+                <span>RTT {p.estimated_rtt_ms} ms · MOS {p.mos_estimate}</span>
+                <em>Dominant: {p.dominant_latency_segment}</em>
+              </div>
+            ))}
+          </div>
+        </Panel>
+
         <Panel title="Asset Digital Twin Registry" icon={<Database/>}>
           <div className="metric">Assets: {data.assetGraph?.nodes?.length ?? '—'}</div>
           <div className="metric">Links: {data.assetGraph?.links?.length ?? '—'}</div>

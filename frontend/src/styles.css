@@ -152,3 +152,36 @@ button:hover {
   font: 10px Consolas, monospace;
   font-style: normal;
 }
+
+.journey-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.journey-card {
+  border: 1px solid rgba(210,153,34,.28);
+  background: rgba(210,153,34,.07);
+  border-radius: 10px;
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.journey-card b {
+  color: var(--amber);
+  font: 800 11px Consolas, monospace;
+}
+
+.journey-card span {
+  color: #f2f7fb;
+  font: 700 11px Consolas, monospace;
+}
+
+.journey-card em {
+  color: var(--muted);
+  font: 10px Consolas, monospace;
+  font-style: normal;
+}

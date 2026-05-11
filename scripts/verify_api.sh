@@ -14,6 +14,8 @@ for path in \
   /scientific/qpsk-awgn/demo \
   /network-fabric/destinations \
   "/network-fabric/path?destination=New%20York" \
+  /network-fabric/overview \
+  /network-fabric/paths \
   /telco-mns/status \
   /assets/demo \
   /assets/list \
@@ -54,3 +56,12 @@ curl -fsS -X POST "$BASE/time-cursor/set" \
 echo
 echo "--- /persistence/status after publish"
 curl -fsS "$BASE/persistence/status" | python3 -m json.tool
+
+
+echo
+echo "--- POST /network-fabric/path/persist?destination=New%20York"
+curl -fsS -X POST "$BASE/network-fabric/path/persist?destination=New%20York" | python3 -m json.tool | head -n 120
+
+echo
+echo "--- /network-fabric/paths after persist"
+curl -fsS "$BASE/network-fabric/paths" | python3 -m json.tool | head -n 120
