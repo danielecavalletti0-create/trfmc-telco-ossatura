@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.16 Scenario Runner & Mission Playbooks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --panel:rgba(5,18,31,.82);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(88,214,249,.14), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(210,153,34,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 34px rgba(88,214,249,.08);
+    }
+    h1 { margin:0; font-size:24px; letter-spacing:1px; }
+    header p { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+    }
+    button:hover { background:rgba(88,214,249,.16); }
+    .kpi {
+      flex:1 1 155px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:18px; }
+    .layout {
+      display:grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .catalog {
+      display:grid;
+      gap:10px;
+      max-height:720px;
+      overflow:auto;
+    }
+    .scenario {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.025);
+      border-radius:13px;
+      padding:12px;
+    }
+    .scenario:hover { border-color:rgba(88,214,249,.35); background:rgba(88,214,249,.055); }
+    .scenario b { color:var(--cyan); display:block; font-size:12px; }
+    .scenario span { color:var(--text); display:block; margin-top:5px; font-size:11px; }
+    .scenario em { color:var(--muted); display:block; margin-top:5px; font-size:10px; font-style:normal; }
+    .scenario ul { margin:8px 0 0 18px; padding:0; color:var(--muted); font-size:10px; }
+    pre {
+      margin:0;
+      max-height:720px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    .runlog {
+      display:grid;
+      gap:8px;
+      margin-top:12px;
+      max-height:260px;
+      overflow:auto;
+    }
+    .event {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.18);
+      border-radius:10px;
+      padding:8px;
+      font-size:10px;
+    }
+    .event b { color:var(--green); display:block; }
+    .event span { color:var(--muted); display:block; margin-top:3px; }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>TRFMC SCENARIO RUNNER & MISSION PLAYBOOKS</h1>
+    <p>v0.16 · UE remoto · UAV · NLOS urbano · global VoNR · evidence burst · timeline/correlation integration</p>
+  </div>
+  <div class="badge" id="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh</button>
+  <button onclick="location.href='/'">Main Dashboard</button>
+  <button onclick="location.href='/observability_console_v13.html'">Observability</button>
+  <button onclick="location.href='/timeline_console_v14.html'">Timeline</button>
+  <button onclick="location.href='/mission_graph_console_v15.html'">Mission Graph</button>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Catalog</span><b id="k_catalog">—</b></div>
+  <div class="kpi"><span>Scenario Events</span><b id="k_runs">—</b></div>
+  <div class="kpi"><span>RF Field Runs</span><b id="k_rf_field">—</b></div>
+  <div class="kpi"><span>Coverage Runs</span><b id="k_cov">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Scenario Catalog</h2>
+    <div class="body">
+      <div id="catalog" class="catalog">loading...</div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Scenario Output / Evidence</h2>
+    <div class="body">
+      <pre id="output">select and run a scenario...</pre>
+      <div class="runlog" id="runlog"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.16 · API: /api/scenarios/catalog · /api/scenarios/run/{scenario_id} · /api/scenarios/runs
+</footer>
+
+<script>
+const API = 'http://127.0.0.1:8000/api'
+let catalogData = null
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+async function post(path) {
+  const r = await fetch(API + path, { method:'POST' })
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function renderCatalog() {
+  const el = document.getElementById('catalog')
+  el.innerHTML = ''
+  for (const s of catalogData.scenarios || []) {
+    const div = document.createElement('div')
+    div.className = 'scenario'
+    div.innerHTML = `
+      <b>${s.scenario_id}</b>
+      <span>${s.title}</span>
+      <em>${s.category}</em>
+      <em>${s.description}</em>
+      <ul>${(s.actions || []).map(a => `<li>${a}</li>`).join('')}</ul>
+      <div style="margin-top:10px;">
+        <button onclick="runScenario('${s.scenario_id}')">Run Scenario</button>
+      </div>
+    `
+    el.appendChild(div)
+  }
+}
+
+function renderRuns(data) {
+  const el = document.getElementById('runlog')
+  el.innerHTML = ''
+  for (const ev of (data.events || []).slice(0, 20)) {
+    const div = document.createElement('div')
+    div.className = 'event'
+    div.innerHTML = `<b>${ev.type}</b><span>${ev.subject}</span><span>${ev.time || ev.created_at || ''}</span>`
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  const catalog = await get('/scenarios/catalog')
+  const runs = await get('/scenarios/runs')
+  const persistence = await get('/persistence/status')
+
+  catalogData = catalog
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+  k('k_backend', health.version)
+  k('k_catalog', catalog.scenarios.length)
+  k('k_runs', runs.count)
+
+  const counts = persistence.counts || {}
+  k('k_rf_field', counts.rf_field_runs)
+  k('k_cov', counts.rf_coverage_runs)
+
+  renderCatalog()
+  renderRuns(runs)
+}
+
+async function runScenario(id) {
+  j('output', {status:'RUNNING', scenario_id:id})
+  const result = await post('/scenarios/run/' + encodeURIComponent(id))
+  j('output', result)
+  await loadAll()
+}
+
+loadAll().catch(e => j('output', {error:String(e)}))
+setInterval(loadAll, 30000)
+</script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.15 Correlation Engine & Mission Graph</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --bg:#020711;
+      --panel:rgba(5,18,31,.80);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 16% 8%, rgba(88,214,249,.14), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(210,153,34,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 34px rgba(88,214,249,.08);
+    }
+    h1 { margin:0; font-size:24px; letter-spacing:1px; }
+    header p { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button, input {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      font-family:inherit;
+    }
+    button { cursor:pointer; }
+    button:hover { background:rgba(88,214,249,.16); }
+    input { min-width:260px; color:var(--text); background:rgba(0,0,0,.25); }
+    .kpi {
+      flex:1 1 155px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:18px; }
+    .layout {
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .graph {
+      min-height:690px;
+      position:relative;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:14px;
+      background:
+        linear-gradient(rgba(88,214,249,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88,214,249,.04) 1px, transparent 1px),
+        rgba(0,0,0,.16);
+      background-size: 36px 36px;
+    }
+    .node {
+      position:absolute;
+      width:158px;
+      min-height:62px;
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(5,18,31,.92);
+      border-radius:14px;
+      padding:9px;
+      cursor:pointer;
+      box-shadow:0 0 18px rgba(88,214,249,.09);
+    }
+    .node:hover { border-color:var(--cyan); box-shadow:0 0 26px rgba(88,214,249,.22); }
+    .node b {
+      color:var(--cyan);
+      font-size:10px;
+      display:block;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .node span { color:var(--text); font-size:10px; display:block; margin-top:4px; }
+    .node em { color:var(--muted); font-size:9px; display:block; margin-top:3px; font-style:normal; }
+    .node.WARNING, .node.HIGH, .node.CRITICAL {
+      border-color:rgba(255,77,109,.55);
+      box-shadow:0 0 18px rgba(255,77,109,.16);
+    }
+    .node.NOTICE {
+      border-color:rgba(210,153,34,.55);
+      box-shadow:0 0 18px rgba(210,153,34,.16);
+    }
+    svg.edges {
+      position:absolute;
+      left:0;
+      top:0;
+      width:1800px;
+      height:1200px;
+      pointer-events:none;
+    }
+    line {
+      stroke:rgba(88,214,249,.22);
+      stroke-width:1.2;
+    }
+    line.warn { stroke:rgba(255,77,109,.35); stroke-width:1.8; }
+    pre {
+      margin:0;
+      max-height:690px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    .list {
+      display:grid;
+      gap:8px;
+      max-height:300px;
+      overflow:auto;
+      margin-top:10px;
+    }
+    .item {
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:10px;
+      padding:8px;
+      background:rgba(255,255,255,.025);
+      cursor:pointer;
+      font-size:10px;
+    }
+    .item b { color:var(--cyan); display:block; }
+    .item span { color:var(--muted); display:block; margin-top:3px; }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>TRFMC CORRELATION ENGINE & MISSION GRAPH</h1>
+    <p>v0.15 · mission graph · asset correlation · CloudEvents · RF runs · network path · incidents</p>
+  </div>
+  <div class="badge" id="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh Graph</button>
+  <button onclick="location.href='/'">Main Dashboard</button>
+  <button onclick="location.href='/observability_console_v13.html'">Observability</button>
+  <button onclick="location.href='/timeline_console_v14.html'">Timeline</button>
+  <input id="assetInput" value="CELL-N78-A" placeholder="asset id"/>
+  <button onclick="loadAsset()">Asset View</button>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Nodes</span><b id="k_nodes">—</b></div>
+  <div class="kpi"><span>Edges</span><b id="k_edges">—</b></div>
+  <div class="kpi"><span>Assets</span><b id="k_assets">—</b></div>
+  <div class="kpi"><span>Correlations</span><b id="k_corr">—</b></div>
+  <div class="kpi"><span>Warn/Critical</span><b id="k_warn">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Mission Graph</h2>
+    <div class="body">
+      <div id="graph" class="graph"></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Selected / Asset / Incidents</h2>
+    <div class="body">
+      <pre id="selected">select a node...</pre>
+      <div class="list" id="nodeList"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.15 · API: /api/correlation/graph · /api/correlation/assets/{asset_id} · /api/correlation/incidents
+</footer>
+
+<script>
+const API = 'http://127.0.0.1:8000/api'
+let graphData = null
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function setK(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function setJson(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function posFor(index, total, type) {
+  const cx = 850
+  const cy = 540
+  let radius = 420
+  if (type === 'MISSION') radius = 0
+  else if (type === 'CORRELATION_ID') radius = 190
+  else if (String(type).includes('ASSET')) radius = 330
+  else if (String(type).includes('RF')) radius = 480
+  else radius = 560
+
+  const angle = (index / Math.max(total,1)) * Math.PI * 2
+  return {
+    x: cx + Math.cos(angle) * radius,
+    y: cy + Math.sin(angle) * radius
+  }
+}
+
+function renderGraph() {
+  const el = document.getElementById('graph')
+  el.innerHTML = ''
+
+  const nodes = (graphData?.nodes || []).slice(0, 120)
+  const edges = (graphData?.edges || []).slice(0, 220)
+
+  const positions = {}
+  nodes.forEach((n, idx) => positions[n.id] = posFor(idx, nodes.length, n.type))
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  svg.setAttribute('class', 'edges')
+  for (const e of edges) {
+    if (!positions[e.source] || !positions[e.target]) continue
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+    l.setAttribute('x1', positions[e.source].x + 79)
+    l.setAttribute('y1', positions[e.source].y + 31)
+    l.setAttribute('x2', positions[e.target].x + 79)
+    l.setAttribute('y2', positions[e.target].y + 31)
+    if (['WARNING','HIGH','CRITICAL'].includes(e.severity)) l.setAttribute('class', 'warn')
+    svg.appendChild(l)
+  }
+  el.appendChild(svg)
+
+  for (const n of nodes) {
+    const p = positions[n.id]
+    const div = document.createElement('div')
+    div.className = 'node ' + (n.severity || 'INFO')
+    div.style.left = p.x + 'px'
+    div.style.top = p.y + 'px'
+    div.innerHTML = `<b>${n.type}</b><span>${n.label}</span><em>${n.domain} · ${n.severity}</em>`
+    div.onclick = () => setJson('selected', n)
+    el.appendChild(div)
+  }
+
+  const list = document.getElementById('nodeList')
+  list.innerHTML = ''
+  for (const n of nodes.slice(0, 80)) {
+    const item = document.createElement('div')
+    item.className = 'item'
+    item.innerHTML = `<b>${n.label}</b><span>${n.type} · ${n.domain} · ${n.severity}</span>`
+    item.onclick = () => setJson('selected', n)
+    list.appendChild(item)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  graphData = await get('/correlation/graph?limit=500')
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+  setK('k_backend', health.version)
+  setK('k_nodes', graphData.summary.nodes)
+  setK('k_edges', graphData.summary.edges)
+  setK('k_assets', graphData.summary.asset_nodes)
+  setK('k_corr', graphData.summary.correlation_nodes)
+  setK('k_warn', graphData.summary.critical_or_warning)
+
+  renderGraph()
+}
+
+async function loadAsset() {
+  const asset = document.getElementById('assetInput').value || 'CELL-N78-A'
+  const view = await get('/correlation/assets/' + encodeURIComponent(asset))
+  setJson('selected', view)
+}
+
+loadAll().catch(e => setJson('selected', {error:String(e)}))
+setInterval(loadAll, 25000)
+</script>
+</body>
+</html>
