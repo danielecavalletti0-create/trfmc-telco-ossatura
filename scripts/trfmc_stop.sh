@@ -24,6 +24,7 @@ mkdir -p logs
     trfmc_backend_v10 \
     trfmc_backend_v11 \
     trfmc_backend_v12 \
+    trfmc_backend_v13 \
     trfmc_frontend_v05 \
     trfmc_frontend_v06 \
     trfmc_frontend_v07 \
@@ -32,6 +33,7 @@ mkdir -p logs
     trfmc_frontend_v10 \
     trfmc_frontend_v11 \
     trfmc_frontend_v12 \
+    trfmc_frontend_v13 \
     2>/dev/null || true
 
   sudo fuser -k "${TRFMC_BACKEND_PORT}/tcp" 2>/dev/null || true

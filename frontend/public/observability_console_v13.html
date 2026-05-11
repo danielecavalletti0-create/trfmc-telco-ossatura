@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.13 Observability & Evidence Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --bg:#020711;
+      --panel:rgba(5,18,31,.78);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(88,214,249,.13), transparent 28%),
+        radial-gradient(circle at 82% 18%, rgba(210,153,34,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 34px rgba(88,214,249,.08);
+    }
+    h1 { margin:0; font-size:24px; letter-spacing:1px; }
+    header p { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .bar {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:10px;
+      margin:14px 0;
+    }
+    .kpi, .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+    }
+    .kpi {
+      padding:12px;
+      min-height:72px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:18px; }
+    .grid {
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:12px;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    pre {
+      margin:0;
+      max-height:430px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    .status-ok { color:var(--green); }
+    .status-warn { color:var(--amber); }
+    .status-bad { color:var(--red); }
+    .events {
+      display:grid;
+      gap:8px;
+      max-height:430px;
+      overflow:auto;
+    }
+    .event {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.025);
+      border-radius:11px;
+      padding:9px;
+      font-size:11px;
+    }
+    .event b { color:var(--cyan); display:block; }
+    .event span { color:var(--muted); display:block; margin-top:3px; }
+    .buttons {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+    button {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+    }
+    button:hover { background:rgba(88,214,249,.16); }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1000px) {
+      .grid { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>TRFMC OBSERVABILITY & EVIDENCE CONSOLE</h1>
+      <p>v0.13 · health matrix · evidence · CloudEvents · RF runs · digital twin · runtime database</p>
+    </div>
+    <div class="badge" id="badge">BOOT</div>
+  </header>
+
+  <section class="bar">
+    <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+    <div class="kpi"><span>Overall</span><b id="k_overall">—</b></div>
+    <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+    <div class="kpi"><span>Assets</span><b id="k_assets">—</b></div>
+    <div class="kpi"><span>RF Field Runs</span><b id="k_rf_field">—</b></div>
+    <div class="kpi"><span>RF Coverage Runs</span><b id="k_rf_cov">—</b></div>
+  </section>
+
+  <section class="buttons">
+    <button onclick="loadAll()">Refresh</button>
+    <button onclick="openMain()">Open Main Dashboard</button>
+    <button onclick="runRfField()">Run RF Field Evidence</button>
+    <button onclick="runCoverage()">Run Coverage Evidence</button>
+  </section>
+
+  <section class="grid" style="margin-top:14px;">
+    <div class="panel">
+      <h2>Health Matrix</h2>
+      <div class="body"><pre id="health_matrix">loading...</pre></div>
+    </div>
+    <div class="panel">
+      <h2>Persistence / Runtime</h2>
+      <div class="body"><pre id="runtime">loading...</pre></div>
+    </div>
+    <div class="panel">
+      <h2>Evidence Console</h2>
+      <div class="body"><pre id="evidence">loading...</pre></div>
+    </div>
+    <div class="panel">
+      <h2>Live CloudEvents / WebSocket</h2>
+      <div class="body"><div class="events" id="events"></div></div>
+    </div>
+  </section>
+
+  <footer>
+    TRFMC v0.13 · Observability & Evidence Console · API: http://127.0.0.1:8000/api/observability/*
+  </footer>
+
+<script>
+const API = 'http://127.0.0.1:8000/api'
+let live = []
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+async function post(path, body) {
+  const r = await fetch(API + path, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  })
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function setText(id, data) {
+  document.getElementById(id).textContent = JSON.stringify(data, null, 2)
+}
+
+function setKpi(id, v) {
+  document.getElementById(id).textContent = v ?? '—'
+}
+
+function renderEvents() {
+  const el = document.getElementById('events')
+  el.innerHTML = ''
+  for (const e of live.slice(0, 20)) {
+    const div = document.createElement('div')
+    div.className = 'event'
+    div.innerHTML = `<b>${e.type || 'event'}</b><span>${e.subject || ''}</span><span>${e.time || ''}</span>`
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  try {
+    const health = await get('/health')
+    const matrix = await get('/observability/health-matrix')
+    const runtime = await get('/observability/runtime')
+    const evidence = await get('/observability/evidence-console')
+
+    document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+    setKpi('k_backend', health.version)
+    setKpi('k_overall', matrix.overall_status)
+
+    const counts = runtime.database.counts || {}
+    setKpi('k_events', counts.cloud_events)
+    setKpi('k_assets', counts.assets)
+    setKpi('k_rf_field', counts.rf_field_runs)
+    setKpi('k_rf_cov', counts.rf_coverage_runs)
+
+    setText('health_matrix', matrix)
+    setText('runtime', runtime)
+    setText('evidence', evidence)
+  } catch (e) {
+    document.getElementById('badge').textContent = 'ERROR'
+    setText('health_matrix', {error:String(e)})
+  }
+}
+
+async function runRfField() {
+  await post('/rf-field/run', {
+    mission_id:'MISSION-FULL-TELCO-BOOT-001',
+    cell_asset_id:'CELL-N78-A',
+    target_asset_id:'UAV-ALPHA-001',
+    frequency_hz:3500000000,
+    tx_power_dbm:43,
+    tx_gain_dbi:18,
+    antenna_max_dimension_m:0.8,
+    azimuth_deg:120,
+    mechanical_tilt_deg:4,
+    electrical_tilt_deg:2
+  })
+  await loadAll()
+}
+
+async function runCoverage() {
+  await post('/rf-coverage/run', {
+    mission_id:'MISSION-FULL-TELCO-BOOT-001',
+    cell_asset_id:'CELL-N78-A',
+    target_asset_id:'UE-REMOTE-001',
+    frequency_hz:3500000000,
+    tx_power_dbm:43,
+    tx_gain_dbi:18,
+    rx_gain_dbi:0,
+    bandwidth_hz:100000000,
+    noise_figure_db:7,
+    grid_extent_m:600,
+    grid_step_m:100
+  })
+  await loadAll()
+}
+
+function openMain() {
+  window.location.href = '/'
+}
+
+function connectWs() {
+  const ws = new WebSocket('ws://127.0.0.1:8000/api/events/stream')
+  ws.onopen = () => live.unshift({type:'WS_CONNECTED', subject:'event stream', time:new Date().toISOString()})
+  ws.onmessage = ev => {
+    try { live.unshift(JSON.parse(ev.data)); live = live.slice(0, 50); renderEvents() } catch {}
+  }
+  ws.onclose = () => setTimeout(connectWs, 2000)
+}
+connectWs()
+loadAll()
+setInterval(loadAll, 15000)
+</script>
+</body>
+</html>
