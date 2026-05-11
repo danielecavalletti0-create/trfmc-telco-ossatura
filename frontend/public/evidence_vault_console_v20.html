@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.20 Evidence Vault</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --panel:rgba(5,18,31,.84);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(88,214,249,.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(63,185,80,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:20px;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 40px rgba(88,214,249,.10);
+    }
+    h1 { margin:0; font-size:26px; letter-spacing:1px; }
+    header p { margin:7px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:9px 13px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button, a.btn {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+      text-decoration:none;
+      display:inline-block;
+    }
+    button:hover, a.btn:hover { background:rgba(88,214,249,.16); }
+    .kpi {
+      flex:1 1 165px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:16px; overflow:hidden; text-overflow:ellipsis; }
+    .layout {
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .reports {
+      display:grid;
+      gap:9px;
+      max-height:720px;
+      overflow:auto;
+    }
+    .report {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.028);
+      border-radius:13px;
+      padding:10px;
+    }
+    .report:hover { border-color:rgba(88,214,249,.38); background:rgba(88,214,249,.055); }
+    .report b { color:var(--cyan); display:block; font-size:12px; }
+    .report span { color:var(--text); display:block; margin-top:5px; font-size:11px; }
+    .report em { color:var(--muted); display:block; margin-top:5px; font-size:10px; font-style:normal; }
+    .links { margin-top:9px; display:flex; gap:6px; flex-wrap:wrap; }
+    pre {
+      margin:0;
+      max-height:720px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>TRFMC PERSISTENT REPORT ARCHIVE & EVIDENCE VAULT</h1>
+    <p>v0.20 · persistent report archive · HTML export · timeline snapshot · correlation graph snapshot · CloudEvents evidence</p>
+  </div>
+  <div class="badge" id="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh Vault</button>
+  <button onclick="archiveLatest()">Archive Latest Scenario Report</button>
+  <button onclick="loadLatestSnapshot()">Latest Snapshot</button>
+  <a class="btn" href="/portal_index_v19.html">Portal Index</a>
+  <a class="btn" href="/scenario_runner_console_v16.html">Scenario Runner</a>
+  <a class="btn" href="/scenario_report_console_v17.html">Scenario Report</a>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Vault</span><b id="k_status">—</b></div>
+  <div class="kpi"><span>Reports</span><b id="k_reports">—</b></div>
+  <div class="kpi"><span>Latest Run</span><b id="k_latest">—</b></div>
+  <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+  <div class="kpi"><span>RF Runs</span><b id="k_rf">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Archived Reports</h2>
+    <div class="body">
+      <div id="reports" class="reports">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Vault Output / Snapshot</h2>
+    <div class="body">
+      <pre id="output">loading...</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.20 · API: /api/vault/status · /api/vault/archive/latest · /api/vault/reports · /api/vault/snapshot/latest
+</footer>
+
+<script>
+const API = 'http://127.0.0.1:8000/api'
+let vaultReports = []
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+async function post(path) {
+  const r = await fetch(API + path, { method:'POST' })
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function renderReports() {
+  const el = document.getElementById('reports')
+  el.innerHTML = ''
+  if (!vaultReports.length) {
+    el.innerHTML = '<div class="report"><b>Vault vuoto</b><span>Premi Archive Latest Scenario Report.</span></div>'
+    return
+  }
+
+  for (const r of vaultReports) {
+    const div = document.createElement('div')
+    div.className = 'report'
+    div.innerHTML = `
+      <b>${r.run_id}</b>
+      <span>${r.scenario_id || 'scenario'} · ${r.status || 'status'}</span>
+      <em>${r.archived_at || ''}</em>
+      <em>${r.correlation_id || ''}</em>
+      <div class="links">
+        <button onclick="loadReport('${r.run_id}')">JSON</button>
+        <button onclick="openHtml('${r.run_id}')">HTML</button>
+      </div>
+    `
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  const status = await get('/vault/status')
+  const reports = await get('/vault/reports')
+
+  vaultReports = reports.reports || []
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+  k('k_backend', health.version)
+  k('k_status', status.exists ? 'OK' : 'MISSING')
+  k('k_reports', reports.count)
+  k('k_latest', reports.latest_run_id || '—')
+
+  const counts = (status.persistence || {}).counts || {}
+  k('k_events', counts.cloud_events)
+  k('k_rf', `${counts.rf_field_runs || 0}/${counts.rf_coverage_runs || 0}`)
+
+  renderReports()
+  j('output', status)
+}
+
+async function archiveLatest() {
+  j('output', {status:'ARCHIVING_LATEST'})
+  const res = await post('/vault/archive/latest')
+  j('output', res)
+  await loadAll()
+}
+
+async function loadReport(runId) {
+  const res = await get('/vault/reports/' + encodeURIComponent(runId))
+  j('output', res)
+}
+
+function openHtml(runId) {
+  window.open(API + '/vault/reports/' + encodeURIComponent(runId) + '/html', '_blank')
+}
+
+async function loadLatestSnapshot() {
+  const res = await get('/vault/snapshot/latest')
+  j('output', res)
+}
+
+loadAll().catch(e => {
+  document.getElementById('badge').textContent = 'ERROR'
+  j('output', {error:String(e)})
+})
+setInterval(loadAll, 30000)
+</script>
+</body>
+</html>

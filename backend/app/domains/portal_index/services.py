@@ -5,7 +5,7 @@ from app.persistence.repositories import PersistenceRepository, CloudEventReposi
 
 
 class PortalIndexService:
-    service_name = "TRFMC_UNIFIED_NAVIGATION_PORTAL_INDEX_V0_19"
+    service_name = "TRFMC_UNIFIED_NAVIGATION_PORTAL_INDEX_V0_20"
 
     def now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -92,6 +92,16 @@ class PortalIndexService:
                 "description": "Indice unico enterprise per tutte le console e gli endpoint operativi.",
                 "status": "ACTIVE",
             },
+            {
+                "id": "evidence-vault",
+                "title": "Persistent Report Archive & Evidence Vault",
+                "version": "v0.20",
+                "path": "/evidence_vault_console_v20.html",
+                "url": "http://127.0.0.1:5173/evidence_vault_console_v20.html",
+                "category": "vault",
+                "description": "Archivio persistente per report scenario, export HTML, timeline snapshot, correlation graph e CloudEvents.",
+                "status": "ACTIVE",
+            },
         ]
 
     def release_chain(self) -> List[Dict[str, Any]]:
@@ -114,6 +124,7 @@ class PortalIndexService:
             {"version": "v0.17", "title": "Scenario Evidence Dashboard & Report Export"},
             {"version": "v0.18", "title": "Security Baseline & Access Guard"},
             {"version": "v0.19", "title": "Unified Navigation & Portal Index"},
+            {"version": "v0.20", "title": "Persistent Report Archive & Evidence Vault"},
         ]
 
     def api_endpoints(self) -> List[Dict[str, Any]]:
@@ -133,6 +144,11 @@ class PortalIndexService:
             {"method": "GET", "path": "/api/portal/index", "domain": "portal"},
             {"method": "GET", "path": "/api/portal/pages", "domain": "portal"},
             {"method": "GET", "path": "/api/portal/health-summary", "domain": "portal"},
+            {"method": "GET", "path": "/api/vault/status", "domain": "vault"},
+            {"method": "POST", "path": "/api/vault/archive/latest", "domain": "vault"},
+            {"method": "GET", "path": "/api/vault/reports", "domain": "vault"},
+            {"method": "GET", "path": "/api/vault/reports/{run_id}", "domain": "vault"},
+            {"method": "GET", "path": "/api/vault/snapshot/latest", "domain": "vault"},
         ]
 
     def operator_commands(self) -> List[Dict[str, str]]:
@@ -150,7 +166,7 @@ class PortalIndexService:
             "timestamp": self.now(),
             "project": "Telco RF Mission Control Platform",
             "short_name": "TRFMC",
-            "version": "0.19.0",
+            "version": "0.20.0",
             "operational_mode": "SIMULATION_ONLY",
             "frontend_base": "http://127.0.0.1:5173",
             "backend_base": "http://127.0.0.1:8000",
@@ -185,7 +201,7 @@ class PortalIndexService:
             "service": self.service_name,
             "timestamp": self.now(),
             "overall_status": "OK" if persistence.get("exists") else "ATTENTION_REQUIRED",
-            "version": "0.19.0",
+            "version": "0.20.0",
             "persistence": persistence,
             "event_count_sample": event_count,
             "high_value_counts": {
