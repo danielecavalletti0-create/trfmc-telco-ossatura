@@ -1,3 +1,4 @@
+from app.domains.reports.api import router as reports_router
 from app.domains.scenarios.api import router as scenarios_router
 from app.domains.correlation.api import router as correlation_router
 from app.domains.timeline.api import router as timeline_router
@@ -27,8 +28,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.16.0",
-    description="Telco RF Mission Control Platform — scenario runner and mission playbooks.",
+    version="0.17.0",
+    description="Telco RF Mission Control Platform — scenario evidence dashboard and report export.",
 )
 
 app.add_middleware(
@@ -45,7 +46,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.16.0",
+        "version": "0.17.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
@@ -72,3 +73,4 @@ app.include_router(observability_router)
 app.include_router(timeline_router)
 app.include_router(correlation_router)
 app.include_router(scenarios_router)
+app.include_router(reports_router)
