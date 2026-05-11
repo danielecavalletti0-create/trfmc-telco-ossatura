@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.14 Evidence Timeline & Mission Replay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --bg:#020711;
+      --panel:rgba(5,18,31,.80);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 16% 8%, rgba(88,214,249,.14), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(210,153,34,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 34px rgba(88,214,249,.08);
+    }
+    h1 { margin:0; font-size:24px; letter-spacing:1px; }
+    header p { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+    }
+    button:hover { background:rgba(88,214,249,.16); }
+    .kpi {
+      flex:1 1 155px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:18px; }
+    .layout {
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .timeline {
+      display:grid;
+      gap:8px;
+      max-height:690px;
+      overflow:auto;
+      padding-right:4px;
+    }
+    .entry {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.025);
+      border-radius:12px;
+      padding:10px;
+      display:grid;
+      gap:5px;
+    }
+    .entry:hover { border-color:rgba(88,214,249,.35); background:rgba(88,214,249,.055); }
+    .entry-head { display:flex; justify-content:space-between; gap:8px; align-items:center; }
+    .entry b { color:var(--cyan); font-size:12px; }
+    .entry small, .entry span, .entry em { color:var(--muted); font-size:10px; font-style:normal; }
+    .pill {
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      padding:3px 7px;
+      font-size:9px;
+      font-weight:900;
+    }
+    .INFO { color:var(--green); }
+    .NOTICE { color:var(--amber); }
+    .WARNING, .HIGH, .CRITICAL { color:var(--red); }
+    pre {
+      margin:0;
+      max-height:680px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    .split { display:grid; grid-template-columns:1fr; gap:12px; }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>TRFMC EVIDENCE TIMELINE & MISSION REPLAY</h1>
+    <p>v0.14 · CloudEvents · RF field · coverage · network path · incidenti · time cursor · replay missione</p>
+  </div>
+  <div class="badge" id="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh</button>
+  <button onclick="runReplay()">Mission Replay</button>
+  <button onclick="runRfField()">Generate RF Field</button>
+  <button onclick="runCoverage()">Generate Coverage</button>
+  <button onclick="location.href='/'">Main Dashboard</button>
+  <button onclick="location.href='/observability_console_v13.html'">Observability</button>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Timeline Entries</span><b id="k_entries">—</b></div>
+  <div class="kpi"><span>Replay Steps</span><b id="k_replay">—</b></div>
+  <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+  <div class="kpi"><span>RF Field</span><b id="k_rf_field">—</b></div>
+  <div class="kpi"><span>Coverage</span><b id="k_cov">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Evidence Timeline</h2>
+    <div class="body">
+      <div id="timeline" class="timeline">loading...</div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="panel">
+      <h2>Replay JSON</h2>
+      <div class="body"><pre id="replay">loading...</pre></div>
+    </div>
+    <div class="panel">
+      <h2>Selected Evidence</h2>
+      <div class="body"><pre id="selected">select an entry...</pre></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.14 · API: /api/timeline/evidence · /api/timeline/replay · /api/timeline/correlation/{id}
+</footer>
+
+<script>
+const API = 'http://127.0.0.1:8000/api'
+let timelineData = null
+let replayData = null
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+async function post(path, body) {
+  const r = await fetch(API + path, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  })
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function renderTimeline() {
+  const el = document.getElementById('timeline')
+  el.innerHTML = ''
+  const entries = timelineData?.entries || []
+
+  for (const e of entries) {
+    const div = document.createElement('div')
+    div.className = 'entry'
+    div.onclick = () => j('selected', e)
+
+    const refs = (e.asset_refs || []).slice(0,4).join(' · ')
+    div.innerHTML = `
+      <div class="entry-head">
+        <b>${e.entry_type}</b>
+        <span class="pill ${e.severity || 'INFO'}">${e.severity || 'INFO'}</span>
+      </div>
+      <span>${e.title || ''}</span>
+      <small>${e.timestamp || ''}</small>
+      <em>${e.correlation_id || 'no-correlation'}</em>
+      <em>${refs}</em>
+    `
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  timelineData = await get('/timeline/evidence?limit=250')
+  replayData = await get('/timeline/replay')
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+  k('k_backend', health.version)
+  k('k_entries', timelineData.count)
+  k('k_replay', replayData.replay_count)
+
+  const c = timelineData.entry_type_counts || {}
+  k('k_events', c.CLOUDEVENT || 0)
+  k('k_rf_field', c.RF_FIELD_RUN || 0)
+  k('k_cov', c.RF_COVERAGE_RUN || 0)
+
+  renderTimeline()
+  j('replay', replayData)
+}
+
+async function runReplay() {
+  replayData = await get('/timeline/replay')
+  j('replay', replayData)
+}
+
+async function runRfField() {
+  await post('/rf-field/run', {
+    mission_id:'MISSION-FULL-TELCO-BOOT-001',
+    cell_asset_id:'CELL-N78-A',
+    target_asset_id:'UAV-ALPHA-001',
+    frequency_hz:3500000000,
+    tx_power_dbm:43,
+    tx_gain_dbi:18,
+    antenna_max_dimension_m:0.8,
+    azimuth_deg:120,
+    mechanical_tilt_deg:4,
+    electrical_tilt_deg:2
+  })
+  await loadAll()
+}
+
+async function runCoverage() {
+  await post('/rf-coverage/run', {
+    mission_id:'MISSION-FULL-TELCO-BOOT-001',
+    cell_asset_id:'CELL-N78-A',
+    target_asset_id:'UE-REMOTE-001',
+    frequency_hz:3500000000,
+    tx_power_dbm:43,
+    tx_gain_dbi:18,
+    rx_gain_dbi:0,
+    bandwidth_hz:100000000,
+    noise_figure_db:7,
+    grid_extent_m:600,
+    grid_step_m:100
+  })
+  await loadAll()
+}
+
+loadAll().catch(e => {
+  document.getElementById('badge').textContent = 'ERROR'
+  j('selected', {error:String(e)})
+})
+setInterval(loadAll, 20000)
+</script>
+</body>
+</html>

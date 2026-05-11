@@ -19,7 +19,7 @@ from pathlib import Path
 
 data = json.loads(Path("/tmp/trfmc_verify_health.json").read_text())
 version = data.get("version")
-if version != "0.13.0":
+if version != "0.14.0":
     raise SystemExit(f"ERRORE: versione backend inattesa: {version}")
 PYCHECK
 
@@ -34,7 +34,14 @@ echo "VERIFY OK"
 
 
 echo
-echo "=== OBSERVABILITY v0.13 ==="
+echo "=== OBSERVABILITY v0.14 ==="
 curl -fsS "$TRFMC_BACKEND_URL/api/observability/health-matrix" | python3 -m json.tool | head -n 80
 curl -fsS "$TRFMC_BACKEND_URL/api/observability/runtime" | python3 -m json.tool | head -n 80
 curl -fsS "$TRFMC_FRONTEND_URL/observability_console_v13.html" >/dev/null
+
+
+echo
+echo "=== TIMELINE v0.14 ==="
+curl -fsS "$TRFMC_BACKEND_URL/api/timeline/evidence?limit=20" | python3 -m json.tool | head -n 100
+curl -fsS "$TRFMC_BACKEND_URL/api/timeline/replay" | python3 -m json.tool | head -n 100
+curl -fsS "$TRFMC_FRONTEND_URL/timeline_console_v14.html" >/dev/null

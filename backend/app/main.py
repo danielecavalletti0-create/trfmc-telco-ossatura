@@ -1,3 +1,4 @@
+from app.domains.timeline.api import router as timeline_router
 from app.domains.observability.api import router as observability_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,8 +25,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.13.0",
-    description="Telco RF Mission Control Platform — observability and evidence console.",
+    version="0.14.0",
+    description="Telco RF Mission Control Platform — evidence timeline and mission replay.",
 )
 
 app.add_middleware(
@@ -42,7 +43,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.13.0",
+        "version": "0.14.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,
@@ -66,3 +67,4 @@ app.include_router(restricted_router)
 app.include_router(persistence_router)
 app.include_router(time_cursor_router)
 app.include_router(observability_router)
+app.include_router(timeline_router)
