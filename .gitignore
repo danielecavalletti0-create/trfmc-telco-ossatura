@@ -14,3 +14,6 @@ backups/
 .DS_Store
 .coverage
 .pytest_cache/
+runtime_restore_drill_*/
+runtime_restore_test/
+runtime_before_restore_*/
