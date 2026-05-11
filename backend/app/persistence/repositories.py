@@ -38,6 +38,7 @@ class PersistenceRepository:
             "time_cursors",
             "rf_obstacles",
             "rf_coverage_runs",
+            "rf_field_runs",
         ]
         out = {}
         with get_connection() as conn:
@@ -388,6 +389,33 @@ class RfCoverageRunRepository:
         with get_connection() as conn:
             rows = conn.execute(
                 "SELECT * FROM rf_coverage_runs ORDER BY created_at DESC LIMIT ?",
+                (limit,),
+            ).fetchall()
+            return [row_to_dict(r) for r in rows]
+
+
+
+class RfFieldRunRepository:
+    def add(self, run_id: str, mission_id: str, cell_asset_id: str,
+            target_asset_id: Optional[str], model_name: str,
+            frequency_hz: float, data: Dict[str, Any]) -> None:
+        ts = now_iso()
+        with get_connection() as conn:
+            conn.execute(
+                """
+                INSERT OR REPLACE INTO rf_field_runs
+                (run_id, mission_id, cell_asset_id, target_asset_id,
+                 model_name, frequency_hz, data_json, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                """,
+                (run_id, mission_id, cell_asset_id, target_asset_id,
+                 model_name, frequency_hz, as_json(data), ts),
+            )
+
+    def list(self, limit: int = 50) -> List[Dict[str, Any]]:
+        with get_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM rf_field_runs ORDER BY created_at DESC LIMIT ?",
                 (limit,),
             ).fetchall()
             return [row_to_dict(r) for r in rows]

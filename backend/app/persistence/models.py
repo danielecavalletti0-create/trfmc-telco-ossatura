@@ -157,4 +157,23 @@ DDL_STATEMENTS = [
     ON rf_coverage_runs(mission_id);
     """
 
+
+    ,
+    """
+    CREATE TABLE IF NOT EXISTS rf_field_runs (
+        run_id TEXT PRIMARY KEY,
+        mission_id TEXT NOT NULL,
+        cell_asset_id TEXT NOT NULL,
+        target_asset_id TEXT,
+        model_name TEXT NOT NULL,
+        frequency_hz REAL NOT NULL,
+        data_json TEXT NOT NULL,
+        created_at TEXT NOT NULL
+    );
+    """,
+    """
+    CREATE INDEX IF NOT EXISTS idx_rf_field_runs_mission
+    ON rf_field_runs(mission_id);
+    """
+
 ]

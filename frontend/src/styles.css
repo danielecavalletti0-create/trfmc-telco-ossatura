@@ -185,3 +185,23 @@ button:hover {
   font: 10px Consolas, monospace;
   font-style: normal;
 }
+
+
+.field-bars {
+  display: flex;
+  gap: 3px;
+  align-items: end;
+  min-height: 80px;
+  margin-top: 10px;
+  border: 1px solid rgba(88,214,249,.16);
+  border-radius: 10px;
+  padding: 8px;
+  background: rgba(88,214,249,.04);
+}
+
+.field-bar {
+  width: 7px;
+  border-radius: 5px 5px 0 0;
+  background: rgba(88,214,249,.45);
+  box-shadow: 0 0 10px rgba(88,214,249,.22);
+}

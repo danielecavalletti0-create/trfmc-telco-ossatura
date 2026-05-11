@@ -12,6 +12,7 @@ from app.persistence.repositories import (
     IncidentRepository,
     RfCoverageRunRepository,
     RfObstacleRepository,
+    RfFieldRunRepository,
 )
 
 router = APIRouter(prefix="/api/persistence", tags=["persistence"])
@@ -70,3 +71,9 @@ def rf_runs():
 @router.get("/rf-obstacles")
 def rf_obstacles():
     return RfObstacleRepository().list()
+
+
+
+@router.get("/rf-field-runs")
+def rf_field_runs():
+    return RfFieldRunRepository().list()
