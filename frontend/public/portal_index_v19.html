@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="utf-8"/>
-  <title>TRFMC v0.25 Mission Control Portal Index</title>
+  <title>TRFMC v0.26 Interactive Mission Control Portal Index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
     :root {
@@ -186,6 +186,112 @@
     .docitem b { color:var(--cyan); display:block; margin-bottom:5px; }
     .docitem span { color:var(--text); display:block; line-height:1.35; }
     .docitem em { color:var(--muted); display:block; font-style:normal; margin-top:5px; }
+    .control-deck {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin:14px 0;
+    }
+    .control-panel {
+      border:1px solid rgba(88,214,249,.20);
+      background:rgba(5,18,31,.74);
+      border-radius:16px;
+      padding:12px;
+      box-shadow:0 0 28px rgba(88,214,249,.055);
+    }
+    .control-panel b {
+      display:block;
+      color:var(--cyan);
+      margin-bottom:8px;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    input.control-input {
+      width:100%;
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(0,0,0,.30);
+      color:var(--text);
+      border-radius:10px;
+      padding:10px 11px;
+      font-family:inherit;
+      outline:none;
+      margin-bottom:9px;
+    }
+    input.control-input:focus {
+      border-color:rgba(88,214,249,.70);
+      box-shadow:0 0 0 2px rgba(88,214,249,.10);
+    }
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .chip {
+      border:1px solid rgba(88,214,249,.22);
+      background:rgba(88,214,249,.06);
+      color:var(--muted);
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:10px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip.active {
+      color:var(--cyan);
+      border-color:rgba(88,214,249,.58);
+      background:rgba(88,214,249,.14);
+      font-weight:900;
+    }
+    .category-badge {
+      display:inline-block;
+      margin-top:7px;
+      border:1px solid rgba(88,214,249,.22);
+      border-radius:999px;
+      padding:4px 7px;
+      color:var(--cyan);
+      font-size:9px;
+      text-transform:uppercase;
+    }
+    .api-list {
+      display:grid;
+      gap:7px;
+      max-height:660px;
+      overflow:auto;
+    }
+    .apiitem {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.17);
+      border-radius:12px;
+      padding:9px;
+      font-size:10px;
+    }
+    .apiitem b {
+      color:var(--green);
+      display:inline-block;
+      min-width:42px;
+    }
+    .apiitem span {
+      color:var(--text);
+      overflow-wrap:anywhere;
+    }
+    .apiitem em {
+      color:var(--muted);
+      display:block;
+      font-style:normal;
+      margin-top:4px;
+      text-transform:uppercase;
+    }
+    .empty-state {
+      color:var(--muted);
+      border:1px dashed rgba(88,214,249,.20);
+      border-radius:12px;
+      padding:12px;
+      font-size:11px;
+      text-align:center;
+    }
+    @media(max-width:1050px) {
+      .control-deck { grid-template-columns:1fr; }
+    }
     .release {
       display:grid;
       gap:7px;
@@ -217,7 +323,7 @@
 <header>
   <div>
     <h1>TRFMC MISSION CONTROL PORTAL INDEX</h1>
-    <p>v0.25 · mission navigation · operator handbook · docs API · release chain · operational consoles</p>
+    <p>v0.26 · interactive mission navigation · searchable consoles · API filters · docs catalog · release chain</p>
   </div>
   <div class="badge" id="badge">BOOT</div>
 </header>
@@ -261,6 +367,19 @@
   </div>
 </section>
 
+<section class="control-deck">
+  <div class="control-panel">
+    <b>Console Search / Category Filter</b>
+    <input id="page_search" class="control-input" placeholder="Cerca console, categoria, versione, descrizione..."/>
+    <div id="page_filters" class="chips">loading...</div>
+  </div>
+  <div class="control-panel">
+    <b>API Search / Domain Filter</b>
+    <input id="api_search" class="control-input" placeholder="Cerca endpoint, dominio, metodo..."/>
+    <div id="api_filters" class="chips">loading...</div>
+  </div>
+</section>
+
 <section class="layout">
   <div class="panel">
     <h2>Console Index</h2>
@@ -296,14 +415,39 @@
       <div id="docs" class="docgrid">loading...</div>
     </div>
   </div>
+
+  <div class="panel">
+    <h2>Interactive API Catalog</h2>
+    <div class="body">
+      <div id="api_catalog" class="api-list">loading...</div>
+    </div>
+  </div>
 </section>
 
 <footer>
-  TRFMC v0.25 · Mission Control Index · /api/portal/index · /api/docs/index · /api/portal/health-summary
+  TRFMC v0.26 · Interactive Mission Control Index · searchable consoles · filterable API surface · docs catalog
 </footer>
 
 <script>
 const API = 'http://127.0.0.1:8000/api'
+const state = {
+  pages: [],
+  endpoints: [],
+  docs: null,
+  pageQuery: '',
+  pageCategory: 'all',
+  apiQuery: '',
+  apiDomain: 'all'
+}
+
+function norm(v) {
+  return String(v ?? '').toLowerCase()
+}
+
+function unique(values) {
+  return [...new Set(values.filter(Boolean))].sort()
+}
+
 
 async function get(path) {
   const r = await fetch(API + path)
@@ -314,17 +458,47 @@ async function get(path) {
 function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
 function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
 
+function renderPageFilters(pages) {
+  const el = document.getElementById('page_filters')
+  if (!el) return
+  const cats = ['all', ...unique(pages.map(p => p.category))]
+  el.innerHTML = ''
+  for (const c of cats) {
+    const chip = document.createElement('span')
+    chip.className = 'chip' + (state.pageCategory === c ? ' active' : '')
+    chip.textContent = c === 'all' ? 'all categories' : c
+    chip.onclick = () => {
+      state.pageCategory = c
+      renderPageFilters(state.pages)
+      renderPages(state.pages)
+    }
+    el.appendChild(chip)
+  }
+}
+
 function renderPages(pages) {
   const el = document.getElementById('pages')
   el.innerHTML = ''
-  for (const p of pages) {
+  const q = norm(state.pageQuery)
+  const filtered = pages.filter(p => {
+    const hay = norm(`${p.version} ${p.title} ${p.description} ${p.category} ${p.status}`)
+    const matchQuery = !q || hay.includes(q)
+    const matchCategory = state.pageCategory === 'all' || p.category === state.pageCategory
+    return matchQuery && matchCategory
+  })
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty-state">Nessuna console trovata con i filtri correnti.</div>'
+    return
+  }
+  for (const p of filtered) {
     const div = document.createElement('div')
-    div.className = 'card' + (p.category === 'documentation' ? ' priority' : '')
+    div.className = 'card' + (['documentation','recovery','security'].includes(p.category) ? ' priority' : '')
     div.innerHTML = `
       <div>
         <b>${p.version} · ${p.title}</b>
         <span>${p.description}</span>
         <em>${p.category} · ${p.status}</em>
+        <i class="category-badge">${p.category}</i>
       </div>
       <div class="links">
         <a class="btn" href="${p.path}">Open</a>
@@ -332,6 +506,7 @@ function renderPages(pages) {
     `
     el.appendChild(div)
   }
+}
 }
 
 function renderReleases(releases) {
@@ -345,6 +520,48 @@ function renderReleases(releases) {
   }
 }
 
+
+
+function renderApiFilters(endpoints) {
+  const el = document.getElementById('api_filters')
+  if (!el) return
+  const domains = ['all', ...unique(endpoints.map(e => e.domain))]
+  el.innerHTML = ''
+  for (const d of domains) {
+    const chip = document.createElement('span')
+    chip.className = 'chip' + (state.apiDomain === d ? ' active' : '')
+    chip.textContent = d === 'all' ? 'all domains' : d
+    chip.onclick = () => {
+      state.apiDomain = d
+      renderApiFilters(state.endpoints)
+      renderApiCatalog(state.endpoints)
+    }
+    el.appendChild(chip)
+  }
+}
+
+function renderApiCatalog(endpoints) {
+  const el = document.getElementById('api_catalog')
+  if (!el) return
+  const q = norm(state.apiQuery)
+  const filtered = endpoints.filter(e => {
+    const hay = norm(`${e.method} ${e.path} ${e.domain}`)
+    const matchQuery = !q || hay.includes(q)
+    const matchDomain = state.apiDomain === 'all' || e.domain === state.apiDomain
+    return matchQuery && matchDomain
+  })
+  el.innerHTML = ''
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty-state">Nessun endpoint trovato con i filtri correnti.</div>'
+    return
+  }
+  for (const e of filtered) {
+    const div = document.createElement('div')
+    div.className = 'apiitem'
+    div.innerHTML = `<b>${e.method}</b> <span>${e.path}</span><em>${e.domain}</em>`
+    el.appendChild(div)
+  }
+}
 
 function renderDocs(docs) {
   const el = document.getElementById('docs')
@@ -368,6 +585,10 @@ async function loadAll() {
   const summary = await get('/portal/health-summary')
   const docs = await get('/docs/index')
 
+  state.pages = index.pages || []
+  state.endpoints = index.api_endpoints || []
+  state.docs = docs
+
   document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
 
   k('k_backend', health.version)
@@ -383,6 +604,16 @@ async function loadAll() {
   j('summary', {health, summary, api_endpoints:index.api_endpoints})
   j('commands', index.operator_commands)
 }
+
+document.getElementById('page_search')?.addEventListener('input', e => {
+  state.pageQuery = e.target.value
+  renderPages(state.pages)
+})
+
+document.getElementById('api_search')?.addEventListener('input', e => {
+  state.apiQuery = e.target.value
+  renderApiCatalog(state.endpoints)
+})
 
 loadAll().catch(e => {
   document.getElementById('badge').textContent = 'ERROR'
