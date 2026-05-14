@@ -1,0 +1,275 @@
+/* TRFMC v0.59A - Executive Dashboard Next / Enterprise Production Layer */
+
+body.trfmc-next-shell.v59-enterprise-production {
+  --v59-cyan: #8ff0ff;
+  --v59-green: #42f56f;
+  --v59-amber: #fbbf24;
+  --v59-red: #ff4d6d;
+  --v59-blue: #38bdf8;
+  --v59-panel: rgba(3, 13, 28, .88);
+  --v59-line: rgba(143, 240, 255, .36);
+}
+
+/* Official Enterprise identity */
+.v59-enterprise-production .top-shell {
+  border-color: rgba(143,240,255,.42) !important;
+  box-shadow:
+    0 28px 96px rgba(0,0,0,.46),
+    0 0 72px rgba(143,240,255,.12),
+    inset 0 0 42px rgba(143,240,255,.048) !important;
+}
+
+.v59-enterprise-production .brand b::after {
+  content: " · ENTERPRISE";
+  color: var(--v59-green);
+  text-shadow: 0 0 14px rgba(66,245,111,.38);
+}
+
+.v59-enterprise-production .main-nav a[href="/executive_mission_dashboard_v_next.html"] {
+  color: var(--v59-green) !important;
+  border-color: rgba(66,245,111,.70) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(66,245,111,.24), transparent 60%),
+    rgba(66,245,111,.115) !important;
+}
+
+/* Production layer panel */
+.v59-enterprise-ops {
+  border: 1px solid rgba(143,240,255,.38);
+  background:
+    radial-gradient(circle at 8% 10%, rgba(143,240,255,.13), transparent 34%),
+    radial-gradient(circle at 88% 0%, rgba(66,245,111,.10), transparent 38%),
+    linear-gradient(135deg, rgba(255,255,255,.065), rgba(255,255,255,.018)),
+    rgba(2, 10, 22, .84);
+  border-radius: 24px;
+  padding: 12px;
+  box-shadow:
+    0 26px 84px rgba(0,0,0,.34),
+    0 0 56px rgba(143,240,255,.10),
+    inset 0 0 36px rgba(143,240,255,.040);
+}
+
+.v59-enterprise-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(143,240,255,.16);
+}
+
+.v59-enterprise-head h2 {
+  margin: 0;
+  color: var(--v59-cyan);
+  font-size: 15px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(143,240,255,.38);
+}
+
+.v59-enterprise-head p {
+  margin: 6px 0 0;
+  color: rgba(237,248,255,.62);
+  font-size: 9.5px;
+  line-height: 1.5;
+}
+
+.v59-release-badge {
+  min-width: 158px;
+  border: 1px solid rgba(66,245,111,.36);
+  background: rgba(66,245,111,.075);
+  color: var(--v59-green);
+  border-radius: 999px;
+  padding: 8px 11px;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+
+.v59-enterprise-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(130px, 1fr));
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.v59-op-tile {
+  border: 1px solid rgba(143,240,255,.22);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(143,240,255,.10), transparent 42%),
+    linear-gradient(135deg, rgba(255,255,255,.050), rgba(255,255,255,.014)),
+    rgba(255,255,255,.026);
+  border-radius: 16px;
+  padding: 10px;
+  min-height: 78px;
+}
+
+.v59-op-tile span {
+  display: block;
+  color: rgba(237,248,255,.42);
+  font-size: 8px;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+}
+
+.v59-op-tile b {
+  display: block;
+  margin-top: 7px;
+  color: var(--v59-cyan);
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 16px rgba(143,240,255,.18);
+}
+
+.v59-op-tile small {
+  display: block;
+  margin-top: 5px;
+  color: rgba(237,248,255,.50);
+  font-size: 9px;
+}
+
+.v59-op-tile.good b {
+  color: var(--v59-green);
+  text-shadow: 0 0 16px rgba(66,245,111,.24);
+}
+
+.v59-op-tile.warn b {
+  color: var(--v59-amber);
+  text-shadow: 0 0 16px rgba(251,191,36,.24);
+}
+
+.v59-op-tile.bad b {
+  color: var(--v59-red);
+  text-shadow: 0 0 16px rgba(255,77,109,.24);
+}
+
+.v59-enterprise-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.v59-enterprise-actions a,
+.v59-enterprise-actions button {
+  border: 1px solid rgba(143,240,255,.30);
+  background: rgba(143,240,255,.070);
+  color: var(--v59-cyan);
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.v59-enterprise-actions a:hover,
+.v59-enterprise-actions button:hover {
+  color: var(--v59-green);
+  border-color: rgba(66,245,111,.48);
+  background: rgba(66,245,111,.10);
+  transform: translateY(-1px);
+}
+
+/* Make hero official, less experimental */
+.v59-enterprise-production .hero-next {
+  border-color: rgba(143,240,255,.44) !important;
+}
+
+.v59-enterprise-production .eyebrow {
+  color: var(--v59-green) !important;
+}
+
+.v59-enterprise-production .hero-copy h1 {
+  text-shadow:
+    0 0 16px rgba(143,240,255,.55),
+    0 0 52px rgba(143,240,255,.20),
+    0 0 94px rgba(66,245,111,.10) !important;
+}
+
+/* Operational rail */
+.v59-enterprise-production .control-strip {
+  border-color: rgba(143,240,255,.32) !important;
+}
+
+.v59-enterprise-production .strip-actions button#btn_enterprise_freeze {
+  color: var(--v59-amber);
+  border-color: rgba(251,191,36,.42);
+  background: rgba(251,191,36,.08);
+}
+
+.v59-enterprise-production.freeze-visuals *,
+.v59-enterprise-production.freeze-visuals *::before,
+.v59-enterprise-production.freeze-visuals *::after {
+  animation-play-state: paused !important;
+}
+
+/* Enterprise focus outlines */
+.v59-enterprise-production a:focus,
+.v59-enterprise-production button:focus {
+  outline: 2px solid rgba(143,240,255,.55);
+  outline-offset: 3px;
+}
+
+/* RF / scenario cards with official tuning */
+.v59-enterprise-production .rf-panel,
+.v59-enterprise-production .scenario-panel,
+.v59-enterprise-production .kpi-wall,
+.v59-enterprise-production .mission-map-panel {
+  border-color: rgba(143,240,255,.40) !important;
+}
+
+/* v_next official lower density */
+.v59-enterprise-production .support-grid {
+  margin-top: 1px;
+}
+
+/* Print / report mode */
+@media print {
+  body.trfmc-next-shell {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .top-shell,
+  .hero-actions,
+  .strip-actions,
+  .launch-actions,
+  .support-card a,
+  .next-footer {
+    display: none !important;
+  }
+
+  .hero-next,
+  .panel,
+  .quick-kpis,
+  .v59-enterprise-ops,
+  .support-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border-color: #444 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
+/* Enterprise compact responsive */
+@media(max-width:1450px) {
+  .v59-enterprise-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media(max-width:820px) {
+  .v59-enterprise-head {
+    flex-direction: column;
+  }
+
+  .v59-enterprise-grid {
+    grid-template-columns: 1fr;
+  }
+}
