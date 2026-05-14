@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_visual_polish_v41.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_evidence_overlay_v42.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_navigation_hub_v43.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -218,6 +219,78 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
 </section>
 
 
+
+<section class="v43-entry-hub">
+  <div class="v43-entry-head">
+    <div>
+      <h2>Executive Mission Entry Hub</h2>
+      <p>
+        v0.43A · navigazione executive raffinata: cinque aree operative ordinate per
+        mission command, ingegneria RF/Telco, scenari globali, evidence/security/restore,
+        documentazione e Golden Check. Questo diventa il punto d’ingresso alto del portale.
+      </p>
+    </div>
+    <div class="v43-entry-badge">
+      <b id="v43_hub_state">loading...</b>
+      <span id="v43_hub_detail">initializing entry hub...</span>
+    </div>
+  </div>
+
+  <div class="v43-hub-grid">
+    <div class="v43-hub-column command">
+      <h3>1 · Mission Command</h3>
+      <p>Ingresso principale e controllo missione.</p>
+      <a class="v43-hub-link" href="/executive_mission_dashboard_v40.html">Executive Dashboard<span>plancia superiore</span></a>
+      <a class="v43-hub-link" href="/rf_telco_mission_portal_v35.html">RF/Telco Mission Portal<span>entrypoint tecnico</span></a>
+      <a class="v43-hub-link" href="/portal_index_v19.html">Portal Index<span>indice completo</span></a>
+    </div>
+
+    <div class="v43-hub-column rf">
+      <h3>2 · RF/Telco Engineering</h3>
+      <p>Misura, scenario e strumentazione RF.</p>
+      <a class="v43-hub-link" href="/rf_telco_visual_cockpit_v36.html">Visual Scenario Cockpit<span>scenario locale/nazionale/globale</span></a>
+      <a class="v43-hub-link" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments<span>spectrum, waterfall, RF KPI</span></a>
+      <a class="v43-hub-link" href="/observability_console_v13.html">Observability<span>health matrix / runtime</span></a>
+    </div>
+
+    <div class="v43-hub-column global">
+      <h3>3 · Global Scenario Operations</h3>
+      <p>Percorsi globali e playbook missione.</p>
+      <a class="v43-hub-link" href="/network_journey_world_map_v37.html">Network Journey World Map<span>RAN → core → GWAN → mondo</span></a>
+      <a class="v43-hub-link" href="/global_mission_scenario_launcher_v39.html">Global Mission Launcher<span>Giappone, USA, Africa, India, Australia, NTN</span></a>
+      <a class="v43-hub-link" href="/scenario_runner_console_v16.html">Scenario Runner<span>playbook e run controllati</span></a>
+    </div>
+
+    <div class="v43-hub-column evidence">
+      <h3>4 · Evidence / Security / Restore</h3>
+      <p>Catena evidenze, sicurezza e recuperabilità.</p>
+      <a class="v43-hub-link" href="/timeline_console_v14.html">Timeline<span>mission replay</span></a>
+      <a class="v43-hub-link" href="/evidence_vault_console_v20.html">Evidence Vault<span>vault evidenze</span></a>
+      <a class="v43-hub-link" href="/operational_backup_console_v21.html">Backup Console<span>backup operativo</span></a>
+      <a class="v43-hub-link" href="/restore_readiness_console_v22.html">Restore Readiness<span>DR drill</span></a>
+      <a class="v43-hub-link" href="/security_console_v18.html">Security<span>security baseline</span></a>
+    </div>
+
+    <div class="v43-hub-column docs">
+      <h3>5 · Documentation / Golden Check</h3>
+      <p>Documentazione, handbook e readiness release.</p>
+      <a class="v43-hub-link" href="/operator_handbook_console_v23.html">Operator Handbook<span>procedure operative</span></a>
+      <a class="v43-hub-link" href="/runtime_golden_check_console_v29.html">Golden Check<span>stato runtime / release</span></a>
+      <a class="v43-hub-link" href="/scenario_report_console_v17.html">Scenario Reports<span>report missione</span></a>
+      <a class="v43-hub-link" href="/mission_graph_console_v15.html">Mission Graph<span>correlazione missione</span></a>
+    </div>
+  </div>
+
+  <div class="v43-mini-status">
+    <div class="v43-mini-tile"><span>Backend</span><b id="v43_backend">—</b></div>
+    <div class="v43-mini-tile"><span>Pages</span><b id="v43_pages">—</b></div>
+    <div class="v43-mini-tile"><span>CloudEvents</span><b id="v43_events">—</b></div>
+    <div class="v43-mini-tile"><span>RF Coverage / Field</span><b id="v43_rf">—</b></div>
+    <div class="v43-mini-tile"><span>Docs</span><b id="v43_docs">—</b></div>
+    <div class="v43-mini-tile"><span>Golden</span><b id="v43_golden">—</b></div>
+  </div>
+</section>
+
 <section class="v42-evidence-overlay">
   <div class="v42-evidence-head">
     <div>
@@ -385,7 +458,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.42A · Executive Evidence & Mission Status Overlay · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.43A · Executive Navigation Refinement / Mission Entry Hub · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -452,5 +525,6 @@ setInterval(loadAll,30000);
 <script defer src="/assets/trfmc_enterprise_shell_v34.js"></script>
 <script defer src="/assets/trfmc_executive_visual_polish_v41.js"></script>
 <script defer src="/assets/trfmc_executive_evidence_overlay_v42.js"></script>
+<script defer src="/assets/trfmc_executive_navigation_hub_v43.js"></script>
 </body>
 </html>
