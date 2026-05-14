@@ -1,0 +1,170 @@
+/* TRFMC v0.47A - Executive Page Performance / Layout Stability Pass */
+
+html { scroll-behavior: smooth; }
+
+body.trfmc-enterprise-shell.v47-layout-stable {
+  overflow-x: hidden;
+}
+
+.v47-layout-stable section,
+.v47-layout-stable .panel,
+.v47-layout-stable .card,
+.v47-layout-stable .v46-instrument-cluster,
+.v47-layout-stable .v45-glass-command-band,
+.v47-layout-stable .v44-priority-rail,
+.v47-layout-stable .v43-entry-hub,
+.v47-layout-stable .v42-evidence-overlay {
+  max-width: 100%;
+}
+
+.v47-section-nav {
+  position: sticky;
+  top: 8px;
+  z-index: 90;
+  margin-top: 14px;
+  border: 1px solid rgba(88,214,249,.30);
+  background:
+    radial-gradient(circle at 10% 18%, rgba(88,214,249,.13), transparent 32%),
+    linear-gradient(135deg, rgba(255,255,255,.060), rgba(255,255,255,.018)),
+    rgba(3,12,24,.94);
+  border-radius: 22px;
+  padding: 11px;
+  box-shadow:
+    0 22px 54px rgba(0,0,0,.30),
+    0 0 34px rgba(88,214,249,.09),
+    inset 0 0 24px rgba(88,214,249,.035);
+  backdrop-filter: blur(16px) saturate(1.2);
+}
+
+.v47-section-nav-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.v47-section-nav-head b {
+  color: #58d6f9;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.v47-section-nav-head span {
+  color: rgba(237,248,255,.52);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.v47-section-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.v47-section-links a,
+.v47-section-links button {
+  border: 1px solid rgba(88,214,249,.26);
+  background: rgba(88,214,249,.070);
+  color: #58d6f9;
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 10px;
+  font-weight: 900;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.v47-section-links a:hover,
+.v47-section-links button:hover,
+.v47-section-links a.active {
+  color: #3fb950;
+  border-color: rgba(63,185,80,.45);
+  background: rgba(63,185,80,.10);
+}
+
+.v47-section-anchor {
+  scroll-margin-top: 105px;
+}
+
+.v47-layout-stable .v46-kpi-grid,
+.v47-layout-stable .v46-status-strip,
+.v47-layout-stable .v45-glass-grid,
+.v47-layout-stable .v44-priority-grid,
+.v47-layout-stable .v43-hub-grid,
+.v47-layout-stable .v42-status-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.v47-layout-stable .kpi b,
+.v47-layout-stable .v46-kpi-tile b,
+.v47-layout-stable .v45-glass-card b,
+.v47-layout-stable .v44-priority-card b,
+.v47-layout-stable .v43-mini-tile b,
+.v47-layout-stable .v42-status-tile b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v47-layout-stable pre {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.v47-reduced-motion *,
+.v47-reduced-motion *::before,
+.v47-reduced-motion *::after {
+  animation-duration: .001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .001ms !important;
+  scroll-behavior: auto !important;
+}
+
+.v47-density-compact .v46-instrument-cluster,
+.v47-density-compact .v45-glass-command-band,
+.v47-density-compact .v44-priority-rail,
+.v47-density-compact .v43-entry-hub,
+.v47-density-compact .v42-evidence-overlay,
+.v47-density-compact .v41-command-strip,
+.v47-density-compact .command-layout,
+.v47-density-compact .grid,
+.v47-density-compact .panel {
+  margin-top: 10px !important;
+}
+
+.v47-section-label {
+  display: inline-block;
+  margin: 18px 0 8px;
+  border: 1px solid rgba(88,214,249,.22);
+  background: rgba(88,214,249,.055);
+  color: rgba(237,248,255,.62);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media(max-width:900px) {
+  .v47-section-nav {
+    position: relative;
+    top: auto;
+  }
+
+  .v47-section-nav-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media(max-width:640px) {
+  .v47-section-links a,
+  .v47-section-links button {
+    width: 100%;
+    text-align: center;
+  }
+}
