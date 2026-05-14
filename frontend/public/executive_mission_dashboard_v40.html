@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/assets/trfmc_executive_navigation_hub_v43.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_content_consolidation_v44.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_visual_depth_v45.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_instrument_cluster_v46.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -223,6 +224,70 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
 
 
 
+
+
+<section class="v46-instrument-cluster">
+  <div class="v46-cluster-head">
+    <div>
+      <h2>Executive Instrument Cluster / Live KPI Wall</h2>
+      <p>
+        v0.46A · parete strumenti executive per readiness missione, runtime, Golden Check,
+        RF coverage/field, CloudEvents, evidence, incidenti, documentazione e pagine indicizzate.
+        Frontend-only: il layer legge gli endpoint esistenti senza modificare backend o Docker.
+      </p>
+    </div>
+    <div class="v46-cluster-badge">
+      <b id="v46_cluster_state">loading...</b>
+      <span id="v46_cluster_detail">initializing KPI wall...</span>
+    </div>
+  </div>
+
+  <div class="v46-kpi-wall">
+    <div class="v46-gauge-panel">
+      <h3>Mission Readiness Gauge</h3>
+      <div class="v46-gauge-wrap">
+        <div class="v46-gauge-inner">
+          <b id="v46_readiness_percent">—</b>
+          <span id="v46_readiness_label">loading</span>
+        </div>
+      </div>
+      <div class="v46-gauge-detail" id="v46_readiness_detail">runtime score initializing...</div>
+      <div class="v46-gauge-actions">
+        <a href="/runtime_golden_check_console_v29.html">Golden</a>
+        <a href="/observability_console_v13.html">Observability</a>
+        <a href="/evidence_vault_console_v20.html">Evidence</a>
+        <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+      </div>
+    </div>
+
+    <div class="v46-kpi-board">
+      <h3>Live KPI Wall</h3>
+      <div class="v46-kpi-grid">
+        <div class="v46-kpi-tile" id="v46_tile_backend"><span>Backend Version</span><b id="v46_backend">—</b><small id="v46_mode">operational mode</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_golden"><span>Golden Check</span><b id="v46_golden">—</b><small><span id="v46_checks">—</span> checks</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_events"><span>CloudEvents</span><b id="v46_events">—</b><small>mission telemetry</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_rf_cov"><span>RF Coverage Runs</span><b id="v46_rf_cov">—</b><small>coverage model</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_rf_field"><span>RF Field Runs</span><b id="v46_rf_field">—</b><small>field / Maxwell layer</small></div>
+        <div class="v46-kpi-tile"><span>Assets</span><b id="v46_assets">—</b><small>mission inventory</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_evidence"><span>Evidence</span><b id="v46_evidence">—</b><small>vault records</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_incidents"><span>Incidents</span><b id="v46_incidents">—</b><small>security / mission events</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_docs"><span>Docs</span><b id="v46_docs">—</b><small>handbook / release chain</small></div>
+        <div class="v46-kpi-tile"><span>Indexed Pages</span><b id="v46_pages">—</b><small>portal index</small></div>
+        <div class="v46-kpi-tile"><span>Git Dirty</span><b id="v46_dirty">—</b><small>snapshot state</small></div>
+        <div class="v46-kpi-tile"><span>Refresh</span><b id="v46_refresh">—</b><small>local browser time</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="v46-status-strip">
+    <div class="v46-strip-item"><b>Runtime</b><span id="v46_runtime">—</span></div>
+    <div class="v46-strip-item"><b>Portal</b><span id="v46_portal">—</span></div>
+    <div class="v46-strip-item"><b>RF</b><span>coverage / field</span></div>
+    <div class="v46-strip-item"><b>Evidence</b><span>vault / report</span></div>
+    <div class="v46-strip-item"><b>Security</b><span>simulation posture</span></div>
+    <div class="v46-strip-item"><b>Docs</b><span>operator chain</span></div>
+  </div>
+</section>
 
 <section class="v45-glass-command-band">
   <div class="v45-band-head">
@@ -561,7 +626,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.45A · Executive Visual Depth / High-End Glass Command Center · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.46A · Executive Instrument Cluster / Live KPI Wall · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -631,5 +696,6 @@ setInterval(loadAll,30000);
 <script defer src="/assets/trfmc_executive_navigation_hub_v43.js"></script>
 <script defer src="/assets/trfmc_executive_content_consolidation_v44.js"></script>
 <script defer src="/assets/trfmc_executive_visual_depth_v45.js"></script>
+<script defer src="/assets/trfmc_executive_instrument_cluster_v46.js"></script>
 </body>
 </html>
