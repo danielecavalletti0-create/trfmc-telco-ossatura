@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/assets/trfmc_executive_visual_polish_v41.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_evidence_overlay_v42.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_navigation_hub_v43.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_content_consolidation_v44.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -220,6 +221,56 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
 
 
 
+
+<section class="v44-priority-rail">
+  <div class="v44-priority-head">
+    <div>
+      <h2>Executive Priority Rail</h2>
+      <p>
+        v0.44A · consolidamento contenuti: questa fascia chiarisce subito lo stato decisionale
+        della missione e indirizza l’operatore verso i quattro percorsi principali:
+        comando, RF/Telco, evidence/security e documentazione/readiness.
+      </p>
+    </div>
+    <div class="v44-priority-badge">
+      <b id="v44_priority_state">loading...</b>
+      <span id="v44_priority_detail">initializing consolidation layer...</span>
+    </div>
+  </div>
+
+  <div class="v44-priority-grid">
+    <div class="v44-priority-card primary">
+      <span>Decision State</span>
+      <b id="v44_main_decision">—</b>
+      <p id="v44_main_decision_detail">mission runtime summary</p>
+      <a href="/runtime_golden_check_console_v29.html">Open Golden Check</a>
+    </div>
+
+    <div class="v44-priority-card">
+      <span>RF/Telco Engineering</span>
+      <b id="v44_rf_summary">—</b>
+      <p id="v44_rf_detail">coverage / field summary</p>
+      <a href="/rf_instrumentation_signal_cockpit_v38.html">Open RF Instruments</a>
+    </div>
+
+    <div class="v44-priority-card">
+      <span>Evidence / Security</span>
+      <b id="v44_evidence_summary">—</b>
+      <p id="v44_evidence_detail">events / incidents / evidence chain</p>
+      <a href="/evidence_vault_console_v20.html">Open Evidence Vault</a>
+    </div>
+
+    <div class="v44-priority-card">
+      <span>Documentation</span>
+      <b id="v44_docs_summary">—</b>
+      <p id="v44_docs_detail">docs / handbook / release chain</p>
+      <a href="/operator_handbook_console_v23.html">Open Handbook</a>
+    </div>
+  </div>
+</section>
+
+<div class="v44-section-divider">Mission Entry Hub · Primary Navigation</div>
+
 <section class="v43-entry-hub">
   <div class="v43-entry-head">
     <div>
@@ -291,6 +342,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   </div>
 </section>
 
+<div class="v44-section-divider">Evidence / Security / Restore · Operational Posture</div>
 <section class="v42-evidence-overlay">
   <div class="v42-evidence-head">
     <div>
@@ -361,6 +413,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   </div>
 </section>
 
+<div class="v44-section-divider">Cinematic Mission Layer · Visual Situation Awareness</div>
 <section class="v41-command-strip">
   <div class="v41-mission-core">
     <div class="v41-core-copy">
@@ -393,6 +446,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   </div>
 </section>
 
+<div class="v44-section-divider">Legacy Operational Panels · Detailed Runtime View</div>
 <section class="command-layout">
   <div class="command-map">
     <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
@@ -458,7 +512,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.43A · Executive Navigation Refinement / Mission Entry Hub · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.44A · Executive Dashboard Content Consolidation · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -526,5 +580,6 @@ setInterval(loadAll,30000);
 <script defer src="/assets/trfmc_executive_visual_polish_v41.js"></script>
 <script defer src="/assets/trfmc_executive_evidence_overlay_v42.js"></script>
 <script defer src="/assets/trfmc_executive_navigation_hub_v43.js"></script>
+<script defer src="/assets/trfmc_executive_content_consolidation_v44.js"></script>
 </body>
 </html>

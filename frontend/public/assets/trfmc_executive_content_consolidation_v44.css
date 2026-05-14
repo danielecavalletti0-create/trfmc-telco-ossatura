@@ -1,0 +1,206 @@
+/* TRFMC v0.44A - Executive Dashboard Content Consolidation */
+
+.v44-priority-rail {
+  margin-top: 14px;
+  border: 1px solid rgba(88,214,249,.34);
+  background:
+    radial-gradient(circle at 8% 18%, rgba(88,214,249,.15), transparent 30%),
+    radial-gradient(circle at 92% 12%, rgba(63,185,80,.12), transparent 28%),
+    linear-gradient(135deg, rgba(88,214,249,.085), rgba(255,255,255,.024)),
+    rgba(3,12,24,.88);
+  border-radius: 24px;
+  box-shadow:
+    0 0 62px rgba(88,214,249,.12),
+    inset 0 0 42px rgba(88,214,249,.045);
+  overflow: hidden;
+}
+
+.v44-priority-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(88,214,249,.16);
+}
+
+.v44-priority-head h2 {
+  margin: 0;
+  color: #58d6f9;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.v44-priority-head p {
+  margin: 6px 0 0;
+  color: #8da4b3;
+  font-size: 11px;
+  line-height: 1.55;
+  max-width: 1080px;
+}
+
+.v44-priority-badge {
+  min-width: 220px;
+  text-align: right;
+  color: #3fb950;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.v44-priority-badge span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(237,248,255,.55);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.v44-priority-grid {
+  display: grid;
+  grid-template-columns: 1.2fr .95fr .95fr .95fr;
+  gap: 10px;
+  padding: 14px;
+}
+
+.v44-priority-card {
+  position: relative;
+  min-height: 128px;
+  border: 1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(circle at 20% 12%, rgba(88,214,249,.11), transparent 38%),
+    rgba(255,255,255,.032);
+  border-radius: 18px;
+  padding: 13px;
+  overflow: hidden;
+}
+
+.v44-priority-card.primary {
+  border-color: rgba(63,185,80,.34);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(63,185,80,.13), transparent 40%),
+    radial-gradient(circle at 82% 82%, rgba(88,214,249,.08), transparent 32%),
+    rgba(255,255,255,.035);
+}
+
+.v44-priority-card::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(88,214,249,.7), transparent);
+}
+
+.v44-priority-card span {
+  display: block;
+  color: #8da4b3;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+}
+
+.v44-priority-card b {
+  display: block;
+  margin-top: 7px;
+  color: #58d6f9;
+  font-size: 17px;
+}
+
+.v44-priority-card.primary b {
+  color: #3fb950;
+}
+
+.v44-priority-card p {
+  margin: 8px 0 0;
+  color: rgba(237,248,255,.58);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.v44-priority-card a {
+  display: inline-block;
+  margin-top: 10px;
+  border: 1px solid rgba(88,214,249,.28);
+  background: rgba(88,214,249,.075);
+  color: #58d6f9;
+  border-radius: 999px;
+  padding: 7px 10px;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.v44-priority-card a:hover {
+  color: #3fb950;
+  border-color: rgba(63,185,80,.45);
+  background: rgba(63,185,80,.10);
+}
+
+.v44-section-divider {
+  margin: 18px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(237,248,255,.58);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+}
+
+.v44-section-divider::before,
+.v44-section-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, rgba(88,214,249,.32), transparent);
+}
+
+.v44-compact-mode .v41-command-strip,
+.v44-compact-mode .command-layout,
+.v44-compact-mode .grid {
+  margin-top: 10px;
+}
+
+.v44-compact-mode .v41-mission-core,
+.v44-compact-mode .v41-signal-board,
+.v44-compact-mode .command-map,
+.v44-compact-mode .panel,
+.v44-compact-mode .card {
+  box-shadow:
+    0 0 30px rgba(88,214,249,.07),
+    inset 0 0 24px rgba(88,214,249,.035);
+}
+
+.v44-compact-mode .card p,
+.v44-compact-mode .panel .body,
+.v44-compact-mode .module span {
+  line-height: 1.42;
+}
+
+.v44-focus-outline {
+  outline: 1px solid rgba(63,185,80,.34);
+  box-shadow: 0 0 34px rgba(63,185,80,.12) !important;
+}
+
+@media(max-width:1300px) {
+  .v44-priority-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:760px) {
+  .v44-priority-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .v44-priority-head {
+    flex-direction: column;
+  }
+
+  .v44-priority-badge {
+    text-align: left;
+  }
+}
