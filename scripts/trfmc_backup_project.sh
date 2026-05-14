@@ -5,11 +5,11 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PARENT="$(dirname "$ROOT")"
 NAME="$(basename "$ROOT")"
 TS="$(date +%Y%m%d_%H%M%S)"
-OUT="$PARENT/trfmc_full_project_backup_v23_${TS}.tar.gz"
-MANIFEST="$PARENT/trfmc_full_project_backup_v23_${TS}_manifest.txt"
+OUT="$PARENT/trfmc_full_project_backup_v24_${TS}.tar.gz"
+MANIFEST="$PARENT/trfmc_full_project_backup_v24_${TS}_manifest.txt"
 
 echo "============================================================"
-echo "TRFMC FULL PROJECT BACKUP v0.23"
+echo "TRFMC FULL PROJECT BACKUP v0.24"
 echo "Root: $ROOT"
 echo "Output: $OUT"
 echo "============================================================"
@@ -22,7 +22,7 @@ tar \
   -czf "$OUT" "$NAME"
 
 {
-  echo "TRFMC FULL PROJECT BACKUP v0.23"
+  echo "TRFMC FULL PROJECT BACKUP v0.24"
   echo "date=$(date -Is)"
   echo "root=$ROOT"
   echo "archive=$OUT"
