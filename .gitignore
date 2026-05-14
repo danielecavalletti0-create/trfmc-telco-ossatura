@@ -18,3 +18,4 @@ runtime_restore_drill_*/
 runtime_restore_test/
 runtime_before_restore_*/
 frontend/public/runtime_golden_check_snapshot.json
+logs/

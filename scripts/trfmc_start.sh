@@ -3,6 +3,10 @@ set -Eeuo pipefail
 
 source "$(dirname "$0")/trfmc_env.sh"
 cd "$TRFMC_ROOT"
+# v0.34R runtime startup hardening: health temp files stay inside project logs.
+mkdir -p "$TRFMC_ROOT/logs"
+rm -f logs/trfmc_health.json logs/trfmc_frontend_health.json 2>/dev/null || true
+
 
 mkdir -p runtime logs
 
@@ -65,7 +69,7 @@ sudo docker run -d --name "$TRFMC_BACKEND_CONTAINER" \
 echo
 echo "=== 5. Attendo backend health ==="
 for i in $(seq 1 60); do
-  if curl -fsS "$TRFMC_BACKEND_URL/api/health" >/tmp/trfmc_health.json 2>/dev/null; then
+  if curl -fsS "$TRFMC_BACKEND_URL/api/health" >"logs/trfmc_health.json" 2>/dev/null; then
     echo "Backend raggiungibile."
     break
   fi
@@ -77,13 +81,13 @@ for i in $(seq 1 60); do
   fi
 done
 
-cat /tmp/trfmc_health.json | python3 -m json.tool
+cat "logs/trfmc_health.json" | python3 -m json.tool
 
 python3 - <<'PYCHECK'
 import json
 from pathlib import Path
 
-data = json.loads(Path("/tmp/trfmc_health.json").read_text())
+data = json.loads(Path("logs/trfmc_health.json").read_text())
 version = data.get("version")
 if version != "0.30.0":
     raise SystemExit(f"ERRORE: backend non è v0.30.0, rilevato: {version}")
