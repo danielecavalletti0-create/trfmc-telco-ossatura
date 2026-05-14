@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/assets/trfmc_executive_instrument_cluster_v46.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_layout_stability_v47.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_scenario_command_v48.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_rf_signal_intel_v49.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -228,6 +229,83 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
 
 
 
+
+
+<section class="v49-rf-intel-strip" id="v49_rf_intel">
+  <div class="v49-rf-head">
+    <div>
+      <h2>Executive RF/Telco Signal Intelligence Strip</h2>
+      <p>
+        v0.49A · sintesi RF/Telco executive: coverage, field model, path loss,
+        RX power, SNR, LOS/NLOS, campo radio, antenna gain e accesso rapido
+        agli strumenti RF, world map e visual cockpit. Frontend-only.
+      </p>
+    </div>
+    <div class="v49-rf-badge">
+      <b id="v49_rf_state">loading...</b>
+      <span id="v49_rf_detail">initializing RF intelligence...</span>
+    </div>
+  </div>
+
+  <div class="v49-rf-grid">
+    <div class="v49-rf-panel">
+      <h3>RF Path Confidence</h3>
+      <div class="v49-confidence-wrap">
+        <div class="v49-confidence-inner">
+          <b id="v49_rf_confidence">—</b>
+          <span>path confidence</span>
+        </div>
+      </div>
+
+      <div class="v49-rf-status">
+        <span>Signal Intelligence State</span>
+        <b id="v49_rf_status">—</b>
+        <small id="v49_rf_status_detail">RF intelligence detail</small>
+      </div>
+
+      <div class="v49-rf-kpi-grid">
+        <div class="v49-rf-kpi" id="v49_tile_rx"><span>RX Power</span><b id="v49_rx_power">—</b><small>received level</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_snr"><span>SNR</span><b id="v49_snr">—</b><small>signal/noise condition</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_loss"><span>Path Loss</span><b id="v49_path_loss">—</b><small>FSPL + obstruction</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_los"><span>LOS State</span><b id="v49_los_state">—</b><small>LOS/NLOS indicator</small></div>
+      </div>
+    </div>
+
+    <div class="v49-rf-spectrum">
+      <h3>Spectrum / Field Intelligence</h3>
+      <div class="v49-spectrum-window">
+        <div class="v49-spectrum-trace"></div>
+        <div class="v49-spectrum-carrier"></div>
+        <div class="v49-spectrum-labels"><span>Noise</span><span>Carrier</span><span>Adjacent</span></div>
+      </div>
+
+      <div class="v49-rf-kpi-grid">
+        <div class="v49-rf-kpi"><span>Frequency</span><b id="v49_frequency">—</b><small>carrier frequency</small></div>
+        <div class="v49-rf-kpi"><span>Wavelength</span><b id="v49_wavelength">—</b><small>lambda</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_region"><span>Field Region</span><b id="v49_field_region">—</b><small>near / fresnel / far</small></div>
+        <div class="v49-rf-kpi"><span>Obstacles</span><b id="v49_obstacles">—</b><small>NLOS blockers</small></div>
+      </div>
+    </div>
+
+    <div class="v49-rf-links">
+      <h3>RF/Telco Quick Access</h3>
+
+      <div class="v49-rf-kpi-grid">
+        <div class="v49-rf-kpi" id="v49_tile_runs"><span>Coverage Runs</span><b id="v49_coverage_runs">—</b><small>RF coverage history</small></div>
+        <div class="v49-rf-kpi"><span>Field Runs</span><b id="v49_field_runs">—</b><small>RF field history</small></div>
+        <div class="v49-rf-kpi"><span>Antenna Gain</span><b id="v49_antenna">—</b><small>towards target</small></div>
+        <div class="v49-rf-kpi"><span>Bearing</span><b id="v49_bearing">—</b><small>target direction</small></div>
+      </div>
+
+      <div class="v49-rf-route">
+        <a class="v49-rf-link" href="/rf_instrumentation_signal_cockpit_v38.html"><b>RF Instruments</b><span>Spectrum, signal cockpit, KPI RF.</span></a>
+        <a class="v49-rf-link" href="/network_journey_world_map_v37.html"><b>World Map</b><span>Path globale, local/national/GWAN/world journey.</span></a>
+        <a class="v49-rf-link" href="/rf_telco_visual_cockpit_v36.html"><b>Visual Cockpit</b><span>Scenario RF/Telco visuale.</span></a>
+        <a class="v49-rf-link" href="/global_mission_scenario_launcher_v39.html"><b>Scenario Launcher</b><span>Missioni globali e NTN.</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="v48-scenario-command" id="v48_scenario">
   <div class="v48-command-head">
@@ -689,7 +767,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.48A · Executive Scenario Command Strip / Mission Launch Controls · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.49A · Executive RF/Telco Signal Intelligence Strip · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -762,5 +840,6 @@ setInterval(loadAll,30000);
 <script defer src="/assets/trfmc_executive_instrument_cluster_v46.js"></script>
 <script defer src="/assets/trfmc_executive_layout_stability_v47.js"></script>
 <script defer src="/assets/trfmc_executive_scenario_command_v48.js"></script>
+<script defer src="/assets/trfmc_executive_rf_signal_intel_v49.js"></script>
 </body>
 </html>
