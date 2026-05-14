@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css"/>
 <link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_visual_polish_v41.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -215,6 +216,38 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   </div>
 </section>
 
+<section class="v41-command-strip">
+  <div class="v41-mission-core">
+    <div class="v41-core-copy">
+      <h2>Cinematic Mission Core</h2>
+      <p>
+        v0.41A · vista executive superiore: stato missione, readiness, catena RF/Telco,
+        evidenze operative e accesso rapido ai moduli principali. Questo layer è solo visuale
+        e non modifica backend, Docker o runtime.
+      </p>
+    </div>
+    <div class="v41-core-status">
+      <div class="v41-pill"><span>Mission Posture</span><b>SIMULATION ONLY</b></div>
+      <div class="v41-pill"><span>Binding</span><b>LOCALHOST</b></div>
+      <div class="v41-pill"><span>Release</span><b>v0.41A UI</b></div>
+    </div>
+    <div class="v41-core-radar"></div>
+  </div>
+  <div class="v41-signal-board">
+    <h2>Mission Signal Flow</h2>
+    <p>
+      Flussi logici: mission portal → visual cockpit → world journey → RF instruments →
+      global launcher → golden check → evidence chain.
+    </p>
+    <div class="v41-signal-lines">
+      <div class="v41-signal-line"></div>
+      <div class="v41-signal-line"></div>
+      <div class="v41-signal-line"></div>
+      <div class="v41-signal-line"></div>
+    </div>
+  </div>
+</section>
+
 <section class="command-layout">
   <div class="command-map">
     <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
@@ -280,7 +313,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.40A · Executive Mission Dashboard · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.41A · Executive Visual Polish / Cinematic Mission UI · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -345,5 +378,6 @@ loadAll().catch(e=>{document.getElementById("runtime").textContent=JSON.stringif
 setInterval(loadAll,30000);
 </script>
 <script defer src="/assets/trfmc_enterprise_shell_v34.js"></script>
+<script defer src="/assets/trfmc_executive_visual_polish_v41.js"></script>
 </body>
 </html>
