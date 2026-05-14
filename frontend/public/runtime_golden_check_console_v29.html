@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<title>TRFMC v0.29 Runtime Golden Check Console</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+:root{
+  --bg:#020711;
+  --panel:rgba(5,18,31,.86);
+  --line:rgba(88,214,249,.24);
+  --cyan:#58d6f9;
+  --text:#edf8ff;
+  --muted:#8da4b3;
+  --green:#3fb950;
+  --amber:#d29922;
+  --red:#ff4d6d;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 12% 8%,rgba(88,214,249,.18),transparent 28%),
+    radial-gradient(circle at 80% 12%,rgba(63,185,80,.10),transparent 25%),
+    radial-gradient(circle at 50% 92%,rgba(210,153,34,.10),transparent 28%),
+    linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+  font-family:Consolas,ui-monospace,monospace;
+  padding:18px;
+}
+header,.panel,.kpi,.tile{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:18px;
+  box-shadow:0 0 38px rgba(88,214,249,.08);
+}
+header{
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+h1{margin:0;color:var(--cyan);font-size:25px;letter-spacing:1px}
+p{color:var(--muted);font-size:12px;line-height:1.45}
+.badge{
+  border:1px solid rgba(88,214,249,.36);
+  color:var(--cyan);
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.badge.ok{color:var(--green);border-color:rgba(63,185,80,.55)}
+.badge.warn{color:var(--amber);border-color:rgba(210,153,34,.55)}
+.toolbar,.kpis,.grid{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}
+button,a{
+  border:1px solid rgba(88,214,249,.32);
+  background:rgba(88,214,249,.08);
+  color:var(--cyan);
+  border-radius:10px;
+  padding:9px 11px;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+  font-family:inherit;
+}
+button:hover,a:hover{background:rgba(88,214,249,.16)}
+.kpi{
+  flex:1 1 165px;
+  padding:13px;
+}
+.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}
+.kpi b{display:block;margin-top:7px;font-size:17px;overflow:hidden;text-overflow:ellipsis}
+.layout{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:12px;
+}
+.panel{overflow:hidden}
+.panel h2{
+  margin:0;
+  padding:12px 14px;
+  color:var(--cyan);
+  font-size:13px;
+  text-transform:uppercase;
+  border-bottom:1px solid rgba(88,214,249,.14);
+}
+.body{padding:12px}
+.checks{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:9px;
+}
+.check{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.026);
+  border-radius:13px;
+  padding:11px;
+}
+.check.ok{border-color:rgba(63,185,80,.45);background:rgba(63,185,80,.055)}
+.check.warn{border-color:rgba(210,153,34,.55);background:rgba(210,153,34,.055)}
+.check b{display:block;color:var(--cyan);font-size:12px}
+.check span{display:block;color:var(--text);font-size:11px;margin-top:5px}
+.check em{display:block;color:var(--muted);font-size:10px;margin-top:5px;font-style:normal}
+.tile{
+  flex:1 1 240px;
+  padding:13px;
+  min-height:120px;
+}
+.tile b{display:block;color:var(--cyan);margin-bottom:7px}
+.tile span{display:block;color:var(--muted);font-size:11px;line-height:1.4}
+pre{
+  margin:0;
+  max-height:650px;
+  overflow:auto;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.28);
+  border-radius:12px;
+  padding:12px;
+  color:#e8f6ff;
+  font-size:10px;
+  line-height:1.35;
+}
+.oktxt{color:var(--green)}
+.warntxt{color:var(--amber)}
+.errtxt{color:var(--red)}
+footer{
+  margin-top:14px;
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+}
+@media(max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  header{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>TRFMC RUNTIME GOLDEN CHECK CONSOLE</h1>
+    <p>v0.29 · stato runtime · backend health · docs API · frontend HTTP · Git snapshot · Docker/porte · backup checkpoint</p>
+  </div>
+  <div id="badge" class="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh</button>
+  <a href="/portal_index_v19.html">Portal Index</a>
+  <a href="/operator_handbook_console_v23.html">Operator Handbook</a>
+  <a href="/restore_readiness_console_v22.html">Restore</a>
+  <a href="/operational_backup_console_v21.html">Backup</a>
+  <a href="http://127.0.0.1:8000/api/health">Health API</a>
+  <a href="http://127.0.0.1:8000/api/docs/index">Docs API</a>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Overall</span><b id="k_overall">—</b></div>
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Docs API</span><b id="k_docs">—</b></div>
+  <div class="kpi"><span>Git Dirty</span><b id="k_dirty">—</b></div>
+  <div class="kpi"><span>Portal HTTP</span><b id="k_portal">—</b></div>
+  <div class="kpi"><span>Handbook HTTP</span><b id="k_handbook">—</b></div>
+</section>
+
+<section class="grid">
+  <div class="tile"><b>Runtime Contract</b><span>Backend atteso 0.28.0, Docs API 0.28.0, frontend locale su 5173, backend locale su 8000.</span></div>
+  <div class="tile"><b>Golden Point</b><span>Base stabile: v0.28-documentation-content-upgrade-working. La console v0.29 controlla lo stato operativo corrente.</span></div>
+  <div class="tile"><b>Operational Rule</b><span>Se Overall non è OK: non procedere con nuove patch, prima leggere snapshot e log.</span></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Golden Checks</h2>
+    <div class="body"><div id="checks" class="checks">loading...</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>Snapshot Summary</h2>
+    <div class="body"><pre id="summary">loading...</pre></div>
+  </div>
+
+  <div class="panel">
+    <h2>Docker / Ports / Backup</h2>
+    <div class="body"><pre id="host">loading...</pre></div>
+  </div>
+
+  <div class="panel">
+    <h2>Raw Snapshot</h2>
+    <div class="body"><pre id="raw">loading...</pre></div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.29 · Runtime Status / Golden Check Console · snapshot: /runtime_golden_check_snapshot.json
+</footer>
+
+<script>
+const API = 'http://127.0.0.1:8000/api'
+
+async function getJson(url){
+  const r = await fetch(url, {cache:'no-store'})
+  if(!r.ok) throw new Error(url + ' HTTP ' + r.status)
+  return await r.json()
+}
+
+function set(id,v){document.getElementById(id).textContent = v ?? '—'}
+function cls(ok){return ok ? 'ok' : 'warn'}
+
+function renderChecks(checks){
+  const el = document.getElementById('checks')
+  el.innerHTML = ''
+  for(const c of checks || []){
+    const d = document.createElement('div')
+    d.className = 'check ' + cls(c.ok)
+    d.innerHTML = `
+      <b>${c.ok ? 'OK' : 'ATTENTION'} · ${c.name}</b>
+      <span>value: ${String(c.value ?? '—')}</span>
+      <em>expected: ${String(c.expected ?? '—')}</em>
+    `
+    el.appendChild(d)
+  }
+}
+
+function compact(snapshot){
+  return {
+    service: snapshot.service,
+    timestamp: snapshot.timestamp,
+    overall_status: snapshot.overall_status,
+    release_context: snapshot.release_context,
+    frontend_http: snapshot.frontend_http,
+    backup: snapshot.backup
+  }
+}
+
+async function loadAll(){
+  const health = await getJson(API + '/health')
+  const docs = await getJson(API + '/docs/index')
+  const portal = await getJson(API + '/portal/health-summary')
+  const snapshot = await getJson('/runtime_golden_check_snapshot.json?nocache=' + Date.now())
+
+  const ok = snapshot.overall_status === 'OK'
+  const badge = document.getElementById('badge')
+  badge.textContent = ok ? 'GOLDEN CHECK OK' : 'ATTENTION REQUIRED'
+  badge.className = 'badge ' + (ok ? 'ok' : 'warn')
+
+  set('k_overall', snapshot.overall_status)
+  set('k_backend', health.version)
+  set('k_docs', docs.version + ' / ' + docs.count)
+  set('k_dirty', snapshot.release_context?.git_dirty_files)
+  set('k_portal', snapshot.frontend_http?.portal_index_v19)
+  set('k_handbook', snapshot.frontend_http?.operator_handbook_v23)
+
+  renderChecks(snapshot.checks)
+
+  document.getElementById('summary').textContent = JSON.stringify({
+    live_health: health,
+    live_docs_version: docs.version,
+    live_docs_count: docs.count,
+    live_portal_summary: {
+      service: portal.service,
+      version: portal.version,
+      overall_status: portal.overall_status,
+      pages_active: portal.pages_active,
+      api_endpoints_indexed: portal.api_endpoints_indexed,
+      high_value_counts: portal.high_value_counts
+    },
+    snapshot: compact(snapshot)
+  }, null, 2)
+
+  document.getElementById('host').textContent = JSON.stringify({
+    docker_ps: snapshot.host?.docker_ps,
+    ports: snapshot.host?.ports,
+    backup: snapshot.backup,
+    git_status_short: snapshot.host?.git_status_short
+  }, null, 2)
+
+  document.getElementById('raw').textContent = JSON.stringify(snapshot, null, 2)
+}
+
+loadAll().catch(e=>{
+  const badge = document.getElementById('badge')
+  badge.textContent = 'ERROR'
+  badge.className = 'badge warn'
+  document.getElementById('summary').textContent = JSON.stringify({error:String(e)}, null, 2)
+})
+setInterval(loadAll, 30000)
+</script>
+</body>
+</html>
