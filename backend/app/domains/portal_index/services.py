@@ -5,7 +5,7 @@ from app.persistence.repositories import PersistenceRepository, CloudEventReposi
 
 
 class PortalIndexService:
-    service_name = "TRFMC_DOCUMENTATION_CONTENT_UPGRADE_V0_28"
+    service_name = "TRFMC_PORTAL_INDEX_GOLDEN_CHECK_INTEGRATION_V0_30"
 
     def now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -132,6 +132,17 @@ class PortalIndexService:
                 "description": "Manuale operativo, architettura corrente, backup/restore, security baseline, release chain e command reference.",
                 "status": "ACTIVE",
             },
+            {
+                "id": "runtime-golden-check",
+                "title": "Runtime Status / Golden Check Console",
+                "version": "v0.29",
+                "path": "/runtime_golden_check_console_v29.html",
+                "url": "http://127.0.0.1:5173/runtime_golden_check_console_v29.html",
+                "category": "runtime",
+                "description": "Console semaforo per backend health, docs API, frontend HTTP, Git, Docker, porte e backup.",
+                "status": "ACTIVE",
+            },
+
         ]
 
     def release_chain(self) -> List[Dict[str, Any]]:
@@ -163,6 +174,8 @@ class PortalIndexService:
             {"version": "v0.26", "title": "Portal Index Interactive Navigation"},
             {"version": "v0.27", "title": "Operator Handbook Interactive Refresh"},
             {"version": "v0.28", "title": "Documentation Content Upgrade"},
+            {"version": "v0.29", "title": "Runtime Status / Golden Check Console"},
+            {"version": "v0.30", "title": "Portal Index Golden Check Integration"},
         ]
 
     def api_endpoints(self) -> List[Dict[str, Any]]:
@@ -211,6 +224,7 @@ class PortalIndexService:
             {"name": "restart", "command": "bash scripts/trfmc_restart.sh"},
             {"name": "status", "command": "bash scripts/trfmc_status.sh"},
             {"name": "verify", "command": "bash scripts/trfmc_verify.sh"},
+            {"name": "golden-check-snapshot", "command": "bash scripts/trfmc_golden_check_snapshot.sh"},
         ]
 
     def index(self) -> Dict[str, Any]:
@@ -219,7 +233,7 @@ class PortalIndexService:
             "timestamp": self.now(),
             "project": "Telco RF Mission Control Platform",
             "short_name": "TRFMC",
-            "version": "0.28.0",
+            "version": "0.30.0",
             "operational_mode": "SIMULATION_ONLY",
             "frontend_base": "http://127.0.0.1:5173",
             "backend_base": "http://127.0.0.1:8000",
@@ -254,7 +268,7 @@ class PortalIndexService:
             "service": self.service_name,
             "timestamp": self.now(),
             "overall_status": "OK" if persistence.get("exists") else "ATTENTION_REQUIRED",
-            "version": "0.28.0",
+            "version": "0.30.0",
             "persistence": persistence,
             "event_count_sample": event_count,
             "high_value_counts": {

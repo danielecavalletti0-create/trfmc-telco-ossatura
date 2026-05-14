@@ -35,8 +35,8 @@ BACKUP_HTTP="$(http_code http://127.0.0.1:5173/operational_backup_console_v21.ht
 DOCKER_PS="$(sudo -n docker ps --format '{{.Names}}	{{.Image}}	{{.Status}}	{{.Ports}}' 2>/dev/null || docker ps --format '{{.Names}}	{{.Image}}	{{.Status}}	{{.Ports}}' 2>/dev/null || true)"
 PORTS="$(sudo -n ss -ltnp 2>/dev/null | grep -E ':(8000|5173)\b' || ss -ltnp 2>/dev/null | grep -E ':(8000|5173)\b' || true)"
 
-LATEST_BACKUP="$(ls -1t /home/sentinel/Scaricati/trfmc_full_project_backup_v28_*.tar.gz 2>/dev/null | head -n 1 || true)"
-LATEST_MANIFEST="$(ls -1t /home/sentinel/Scaricati/trfmc_full_project_backup_v28_*_manifest.txt 2>/dev/null | head -n 1 || true)"
+LATEST_BACKUP="$(ls -1t /home/sentinel/Scaricati/trfmc_full_project_backup_v*.tar.gz 2>/dev/null | head -n 1 || true)"
+LATEST_MANIFEST="$(ls -1t /home/sentinel/Scaricati/trfmc_full_project_backup_v*_manifest.txt 2>/dev/null | head -n 1 || true)"
 BACKUP_SHA=""
 if [ -n "$LATEST_BACKUP" ] && [ -f "$LATEST_BACKUP" ]; then
   BACKUP_SHA="$(sha256sum "$LATEST_BACKUP" | awk '{print $1}')"
@@ -80,15 +80,15 @@ backup_http = os.environ.get("BACKUP_HTTP", "000")
 checks = [
     {
         "name": "backend_health_version",
-        "ok": health.get("version") == "0.28.0",
+        "ok": health.get("version") == "0.30.0",
         "value": health.get("version"),
-        "expected": "0.28.0",
+        "expected": "0.30.0",
     },
     {
         "name": "docs_api_version",
-        "ok": docs.get("version") == "0.28.0",
+        "ok": docs.get("version") == "0.30.0",
         "value": docs.get("version"),
-        "expected": "0.28.0",
+        "expected": "0.30.0",
     },
     {
         "name": "docs_count",
@@ -143,14 +143,14 @@ checks = [
 overall_ok = all(c["ok"] for c in checks)
 
 payload = {
-    "service": "TRFMC_RUNTIME_STATUS_GOLDEN_CHECK_CONSOLE_V0_29",
+    "service": "TRFMC_PORTAL_INDEX_GOLDEN_CHECK_INTEGRATION_V0_30",
     "timestamp": datetime.now(timezone.utc).isoformat(),
     "overall_status": "OK" if overall_ok else "ATTENTION_REQUIRED",
     "project": "Telco RF Mission Control Platform",
     "release_context": {
         "current_feature_branch": branch,
         "base_runtime_version": health.get("version"),
-        "console_version": "0.29.0",
+        "console_version": "0.30.0",
         "head": head,
         "tags_on_head": tags,
         "git_dirty_files": dirty_count,

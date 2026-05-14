@@ -34,8 +34,8 @@ bootstrap_database()
 
 app = FastAPI(
     title="TRFMC Full Telco Skeleton",
-    version="0.28.0",
-    description="Telco RF Mission Control Platform — documentation content upgrade.",
+    version="0.30.0",
+    description="Telco RF Mission Control Platform — portal index golden check integration.",
 )
 
 app.add_middleware(
@@ -52,7 +52,7 @@ def health():
     return {
         "status": "ok",
         "project": settings.project_name,
-        "version": "0.28.0",
+        "version": "0.30.0",
         "environment": settings.env,
         "operational_mode": settings.operational_mode,
         "restricted_enabled": settings.restricted_enabled,

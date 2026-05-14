@@ -12,7 +12,7 @@ mkdir -p logs
   echo "Data: $(date)"
   echo "============================================================"
 
-  sudo docker rm -f \
+  sudo docker rm -f trfmc_frontend_v30 trfmc_backend_v30 trfmc_frontend_v29 trfmc_backend_v29 \
     trfmc_backend_v02 \
     trfmc_backend_v03 \
     trfmc_backend_v04 \
