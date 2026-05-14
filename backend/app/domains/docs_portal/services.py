@@ -4,7 +4,7 @@ from typing import Any, Dict, List
 
 
 class DocsPortalService:
-    service_name = "TRFMC_OPERATOR_HANDBOOK_DOCUMENTATION_CONSOLE_V0_23"
+    service_name = "TRFMC_DOCUMENTATION_CONTENT_UPGRADE_V0_28"
 
     def __init__(self):
         self.docs_root = Path("/app/docs")
@@ -36,7 +36,7 @@ class DocsPortalService:
         return {
             "service": self.service_name,
             "timestamp": self.now(),
-            "version": "0.23.0",
+            "version": "0.28.0",
             "docs_root": str(self.docs_root),
             "count": len(documents),
             "documents": documents,
@@ -53,7 +53,7 @@ class DocsPortalService:
         return {
             "service": self.service_name,
             "timestamp": self.now(),
-            "version": "0.23.0",
+            "version": "0.28.0",
             "document": doc,
             "content_type": "text/markdown",
             "content": content,

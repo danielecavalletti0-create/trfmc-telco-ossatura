@@ -5,7 +5,7 @@ from app.persistence.repositories import PersistenceRepository, CloudEventReposi
 
 
 class PortalIndexService:
-    service_name = "TRFMC_PORTAL_INDEX_DOCS_NAVIGATION_V0_24"
+    service_name = "TRFMC_DOCUMENTATION_CONTENT_UPGRADE_V0_28"
 
     def now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -159,6 +159,10 @@ class PortalIndexService:
             {"version": "v0.22", "title": "Restore Readiness & Disaster Recovery Drill"},
             {"version": "v0.23", "title": "Operator Handbook & Documentation Console"},
             {"version": "v0.24", "title": "Portal Index Docs Navigation"},
+            {"version": "v0.25", "title": "Portal Index Visual Refresh"},
+            {"version": "v0.26", "title": "Portal Index Interactive Navigation"},
+            {"version": "v0.27", "title": "Operator Handbook Interactive Refresh"},
+            {"version": "v0.28", "title": "Documentation Content Upgrade"},
         ]
 
     def api_endpoints(self) -> List[Dict[str, Any]]:
@@ -215,7 +219,7 @@ class PortalIndexService:
             "timestamp": self.now(),
             "project": "Telco RF Mission Control Platform",
             "short_name": "TRFMC",
-            "version": "0.24.0",
+            "version": "0.28.0",
             "operational_mode": "SIMULATION_ONLY",
             "frontend_base": "http://127.0.0.1:5173",
             "backend_base": "http://127.0.0.1:8000",
@@ -250,7 +254,7 @@ class PortalIndexService:
             "service": self.service_name,
             "timestamp": self.now(),
             "overall_status": "OK" if persistence.get("exists") else "ATTENTION_REQUIRED",
-            "version": "0.24.0",
+            "version": "0.28.0",
             "persistence": persistence,
             "event_count_sample": event_count,
             "high_value_counts": {

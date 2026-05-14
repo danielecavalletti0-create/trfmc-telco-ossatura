@@ -24,3 +24,65 @@ v0.21  Operational Backup & Recovery Control
 v0.22  Restore Readiness & Disaster Recovery Drill
 v0.23  Operator Handbook & Documentation Console
 ```
+
+## v0.28 Release Chain Upgrade
+
+### Release recenti
+
+```text
+v0.23  Operator Handbook & Documentation Console
+v0.24  Portal Index Docs Navigation
+v0.25  Portal Index Visual Refresh
+v0.26  Portal Index Interactive Navigation
+v0.27  Operator Handbook Interactive Refresh
+v0.28  Documentation Content Upgrade
+```
+
+### v0.25
+
+```text
+refresh visuale Portal Index
+mission tiles
+documentation catalog
+Docs KPI
+frontend-only
+```
+
+### v0.26
+
+```text
+ricerca console
+filtro categoria console
+ricerca API
+filtro dominio API
+Interactive API Catalog
+frontend-only
+```
+
+### v0.27
+
+```text
+Operator Handbook interattivo
+ricerca documenti
+viewer Markdown
+Raw API link
+reload documento selezionato
+frontend-only
+```
+
+### v0.28
+
+```text
+contenuti documentali operativi estesi
+runbook operativo
+backup/restore operativo
+security baseline estesa
+architecture current state
+command reference avanzato
+release chain aggiornata
+richiede rebuild backend per aggiornare /app/docs
+```
+
+### Regola di release
+
+Ogni release stabile deve avere branch dedicato, commit atomico, tag working, backup progetto, health check, frontend HTTP check e working tree pulito.
