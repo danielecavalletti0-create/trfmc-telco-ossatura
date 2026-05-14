@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<title>TRFMC v0.35 RF/Telco Mission Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css"/>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
+<style>
+:root{--panel:rgba(5,18,31,.86);--line:rgba(88,214,249,.24);--cyan:#58d6f9;--green:#3fb950;--amber:#d29922;--red:#ff4d6d;--text:#edf8ff;--muted:#8da4b3}
+*{box-sizing:border-box}
+body{margin:0;color:var(--text);font-family:Consolas,ui-monospace,monospace;padding:18px}
+.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(88,214,249,.13),rgba(163,113,247,.06)),var(--panel);border-radius:24px;padding:22px;box-shadow:0 0 46px rgba(88,214,249,.10);overflow:hidden;position:relative}
+.hero h1{margin:0;color:var(--cyan);font-size:30px;letter-spacing:1.4px}
+.hero p{max-width:1120px;color:var(--muted);line-height:1.55}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:16px}
+.mission-map{border:1px solid rgba(88,214,249,.22);border-radius:20px;background:rgba(0,0,0,.20);min-height:380px;position:relative;overflow:hidden}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(88,214,249,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(88,214,249,.08) 1px,transparent 1px);background-size:38px 38px;opacity:.45}
+.orbit{position:absolute;border:1px solid rgba(88,214,249,.22);border-radius:50%;animation:pulse 4s infinite ease-in-out}
+.o1{width:210px;height:210px;left:9%;top:18%}.o2{width:280px;height:280px;left:34%;top:8%;animation-delay:.8s}.o3{width:230px;height:230px;right:10%;bottom:10%;animation-delay:1.4s}
+.node{position:absolute;border:1px solid rgba(88,214,249,.48);background:rgba(88,214,249,.14);box-shadow:0 0 28px rgba(88,214,249,.18);border-radius:14px;padding:10px;font-size:11px;color:var(--text);backdrop-filter:blur(10px)}
+.n1{left:7%;top:42%}.n2{left:39%;top:24%}.n3{right:9%;top:45%}.n4{left:45%;bottom:11%}
+.link{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(88,214,249,.72),transparent);transform-origin:left center;opacity:.8}
+.l1{left:17%;top:48%;width:285px;transform:rotate(-17deg)}.l2{left:49%;top:33%;width:320px;transform:rotate(18deg)}.l3{left:50%;top:63%;width:250px;transform:rotate(-8deg)}
+@keyframes pulse{0%,100%{opacity:.35;transform:scale(.98)}50%{opacity:.9;transform:scale(1.03)}}
+.status-board{display:grid;gap:10px}
+.kpi{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:16px;padding:13px}
+.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}.kpi b{display:block;color:var(--cyan);font-size:18px;margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:14px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:15px;box-shadow:0 0 34px rgba(88,214,249,.07)}
+.card h2{margin:0 0 8px;color:var(--cyan);font-size:14px;text-transform:uppercase;letter-spacing:.8px}
+.card p{color:var(--muted);font-size:12px;line-height:1.5}
+.card ul{margin:10px 0 0;padding-left:18px;color:var(--text);font-size:11px;line-height:1.6}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions a{border:1px solid rgba(88,214,249,.34);background:rgba(88,214,249,.08);color:var(--cyan);border-radius:999px;padding:8px 10px;font-weight:900;text-decoration:none;font-size:10px}
+.panel{border:1px solid var(--line);background:var(--panel);border-radius:18px;margin-top:14px;overflow:hidden}
+.panel h2{margin:0;padding:12px 14px;color:var(--cyan);border-bottom:1px solid rgba(88,214,249,.15);font-size:13px;text-transform:uppercase}
+pre{margin:0;max-height:390px;overflow:auto;background:rgba(0,0,0,.24);padding:12px;color:#e8f6ff;font-size:10px;line-height:1.4}
+footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
+@media(max-width:1050px){.hero-grid{grid-template-columns:1fr}.mission-map{min-height:310px}.hero h1{font-size:24px}}
+</style>
+</head>
+<body class="trfmc-enterprise-shell">
+<section class="hero">
+  <h1>TRFMC RF/TELCO MISSION PORTAL</h1>
+  <p>
+    v0.35 · ingresso strategico del laboratorio Telco/RF/Cyber: rete locale, trasporto nazionale, dorsale globale,
+    simulazioni RF, evidenze operative, sicurezza, backup, restore e Golden Check.
+  </p>
+
+  <div class="hero-grid">
+    <div class="mission-map">
+      <div class="map-grid"></div>
+      <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
+      <div class="link l1"></div><div class="link l2"></div><div class="link l3"></div>
+      <div class="node n1">UE / EDGE<br><b>Local Access</b></div>
+      <div class="node n2">gNB / RAN<br><b>RF Layer</b></div>
+      <div class="node n3">CORE / WAN<br><b>National Fabric</b></div>
+      <div class="node n4">GLOBAL / NTN<br><b>Mission Path</b></div>
+    </div>
+
+    <div class="status-board">
+      <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+      <div class="kpi"><span>Golden Check</span><b id="k_golden">—</b></div>
+      <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+      <div class="kpi"><span>RF Runs</span><b id="k_rf">—</b></div>
+      <div class="kpi"><span>Indexed Pages</span><b id="k_pages">—</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card">
+    <h2>1 · Local / Edge Network</h2>
+    <p>Ingresso per scenari UE, edge, accesso locale, percorsi di rete, latenza, policy e stato operativo.</p>
+    <ul><li>UE remoto e asset digital twin</li><li>Network Journey</li><li>Timeline e replay</li></ul>
+    <div class="actions"><a href="/timeline_console_v14.html">Timeline</a><a href="/mission_graph_console_v15.html">Mission Graph</a></div>
+  </div>
+
+  <div class="card">
+    <h2>2 · RF / RAN Simulation</h2>
+    <p>Accesso alle simulazioni RF, campo, copertura urbana, ostacoli, Fresnel, antenna e link budget.</p>
+    <ul><li>Maxwell / Plane Wave</li><li>FSPL + urban obstruction</li><li>n78 / 3.5 GHz lab path</li></ul>
+    <div class="actions"><a href="/observability_console_v13.html">Observability</a><a href="/scenario_runner_console_v16.html">Run Scenario</a></div>
+  </div>
+
+  <div class="card">
+    <h2>3 · National / Global Transport</h2>
+    <p>Strato concettuale per dorsale nazionale, WAN, GWAN, peering, transito globale e scenari intercontinentali.</p>
+    <ul><li>Core path</li><li>Global mission route</li><li>future NTN / satellite layer</li></ul>
+    <div class="actions"><a href="/portal_index_v19.html">Portal Index</a><a href="/scenario_report_console_v17.html">Reports</a></div>
+  </div>
+
+  <div class="card">
+    <h2>4 · Evidence / Security / Continuity</h2>
+    <p>Area di controllo per sicurezza, evidenze, backup, restore readiness e Golden Check.</p>
+    <ul><li>Security baseline</li><li>Evidence vault</li><li>Recovery chain</li></ul>
+    <div class="actions"><a href="/security_console_v18.html">Security</a><a href="/runtime_golden_check_console_v29.html">Golden Check</a></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Mission Runtime Snapshot</h2>
+  <pre id="runtime">loading...</pre>
+</section>
+
+<section class="panel">
+  <h2>Next Expansion Roadmap</h2>
+  <pre>
+v0.36  RF/Telco visual scenario cockpit
+v0.37  Local / national / global network journey map
+v0.38  RF instrumentation and signal-analysis entry point
+v0.39  Scenario mission launcher with geographic profiles
+v0.40  Executive mission dashboard and evidence cockpit
+  </pre>
+</section>
+
+<footer>TRFMC v0.35 · RF/Telco Mission Portal Entry Point · localhost-only · simulation-only</footer>
+
+<script>
+const API="http://127.0.0.1:8000/api";
+async function getJson(url){const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw new Error(url+" HTTP "+r.status);return await r.json();}
+function set(id,v){document.getElementById(id).textContent=v??"—";}
+async function loadAll(){
+  const health=await getJson(API+"/health");
+  const portal=await getJson(API+"/portal/health-summary");
+  const docs=await getJson(API+"/docs/index");
+  const snap=await getJson("/runtime_golden_check_snapshot.json?nocache="+Date.now());
+
+  set("k_backend",health.version+" · "+health.operational_mode);
+  set("k_golden",snap.overall_status+" · "+(snap.checks||[]).length+" checks");
+  set("k_events",portal.high_value_counts?.cloud_events);
+  set("k_rf",(portal.high_value_counts?.rf_coverage_runs??"—")+" cov / "+(portal.high_value_counts?.rf_field_runs??"—")+" field");
+  set("k_pages",portal.pages_active);
+
+  document.getElementById("runtime").textContent=JSON.stringify({health, portal, docs, golden_snapshot:snap},null,2);
+}
+loadAll().catch(e=>{document.getElementById("runtime").textContent=JSON.stringify({error:String(e)},null,2);});
+setInterval(loadAll,30000);
+</script>
+<script defer src="/assets/trfmc_enterprise_shell_v34.js"></script>
+</body>
+</html>
