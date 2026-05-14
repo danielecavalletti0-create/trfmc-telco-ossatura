@@ -6,6 +6,7 @@
   const NAV = [
     { label: "Portal", href: "/portal_index_v19.html" },
     { label: "RF/Telco", href: "/rf_telco_mission_portal_v35.html" },
+    { label: "RF Cockpit", href: "/rf_telco_visual_cockpit_v36.html" },
     { label: "Golden", href: "/runtime_golden_check_console_v29.html" },
     { label: "Handbook", href: "/operator_handbook_console_v23.html" },
     { label: "Security", href: "/security_console_v18.html" },
