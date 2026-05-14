@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="utf-8"/>
-  <title>TRFMC v0.19 Unified Portal Index</title>
+  <title>TRFMC v0.25 Mission Control Portal Index</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
     :root {
@@ -130,6 +130,62 @@
       font-size:10px;
       line-height:1.35;
     }
+    .mission-strip {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:10px;
+      margin:14px 0;
+    }
+    .mission-tile {
+      border:1px solid rgba(88,214,249,.22);
+      background:
+        linear-gradient(135deg,rgba(88,214,249,.09),rgba(255,255,255,.025)),
+        rgba(5,18,31,.72);
+      border-radius:16px;
+      padding:14px;
+      min-height:118px;
+      box-shadow:0 0 32px rgba(88,214,249,.06);
+    }
+    .mission-tile b {
+      display:block;
+      color:var(--cyan);
+      font-size:13px;
+      margin-bottom:7px;
+      text-transform:uppercase;
+    }
+    .mission-tile span {
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.45;
+    }
+    .mission-tile .links {
+      margin-top:12px;
+    }
+    .card.priority {
+      border-color:rgba(63,185,80,.45);
+      background:
+        linear-gradient(135deg,rgba(63,185,80,.10),rgba(88,214,249,.045)),
+        rgba(255,255,255,.028);
+      box-shadow:0 0 30px rgba(63,185,80,.08);
+    }
+    .docgrid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:8px;
+      max-height:660px;
+      overflow:auto;
+    }
+    .docitem {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.17);
+      border-radius:12px;
+      padding:10px;
+      font-size:10px;
+    }
+    .docitem b { color:var(--cyan); display:block; margin-bottom:5px; }
+    .docitem span { color:var(--text); display:block; line-height:1.35; }
+    .docitem em { color:var(--muted); display:block; font-style:normal; margin-top:5px; }
     .release {
       display:grid;
       gap:7px;
@@ -160,8 +216,8 @@
 <body>
 <header>
   <div>
-    <h1>TRFMC UNIFIED PORTAL INDEX</h1>
-    <p>v0.19 · navigazione unica · console operative · health summary · release chain · API index</p>
+    <h1>TRFMC MISSION CONTROL PORTAL INDEX</h1>
+    <p>v0.25 · mission navigation · operator handbook · docs API · release chain · operational consoles</p>
   </div>
   <div class="badge" id="badge">BOOT</div>
 </header>
@@ -172,6 +228,9 @@
   <a class="btn" href="/security_console_v18.html">Security</a>
   <a class="btn" href="/scenario_runner_console_v16.html">Run Scenario</a>
   <a class="btn" href="/scenario_report_console_v17.html">Reports</a>
+  <a class="btn" href="/operator_handbook_console_v23.html">Operator Handbook</a>
+  <a class="btn" href="/restore_readiness_console_v22.html">Restore</a>
+  <a class="btn" href="/operational_backup_console_v21.html">Backup</a>
 </section>
 
 <section class="kpis">
@@ -179,8 +238,27 @@
   <div class="kpi"><span>Overall</span><b id="k_overall">—</b></div>
   <div class="kpi"><span>Pages</span><b id="k_pages">—</b></div>
   <div class="kpi"><span>API Endpoints</span><b id="k_api">—</b></div>
+  <div class="kpi"><span>Docs</span><b id="k_docs">—</b></div>
   <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
   <div class="kpi"><span>Assets</span><b id="k_assets">—</b></div>
+</section>
+
+<section class="mission-strip">
+  <div class="mission-tile">
+    <b>Operator Knowledge Base</b>
+    <span>Accesso rapido a manuale operativo, architettura, comandi, release chain e baseline sicurezza.</span>
+    <div class="links"><a class="btn" href="/operator_handbook_console_v23.html">Open Handbook</a></div>
+  </div>
+  <div class="mission-tile">
+    <b>Recovery & Continuity</b>
+    <span>Restore readiness, backup runtime/progetto, drill non distruttivo e catena di recuperabilità.</span>
+    <div class="links"><a class="btn" href="/restore_readiness_console_v22.html">Restore Console</a></div>
+  </div>
+  <div class="mission-tile">
+    <b>API Surface</b>
+    <span>Indice operativo degli endpoint core, portal, docs, security, vault, backup e restore.</span>
+    <div class="links"><a class="btn" href="http://127.0.0.1:8000/api/portal/index">Portal API</a></div>
+  </div>
 </section>
 
 <section class="layout">
@@ -211,10 +289,17 @@
       <pre id="commands">loading...</pre>
     </div>
   </div>
+
+  <div class="panel">
+    <h2>Documentation Catalog</h2>
+    <div class="body">
+      <div id="docs" class="docgrid">loading...</div>
+    </div>
+  </div>
 </section>
 
 <footer>
-  TRFMC v0.19 · API: /api/portal/index · /api/portal/pages · /api/portal/health-summary
+  TRFMC v0.25 · Mission Control Index · /api/portal/index · /api/docs/index · /api/portal/health-summary
 </footer>
 
 <script>
@@ -234,7 +319,7 @@ function renderPages(pages) {
   el.innerHTML = ''
   for (const p of pages) {
     const div = document.createElement('div')
-    div.className = 'card'
+    div.className = 'card' + (p.category === 'documentation' ? ' priority' : '')
     div.innerHTML = `
       <div>
         <b>${p.version} · ${p.title}</b>
@@ -260,10 +345,28 @@ function renderReleases(releases) {
   }
 }
 
+
+function renderDocs(docs) {
+  const el = document.getElementById('docs')
+  if (!el) return
+  el.innerHTML = ''
+  for (const d of docs.documents || []) {
+    const div = document.createElement('div')
+    div.className = 'docitem'
+    div.innerHTML = `
+      <b>${d.title}</b>
+      <span>${d.description}</span>
+      <em>${d.endpoint} · ${d.exists ? 'OK' : 'MISSING'} · ${d.size_bytes} bytes</em>
+    `
+    el.appendChild(div)
+  }
+}
+
 async function loadAll() {
   const health = await get('/health')
   const index = await get('/portal/index')
   const summary = await get('/portal/health-summary')
+  const docs = await get('/docs/index')
 
   document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
 
@@ -271,6 +374,7 @@ async function loadAll() {
   k('k_overall', summary.overall_status)
   k('k_pages', summary.pages_active)
   k('k_api', summary.api_endpoints_indexed)
+  k('k_docs', docs.count)
   k('k_events', summary.high_value_counts.cloud_events)
   k('k_assets', summary.high_value_counts.assets)
 
