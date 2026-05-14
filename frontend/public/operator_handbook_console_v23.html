@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<title>TRFMC v0.23 Operator Handbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+:root{--bg:#020711;--panel:rgba(5,18,31,.88);--line:rgba(88,214,249,.25);--cyan:#58d6f9;--text:#edf8ff;--muted:#8da4b3;--green:#3fb950;}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 5%,rgba(88,214,249,.16),transparent 28%),linear-gradient(135deg,#020711,#06111d 55%,#02040a);color:var(--text);font-family:Consolas,ui-monospace,monospace;padding:18px}
+header,.panel,.kpi{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:16px;box-shadow:0 0 34px rgba(88,214,249,.08)}
+h1{margin:0;color:var(--cyan);font-size:25px;letter-spacing:1px}
+h2{margin:0 0 12px;color:var(--cyan);font-size:14px;text-transform:uppercase}
+p,span,em{color:var(--muted)}
+.toolbar,.kpis{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+button,a{border:1px solid rgba(88,214,249,.35);background:rgba(88,214,249,.08);color:var(--cyan);border-radius:10px;padding:9px 11px;font-weight:900;text-decoration:none;cursor:pointer;font-family:inherit}
+.layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:12px}
+.doc{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px;margin-bottom:8px;cursor:pointer;background:rgba(255,255,255,.025)}
+.doc:hover{border-color:rgba(88,214,249,.45);background:rgba(88,214,249,.07)}
+.doc b{color:var(--cyan)}
+.ok{color:var(--green)}
+pre{white-space:pre-wrap;overflow:auto;max-height:720px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;color:#e8f6ff;font-size:12px;line-height:1.45}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>TRFMC Operator Handbook & Documentation Console</h1>
+<p>v0.23 · manuale operativo · architettura · backup/restore · release chain · security baseline · command reference</p>
+</header>
+<section class="toolbar">
+<button onclick="loadAll()">Refresh</button>
+<a href="/portal_index_v19.html">Portal Index</a>
+<a href="/restore_readiness_console_v22.html">Restore Readiness</a>
+<a href="/operational_backup_console_v21.html">Backup Console</a>
+<a href="/security_console_v18.html">Security</a>
+</section>
+<section class="kpis">
+<div class="kpi"><span>Backend</span><br><b id="k_backend">—</b></div>
+<div class="kpi"><span>Mode</span><br><b id="k_mode">—</b></div>
+<div class="kpi"><span>Docs</span><br><b id="k_docs">—</b></div>
+<div class="kpi"><span>Selected</span><br><b id="k_selected">—</b></div>
+</section>
+<section class="layout">
+<div class="panel"><h2>Documentation Index</h2><div id="docs">loading...</div></div>
+<div class="panel"><h2>Document Viewer</h2><pre id="viewer">loading...</pre></div>
+</section>
+<script>
+const API="http://127.0.0.1:8000/api";
+async function get(p){const r=await fetch(API+p);if(!r.ok)throw new Error(p+" HTTP "+r.status);return await r.json();}
+function set(id,v){document.getElementById(id).textContent=v??"—";}
+async function loadDoc(endpoint,title){const d=await get(endpoint.replace("/api",""));set("k_selected",title);set("viewer",d.content);}
+async function loadAll(){
+ const h=await get("/health");
+ const idx=await get("/docs/index");
+ set("k_backend",h.version);set("k_mode",h.operational_mode);set("k_docs",idx.count);
+ const box=document.getElementById("docs");box.innerHTML="";
+ for(const d of idx.documents){
+  const div=document.createElement("div");div.className="doc";
+  div.innerHTML=`<b>${d.title}</b><br><span>${d.description}</span><br><em>${d.endpoint} · ${d.exists?"OK":"MISSING"} · ${d.size_bytes} bytes</em>`;
+  div.onclick=()=>loadDoc(d.endpoint,d.title);box.appendChild(div);
+ }
+ if(idx.documents.length){await loadDoc(idx.documents[0].endpoint,idx.documents[0].title);}
+}
+loadAll().catch(e=>{set("k_backend","ERROR");set("viewer",JSON.stringify({error:String(e)},null,2));});
+</script>
+</body>
+</html>
