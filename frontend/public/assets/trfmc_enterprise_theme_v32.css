@@ -1,0 +1,287 @@
+/*
+  TRFMC v0.32 - Unified Enterprise Theme Foundation
+  Scope: shared visual baseline for Mission Control, Docs, Golden Check and future RF/Telco consoles.
+*/
+
+:root {
+  --trfmc-bg-0:#020711;
+  --trfmc-bg-1:#06111d;
+  --trfmc-bg-2:#02040a;
+
+  --trfmc-panel:rgba(5,18,31,.86);
+  --trfmc-panel-strong:rgba(6,22,38,.94);
+  --trfmc-panel-soft:rgba(255,255,255,.035);
+
+  --trfmc-line:rgba(88,214,249,.24);
+  --trfmc-line-strong:rgba(88,214,249,.46);
+  --trfmc-line-soft:rgba(255,255,255,.08);
+
+  --trfmc-cyan:#58d6f9;
+  --trfmc-blue:#2f81f7;
+  --trfmc-green:#3fb950;
+  --trfmc-amber:#d29922;
+  --trfmc-red:#ff4d6d;
+  --trfmc-violet:#a371f7;
+
+  --trfmc-text:#edf8ff;
+  --trfmc-muted:#8da4b3;
+
+  --trfmc-radius-xl:22px;
+  --trfmc-radius-lg:16px;
+  --trfmc-radius-md:12px;
+  --trfmc-shadow-cyan:0 0 42px rgba(88,214,249,.10);
+  --trfmc-shadow-deep:0 22px 80px rgba(0,0,0,.36);
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  min-height:100%;
+  background:#020711;
+}
+
+body {
+  min-height:100vh;
+  color:var(--trfmc-text) !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(88,214,249,.18), transparent 28%),
+    radial-gradient(circle at 82% 12%, rgba(163,113,247,.13), transparent 26%),
+    radial-gradient(circle at 52% 95%, rgba(63,185,80,.08), transparent 34%),
+    linear-gradient(135deg,var(--trfmc-bg-0),var(--trfmc-bg-1) 52%,var(--trfmc-bg-2)) !important;
+  isolation:isolate;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.34;
+  background-image:
+    linear-gradient(rgba(88,214,249,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88,214,249,.08) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(circle at 50% 20%, black, transparent 74%);
+}
+
+body::after {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(88,214,249,.055) 42%, transparent 64%);
+  opacity:.42;
+}
+
+body > * {
+  position:relative;
+  z-index:1;
+}
+
+header {
+  border:1px solid var(--trfmc-line) !important;
+  background:
+    linear-gradient(135deg, rgba(88,214,249,.10), rgba(255,255,255,.025)),
+    var(--trfmc-panel-strong) !important;
+  border-radius:var(--trfmc-radius-xl) !important;
+  box-shadow:var(--trfmc-shadow-cyan), var(--trfmc-shadow-deep) !important;
+  backdrop-filter:blur(14px);
+}
+
+header h1,
+h1 {
+  color:var(--trfmc-cyan) !important;
+  letter-spacing:1.1px;
+  text-shadow:0 0 22px rgba(88,214,249,.28);
+}
+
+header p,
+p,
+span,
+em {
+  color:var(--trfmc-muted);
+}
+
+.toolbar {
+  align-items:center;
+}
+
+button,
+a,
+a.btn,
+.control-input {
+  font-family:inherit;
+}
+
+button,
+a.btn,
+.toolbar a,
+.toolbar button,
+.viewer-actions a {
+  border:1px solid rgba(88,214,249,.34) !important;
+  background:
+    linear-gradient(135deg, rgba(88,214,249,.13), rgba(47,129,247,.055)) !important;
+  color:var(--trfmc-cyan) !important;
+  border-radius:12px !important;
+  box-shadow:0 0 18px rgba(88,214,249,.055);
+  text-decoration:none !important;
+}
+
+button:hover,
+a.btn:hover,
+.toolbar a:hover,
+.toolbar button:hover,
+.viewer-actions a:hover {
+  border-color:rgba(88,214,249,.62) !important;
+  background:
+    linear-gradient(135deg, rgba(88,214,249,.22), rgba(47,129,247,.11)) !important;
+  box-shadow:0 0 28px rgba(88,214,249,.14);
+  transform:translateY(-1px);
+}
+
+.kpi,
+.panel,
+.card,
+.doc,
+.docitem,
+.rel,
+.mission-tile,
+.api-item,
+.check,
+.viewer-head {
+  border:1px solid var(--trfmc-line) !important;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.040), rgba(88,214,249,.028)),
+    var(--trfmc-panel) !important;
+  border-radius:var(--trfmc-radius-lg) !important;
+  box-shadow:0 0 34px rgba(88,214,249,.075);
+  backdrop-filter:blur(12px);
+}
+
+.panel h2 {
+  color:var(--trfmc-cyan) !important;
+  letter-spacing:.8px;
+  border-bottom:1px solid rgba(88,214,249,.16) !important;
+}
+
+.kpi b,
+.card b,
+.doc b,
+.docitem b,
+.rel b,
+.mission-tile b,
+.api-item b,
+.check b,
+.viewer-head b {
+  color:var(--trfmc-cyan) !important;
+}
+
+.card:hover,
+.doc:hover,
+.docitem:hover,
+.api-item:hover,
+.mission-tile:hover,
+.check:hover {
+  border-color:var(--trfmc-line-strong) !important;
+  box-shadow:0 0 40px rgba(88,214,249,.14);
+}
+
+pre,
+#viewer,
+#summary,
+#commands {
+  border:1px solid rgba(88,214,249,.18) !important;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.18)),
+    rgba(0,0,0,.24) !important;
+  color:#e8f6ff !important;
+  border-radius:14px !important;
+}
+
+.control-input,
+input,
+select {
+  border:1px solid rgba(88,214,249,.28) !important;
+  background:rgba(0,0,0,.24) !important;
+  color:var(--trfmc-text) !important;
+  border-radius:12px !important;
+}
+
+.control-input:focus,
+input:focus,
+select:focus {
+  outline:none;
+  border-color:rgba(88,214,249,.66) !important;
+  box-shadow:0 0 0 3px rgba(88,214,249,.10);
+}
+
+.chip {
+  border:1px solid rgba(88,214,249,.22) !important;
+  background:rgba(88,214,249,.07) !important;
+  color:var(--trfmc-muted) !important;
+}
+
+.chip.active {
+  border-color:rgba(63,185,80,.56) !important;
+  background:rgba(63,185,80,.13) !important;
+  color:var(--trfmc-green) !important;
+}
+
+.badge,
+.ok,
+.status-ok {
+  color:var(--trfmc-green) !important;
+}
+
+.status-attention,
+.warn {
+  color:var(--trfmc-amber) !important;
+}
+
+.status-error,
+.error {
+  color:var(--trfmc-red) !important;
+}
+
+footer {
+  color:var(--trfmc-muted) !important;
+  opacity:.92;
+}
+
+::selection {
+  background:rgba(88,214,249,.25);
+  color:#ffffff;
+}
+
+::-webkit-scrollbar {
+  width:10px;
+  height:10px;
+}
+
+::-webkit-scrollbar-track {
+  background:rgba(0,0,0,.18);
+}
+
+::-webkit-scrollbar-thumb {
+  background:rgba(88,214,249,.26);
+  border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:rgba(88,214,249,.44);
+}
+
+@media(max-width:900px) {
+  body {
+    padding:12px !important;
+  }
+
+  header {
+    border-radius:18px !important;
+  }
+}
