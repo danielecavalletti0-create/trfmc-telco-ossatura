@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/assets/trfmc_executive_visual_depth_v45.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_instrument_cluster_v46.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_layout_stability_v47.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_scenario_command_v48.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -226,6 +227,67 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
 
 
 
+
+
+<section class="v48-scenario-command" id="v48_scenario">
+  <div class="v48-command-head">
+    <div>
+      <h2>Executive Scenario Command Strip / Mission Launch Controls</h2>
+      <p>
+        v0.48A · comandi scenario executive per selezione missione, path globale,
+        quick launch verso Global Launcher / Scenario Runner e collegamento immediato
+        a timeline, mission graph, report ed evidence vault. Frontend-only.
+      </p>
+    </div>
+    <div class="v48-command-badge">
+      <b id="v48_launch_state">loading...</b>
+      <span id="v48_launch_detail">initializing scenario command...</span>
+    </div>
+  </div>
+
+  <div class="v48-command-grid">
+    <div class="v48-scenario-panel">
+      <h3>Mission Scenario Selector</h3>
+      <div class="v48-scenario-buttons">
+        <button class="v48-scenario-button" data-scenario="rural-ue"><b>Rural UE</b><span>Remote UE / rural VoNR journey</span></button>
+        <button class="v48-scenario-button" data-scenario="japan"><b>Japan</b><span>Intercontinental APAC path</span></button>
+        <button class="v48-scenario-button" data-scenario="usa"><b>USA</b><span>Transatlantic GWAN mission</span></button>
+        <button class="v48-scenario-button" data-scenario="africa"><b>Africa</b><span>Long-haul / degraded route</span></button>
+        <button class="v48-scenario-button" data-scenario="india"><b>India</b><span>Regional APAC mission</span></button>
+        <button class="v48-scenario-button" data-scenario="australia"><b>Australia</b><span>High-latency remote path</span></button>
+        <button class="v48-scenario-button" data-scenario="ntn"><b>NTN</b><span>Satellite / non-terrestrial overlay</span></button>
+      </div>
+
+      <div class="v48-selected-card">
+        <span>Selected Mission</span>
+        <b id="v48_selected_title">—</b>
+        <small id="v48_selected_detail">scenario detail</small>
+      </div>
+    </div>
+
+    <div class="v48-route-panel">
+      <h3>Scenario Route / Launch Chain</h3>
+      <div class="v48-route-lane" id="v48_route_lane"></div>
+
+      <div class="v48-mission-status">
+        <div class="v48-status-tile"><span>Region</span><b id="v48_selected_region">—</b></div>
+        <div class="v48-status-tile"><span>Risk</span><b id="v48_selected_risk">—</b></div>
+        <div class="v48-status-tile"><span>Last Scenario</span><b id="v48_last_scenario">—</b></div>
+        <div class="v48-status-tile"><span>Mode</span><b>SIMULATION</b></div>
+      </div>
+
+      <div class="v48-launch-row">
+        <button type="button" id="v48_open_global_launcher">Open Global Launcher</button>
+        <button type="button" id="v48_open_scenario_runner">Open Scenario Runner</button>
+        <a href="/timeline_console_v14.html">Timeline</a>
+        <a href="/mission_graph_console_v15.html">Mission Graph</a>
+        <a href="/scenario_report_console_v17.html">Reports</a>
+        <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+        <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="v46-instrument-cluster">
   <div class="v46-cluster-head">
@@ -627,7 +689,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.47A · Executive Page Performance / Layout Stability Pass · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.48A · Executive Scenario Command Strip / Mission Launch Controls · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -699,5 +761,6 @@ setInterval(loadAll,30000);
 <script defer src="/assets/trfmc_executive_visual_depth_v45.js"></script>
 <script defer src="/assets/trfmc_executive_instrument_cluster_v46.js"></script>
 <script defer src="/assets/trfmc_executive_layout_stability_v47.js"></script>
+<script defer src="/assets/trfmc_executive_scenario_command_v48.js"></script>
 </body>
 </html>
