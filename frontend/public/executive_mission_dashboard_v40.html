@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css"/>
 <link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_visual_polish_v41.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_evidence_overlay_v42.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -216,6 +217,77 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   </div>
 </section>
 
+
+<section class="v42-evidence-overlay">
+  <div class="v42-evidence-head">
+    <div>
+      <h2>Executive Evidence & Mission Status Overlay</h2>
+      <p>
+        v0.42A · quadro sintetico per readiness missione, catena evidenze,
+        backup/restore posture, security posture, RF/Telco posture e Golden Check.
+        Layer frontend-only: nessuna modifica backend, nessun restart Docker.
+      </p>
+    </div>
+    <div class="v42-readiness-badge">
+      <b id="v42_readiness">loading...</b>
+      <span id="v42_readiness_detail">initializing overlay...</span>
+    </div>
+  </div>
+
+  <div class="v42-status-grid">
+    <div class="v42-status-tile" id="v42_tile_mission">
+      <span>Mission Readiness</span>
+      <b id="v42_mission_state">—</b>
+      <small id="v42_mission_detail">runtime status</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_evidence">
+      <span>Evidence Chain</span>
+      <b id="v42_evidence_state">—</b>
+      <small id="v42_evidence_detail">events / incidents / vault</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_backup">
+      <span>Backup / Restore</span>
+      <b id="v42_backup_state">—</b>
+      <small id="v42_backup_detail">operational recovery posture</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_security">
+      <span>Security Posture</span>
+      <b id="v42_security_state">—</b>
+      <small id="v42_security_detail">simulation / restricted state</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_rf">
+      <span>RF/Telco Posture</span>
+      <b id="v42_rf_state">—</b>
+      <small id="v42_rf_detail">coverage / field run state</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_golden">
+      <span>Golden Check</span>
+      <b id="v42_golden_state">—</b>
+      <small id="v42_golden_detail">release readiness</small>
+    </div>
+  </div>
+
+  <div class="v42-evidence-flow">
+    <div class="v42-flow-step"><b>Events</b><span>CloudEvents</span></div>
+    <div class="v42-flow-step"><b>Timeline</b><span>mission replay</span></div>
+    <div class="v42-flow-step"><b>Correlation</b><span>mission graph</span></div>
+    <div class="v42-flow-step"><b>Report</b><span>scenario evidence</span></div>
+    <div class="v42-flow-step"><b>Vault</b><span>evidence store</span></div>
+    <div class="v42-flow-step"><b>Restore</b><span>readiness drill</span></div>
+  </div>
+
+  <div class="v42-action-row">
+    <a href="/timeline_console_v14.html">Timeline</a>
+    <a href="/mission_graph_console_v15.html">Mission Graph</a>
+    <a href="/scenario_report_console_v17.html">Reports</a>
+    <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+    <a href="/operational_backup_console_v21.html">Backup</a>
+    <a href="/restore_readiness_console_v22.html">Restore Readiness</a>
+    <a href="/security_console_v18.html">Security</a>
+    <a href="/observability_console_v13.html">Observability</a>
+  </div>
+</section>
+
 <section class="v41-command-strip">
   <div class="v41-mission-core">
     <div class="v41-core-copy">
@@ -313,7 +385,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.41A · Executive Visual Polish / Cinematic Mission UI · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.42A · Executive Evidence & Mission Status Overlay · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -379,5 +451,6 @@ setInterval(loadAll,30000);
 </script>
 <script defer src="/assets/trfmc_enterprise_shell_v34.js"></script>
 <script defer src="/assets/trfmc_executive_visual_polish_v41.js"></script>
+<script defer src="/assets/trfmc_executive_evidence_overlay_v42.js"></script>
 </body>
 </html>
