@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/assets/trfmc_executive_evidence_overlay_v42.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_navigation_hub_v43.css"/>
 <link rel="stylesheet" href="/assets/trfmc_executive_content_consolidation_v44.css"/>
+<link rel="stylesheet" href="/assets/trfmc_executive_visual_depth_v45.css"/>
 <style>
 :root{
   --panel:rgba(5,18,31,.91);
@@ -221,6 +222,54 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
 
 
 
+
+
+<section class="v45-glass-command-band">
+  <div class="v45-band-head">
+    <div>
+      <h2>High-End Glass Command Center Layer</h2>
+      <p>
+        v0.45A · profondità visuale, glass cockpit, micro-illuminazione e stato
+        missione strumentale. Questo layer migliora la percezione executive senza
+        aggiungere rumore operativo e senza modificare backend o runtime Docker.
+      </p>
+    </div>
+    <div class="v45-depth-badge">
+      <b id="v45_depth_state">loading...</b>
+      <span id="v45_depth_detail">initializing visual depth...</span>
+    </div>
+  </div>
+
+  <div class="v45-glass-grid">
+    <div class="v45-glass-card primary">
+      <span>Runtime Posture</span>
+      <b id="v45_depth_runtime">—</b>
+      <p id="v45_depth_runtime_detail">backend / local binding / operational mode</p>
+      <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+    </div>
+
+    <div class="v45-glass-card">
+      <span>Mission Confidence</span>
+      <b id="v45_depth_mission">—</b>
+      <p id="v45_depth_mission_detail">release and readiness confidence</p>
+      <a href="/executive_mission_dashboard_v40.html">Executive</a>
+    </div>
+
+    <div class="v45-glass-card">
+      <span>RF/Telco Signal State</span>
+      <b id="v45_depth_rf">—</b>
+      <p id="v45_depth_rf_detail">coverage / field measurement runs</p>
+      <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    </div>
+
+    <div class="v45-glass-card">
+      <span>Mission Telemetry</span>
+      <b id="v45_depth_events">—</b>
+      <p id="v45_depth_events_detail">events / telemetry / evidence stream</p>
+      <a href="/evidence_vault_console_v20.html">Evidence</a>
+    </div>
+  </div>
+</section>
 
 <section class="v44-priority-rail">
   <div class="v44-priority-head">
@@ -512,7 +561,7 @@ footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
   <pre id="runtime">loading...</pre>
 </section>
 
-<footer>TRFMC v0.44A · Executive Dashboard Content Consolidation · frontend-only · localhost-only</footer>
+<footer>TRFMC v0.45A · Executive Visual Depth / High-End Glass Command Center · frontend-only · localhost-only</footer>
 
 <script>
 const API="http://127.0.0.1:8000/api";
@@ -581,5 +630,6 @@ setInterval(loadAll,30000);
 <script defer src="/assets/trfmc_executive_evidence_overlay_v42.js"></script>
 <script defer src="/assets/trfmc_executive_navigation_hub_v43.js"></script>
 <script defer src="/assets/trfmc_executive_content_consolidation_v44.js"></script>
+<script defer src="/assets/trfmc_executive_visual_depth_v45.js"></script>
 </body>
 </html>
