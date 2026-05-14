@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.54A · Executive Dashboard Next</title>
+  <link rel="stylesheet" href="/assets/trfmc_executive_next_v54.css"/>
+</head>
+<body class="trfmc-next-shell">
+  <div class="trfmc-bg-grid"></div>
+  <div class="trfmc-bg-glow glow-a"></div>
+  <div class="trfmc-bg-glow glow-b"></div>
+
+  <header class="top-shell">
+    <div class="brand">
+      <div class="brand-orb"></div>
+      <div>
+        <b>TRFMC MISSION CONTROL</b>
+        <span>Executive Dashboard Next · Clean Command Console · v0.54A</span>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="/portal_index_v19.html">Portal</a>
+      <a class="active" href="/executive_mission_dashboard_v_next.html">Executive Next</a>
+      <a href="/executive_mission_dashboard_v40.html">Executive Legacy</a>
+      <a href="/rf_telco_mission_portal_v35.html">RF/Telco</a>
+      <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+      <a href="/global_mission_scenario_launcher_v39.html">Scenarios</a>
+      <a href="/runtime_golden_check_console_v29.html">Golden</a>
+    </nav>
+
+    <div class="status-pills">
+      <span id="top_backend">Backend —</span>
+      <span id="top_golden">Golden —</span>
+      <span id="top_mode">Mode —</span>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="hero-next">
+      <div class="hero-copy">
+        <div class="eyebrow">TRFMC v0.54A · Clean Command Console</div>
+        <h1>Executive Mission Dashboard Next</h1>
+        <p>
+          Plancia executive compatta per RF/Telco, scenario command, KPI live, evidence posture e runtime readiness.
+          Questa pagina è la versione pulita e realmente utilizzabile della dashboard: meno strati, più gerarchia, più controllo operativo.
+        </p>
+
+        <div class="hero-actions">
+          <a href="/global_mission_scenario_launcher_v39.html">Launch Global Mission</a>
+          <a href="/rf_instrumentation_signal_cockpit_v38.html">Open RF Instruments</a>
+          <a href="/network_journey_world_map_v37.html">World Journey</a>
+          <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+        </div>
+      </div>
+
+      <div class="hero-readiness">
+        <div class="readiness-ring" id="readiness_ring">
+          <div>
+            <b id="readiness_score">—</b>
+            <span>Mission Readiness</span>
+          </div>
+        </div>
+        <div class="readiness-note">
+          <b id="mission_state">INITIALIZING</b>
+          <span id="mission_state_detail">reading runtime and mission posture</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="quick-kpis">
+      <div class="kpi-card"><span>Backend</span><b id="kpi_backend">—</b><small id="kpi_backend_detail">runtime</small></div>
+      <div class="kpi-card"><span>Golden</span><b id="kpi_golden">—</b><small id="kpi_golden_detail">release checks</small></div>
+      <div class="kpi-card"><span>CloudEvents</span><b id="kpi_events">—</b><small>mission telemetry</small></div>
+      <div class="kpi-card"><span>RF Runs</span><b id="kpi_rf_runs">—</b><small>coverage / field</small></div>
+      <div class="kpi-card"><span>Evidence</span><b id="kpi_evidence">—</b><small>vault chain</small></div>
+      <div class="kpi-card"><span>Assets</span><b id="kpi_assets">—</b><small>mission inventory</small></div>
+    </section>
+
+    <section class="control-strip">
+      <div>
+        <b>Executive Control Strip</b>
+        <span>single-page operational view · engineering details hidden by default · localhost-only · simulation-only</span>
+      </div>
+      <div class="strip-actions">
+        <button type="button" id="btn_refresh">Refresh</button>
+        <button type="button" id="btn_compact">Compact</button>
+        <button type="button" id="btn_engineering">Engineering Detail</button>
+      </div>
+    </section>
+
+    <section class="primary-grid">
+      <article class="panel rf-panel">
+        <div class="panel-head">
+          <div>
+            <h2>RF/Telco Signal Intelligence</h2>
+            <p>Path confidence, spectrum, link budget, LOS/NLOS, RF field and antenna state.</p>
+          </div>
+          <strong id="rf_state">RF —</strong>
+        </div>
+
+        <div class="rf-layout">
+          <div class="rf-gauge">
+            <div class="rf-semi" id="rf_confidence_ring">
+              <div>
+                <b id="rf_confidence">—</b>
+                <span>RF Path</span>
+              </div>
+            </div>
+
+            <div class="rf-note">
+              <b id="rf_path_status">—</b>
+              <span id="rf_path_detail">frequency · LOS/NLOS · field region</span>
+            </div>
+
+            <div class="rf-mini-grid">
+              <div><span>RX Power</span><b id="rf_rx_power">—</b></div>
+              <div><span>SNR</span><b id="rf_snr">—</b></div>
+              <div><span>Path Loss</span><b id="rf_loss">—</b></div>
+              <div><span>LOS State</span><b id="rf_los">—</b></div>
+            </div>
+          </div>
+
+          <div class="spectrum-block">
+            <div class="spectrum-window">
+              <div class="trace"></div>
+              <div class="carrier" id="carrier_line"></div>
+              <div class="noise-floor"></div>
+              <div class="spectrum-labels"><span>Noise</span><span>Carrier</span><span>Adjacent</span></div>
+            </div>
+
+            <div class="rf-mini-grid bottom">
+              <div><span>Frequency</span><b id="rf_frequency">—</b></div>
+              <div><span>Wavelength</span><b id="rf_wavelength">—</b></div>
+              <div><span>Field</span><b id="rf_field">—</b></div>
+              <div><span>Obstacles</span><b id="rf_obstacles">—</b></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel scenario-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Scenario Command</h2>
+            <p>Mission selector, launch chain and direct access to global journey, timeline, reports and evidence.</p>
+          </div>
+          <strong id="scenario_state">READY</strong>
+        </div>
+
+        <div class="scenario-layout">
+          <div class="scenario-selector">
+            <button data-scenario="rural" class="selected"><b>Rural UE</b><span>Remote VoNR journey</span></button>
+            <button data-scenario="japan"><b>Japan</b><span>Intercontinental APAC path</span></button>
+            <button data-scenario="usa"><b>USA</b><span>Transatlantic GWAN mission</span></button>
+            <button data-scenario="africa"><b>Africa</b><span>Long-haul degraded route</span></button>
+            <button data-scenario="india"><b>India</b><span>Regional APAC mission</span></button>
+            <button data-scenario="ntn"><b>NTN</b><span>Satellite / non-terrestrial overlay</span></button>
+          </div>
+
+          <div class="launch-chain">
+            <div class="chain">
+              <span>UE</span><span>RAN</span><span>Transport</span><span>Core</span><span>GWAN</span><span>Evidence</span>
+            </div>
+
+            <div class="scenario-status-grid">
+              <div><span>Region</span><b id="scenario_region">Rural / remote</b></div>
+              <div><span>Risk</span><b id="scenario_risk">MEDIUM</b></div>
+              <div><span>Mode</span><b>SIMULATION</b></div>
+              <div><span>Last Scenario</span><b id="scenario_last">Rural UE</b></div>
+            </div>
+
+            <div class="launch-actions">
+              <a href="/global_mission_scenario_launcher_v39.html">Global Launcher</a>
+              <a href="/scenario_runner_console_v16.html">Scenario Runner</a>
+              <a href="/timeline_console_v14.html">Timeline</a>
+              <a href="/mission_graph_console_v15.html">Mission Graph</a>
+              <a href="/scenario_report_console_v17.html">Reports</a>
+              <a href="/evidence_vault_console_v20.html">Evidence</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="secondary-grid">
+      <article class="panel kpi-wall">
+        <div class="panel-head slim">
+          <div>
+            <h2>Live KPI Wall</h2>
+            <p>Operational readiness, runtime, RF, evidence, documents and indexed pages.</p>
+          </div>
+          <strong id="kpi_wall_state">KPI READY</strong>
+        </div>
+
+        <div class="kpi-wall-grid">
+          <div><span>Runtime</span><b id="wall_runtime">—</b><small>backend health</small></div>
+          <div><span>Golden</span><b id="wall_golden">—</b><small>checks</small></div>
+          <div><span>Docs</span><b id="wall_docs">—</b><small>handbook chain</small></div>
+          <div><span>Pages</span><b id="wall_pages">—</b><small>portal index</small></div>
+          <div><span>RF Coverage</span><b id="wall_rf_cov">—</b><small>coverage runs</small></div>
+          <div><span>RF Field</span><b id="wall_rf_field">—</b><small>field runs</small></div>
+          <div><span>Incidents</span><b id="wall_incidents">—</b><small>mission events</small></div>
+          <div><span>Refresh</span><b id="wall_refresh">—</b><small>local browser time</small></div>
+        </div>
+      </article>
+
+      <article class="panel mission-map-panel">
+        <div class="panel-head slim">
+          <div>
+            <h2>Mission Entry / Operational Map</h2>
+            <p>Clean entry points for command, RF engineering, global scenarios, evidence and documentation.</p>
+          </div>
+          <strong>ENTRY READY</strong>
+        </div>
+
+        <div class="mission-map">
+          <a href="/executive_mission_dashboard_v_next.html">Executive Next</a>
+          <a href="/rf_telco_mission_portal_v35.html">RF/Telco Portal</a>
+          <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+          <a href="/network_journey_world_map_v37.html">World Journey</a>
+          <a href="/global_mission_scenario_launcher_v39.html">Global Launcher</a>
+          <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+          <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+          <a href="/operator_handbook_console_v23.html">Handbook</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="support-grid">
+      <article class="support-card">
+        <h3>Evidence / Security</h3>
+        <b id="support_evidence">—</b>
+        <span>Evidence chain, incidents, reports and restore posture.</span>
+        <a href="/evidence_vault_console_v20.html">Open Evidence</a>
+      </article>
+
+      <article class="support-card">
+        <h3>RF / Engineering</h3>
+        <b id="support_rf">—</b>
+        <span>RF coverage, field model, spectrum and link metrics.</span>
+        <a href="/rf_instrumentation_signal_cockpit_v38.html">Open RF</a>
+      </article>
+
+      <article class="support-card">
+        <h3>Release Readiness</h3>
+        <b id="support_release">—</b>
+        <span>Golden check, documents, backup and restore readiness.</span>
+        <a href="/runtime_golden_check_console_v29.html">Open Golden</a>
+      </article>
+    </section>
+
+    <section class="engineering-detail" id="engineering_detail">
+      <div class="panel-head slim">
+        <div>
+          <h2>Engineering Runtime Detail</h2>
+          <p>Hidden by default. Used only for diagnostics and evidence review.</p>
+        </div>
+        <strong>DETAIL</strong>
+      </div>
+      <pre id="runtime_json">{}</pre>
+    </section>
+  </main>
+
+  <footer class="next-footer">
+    TRFMC v0.54A · Executive Dashboard Next / Clean Command Console · frontend-only · localhost-only · backend simulation-only
+  </footer>
+
+  <script defer src="/assets/trfmc_executive_next_v54.js"></script>
+</body>
+</html>
