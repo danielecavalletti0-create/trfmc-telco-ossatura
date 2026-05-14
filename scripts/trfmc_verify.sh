@@ -1,108 +1,162 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
+set +H
 
 source "$(dirname "$0")/trfmc_env.sh"
+
 cd "$TRFMC_ROOT"
 
-echo "============================================================"
-echo "TRFMC VERIFY"
-echo "============================================================"
+TMP_DIR="$(mktemp -d)"
+trap 'rm -rf "$TMP_DIR"' EXIT
 
-HEALTH="$(curl -fsS "$TRFMC_BACKEND_URL/api/health")"
-echo "$HEALTH" | python3 -m json.tool
+EXPECTED_BACKEND_VERSION="0.30.0"
 
-printf '%s' "$HEALTH" > /tmp/trfmc_verify_health.json
+print_json_limited() {
+  local file="$1"
+  local lines="${2:-80}"
 
-python3 - <<'PYCHECK'
+  if python3 -m json.tool "$file" > "$TMP_DIR/pretty.json"; then
+    awk -v max="$lines" 'NR <= max { print } END { if (NR > max) print "... output truncated after " max " lines ..." }' "$TMP_DIR/pretty.json"
+  else
+    echo "ERRORE: JSON non valido in $file"
+    cat "$file"
+    return 1
+  fi
+}
+
+fetch_json() {
+  local name="$1"
+  local url="$2"
+  local outfile="$TMP_DIR/${name}.json"
+
+  echo
+  echo "=== $name ==="
+  echo "GET $url"
+
+  curl -fsS "$url" -o "$outfile"
+  print_json_limited "$outfile" 80
+}
+
+assert_json_field() {
+  local file="$1"
+  local field="$2"
+  local expected="$3"
+
+  python3 - "$file" "$field" "$expected" <<'PY'
 import json
-from pathlib import Path
+import sys
 
-data = json.loads(Path("/tmp/trfmc_verify_health.json").read_text())
-version = data.get("version")
-if version != "0.30.0":
-    raise SystemExit(f"ERRORE: versione backend inattesa: {version}")
-PYCHECK
+path, field, expected = sys.argv[1], sys.argv[2], sys.argv[3]
+data = json.load(open(path, encoding="utf-8"))
 
-curl -fsS "$TRFMC_BACKEND_URL/api/rf-field/demo" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_BACKEND_URL/api/rf-coverage/demo" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_BACKEND_URL/api/persistence/status" | python3 -m json.tool
+value = data
+for part in field.split("."):
+    value = value[part]
 
-curl -fsS "$TRFMC_FRONTEND_URL" >/dev/null
+if str(value) != expected:
+    raise SystemExit(f"ASSERT FAIL: {field}={value!r}, expected={expected!r}")
+PY
+}
+
+assert_http_200() {
+  local name="$1"
+  local url="$2"
+
+  echo
+  echo "=== HTTP $name ==="
+  echo "HEAD $url"
+
+  local code
+  code="$(curl -s -o /dev/null -w "%{http_code}" "$url")"
+  echo "http_code=$code"
+
+  if [ "$code" != "200" ]; then
+    echo "ERRORE: $name HTTP $code"
+    return 1
+  fi
+}
+
+echo "============================================================"
+echo "TRFMC VERIFY v0.31"
+echo "Root: $TRFMC_ROOT"
+echo "Backend: $TRFMC_BACKEND_URL"
+echo "Frontend: $TRFMC_FRONTEND_URL"
+echo "============================================================"
 
 echo
+echo "=== 1. Backend health ==="
+HEALTH_FILE="$TMP_DIR/health.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/health" -o "$HEALTH_FILE"
+print_json_limited "$HEALTH_FILE" 80
+assert_json_field "$HEALTH_FILE" "status" "ok"
+assert_json_field "$HEALTH_FILE" "version" "$EXPECTED_BACKEND_VERSION"
+
+echo
+echo "=== 2. RF Field demo ==="
+RF_FIELD_FILE="$TMP_DIR/rf_field.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/rf-field/demo" -o "$RF_FIELD_FILE"
+print_json_limited "$RF_FIELD_FILE" 80
+
+echo
+echo "=== 3. RF Coverage demo ==="
+RF_COV_FILE="$TMP_DIR/rf_coverage.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/rf-coverage/demo" -o "$RF_COV_FILE"
+print_json_limited "$RF_COV_FILE" 80
+
+echo
+echo "=== 4. Persistence status ==="
+PERSIST_FILE="$TMP_DIR/persistence.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/persistence/status" -o "$PERSIST_FILE"
+print_json_limited "$PERSIST_FILE" 80
+assert_json_field "$PERSIST_FILE" "exists" "True"
+
+echo
+echo "=== 5. Docs API ==="
+DOCS_FILE="$TMP_DIR/docs.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/docs/index" -o "$DOCS_FILE"
+print_json_limited "$DOCS_FILE" 80
+assert_json_field "$DOCS_FILE" "version" "$EXPECTED_BACKEND_VERSION"
+assert_json_field "$DOCS_FILE" "count" "6"
+
+echo
+echo "=== 6. Portal health summary ==="
+PORTAL_HEALTH_FILE="$TMP_DIR/portal_health.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/portal/health-summary" -o "$PORTAL_HEALTH_FILE"
+print_json_limited "$PORTAL_HEALTH_FILE" 80
+assert_json_field "$PORTAL_HEALTH_FILE" "overall_status" "OK"
+assert_json_field "$PORTAL_HEALTH_FILE" "version" "$EXPECTED_BACKEND_VERSION"
+
+echo
+echo "=== 7. Portal index ==="
+PORTAL_INDEX_FILE="$TMP_DIR/portal_index.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/portal/index" -o "$PORTAL_INDEX_FILE"
+print_json_limited "$PORTAL_INDEX_FILE" 80
+assert_json_field "$PORTAL_INDEX_FILE" "version" "$EXPECTED_BACKEND_VERSION"
+
+echo
+echo "=== 8. Observability health matrix ==="
+OBS_FILE="$TMP_DIR/observability.json"
+curl -fsS "$TRFMC_BACKEND_URL/api/observability/health-matrix" -o "$OBS_FILE"
+print_json_limited "$OBS_FILE" 80
+assert_json_field "$OBS_FILE" "overall_status" "OK"
+
+echo
+echo "=== 9. Frontend pages ==="
+assert_http_200 "frontend-root" "$TRFMC_FRONTEND_URL/"
+assert_http_200 "portal-index" "$TRFMC_FRONTEND_URL/portal_index_v19.html"
+assert_http_200 "operator-handbook" "$TRFMC_FRONTEND_URL/operator_handbook_console_v23.html"
+assert_http_200 "golden-check" "$TRFMC_FRONTEND_URL/runtime_golden_check_console_v29.html"
+assert_http_200 "golden-snapshot" "$TRFMC_FRONTEND_URL/runtime_golden_check_snapshot.json"
+
+echo
+echo "=== 10. Docker containers ==="
+sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}' | grep -E 'trfmc|NAMES' || true
+
+echo
+echo "=== 11. Listening ports ==="
+sudo ss -ltnp | grep -E ':(8000|5173)\b' || true
+
+echo
+echo "============================================================"
 echo "VERIFY OK"
-
-
-echo
-echo "=== OBSERVABILITY v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/observability/health-matrix" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_BACKEND_URL/api/observability/runtime" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_FRONTEND_URL/observability_console_v13.html" >/dev/null
-
-
-echo
-echo "=== TIMELINE v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/timeline/evidence?limit=20" | python3 -m json.tool | head -n 100
-curl -fsS "$TRFMC_BACKEND_URL/api/timeline/replay" | python3 -m json.tool | head -n 100
-curl -fsS "$TRFMC_FRONTEND_URL/timeline_console_v14.html" >/dev/null
-
-
-echo
-echo "=== CORRELATION v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/correlation/graph?limit=50" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_BACKEND_URL/api/correlation/incidents" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_FRONTEND_URL/mission_graph_console_v15.html" >/dev/null
-
-
-echo
-echo "=== SCENARIOS v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/scenarios/catalog" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_BACKEND_URL/api/scenarios/runs" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_FRONTEND_URL/scenario_runner_console_v16.html" >/dev/null
-
-
-echo
-echo "=== REPORTS v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/reports/latest" | python3 -m json.tool | head -n 140
-curl -fsS "$TRFMC_FRONTEND_URL/scenario_report_console_v17.html" >/dev/null
-
-
-echo
-echo "=== SECURITY v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/security/posture" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_BACKEND_URL/api/security/readiness" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_FRONTEND_URL/security_console_v18.html" >/dev/null
-
-
-echo
-echo "=== PORTAL INDEX v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/portal/index" | python3 -m json.tool | head -n 140
-curl -fsS "$TRFMC_BACKEND_URL/api/portal/health-summary" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_FRONTEND_URL/portal_index_v19.html" >/dev/null
-
-
-echo
-echo "=== EVIDENCE VAULT v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/vault/status" | python3 -m json.tool | head -n 140
-curl -fsS "$TRFMC_BACKEND_URL/api/vault/reports" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_FRONTEND_URL/evidence_vault_console_v20.html" >/dev/null
-
-
-echo
-echo "=== OPERATIONAL BACKUP v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/ops/backup/status" | python3 -m json.tool | head -n 140
-curl -fsS "$TRFMC_BACKEND_URL/api/ops/backup/list" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_FRONTEND_URL/operational_backup_console_v21.html" >/dev/null
-
-
-echo
-echo "=== RESTORE READINESS v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/restore/readiness" | python3 -m json.tool | head -n 160
-curl -fsS "$TRFMC_BACKEND_URL/api/restore/drill" | python3 -m json.tool | head -n 160
-curl -fsS "$TRFMC_FRONTEND_URL/restore_readiness_console_v22.html" >/dev/null
-
-echo
-echo "=== OPERATOR HANDBOOK DOCS v0.30 ==="
-curl -fsS "$TRFMC_BACKEND_URL/api/docs/index" | python3 -m json.tool | head -n 120
-curl -fsS "$TRFMC_BACKEND_URL/api/docs/commands" | python3 -m json.tool | head -n 80
-curl -fsS "$TRFMC_FRONTEND_URL/operator_handbook_console_v23.html" >/dev/null
+echo "============================================================"
