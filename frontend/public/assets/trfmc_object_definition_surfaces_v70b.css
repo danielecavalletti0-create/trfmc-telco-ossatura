@@ -1,0 +1,310 @@
+/* TRFMC v0.70B - Object Definition / Organic Enterprise Surface System */
+
+:root {
+  --v70b-bg: #020713;
+  --v70b-ink: #eafcff;
+  --v70b-muted: rgba(232,250,255,.62);
+  --v70b-cyan: #8ff0ff;
+  --v70b-cyan-hot: #00f3ff;
+  --v70b-green: #42f56f;
+  --v70b-amber: #fbbf24;
+  --v70b-red: #ff3b5c;
+  --v70b-magenta: #ff4dff;
+  --v70b-panel: rgba(3, 12, 26, .78);
+  --v70b-line: rgba(143,240,255,.28);
+
+  --v70b-radius-xl: 36px;
+  --v70b-radius-obj-a: 34px 54px 38px 46px;
+  --v70b-radius-obj-b: 52px 32px 48px 36px;
+  --v70b-radius-obj-c: 42px 58px 34px 50px;
+  --v70b-shadow-deep:
+    0 34px 110px rgba(0,0,0,.42),
+    0 0 72px rgba(143,240,255,.10),
+    inset 0 0 58px rgba(143,240,255,.050);
+  --v70b-shadow-soft:
+    0 22px 72px rgba(0,0,0,.32),
+    inset 0 0 42px rgba(143,240,255,.040);
+}
+
+/* Global surface discipline */
+body.trfmc-v70b-object-system {
+  color: var(--v70b-ink);
+  background:
+    radial-gradient(circle at 12% 6%, rgba(143,240,255,.17), transparent 35%),
+    radial-gradient(circle at 88% 8%, rgba(66,245,111,.10), transparent 34%),
+    radial-gradient(circle at 50% 98%, rgba(255,77,255,.075), transparent 45%),
+    #020713 !important;
+}
+
+/* eliminate the "random rectangle deck" feeling */
+body.trfmc-v70b-object-system .cut {
+  clip-path: none !important;
+}
+
+body.trfmc-v70b-object-system .panel,
+body.trfmc-v70b-object-system article,
+body.trfmc-v70b-object-system .v66-viewport-panel,
+body.trfmc-v70b-object-system .v66-side-panel,
+body.trfmc-v70b-object-system .v66-knowledge article,
+body.trfmc-v70b-object-system .v69-hero,
+body.trfmc-v70b-object-system .left-panel,
+body.trfmc-v70b-object-system .right-panel,
+body.trfmc-v70b-object-system .event-panel,
+body.trfmc-v70b-object-system .bottom-panel,
+body.trfmc-v70b-object-system .tower-panel,
+body.trfmc-v70b-object-system .detail-panel,
+body.trfmc-v70b-object-system .knowledge article,
+body.trfmc-v70b-object-system .hero,
+body.trfmc-v70b-object-system .v65-telemetry-layer,
+body.trfmc-v70b-object-system .v51-review-band,
+body.trfmc-v70b-object-system .v50-release-milestone,
+body.trfmc-v70b-object-system .v49-rf-intel-strip,
+body.trfmc-v70b-object-system .v48-scenario-command,
+body.trfmc-v70b-object-system .v46-instrument-cluster,
+body.trfmc-v70b-object-system .v45-glass-command-band,
+body.trfmc-v70b-object-system .v44-priority-rail,
+body.trfmc-v70b-object-system .v43-entry-hub,
+body.trfmc-v70b-object-system .v42-evidence-overlay {
+  border-radius: var(--v70b-radius-obj-a) !important;
+  border: 1px solid rgba(143,240,255,.34) !important;
+  background:
+    radial-gradient(circle at 13% 0%, rgba(143,240,255,.145), transparent 34%),
+    radial-gradient(circle at 92% 6%, rgba(66,245,111,.075), transparent 31%),
+    linear-gradient(135deg, rgba(7,25,47,.82), rgba(3,9,22,.92)) !important;
+  box-shadow: var(--v70b-shadow-deep) !important;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* deterministic object variation: not random, based on semantic role */
+body.trfmc-v70b-object-system .right-panel,
+body.trfmc-v70b-object-system .detail-panel,
+body.trfmc-v70b-object-system .v66-side-panel,
+body.trfmc-v70b-object-system .event-panel,
+body.trfmc-v70b-object-system aside,
+body.trfmc-v70b-object-system .trfmc-v70-rail {
+  border-radius: var(--v70b-radius-obj-b) !important;
+}
+
+body.trfmc-v70b-object-system .bottom-panel,
+body.trfmc-v70b-object-system .v66-knowledge article,
+body.trfmc-v70b-object-system .knowledge article,
+body.trfmc-v70b-object-system .mini-card,
+body.trfmc-v70b-object-system .metric-grid article,
+body.trfmc-v70b-object-system .v66-status div,
+body.trfmc-v70b-object-system .v66-kpi-grid div {
+  border-radius: var(--v70b-radius-obj-c) !important;
+}
+
+/* surface definition contour */
+body.trfmc-v70b-object-system .panel::before,
+body.trfmc-v70b-object-system article::before,
+body.trfmc-v70b-object-system .v66-viewport-panel::before,
+body.trfmc-v70b-object-system .v66-side-panel::before,
+body.trfmc-v70b-object-system .tower-panel::before,
+body.trfmc-v70b-object-system .detail-panel::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(125deg, rgba(255,255,255,.10), transparent 20%, transparent 72%, rgba(143,240,255,.08)),
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.12), transparent 19%);
+  opacity: .72;
+  z-index: -1;
+}
+
+/* object header grammar */
+body.trfmc-v70b-object-system h1 {
+  letter-spacing: -1px;
+  text-wrap: balance;
+  text-shadow:
+    0 0 24px rgba(143,240,255,.58),
+    0 0 72px rgba(66,245,111,.16),
+    0 0 120px rgba(255,77,255,.08) !important;
+}
+
+body.trfmc-v70b-object-system h2,
+body.trfmc-v70b-object-system h3 {
+  position: relative;
+  color: var(--v70b-cyan) !important;
+}
+
+body.trfmc-v70b-object-system h2::after,
+body.trfmc-v70b-object-system h3::after {
+  content: "";
+  display: block;
+  width: 86px;
+  height: 2px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--v70b-cyan), var(--v70b-green), transparent);
+  box-shadow: 0 0 16px rgba(143,240,255,.38);
+}
+
+/* navigation: less hard-rectangle, more engineered capsule */
+body.trfmc-v70b-object-system nav a,
+body.trfmc-v70b-object-system .v69-nav a,
+body.trfmc-v70b-object-system .v66-topbar nav a,
+body.trfmc-v70b-object-system .trfmc-v70-nav a,
+body.trfmc-v70b-object-system .hero-actions a,
+body.trfmc-v70b-object-system .hero-actions button,
+body.trfmc-v70b-object-system button {
+  border-radius: 999px !important;
+  border: 1px solid rgba(143,240,255,.30) !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.16), transparent 34%),
+    linear-gradient(135deg, rgba(143,240,255,.085), rgba(66,245,111,.030)) !important;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.22),
+    inset 0 0 18px rgba(143,240,255,.045) !important;
+}
+
+body.trfmc-v70b-object-system nav a.active,
+body.trfmc-v70b-object-system nav a:hover,
+body.trfmc-v70b-object-system button.active,
+body.trfmc-v70b-object-system button:hover {
+  background:
+    linear-gradient(90deg, var(--v70b-cyan), var(--v70b-green)) !important;
+  color: #041119 !important;
+  border-color: transparent !important;
+  transform: translateY(-1px);
+}
+
+/* object tiles: defined components */
+body.trfmc-v70b-object-system .metric-grid article,
+body.trfmc-v70b-object-system .mini-card,
+body.trfmc-v70b-object-system .v65-kpis div,
+body.trfmc-v70b-object-system .diag-grid div,
+body.trfmc-v70b-object-system .v66-status div,
+body.trfmc-v70b-object-system .v66-kpi-grid div,
+body.trfmc-v70b-object-system .hero-kpi div,
+body.trfmc-v70b-object-system .v70b-object-tile {
+  position: relative;
+  border: 1px solid rgba(143,240,255,.26) !important;
+  border-radius: 24px 34px 26px 32px !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.12), transparent 36%),
+    linear-gradient(135deg, rgba(143,240,255,.060), rgba(0,0,0,.10)) !important;
+  box-shadow: var(--v70b-shadow-soft) !important;
+  overflow: hidden;
+}
+
+body.trfmc-v70b-object-system .metric-grid article::before,
+body.trfmc-v70b-object-system .mini-card::before,
+body.trfmc-v70b-object-system .v65-kpis div::before,
+body.trfmc-v70b-object-system .diag-grid div::before,
+body.trfmc-v70b-object-system .v66-status div::before,
+body.trfmc-v70b-object-system .v66-kpi-grid div::before,
+body.trfmc-v70b-object-system .hero-kpi div::before,
+body.trfmc-v70b-object-system .v70b-object-tile::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--v70b-green);
+  box-shadow: 0 0 18px rgba(66,245,111,.70);
+}
+
+/* scenes: make actual objects clearer */
+body.trfmc-v70b-object-system canvas,
+body.trfmc-v70b-object-system .tower-scene,
+body.trfmc-v70b-object-system .site-scene,
+body.trfmc-v70b-object-system .rf-scene,
+body.trfmc-v70b-object-system .v66-canvas-wrap {
+  border-radius: 40px 62px 44px 54px !important;
+  border: 1px solid rgba(143,240,255,.40) !important;
+  box-shadow:
+    0 34px 120px rgba(0,0,0,.46),
+    0 0 90px rgba(143,240,255,.13),
+    inset 0 0 90px rgba(143,240,255,.055) !important;
+}
+
+/* form controls as instrument controls */
+body.trfmc-v70b-object-system input[type="range"] {
+  accent-color: var(--v70b-cyan-hot);
+}
+
+body.trfmc-v70b-object-system select,
+body.trfmc-v70b-object-system input:not([type="range"]) {
+  border-radius: 999px !important;
+  border: 1px solid rgba(143,240,255,.28) !important;
+  background: rgba(3,12,26,.74) !important;
+  color: var(--v70b-ink) !important;
+}
+
+/* semantic object overlay */
+.v70b-definition-strip {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 2147483300;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  max-width: min(820px, 90vw);
+  padding: 9px 12px;
+  border: 1px solid rgba(143,240,255,.26);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.14), transparent 34%),
+    rgba(3,12,26,.82);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 22px 80px rgba(0,0,0,.38),
+    inset 0 0 32px rgba(143,240,255,.04);
+}
+
+.v70b-definition-strip span {
+  color: rgba(235,250,255,.58);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.v70b-definition-strip b {
+  color: var(--v70b-green);
+  font-size: 10px;
+}
+
+.v70b-definition-strip i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--v70b-cyan);
+  box-shadow: 0 0 14px rgba(143,240,255,.55);
+}
+
+/* reduce visual collision with old sharp nav bars */
+body.trfmc-v70b-object-system header:not(.trfmc-v70-shell),
+body.trfmc-v70b-object-system .topbar:not(.trfmc-v70-shell),
+body.trfmc-v70b-object-system .v69-topbar,
+body.trfmc-v70b-object-system .v66-topbar {
+  border-radius: 28px 44px 32px 40px !important;
+}
+
+/* object density mode */
+body.trfmc-v70b-dense .panel,
+body.trfmc-v70b-dense article,
+body.trfmc-v70b-dense .v66-viewport-panel,
+body.trfmc-v70b-dense .v66-side-panel,
+body.trfmc-v70b-dense .tower-panel,
+body.trfmc-v70b-dense .detail-panel {
+  padding: 14px !important;
+}
+
+body.trfmc-v70b-calibrated * {
+  animation-duration: .001ms !important;
+  transition-duration: .001ms !important;
+}
+
+@media(max-width: 980px) {
+  .v70b-definition-strip {
+    display: none;
+  }
+}
