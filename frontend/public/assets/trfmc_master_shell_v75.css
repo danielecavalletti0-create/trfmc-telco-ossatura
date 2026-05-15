@@ -1,0 +1,244 @@
+/* TRFMC v0.75A - Master Visual Reset / Single Clean Enterprise Shell */
+
+/*
+  Regola fondamentale:
+  - una sola shell;
+  - una sola navbar;
+  - zero badge invasivi;
+  - zero rail laterali;
+  - zero layer globali aggressivi;
+  - mantenere solo i redesign pagina-specifici v0.74A.
+*/
+
+:root {
+  --v75-bg: #020713;
+  --v75-panel: rgba(3, 12, 26, .92);
+  --v75-line: rgba(143, 240, 255, .26);
+  --v75-cyan: #8ff0ff;
+  --v75-green: #42f56f;
+  --v75-amber: #fbbf24;
+  --v75-red: #ff3b5c;
+  --v75-muted: rgba(232, 250, 255, .62);
+}
+
+body.trfmc-v75-active {
+  background:
+    radial-gradient(circle at 12% 4%, rgba(143,240,255,.12), transparent 34%),
+    radial-gradient(circle at 88% 6%, rgba(66,245,111,.075), transparent 34%),
+    #020713 !important;
+  color: #eafcff;
+  padding-top: 72px;
+}
+
+/* niente badge/rail/floating storici */
+body.trfmc-v75-active .trfmc-v70-blade,
+body.trfmc-v75-active .trfmc-v70-rail,
+body.trfmc-v75-active .trfmc-v70-mode-badge,
+body.trfmc-v75-active .v70b-definition-strip,
+body.trfmc-v75-active .v72-remediation-badge,
+body.trfmc-v75-active .v72b-clean-badge,
+body.trfmc-v75-active .v73a-hygiene-state {
+  display: none !important;
+}
+
+/* elimina vecchie shell locali dove esiste la master shell */
+body.trfmc-v75-active:not(.trfmc-preview-embedded) .topbar,
+body.trfmc-v75-active:not(.trfmc-preview-embedded) .v69-topbar,
+body.trfmc-v75-active:not(.trfmc-preview-embedded) .v66-topbar,
+body.trfmc-v75-active:not(.trfmc-preview-embedded) .v71-top,
+body.trfmc-v75-active:not(.trfmc-preview-embedded) .top-shell,
+body.trfmc-v75-active:not(.trfmc-preview-embedded) header.topbar,
+body.trfmc-v75-active:not(.trfmc-preview-embedded) header.top-shell {
+  display: none !important;
+}
+
+/* preview iframe: nessuna shell */
+body.trfmc-preview-embedded {
+  padding-top: 0 !important;
+}
+
+body.trfmc-preview-embedded .trfmc-v75-masterbar,
+body.trfmc-preview-embedded .topbar,
+body.trfmc-preview-embedded .v69-topbar,
+body.trfmc-preview-embedded .v66-topbar,
+body.trfmc-preview-embedded .v71-top,
+body.trfmc-preview-embedded .top-shell,
+body.trfmc-preview-embedded header {
+  display: none !important;
+}
+
+/* master shell unica */
+.trfmc-v75-masterbar {
+  position: fixed;
+  top: 10px;
+  left: 14px;
+  right: 14px;
+  height: 56px;
+  z-index: 2147483000;
+  display: grid;
+  grid-template-columns: 300px 1fr 280px;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--v75-line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(143,240,255,.10), transparent 34%),
+    linear-gradient(135deg, rgba(6,24,46,.92), rgba(3,9,22,.97));
+  box-shadow:
+    0 18px 58px rgba(0,0,0,.34),
+    inset 0 0 24px rgba(143,240,255,.035);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.v75-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.v75-orb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background:
+    radial-gradient(circle at 35% 28%, #fff 0 7%, var(--v75-cyan) 8% 22%, rgba(0,243,255,.24) 44%, transparent 72%);
+  box-shadow:
+    0 0 22px rgba(143,240,255,.42),
+    0 0 40px rgba(66,245,111,.12);
+}
+
+.v75-brand b {
+  display: block;
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: .14em;
+  white-space: nowrap;
+}
+
+.v75-brand span {
+  display: block;
+  margin-top: 3px;
+  color: var(--v75-muted);
+  font-size: 9px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.v75-nav {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  min-width: 0;
+}
+
+.v75-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.v75-nav a {
+  color: rgba(235,250,255,.70);
+  text-decoration: none;
+  border: 1px solid rgba(143,240,255,.20);
+  background: rgba(143,240,255,.035);
+  border-radius: 999px;
+  padding: 6px 8px;
+  font-size: 9px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.v75-nav a.active,
+.v75-nav a:hover {
+  color: #031018;
+  background: linear-gradient(90deg, var(--v75-cyan), var(--v75-green));
+  border-color: transparent;
+}
+
+.v75-status {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  min-width: 0;
+}
+
+.v75-status span {
+  border: 1px solid rgba(66,245,111,.24);
+  color: var(--v75-green);
+  background: rgba(66,245,111,.055);
+  border-radius: 999px;
+  padding: 6px 7px;
+  font-size: 8px;
+  font-weight: 850;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.v75-status span.warn {
+  color: var(--v75-amber);
+  border-color: rgba(251,191,36,.34);
+  background: rgba(251,191,36,.065);
+}
+
+.v75-status span.crit {
+  color: var(--v75-red);
+  border-color: rgba(255,59,92,.34);
+  background: rgba(255,59,92,.070);
+}
+
+/* correzione minima layout fixed già esistenti */
+body.trfmc-v75-active .v69-hud,
+body.trfmc-v75-active .v71-layout,
+body.trfmc-v75-active .hud {
+  top: 82px !important;
+  inset-top: 82px !important;
+}
+
+/* pagine statiche: margine più pulito */
+body.trfmc-v75-active main:not(.v69-hud):not(.v71-layout):not(.hud) {
+  margin-top: 0;
+}
+
+/* mantieni oggetti pagina-specifici senza deformarli */
+body.trfmc-v75-active .v74-ue-mission-strip,
+body.trfmc-v75-active .v74-site-operational-ribbon {
+  margin-top: 8px !important;
+}
+
+/* modalità screenshot */
+body.trfmc-v75-clean-shot .trfmc-v75-masterbar {
+  display: none !important;
+}
+
+body.trfmc-v75-clean-shot {
+  padding-top: 0 !important;
+}
+
+/* low motion */
+body.trfmc-v75-calibrated * {
+  animation-duration: .001ms !important;
+  transition-duration: .001ms !important;
+}
+
+@media(max-width: 1200px) {
+  .trfmc-v75-masterbar {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  body.trfmc-v75-active {
+    padding-top: 118px;
+  }
+
+  .v75-status {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

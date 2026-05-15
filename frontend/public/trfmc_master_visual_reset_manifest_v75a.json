@@ -1,0 +1,27 @@
+{
+  "version": "TRFMC v0.75A",
+  "name": "Master Visual Reset / Single Clean Enterprise Shell",
+  "purpose": "Remove historical global visual layers and replace them with one compact, non-invasive shell.",
+  "removed_global_layers": [
+    "trfmc_unified_enterprise_shell_v70.css",
+    "trfmc_unified_enterprise_shell_v70.js",
+    "trfmc_object_definition_surfaces_v70b.css",
+    "trfmc_object_definition_surfaces_v70b.js",
+    "trfmc_visual_chaos_containment_v72b.css",
+    "trfmc_visual_chaos_containment_v72b.js",
+    "trfmc_visual_dependency_hygiene_v73a.css",
+    "trfmc_visual_dependency_hygiene_v73a.js",
+    "trfmc_surgical_visual_remediation_v72.css",
+    "trfmc_surgical_visual_remediation_v72.js"
+  ],
+  "kept_page_specific_layers": [
+    "trfmc_ue_handover_redesign_v74.css",
+    "trfmc_ue_handover_redesign_v74.js",
+    "trfmc_digital_twin_redesign_v74.css",
+    "trfmc_digital_twin_redesign_v74.js"
+  ],
+  "controls": {
+    "ALT+S": "clean screenshot mode",
+    "ALT+C": "calibrated low motion mode"
+  }
+}
