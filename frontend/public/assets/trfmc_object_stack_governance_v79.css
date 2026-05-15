@@ -1,0 +1,205 @@
+/* TRFMC v0.79A - Object Stack Governance / Compact Expert Mode */
+
+body.v79-object-governance {
+  --v79-cyan: #8ff0ff;
+  --v79-green: #42f56f;
+  --v79-amber: #fbbf24;
+  --v79-red: #ff3b5c;
+  --v79-line: rgba(143,240,255,.22);
+  --v79-muted: rgba(232,250,255,.58);
+}
+
+/* governance applicata solo agli object stack, non a tutta la pagina */
+body.v79-object-governance .v77-object-stack,
+body.v79-object-governance .v78-object-stack {
+  margin: 8px 14px 10px !important;
+  border-radius: 18px !important;
+  padding: 10px 12px !important;
+  box-shadow:
+    0 12px 38px rgba(0,0,0,.24),
+    inset 0 0 18px rgba(143,240,255,.022) !important;
+}
+
+/* head più compatta e leggibile */
+body.v79-object-governance .v77-stack-head,
+body.v79-object-governance .v78-stack-head {
+  margin-bottom: 8px !important;
+  align-items: center !important;
+}
+
+body.v79-object-governance .v77-stack-head h2,
+body.v79-object-governance .v78-stack-head h2 {
+  font-size: 11px !important;
+  letter-spacing: .14em !important;
+}
+
+body.v79-object-governance .v77-stack-head p,
+body.v79-object-governance .v78-stack-head p {
+  font-size: 10px !important;
+  line-height: 1.42 !important;
+  margin-top: 4px !important;
+  max-width: 1180px !important;
+}
+
+/* righe oggetti: compatte di default */
+body.v79-object-governance .v77-object-row,
+body.v79-object-governance .v78-object-row {
+  display: flex !important;
+  gap: 8px !important;
+  overflow-x: auto !important;
+  padding-bottom: 3px !important;
+  scrollbar-width: thin;
+}
+
+body.v79-object-governance .v77-object-card,
+body.v79-object-governance .v78-object-card {
+  flex: 0 0 148px !important;
+  min-height: 128px !important;
+  padding: 8px !important;
+  border-radius: 14px !important;
+}
+
+body.v79-object-governance .v77-object-visual,
+body.v79-object-governance .v78-object-visual {
+  height: 58px !important;
+  border-radius: 12px !important;
+}
+
+body.v79-object-governance .v77-object-card h3,
+body.v79-object-governance .v78-object-card h3 {
+  font-size: 10px !important;
+  margin-top: 6px !important;
+}
+
+body.v79-object-governance .v77-object-card p,
+body.v79-object-governance .v78-object-card p {
+  font-size: 8.5px !important;
+  line-height: 1.28 !important;
+  max-height: 34px !important;
+  overflow: hidden !important;
+}
+
+body.v79-object-governance .v77-object-card small,
+body.v79-object-governance .v78-object-card small {
+  font-size: 7px !important;
+  margin-top: 5px !important;
+}
+
+/* flow compatto */
+body.v79-object-governance .v77-system-map,
+body.v79-object-governance .v78-domain-flow {
+  margin: 8px 14px 10px !important;
+  padding: 10px 12px !important;
+  border-radius: 18px !important;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.22),
+    inset 0 0 14px rgba(143,240,255,.020) !important;
+}
+
+body.v79-object-governance .v77-map-title,
+body.v79-object-governance .v78-flow-title {
+  font-size: 10px !important;
+  margin-bottom: 7px !important;
+}
+
+body.v79-object-governance .v77-map-flow,
+body.v79-object-governance .v78-flow-row {
+  display: flex !important;
+  gap: 7px !important;
+  overflow-x: auto !important;
+}
+
+body.v79-object-governance .v77-map-node,
+body.v79-object-governance .v78-flow-node {
+  flex: 0 0 auto !important;
+  min-width: 112px !important;
+  padding: 6px 8px !important;
+  font-size: 8.5px !important;
+}
+
+/* modalità espansa on demand */
+body.v79-object-expanded .v77-object-row,
+body.v79-object-expanded .v78-object-row {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  overflow-x: visible !important;
+}
+
+body.v79-object-expanded .v77-object-card,
+body.v79-object-expanded .v78-object-card {
+  flex: initial !important;
+  min-height: 180px !important;
+  padding: 10px !important;
+}
+
+body.v79-object-expanded .v77-object-visual,
+body.v79-object-expanded .v78-object-visual {
+  height: 92px !important;
+}
+
+body.v79-object-expanded .v77-object-card p,
+body.v79-object-expanded .v78-object-card p {
+  max-height: none !important;
+  font-size: 10px !important;
+}
+
+body.v79-object-expanded .v77-map-flow,
+body.v79-object-expanded .v78-flow-row {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+  overflow-x: visible !important;
+}
+
+/* controlli inline, non fixed */
+.v79-object-controls {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.v79-object-controls button {
+  cursor: pointer;
+  border: 1px solid rgba(143,240,255,.22);
+  border-radius: 999px;
+  background: rgba(143,240,255,.040);
+  color: var(--v79-cyan);
+  padding: 6px 8px;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.v79-object-controls button.active,
+.v79-object-controls button:hover {
+  color: #031018;
+  background: linear-gradient(90deg, var(--v79-cyan), var(--v79-green));
+  border-color: transparent;
+}
+
+/* modalità focus: nasconde solo object stack, utile quando vuoi valutare il resto della pagina */
+body.v79-object-hidden .v77-object-stack,
+body.v79-object-hidden .v78-object-stack,
+body.v79-object-hidden .v77-system-map,
+body.v79-object-hidden .v78-domain-flow {
+  display: none !important;
+}
+
+/* preview iframe: sempre pulita */
+body.trfmc-preview-embedded .v79-object-controls {
+  display: none !important;
+}
+
+@media(max-width: 900px) {
+  body.v79-object-governance .v77-stack-head,
+  body.v79-object-governance .v78-stack-head {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .v79-object-controls {
+    justify-content: flex-start;
+  }
+}

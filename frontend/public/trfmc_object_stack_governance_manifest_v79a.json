@@ -1,0 +1,18 @@
+{
+  "version": "TRFMC v0.79A",
+  "name": "Object Stack Governance / Compact Expert Mode",
+  "purpose": "Prevent object integration from becoming visual clutter by making object stacks compact, scrollable, expandable and hideable on demand.",
+  "controls": {
+    "ALT+O": "toggle expanded/compact object stack",
+    "ALT+H": "hide/show object stack",
+    "Inline Expand Objects": "expand compact object cards",
+    "Inline Hide Objects": "temporarily hide object layer",
+    "Inline Low Motion": "calibrated low-motion mode"
+  },
+  "rules": [
+    "no fixed overlays",
+    "no new badges",
+    "no old global visual layers",
+    "only governs v77/v78 object stack components"
+  ]
+}
