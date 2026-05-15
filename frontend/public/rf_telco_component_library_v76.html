@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.76A · RF/Telco Component Object Library</title>
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_rf_telco_component_library_v76.css"/>
+  <script defer src="/assets/trfmc_master_shell_v75.js"></script>
+  <script defer src="/assets/trfmc_rf_telco_component_library_v76.js"></script>
+</head>
+
+<body class="v76-shell">
+  <div class="v76-bg-grid"></div>
+  <div class="v76-glow g1"></div>
+  <div class="v76-glow g2"></div>
+
+  <main class="v76-layout">
+    <section class="v76-hero v76-panel">
+      <div>
+        <div class="v76-eyebrow">TRFMC v0.76A · object-first RF/Telco design system</div>
+        <h1>RF/Telco Component Object Library</h1>
+        <p>
+          Questa pagina è la base per rifare il portale con oggetti definiti, non con rettangoli casuali.
+          Ogni oggetto ha identità, ruolo operativo, stato, KPI e possibile riuso nelle pagine mission-control,
+          digital twin, handover, field engineering, knowledge OS e visual QA.
+        </p>
+      </div>
+
+      <div class="v76-score">
+        <span>Object System Readiness</span>
+        <b id="v76_score">—</b>
+        <small id="v76_score_label">inizializzazione libreria</small>
+      </div>
+    </section>
+
+    <section class="v76-panel v76-taxonomy">
+      <div class="v76-panel-head">
+        <h2>Component Taxonomy</h2>
+        <span>Physical · Radio · Transport · Core · Evidence</span>
+      </div>
+
+      <div class="v76-taxonomy-grid">
+        <button class="active" data-filter="all">All Objects</button>
+        <button data-filter="physical">Physical Site</button>
+        <button data-filter="radio">Radio/RAN</button>
+        <button data-filter="transport">Transport</button>
+        <button data-filter="core">5GC/Core</button>
+        <button data-filter="operations">Operations</button>
+      </div>
+    </section>
+
+    <section class="v76-panel v76-gallery">
+      <div class="v76-panel-head">
+        <h2>Object Gallery</h2>
+        <span id="v76_gallery_count">—</span>
+      </div>
+
+      <div class="v76-object-grid" id="v76_object_grid"></div>
+    </section>
+
+    <section class="v76-panel v76-preview">
+      <div class="v76-panel-head">
+        <h2>Selected Object Engineering View</h2>
+        <span id="v76_selected_label">nessun oggetto selezionato</span>
+      </div>
+
+      <div class="v76-preview-grid">
+        <div class="v76-preview-stage" id="v76_preview_stage"></div>
+
+        <div class="v76-object-sheet">
+          <h3 id="v76_sheet_title">Seleziona un oggetto</h3>
+          <p id="v76_sheet_desc">
+            La libreria serve per sostituire progressivamente card generiche e forme casuali con componenti
+            RF/Telco riutilizzabili, leggibili e ingegneristicamente riconoscibili.
+          </p>
+
+          <div class="v76-sheet-kpis">
+            <div><span>Domain</span><b id="v76_kpi_domain">—</b></div>
+            <div><span>Layer</span><b id="v76_kpi_layer">—</b></div>
+            <div><span>Status</span><b id="v76_kpi_status">—</b></div>
+            <div><span>Reuse</span><b id="v76_kpi_reuse">—</b></div>
+          </div>
+
+          <div class="v76-integration">
+            <h4>Integration Target</h4>
+            <ul id="v76_targets">
+              <li>Executive Dashboard Next</li>
+              <li>UE Handover / RF Heatmap</li>
+              <li>Infrastructure Digital Twin</li>
+              <li>Knowledge OS / Didactic Modules</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v76-panel v76-roadmap">
+      <div class="v76-panel-head">
+        <h2>Next Integration Roadmap</h2>
+        <span>v0.77A · object integration into pages</span>
+      </div>
+
+      <div class="v76-roadmap-grid">
+        <article>
+          <b>1 · Executive</b>
+          <span>Sostituire KPI/card generiche con oggetti mission-control coerenti.</span>
+        </article>
+        <article>
+          <b>2 · Handover</b>
+          <span>UE, gNB, serving/candidate cell e radio link come oggetti espliciti.</span>
+        </article>
+        <article>
+          <b>3 · Digital Twin</b>
+          <span>Torre, RRU, RET, microwave, shelter e power come componenti reali.</span>
+        </article>
+        <article>
+          <b>4 · Knowledge</b>
+          <span>Ogni modulo teorico agganciato a un oggetto visuale e operativo.</span>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

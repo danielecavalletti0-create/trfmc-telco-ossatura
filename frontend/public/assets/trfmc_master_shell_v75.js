@@ -3,6 +3,7 @@
 
   const NAV = [
     ["Executive", "/executive_mission_dashboard_v_next.html"],
+    ["Components", "/rf_telco_component_library_v76.html"],
     ["UE Handover", "/webgl_rf_heatmap_engine_v69.html"],
     ["Digital Twin", "/infrastructure_digital_twin_v63.html"],
     ["Vegetation", "/webgl_rf_heatmap_engine_v68.html"],
