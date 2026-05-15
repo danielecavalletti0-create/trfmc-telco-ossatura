@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.81A · Seasonal Vegetation Clutter Engine · Surgical Rebuild</title>
+  <link rel="stylesheet" href="/assets/trfmc_v081a_vegetation_surgical.css"/>
+  <script defer src="/assets/trfmc_v081a_vegetation_surgical.js"></script>
+</head>
+<body>
+  <header class="shell">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC MISSION CONTROL</strong>
+        <span>v0.81A · Vegetation Engine Surgical Sandbox · no production overwrite</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a class="active" href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">Vegetation v81</a>
+      <a href="/webgl_rf_heatmap_engine_v68.html">Vegetation v68</a>
+      <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span>Backend OK</span>
+      <span>Sandbox</span>
+      <span>Shell v81</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">TRFMC v0.81A · SINGLE PAGE SURGICAL REBUILD</div>
+        <h1>Seasonal Vegetation Clutter Engine</h1>
+        <p>
+          Simulazione RF visuale per clutter vegetativo stagionale: attenuazione da fogliame,
+          assorbimento d’acqua, shadowing urbano, corridoi NLOS, contrazione di copertura e rischio outage.
+          Questa pagina è una sandbox controllata: nessuna sostituzione della pagina operativa v68.
+        </p>
+        <div class="hero-actions">
+          <button data-season="spring">Spring</button>
+          <button data-season="summer" class="active">Summer</button>
+          <button data-season="autumn">Autumn</button>
+          <button data-season="winter">Winter</button>
+        </div>
+      </div>
+
+      <aside class="hero-kpi">
+        <span>Vegetation Impact</span>
+        <strong id="heroLoss">11.5 dB</strong>
+        <small id="heroMode">Summer · full canopy</small>
+      </aside>
+    </section>
+
+    <section class="mission-grid">
+      <aside class="control-panel">
+        <h2>Season / Clutter Controls</h2>
+
+        <label>
+          <span>Frequency</span>
+          <input id="freq" type="range" min="0" max="100" value="62"/>
+          <b id="freqVal">3.5 GHz</b>
+        </label>
+
+        <label>
+          <span>Foliage Wetness / Water Load</span>
+          <input id="wet" type="range" min="0" max="100" value="45"/>
+          <b id="wetVal">45%</b>
+        </label>
+
+        <label>
+          <span>Tree Density</span>
+          <input id="density" type="range" min="0" max="100" value="58"/>
+          <b id="densityVal">1.00x</b>
+        </label>
+
+        <label>
+          <span>Urban Shadowing</span>
+          <input id="shadow" type="range" min="0" max="100" value="52"/>
+          <b id="shadowVal">medium</b>
+        </label>
+
+        <div class="legend">
+          <i class="clean"></i><span>High RSRP / clean LoS</span>
+          <i class="usable"></i><span>Usable coverage</span>
+          <i class="loss"></i><span>Vegetation attenuation</span>
+          <i class="shadow"></i><span>Shadow / outage risk</span>
+        </div>
+
+        <div class="buttons">
+          <button id="windBtn">Wind Motion</button>
+          <button id="focusBtn">Focus Park</button>
+        </div>
+      </aside>
+
+      <section class="rf-scene" id="rfScene">
+        <div class="map-grid"></div>
+        <div class="terrain"></div>
+
+        <div class="site site-a">
+          <span></span>
+          <b>SITE-A</b>
+        </div>
+
+        <div class="site site-b">
+          <span></span>
+          <b>SITE-B</b>
+        </div>
+
+        <div class="site site-c">
+          <span></span>
+          <b>SITE-C</b>
+        </div>
+
+        <div class="coverage coverage-a"></div>
+        <div class="coverage coverage-b"></div>
+        <div class="coverage coverage-c"></div>
+
+        <div class="building b1"></div>
+        <div class="building b2"></div>
+        <div class="building b3"></div>
+        <div class="building b4"></div>
+        <div class="building b5"></div>
+        <div class="building b6"></div>
+
+        <div class="tree t1"></div>
+        <div class="tree t2"></div>
+        <div class="tree t3"></div>
+        <div class="tree t4"></div>
+        <div class="tree t5"></div>
+        <div class="tree t6"></div>
+        <div class="tree t7"></div>
+        <div class="tree t8"></div>
+        <div class="tree t9"></div>
+        <div class="tree t10"></div>
+
+        <div class="shadow-zone sz1"></div>
+        <div class="shadow-zone sz2"></div>
+        <div class="shadow-zone sz3"></div>
+
+        <div class="beam beam-a"></div>
+        <div class="beam beam-b"></div>
+        <div class="beam beam-c"></div>
+
+        <div class="probe p1">UE-17</div>
+        <div class="probe p2">UE-42</div>
+        <div class="probe p3">UE-63</div>
+
+        <div class="caption">
+          <strong>RF Vegetation Field</strong>
+          <span id="sceneCaption">Summer canopy · foliage loss · NLOS corridors</span>
+        </div>
+      </section>
+
+      <aside class="telemetry">
+        <h2>RF Engineering Telemetry</h2>
+
+        <div class="metric">
+          <span>Foliage Loss Model</span>
+          <strong id="lossVal">11.5 dB</strong>
+          <small>synthetic Weissberger-inspired visual estimate</small>
+        </div>
+
+        <div class="metric">
+          <span>Season Factor</span>
+          <strong id="seasonVal">Summer / 0.91</strong>
+          <small>leaf density coefficient</small>
+        </div>
+
+        <div class="metric">
+          <span>Coverage Contraction</span>
+          <strong id="contractVal">-14%</strong>
+          <small>estimated service area delta</small>
+        </div>
+
+        <div class="metric">
+          <span>Outage Risk</span>
+          <strong id="riskVal">MEDIUM</strong>
+          <small>urban park + NLOS corridors</small>
+        </div>
+
+        <div class="eventbus" id="eventBus">
+          <b>AI RF Copilot</b>
+          <p>seasonal vegetation engine armed.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="bottom-kpi">
+      <article>
+        <span>Urban Blocks</span>
+        <strong>12</strong>
+        <small>fixed clutter / shadow sources</small>
+      </article>
+      <article>
+        <span>Vegetation Clusters</span>
+        <strong>18</strong>
+        <small>attenuation fields</small>
+      </article>
+      <article>
+        <span>Macro Sites</span>
+        <strong>3</strong>
+        <small>synthetic RSRP domains</small>
+      </article>
+      <article>
+        <span>Next Phase</span>
+        <strong>v0.82</strong>
+        <small>handover-aware seasonal model</small>
+      </article>
+    </section>
+
+    <section class="engineering-notes">
+      <article>
+        <h3>Operational Interpretation</h3>
+        <p>
+          La vegetazione non è decorazione grafica: modifica il bilancio di collegamento, aumenta la perdita
+          di penetrazione, genera zone instabili e può anticipare drop o handover non desiderati.
+        </p>
+      </article>
+      <article>
+        <h3>Design Rule</h3>
+        <p>
+          La scena centrale resta dominante. I pannelli laterali sono strumenti. Nessuna barra aggiuntiva,
+          nessun object stack, nessun layer globale: solo oggetti RF coerenti con il dominio.
+        </p>
+      </article>
+      <article>
+        <h3>Next Validation</h3>
+        <p>
+          Dopo approvazione visiva, questa sandbox può diventare la nuova v68 operativa con promozione controllata.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    TRFMC v0.81A · Seasonal Vegetation Clutter Engine · surgical sandbox · baseline v0.79B preserved
+  </footer>
+</body>
+</html>

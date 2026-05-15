@@ -1,0 +1,12 @@
+{
+  "version": "TRFMC v0.81A",
+  "mode": "single page surgical sandbox",
+  "baseline": "v0.79B",
+  "created_page": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+  "production_overwrite": false,
+  "backend_change": false,
+  "docker_restart": false,
+  "global_layers": false,
+  "object_stack": false,
+  "promotion_policy": "Promote only after visual approval."
+}
