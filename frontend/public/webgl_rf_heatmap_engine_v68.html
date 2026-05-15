@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.68A · Seasonal Vegetation Clutter Engine</title>
+  <link rel="stylesheet" href="/assets/trfmc_seasonal_vegetation_clutter_v68.css"/>
+  <script defer src="/assets/trfmc_seasonal_vegetation_clutter_v68.js"></script>
+</head>
+<body class="trfmc-v68-shell">
+  <canvas id="v68_gl"></canvas>
+
+  <div class="scanline"></div>
+  <div class="bg-glow g1"></div>
+  <div class="bg-glow g2"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-orb"></div>
+      <div>
+        <b>TRFMC RF DIGITAL TWIN</b>
+        <span>v0.68A · Seasonal Vegetation Clutter Engine · WebGL shader heatmap</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/portal_index_v19.html">Portal</a>
+      <a href="/webgl_rf_heatmap_engine_v67.html">Urban v67</a>
+      <a class="active" href="/webgl_rf_heatmap_engine_v68.html">Vegetation v68</a>
+      <a href="/field_engineering_mode_v64.html">Field</a>
+      <a href="/rf_propagation_sandbox_v62.html">Propagation</a>
+      <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+    </nav>
+
+    <div class="status">
+      <span id="backend_state">Backend —</span>
+      <span id="shader_state">Shader —</span>
+      <span id="fps_state">FPS —</span>
+    </div>
+  </header>
+
+  <main class="hud">
+    <section class="hero panel cut">
+      <div>
+        <div class="eyebrow">TRFMC v0.68A · foliage-aware RF simulation</div>
+        <h1>Seasonal Vegetation Clutter Engine</h1>
+        <p>
+          Estensione della mappa RF urbana: gli edifici continuano a produrre shadowing, mentre
+          gli alberi introducono attenuazione stagionale, densità fogliare, umidità e variazione
+          frequenziale. Il modello è visuale e didattico, progettato per mostrare l’effetto operativo
+          del clutter vegetativo sul campo RF.
+        </p>
+      </div>
+
+      <div class="readiness">
+        <span>Vegetation Impact</span>
+        <b id="veg_score">— dB</b>
+        <small id="veg_label">calcolo in corso</small>
+      </div>
+    </section>
+
+    <section class="left panel cut">
+      <h2>Season / Clutter Controls</h2>
+
+      <label>
+        <span>Season model</span>
+        <select id="season_select">
+          <option value="0.00">Winter · bare branches</option>
+          <option value="0.35">Spring · partial foliage</option>
+          <option value="0.70" selected>Summer · full canopy</option>
+          <option value="0.92">Autumn · wet foliage</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Frequency</span>
+        <input id="freq_slider" type="range" min="0.7" max="28" step="0.1" value="3.5"/>
+        <b id="freq_value">3.5 GHz</b>
+      </label>
+
+      <label>
+        <span>Foliage wetness / water load</span>
+        <input id="wet_slider" type="range" min="0" max="1" step="0.01" value="0.45"/>
+        <b id="wet_value">45%</b>
+      </label>
+
+      <label>
+        <span>Tree density</span>
+        <input id="density_slider" type="range" min="0.2" max="1.8" step="0.01" value="1.00"/>
+        <b id="density_value">1.00x</b>
+      </label>
+
+      <div class="button-row">
+        <button id="btn_wind">Wind motion</button>
+        <button id="btn_focus">Focus park</button>
+      </div>
+
+      <div class="legend">
+        <div><i class="c strong"></i><span>High RSRP / clean LoS</span></div>
+        <div><i class="c mid"></i><span>Usable coverage</span></div>
+        <div><i class="c weak"></i><span>Vegetation/urban loss</span></div>
+        <div><i class="c dead"></i><span>Shadow / outage risk</span></div>
+      </div>
+    </section>
+
+    <section class="right panel cut">
+      <h2>RF Engineering Telemetry</h2>
+      <div class="metric-grid">
+        <article>
+          <span>Foliage loss model</span>
+          <b id="loss_model">—</b>
+          <small>Weissberger-inspired visual estimate</small>
+        </article>
+        <article>
+          <span>Season factor</span>
+          <b id="season_factor">—</b>
+          <small>leaf density coefficient</small>
+        </article>
+        <article>
+          <span>Coverage contraction</span>
+          <b id="coverage_delta">—</b>
+          <small>estimated visual delta</small>
+        </article>
+        <article>
+          <span>Outage risk</span>
+          <b id="outage_risk">—</b>
+          <small>urban park + NLOS corridors</small>
+        </article>
+      </div>
+
+      <div class="ai-log" id="ai_log">
+        <div>AI RF Copilot: seasonal vegetation engine armed.</div>
+      </div>
+    </section>
+
+    <section class="bottom panel cut">
+      <div class="mini-card">
+        <span>Urban blocks</span>
+        <b>12</b>
+        <small>fixed clutter/shadow sources</small>
+      </div>
+      <div class="mini-card">
+        <span>Vegetation clusters</span>
+        <b>18</b>
+        <small>shader-driven attenuation fields</small>
+      </div>
+      <div class="mini-card">
+        <span>Sites</span>
+        <b>3</b>
+        <small>macro sectors / synthetic RSRP</small>
+      </div>
+      <div class="mini-card">
+        <span>Next phase</span>
+        <b>v0.69</b>
+        <small>UE mobility + handover across clutter</small>
+      </div>
+    </section>
+  </main>
+
+  <div id="scene_overlay" class="scene-overlay"></div>
+</body>
+</html>
