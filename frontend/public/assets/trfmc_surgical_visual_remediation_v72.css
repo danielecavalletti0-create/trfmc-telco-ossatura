@@ -1,0 +1,281 @@
+/* TRFMC v0.72A - Surgical Visual Remediation Layer */
+
+:root {
+  --v72-bg: #020713;
+  --v72-ink: #eafcff;
+  --v72-muted: rgba(232,250,255,.62);
+  --v72-cyan: #8ff0ff;
+  --v72-cyan-hot: #00f3ff;
+  --v72-green: #42f56f;
+  --v72-amber: #fbbf24;
+  --v72-red: #ff3b5c;
+  --v72-mag: #ff4dff;
+  --v72-line: rgba(143,240,255,.30);
+}
+
+/* Global cockpit correction */
+body.trfmc-v72-remediation {
+  background:
+    radial-gradient(circle at 14% 6%, rgba(143,240,255,.18), transparent 36%),
+    radial-gradient(circle at 84% 10%, rgba(66,245,111,.11), transparent 34%),
+    radial-gradient(circle at 50% 102%, rgba(255,77,255,.08), transparent 44%),
+    #020713 !important;
+  color: var(--v72-ink);
+}
+
+/* Old local headers are secondary, not dominant */
+body.trfmc-v72-remediation header:not(.trfmc-v70-shell):not(.v71-top),
+body.trfmc-v72-remediation .topbar:not(.trfmc-v70-shell):not(.v71-top),
+body.trfmc-v72-remediation .v69-topbar,
+body.trfmc-v72-remediation .v66-topbar,
+body.trfmc-v72-remediation .top-shell {
+  opacity: .30 !important;
+  transform: scale(.985);
+  filter: saturate(.82);
+  border-radius: 38px 58px 42px 52px !important;
+  border-color: rgba(143,240,255,.20) !important;
+}
+
+/* Reduce hard-card geometry */
+body.trfmc-v72-remediation .panel,
+body.trfmc-v72-remediation article,
+body.trfmc-v72-remediation aside,
+body.trfmc-v72-remediation section,
+body.trfmc-v72-remediation .hero,
+body.trfmc-v72-remediation .v69-hero,
+body.trfmc-v72-remediation .left-panel,
+body.trfmc-v72-remediation .right-panel,
+body.trfmc-v72-remediation .event-panel,
+body.trfmc-v72-remediation .bottom-panel,
+body.trfmc-v72-remediation .matrix-panel,
+body.trfmc-v72-remediation .side,
+body.trfmc-v72-remediation .preview,
+body.trfmc-v72-remediation .v66-viewport-panel,
+body.trfmc-v72-remediation .v66-side-panel,
+body.trfmc-v72-remediation .detail-panel,
+body.trfmc-v72-remediation .tower-panel,
+body.trfmc-v72-remediation .site-panel,
+body.trfmc-v72-remediation .scene-panel {
+  border-radius: 42px 64px 44px 56px !important;
+  border: 1px solid rgba(143,240,255,.36) !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.15), transparent 34%),
+    radial-gradient(circle at 92% 8%, rgba(66,245,111,.08), transparent 32%),
+    linear-gradient(135deg, rgba(8,28,52,.84), rgba(3,9,22,.94)) !important;
+  box-shadow:
+    0 36px 124px rgba(0,0,0,.44),
+    0 0 82px rgba(143,240,255,.11),
+    inset 0 0 64px rgba(143,240,255,.052) !important;
+}
+
+/* Semantic surface variation */
+body.trfmc-v72-remediation .right-panel,
+body.trfmc-v72-remediation .side,
+body.trfmc-v72-remediation aside,
+body.trfmc-v72-remediation .event-panel,
+body.trfmc-v72-remediation .detail-panel {
+  border-radius: 62px 38px 56px 42px !important;
+}
+
+body.trfmc-v72-remediation .bottom-panel,
+body.trfmc-v72-remediation .metric-grid article,
+body.trfmc-v72-remediation .mini-card,
+body.trfmc-v72-remediation .criteria div,
+body.trfmc-v72-remediation .next-steps div,
+body.trfmc-v72-remediation .v65-kpis div,
+body.trfmc-v72-remediation .v66-kpi-grid div,
+body.trfmc-v72-remediation .v66-status div,
+body.trfmc-v72-remediation .v50-index-link,
+body.trfmc-v72-remediation .v44-priority-card,
+body.trfmc-v72-remediation .v45-glass-card {
+  border-radius: 28px 42px 30px 38px !important;
+}
+
+/* Add object contour without random decorative noise */
+body.trfmc-v72-remediation .panel::before,
+body.trfmc-v72-remediation article::before,
+body.trfmc-v72-remediation aside::before,
+body.trfmc-v72-remediation section::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(126deg, rgba(255,255,255,.11), transparent 18%, transparent 74%, rgba(143,240,255,.08)),
+    radial-gradient(circle at 16% 0%, rgba(255,255,255,.13), transparent 18%);
+  opacity: .62;
+}
+
+/* Instrument viewport treatment */
+body.trfmc-v72-remediation canvas,
+body.trfmc-v72-remediation iframe,
+body.trfmc-v72-remediation .v66-canvas-wrap,
+body.trfmc-v72-remediation .rf-scene,
+body.trfmc-v72-remediation .site-scene,
+body.trfmc-v72-remediation .tower-scene {
+  border-radius: 48px 72px 50px 62px !important;
+  border: 1px solid rgba(143,240,255,.42) !important;
+  box-shadow:
+    0 38px 135px rgba(0,0,0,.48),
+    0 0 96px rgba(143,240,255,.14),
+    inset 0 0 90px rgba(143,240,255,.055) !important;
+}
+
+/* Navigation discipline */
+body.trfmc-v72-remediation nav a,
+body.trfmc-v72-remediation button,
+body.trfmc-v72-remediation .actions button,
+body.trfmc-v72-remediation .hero-actions a,
+body.trfmc-v72-remediation .hero-actions button {
+  border-radius: 999px !important;
+  border: 1px solid rgba(143,240,255,.30) !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.16), transparent 34%),
+    linear-gradient(135deg, rgba(143,240,255,.085), rgba(66,245,111,.035)) !important;
+  box-shadow:
+    0 12px 32px rgba(0,0,0,.24),
+    inset 0 0 18px rgba(143,240,255,.050) !important;
+}
+
+body.trfmc-v72-remediation nav a.active,
+body.trfmc-v72-remediation nav a:hover,
+body.trfmc-v72-remediation button.active,
+body.trfmc-v72-remediation button:hover {
+  color: #031018 !important;
+  background: linear-gradient(90deg, var(--v72-cyan), var(--v72-green)) !important;
+  border-color: transparent !important;
+}
+
+/* Typography: less demo, more instrument */
+body.trfmc-v72-remediation h1 {
+  letter-spacing: -.035em !important;
+  text-wrap: balance;
+  text-shadow:
+    0 0 26px rgba(143,240,255,.60),
+    0 0 82px rgba(66,245,111,.15),
+    0 0 130px rgba(255,77,255,.08) !important;
+}
+
+body.trfmc-v72-remediation h2,
+body.trfmc-v72-remediation h3 {
+  color: var(--v72-cyan) !important;
+}
+
+body.trfmc-v72-remediation h2::after,
+body.trfmc-v72-remediation h3::after {
+  content: "";
+  display: block;
+  width: 92px;
+  height: 2px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--v72-cyan), var(--v72-green), transparent);
+  box-shadow: 0 0 16px rgba(143,240,255,.40);
+}
+
+/* Status elements as true telemetry capsules */
+body.trfmc-v72-remediation [id*="state"],
+body.trfmc-v72-remediation [class*="status"] span,
+body.trfmc-v72-remediation .pill,
+body.trfmc-v72-remediation .v69-status span,
+body.trfmc-v72-remediation .status span,
+body.trfmc-v72-remediation .trfmc-v70-status span {
+  border-radius: 999px !important;
+  border: 1px solid rgba(66,245,111,.28) !important;
+  background: rgba(66,245,111,.06) !important;
+  color: var(--v72-green) !important;
+}
+
+/* Residual table refinement */
+body.trfmc-v72-remediation table {
+  border-collapse: separate !important;
+  border-spacing: 0 6px !important;
+}
+
+body.trfmc-v72-remediation th {
+  border-radius: 999px !important;
+}
+
+body.trfmc-v72-remediation td {
+  background: rgba(143,240,255,.030);
+  border-top: 1px solid rgba(143,240,255,.08);
+  border-bottom: 1px solid rgba(143,240,255,.08);
+}
+
+body.trfmc-v72-remediation tr td:first-child {
+  border-radius: 18px 0 0 18px;
+  border-left: 1px solid rgba(143,240,255,.08);
+}
+
+body.trfmc-v72-remediation tr td:last-child {
+  border-radius: 0 18px 18px 0;
+  border-right: 1px solid rgba(143,240,255,.08);
+}
+
+/* deterministic object badge */
+.v72-remediation-badge {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  z-index: 2147483400;
+  max-width: min(980px, 92vw);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border: 1px solid rgba(143,240,255,.28);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(143,240,255,.15), transparent 35%),
+    rgba(3,12,26,.84);
+  box-shadow:
+    0 26px 90px rgba(0,0,0,.40),
+    inset 0 0 34px rgba(143,240,255,.045);
+  backdrop-filter: blur(14px);
+}
+
+.v72-remediation-badge i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--v72-green);
+  box-shadow: 0 0 16px rgba(66,245,111,.72);
+}
+
+.v72-remediation-badge span {
+  color: rgba(235,250,255,.58);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.v72-remediation-badge b {
+  color: var(--v72-cyan);
+  font-size: 10px;
+}
+
+/* focus mode: inspect page without badge */
+body.trfmc-v72-focus .v72-remediation-badge {
+  display: none;
+}
+
+body.trfmc-v72-focus header:not(.trfmc-v70-shell):not(.v71-top),
+body.trfmc-v72-focus .topbar:not(.trfmc-v70-shell):not(.v71-top),
+body.trfmc-v72-focus .v69-topbar,
+body.trfmc-v72-focus .v66-topbar {
+  display: none !important;
+}
+
+/* calibrated low motion */
+body.trfmc-v72-calibrated * {
+  animation-duration: .001ms !important;
+  transition-duration: .001ms !important;
+}
+
+@media(max-width: 980px) {
+  .v72-remediation-badge {
+    display: none;
+  }
+}

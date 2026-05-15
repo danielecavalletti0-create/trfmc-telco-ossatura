@@ -1,0 +1,24 @@
+{
+  "version": "TRFMC v0.72A",
+  "name": "Surgical Visual Remediation Layer",
+  "purpose": "Correct residual visual drift after v0.71 QA: header collision, excessive rectangles, weak object identity, hard table geometry and page-to-page inconsistency.",
+  "controls": {
+    "ALT+F": "Focus mode: hide local legacy headers and remediation badge",
+    "ALT+C": "Calibrated mode: disable most animations/transitions"
+  },
+  "targets": [
+    "executive_mission_dashboard_v_next.html",
+    "webgl_rf_heatmap_engine_v69.html",
+    "webgl_rf_heatmap_engine_v68.html",
+    "webgl_rf_heatmap_engine_v67.html",
+    "webgl_rf_heatmap_engine_v66.html",
+    "field_engineering_mode_v64.html",
+    "infrastructure_digital_twin_v63.html",
+    "rf_propagation_sandbox_v62.html",
+    "rf_telco_knowledge_os_v60.html",
+    "rf_telco_knowledge_modules_v61.html",
+    "portal_index_v19.html",
+    "runtime_golden_check_console_v29.html",
+    "trfmc_visual_qa_matrix_v71.html"
+  ]
+}
