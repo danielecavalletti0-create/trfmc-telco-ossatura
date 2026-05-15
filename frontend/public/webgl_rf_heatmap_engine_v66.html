@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TRFMC v0.66A · WebGL RF Heatmap Engine</title>
+<link rel="stylesheet" href="/assets/trfmc_webgl_rf_heatmap_v66.css"/>
+<script defer src="/assets/trfmc_webgl_rf_heatmap_v66.js"></script>
+</head>
+
+<body class="v66-shell">
+<header class="v66-topbar">
+  <div class="v66-brand">
+    <div class="v66-orb"></div>
+    <div>
+      <b>TRFMC WEBGL RF HEATMAP ENGINE</b>
+      <span>GPU Coverage · Multi-Site · UE Mobility · Shadowing Ready · v0.66A</span>
+    </div>
+  </div>
+  <nav>
+    <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+    <a href="/field_engineering_mode_v64.html">Field Mode</a>
+    <a href="/rf_propagation_sandbox_v62.html">Propagation</a>
+    <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+    <a class="active" href="/webgl_rf_heatmap_engine_v66.html">WebGL Heatmap</a>
+  </nav>
+</header>
+
+<main class="v66-main">
+<section class="v66-hero">
+  <div>
+    <span class="v66-eyebrow">TRFMC v0.66A · GPU RF Planning Layer</span>
+    <h1>WebGL RF Heatmap Engine</h1>
+    <p>
+      Primo motore grafico GPU-based per simulare copertura multi-sito, intensità RF,
+      handover boundaries, UE mobility e degradazione del segnale. Questo è il ponte
+      tra dashboard enterprise e vera simulazione RF 4D data-driven.
+    </p>
+  </div>
+
+  <div class="v66-status">
+    <div><span>Renderer</span><b id="v66_renderer">WebGL</b></div>
+    <div><span>FPS</span><b id="v66_fps">—</b></div>
+    <div><span>UE</span><b id="v66_ue_count">24</b></div>
+    <div><span>Sites</span><b>3</b></div>
+  </div>
+</section>
+
+<section class="v66-console">
+  <article class="v66-viewport-panel">
+    <div class="v66-panel-head">
+      <h2>GPU Coverage Field</h2>
+      <span id="v66_state">ENGINE INIT</span>
+    </div>
+
+    <div class="v66-canvas-wrap">
+      <canvas id="v66_canvas" width="1280" height="720"></canvas>
+      <div class="v66-overlay-grid"></div>
+      <div class="v66-hud h1">SITE A · n78 · 3.5 GHz</div>
+      <div class="v66-hud h2">SITE B · n3/n78 · LOAD BALANCE</div>
+      <div class="v66-hud h3">SITE C · EDGE COVERAGE</div>
+    </div>
+  </article>
+
+  <aside class="v66-side-panel">
+    <h2>RF Control Plane</h2>
+
+    <label>Scenario</label>
+    <select id="v66_scenario">
+      <option value="urban">Urban Canyon</option>
+      <option value="suburban">Suburban Macro</option>
+      <option value="mmwave">mmWave Dense Cell</option>
+    </select>
+
+    <label>Power Scale</label>
+    <input id="v66_power" type="range" min="0.45" max="1.45" step="0.01" value="1"/>
+
+    <label>Noise / Interference</label>
+    <input id="v66_noise" type="range" min="0" max="0.55" step="0.01" value="0.12"/>
+
+    <label>UE Mobility</label>
+    <input id="v66_speed" type="range" min="0.2" max="3.2" step="0.1" value="1.2"/>
+
+    <div class="v66-kpi-grid">
+      <div><span>Avg RSRP</span><b id="v66_rsrp">-86 dBm</b></div>
+      <div><span>Avg SINR</span><b id="v66_sinr">18 dB</b></div>
+      <div><span>Handover</span><b id="v66_ho">READY</b></div>
+      <div><span>Coverage</span><b id="v66_cov">94%</b></div>
+    </div>
+
+    <div class="v66-actions">
+      <button id="v66_toggle_ue">Toggle UE</button>
+      <button id="v66_toggle_heat">Toggle Heat</button>
+      <button id="v66_reset">Reset Scene</button>
+    </div>
+  </aside>
+</section>
+
+<section class="v66-knowledge">
+  <article>
+    <h3>GPU Heatmap Model</h3>
+    <p>Il colore del terreno rappresenta intensità RF aggregata: site contribution, path loss, interference e soglia coverage.</p>
+  </article>
+  <article>
+    <h3>UE Mobility</h3>
+    <p>Gli UE si muovono nella scena e vengono associati dinamicamente al sito dominante, simulando confini di cella e handover.</p>
+  </article>
+  <article>
+    <h3>Enterprise Evolution</h3>
+    <p>Il passo successivo sarà aggiungere shadowing urbano, ostacoli, vegetazione stagionale e shader volumetrici per beamforming.</p>
+  </article>
+</section>
+</main>
+
+<footer>TRFMC v0.66A · WebGL RF Heatmap Engine · frontend-only · localhost-only</footer>
+</body>
+</html>
