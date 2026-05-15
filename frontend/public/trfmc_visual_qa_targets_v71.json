@@ -5,12 +5,14 @@
       "id": "executive-next",
       "label": "Executive Dashboard Next",
       "url": "/executive_mission_dashboard_v_next.html",
+      "v77a_object_integrated": true,
       "tier": "mission-control"
     },
     {
       "id": "ue-handover",
       "label": "UE Mobility / Handover",
       "url": "/webgl_rf_heatmap_engine_v69.html",
+      "v77a_object_integrated": true,
       "tier": "rf-simulation",
       "v74a_redesign": true
     },
@@ -42,6 +44,7 @@
       "id": "digital-twin",
       "label": "Infrastructure Digital Twin",
       "url": "/infrastructure_digital_twin_v63.html",
+      "v77a_object_integrated": true,
       "tier": "field-ops",
       "v74a_redesign": true
     },
@@ -55,6 +58,7 @@
       "id": "knowledge-os",
       "label": "RF/Telco Knowledge OS",
       "url": "/rf_telco_knowledge_os_v60.html",
+      "v77a_object_integrated": true,
       "tier": "knowledge"
     },
     {

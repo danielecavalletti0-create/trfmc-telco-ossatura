@@ -1,0 +1,30 @@
+[
+  {
+    "file": "frontend/public/webgl_rf_heatmap_engine_v69.html",
+    "status": "patched",
+    "changed": true,
+    "has_v77_css": true,
+    "has_v77_js": true
+  },
+  {
+    "file": "frontend/public/infrastructure_digital_twin_v63.html",
+    "status": "patched",
+    "changed": true,
+    "has_v77_css": true,
+    "has_v77_js": true
+  },
+  {
+    "file": "frontend/public/executive_mission_dashboard_v_next.html",
+    "status": "patched",
+    "changed": true,
+    "has_v77_css": true,
+    "has_v77_js": true
+  },
+  {
+    "file": "frontend/public/rf_telco_knowledge_os_v60.html",
+    "status": "patched",
+    "changed": true,
+    "has_v77_css": true,
+    "has_v77_js": true
+  }
+]
