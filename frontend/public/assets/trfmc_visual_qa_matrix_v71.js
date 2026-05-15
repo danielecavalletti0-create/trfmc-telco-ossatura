@@ -131,7 +131,7 @@
 
     tbody.querySelectorAll("[data-preview]").forEach(btn => {
       btn.addEventListener("click", () => {
-        $("preview_frame").src = btn.dataset.preview;
+        $("preview_frame").src = withPreviewParam(btn.dataset.preview);
         $("preview_label").textContent = btn.dataset.label;
       });
     });
@@ -193,9 +193,16 @@
     $("qa_state").className = avg >= 88 ? "" : "warn";
 
     if(rows.length && !$("preview_frame").src){
-      $("preview_frame").src = rows[0].url;
+      $("preview_frame").src = withPreviewParam(rows[0].url);
       $("preview_label").textContent = rows[0].label;
     }
+  }
+
+
+  function withPreviewParam(url){
+    if(!url) return url;
+    if(url.includes("preview=1")) return url;
+    return url + (url.includes("?") ? "&" : "?") + "preview=1";
   }
 
   function exportJson(){
