@@ -1,0 +1,12 @@
+{
+  "version": "TRFMC v0.81C-R2",
+  "target": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+  "changed": true,
+  "strategy": "append-only bridge",
+  "original_v68_overwritten": false,
+  "webgl_enabled": false,
+  "cdn_used": false,
+  "global_overlay": false,
+  "object_stack": false,
+  "physics_model": "Weissberger MED bridge"
+}
