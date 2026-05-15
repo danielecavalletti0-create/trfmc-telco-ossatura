@@ -1,0 +1,16 @@
+{
+  "version": "TRFMC v0.73A",
+  "name": "Visual Dependency Hygiene / No More Chaos Layers",
+  "purpose": "Remove aggressive v0.72A surgical remediation references from strategic pages and keep v0.72B as clean containment layer.",
+  "removed_from_html": [
+    "trfmc_surgical_visual_remediation_v72.css",
+    "trfmc_surgical_visual_remediation_v72.js"
+  ],
+  "kept": [
+    "trfmc_visual_chaos_containment_v72b.css",
+    "trfmc_visual_chaos_containment_v72b.js"
+  ],
+  "controls": {
+    "ALT+S": "clean screenshot mode"
+  }
+}

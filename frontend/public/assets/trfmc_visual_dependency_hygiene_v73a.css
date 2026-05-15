@@ -1,0 +1,94 @@
+/* TRFMC v0.73A - Visual Dependency Hygiene */
+
+/*
+  Questo layer NON aggiunge effetti.
+  Serve a stabilizzare:
+  - niente overlay v72A aggressivi;
+  - una sola governance shell;
+  - badge v72B sobrio;
+  - preview pulita;
+  - no visual stacking non controllato.
+*/
+
+body.trfmc-v73a-hygiene {
+  --v73a-cyan: #8ff0ff;
+  --v73a-green: #42f56f;
+  --v73a-bg: #020713;
+}
+
+/* ulteriore cintura di sicurezza contro elementi v72A residui */
+body.trfmc-v73a-hygiene .v72-remediation-badge,
+body.trfmc-v73a-hygiene .trfmc-v72-remediation .v72-remediation-badge {
+  display: none !important;
+}
+
+/* se una vecchia classe v72A rimane nel body, non deve deformare tutto */
+body.trfmc-v73a-hygiene.trfmc-v72-remediation section,
+body.trfmc-v73a-hygiene.trfmc-v72-remediation article,
+body.trfmc-v73a-hygiene.trfmc-v72-remediation aside,
+body.trfmc-v73a-hygiene.trfmc-v72-remediation .panel {
+  box-shadow:
+    0 18px 58px rgba(0,0,0,.28),
+    inset 0 0 22px rgba(143,240,255,.025) !important;
+}
+
+/* QA matrix: preview più leggibile, meno effetto matrioska */
+body.trfmc-v73a-hygiene.v71-shell .preview {
+  min-height: 320px !important;
+}
+
+body.trfmc-v73a-hygiene.v71-shell .preview iframe {
+  border-radius: 22px !important;
+  opacity: .96;
+}
+
+/* stato hygiene leggero, non invasivo */
+.v73a-hygiene-state {
+  position: fixed;
+  left: 18px;
+  bottom: 14px;
+  z-index: 2147483200;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid rgba(66,245,111,.25);
+  border-radius: 999px;
+  background: rgba(3,12,26,.72);
+  color: var(--v73a-green);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  backdrop-filter: blur(10px);
+}
+
+body.trfmc-preview-embedded .v73a-hygiene-state {
+  display: none !important;
+}
+
+.v73a-hygiene-state i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--v73a-green);
+  box-shadow: 0 0 12px rgba(66,245,111,.70);
+}
+
+/* modalità super pulita per valutazione screenshot */
+body.trfmc-v73a-clean-screenshot .v72b-clean-badge,
+body.trfmc-v73a-clean-screenshot .v73a-hygiene-state,
+body.trfmc-v73a-clean-screenshot .v70b-definition-strip,
+body.trfmc-v73a-clean-screenshot .v72-remediation-badge {
+  display: none !important;
+}
+
+body.trfmc-v73a-clean-screenshot .trfmc-v70-shell {
+  opacity: .92;
+}
+
+/* blocco definitivo contro fixed invasivi se non autorizzati */
+body.trfmc-v73a-hygiene:not(.trfmc-v72b-audit) .trfmc-v70-blade,
+body.trfmc-v73a-hygiene:not(.trfmc-v72b-audit) .trfmc-v70-rail,
+body.trfmc-v73a-hygiene:not(.trfmc-v72b-audit) .v70b-definition-strip {
+  display: none !important;
+}
