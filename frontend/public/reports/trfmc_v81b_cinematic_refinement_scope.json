@@ -1,0 +1,11 @@
+{
+  "version": "TRFMC v0.81B",
+  "target": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+  "changed": true,
+  "css_added": true,
+  "js_added": true,
+  "production_pages_touched": false,
+  "original_v68_overwritten": false,
+  "global_layer": false,
+  "object_stack": false
+}
