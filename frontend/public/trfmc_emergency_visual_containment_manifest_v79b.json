@@ -1,0 +1,11 @@
+{
+  "version": "TRFMC v0.79B",
+  "name": "Emergency Visual Containment / Object Layer Quarantine",
+  "purpose": "Remove intrusive v77/v78/v79 object-stack injections from operational pages after visual regression.",
+  "policy": [
+    "Do not inject global object stacks into operational pages.",
+    "Keep the component library as a standalone design reference.",
+    "Proceed page-by-page with handcrafted object integration only after visual approval.",
+    "No fixed overlays, no duplicated page headers, no top-heavy object bands."
+  ]
+}

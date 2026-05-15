@@ -321,8 +321,6 @@
 <link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css"/>
 <link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
   <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css"/>
-  <link rel="stylesheet" href="/assets/trfmc_full_portal_object_completion_v78.css"/>
-  <link rel="stylesheet" href="/assets/trfmc_object_stack_governance_v79.css"/>
 </head>
 <body class="trfmc-enterprise-shell">
 <header>
@@ -460,7 +458,6 @@ function unique(values) {
   return [...new Set(values.filter(Boolean))].sort()
 }
 
-
 async function get(path) {
   const r = await fetch(API + path)
   if (!r.ok) throw new Error(path + ' ' + r.status)
@@ -531,8 +528,6 @@ function renderReleases(releases) {
     el.appendChild(div)
   }
 }
-
-
 
 function renderApiFilters(endpoints) {
   const el = document.getElementById('api_filters')
@@ -637,7 +632,5 @@ setInterval(loadAll, 30000)
 <div style="display:none"><a href="/rf_telco_knowledge_os_v60.html">Knowledge OS</a></div>
 <div style="display:none"><a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a></div>
 <script defer src="/assets/trfmc_master_shell_v75.js"></script>
-<script defer src="/assets/trfmc_full_portal_object_completion_v78.js"></script>
-<script defer src="/assets/trfmc_object_stack_governance_v79.js"></script>
 </body>
 </html>
