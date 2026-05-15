@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.61A · RF/Telco Knowledge Modules</title>
+  <link rel="stylesheet" href="/assets/trfmc_knowledge_modules_v61.css"/>
+</head>
+<body class="v61">
+<header>
+  <div class="brand">
+    <div class="orb"></div>
+    <div>
+      <b>TRFMC KNOWLEDGE MODULES</b>
+      <span>Didactic Content Pack · EM/RF/Telco/Automation · v0.61A</span>
+    </div>
+  </div>
+  <nav>
+    <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+    <a href="/rf_telco_knowledge_os_v60.html">Knowledge OS</a>
+    <a class="active" href="/rf_telco_knowledge_modules_v61.html">Modules</a>
+    <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    <a href="/runtime_golden_check_console_v29.html">Golden</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <span class="eyebrow">TRFMC v0.61A · didactic content pack</span>
+  <h1>RF/Telco Expert Knowledge Modules</h1>
+  <p>
+    Primo pacchetto didattico operativo per il portale: teoria, significato ingegneristico,
+    visualizzazione, troubleshooting, KPI e collegamento ai futuri ambienti 3D/gaming-grade.
+  </p>
+</section>
+
+<section class="module-grid">
+
+<article class="module" id="maxwell">
+  <div class="module-head">
+    <span>01</span>
+    <h2>Maxwell / EM Physics Layer</h2>
+  </div>
+  <p>
+    Le comunicazioni radio partono dai campi elettromagnetici. Il portale dovrà collegare le equazioni
+    fondamentali a onde animate, polarizzazione, propagazione, antenne e misure reali.
+  </p>
+  <div class="formula">
+    <code>∇ × E = −∂B/∂t</code>
+    <code>∇ × B = μ₀J + μ₀ε₀∂E/∂t</code>
+  </div>
+  <h3>Contenuti da inserire</h3>
+  <ul>
+    <li>campo elettrico e magnetico, onda piana, polarizzazione lineare/circolare</li>
+    <li>near field, far field, densità di potenza, Poynting vector</li>
+    <li>relazione tra frequenza, lunghezza d’onda e banda radio</li>
+    <li>collegamento a antenne, radar, propagazione e strumentazione</li>
+  </ul>
+  <h3>Visual 3D previsto</h3>
+  <p class="visual">Onda EM volumetrica con E/H ortogonali, piano di propagazione, polarizzazione selezionabile e overlay frequenza/lunghezza d’onda.</p>
+</article>
+
+<article class="module" id="propagation">
+  <div class="module-head">
+    <span>02</span>
+    <h2>RF Propagation Sandbox</h2>
+  </div>
+  <p>
+    Ogni ambiente radio reale è multipath. Reflection, diffraction, scattering e penetration determinano
+    RSRP, SINR, throughput, handover e qualità percepita.
+  </p>
+  <div class="diagram propagation">
+    <b>TX</b><i></i><b>Reflection</b><i></i><b>Diffraction</b><i></i><b>RX</b>
+  </div>
+  <h3>Contenuti da inserire</h3>
+  <ul>
+    <li>LOS/NLOS, ostacoli, urban canyon, indoor penetration</li>
+    <li>path loss: free-space, log-distance, shadowing</li>
+    <li>multipath, delay spread, fading, Doppler</li>
+    <li>differenza operativa tra 700 MHz, 3.5 GHz, 26/28 GHz</li>
+  </ul>
+  <h3>KPI correlati</h3>
+  <p class="kpis">RSRP · RSRQ · SINR · CQI · BLER · Throughput · Handover Failure</p>
+</article>
+
+<article class="module" id="infrastructure">
+  <div class="module-head">
+    <span>03</span>
+    <h2>Infrastructure Digital Twin</h2>
+  </div>
+  <p>
+    La torre non è un’icona: è un sistema composto da antenna panel, RRU, RET/AISG, shelter,
+    alimentazione, fibra, microwave backhaul, cooling e allarmi.
+  </p>
+  <div class="tower">
+    <span class="ant">ANTENNA</span>
+    <span class="ret">RET</span>
+    <span class="rru">RRU</span>
+    <span class="mw">MICROWAVE</span>
+    <span class="cab">SHELTER / POWER</span>
+  </div>
+  <h3>Contenuti da inserire</h3>
+  <ul>
+    <li>settori, azimuth, tilt meccanico/elettrico, beamwidth</li>
+    <li>RRU, PA, output power, temperatura, allarmi VSWR</li>
+    <li>fiber fronthaul, microwave, backhaul, power chain</li>
+    <li>mappatura cella fisica → cella logica → protocollo</li>
+  </ul>
+</article>
+
+<article class="module" id="transmission">
+  <div class="module-head">
+    <span>04</span>
+    <h2>Transmission Lines / Smith / VSWR</h2>
+  </div>
+  <p>
+    La qualità RF dipende anche da accoppiamento d’impedenza, ritorni, perdite e discontinuità.
+    Qui il portale deve diventare un mini RF lab.
+  </p>
+  <div class="formula">
+    <code>Γ = (ZL − Z0)/(ZL + Z0)</code>
+    <code>VSWR = (1 + |Γ|)/(1 − |Γ|)</code>
+  </div>
+  <h3>Contenuti da inserire</h3>
+  <ul>
+    <li>impedenza caratteristica, riflessione, return loss, insertion loss</li>
+    <li>Smith Chart, S11/S21, VNA workflow</li>
+    <li>coax, microstrip, waveguide, connettori, mismatch</li>
+    <li>diagnostica: cavo danneggiato, connettore ossidato, antenna disadattata</li>
+  </ul>
+</article>
+
+<article class="module" id="beamforming">
+  <div class="module-head">
+    <span>05</span>
+    <h2>Antenna / RET / Beamforming Lab</h2>
+  </div>
+  <p>
+    Il controllo del fascio è il cuore delle reti moderne: tilt, azimuth, array factor,
+    beam steering, null steering e massive MIMO.
+  </p>
+  <div class="diagram beams">
+    <b>Array</b><i></i><b>Main Lobe</b><i></i><b>Side Lobes</b><i></i><b>UE</b>
+  </div>
+  <h3>Contenuti da inserire</h3>
+  <ul>
+    <li>mechanical tilt, electrical tilt, RET, RCU, AISG</li>
+    <li>array factor, beamwidth, side lobes, nulls</li>
+    <li>overshooting, interference, PCI/RSRP/SINR impact</li>
+    <li>massive MIMO, CSI feedback, scheduler awareness</li>
+  </ul>
+</article>
+
+<article class="module" id="automation">
+  <div class="module-head">
+    <span>06</span>
+    <h2>RF Automation / Python / SCPI Lab</h2>
+  </div>
+  <p>
+    L’ingegnere RF moderno automatizza strumenti, acquisisce dati, analizza IQ e genera report.
+    Il portale deve integrare un laboratorio Python-first.
+  </p>
+  <pre><code>import pyvisa
+rm = pyvisa.ResourceManager()
+sa = rm.open_resource("TCPIP0::192.168.1.10::inst0::INSTR")
+sa.write("FREQ:CENT 3.5GHz")
+print(sa.query("READ:SAN?"))</code></pre>
+  <h3>Contenuti da inserire</h3>
+  <ul>
+    <li>PyVISA, SCPI, spectrum analyzer, VNA, signal generator</li>
+    <li>SDR/IQ acquisition, FFT, waterfall, EVM, ACPR/ACLR</li>
+    <li>automazione misure, evidence report, anomaly detection</li>
+    <li>AI/RF: classificazione spettri e interferenze</li>
+  </ul>
+</article>
+
+</section>
+
+<section class="production-roadmap">
+  <h2>Materiale didattico da produrre nei prossimi step</h2>
+  <div>
+    <span>Lezioni complete</span>
+    <span>Diagrammi 3D</span>
+    <span>Simulazioni</span>
+    <span>Quiz tecnici</span>
+    <span>Laboratori guidati</span>
+    <span>Report template</span>
+  </div>
+</section>
+</main>
+
+<footer>TRFMC v0.61A · Knowledge Modules / Didactic Content Pack · frontend-only · localhost-only</footer>
+</body>
+</html>
