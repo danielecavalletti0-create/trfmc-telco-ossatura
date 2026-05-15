@@ -1,0 +1,13 @@
+{
+  "version": "TRFMC v0.82A",
+  "mode": "native WebGL RF vegetation laboratory",
+  "new_page": "webgl_rf_heatmap_engine_v82_native_lab.html",
+  "baseline_preserved": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+  "original_v68_overwritten": false,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "fallback": "link to v81C-R2 stable page"
+}
