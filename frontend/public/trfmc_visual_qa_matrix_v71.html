@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.71A · Page-by-Page Visual QA Matrix</title>
+  <link rel="stylesheet" href="/assets/trfmc_visual_qa_matrix_v71.css"/>
+  <script defer src="/assets/trfmc_visual_qa_matrix_v71.js"></script>
+</head>
+
+<body class="v71-shell">
+  <div class="v71-bg-grid"></div>
+  <div class="v71-glow g1"></div>
+  <div class="v71-glow g2"></div>
+
+  <header class="v71-top">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <b>TRFMC VISUAL GOVERNANCE LAB</b>
+        <span>v0.71A · Page-by-page Visual QA Matrix · Object System Audit</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a>
+      <a href="/field_engineering_mode_v64.html">Field</a>
+      <a class="active" href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span id="backend_state">Backend —</span>
+      <span id="qa_state">QA INIT</span>
+      <span id="qa_score">Score —</span>
+    </div>
+  </header>
+
+  <main class="v71-layout">
+    <section class="hero panel">
+      <div>
+        <div class="eyebrow">TRFMC v0.71A · surgical visual governance</div>
+        <h1>Page-by-Page Visual QA Matrix</h1>
+        <p>
+          Questa console non aggiunge estetica casuale: misura la coerenza del portale.
+          Controlla tutte le pagine strategiche per shell unificata, object system, navigazione,
+          identità, scene, sharpness residua e readiness visiva.
+        </p>
+      </div>
+      <div class="score-orb">
+        <span>Portal Visual Score</span>
+        <b id="score_big">—</b>
+        <small id="score_label">calcolo in corso</small>
+      </div>
+    </section>
+
+    <section class="matrix-panel panel">
+      <div class="panel-head">
+        <h2>Visual QA Matrix</h2>
+        <div class="actions">
+          <button id="btn_run">Run QA</button>
+          <button id="btn_strict">Strict Mode</button>
+          <button id="btn_export">Export JSON</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>HTTP</th>
+              <th>Shell</th>
+              <th>Object</th>
+              <th>Nav</th>
+              <th>H1</th>
+              <th>Scene</th>
+              <th>Sharp</th>
+              <th>Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="qa_rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="side panel">
+      <h2>Governance Criteria</h2>
+      <div class="criteria">
+        <div><b>Shell</b><span>v70/v70B asset injection</span></div>
+        <div><b>Object</b><span>organic surface system active</span></div>
+        <div><b>Nav</b><span>menu present, route linkable</span></div>
+        <div><b>H1</b><span>strong primary identity</span></div>
+        <div><b>Scene</b><span>canvas, cockpit, tower, panel or scene</span></div>
+        <div><b>Sharp</b><span>residual hard-edge candidates</span></div>
+      </div>
+
+      <h2>Next Surgical Pass</h2>
+      <div id="next_steps" class="next-steps">
+        <div>In attesa della scansione.</div>
+      </div>
+    </aside>
+
+    <section class="preview panel">
+      <div class="panel-head">
+        <h2>Live Page Preview</h2>
+        <span id="preview_label">seleziona una pagina</span>
+      </div>
+      <iframe id="preview_frame" title="TRFMC visual QA preview"></iframe>
+    </section>
+  </main>
+</body>
+</html>

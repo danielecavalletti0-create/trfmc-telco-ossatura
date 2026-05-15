@@ -1,0 +1,87 @@
+{
+  "version": "TRFMC v0.71A",
+  "targets": [
+    {
+      "id": "executive-next",
+      "label": "Executive Dashboard Next",
+      "url": "/executive_mission_dashboard_v_next.html",
+      "tier": "mission-control"
+    },
+    {
+      "id": "ue-handover",
+      "label": "UE Mobility / Handover",
+      "url": "/webgl_rf_heatmap_engine_v69.html",
+      "tier": "rf-simulation"
+    },
+    {
+      "id": "vegetation",
+      "label": "Seasonal Vegetation",
+      "url": "/webgl_rf_heatmap_engine_v68.html",
+      "tier": "rf-simulation"
+    },
+    {
+      "id": "urban-shadowing",
+      "label": "Urban Shadowing",
+      "url": "/webgl_rf_heatmap_engine_v67.html",
+      "tier": "rf-simulation"
+    },
+    {
+      "id": "webgl-heatmap",
+      "label": "WebGL RF Heatmap",
+      "url": "/webgl_rf_heatmap_engine_v66.html",
+      "tier": "rf-simulation"
+    },
+    {
+      "id": "field-engineering",
+      "label": "Field Engineering",
+      "url": "/field_engineering_mode_v64.html",
+      "tier": "field-ops"
+    },
+    {
+      "id": "digital-twin",
+      "label": "Infrastructure Digital Twin",
+      "url": "/infrastructure_digital_twin_v63.html",
+      "tier": "field-ops"
+    },
+    {
+      "id": "propagation",
+      "label": "RF Propagation Sandbox",
+      "url": "/rf_propagation_sandbox_v62.html",
+      "tier": "rf-theory"
+    },
+    {
+      "id": "knowledge-os",
+      "label": "RF/Telco Knowledge OS",
+      "url": "/rf_telco_knowledge_os_v60.html",
+      "tier": "knowledge"
+    },
+    {
+      "id": "knowledge-modules",
+      "label": "Knowledge Modules",
+      "url": "/rf_telco_knowledge_modules_v61.html",
+      "tier": "knowledge"
+    },
+    {
+      "id": "portal-index",
+      "label": "Portal Index",
+      "url": "/portal_index_v19.html",
+      "tier": "navigation"
+    },
+    {
+      "id": "golden-check",
+      "label": "Golden Runtime Check",
+      "url": "/runtime_golden_check_console_v29.html",
+      "tier": "governance"
+    }
+  ],
+  "quality_gates": {
+    "http": "HTTP 200 required",
+    "shell": "v70/v70B unified assets expected",
+    "nav": "navigation required",
+    "h1": "primary page title required",
+    "object_system": "v70B object definition assets expected",
+    "scene": "canvas, scene, cockpit or panel surface expected",
+    "sharpness": "detect residual rectangular geometry candidates",
+    "identity": "page-specific identity markers expected"
+  }
+}
