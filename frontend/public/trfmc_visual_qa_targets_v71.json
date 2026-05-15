@@ -11,7 +11,8 @@
       "id": "ue-handover",
       "label": "UE Mobility / Handover",
       "url": "/webgl_rf_heatmap_engine_v69.html",
-      "tier": "rf-simulation"
+      "tier": "rf-simulation",
+      "v74a_redesign": true
     },
     {
       "id": "vegetation",
@@ -41,7 +42,8 @@
       "id": "digital-twin",
       "label": "Infrastructure Digital Twin",
       "url": "/infrastructure_digital_twin_v63.html",
-      "tier": "field-ops"
+      "tier": "field-ops",
+      "v74a_redesign": true
     },
     {
       "id": "propagation",
