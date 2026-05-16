@@ -1,0 +1,24 @@
+{
+  "version": "TRFMC v0.84E",
+  "page": "rf_sapienza_console_v84e.html",
+  "mission": "Instrument-first RF teaching console: no red curtain, dark measurement surface, diagnostic contours, readable instruments.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "replaces_semantics_of": "v0.84D visual palette issue, without overwriting v84D",
+  "visual_rules": [
+    "red only local critical degradation",
+    "green/cyan usable or excellent service",
+    "amber margin/cell-edge",
+    "blue weak/NLOS",
+    "objects must remain readable over the field"
+  ],
+  "teaching_rules": [
+    "field is hypothesis",
+    "IQ/PDP/H(f)/budget are proof",
+    "teacher note explains the cause",
+    "student learns diagnostic order"
+  ]
+}
