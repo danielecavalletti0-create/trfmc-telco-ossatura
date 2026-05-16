@@ -1,0 +1,12 @@
+{
+  "version": "TRFMC v0.87C",
+  "page": "trfmc_cinematic_mission_atlas_v87c.html",
+  "css": "assets/trfmc_v087c_cinematic_mission_atlas.css",
+  "js": "assets/trfmc_v087c_cinematic_mission_atlas.js",
+  "manifest": "reports/trfmc_v87c_cinematic_mission_atlas_manifest.json",
+  "scope_root": "[data-trfmc-page='cinematic-mission-atlas-v87c']",
+  "no_iframe": true,
+  "no_cdn": true,
+  "no_backend_change": true,
+  "no_global_css": true
+}

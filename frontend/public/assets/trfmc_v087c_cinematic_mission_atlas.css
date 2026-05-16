@@ -1,0 +1,492 @@
+[data-trfmc-page="cinematic-mission-atlas-v87c"]{
+  margin:0;
+  min-height:100vh;
+  background:#01040b;
+  color:#e8faff;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  overflow-x:hidden;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-shell{
+  position:relative;
+  min-height:100vh;
+  padding:10px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(143,240,255,.16), transparent 30%),
+    radial-gradient(circle at 83% 14%, rgba(66,245,111,.12), transparent 32%),
+    radial-gradient(circle at 42% 72%, rgba(36,98,255,.14), transparent 44%),
+    linear-gradient(135deg,#01040b,#031827 58%,#01040a);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-canvas{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  opacity:.82;
+  pointer-events:none;
+  z-index:0;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-topbar,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-hero,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-atlas,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-selected,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-flow article,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-panel,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-engineering,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-footer{
+  position:relative;
+  z-index:1;
+  border:1px solid rgba(143,240,255,.32);
+  background:
+    linear-gradient(145deg,rgba(8,31,51,.76),rgba(1,8,17,.94)),
+    repeating-linear-gradient(90deg,rgba(143,240,255,.03) 0 1px,transparent 1px 68px);
+  box-shadow:0 24px 90px rgba(0,0,0,.36);
+  backdrop-filter:blur(12px);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-topbar{
+  min-height:58px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 14px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-brand strong{
+  display:block;
+  letter-spacing:.18em;
+  font-size:13px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-brand small{
+  color:rgba(232,250,255,.62);
+  font-size:10px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-orb{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  background:radial-gradient(circle at 35% 28%,#fff 0 7%,#8ff0ff 8% 32%,#116980 64%,#020711 100%);
+  box-shadow:0 0 24px rgba(143,240,255,.76),0 0 72px rgba(66,245,111,.18);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-nav a,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-action,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-open{
+  border:1px solid rgba(143,240,255,.36);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(143,240,255,.055);
+  color:#8ff0ff;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-action.primary,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-nav a:hover,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-action:hover,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-open:hover{
+  color:#021006;
+  background:linear-gradient(135deg,#8ff0ff,#42f56f);
+  box-shadow:0 0 28px rgba(66,245,111,.22);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-status{
+  min-width:150px;
+  border:1px solid rgba(66,245,111,.45);
+  border-radius:16px;
+  padding:8px 12px;
+  text-align:center;
+  background:rgba(66,245,111,.06);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-status b{
+  display:block;
+  color:#42f56f;
+  font-size:14px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-status span{
+  display:block;
+  color:rgba(232,250,255,.62);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-hero{
+  overflow:hidden;
+  margin-top:10px;
+  border-radius:30px;
+  padding:38px;
+  min-height:410px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 270px;
+  gap:30px;
+  align-items:center;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(115deg,transparent 0 26%,rgba(143,240,255,.10) 27% 29%,transparent 30% 100%),
+    linear-gradient(70deg,transparent 0 62%,rgba(66,245,111,.07) 63% 64%,transparent 65%),
+    repeating-linear-gradient(0deg,rgba(143,240,255,.04) 0 1px,transparent 1px 52px),
+    repeating-linear-gradient(90deg,rgba(143,240,255,.032) 0 1px,transparent 1px 52px);
+  pointer-events:none;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-kicker{
+  color:#42f56f;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.18em;
+  margin:0 0 12px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] h1{
+  margin:0;
+  max-width:1250px;
+  font-size:clamp(58px,8vw,142px);
+  line-height:.84;
+  letter-spacing:.025em;
+  text-shadow:
+    0 0 18px rgba(143,240,255,.76),
+    0 0 58px rgba(143,240,255,.30),
+    0 0 110px rgba(66,245,111,.12);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] p{
+  color:rgba(232,250,255,.72);
+  line-height:1.56;
+  font-size:13px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-hero-copy p{
+  max-width:1120px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:20px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-command{
+  border:1px solid rgba(66,245,111,.44);
+  border-radius:26px;
+  padding:22px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 25%,rgba(66,245,111,.14),transparent 58%),
+    rgba(1,14,11,.70);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-command span{
+  display:block;
+  color:rgba(232,250,255,.62);
+  letter-spacing:.18em;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-command strong{
+  display:block;
+  color:#42f56f;
+  font-size:52px;
+  margin:8px 0;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-command small{
+  color:rgba(232,250,255,.65);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-meters{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:16px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-meters div{
+  border:1px solid rgba(143,240,255,.22);
+  border-radius:12px;
+  padding:9px 6px;
+  background:rgba(143,240,255,.04);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-meters b{
+  display:block;
+  color:#8ff0ff;
+  font-size:18px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-meters em{
+  color:rgba(232,250,255,.55);
+  font-style:normal;
+  font-size:9px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-theater{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 390px;
+  gap:10px;
+  margin-top:10px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-atlas,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-selected,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-panel{
+  border-radius:22px;
+  overflow:hidden;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 15px;
+  border-bottom:1px solid rgba(143,240,255,.20);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] h2{
+  margin:0;
+  color:#8ff0ff;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-section-head span{
+  border:1px solid rgba(66,245,111,.40);
+  border-radius:999px;
+  padding:6px 10px;
+  color:#42f56f;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-map{
+  position:relative;
+  min-height:440px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(143,240,255,.08),transparent 42%),
+    repeating-linear-gradient(0deg,rgba(143,240,255,.045) 0 1px,transparent 1px 38px),
+    repeating-linear-gradient(90deg,rgba(143,240,255,.035) 0 1px,transparent 1px 38px);
+  overflow:hidden;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-link{
+  position:absolute;
+  height:1px;
+  transform-origin:left center;
+  background:linear-gradient(90deg,rgba(143,240,255,.0),rgba(143,240,255,.75),rgba(66,245,111,.18));
+  box-shadow:0 0 18px rgba(143,240,255,.35);
+  pointer-events:none;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  width:150px;
+  min-height:78px;
+  border:1px solid rgba(143,240,255,.36);
+  border-radius:18px;
+  padding:12px;
+  background:rgba(1,13,24,.76);
+  box-shadow:0 0 28px rgba(143,240,255,.14);
+  cursor:pointer;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-node:hover,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-node.active{
+  border-color:rgba(66,245,111,.86);
+  box-shadow:0 0 42px rgba(66,245,111,.24);
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-node b{
+  color:#42f56f;
+  display:block;
+  font-size:12px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-node small{
+  color:rgba(232,250,255,.70);
+  display:block;
+  font-size:10px;
+  margin-top:6px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-node i{
+  display:inline-flex;
+  margin-top:8px;
+  border:1px solid rgba(143,240,255,.28);
+  border-radius:999px;
+  padding:3px 7px;
+  color:#8ff0ff;
+  font-style:normal;
+  font-size:9px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-selected-box{
+  padding:16px;
+  min-height:380px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-selected-box b{
+  color:#42f56f;
+  font-size:20px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-selected-box code{
+  display:block;
+  margin-top:12px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-flow{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-flow article{
+  border-radius:18px;
+  padding:14px;
+  min-height:100px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-flow span{
+  color:#42f56f;
+  font-size:11px;
+  letter-spacing:.14em;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-flow b{
+  display:block;
+  color:#e8faff;
+  font-size:18px;
+  margin:6px 0;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-panel{
+  margin-top:10px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-deck{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  padding:14px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-card,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-eng-card{
+  border:1px solid rgba(143,240,255,.24);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(0,0,0,.20);
+  min-height:150px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-card b,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-eng-card b{
+  display:block;
+  color:#42f56f;
+  font-size:14px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-card small,
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-eng-card small{
+  color:#8ff0ff;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-engineering{
+  margin-top:10px;
+  border-radius:18px;
+  padding:14px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-engineering summary{
+  color:#8ff0ff;
+  font-weight:900;
+  letter-spacing:.14em;
+  cursor:pointer;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-engineering-deck{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] code{
+  border:1px solid rgba(66,245,111,.32);
+  border-radius:10px;
+  padding:9px;
+  color:#42f56f;
+  background:rgba(66,245,111,.06);
+  white-space:pre-wrap;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-footer{
+  margin-top:10px;
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  color:rgba(232,250,255,.56);
+  font-size:11px;
+}
+
+@media(max-width:1450px){
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-hero,
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-theater{
+    grid-template-columns:1fr;
+  }
+
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-deck,
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-engineering-deck{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:900px){
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-topbar{
+    position:relative;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-flow,
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-deck,
+  [data-trfmc-page="cinematic-mission-atlas-v87c"] .ca87-engineering-deck{
+    grid-template-columns:1fr;
+  }
+}
