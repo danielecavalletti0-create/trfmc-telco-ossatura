@@ -1,0 +1,244 @@
+/* TRFMC v0.83D - Instrument Layout + Link Budget Inspector */
+
+body.v83d-instrument {
+  --v83d-cyan:#8ff0ff;
+  --v83d-green:#42f56f;
+  --v83d-amber:#fbbf24;
+  --v83d-red:#ff3b5c;
+  --v83d-blue:#2ea7ff;
+}
+
+/* Fix titolo tagliato / hero troppo aggressivo */
+body.v83d-instrument .hero {
+  padding-top:34px !important;
+  padding-bottom:30px !important;
+  overflow:visible !important;
+}
+
+body.v83d-instrument h1 {
+  font-size:clamp(34px,3.8vw,60px) !important;
+  line-height:1.12 !important;
+  letter-spacing:.015em;
+  padding-top:4px;
+  overflow:visible;
+}
+
+body.v83d-instrument .hero p {
+  max-width:1320px;
+}
+
+/* Più “strumento”, meno poster */
+body.v83d-instrument .stage {
+  min-height:700px;
+  border-radius:24px;
+  box-shadow:
+    0 30px 105px rgba(0,0,0,.48),
+    inset 0 0 80px rgba(143,240,255,.045),
+    0 0 60px rgba(143,240,255,.040);
+}
+
+body.v83d-instrument .stage::after {
+  opacity:.18 !important;
+}
+
+/* Linea best-server verso UE probe */
+.v83d-serving-vector {
+  position:absolute;
+  z-index:17;
+  height:3px;
+  border-radius:999px;
+  pointer-events:none;
+  transform-origin:left center;
+  background:linear-gradient(90deg,rgba(143,240,255,.08),var(--v83d-cyan),var(--v83d-green));
+  box-shadow:
+    0 0 14px rgba(143,240,255,.55),
+    0 0 36px rgba(66,245,111,.18);
+}
+
+.v83d-serving-vector::after {
+  content:"BEST SERVER VECTOR";
+  position:absolute;
+  right:0;
+  top:-22px;
+  border:1px solid rgba(143,240,255,.25);
+  border-radius:999px;
+  background:rgba(2,8,18,.78);
+  color:var(--v83d-green);
+  padding:4px 8px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+/* Link budget dock */
+.v83d-budget-dock {
+  margin:16px 18px 0;
+  border:1px solid rgba(143,240,255,.28);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.11), transparent 36%),
+    linear-gradient(145deg,rgba(8,30,50,.90),rgba(3,9,22,.97));
+  box-shadow:
+    0 22px 74px rgba(0,0,0,.34),
+    inset 0 0 38px rgba(143,240,255,.030);
+  padding:16px;
+}
+
+.v83d-budget-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+}
+
+.v83d-budget-head h3 {
+  margin:0;
+  color:var(--v83d-cyan);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:14px;
+}
+
+.v83d-budget-head p {
+  margin:6px 0 0;
+  color:rgba(232,250,255,.64);
+  font-size:11px;
+  line-height:1.45;
+}
+
+.v83d-budget-head .chip {
+  white-space:nowrap;
+  border:1px solid rgba(66,245,111,.30);
+  border-radius:999px;
+  padding:8px 12px;
+  color:var(--v83d-green);
+  background:rgba(66,245,111,.07);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.10em;
+}
+
+.v83d-table {
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0 8px;
+}
+
+.v83d-table th {
+  text-align:left;
+  color:rgba(232,250,255,.54);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-weight:900;
+  padding:0 10px 2px;
+}
+
+.v83d-table td {
+  border-top:1px solid rgba(143,240,255,.18);
+  border-bottom:1px solid rgba(143,240,255,.18);
+  background:rgba(143,240,255,.045);
+  color:#eaffff;
+  padding:11px 10px;
+  font-size:12px;
+}
+
+.v83d-table td:first-child {
+  border-left:1px solid rgba(143,240,255,.18);
+  border-radius:14px 0 0 14px;
+  color:var(--v83d-cyan);
+  font-weight:900;
+}
+
+.v83d-table td:last-child {
+  border-right:1px solid rgba(143,240,255,.18);
+  border-radius:0 14px 14px 0;
+}
+
+.v83d-table tr.serving td {
+  border-color:rgba(66,245,111,.32);
+  background:rgba(66,245,111,.070);
+}
+
+.v83d-table tr.interferer td {
+  border-color:rgba(251,191,36,.25);
+}
+
+.v83d-state-good { color:var(--v83d-green) !important; font-weight:900; }
+.v83d-state-warn { color:var(--v83d-amber) !important; font-weight:900; }
+.v83d-state-bad { color:var(--v83d-red) !important; font-weight:900; }
+
+.v83d-instrument-dock {
+  margin:16px 18px 0;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+}
+
+.v83d-card {
+  border:1px solid rgba(143,240,255,.27);
+  border-radius:22px;
+  padding:16px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.10), transparent 36%),
+    linear-gradient(145deg,rgba(8,30,50,.88),rgba(3,9,22,.96));
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.30),
+    inset 0 0 34px rgba(143,240,255,.025);
+}
+
+.v83d-card h3 {
+  margin:0 0 10px;
+  color:var(--v83d-cyan);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+.v83d-card p {
+  margin:0;
+  color:rgba(232,250,255,.65);
+  font-size:11px;
+  line-height:1.45;
+}
+
+.v83d-card code {
+  display:block;
+  border:1px solid rgba(66,245,111,.20);
+  border-radius:14px;
+  padding:10px;
+  color:var(--v83d-green);
+  background:rgba(66,245,111,.045);
+  font-size:11px;
+  line-height:1.45;
+}
+
+/* Rendering più disciplinato dei tag: meno rumore visivo */
+body.v83d-instrument .v83b-threshold-tag {
+  opacity:.82;
+  font-size:8px;
+}
+
+body.v83d-instrument .v83b-crosshair {
+  opacity:.78;
+}
+
+@media(max-width:1350px){
+  .v83d-instrument-dock {
+    grid-template-columns:1fr;
+  }
+
+  .v83d-budget-head {
+    display:block;
+  }
+
+  .v83d-budget-head .chip {
+    display:inline-block;
+    margin-top:10px;
+  }
+
+  .v83d-table {
+    font-size:10px;
+  }
+}
