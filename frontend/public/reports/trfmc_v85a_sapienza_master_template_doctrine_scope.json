@@ -1,0 +1,33 @@
+{
+  "version": "TRFMC v0.85A",
+  "page": "sapienza_master_template_doctrine_v85a.html",
+  "mission": "Master Template Doctrine for promoting v84M Sapienza baseline into a reusable portal-wide RF/T&M governance pattern.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.84M RF Sapienza Production Baseline",
+  "doctrine": [
+    "visual hierarchy",
+    "evidence chain",
+    "instrument truth",
+    "layer governance",
+    "object grammar",
+    "didactic mission"
+  ],
+  "promotion_targets": [
+    "rf_sapienza_console_v84m.html",
+    "webgl_rf_physics_engine_v83f.html",
+    "webgl_rf_heatmap_engine_v69.html",
+    "infrastructure_digital_twin_v63.html",
+    "rf_telco_knowledge_os_v60.html",
+    "trfmc_visual_qa_matrix_v71.html"
+  ],
+  "acceptance": [
+    "governance page available",
+    "no production page overwritten",
+    "promotion matrix defined",
+    "template tokens defined",
+    "next safe target identified"
+  ]
+}
