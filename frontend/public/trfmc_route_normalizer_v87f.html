@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="Cache-Control" content="no-store"/>
+  <title>TRFMC v0.87F · Route Normalizer</title>
+  <link rel="stylesheet" href="/assets/trfmc_v087f_route_normalizer.css"/>
+  <script defer src="/assets/trfmc_v087f_route_normalizer.js"></script>
+</head>
+<body data-trfmc-page="route-normalizer-v87f">
+  <main class="rn87-shell">
+    <header class="rn87-topbar">
+      <section class="rn87-brand">
+        <span class="rn87-orb"></span>
+        <div>
+          <strong>TRFMC ROUTE NORMALIZER</strong>
+          <small>v0.87F · mission pages first · engineering bay hidden</small>
+        </div>
+      </section>
+      <nav class="rn87-nav">
+        <a href="/trfmc_home_v87e.html">HOME</a>
+        <a href="/rf_physics_sapienza_console_v86a.html">RF PHYSICS</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">RF FIELD</a>
+        <a href="/infrastructure_digital_twin_v63.html">DIGITAL TWIN</a>
+        <a href="/webgl_rf_heatmap_engine_v69.html">HANDOVER</a>
+        <a href="/trfmc_theory_spine_v86e.html">THEORY</a>
+      </nav>
+      <section class="rn87-status">
+        <b id="rn87Status">LOADING</b>
+        <span>route normalizer</span>
+      </section>
+    </header>
+
+    <section class="rn87-hero">
+      <div>
+        <p class="rn87-kicker">TRFMC v0.87F · DAL PATCH-LAB ALLA PIATTAFORMA</p>
+        <h1>Route Normalizer</h1>
+        <p>
+          Questa pagina decide cosa vede l’utente finale e cosa resta in Engineering Bay.
+          La home canonica è v87E; le pagine operative restano in primo piano; audit, registry,
+          QA e diagnostica restano conservati ma non sono più facciata principale.
+        </p>
+        <div class="rn87-actions">
+          <a class="rn87-action primary" href="/trfmc_home_v87e.html">Open Canonical Home</a>
+          <a class="rn87-action" href="/rf_physics_sapienza_console_v86a.html">Open RF Physics</a>
+          <a class="rn87-action" href="/trfmc_theory_spine_v86e.html">Open Theory</a>
+        </div>
+      </div>
+      <aside class="rn87-command">
+        <span>NAVIGATION INTEGRITY</span>
+        <strong id="rn87Score">--</strong>
+        <small id="rn87ScoreText">validating routes</small>
+        <div class="rn87-meters">
+          <div><b id="rn87VisibleCount">--</b><em>visible</em></div>
+          <div><b id="rn87EngineeringCount">--</b><em>hidden</em></div>
+          <div><b id="rn87OkCount">--</b><em>HTTP 200</em></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="rn87-policy">
+      <article>
+        <h2>Visible Path</h2>
+        <code>HOME → RF PHYSICS → RF FIELD → DIGITAL TWIN → HANDOVER → RF CLUTTER → THEORY</code>
+      </article>
+      <article>
+        <h2>Engineering Bay</h2>
+        <code>Registry · Audit · QA · Performance · Quarantine · Rollback</code>
+      </article>
+      <article>
+        <h2>Promotion Rule</h2>
+        <code>Solo pagine operative, leggibili, scoped e con rotta HTTP 200 entrano nel menu principale.</code>
+      </article>
+    </section>
+
+    <section class="rn87-grid">
+      <article class="rn87-panel">
+        <div class="rn87-section-head">
+          <h2>Visible Mission Routes</h2>
+          <span id="visibleLabel">-- routes</span>
+        </div>
+        <div id="visibleRoutes" class="rn87-card-grid"></div>
+      </article>
+
+      <aside class="rn87-panel">
+        <div class="rn87-section-head">
+          <h2>Route Inspector</h2>
+          <span id="inspectorStatus">ready</span>
+        </div>
+        <div id="routeInspector" class="rn87-inspector">
+          Seleziona una rotta operativa.
+        </div>
+      </aside>
+    </section>
+
+    <section class="rn87-panel rn87-table-panel">
+      <div class="rn87-section-head">
+        <h2>Normalized Navigation Table</h2>
+        <span>visible only</span>
+      </div>
+      <div class="rn87-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Label</th>
+              <th>Tier</th>
+              <th>Domain</th>
+              <th>File</th>
+              <th>Role</th>
+              <th>HTTP</th>
+              <th>Open</th>
+            </tr>
+          </thead>
+          <tbody id="routeTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <details class="rn87-engineering">
+      <summary>Engineering Bay · pagine tecniche conservate ma nascoste dal percorso principale</summary>
+      <div id="engineeringRoutes" class="rn87-engineering-grid"></div>
+    </details>
+
+    <footer class="rn87-footer">
+      TRFMC v0.87F · Route Normalizer · canonical home v87E · service pages hidden · scoped · no iframe · no CDN
+    </footer>
+  </main>
+</body>
+</html>
