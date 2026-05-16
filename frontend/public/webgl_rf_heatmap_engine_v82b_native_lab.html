@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.82B · Native WebGL RF Field Refinement</title>
+  <link rel="stylesheet" href="/assets/trfmc_v082b_native_webgl_rf_refinement.css"/>
+  <script defer src="/assets/trfmc_v082b_native_webgl_rf_refinement.js"></script>
+</head>
+<body>
+  <header class="shell">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC RF FIELD ENGINE</strong>
+        <span>v0.82B · calibrated native WebGL · v82A/v81C preserved</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">v81C-R2</a>
+      <a href="/webgl_rf_heatmap_engine_v82_native_lab.html">v82A</a>
+      <a class="active" href="/webgl_rf_heatmap_engine_v82b_native_lab.html">v82B</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span id="webglStatus">WEBGL CHECK</span>
+      <span>RF CAL</span>
+      <span>NO CDN</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">TRFMC v0.82B · CALIBRATED RF VISUAL FIELD</div>
+        <h1>Native WebGL RF Field Refinement</h1>
+        <p>
+          Motore WebGL calibrato per visualizzare copertura RF multi-sito con dominanza di cella,
+          attenuazione da vegetazione, shadowing urbano, fading, contour lines e settori antenna leggibili.
+          Questa versione è parallela: non sostituisce v82A, v81C-R2 o v68 originale.
+        </p>
+      </div>
+
+      <aside class="hero-kpi">
+        <span>Coverage Integrity</span>
+        <strong id="gpuScore">—</strong>
+        <small id="gpuMode">native calibrated shader</small>
+      </aside>
+    </section>
+
+    <section class="lab-grid">
+      <aside class="control-panel">
+        <h2>RF Control Plane</h2>
+
+        <label>
+          <span>Frequency Layer</span>
+          <input id="freq" type="range" min="0" max="100" value="58"/>
+          <b id="freqVal">3.5 GHz · C-band</b>
+        </label>
+
+        <label>
+          <span>Vegetation Load</span>
+          <input id="veg" type="range" min="0" max="100" value="42"/>
+          <b id="vegVal">0.42</b>
+        </label>
+
+        <label>
+          <span>Urban Shadowing</span>
+          <input id="shadow" type="range" min="0" max="100" value="38"/>
+          <b id="shadowVal">0.38</b>
+        </label>
+
+        <label>
+          <span>Fading / Noise</span>
+          <input id="noise" type="range" min="0" max="100" value="24"/>
+          <b id="noiseVal">0.24</b>
+        </label>
+
+        <label>
+          <span>Beam Sectorization</span>
+          <input id="beam" type="range" min="0" max="100" value="66"/>
+          <b id="beamVal">0.66</b>
+        </label>
+
+        <div class="buttons">
+          <button id="pauseBtn">Pause</button>
+          <button id="resetBtn">Reset RF Baseline</button>
+          <button id="scenarioBtn">Mission Replay Step</button>
+        </div>
+
+        <div class="legend">
+          <i class="excellent"></i><span>Excellent RSRP / serving dominance</span>
+          <i class="good"></i><span>Good service margin</span>
+          <i class="edge"></i><span>Cell edge / handover belt</span>
+          <i class="weak"></i><span>Weak NLOS / clutter loss</span>
+          <i class="outage"></i><span>Outage island / blocked corridor</span>
+        </div>
+      </aside>
+
+      <section class="webgl-stage">
+        <canvas id="rfCanvas"></canvas>
+
+        <div class="hud-grid"></div>
+        <div class="sector sector-a"></div>
+        <div class="sector sector-b"></div>
+        <div class="sector sector-c"></div>
+
+        <div class="overlay site a"><b>SITE-A</b><span>n78</span></div>
+        <div class="overlay site b"><b>SITE-B</b><span>C-band</span></div>
+        <div class="overlay site c"><b>SITE-C</b><span>load</span></div>
+
+        <div class="overlay block b1"></div>
+        <div class="overlay block b2"></div>
+        <div class="overlay block b3"></div>
+        <div class="overlay block b4"></div>
+        <div class="overlay block b5"></div>
+
+        <div class="overlay tree t1"></div>
+        <div class="overlay tree t2"></div>
+        <div class="overlay tree t3"></div>
+        <div class="overlay tree t4"></div>
+        <div class="overlay tree t5"></div>
+        <div class="overlay tree t6"></div>
+        <div class="overlay tree t7"></div>
+
+        <div class="contour-label l1">RSRP belt</div>
+        <div class="contour-label l2">handover edge</div>
+        <div class="contour-label l3">NLOS shadow</div>
+
+        <div class="caption">
+          <strong>Calibrated Native WebGL RF Field</strong>
+          <span id="captionText">multi-site calibrated shader · contour + dominance layer</span>
+        </div>
+
+        <div class="fallback" id="fallbackBox">
+          <strong>WebGL unavailable</strong>
+          <span>Apri la pagina v81C-R2 stabile oppure verifica accelerazione grafica del browser.</span>
+          <a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">Open v81C-R2 fallback</a>
+        </div>
+      </section>
+
+      <aside class="telemetry">
+        <h2>RF Engineering Telemetry</h2>
+
+        <div class="metric">
+          <span>Renderer</span>
+          <strong id="rendererVal">—</strong>
+          <small>native WebGL context</small>
+        </div>
+
+        <div class="metric">
+          <span>Estimated Field Loss</span>
+          <strong id="lossVal">—</strong>
+          <small>vegetation + shadow + fading</small>
+        </div>
+
+        <div class="metric">
+          <span>Coverage Integrity</span>
+          <strong id="coverageVal">—</strong>
+          <small>synthetic service field</small>
+        </div>
+
+        <div class="metric">
+          <span>Outage Risk</span>
+          <strong id="riskVal">—</strong>
+          <small>cell edge + clutter + fade margin</small>
+        </div>
+
+        <div class="metric">
+          <span>Dominant RF Layer</span>
+          <strong id="dominantVal">—</strong>
+          <small>serving-cell visual estimate</small>
+        </div>
+
+        <div class="eventbus" id="eventBus">
+          <b>AI RF Copilot</b>
+          <p>calibrated RF field engine initializing.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="bottom-kpi">
+      <article>
+        <span>Render Path</span>
+        <strong id="pathVal">GPU</strong>
+        <small>native WebGL shader</small>
+      </article>
+      <article>
+        <span>RF Sites</span>
+        <strong>3</strong>
+        <small>multi-cell dominance</small>
+      </article>
+      <article>
+        <span>Visual Mode</span>
+        <strong>CAL</strong>
+        <small>non-saturated palette</small>
+      </article>
+      <article>
+        <span>Fallback</span>
+        <strong>v81</strong>
+        <small>stable DOM/CSS console preserved</small>
+      </article>
+    </section>
+
+    <section class="notes">
+      <article>
+        <h3>Visual Fix</h3>
+        <p>La palette è stata compressa per evitare saturazione rossa continua e rendere leggibili margine, edge e outage.</p>
+      </article>
+      <article>
+        <h3>RF Semantics</h3>
+        <p>Settori, edifici, vegetazione e shadowing contribuiscono alla lettura del campo, non sono più semplice decorazione.</p>
+      </article>
+      <article>
+        <h3>Next Gate</h3>
+        <p>Se approvata, questa pagina diventa base per mission replay, fading timeline e correlazione handover.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    TRFMC v0.82B · Native WebGL RF Field Refinement · isolated sandbox · v82A/v81C preserved
+  </footer>
+</body>
+</html>
