@@ -1,0 +1,23 @@
+{
+  "version": "TRFMC v0.83F",
+  "mode": "Dual Instrument View + RSRP/SINR Profile",
+  "new_page": "webgl_rf_physics_engine_v83f.html",
+  "based_on": "webgl_rf_physics_engine_v83e.html",
+  "v83e_preserved": true,
+  "v83d_preserved": true,
+  "v83c_preserved": true,
+  "v83b_preserved": true,
+  "v83a_preserved": true,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "features": [
+    "dual RF field and instrument profile",
+    "RSRP profile canvas",
+    "SINR margin canvas",
+    "quality gate",
+    "field vs quality separation"
+  ]
+}
