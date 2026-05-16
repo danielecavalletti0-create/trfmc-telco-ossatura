@@ -1,0 +1,27 @@
+{
+  "version": "TRFMC v0.85B",
+  "page": "webgl_rf_physics_engine_v85b_sapienza_baseline.html",
+  "mission": "Apply Sapienza v85 master doctrine to the RF physics v83F page as a new parallel production-baseline candidate.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "source_page": "webgl_rf_physics_engine_v83f.html",
+  "based_on_doctrine": "sapienza_master_template_doctrine_v85a.html",
+  "added": [
+    "compact physics director",
+    "Measure/4D/Teach/Clean modes",
+    "Sapienza evidence chain",
+    "production baseline badge",
+    "visual hierarchy refinement",
+    "instrument readability refinement"
+  ],
+  "acceptance": [
+    "source v83F remains untouched",
+    "v85B page returns HTTP 200",
+    "CSS and JS return HTTP 200",
+    "no CDN or external references",
+    "backend health remains HTTP 200",
+    "worktree clean after commit"
+  ]
+}
