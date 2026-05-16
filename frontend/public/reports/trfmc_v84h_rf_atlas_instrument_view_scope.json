@@ -1,0 +1,27 @@
+{
+  "version": "TRFMC v0.84H",
+  "page": "rf_sapienza_console_v84h.html",
+  "mission": "RF Atlas Instrument View: continuous measurement surface, engineering isolines, no red curtain, no black curtain, readable RF objects and instrument correlation.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "based_on": "v0.84G RF Topographic Instrument View",
+  "critical_fixes": [
+    "surface fill moved from categorical to continuous scalar field",
+    "critical class only affects local tone and isolines",
+    "atlas scale added inside canvas",
+    "object outlines strengthened",
+    "field brightness restored without returning to poster heatmap",
+    "diagnostic labels renamed as engineering isolines"
+  ],
+  "acceptance": [
+    "continuous RF atlas surface",
+    "no red curtain",
+    "no black curtain",
+    "objects readable",
+    "isolines informative",
+    "IQ/PDP/H(f)/budget remain source of truth"
+  ]
+}
