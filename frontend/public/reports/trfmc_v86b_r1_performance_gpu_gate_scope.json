@@ -1,0 +1,27 @@
+{
+  "version": "TRFMC v0.86B-R1",
+  "page": "trfmc_performance_gpu_gate_v86b_r1.html",
+  "mission": "Correct v86B canvas context conflict by using a hidden WebGL probe canvas and keeping the visible canvas dedicated to 2D frame-budget benchmarking.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.86B performance GPU binding gate",
+  "preserves": [
+    "trfmc_performance_gpu_gate_v86b.html",
+    "rf_physics_sapienza_console_v86a.html",
+    "webgl_rf_physics_engine_v85e_viewport_discipline.html"
+  ],
+  "fixes": [
+    "WebGL probe no longer locks the visible benchmark canvas",
+    "2D canvas benchmark can draw and produce FPS metrics",
+    "explicit error handling if 2D context is unavailable"
+  ],
+  "guardrails": [
+    "CSS remains scoped under [data-trfmc-page='performance-gpu-gate-v86b']",
+    "no CDN",
+    "no global CSS",
+    "no MutationObserver",
+    "no backend change"
+  ]
+}
