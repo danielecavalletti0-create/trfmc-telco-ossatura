@@ -1,0 +1,27 @@
+{
+  "version": "TRFMC v0.84M",
+  "page": "rf_sapienza_console_v84m.html",
+  "mission": "Production baseline candidate for RF Sapienza Console. Preserve v84L governance, add explicit evidence chain and improve visual hierarchy.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.84L RF Sapienza Director Cockpit",
+  "fixes": [
+    "hero compacted",
+    "top navigation visually reduced",
+    "director further compressed",
+    "evidence chain added",
+    "instrument readability improved",
+    "canvas slightly sharpened",
+    "mode-specific visual semantics preserved"
+  ],
+  "acceptance": [
+    "page feels like stable laboratory baseline",
+    "RF scene remains primary",
+    "controls are compact",
+    "evidence chain explains the method",
+    "Measure/4D/Teach/Clean remain available",
+    "no production page overwritten"
+  ]
+}

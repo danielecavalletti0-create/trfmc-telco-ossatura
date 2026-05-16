@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.84M · RF Sapienza Production Baseline</title>
+  <link rel="stylesheet" href="/assets/trfmc_v084i_rf_vector_cartography.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v084j_rf_4d_measurement_theater.css"/>
+  <script defer src="/assets/trfmc_v084i_rf_vector_cartography.js"></script>
+  <script defer src="/assets/trfmc_v084j_rf_4d_measurement_theater.js"></script>
+  <link rel="stylesheet" href="/assets/trfmc_v084k_rf_sapienza_layer_director.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v084l_rf_sapienza_director_cockpit.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v084m_rf_sapienza_production_baseline.css"/>
+</head>
+
+<body>
+  <header class="shell">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC RF SAPIENZA · INSTRUMENT TRUTH VIEW</strong>
+        <span>v0.84E · field surface · diagnostic contours · IQ/PDP/H(f)/budget · no red curtain</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/rf_sapienza_console_v84d.html">v84D</a>
+      <a href="/rf_sapienza_console_v84c.html">v84C</a>
+      <a href="/rf_sapienza_console_v84b.html">v84B</a>
+      <a href="/rf_sapienza_console_v84e.html">v84E</a>
+      <a href="/rf_sapienza_console_v84f.html">v84F</a>
+      <a href="/rf_sapienza_console_v84g.html">v84G</a>
+      <a href="/rf_sapienza_console_v84h.html">v84H</a>
+      <a href="/rf_sapienza_console_v84i.html">v84I</a>
+      <a href="/rf_sapienza_console_v84j.html">v84J</a>
+      <a href="/rf_sapienza_console_v84k.html">v84K</a>
+      <a href="/rf_sapienza_console_v84l.html">v84L</a>
+      <a class="active" href="/rf_sapienza_console_v84m.html">v84M Baseline</a>
+      <a href="/webgl_rf_physics_engine_v83f.html">v83F</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span>NO CDN</span>
+      <span>NO OVERWRITE</span>
+      <span>LAB VIEW</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">TRFMC v0.84M · RF SAPIENZA PRODUCTION BASELINE</p>
+        <h1>RF Sapienza Production Baseline</h1>
+        <p>
+          La mappa non deve urlare: deve misurare. Il campo RF è una superficie diagnostica,
+          gli oggetti restano leggibili, i contorni spiegano soglie e degrado, gli strumenti
+          dimostrano ciò che la scena suggerisce.
+        </p>
+      </div>
+
+      <aside class="score">
+        <span>Measurement Trust</span>
+        <strong id="trustScore">--%</strong>
+        <em id="trustLabel">initializing</em>
+      </aside>
+    </section>
+
+    <section class="workbench">
+      <aside class="panel controls">
+        <h2>RF Model</h2>
+
+        <label>Carrier frequency <b id="freqText">3500 MHz</b>
+          <input id="freq" type="range" min="700" max="28000" value="3500" step="100"/>
+        </label>
+
+        <label>EIRP sector <b id="eirpText">46 dBm</b>
+          <input id="eirp" type="range" min="20" max="65" value="46" step="1"/>
+        </label>
+
+        <label>Path-loss exponent n <b id="pathText">3.2</b>
+          <input id="pathN" type="range" min="2.0" max="5.0" value="3.2" step="0.1"/>
+        </label>
+
+        <label>Shadow fading σ <b id="shadowText">8 dB</b>
+          <input id="shadow" type="range" min="0" max="30" value="8" step="1"/>
+        </label>
+
+        <label>RMS delay spread <b id="delayText">130 ns</b>
+          <input id="delay" type="range" min="20" max="900" value="130" step="10"/>
+        </label>
+
+        <label>Rician K-factor <b id="kText">10 dB</b>
+          <input id="kfactor" type="range" min="-20" max="20" value="10" step="1"/>
+        </label>
+
+        <label>Beam azimuth <b id="beamText">18°</b>
+          <input id="beam" type="range" min="-70" max="70" value="18" step="1"/>
+        </label>
+
+        <div class="buttons">
+          <button id="btnBalanced">Balanced lab</button>
+          <button id="btnNlos">NLOS lesson</button>
+          <button id="btnSevere">Severe channel</button>
+          <button id="btnTeacher">Teacher overlay</button>
+        </div>
+
+        <div class="legend">
+          <h3>Truth scale</h3>
+          <span><i class="excellent"></i>Excellent · high trust</span>
+          <span><i class="good"></i>Good · serviceable</span>
+          <span><i class="edge"></i>Edge · margin</span>
+          <span><i class="weak"></i>Weak/NLOS</span>
+          <span><i class="critical"></i>Critical · real degradation</span>
+        </div>
+      </aside>
+
+      <section class="stage">
+        <div class="stage-head">
+          <div>
+            <h2>RF Sapienza Production Measurement Surface</h2>
+            <p>Campo governato da catena di evidenza: geometria, canale, misura, qualità e decisione. Ogni elemento deve spiegare perché la diagnosi è corretta.</p>
+          </div>
+
+          <div class="kpi" id="kpiServer"><span>Best server</span><b id="bestServer">--</b></div>
+          <div class="kpi" id="kpiRsrp"><span>RSRP</span><b id="rsrpVal">--</b></div>
+          <div class="kpi" id="kpiSinr"><span>SINR</span><b id="sinrVal">--</b></div>
+          <div class="kpi" id="kpiEvm"><span>EVM</span><b id="evmVal">--</b></div>
+        </div>
+
+        <canvas id="fieldCanvas"></canvas>
+
+        <div class="caption">
+          <b>Field is not decorative</b>
+          <span>FSPL · log-distance · sector gain · obstruction · shadowing · TDL · SINR · EVM</span>
+        </div>
+      </section>
+
+      <aside class="panel interpretation">
+        <h2>Master Interpretation</h2>
+
+        <div class="metric" id="mCoverage"><span>Coverage score</span><b id="coverageVal">--%</b></div>
+        <div class="metric" id="mDelay"><span>RMS delay spread</span><b id="dsVal">-- ns</b></div>
+        <div class="metric" id="mCoherence"><span>Coherence BW</span><b id="cohVal">-- MHz</b></div>
+        <div class="metric" id="mDominance"><span>Dominance gap</span><b id="gapVal">-- dB</b></div>
+
+        <div class="teacher">
+          <b>Nota docente</b>
+          <p id="teacherText">Inizializzazione modello.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="truth-row">
+      <article>
+        <h2>1 · Diagnosi cromatica</h2>
+        <p>Il rosso non è più un premio visivo. È un allarme locale e motivato da SINR basso, EVM alta, RSRP debole o score degradato.</p>
+        <code>red ⇔ critical(RSRP,SINR,EVM,score)</code>
+      </article>
+
+      <article>
+        <h2>2 · Regola strumentale</h2>
+        <p>La mappa suggerisce una zona. IQ, PDP, risposta in frequenza e budget stabiliscono la diagnosi.</p>
+        <code>field hypothesis → instrument proof</code>
+      </article>
+
+      <article>
+        <h2>3 · Metodo per l’allievo</h2>
+        <p>Prima geometria e ostacoli, poi best-server, poi RSRP/SINR, poi PDP/IQ/EVM. Solo alla fine giudizio tecnico.</p>
+        <code>observe → measure → correlate → explain</code>
+      </article>
+    </section>
+
+    <section class="instruments">
+      <article>
+        <h2>Vector Signal Analyzer · 16-QAM IQ</h2>
+        <canvas id="iqCanvas"></canvas>
+      </article>
+
+      <article>
+        <h2>Power Delay Profile · TDL</h2>
+        <canvas id="pdpCanvas"></canvas>
+      </article>
+
+      <article>
+        <h2>Frequency Response · |H(f)|</h2>
+        <canvas id="hCanvas"></canvas>
+      </article>
+
+      <article>
+        <h2>Link Budget Trace · UE Probe</h2>
+        <table>
+          <thead>
+            <tr><th>Voce</th><th>Valore</th><th>Interpretazione</th></tr>
+          </thead>
+          <tbody id="budgetRows"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="doctrine">
+      <article>
+        <h2>Osservazione</h2>
+        <p>La scena deve far riconoscere siti, UE, ostacoli, vettori e corridoi NLOS senza confondere lo studente.</p>
+      </article>
+      <article>
+        <h2>Misura</h2>
+        <p>RSRP, SINR, EVM e delay spread sono letture diverse dello stesso fenomeno. Nessuna da sola basta.</p>
+      </article>
+      <article>
+        <h2>Interpretazione</h2>
+        <p>Una zona verde con IQ degradato non è “buona”: è un caso didattico di qualità compromessa.</p>
+      </article>
+      <article>
+        <h2>Trasmissione</h2>
+        <p>L’allievo non deve ricordare colori: deve imparare il ragionamento diagnostico.</p>
+      </article>
+    </section>
+
+    <footer>
+      TRFMC v0.84M · RF Sapienza Production Baseline · pagina isolata · nessun CDN · nessuna modifica backend
+    </footer>
+  </main>
+<script defer src="/assets/trfmc_v084k_rf_sapienza_layer_director.js"></script>
+<script defer src="/assets/trfmc_v084l_rf_sapienza_director_cockpit.js"></script>
+<script defer src="/assets/trfmc_v084m_rf_sapienza_production_baseline.js"></script>
+</body>
+</html>
