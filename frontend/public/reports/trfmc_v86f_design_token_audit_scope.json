@@ -1,0 +1,13 @@
+{
+  "version": "TRFMC v0.86F",
+  "page": "trfmc_design_token_audit_v86f.html",
+  "css": "assets/trfmc_v086f_design_token_audit.css",
+  "js": "assets/trfmc_v086f_design_token_audit.js",
+  "registry": "reports/trfmc_v86f_design_token_audit_registry.json",
+  "scope_root": "[data-trfmc-page='design-token-audit-v86f']",
+  "no_iframe": true,
+  "no_cdn": true,
+  "no_backend_change": true,
+  "no_global_css": true,
+  "read_only_analysis": true
+}
