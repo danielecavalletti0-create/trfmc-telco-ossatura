@@ -1,0 +1,68 @@
+{
+  "version": "TRFMC v0.87A",
+  "generated_at": "20260516_213739",
+  "purpose": "First controlled promotion batch after registry, theory spine and design token audit",
+  "policy": {
+    "new_parallel_page_only": true,
+    "no_backend_change": true,
+    "no_iframe": true,
+    "no_cdn": true,
+    "no_global_css": true,
+    "small_batch_only": true,
+    "rollback_ready": true
+  },
+  "baseline": {
+    "safe_branch_before_batch": "v0.86f-design-token-audit",
+    "stable_runtime": "v85E preserved",
+    "route_shell": "v86D-R1 no iframe",
+    "theory_spine": "v86E",
+    "design_audit": "v86F"
+  },
+  "promotion_batch": [
+    {
+      "priority": "P0",
+      "file": "rf_physics_sapienza_console_v86a.html",
+      "title": "RF Physics Sapienza Console",
+      "domain": "RF Physics / Sapienza",
+      "reason": "Pagina scoped, formula-driven, separata dalle baseline precedenti, candidata a nucleo RF operativo.",
+      "gate": "Promote as RF measurement console candidate",
+      "rollback": "Return to webgl_rf_physics_engine_v85e_viewport_discipline.html"
+    },
+    {
+      "priority": "P0",
+      "file": "trfmc_theory_spine_v86e.html",
+      "title": "Theory Spine / Formula Governance",
+      "domain": "Theory / Governance",
+      "reason": "Dorsale dottrinale: collega pagine a formule, misure, dominio e regole di promozione.",
+      "gate": "Promote as theory and formula spine",
+      "rollback": "Return to trfmc_unified_shell_noiframe_v86d_r1.html"
+    },
+    {
+      "priority": "P1",
+      "file": "trfmc_design_token_audit_v86f.html",
+      "title": "Design Token Audit",
+      "domain": "Design / QA",
+      "reason": "Misura rischio CSS/HTML, token, CDN, iframe, global selectors e pagine legacy.",
+      "gate": "Promote as design governance and QA console",
+      "rollback": "Return to trfmc_theory_spine_v86e.html"
+    }
+  ],
+  "hold_routes": [
+    {
+      "file": "trfmc_unified_shell_prototype_v86d.html",
+      "state": "quarantine",
+      "reason": "Old iframe shell route locked"
+    },
+    {
+      "file": "webgl_rf_physics_engine_v85f_instrument_discipline.html",
+      "state": "failed / do not use",
+      "reason": "Viewport/layout regression"
+    }
+  ],
+  "next_after_v87a": [
+    "v87B production nav manifest",
+    "v87C shared shell tokens",
+    "v87D RF physics page normalization",
+    "v88A controlled route promotion"
+  ]
+}
