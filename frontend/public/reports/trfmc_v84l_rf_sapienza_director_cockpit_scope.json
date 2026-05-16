@@ -1,0 +1,25 @@
+{
+  "version": "TRFMC v0.84L",
+  "page": "rf_sapienza_console_v84l.html",
+  "mission": "Compact Cockpit refinement for RF Sapienza Layer Director. Reduce button bulk, reclaim vertical space, preserve Measure/4D/Teach/Clean governance.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.84K RF Sapienza Layer Director",
+  "fixes": [
+    "director panel made compact",
+    "mode buttons converted from large tiles to instrument segments",
+    "active green reduced",
+    "readout compressed and clarified",
+    "vertical space returned to RF scene",
+    "cockpit status added"
+  ],
+  "acceptance": [
+    "director no longer dominates the page",
+    "mode controls remain clear",
+    "RF canvas regains priority",
+    "Measure/4D/Teach/Clean still work",
+    "visual hierarchy is more professional"
+  ]
+}
