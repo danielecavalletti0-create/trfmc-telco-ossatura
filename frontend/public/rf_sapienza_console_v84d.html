@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.84D · RF Sapienza Truth Palette R2</title>
+  <link rel="stylesheet" href="/assets/trfmc_v084d_rf_truth_palette_masterclass.css"/>
+  <script defer src="/assets/trfmc_v084d_rf_truth_palette_masterclass.js"></script>
+</head>
+
+<body>
+  <header class="shell">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC RF SAPIENZA CONSOLE</strong>
+        <span>v0.84B · sapere osservabile · campo RF · canale · strumenti · didattica</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/webgl_rf_tm_supreme_console_v84a.html">v84A</a>
+      <a href="/rf_sapienza_console_v84b.html">v84B</a>
+      <a href="/rf_sapienza_console_v84c.html">v84C</a>
+      <a class="active" href="/rf_sapienza_console_v84d.html">v84D Truth</a>
+      <a href="/webgl_rf_physics_engine_v83f.html">v83F</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span>NO CDN</span>
+      <span>NO OVERWRITE</span>
+      <span>TEACHING MODE</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">TRFMC v0.84D · RF TRUTH PALETTE + MASTERCLASS INSPECTOR</p>
+        <h1>RF Sapienza Truth Palette</h1>
+        <p>
+          Non una mappa decorativa: una plancia didattica per osservare, misurare,
+          interpretare e insegnare copertura, canale, fading, ritardi, costellazione
+          IQ, link budget e qualità radio.
+        </p>
+      </div>
+
+      <aside class="score">
+        <span>Radio Truth</span>
+        <strong id="truthScore">--%</strong>
+        <em id="truthLabel">calibrating</em>
+      </aside>
+    </section>
+
+    <section class="workbench">
+      <aside class="panel controls">
+        <h2>Modello RF</h2>
+
+        <label>Frequenza portante <b id="freqText">3500 MHz</b>
+          <input id="freq" type="range" min="700" max="28000" value="3500" step="100"/>
+        </label>
+
+        <label>EIRP settore <b id="eirpText">46 dBm</b>
+          <input id="eirp" type="range" min="20" max="65" value="46" step="1"/>
+        </label>
+
+        <label>Path-loss exponent n <b id="nText">3.2</b>
+          <input id="pathN" type="range" min="2.0" max="5.0" value="3.2" step="0.1"/>
+        </label>
+
+        <label>Shadow fading σ <b id="shadowText">8 dB</b>
+          <input id="shadow" type="range" min="0" max="30" value="8" step="1"/>
+        </label>
+
+        <label>RMS delay spread <b id="delayText">120 ns</b>
+          <input id="delay" type="range" min="20" max="900" value="120" step="10"/>
+        </label>
+
+        <label>Rician K-factor <b id="kText">10 dB</b>
+          <input id="kfactor" type="range" min="-20" max="20" value="10" step="1"/>
+        </label>
+
+        <label>Beam azimuth <b id="beamText">18°</b>
+          <input id="beam" type="range" min="-70" max="70" value="18" step="1"/>
+        </label>
+
+        <div class="buttons">
+          <button id="btnBalanced">Scenario bilanciato</button>
+          <button id="btnNlos">NLOS severo</button>
+          <button id="btnTeach">Teacher view</button>
+        </div>
+
+        <div class="legend">
+          <h3>Scala operativa</h3>
+          <span><i class="lg-excellent"></i>Excellent: RSRP/SINR solidi</span>
+          <span><i class="lg-good"></i>Good: servizio stabile</span>
+          <span><i class="lg-edge"></i>Cell edge / margine</span>
+          <span><i class="lg-weak"></i>Weak / NLOS</span>
+          <span><i class="lg-outage"></i>Outage / corridoio nero</span>
+        </div>
+      </aside>
+
+      <section class="stage-wrap">
+        <div class="stage-title">
+          <div>
+            <h2>Calibrated RF Field</h2>
+            <p>Palette RF non decorativa: il colore è una soglia operativa, non un effetto grafico.</p>
+          </div>
+          <div class="mini-kpi">
+            <span>Best Server</span>
+            <b id="bestServer">--</b>
+          </div>
+          <div class="mini-kpi">
+            <span>RSRP</span>
+            <b id="rsrpVal">--</b>
+          </div>
+          <div class="mini-kpi">
+            <span>SINR</span>
+            <b id="sinrVal">--</b>
+          </div>
+        </div>
+
+        <canvas id="fieldCanvas"></canvas>
+
+        <div class="field-caption">
+          <b>Formula chain</b>
+          <span>FSPL → log-distance → shadow fading → beam gain → TDL multipath → SINR/EVM quality score</span>
+        </div>
+      </section>
+
+      <aside class="panel telemetry">
+        <h2>Interpretazione</h2>
+        <div class="metric"><span>Serving cell</span><b id="servingCell">--</b></div>
+        <div class="metric"><span>Coverage score</span><b id="coverageVal">--%</b></div>
+        <div class="metric"><span>EVM stimato</span><b id="evmVal">--%</b></div>
+        <div class="metric"><span>Coherence BW</span><b id="cohVal">-- MHz</b></div>
+        <div class="metric"><span>RMS delay spread</span><b id="dsVal">-- ns</b></div>
+
+        <div class="teacher-note">
+          <b>Nota docente</b>
+          <p id="teacherText">
+            Inizializzazione del modello.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="instruments">
+      <article>
+        <h2>Vector Signal Analyzer · 16-QAM IQ</h2>
+        <canvas id="iqCanvas"></canvas>
+      </article>
+
+      <article>
+        <h2>Power Delay Profile · TDL</h2>
+        <canvas id="pdpCanvas"></canvas>
+      </article>
+
+      <article>
+        <h2>Frequency Response · |H(f)|</h2>
+        <canvas id="hCanvas"></canvas>
+      </article>
+
+      <article>
+        <h2>Link Budget Trace</h2>
+        <table>
+          <thead>
+            <tr><th>Voce</th><th>Valore</th><th>Ruolo</th></tr>
+          </thead>
+          <tbody id="budgetRows"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="doctrine">
+      <article>
+        <h2>1 · Osservazione</h2>
+        <p>
+          Si osserva prima la geometria radio: siti, UE, ostacoli, corridoi NLOS,
+          sovrapposizione celle e zone di margine.
+        </p>
+      </article>
+
+      <article>
+        <h2>2 · Misura</h2>
+        <p>
+          RSRP da solo non basta: la qualità reale emerge da SINR, delay spread,
+          EVM e risposta selettiva in frequenza.
+        </p>
+      </article>
+
+      <article>
+        <h2>3 · Interpretazione</h2>
+        <p>
+          Se il campo sembra “buono” ma IQ e PDP degradano, il problema è canale,
+          non potenza. Qui nasce la vera diagnosi RF.
+        </p>
+      </article>
+
+      <article>
+        <h2>4 · Trasmissione della sapienza</h2>
+        <p>
+          L’allievo deve capire perché il segnale cade, non solo vedere che cade.
+          Questa pagina è progettata per insegnare il ragionamento.
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      TRFMC v0.84D · RF Sapienza Truth Palette R2 · pagina isolata · canvas nativo · nessuna modifica backend · nessun CDN
+    </footer>
+  </main>
+</body>
+</html>

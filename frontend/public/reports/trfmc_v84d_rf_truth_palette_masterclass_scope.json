@@ -1,0 +1,20 @@
+{
+  "version": "TRFMC v0.84D",
+  "page": "rf_sapienza_console_v84d.html",
+  "mission": "Correct visual semantics: red means degradation only. Add masterclass inspector for teaching-oriented RF interpretation.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "based_on": "v0.84C RF Sapienza Console R2",
+  "critical_fixes": [
+    "high score no longer maps to red",
+    "red reserved for low RSRP / low SINR / high EVM / low score",
+    "truth palette added",
+    "masterclass inspector added",
+    "KPI classes added",
+    "canvas saturation reduced"
+  ],
+  "didactic_rule": "La mappa suggerisce; lo strumento dimostra; il docente trasforma il dato in metodo."
+}
