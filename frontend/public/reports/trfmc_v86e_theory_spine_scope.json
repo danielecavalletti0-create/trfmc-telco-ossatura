@@ -1,0 +1,13 @@
+{
+  "version": "TRFMC v0.86E",
+  "page": "trfmc_theory_spine_v86e.html",
+  "css": "assets/trfmc_v086e_theory_spine.css",
+  "js": "assets/trfmc_v086e_theory_spine.js",
+  "registry": "reports/trfmc_v86e_theory_spine_registry.json",
+  "scope_root": "[data-trfmc-page='theory-spine-v86e']",
+  "no_iframe": true,
+  "no_cdn": true,
+  "no_backend_change": true,
+  "no_global_css": true,
+  "generated_at": "2026-05-16T21:24:44"
+}
