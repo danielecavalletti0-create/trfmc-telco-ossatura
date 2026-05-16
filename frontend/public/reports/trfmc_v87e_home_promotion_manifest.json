@@ -1,0 +1,104 @@
+{
+  "version": "TRFMC v0.87E-R3",
+  "generated_at": "20260516_215839",
+  "purpose": "Cinematic command deck for real RF/Telco mission entry",
+  "policy": {
+    "new_parallel_page_only": true,
+    "no_backend_change": true,
+    "no_iframe": true,
+    "no_cdn": true,
+    "no_global_css": true,
+    "service_pages_hidden": true,
+    "home_candidate": true
+  },
+  "mission_routes": [
+    {
+      "id": "rf-console",
+      "title": "RF Physics Console",
+      "subtitle": "Formula-driven RF measurement",
+      "file": "rf_physics_sapienza_console_v86a.html",
+      "domain": "RF Physics",
+      "metric": "RSRP / SINR / Link Budget",
+      "x": 18,
+      "y": 58,
+      "priority": "P0"
+    },
+    {
+      "id": "stable-field",
+      "title": "Stable RF Field",
+      "subtitle": "Safe RF baseline",
+      "file": "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+      "domain": "RF Baseline",
+      "metric": "Stable fallback",
+      "x": 43,
+      "y": 34,
+      "priority": "P0"
+    },
+    {
+      "id": "digital-twin",
+      "title": "Infrastructure Digital Twin",
+      "subtitle": "Site, shelter, tower and assets",
+      "file": "infrastructure_digital_twin_v63.html",
+      "domain": "Infrastructure",
+      "metric": "Physical topology",
+      "x": 76,
+      "y": 42,
+      "priority": "P1"
+    },
+    {
+      "id": "handover",
+      "title": "Handover Dynamics",
+      "subtitle": "UE mobility and serving decision",
+      "file": "webgl_rf_heatmap_engine_v69.html",
+      "domain": "Mobility",
+      "metric": "Serving continuity",
+      "x": 70,
+      "y": 72,
+      "priority": "P1"
+    },
+    {
+      "id": "vegetation",
+      "title": "Vegetation / Clutter Lab",
+      "subtitle": "Environmental attenuation sandbox",
+      "file": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+      "domain": "RF Visualization",
+      "metric": "Clutter attenuation",
+      "x": 30,
+      "y": 76,
+      "priority": "P2"
+    },
+    {
+      "id": "theory",
+      "title": "Theory Spine",
+      "subtitle": "Formula, method and evidence",
+      "file": "trfmc_theory_spine_v86e.html",
+      "domain": "Academy",
+      "metric": "Formula governance",
+      "x": 54,
+      "y": 84,
+      "priority": "P0"
+    }
+  ],
+  "engineering_routes": [
+    {
+      "title": "v87C Cinematic Atlas",
+      "file": "trfmc_cinematic_mission_atlas_v87c.html"
+    },
+    {
+      "title": "v87B Mission Home",
+      "file": "trfmc_mission_control_home_v87b.html"
+    },
+    {
+      "title": "No-Iframe Route Console",
+      "file": "trfmc_unified_shell_noiframe_v86d_r1.html"
+    },
+    {
+      "title": "Design Token Audit",
+      "file": "trfmc_design_token_audit_v86f.html"
+    },
+    {
+      "title": "Performance GPU Gate",
+      "file": "trfmc_performance_gpu_gate_v86b_r1.html"
+    }
+  ]
+}

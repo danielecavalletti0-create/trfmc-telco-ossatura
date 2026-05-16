@@ -1,0 +1,21 @@
+{
+  "version": "TRFMC v0.87E-R3",
+  "canonical_home": "trfmc_home_v87e.html",
+  "aliases": ["trfmc_home.html", "trfmc.html"],
+  "mission_pages_visible": [
+    "rf_physics_sapienza_console_v86a.html",
+    "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+    "infrastructure_digital_twin_v63.html",
+    "webgl_rf_heatmap_engine_v69.html",
+    "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+    "trfmc_theory_spine_v86e.html"
+  ],
+  "service_pages_kept_but_not_promoted": [
+    "trfmc_design_token_audit_v86f.html",
+    "trfmc_visual_qa_matrix_v71.html",
+    "trfmc_performance_gpu_gate_v86b_r1.html",
+    "trfmc_unified_shell_noiframe_v86d_r1.html",
+    "trfmc_cinematic_command_deck_v87d_r2.html"
+  ],
+  "decision": "v87D cinematic promoted; v87D-R2 not promoted because it regressed into service-console layout"
+}
