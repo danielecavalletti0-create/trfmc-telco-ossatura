@@ -1,0 +1,30 @@
+{
+  "version": "TRFMC v0.86C-R1",
+  "page": "trfmc_portal_registry_v86c_r1.html",
+  "mission": "Fix portal registry runtime rendering so table rows show actual HTTP results after the asynchronous check completes.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.86C portal registry navigation spine",
+  "preserves": [
+    "trfmc_portal_registry_v86c.html",
+    "trfmc_performance_gpu_gate_v86b_r1.html",
+    "rf_physics_sapienza_console_v86a.html",
+    "webgl_rf_physics_engine_v85e_viewport_discipline.html"
+  ],
+  "fixes": [
+    "KPI and table row HTTP state consistency",
+    "checking state while fetch operations are active",
+    "fallback GET if HEAD fails",
+    "runtime export includes final OK count"
+  ],
+  "guardrails": [
+    "all CSS remains scoped under [data-trfmc-page='portal-registry-v86c']",
+    "no CDN",
+    "no global CSS",
+    "no MutationObserver",
+    "no backend change",
+    "no overwrite of existing pages"
+  ]
+}
