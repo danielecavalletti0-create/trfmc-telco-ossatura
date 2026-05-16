@@ -1,0 +1,30 @@
+{
+  "version": "TRFMC v0.85E",
+  "page": "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+  "mission": "Viewport discipline for RF Physics Sapienza: compact hero, single-line title, one doctrine ribbon, no duplicate inherited strips, canvas promoted upward.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "source_page": "webgl_rf_physics_engine_v85d_runtime_identity_lock.html",
+  "fixes": [
+    "remove v85D runtime identity lock asset references from the new page",
+    "replace long title with compact RF Physics Sapienza Lock",
+    "single doctrine ribbon",
+    "hide v85B/v85C/v85D duplicate strips",
+    "compact director",
+    "compact hero",
+    "clean mode support",
+    "runtime title safety observer"
+  ],
+  "acceptance": [
+    "v85D remains untouched",
+    "v85E page returns HTTP 200",
+    "CSS and JS return HTTP 200",
+    "no CDN or external references",
+    "visible title must be RF Physics Sapienza Lock",
+    "only one doctrine ribbon visible",
+    "backend health remains HTTP 200",
+    "worktree clean after commit"
+  ]
+}
