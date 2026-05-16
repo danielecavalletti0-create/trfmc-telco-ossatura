@@ -1,0 +1,16 @@
+{
+  "version": "TRFMC v0.82C-R2",
+  "mode": "mission replay layout fix",
+  "new_page": "webgl_rf_heatmap_engine_v82c_r2_mission_replay.html",
+  "based_on": "webgl_rf_heatmap_engine_v82c_mission_replay.html",
+  "fix": "RF Mission Replay timeline moved out of WebGL canvas into a dedicated dock",
+  "v82c_preserved": true,
+  "v82b_preserved": true,
+  "v82a_preserved": true,
+  "v81c_r2_preserved": true,
+  "original_v68_overwritten": false,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false
+}
