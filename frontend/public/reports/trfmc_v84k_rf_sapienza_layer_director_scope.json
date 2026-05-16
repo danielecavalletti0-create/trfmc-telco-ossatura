@@ -1,0 +1,26 @@
+{
+  "version": "TRFMC v0.84K",
+  "page": "rf_sapienza_console_v84k.html",
+  "mission": "Layer governance for Sapienza RF console: Measure, 4D, Teach and Clean modes over the v84J measurement theater.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.84J RF 4D Measurement Theater",
+  "added": [
+    "Layer Director control panel",
+    "Measure mode",
+    "4D mode",
+    "Teach mode",
+    "Clean screenshot mode",
+    "keyboard shortcuts 1/2/3/4",
+    "mode-specific overlay governance"
+  ],
+  "acceptance": [
+    "no uncontrolled visual accumulation",
+    "4D overlay can be disabled",
+    "clean screenshot mode available",
+    "teaching mode available",
+    "measurement mode remains primary"
+  ]
+}
