@@ -1,0 +1,25 @@
+{
+  "version": "TRFMC v0.84J",
+  "page": "rf_sapienza_console_v84j.html",
+  "mission": "4D RF measurement theater overlay on v84I: Fresnel/LOS/NLOS corridors, serving vectors, UE probe reticle, temporal sample and teaching dock.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.84I RF Vector Cartography Console",
+  "added_layers": [
+    "4D overlay canvas",
+    "Fresnel-style diagnostic ellipses",
+    "UE probe measurement reticle",
+    "time sample vector",
+    "Observe/Measure/Correlate/Teach dock",
+    "mission replay strip"
+  ],
+  "acceptance": [
+    "higher depth without hiding the base field",
+    "objects remain readable",
+    "serving path and UE probe are evident",
+    "instrument panels remain source of truth",
+    "page remains local/offline/frontend-only"
+  ]
+}
