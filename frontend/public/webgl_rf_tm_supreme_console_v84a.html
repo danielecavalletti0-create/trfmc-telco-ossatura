@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.84A · RF T&M Supreme Console</title>
+  <link rel="stylesheet" href="/assets/trfmc_v084a_rf_tm_supreme_console.css"/>
+  <script defer src="/assets/trfmc_v084a_rf_tm_supreme_console.js"></script>
+</head>
+<body class="trfmc-v84a">
+  <header class="tm-shell">
+    <div class="tm-brand">
+      <div class="tm-orb"></div>
+      <div>
+        <strong>TRFMC RF T&M SUPREME CONSOLE</strong>
+        <span>v0.84A · calibrated RF field · IQ/PDP/Link Budget · offline native canvas</span>
+      </div>
+    </div>
+    <nav class="tm-nav">
+      <a href="/webgl_rf_physics_engine_v83f.html">v83F</a>
+      <a href="/webgl_rf_physics_engine_v83e.html">v83E</a>
+      <a href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">v82C-R2</a>
+      <a class="active" href="/webgl_rf_tm_supreme_console_v84a.html">v84A T&M</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+    <div class="tm-pills">
+      <span>Backend OK</span>
+      <span>NO CDN</span>
+      <span>NO OVERWRITE</span>
+    </div>
+  </header>
+
+  <main class="tm-page">
+    <section class="tm-hero">
+      <div>
+        <p class="eyebrow">TRFMC v0.84A · INSTRUMENT-GRADE RF DIGITAL TWIN</p>
+        <h1>RF T&M Supreme Console</h1>
+        <p class="lead">
+          Vista integrata da strumento: campo RF spaziale, best-server, multipath, shadowing,
+          IQ constellation, Power Delay Profile, frequency response e link-budget trace.
+        </p>
+      </div>
+      <aside class="hero-score">
+        <span>Physics Integrity</span>
+        <strong id="integrityVal">--%</strong>
+        <em>formula-driven display</em>
+      </aside>
+    </section>
+
+    <section class="tm-workbench">
+      <aside class="tm-panel controls">
+        <h2>RF Model Controls</h2>
+
+        <label>Carrier frequency <b id="freqText">3500 MHz</b>
+          <input id="freq" type="range" min="700" max="28000" value="3500" step="100"/>
+        </label>
+
+        <label>EIRP / sector <b id="eirpText">46 dBm</b>
+          <input id="eirp" type="range" min="20" max="65" value="46" step="1"/>
+        </label>
+
+        <label>Path-loss exponent n <b id="pathText">3.2</b>
+          <input id="pathN" type="range" min="2.0" max="5.0" value="3.2" step="0.1"/>
+        </label>
+
+        <label>Delay spread RMS <b id="delayText">120 ns</b>
+          <input id="delay" type="range" min="20" max="800" value="120" step="10"/>
+        </label>
+
+        <label>Rician K-factor <b id="kText">9 dB</b>
+          <input id="kfactor" type="range" min="-20" max="20" value="9" step="1"/>
+        </label>
+
+        <label>Urban shadowing <b id="shadowText">11 dB</b>
+          <input id="shadow" type="range" min="0" max="35" value="11" step="1"/>
+        </label>
+
+        <label>Beam steering azimuth <b id="beamText">18°</b>
+          <input id="beam" type="range" min="-70" max="70" value="18" step="1"/>
+        </label>
+
+        <div class="button-row">
+          <button id="btnCalm">Calibrated</button>
+          <button id="btnStress">Urban Stress</button>
+        </div>
+
+        <div class="legend">
+          <span><i class="excellent"></i>Excellent</span>
+          <span><i class="good"></i>Good</span>
+          <span><i class="edge"></i>Cell edge</span>
+          <span><i class="weak"></i>Weak / NLOS</span>
+          <span><i class="outage"></i>Outage</span>
+        </div>
+      </aside>
+
+      <section class="tm-stage">
+        <canvas id="fieldCanvas"></canvas>
+        <div class="field-hud">
+          <b>Formula-driven RF canvas</b>
+          <span id="canvasCaption">FSPL + log-distance + shadowing + TDL multipath + SINR scoring</span>
+        </div>
+      </section>
+
+      <aside class="tm-panel telemetry">
+        <h2>RF Telemetry</h2>
+        <div class="metric"><span>Serving Cell</span><b id="servingCell">--</b></div>
+        <div class="metric"><span>RSRP</span><b id="rsrpVal">-- dBm</b></div>
+        <div class="metric"><span>SINR</span><b id="sinrVal">-- dB</b></div>
+        <div class="metric"><span>EVM</span><b id="evmVal">--%</b></div>
+        <div class="metric"><span>Delay Spread</span><b id="dsVal">-- ns</b></div>
+        <div class="metric"><span>Coverage Score</span><b id="covVal">--%</b></div>
+
+        <div class="copilot">
+          <b>AI RF Copilot</b>
+          <p id="copilotText">Modello non ancora inizializzato.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="instrument-grid">
+      <article class="instrument wide">
+        <h3>16-QAM Vector Signal Analyzer · IQ Constellation</h3>
+        <canvas id="iqCanvas"></canvas>
+      </article>
+
+      <article class="instrument">
+        <h3>Power Delay Profile · TDL</h3>
+        <canvas id="pdpCanvas"></canvas>
+      </article>
+
+      <article class="instrument">
+        <h3>Frequency Response · |H(f)|</h3>
+        <canvas id="freqCanvas"></canvas>
+      </article>
+
+      <article class="instrument wide">
+        <h3>Link Budget Inspector · UE Probe</h3>
+        <canvas id="budgetCanvas"></canvas>
+      </article>
+    </section>
+
+    <section class="formula-strip">
+      <article>
+        <h3>1 · Free Space Path Loss</h3>
+        <code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code>
+      </article>
+      <article>
+        <h3>2 · Log-distance + Shadowing</h3>
+        <code>PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ</code>
+      </article>
+      <article>
+        <h3>3 · Tapped Delay Line</h3>
+        <code>h(τ) = Σ αk · exp(jφk) · δ(τ-τk)</code>
+      </article>
+      <article>
+        <h3>4 · SINR-aware Score</h3>
+        <code>Score = f(RSRP,SINR,EVM,delay spread)</code>
+      </article>
+    </section>
+
+    <footer>
+      TRFMC v0.84A · RF T&M Supreme Console · new isolated page · no CDN · no backend change · previous pages preserved
+    </footer>
+  </main>
+</body>
+</html>
