@@ -1,0 +1,510 @@
+[data-trfmc-page="cinematic-command-deck-v87d"]{
+  margin:0;
+  min-height:100vh;
+  background:#01040b;
+  color:#e8faff;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  overflow-x:hidden;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-shell{
+  position:relative;
+  min-height:100vh;
+  padding:10px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.18), transparent 31%),
+    radial-gradient(circle at 82% 12%, rgba(66,245,111,.13), transparent 34%),
+    radial-gradient(circle at 50% 72%, rgba(28,92,255,.16), transparent 48%),
+    linear-gradient(135deg,#01040b,#031827 55%,#01040a);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-canvas{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  opacity:.94;
+  pointer-events:none;
+  z-index:0;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-topbar,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-hero,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-map-panel,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-inspector,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-flow article,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-launch-panel,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-engineering,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-footer{
+  position:relative;
+  z-index:1;
+  border:1px solid rgba(143,240,255,.32);
+  background:
+    linear-gradient(145deg,rgba(7,29,48,.78),rgba(1,8,17,.94)),
+    repeating-linear-gradient(90deg,rgba(143,240,255,.035) 0 1px,transparent 1px 72px);
+  box-shadow:0 26px 100px rgba(0,0,0,.40);
+  backdrop-filter:blur(13px);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-topbar{
+  min-height:58px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 14px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-brand strong{
+  display:block;
+  letter-spacing:.18em;
+  font-size:13px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-brand small{
+  color:rgba(232,250,255,.62);
+  font-size:10px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-orb{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  background:radial-gradient(circle at 35% 28%,#fff 0 7%,#8ff0ff 8% 32%,#116980 64%,#020711 100%);
+  box-shadow:0 0 28px rgba(143,240,255,.80),0 0 80px rgba(66,245,111,.20);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-nav a,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-action,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-open{
+  border:1px solid rgba(143,240,255,.36);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(143,240,255,.055);
+  color:#8ff0ff;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-action.primary,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-nav a:hover,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-action:hover,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-open:hover{
+  color:#021006;
+  background:linear-gradient(135deg,#8ff0ff,#42f56f);
+  box-shadow:0 0 30px rgba(66,245,111,.25);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-status{
+  min-width:150px;
+  border:1px solid rgba(66,245,111,.45);
+  border-radius:16px;
+  padding:8px 12px;
+  text-align:center;
+  background:rgba(66,245,111,.06);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-status b{
+  display:block;
+  color:#42f56f;
+  font-size:14px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-status span{
+  display:block;
+  color:rgba(232,250,255,.62);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-hero{
+  overflow:hidden;
+  margin-top:10px;
+  border-radius:30px;
+  padding:36px;
+  min-height:360px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:30px;
+  align-items:center;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(116deg,transparent 0 24%,rgba(143,240,255,.10) 25% 27%,transparent 28% 100%),
+    linear-gradient(70deg,transparent 0 60%,rgba(66,245,111,.075) 61% 62%,transparent 63%),
+    repeating-linear-gradient(0deg,rgba(143,240,255,.04) 0 1px,transparent 1px 52px),
+    repeating-linear-gradient(90deg,rgba(143,240,255,.032) 0 1px,transparent 1px 52px);
+  pointer-events:none;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-kicker{
+  color:#42f56f;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.18em;
+  margin:0 0 12px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] h1{
+  margin:0;
+  max-width:1250px;
+  font-size:clamp(58px,8.2vw,146px);
+  line-height:.84;
+  letter-spacing:.025em;
+  text-shadow:
+    0 0 18px rgba(143,240,255,.78),
+    0 0 62px rgba(143,240,255,.32),
+    0 0 120px rgba(66,245,111,.14);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] p{
+  color:rgba(232,250,255,.72);
+  line-height:1.56;
+  font-size:13px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-hero-main p{
+  max-width:1120px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:20px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-command{
+  border:1px solid rgba(66,245,111,.44);
+  border-radius:26px;
+  padding:22px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 25%,rgba(66,245,111,.14),transparent 58%),
+    rgba(1,14,11,.70);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-command span{
+  display:block;
+  color:rgba(232,250,255,.62);
+  letter-spacing:.18em;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-command strong{
+  display:block;
+  color:#42f56f;
+  font-size:52px;
+  margin:8px 0;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-meters{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:16px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-meters div{
+  border:1px solid rgba(143,240,255,.22);
+  border-radius:12px;
+  padding:9px 6px;
+  background:rgba(143,240,255,.04);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-meters b{
+  display:block;
+  color:#8ff0ff;
+  font-size:18px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-meters em{
+  color:rgba(232,250,255,.55);
+  font-style:normal;
+  font-size:9px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-command-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 420px;
+  gap:10px;
+  margin-top:10px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-map-panel,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-inspector,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-launch-panel{
+  border-radius:22px;
+  overflow:hidden;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 15px;
+  border-bottom:1px solid rgba(143,240,255,.20);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] h2{
+  margin:0;
+  color:#8ff0ff;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-section-head span{
+  border:1px solid rgba(66,245,111,.40);
+  border-radius:999px;
+  padding:6px 10px;
+  color:#42f56f;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-map{
+  position:relative;
+  min-height:560px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(143,240,255,.08),transparent 44%),
+    repeating-linear-gradient(0deg,rgba(143,240,255,.045) 0 1px,transparent 1px 42px),
+    repeating-linear-gradient(90deg,rgba(143,240,255,.035) 0 1px,transparent 1px 42px);
+  overflow:hidden;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-link{
+  position:absolute;
+  height:1px;
+  transform-origin:left center;
+  background:linear-gradient(90deg,rgba(143,240,255,.0),rgba(143,240,255,.75),rgba(66,245,111,.18));
+  box-shadow:0 0 18px rgba(143,240,255,.38);
+  pointer-events:none;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:120px;
+  height:120px;
+  transform:translate(-50%,-50%);
+  border-radius:999px;
+  border:1px solid rgba(66,245,111,.72);
+  box-shadow:0 0 46px rgba(66,245,111,.28);
+  background:radial-gradient(circle,rgba(66,245,111,.30),rgba(143,240,255,.08),transparent 70%);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-core::after{
+  content:"COMMAND CORE";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:#42f56f;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.10em;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-node{
+  position:absolute;
+  transform:translate(-50%,-50%);
+  width:178px;
+  min-height:92px;
+  border:1px solid rgba(143,240,255,.40);
+  border-radius:20px;
+  padding:13px;
+  background:rgba(1,13,24,.78);
+  box-shadow:0 0 32px rgba(143,240,255,.16);
+  cursor:pointer;
+  text-align:left;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-node:hover,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-node.active{
+  border-color:rgba(66,245,111,.90);
+  box-shadow:0 0 52px rgba(66,245,111,.28);
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-node b{
+  color:#42f56f;
+  display:block;
+  font-size:12px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-node small{
+  color:rgba(232,250,255,.72);
+  display:block;
+  font-size:10px;
+  margin-top:6px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-node i{
+  display:inline-flex;
+  margin-top:8px;
+  border:1px solid rgba(143,240,255,.28);
+  border-radius:999px;
+  padding:3px 7px;
+  color:#8ff0ff;
+  font-style:normal;
+  font-size:9px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-inspector-body{
+  padding:16px;
+  min-height:500px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-inspector-body b{
+  color:#42f56f;
+  font-size:22px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] code{
+  display:block;
+  border:1px solid rgba(66,245,111,.32);
+  border-radius:10px;
+  padding:10px;
+  color:#42f56f;
+  background:rgba(66,245,111,.06);
+  white-space:pre-wrap;
+  font-size:11px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-flow{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-flow article{
+  border-radius:18px;
+  padding:14px;
+  min-height:96px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-flow span{
+  color:#42f56f;
+  font-size:11px;
+  letter-spacing:.14em;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-flow b{
+  display:block;
+  color:#e8faff;
+  font-size:18px;
+  margin:6px 0;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-launch-panel{
+  margin-top:10px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-launch-deck{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  padding:14px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-card,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-eng-card{
+  border:1px solid rgba(143,240,255,.24);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(0,0,0,.20);
+  min-height:145px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-card b,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-eng-card b{
+  display:block;
+  color:#42f56f;
+  font-size:14px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-card small,
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-eng-card small{
+  color:#8ff0ff;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-engineering{
+  margin-top:10px;
+  border-radius:18px;
+  padding:14px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-engineering summary{
+  color:#8ff0ff;
+  font-weight:900;
+  letter-spacing:.14em;
+  cursor:pointer;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-engineering-deck{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+
+[data-trfmc-page="cinematic-command-deck-v87d"] .cd87-footer{
+  margin-top:10px;
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  color:rgba(232,250,255,.56);
+  font-size:11px;
+}
+
+@media(max-width:1450px){
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-hero,
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-command-grid{
+    grid-template-columns:1fr;
+  }
+
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-launch-deck,
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-engineering-deck{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:900px){
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-topbar{
+    position:relative;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-flow,
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-launch-deck,
+  [data-trfmc-page="cinematic-command-deck-v87d"] .cd87-engineering-deck{
+    grid-template-columns:1fr;
+  }
+}
