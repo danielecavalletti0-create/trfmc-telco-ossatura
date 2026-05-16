@@ -1,0 +1,121 @@
+/* ============================================================
+   TRFMC v0.85D - Runtime Identity Lock
+   Non aggiunge caos: blocca identità, titolo e gerarchia.
+   ============================================================ */
+
+body.v85d-identity-lock {
+  --d-bg:#01040b;
+  --d-panel:#061426;
+  --d-cyan:#8ff0ff;
+  --d-green:#42f56f;
+  --d-amber:#fbbf24;
+  --d-red:#ff3b5c;
+  --d-text:#e8faff;
+}
+
+/* Titolo definitivo */
+body.v85d-identity-lock .trfmc-runtime-title-lock {
+  font-size:clamp(42px,5.2vw,82px) !important;
+  line-height:.98 !important;
+  letter-spacing:.045em !important;
+  color:var(--d-text) !important;
+  text-shadow:
+    0 0 16px rgba(143,240,255,.62),
+    0 0 54px rgba(143,240,255,.18) !important;
+}
+
+/* Disinnesco visivo dei titoli vecchi, se qualche script li reinietta */
+body.v85d-identity-lock .trfmc-deprecated-title {
+  opacity:.18 !important;
+  filter:grayscale(1) brightness(.45) !important;
+}
+
+/* Strip definitiva più compatta della v85C */
+.v85d-lock-strip {
+  margin:8px;
+  border:1px solid rgba(143,240,255,.30);
+  border-radius:18px;
+  padding:8px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:8px;
+  background:
+    linear-gradient(145deg,rgba(5,22,38,.90),rgba(1,6,14,.98));
+  box-shadow:
+    0 18px 58px rgba(0,0,0,.34),
+    inset 0 0 26px rgba(143,240,255,.024);
+}
+
+.v85d-lock-strip article {
+  border:1px solid rgba(143,240,255,.22) !important;
+  border-radius:14px !important;
+  padding:8px 10px !important;
+  background:rgba(143,240,255,.035) !important;
+  min-height:54px;
+}
+
+.v85d-lock-strip b {
+  display:block;
+  color:var(--d-cyan);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+.v85d-lock-strip span {
+  display:block;
+  color:rgba(232,250,255,.66);
+  font-size:10px;
+  line-height:1.35;
+}
+
+.v85d-lock-strip article:nth-child(1) {
+  border-color:rgba(66,245,111,.34) !important;
+}
+
+.v85d-lock-strip article:nth-child(3) {
+  border-color:rgba(251,191,36,.32) !important;
+}
+
+/* Più aria alla scena RF */
+body.v85d-identity-lock .sapienza-v85b-director,
+body.v85d-identity-lock .sapienza-v85b-chain,
+body.v85d-identity-lock .sapienza-v85c-identity-strip {
+  margin-top:6px !important;
+  margin-bottom:6px !important;
+}
+
+/* Canvas più leggibile: meno saturazione e contrasto più strumentale */
+body.v85d-identity-lock canvas {
+  filter:saturate(.94) brightness(1.05) contrast(1.18) !important;
+}
+
+/* Mode Clean */
+body.v85d-mode-clean .v85d-lock-strip,
+body.v85d-mode-clean .sapienza-v85b-chain,
+body.v85d-mode-clean .sapienza-v85c-identity-strip,
+body.v85d-mode-clean .sapienza-v85c-badge {
+  display:none !important;
+}
+
+.v85d-badge {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  border:1px solid rgba(66,245,111,.34);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(1,6,14,.88);
+  color:var(--d-green);
+  font-size:10px;
+  letter-spacing:.12em;
+  box-shadow:0 0 24px rgba(66,245,111,.14);
+}
+
+@media(max-width:1500px){
+  .v85d-lock-strip {
+    grid-template-columns:1fr;
+  }
+}

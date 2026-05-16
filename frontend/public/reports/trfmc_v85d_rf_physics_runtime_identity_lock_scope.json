@@ -1,0 +1,28 @@
+{
+  "version": "TRFMC v0.85D",
+  "page": "webgl_rf_physics_engine_v85d_runtime_identity_lock.html",
+  "mission": "Hard runtime identity lock for the RF Physics Sapienza page. Fixes inherited title/header text using broad DOM patching and MutationObserver.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "source_page": "webgl_rf_physics_engine_v85c_sapienza_identity.html",
+  "fixes": [
+    "broad text-node replacement",
+    "h1/title/class-based runtime patch",
+    "MutationObserver lock",
+    "delayed patch retries after load",
+    "identity lock strip",
+    "clean mode compatibility",
+    "badge v85D"
+  ],
+  "acceptance": [
+    "v85C remains untouched",
+    "v85D page returns HTTP 200",
+    "CSS and JS return HTTP 200",
+    "no CDN or external references",
+    "visible title must be RF Physics Sapienza Runtime Identity Lock",
+    "backend health remains HTTP 200",
+    "worktree clean after commit"
+  ]
+}
