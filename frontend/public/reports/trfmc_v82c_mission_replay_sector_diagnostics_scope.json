@@ -1,0 +1,22 @@
+{
+  "version": "TRFMC v0.82C",
+  "mode": "mission replay and sector diagnostics",
+  "new_page": "webgl_rf_heatmap_engine_v82c_mission_replay.html",
+  "based_on": "webgl_rf_heatmap_engine_v82b_native_lab.html",
+  "v82b_preserved": true,
+  "v82a_preserved": true,
+  "v81c_r2_preserved": true,
+  "original_v68_overwritten": false,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "features": [
+    "mission replay timeline",
+    "sector diagnostics for SITE-A/SITE-B/SITE-C",
+    "scenario presets",
+    "auto replay optional",
+    "RF event bus enrichment"
+  ]
+}
