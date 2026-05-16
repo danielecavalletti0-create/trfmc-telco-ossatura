@@ -1,0 +1,22 @@
+{
+  "version": "TRFMC v0.83E",
+  "mode": "Instrument Readability + Vector Governance",
+  "new_page": "webgl_rf_physics_engine_v83e.html",
+  "based_on": "webgl_rf_physics_engine_v83d.html",
+  "v83d_preserved": true,
+  "v83c_preserved": true,
+  "v83b_preserved": true,
+  "v83a_preserved": true,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "fixes": [
+    "best-server vector label no longer rotates over the scene",
+    "heatmap saturation reduced",
+    "physical objects made more readable",
+    "hero title refined",
+    "visual governance dock added"
+  ]
+}

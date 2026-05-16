@@ -1,0 +1,178 @@
+/* TRFMC v0.83E - Instrument Readability + Vector Governance */
+
+body.v83e-readability {
+  --v83e-cyan:#8ff0ff;
+  --v83e-green:#42f56f;
+  --v83e-amber:#fbbf24;
+  --v83e-red:#ff3b5c;
+  --v83e-blue:#2ea7ff;
+}
+
+/* Hero più professionale e meno “poster” */
+body.v83e-readability .hero {
+  padding-top:30px !important;
+  padding-bottom:28px !important;
+}
+
+body.v83e-readability h1 {
+  font-size:clamp(32px,3.45vw,56px) !important;
+  line-height:1.12 !important;
+  text-shadow:
+    0 0 14px rgba(143,240,255,.34),
+    0 0 54px rgba(143,240,255,.13) !important;
+}
+
+/* Canvas meno saturo: lettura strumentale, non videogioco casuale */
+body.v83e-readability #rfCanvas {
+  filter:saturate(.82) contrast(.96) brightness(.93);
+}
+
+body.v83e-readability .stage {
+  background:
+    radial-gradient(circle at 16% 12%, rgba(143,240,255,.055), transparent 36%),
+    #010714 !important;
+}
+
+body.v83e-readability .stage::after {
+  opacity:.12 !important;
+}
+
+body.v83e-readability .depth-grid {
+  opacity:.30 !important;
+}
+
+/* Oggetti fisici più leggibili sopra la heatmap */
+body.v83e-readability .building {
+  opacity:.72 !important;
+  border-color:rgba(143,240,255,.34) !important;
+  box-shadow:
+    16px 22px 30px rgba(0,0,0,.36),
+    inset 0 0 30px rgba(143,240,255,.08) !important;
+}
+
+body.v83e-readability .tree {
+  opacity:.82;
+}
+
+body.v83e-readability .site {
+  z-index:20;
+  border-color:rgba(234,255,255,.62);
+  box-shadow:
+    0 0 34px rgba(143,240,255,.26),
+    inset 0 0 20px rgba(143,240,255,.10);
+}
+
+body.v83e-readability .ue {
+  z-index:22;
+}
+
+/* Best server vector: linea pulita, niente label ruotata sulla linea */
+body.v83e-readability .v83d-serving-vector {
+  height:2px !important;
+  opacity:.72;
+  background:linear-gradient(90deg,rgba(143,240,255,.05),rgba(143,240,255,.78),rgba(66,245,111,.68)) !important;
+  box-shadow:
+    0 0 10px rgba(143,240,255,.35),
+    0 0 22px rgba(66,245,111,.12) !important;
+}
+
+body.v83e-readability .v83d-serving-vector::after {
+  content:none !important;
+}
+
+/* Label governata, non ruotata */
+.v83e-vector-label {
+  position:absolute;
+  z-index:26;
+  border:1px solid rgba(66,245,111,.34);
+  border-radius:999px;
+  background:rgba(2,8,18,.82);
+  color:var(--v83e-green);
+  padding:6px 10px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.10em;
+  pointer-events:none;
+  box-shadow:
+    0 0 18px rgba(66,245,111,.14),
+    inset 0 0 14px rgba(66,245,111,.05);
+}
+
+/* I tag soglia devono aiutare, non coprire */
+body.v83e-readability .v83b-threshold-tag {
+  opacity:.68 !important;
+  transform:scale(.92);
+}
+
+/* Dock dedicato di qualità visiva */
+.v83e-readability-dock {
+  margin:16px 18px 0;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+}
+
+.v83e-card {
+  border:1px solid rgba(143,240,255,.27);
+  border-radius:22px;
+  padding:16px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.10), transparent 36%),
+    linear-gradient(145deg,rgba(8,30,50,.88),rgba(3,9,22,.96));
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.30),
+    inset 0 0 34px rgba(143,240,255,.025);
+}
+
+.v83e-card h3 {
+  margin:0 0 10px;
+  color:var(--v83e-cyan);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+.v83e-card p {
+  margin:0;
+  color:rgba(232,250,255,.65);
+  font-size:11px;
+  line-height:1.45;
+}
+
+.v83e-card code {
+  display:block;
+  border:1px solid rgba(66,245,111,.20);
+  border-radius:14px;
+  padding:10px;
+  color:var(--v83e-green);
+  background:rgba(66,245,111,.045);
+  font-size:11px;
+  line-height:1.45;
+}
+
+/* Tabella link budget più “instrument” */
+body.v83e-readability .v83d-budget-dock {
+  border-color:rgba(143,240,255,.32);
+}
+
+body.v83e-readability .v83d-table td {
+  background:rgba(143,240,255,.035);
+}
+
+body.v83e-readability .v83d-table tr.serving td {
+  background:rgba(66,245,111,.060);
+}
+
+/* Pannelli laterali meno aggressivi */
+body.v83e-readability .control,
+body.v83e-readability .telemetry {
+  box-shadow:
+    0 18px 58px rgba(0,0,0,.30),
+    inset 0 0 28px rgba(143,240,255,.025) !important;
+}
+
+@media(max-width:1350px){
+  .v83e-readability-dock {
+    grid-template-columns:1fr;
+  }
+}
