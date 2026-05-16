@@ -1,0 +1,24 @@
+{
+  "version": "TRFMC v0.86D-R1",
+  "page": "trfmc_unified_shell_noiframe_v86d_r1.html",
+  "mission": "Replace the failed v86D iframe shell concept with a no-iframe route console: registry-driven navigation, route state, metadata and direct links only.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "iframe_used": false,
+  "quarantined": [
+    "v0.86d-unified-shell-prototype"
+  ],
+  "based_on": "v0.86c-r1-portal-registry-runtime-render-fix",
+  "registry_source": "frontend/public/reports/trfmc_v86c_r1_portal_registry.json",
+  "guardrails": [
+    "no iframe",
+    "no nested page preview",
+    "no CDN",
+    "all CSS scoped under [data-trfmc-page='noiframe-route-console-v86d-r1']",
+    "no MutationObserver",
+    "no backend change",
+    "no overwrite of stable pages"
+  ]
+}
