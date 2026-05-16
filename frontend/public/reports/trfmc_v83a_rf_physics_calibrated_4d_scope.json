@@ -1,0 +1,30 @@
+{
+  "version": "TRFMC v0.83A",
+  "mode": "RF Physics Calibrated 4D Engine",
+  "new_page": "webgl_rf_physics_engine_v83.html",
+  "based_on": "new isolated formula-driven WebGL page",
+  "v82c_r2_preserved": true,
+  "v82c_preserved": true,
+  "v82b_preserved": true,
+  "v82a_preserved": true,
+  "v81c_r2_preserved": true,
+  "original_v68_overwritten": false,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "formulas": [
+    "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+    "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xsigma",
+    "Lveg[dB] = K * fGHz^0.3 * dveg^0.6 * density",
+    "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade"
+  ],
+  "visual_objective": [
+    "less decorative heatmap",
+    "threshold-driven RSRP color scale",
+    "pseudo-4D time/fading layer",
+    "formula dock visible",
+    "operational RF telemetry"
+  ]
+}
