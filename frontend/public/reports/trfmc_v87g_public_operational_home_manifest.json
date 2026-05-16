@@ -1,0 +1,84 @@
+{
+  "version": "TRFMC v0.87G",
+  "purpose": "Public operational home with clean mission-only surface and preserved engineering/service routes",
+  "canonical_home": "trfmc_home_v87g.html",
+  "public_aliases": [
+    "trfmc_home.html",
+    "trfmc.html"
+  ],
+  "mission_routes_count": 6,
+  "mission_routes": [
+    {
+      "priority": "P0",
+      "title": "RF Physics Console",
+      "domain": "RF Physics",
+      "href": "rf_physics_sapienza_console_v86a.html"
+    },
+    {
+      "priority": "P0",
+      "title": "Stable RF Field",
+      "domain": "RF Baseline",
+      "href": "webgl_rf_physics_engine_v85e_viewport_discipline.html"
+    },
+    {
+      "priority": "P1",
+      "title": "Infrastructure Digital Twin",
+      "domain": "Infrastructure",
+      "href": "infrastructure_digital_twin_v63.html"
+    },
+    {
+      "priority": "P1",
+      "title": "Handover Dynamics",
+      "domain": "Mobility",
+      "href": "webgl_rf_heatmap_engine_v69.html"
+    },
+    {
+      "priority": "P2",
+      "title": "Vegetation / Clutter Lab",
+      "domain": "RF Visualization",
+      "href": "webgl_rf_heatmap_engine_v68_surgical_v81.html"
+    },
+    {
+      "priority": "P0",
+      "title": "Theory Spine",
+      "domain": "Academy",
+      "href": "trfmc_theory_spine_v86e.html"
+    }
+  ],
+  "engineering_routes_preserved_but_not_public_home": [
+    {
+      "title": "v87F Route Normalizer",
+      "href": "trfmc_route_normalizer_v87f.html"
+    },
+    {
+      "title": "v87E Home Promotion",
+      "href": "trfmc_home_v87e.html"
+    },
+    {
+      "title": "v87D Cinematic Command Deck",
+      "href": "trfmc_cinematic_command_deck_v87d.html"
+    },
+    {
+      "title": "v87C Cinematic Atlas",
+      "href": "trfmc_cinematic_mission_atlas_v87c.html"
+    },
+    {
+      "title": "v87B Mission Home",
+      "href": "trfmc_mission_control_home_v87b.html"
+    },
+    {
+      "title": "Design Token Audit",
+      "href": "trfmc_design_token_audit_v86f.html"
+    },
+    {
+      "title": "No-Iframe Route Console Legacy Name",
+      "href": "trfmc_unified_shell_noiframe_v86d_r1.html"
+    }
+  ],
+  "constraints": {
+    "cdn": "not used",
+    "page_embedding": "not used",
+    "css_scope": "data-trfmc-page=v87g-public-home",
+    "destructive_cleanup": false
+  }
+}
