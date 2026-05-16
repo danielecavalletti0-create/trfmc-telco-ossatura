@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.86B · Performance GPU Binding Gate</title>
+  <link rel="stylesheet" href="/assets/trfmc_v086b_performance_gpu_gate.css"/>
+</head>
+<body data-trfmc-page="performance-gpu-gate-v86b">
+  <div id="pg86-root" class="pg86-root">
+    <header class="pg86-shellbar">
+      <div class="pg86-brand">
+        <span class="pg86-orb"></span>
+        <div>
+          <strong>TRFMC PERFORMANCE / GPU BINDING GATE</strong>
+          <small>v0.86B · misura prima di espandere · nessun overwrite</small>
+        </div>
+      </div>
+
+      <nav class="pg86-nav">
+        <a href="/rf_physics_sapienza_console_v86a.html">v86A RF Console</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">v85E Stable</a>
+        <a href="/sapienza_master_template_doctrine_v85a.html">Doctrine</a>
+        <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+      </nav>
+
+      <div class="pg86-status">
+        <span id="pg86Backend">Backend?</span>
+        <span id="pg86Frontend">Frontend OK</span>
+        <span>No CDN</span>
+      </div>
+    </header>
+
+    <main class="pg86-main">
+      <section class="pg86-hero">
+        <div>
+          <p class="pg86-kicker">TRFMC v0.86B · FRAME BUDGET · GPU ROUTING · PORTAL PROMOTION GATE</p>
+          <h1>Performance GPU Binding Gate</h1>
+          <p>
+            Questo è il banco di misura prima di collegare tutto il portale: identifica renderer WebGL,
+            adapter WebGPU, FPS, frame-time, DPR, canvas backing size e qualità operativa.
+          </p>
+        </div>
+        <aside class="pg86-verdict">
+          <span>Runtime verdict</span>
+          <strong id="pg86Verdict">MEASURING</strong>
+          <small id="pg86VerdictDetail">attendi stabilizzazione frame</small>
+        </aside>
+      </section>
+
+      <section class="pg86-grid">
+        <article class="pg86-card pg86-card-wide">
+          <div class="pg86-card-head">
+            <h2>GPU Binding</h2>
+            <button type="button" id="pg86RefreshGpu">Refresh probe</button>
+          </div>
+          <div class="pg86-table">
+            <div><span>WebGL Vendor</span><strong id="pg86WebglVendor">—</strong></div>
+            <div><span>WebGL Renderer</span><strong id="pg86WebglRenderer">—</strong></div>
+            <div><span>Unmasked Vendor</span><strong id="pg86UnmaskedVendor">—</strong></div>
+            <div><span>Unmasked Renderer</span><strong id="pg86UnmaskedRenderer">—</strong></div>
+            <div><span>WebGPU</span><strong id="pg86WebgpuStatus">—</strong></div>
+            <div><span>WebGPU Adapter</span><strong id="pg86WebgpuAdapter">—</strong></div>
+          </div>
+        </article>
+
+        <article class="pg86-card">
+          <h2>Frame Budget</h2>
+          <div class="pg86-big"><span>FPS</span><strong id="pg86Fps">—</strong></div>
+          <div class="pg86-table compact">
+            <div><span>Frame avg</span><strong id="pg86FrameAvg">—</strong></div>
+            <div><span>Frame max</span><strong id="pg86FrameMax">—</strong></div>
+            <div><span>Frame min</span><strong id="pg86FrameMin">—</strong></div>
+            <div><span>Dropped frames</span><strong id="pg86Dropped">—</strong></div>
+          </div>
+        </article>
+
+        <article class="pg86-card">
+          <h2>Canvas Discipline</h2>
+          <div class="pg86-table compact">
+            <div><span>DPR</span><strong id="pg86Dpr">—</strong></div>
+            <div><span>CSS size</span><strong id="pg86CssSize">—</strong></div>
+            <div><span>Backing size</span><strong id="pg86BackingSize">—</strong></div>
+            <div><span>Quality</span><strong id="pg86QualityReadout">BALANCED</strong></div>
+          </div>
+          <div class="pg86-modebar">
+            <button type="button" data-quality="safe">Safe</button>
+            <button type="button" data-quality="balanced" class="is-active">Balanced</button>
+            <button type="button" data-quality="supreme">Supreme</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="pg86-bench">
+        <div class="pg86-bench-head">
+          <div>
+            <h2>Instrumented Canvas Load</h2>
+            <p>Carico sintetico controllato: non rappresenta tutta la piattaforma, ma misura stabilità frame e scalabilità canvas.</p>
+          </div>
+          <div class="pg86-bench-actions">
+            <button type="button" id="pg86Pause">Pause</button>
+            <button type="button" id="pg86Reset">Reset stats</button>
+            <button type="button" id="pg86Export">Export JSON</button>
+          </div>
+        </div>
+        <div class="pg86-canvas-wrap">
+          <canvas id="pg86Canvas" width="1400" height="620"></canvas>
+          <div class="pg86-overlay">
+            <span id="pg86OverlayRenderer">renderer: detecting</span>
+            <span id="pg86OverlayBudget">budget: detecting</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="pg86-portal-gate">
+        <article>
+          <h2>Gate 01 · Stabilità</h2>
+          <p>La pagina può essere promossa solo se resta sopra 50 FPS in Balanced e non produce jank evidente.</p>
+        </article>
+        <article>
+          <h2>Gate 02 · GPU routing</h2>
+          <p>Se WebGL resta Intel, nessun problema immediato; ma per WebGPU/4D Supreme va preferita NVIDIA.</p>
+        </article>
+        <article>
+          <h2>Gate 03 · Design system</h2>
+          <p>Ogni pagina dovrà usare shell, token, griglia e scoping; niente patch globali.</p>
+        </article>
+        <article>
+          <h2>Gate 04 · Teoria</h2>
+          <p>Ogni modulo deve avere catena: fenomeno fisico, formula, strumento, evidenza, diagnosi.</p>
+        </article>
+      </section>
+
+      <section class="pg86-roadmap">
+        <h2>Portal Integration Sequence</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Fase</th>
+              <th>Oggetto</th>
+              <th>Output</th>
+              <th>Rischio</th>
+              <th>Stato</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>v86B</td>
+              <td>Performance / GPU gate</td>
+              <td>Metriche runtime e renderer</td>
+              <td>Basso</td>
+              <td>In corso</td>
+            </tr>
+            <tr>
+              <td>v86C</td>
+              <td>Portal registry</td>
+              <td>Mappa pagine, ruoli, priorità, stato</td>
+              <td>Basso</td>
+              <td>Prossimo</td>
+            </tr>
+            <tr>
+              <td>v86D</td>
+              <td>Master shell</td>
+              <td>Navigazione unica, footer unico, design tokens</td>
+              <td>Medio</td>
+              <td>Staged</td>
+            </tr>
+            <tr>
+              <td>v86E</td>
+              <td>Theory knowledge spine</td>
+              <td>Indice teoria RF/TLC/5G con formule e strumenti</td>
+              <td>Medio</td>
+              <td>Staged</td>
+            </tr>
+            <tr>
+              <td>v87A</td>
+              <td>Promotion batch</td>
+              <td>Applicazione template a 3 pagine candidate</td>
+              <td>Alto</td>
+              <td>Solo dopo gate</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="pg86-footer">
+      TRFMC v0.86B · Performance GPU Binding Gate · scoped · v86A/v85E preserved · no backend change
+    </footer>
+  </div>
+
+  <script defer src="/assets/trfmc_v086b_performance_gpu_gate.js"></script>
+</body>
+</html>
