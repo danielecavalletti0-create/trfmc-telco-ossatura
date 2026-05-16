@@ -1,0 +1,27 @@
+{
+  "version": "TRFMC v0.85C",
+  "page": "webgl_rf_physics_engine_v85c_sapienza_identity.html",
+  "mission": "Correct the visual and semantic identity of v85B RF Physics Sapienza baseline without overwriting v85B or the original v83F page.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "source_page": "webgl_rf_physics_engine_v85b_sapienza_baseline.html",
+  "fixes": [
+    "force visible h1 identity to RF Physics Sapienza Identity Baseline",
+    "replace inherited v83F wording",
+    "add identity strip",
+    "add formula-first and instrument-proof labels",
+    "add promotion gate strip",
+    "add clean-mode bridge",
+    "preserve Measure/4D/Teach/Clean behavior"
+  ],
+  "acceptance": [
+    "v85B remains untouched",
+    "v85C page returns HTTP 200",
+    "CSS and JS return HTTP 200",
+    "no CDN or external references",
+    "backend health remains HTTP 200",
+    "worktree clean after commit"
+  ]
+}
