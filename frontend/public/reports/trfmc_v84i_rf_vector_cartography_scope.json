@@ -1,0 +1,28 @@
+{
+  "version": "TRFMC v0.84I",
+  "page": "rf_sapienza_console_v84i.html",
+  "mission": "RF Vector Cartography Console: reduce field haze, strengthen object readability, add serving/neighbour vectors and measurement reticle.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "based_on": "v0.84H RF Atlas Instrument View",
+  "critical_fixes": [
+    "field opacity reduced",
+    "canvas blur reduced",
+    "serving vector layer added",
+    "neighbor vector layer added",
+    "UE measurement reticle added",
+    "building outlines strengthened",
+    "critical class remains local and rare"
+  ],
+  "acceptance": [
+    "less haze",
+    "more object definition",
+    "serving vector readable",
+    "probe/UE readable",
+    "instrument panels still source of truth",
+    "no red curtain and no black curtain"
+  ]
+}
