@@ -28,6 +28,18 @@ const trfmcHealthPlugin = {
 export default defineConfig({
   plugins: [react(), trfmcHealthPlugin],
   server: {
+    proxy: {
+      '/trfmc-api/backend': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/trfmc-api\/backend/, ''),
+      },
+      '/trfmc-api/bridge': {
+        target: 'http://127.0.0.1:4181',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/trfmc-api\/bridge/, ''),
+      },
+    },
     host: '127.0.0.1',
     port: 5173,
     strictPort: true

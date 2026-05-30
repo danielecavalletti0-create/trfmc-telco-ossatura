@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 
 import { InstrumentShell } from "../core/InstrumentShell";
 import { RFSurfaceEngine } from "../renderers/RFSurfaceEngine";
 import { RFWaterfallRenderer } from "../renderers/RFWaterfallRenderer";
 import { IQConstellationRenderer, IQPoint } from "../renderers/IQConstellationRenderer";
+import { useRAFLoop } from "../../hooks/useRAFLoop";
 
 type Marker = {
   index: number;
@@ -59,7 +60,6 @@ export function RFSignalAnalyzerWorkbenchV3() {
   const iq = useRef(new IQConstellationRenderer());
 
   const lastFrame = useRef<RFFrame | null>(null);
-  const rafRef = useRef<number | null>(null);
 
   const [metrics, setMetrics] = useState<Metrics>(initialMetrics);
   const [workerState, setWorkerState] = useState("BOOT");
@@ -101,6 +101,32 @@ export function RFSignalAnalyzerWorkbenchV3() {
     </div>
   ), [metrics]);
 
+  const drawLoop = useCallback(() => {
+    const frame = lastFrame.current;
+    const spec = spectrumCanvas.current;
+    const wf = waterfallCanvas.current;
+    const iqc = iqCanvas.current;
+
+    if (frame && spec && wf && iqc) {
+      surface.current.draw(
+        spec,
+        {
+          primary: frame.primary,
+          maxHold: frame.maxHold,
+          average: frame.average
+        },
+        frame.markers
+      );
+
+      waterfall.current.push(frame.primary);
+      waterfall.current.draw(wf);
+
+      iq.current.draw(iqc, frame.iq);
+    }
+  }, []);
+
+  useRAFLoop(drawLoop, []);
+
   useEffect(() => {
     const worker = new Worker(
       new URL("../dsp/workers/RFSignalDspWorkerV3.ts", import.meta.url),
@@ -128,41 +154,9 @@ export function RFSignalAnalyzerWorkbenchV3() {
       intervalMs: 33
     });
 
-    const drawLoop = () => {
-      const frame = lastFrame.current;
-      const spec = spectrumCanvas.current;
-      const wf = waterfallCanvas.current;
-      const iqc = iqCanvas.current;
-
-      if (frame && spec && wf && iqc) {
-        surface.current.draw(
-          spec,
-          {
-            primary: frame.primary,
-            maxHold: frame.maxHold,
-            average: frame.average
-          },
-          frame.markers
-        );
-
-        waterfall.current.push(frame.primary);
-        waterfall.current.draw(wf);
-
-        iq.current.draw(iqc, frame.iq);
-      }
-
-      rafRef.current = requestAnimationFrame(drawLoop);
-    };
-
-    rafRef.current = requestAnimationFrame(drawLoop);
-
     return () => {
       worker.postMessage({ type: "stop" });
       worker.terminate();
-
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
     };
   }, []);
 

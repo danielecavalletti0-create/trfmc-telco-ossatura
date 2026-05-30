@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import {
   extractString,
   fetchLiveContract,
@@ -18,14 +18,14 @@ function domainLabel(domain: CommandCenterTileV37['domain']) {
   return domain.toUpperCase().replace('-', '/')
 }
 
-function LiveBadge({ tile, live }: { tile: CommandCenterTileV37; live?: LiveContractResult }) {
+const LiveBadge = memo(function LiveBadge({ tile, live }: { tile: CommandCenterTileV37; live?: LiveContractResult }) {
   if (!tile.liveEndpoint) {
     return <span className="v37-live-badge v37-live-local">LOCAL</span>
   }
 
   const health = getEndpointHealth(live)
   return <span className={`v37-live-badge v37-live-${health}`}>{health.toUpperCase()}</span>
-}
+});
 
 function tileLiveDetail(tile: CommandCenterTileV37, live?: LiveContractResult) {
   if (!tile.liveEndpoint || !live?.data) return tile.routeHint

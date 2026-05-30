@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { RFSurfaceEngine } from "../renderers/RFSurfaceEngine";
 import { RFWaterfallRenderer } from "../renderers/RFWaterfallRenderer";
 import { IQConstellationRenderer, IQPoint } from "../renderers/IQConstellationRenderer";
+import { useRAFLoop } from "../../hooks/useRAFLoop";
 
 type DockTab = "overview" | "spectrum" | "waterfall" | "iq" | "markers" | "measurements";
 
@@ -82,7 +83,39 @@ export function RFInstrumentDockV4() {
   const iq = useRef(new IQConstellationRenderer());
 
   const lastFrame = useRef<RFFrame | null>(null);
-  const rafRef = useRef<number | null>(null);
+
+  const drawLoop = useCallback(() => {
+    const frame = lastFrame.current;
+
+    if (frame) {
+      const spec = spectrumCanvas.current;
+      const wf = waterfallCanvas.current;
+      const iqc = iqCanvas.current;
+
+      if (spec) {
+        surface.current.draw(
+          spec,
+          {
+            primary: frame.primary,
+            maxHold: frame.maxHold,
+            average: frame.average
+          },
+          frame.markers
+        );
+      }
+
+      if (wf) {
+        waterfall.current.push(frame.primary);
+        waterfall.current.draw(wf);
+      }
+
+      if (iqc) {
+        iq.current.draw(iqc, frame.iq);
+      }
+    }
+  }, []);
+
+  useRAFLoop(drawLoop, []);
 
   useEffect(() => {
     const worker = new Worker(
@@ -112,64 +145,28 @@ export function RFInstrumentDockV4() {
       intervalMs: 33
     });
 
-    const drawLoop = () => {
-      const frame = lastFrame.current;
-
-      if (frame) {
-        const spec = spectrumCanvas.current;
-        const wf = waterfallCanvas.current;
-        const iqc = iqCanvas.current;
-
-        if (spec) {
-          surface.current.draw(
-            spec,
-            {
-              primary: frame.primary,
-              maxHold: frame.maxHold,
-              average: frame.average
-            },
-            frame.markers
-          );
-        }
-
-        if (wf) {
-          waterfall.current.push(frame.primary);
-          waterfall.current.draw(wf);
-        }
-
-        if (iqc) {
-          iq.current.draw(iqc, frame.iq);
-        }
-      }
-
-      rafRef.current = requestAnimationFrame(drawLoop);
-    };
-
-    rafRef.current = requestAnimationFrame(drawLoop);
-
     return () => {
       worker.postMessage({ type: "stop" });
       worker.terminate();
-
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-      }
     };
   }, []);
 
-  const measurementRows = [
-    ["SNR", `${metrics.snr} dB`, "Signal quality"],
-    ["EVM RMS", `${metrics.evm} %`, "Vector modulation quality"],
-    ["MER", `${metrics.mer} dB`, "Modulation error ratio"],
-    ["OBW", `${metrics.obw} MHz`, "Occupied bandwidth"],
-    ["ACLR LOW", `${metrics.aclrLow} dBc`, "Adjacent channel leakage"],
-    ["ACLR HIGH", `${metrics.aclrHigh} dBc`, "Adjacent channel leakage"],
-    ["Channel Power", `${metrics.channelPower} dBm`, "Integrated in-band power"],
-    ["Noise Floor", `${metrics.noiseFloor} dBm`, "Estimated noise reference"],
-    ["Crest Factor", `${metrics.crestFactor} dB`, "Peak/RMS ratio"],
-    ["Classifier", metrics.classifier, "Signal class"],
-    ["Evidence", metrics.evidence, "Acquisition source"]
-  ];
+  const measurementRows = useMemo(
+    () => [
+      ["SNR", `${metrics.snr} dB`, "Signal quality"],
+      ["EVM RMS", `${metrics.evm} %`, "Vector modulation quality"],
+      ["MER", `${metrics.mer} dB`, "Modulation error ratio"],
+      ["OBW", `${metrics.obw} MHz`, "Occupied bandwidth"],
+      ["ACLR LOW", `${metrics.aclrLow} dBc`, "Adjacent channel leakage"],
+      ["ACLR HIGH", `${metrics.aclrHigh} dBc`, "Adjacent channel leakage"],
+      ["Channel Power", `${metrics.channelPower} dBm`, "Integrated in-band power"],
+      ["Noise Floor", `${metrics.noiseFloor} dBm`, "Estimated noise reference"],
+      ["Crest Factor", `${metrics.crestFactor} dB`, "Peak/RMS ratio"],
+      ["Classifier", metrics.classifier, "Signal class"],
+      ["Evidence", metrics.evidence, "Acquisition source"]
+    ],
+    [metrics]
+  );
 
   return (
     <section className="rf-dock-v4">

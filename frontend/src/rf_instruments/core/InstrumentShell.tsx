@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "../styles/instrument.css";
 
 type InstrumentShellProps = {
@@ -9,7 +9,7 @@ type InstrumentShellProps = {
   right?: React.ReactNode;
 };
 
-export function InstrumentShell({ title, subtitle, left, center, right }: InstrumentShellProps) {
+const InstrumentShellComponent = ({ title, subtitle, left, center, right }: InstrumentShellProps) => {
   return (
     <section className="trfmc-instrument-shell">
       <header className="trfmc-instrument-header">
@@ -26,4 +26,6 @@ export function InstrumentShell({ title, subtitle, left, center, right }: Instru
       </main>
     </section>
   );
-}
+};
+
+export const InstrumentShell = memo(InstrumentShellComponent);

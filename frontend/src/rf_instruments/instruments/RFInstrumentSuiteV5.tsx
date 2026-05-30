@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 
 import { RFInstrumentDockV4 } from "./RFInstrumentDockV4";
 import { SmithChartRenderer } from "../renderers/SmithChartRenderer";
@@ -17,6 +17,51 @@ const tabs: { id: SuiteTab; label: string }[] = [
   { id: "ofdm", label: "OFDM Grid" }
 ];
 
+const smithTableRows = [
+  ["S11", "-7.5 dB", "Input return loss"],
+  ["S21", "-1.2 dB", "Insertion loss"],
+  ["Γ", "0.42 ∠ 52°", "Reflection coefficient"],
+  ["VSWR", "2.45", "Mismatch severity"],
+  ["Mismatch Loss", "0.84 dB", "Power lost by mismatch"],
+  ["Recommended Action", "Stub / L-match", "Matching synthesis candidate"]
+] as const;
+
+const antennaTableRows = [
+  ["Array", "8 elements", "Uniform linear array"],
+  ["Spacing", "0.5 λ", "Grating lobe control"],
+  ["Gain", "17.4 dBi", "Peak boresight gain"],
+  ["SLL", "-13.2 dB", "Side-lobe level"],
+  ["HPBW", "14.6°", "Half-power beamwidth"],
+  ["Use Case", "5G sector / beam", "Directional coverage"]
+] as const;
+
+const microwaveTableRows = [
+  ["Frequency", "18 GHz", "Microwave carrier"],
+  ["Distance", "12.4 km", "Path length"],
+  ["FSPL", "139.4 dB", "Free-space path loss"],
+  ["RSL", "-47.8 dBm", "Received signal level"],
+  ["Fade Margin", "27.1 dB", "Availability margin"],
+  ["Fresnel", "Clear", "First-zone clearance"]
+] as const;
+
+const ofdmTableRows = [
+  ["Layer", "Mapped", "Synchronization signal block"],
+  ["PDCCH", "Active", "Control channel region"],
+  ["PDSCH", "Scheduled", "User data allocation"],
+  ["PRACH", "Detected", "Random access opportunity"],
+  ["SCS", "30 kHz", "Numerology μ=1"],
+  ["Evidence", "Synthetic lab", "Ready for UERANSIM/Open5GS correlation"]
+] as const;
+
+const PanelCard = memo(function PanelCard({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="rf-suite-v5-card">
+      <h3>{title}</h3>
+      {children}
+    </div>
+  );
+});
+
 export function RFInstrumentSuiteV5() {
   const [active, setActive] = useState<SuiteTab>("vsa");
 
@@ -30,21 +75,29 @@ export function RFInstrumentSuiteV5() {
   const microwave = useRef(new MicrowaveLinkRenderer());
   const ofdm = useRef(new OFDMGridRenderer());
 
-  useEffect(() => {
-    let raf = 0;
+  const drawLoop = useCallback((t: number) => {
+    if (smithRef.current) smith.current.draw(smithRef.current, t);
+    if (antennaRef.current) antenna.current.draw(antennaRef.current, t);
+    if (microwaveRef.current) microwave.current.draw(microwaveRef.current, t);
+    if (ofdmRef.current) ofdm.current.draw(ofdmRef.current, t);
+  }, []);
 
-    const loop = (t: number) => {
-      if (smithRef.current) smith.current.draw(smithRef.current, t);
-      if (antennaRef.current) antenna.current.draw(antennaRef.current, t);
-      if (microwaveRef.current) microwave.current.draw(microwaveRef.current, t);
-      if (ofdmRef.current) ofdm.current.draw(ofdmRef.current, t);
+  useRAFLoop(drawLoop, []);
 
-      raf = requestAnimationFrame(loop);
-    };
+  const onSelectTab = useCallback((tab: SuiteTab) => setActive(tab), []);
 
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-  }, [active]);
+  const tabButtons = useMemo(
+    () => tabs.map((tab) => (
+      <button
+        key={tab.id}
+        className={active === tab.id ? "rf-suite-v5-tab active" : "rf-suite-v5-tab"}
+        onClick={() => onSelectTab(tab.id)}
+      >
+        {tab.label}
+      </button>
+    )),
+    [active, onSelectTab]
+  );
 
   return (
     <section className="rf-suite-v5">
@@ -64,15 +117,7 @@ export function RFInstrumentSuiteV5() {
       </header>
 
       <nav className="rf-suite-v5-tabs">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={active === tab.id ? "rf-suite-v5-tab active" : "rf-suite-v5-tab"}
-            onClick={() => setActive(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
+        {tabButtons}
       </nav>
 
       <div className="rf-suite-v5-body">
@@ -80,22 +125,21 @@ export function RFInstrumentSuiteV5() {
 
         {active === "smith" && (
           <div className="rf-suite-v5-grid">
-            <div className="rf-suite-v5-card">
-              <h3>VNA / Smith Chart Engine</h3>
+            <PanelCard title="VNA / Smith Chart Engine">
               <canvas ref={smithRef} className="rf-suite-v5-canvas" style={{ height: 720 }} />
-            </div>
+            </PanelCard>
 
-            <div className="rf-suite-v5-card">
-              <h3>S-Parameter Measurement Table</h3>
+            <PanelCard title="S-Parameter Measurement Table">
               <table className="rf-suite-v5-table">
                 <tbody>
                   <tr><th>Parameter</th><th>Value</th><th>Meaning</th></tr>
-                  <tr><td>S11</td><td>-7.5 dB</td><td>Input return loss</td></tr>
-                  <tr><td>S21</td><td>-1.2 dB</td><td>Insertion loss</td></tr>
-                  <tr><td>Γ</td><td>0.42 ∠ 52°</td><td>Reflection coefficient</td></tr>
-                  <tr><td>VSWR</td><td>2.45</td><td>Mismatch severity</td></tr>
-                  <tr><td>Mismatch Loss</td><td>0.84 dB</td><td>Power lost by mismatch</td></tr>
-                  <tr><td>Recommended Action</td><td>Stub / L-match</td><td>Matching synthesis candidate</td></tr>
+                  {smithTableRows.map(([parameter, value, meaning]) => (
+                    <tr key={parameter}>
+                      <td>{parameter}</td>
+                      <td>{value}</td>
+                      <td>{meaning}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
@@ -105,28 +149,27 @@ export function RFInstrumentSuiteV5() {
                 Return Loss = -20log10(|Γ|)<br />
                 Mismatch Loss = -10log10(1 - |Γ|²)
               </div>
-            </div>
+            </PanelCard>
           </div>
         )}
 
         {active === "antenna" && (
           <div className="rf-suite-v5-grid">
-            <div className="rf-suite-v5-card">
-              <h3>Antenna Pattern / Array Factor</h3>
+            <PanelCard title="Antenna Pattern / Array Factor">
               <canvas ref={antennaRef} className="rf-suite-v5-canvas" style={{ height: 720 }} />
-            </div>
+            </PanelCard>
 
-            <div className="rf-suite-v5-card">
-              <h3>Antenna Engineering Panel</h3>
+            <PanelCard title="Antenna Engineering Panel">
               <table className="rf-suite-v5-table">
                 <tbody>
                   <tr><th>KPI</th><th>Value</th><th>Meaning</th></tr>
-                  <tr><td>Array</td><td>8 elements</td><td>Uniform linear array</td></tr>
-                  <tr><td>Spacing</td><td>0.5 λ</td><td>Grating lobe control</td></tr>
-                  <tr><td>Gain</td><td>17.4 dBi</td><td>Peak boresight gain</td></tr>
-                  <tr><td>SLL</td><td>-13.2 dB</td><td>Side-lobe level</td></tr>
-                  <tr><td>HPBW</td><td>14.6°</td><td>Half-power beamwidth</td></tr>
-                  <tr><td>Use Case</td><td>5G sector / beam</td><td>Directional coverage</td></tr>
+                  {antennaTableRows.map(([kpi, value, meaning]) => (
+                    <tr key={kpi}>
+                      <td>{kpi}</td>
+                      <td>{value}</td>
+                      <td>{meaning}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
@@ -135,28 +178,27 @@ export function RFInstrumentSuiteV5() {
                 ψ = k d cos(θ) + β<br />
                 EIRP = Ptx + Gant - feeder loss
               </div>
-            </div>
+            </PanelCard>
           </div>
         )}
 
         {active === "microwave" && (
           <div className="rf-suite-v5-grid">
-            <div className="rf-suite-v5-card">
-              <h3>Microwave Link Planner</h3>
+            <PanelCard title="Microwave Link Planner">
               <canvas ref={microwaveRef} className="rf-suite-v5-canvas" style={{ height: 720 }} />
-            </div>
+            </PanelCard>
 
-            <div className="rf-suite-v5-card">
-              <h3>Backhaul Link Budget</h3>
+            <PanelCard title="Backhaul Link Budget">
               <table className="rf-suite-v5-table">
                 <tbody>
                   <tr><th>Term</th><th>Value</th><th>Meaning</th></tr>
-                  <tr><td>Frequency</td><td>18 GHz</td><td>Microwave carrier</td></tr>
-                  <tr><td>Distance</td><td>12.4 km</td><td>Path length</td></tr>
-                  <tr><td>FSPL</td><td>139.4 dB</td><td>Free-space path loss</td></tr>
-                  <tr><td>RSL</td><td>-47.8 dBm</td><td>Received signal level</td></tr>
-                  <tr><td>Fade Margin</td><td>27.1 dB</td><td>Availability margin</td></tr>
-                  <tr><td>Fresnel</td><td>Clear</td><td>First-zone clearance</td></tr>
+                  {microwaveTableRows.map(([term, value, meaning]) => (
+                    <tr key={term}>
+                      <td>{term}</td>
+                      <td>{value}</td>
+                      <td>{meaning}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
@@ -165,28 +207,27 @@ export function RFInstrumentSuiteV5() {
                 RSL = Pt + Gt + Gr - FSPL - losses<br />
                 Fade Margin = RSL - Receiver Sensitivity
               </div>
-            </div>
+            </PanelCard>
           </div>
         )}
 
         {active === "ofdm" && (
           <div className="rf-suite-v5-grid">
-            <div className="rf-suite-v5-card">
-              <h3>5G NR OFDM Resource Grid</h3>
+            <PanelCard title="5G NR OFDM Resource Grid">
               <canvas ref={ofdmRef} className="rf-suite-v5-canvas" style={{ height: 720 }} />
-            </div>
+            </PanelCard>
 
-            <div className="rf-suite-v5-card">
-              <h3>NR Allocation / PHY Evidence</h3>
+            <PanelCard title="NR Allocation / PHY Evidence">
               <table className="rf-suite-v5-table">
                 <tbody>
                   <tr><th>Layer</th><th>Status</th><th>Meaning</th></tr>
-                  <tr><td>SSB</td><td>Mapped</td><td>Synchronization signal block</td></tr>
-                  <tr><td>PDCCH</td><td>Active</td><td>Control channel region</td></tr>
-                  <tr><td>PDSCH</td><td>Scheduled</td><td>User data allocation</td></tr>
-                  <tr><td>PRACH</td><td>Detected</td><td>Random access opportunity</td></tr>
-                  <tr><td>SCS</td><td>30 kHz</td><td>Numerology μ=1</td></tr>
-                  <tr><td>Evidence</td><td>Synthetic lab</td><td>Ready for UERANSIM/Open5GS correlation</td></tr>
+                  {ofdmTableRows.map(([layer, status, meaning]) => (
+                    <tr key={layer}>
+                      <td>{layer}</td>
+                      <td>{status}</td>
+                      <td>{meaning}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
@@ -195,7 +236,7 @@ export function RFInstrumentSuiteV5() {
                 Tsym ≈ 1 / Δf, excluding CP<br />
                 Resource Block = 12 subcarriers × symbols
               </div>
-            </div>
+            </PanelCard>
           </div>
         )}
       </div>
