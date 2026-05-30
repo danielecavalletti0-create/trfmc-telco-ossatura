@@ -27,7 +27,6 @@ import { RFOperationalDeckV16ChunkObservatory } from '../rf_instruments/instrume
 import { MissionLayoutOrchestratorV42 } from '../layout_orchestrator/MissionLayoutOrchestratorV42'
 import { EngineeringConsoleExpansionV4 } from '../layout_orchestrator/EngineeringConsoleExpansionV4'
 import { PortalOSRoot } from '../portal-os/PortalOSRoot'
-import { portalOSModules } from '../portal-os/portalManifest'
 
 type AnyObj = Record<string, any>
 type SectionId = 'overview' | 'rf' | 'network' | 'assets' | 'soc' | 'events' | 'restricted'
@@ -112,13 +111,6 @@ function App() {
     trfmcActiveHash === '#full-engineering';
 
   const trfmcPortalOsPreview = trfmcActiveHash === '#portal-os-preview';
-
-  const trfmcPortalOsManifestRoute = portalOSModules.some((module) => {
-    const route = module.route?.startsWith('#') ? module.route : `#${module.route}`;
-    return route === trfmcActiveHash;
-  });
-
-  const trfmcPortalOsRouteActive = trfmcPortalOsPreview || trfmcPortalOsManifestRoute;
 
   const [active, setActive] = React.useState<SectionId>('overview')
   const [data, setData] = React.useState<AnyObj>({})
@@ -228,7 +220,7 @@ function App() {
   const fresnel = rf.fresnel ?? {}
   const link = cov.target_link ?? {}
   /* TRFMC P4B PORTAL OS ROOT PREVIEW V2 START */
-  if (trfmcPortalOsRouteActive) {
+  if (trfmcPortalOsPreview) {
     return <PortalOSRoot />
   }
   /* TRFMC P4B PORTAL OS ROOT PREVIEW V2 END */

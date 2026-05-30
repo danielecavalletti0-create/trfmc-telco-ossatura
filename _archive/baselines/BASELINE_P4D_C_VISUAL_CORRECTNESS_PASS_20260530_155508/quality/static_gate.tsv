@@ -1,0 +1,8 @@
+check	result	count
+iframe_absent	PASS	0
+dangerous_dom_absent	PASS	0
+no_extra_createroot_call_in_portal_os	PASS	0
+v42_not_touched_by_p4dc	PASS	0
+p4dc_marker_source_present	PASS	1
+initial_module_from_lane_present	PASS	1
+deduplicated_risk_set_present	PASS	1

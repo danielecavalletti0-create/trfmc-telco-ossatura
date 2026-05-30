@@ -1,0 +1,7 @@
+check	result	count
+iframe_absent	PASS	0
+dangerous_dom_absent	PASS	0
+no_extra_createroot_call_in_portal_os	PASS	0
+v42_not_touched_by_p4d	PASS	0
+p4d_marker_source_present	PASS	1
+command_center_css_present	PASS	29

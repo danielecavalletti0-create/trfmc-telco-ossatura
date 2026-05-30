@@ -30,8 +30,8 @@ type Lane = {
 
 const initialEndpoints: EndpointState[] = [
   { id: 'frontend', label: 'Vite frontend', url: '/', state: 'pending', detail: 'SPA shell' },
-  { id: 'backend', label: 'Backend 8000', url: '/trfmc-api/backend/api/health', state: 'pending', detail: 'same-origin proxy → 8000' },
-  { id: 'bridge', label: 'Bridge 4181', url: '/trfmc-api/bridge/api/health', state: 'pending', detail: 'same-origin proxy → 4181' },
+  { id: 'backend', label: 'Backend 8000', url: 'http://127.0.0.1:8000/api/health', state: 'pending', detail: 'health API' },
+  { id: 'bridge', label: 'Bridge 4181', url: 'http://127.0.0.1:4181/api/health', state: 'pending', detail: 'RF bridge' },
 ]
 
 const lanes: Lane[] = [
@@ -147,21 +147,6 @@ function bestModuleIdForLane(laneId: string) {
   return first?.id ?? 'home'
 }
 
-function routeForModule(module?: PortalOSModule) {
-  const route = module?.route || '#portal-os-preview'
-  return route.startsWith('#') ? route : `#${route}`
-}
-
-function moduleFromCurrentHash() {
-  if (typeof window === 'undefined') return undefined
-  return portalOSModules.find((module) => routeForModule(module) === window.location.hash)
-}
-
-function laneIdForModule(module?: PortalOSModule) {
-  const lane = lanes.find((item) => item.category === module?.category)
-  return lane?.id ?? 'core-ran'
-}
-
 function getLaneStats(category: string) {
   const modules = modulesByCategory(category)
   return {
@@ -179,8 +164,6 @@ const topOperationalModules = [...portalOSModules]
   .sort((a, b) => moduleScore(b) - moduleScore(a))
   .slice(0, 16)
 
-const dashboardLaneIds = ['core-ran', 'dsp', 'antenna', 'digital-twin', 'war-room', 'noc', 'sigint', 'knowledge']
-
 const highRiskSummary = [
   { id: 'html_runtime_link', label: 'HTML runtime links', policy: 'manifest governed, not primary navigation' },
   { id: 'dangerous_dom', label: 'Dangerous DOM', policy: 'React rewrite before promotion' },
@@ -189,26 +172,10 @@ const highRiskSummary = [
 ]
 
 export function PortalOSRoot() {
-  const [selectedLaneId, setSelectedLaneId] = React.useState(() => laneIdForModule(moduleFromCurrentHash()))
-  const [activeModuleId, setActiveModuleId] = React.useState(() => moduleFromCurrentHash()?.id ?? bestModuleIdForLane('core-ran'))
+  const [selectedLaneId, setSelectedLaneId] = React.useState('core-ran')
+  const [activeModuleId, setActiveModuleId] = React.useState(() => bestModuleIdForLane('core-ran'))
   const [endpoints, setEndpoints] = React.useState<EndpointState[]>(initialEndpoints)
   const [tick, setTick] = React.useState(0)
-
-  React.useEffect(() => {
-    const syncFromHash = () => {
-      const module = moduleFromCurrentHash()
-      if (!module) return
-      setActiveModuleId(module.id)
-      setSelectedLaneId(laneIdForModule(module))
-    }
-
-    syncFromHash()
-    window.addEventListener('hashchange', syncFromHash)
-
-    return () => {
-      window.removeEventListener('hashchange', syncFromHash)
-    }
-  }, [])
 
   React.useEffect(() => {
     let alive = true
@@ -229,7 +196,7 @@ export function PortalOSRoot() {
               state: endpoint.id === 'frontend' ? 'online' : 'offline',
               detail:
                 endpoint.id === 'bridge'
-                  ? 'same-origin proxy pending; restart Vite if still blocked'
+                  ? 'browser fetch blocked/offline; CORS/proxy pending'
                   : error instanceof Error
                     ? error.message.slice(0, 90)
                     : 'browser probe blocked/offline',
@@ -277,9 +244,6 @@ export function PortalOSRoot() {
       data-trfmc-portal-os-preview="mounted"
       data-trfmc-p4d-command-center-home="mounted"
       data-trfmc-p4dc-visual-correction="mounted"
-      data-trfmc-p4e-data-fabric-dashboard="mounted"
-      data-trfmc-p4f-dashboard-route-links="mounted"
-      data-trfmc-p4g-route-registry="mounted"
     >
       <header className="trfmc-command-topbar">
         <div className="trfmc-command-brand">
@@ -372,70 +336,6 @@ export function PortalOSRoot() {
             })}
           </section>
 
-          <section className="trfmc-command-dashboard-pages" data-trfmc-dashboard-pages="active">
-            <div className="trfmc-command-strip-head">
-              <span>Dashboard pages</span>
-              <strong>principal routes active</strong>
-            </div>
-
-            <div className="trfmc-command-dashboard-grid">
-              {dashboardLaneIds.map((laneId) => {
-                const lane = lanes.find((item) => item.id === laneId)
-                if (!lane) return null
-                const stats = getLaneStats(lane.category)
-                const first = modulesByCategory(lane.category).sort((a, b) => moduleScore(b) - moduleScore(a))[0]
-
-                return (
-                  <button
-                    key={lane.id}
-                    type="button"
-                    className={lane.id === selectedLane.id ? 'is-active' : ''}
-                    onClick={() => {
-                      setSelectedLaneId(lane.id)
-                      if (first) setActiveModuleId(first.id)
-                    }}
-                  >
-                    <span>dashboard</span>
-                    <strong>{lane.title}</strong>
-                    <em>{stats.total} modules · {stats.visual} visual · {first?.title ?? 'no module'}</em>
-                  </button>
-                )
-              })}
-            </div>
-          </section>
-
-          <section className="trfmc-command-route-links" data-trfmc-dashboard-route-links="active">
-            <div className="trfmc-command-strip-head">
-              <span>Page links / route verification</span>
-              <strong>manifest controlled</strong>
-            </div>
-
-            <div className="trfmc-command-route-grid">
-              {dashboardLaneIds.map((laneId) => {
-                const lane = lanes.find((item) => item.id === laneId)
-                if (!lane) return null
-                const first = modulesByCategory(lane.category).sort((a, b) => moduleScore(b) - moduleScore(a))[0]
-                const route = routeForModule(first)
-
-                return (
-                  <a
-                    key={lane.id}
-                    href={route}
-                    data-trfmc-route-link={lane.id}
-                    onClick={() => {
-                      setSelectedLaneId(lane.id)
-                      if (first) setActiveModuleId(first.id)
-                    }}
-                  >
-                    <span>open route</span>
-                    <strong>{lane.title}</strong>
-                    <em>{route} · {first?.title ?? 'no module mapped'}</em>
-                  </a>
-                )
-              })}
-            </div>
-          </section>
-
           <section className="trfmc-command-module-strip">
             <div className="trfmc-command-strip-head">
               <span>Lane modules</span>
@@ -488,7 +388,7 @@ export function PortalOSRoot() {
         <aside className="trfmc-command-right">
           <div className="trfmc-command-panel-title">
             <span>Command / Evidence</span>
-            <strong>P4E</strong>
+            <strong>P4D-B</strong>
           </div>
 
           <section className="trfmc-command-evidence-block">
@@ -515,7 +415,7 @@ export function PortalOSRoot() {
           <section className="trfmc-command-evidence-block">
             <h3>Event stream</h3>
             <p>tick #{tick}</p>
-            <p>Portal OS route registry is active: manifest hashes now open governed Portal OS module views.</p>
+            <p>Portal OS home is now manifest-governed. Legacy HTML remains source/reference, not primary runtime.</p>
             <p>Risk queue: {totalRisks} modules · visual candidates: {visualPortalOSModules.length}</p>
           </section>
         </aside>
