@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<title>TRFMC v0.37 Network Journey World Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css">
+<style>
+:root{
+  --panel:rgba(5,18,31,.88);
+  --panel2:rgba(7,26,45,.82);
+  --line:rgba(88,214,249,.25);
+  --cyan:#58d6f9;
+  --green:#3fb950;
+  --amber:#d29922;
+  --red:#ff4d6d;
+  --violet:#a371f7;
+  --text:#edf8ff;
+  --muted:#8da4b3;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--text);font-family:Consolas,ui-monospace,monospace;padding:18px}
+.hero{
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at 12% 12%,rgba(88,214,249,.18),transparent 32%),
+    radial-gradient(circle at 80% 10%,rgba(163,113,247,.16),transparent 28%),
+    radial-gradient(circle at 50% 90%,rgba(63,185,80,.10),transparent 34%),
+    linear-gradient(135deg,rgba(88,214,249,.10),rgba(255,255,255,.025)),
+    var(--panel);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 0 58px rgba(88,214,249,.12);
+}
+.hero h1{margin:0;color:var(--cyan);font-size:30px;letter-spacing:1.4px}
+.hero p{color:var(--muted);line-height:1.55;max-width:1200px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.toolbar a,.toolbar button{
+  border:1px solid rgba(88,214,249,.34);
+  background:rgba(88,214,249,.08);
+  color:var(--cyan);
+  border-radius:999px;
+  padding:8px 11px;
+  font-weight:900;
+  text-decoration:none;
+  font-family:inherit;
+  cursor:pointer;
+}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.kpi{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:16px;padding:12px}
+.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}
+.kpi b{display:block;color:var(--cyan);font-size:17px;margin-top:5px;overflow:hidden;text-overflow:ellipsis}
+
+.layout{display:grid;grid-template-columns:1.35fr .65fr;gap:14px;margin-top:14px}
+.map{
+  min-height:620px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(rgba(88,214,249,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(88,214,249,.055) 1px,transparent 1px),
+    radial-gradient(circle at 48% 48%,rgba(88,214,249,.15),transparent 42%),
+    rgba(0,0,0,.22);
+  background-size:44px 44px,44px 44px,100% 100%,100% 100%;
+  border-radius:24px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 50px rgba(88,214,249,.08) inset;
+}
+.map:before{
+  content:"";
+  position:absolute;
+  inset:36px;
+  border:1px solid rgba(88,214,249,.14);
+  border-radius:50%;
+  box-shadow:0 0 95px rgba(88,214,249,.10) inset;
+}
+.map:after{
+  content:"GLOBAL NETWORK JOURNEY";
+  position:absolute;
+  right:22px;
+  bottom:18px;
+  color:rgba(88,214,249,.20);
+  font-size:20px;
+  letter-spacing:3px;
+  font-weight:900;
+}
+.node{
+  position:absolute;
+  min-width:150px;
+  border:1px solid rgba(88,214,249,.42);
+  background:rgba(5,18,31,.74);
+  border-radius:16px;
+  padding:11px;
+  box-shadow:0 0 34px rgba(88,214,249,.13);
+  backdrop-filter:blur(10px);
+  z-index:3;
+}
+.node b{display:block;color:var(--cyan);font-size:12px;text-transform:uppercase}
+.node span{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.35}
+.local{left:5%;top:48%}
+.ran{left:22%;top:34%}
+.central{left:37%;top:49%}
+.core{left:50%;top:32%}
+.gwan{left:64%;top:45%}
+.usa{right:7%;top:24%}
+.japan{right:5%;top:55%}
+.india{right:22%;top:67%}
+.africa{left:57%;bottom:9%}
+.australia{right:8%;bottom:7%}
+.ntn{left:45%;top:8%;border-color:rgba(163,113,247,.48);box-shadow:0 0 38px rgba(163,113,247,.17)}
+.soc{left:27%;bottom:8%;border-color:rgba(63,185,80,.45);box-shadow:0 0 34px rgba(63,185,80,.14)}
+.route{
+  position:absolute;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(88,214,249,.90),rgba(63,185,80,.72),transparent);
+  transform-origin:left center;
+  z-index:2;
+  animation:routePulse 2.5s infinite linear;
+}
+.r1{left:16%;top:53%;width:170px;transform:rotate(-30deg)}
+.r2{left:33%;top:41%;width:170px;transform:rotate(30deg)}
+.r3{left:47%;top:45%;width:150px;transform:rotate(-28deg)}
+.r4{left:61%;top:41%;width:150px;transform:rotate(25deg)}
+.r5{left:75%;top:43%;width:155px;transform:rotate(-35deg)}
+.r6{left:76%;top:52%;width:150px;transform:rotate(21deg)}
+.r7{left:68%;top:58%;width:145px;transform:rotate(45deg)}
+.r8{left:66%;top:58%;width:130px;transform:rotate(92deg)}
+.r9{left:52%;top:19%;width:205px;transform:rotate(76deg);background:linear-gradient(90deg,transparent,rgba(163,113,247,.90),transparent)}
+.r10{left:42%;top:72%;width:160px;transform:rotate(-28deg);background:linear-gradient(90deg,transparent,rgba(63,185,80,.90),transparent)}
+@keyframes routePulse{0%{opacity:.35;filter:brightness(.8)}50%{opacity:1;filter:brightness(1.45)}100%{opacity:.35;filter:brightness(.8)}}
+
+.side{display:grid;gap:12px}
+.panel{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 34px rgba(88,214,249,.07);
+}
+.panel h2{
+  margin:0;
+  padding:12px 14px;
+  border-bottom:1px solid rgba(88,214,249,.16);
+  color:var(--cyan);
+  font-size:13px;
+  text-transform:uppercase;
+}
+.panel .body{padding:12px}
+.profile{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.028);
+  border-radius:14px;
+  padding:11px;
+  margin-bottom:8px;
+  cursor:pointer;
+}
+.profile:hover,.profile.active{border-color:rgba(88,214,249,.45);background:rgba(88,214,249,.075)}
+.profile b{display:block;color:var(--cyan);font-size:12px}
+.profile span{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.35}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px}
+.card h2{margin:0 0 8px;color:var(--cyan);font-size:13px;text-transform:uppercase}
+.card p{color:var(--muted);font-size:11px;line-height:1.5}
+.card ul{font-size:11px;line-height:1.6;margin:8px 0 0;padding-left:18px}
+pre{margin:0;max-height:360px;overflow:auto;background:rgba(0,0,0,.25);padding:12px;color:#e8f6ff;font-size:10px;line-height:1.4}
+footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
+@media(max-width:1180px){.layout{grid-template-columns:1fr}.map{min-height:620px}.hero h1{font-size:24px}}
+@media(max-width:780px){.node{min-width:120px;font-size:10px}.map{min-height:720px}}
+</style>
+</head>
+<body class="trfmc-enterprise-shell"><section id="trfmc-shell-topbar" class="trfmc-shell-topbar">
+      <div class="trfmc-shell-row">
+        <div class="trfmc-shell-brand">
+          <div class="trfmc-shell-mark" aria-hidden="true"></div>
+          <div class="trfmc-shell-title">
+            <b>TRFMC Mission Control</b>
+            <span>Mission Control · Enterprise Navigation Shell v0.34</span>
+          </div>
+        </div>
+
+        <nav class="trfmc-shell-nav" aria-label="TRFMC enterprise navigation">
+          <a class="" href="/portal_index_v19.html">Portal</a><a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_mission_portal_v35.html">RF/Telco</a><a class="" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a><a class="trfmc-shell-active" href="/network_journey_world_map_v37.html">World Journey</a><a class="" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a><a class="" href="/operator_handbook_console_v23.html">Handbook</a><a class="" href="/security_console_v18.html">Security</a><a class="" href="/scenario_runner_console_v16.html">Scenarios</a><a class="" href="/scenario_report_console_v17.html">Reports</a><a class="" href="/observability_console_v13.html">Observability</a><a class="" href="/operational_backup_console_v21.html">Backup</a><a class="" href="/restore_readiness_console_v22.html">Restore</a>
+        </nav>
+
+        <div class="trfmc-shell-status">
+          <span id="trfmc-shell-backend" class="trfmc-shell-pill warn">Backend <strong>UNKNOWN</strong></span>
+          <span id="trfmc-shell-snapshot" class="trfmc-shell-pill ok">Golden <strong>OK</strong></span>
+          <span id="trfmc-shell-mode" class="trfmc-shell-pill warn">Mode <strong>UNKNOWN</strong></span>
+        </div>
+      </div>
+
+      <div class="trfmc-shell-subbar">
+        <span>localhost-only · simulation-only · controlled lab posture</span>
+        <span>
+          API <code>127.0.0.1:5173</code>
+          Frontend <code>127.0.0.1:5173</code>
+        </span>
+      </div>
+    </section>
+<section class="hero">
+  <h1>TRFMC LOCAL / NATIONAL / GLOBAL NETWORK JOURNEY MAP</h1>
+  <p>
+    v0.37A · visualizzazione end-to-end del percorso: utente locale, RAN, centrale, core nazionale,
+    dorsale GWAN, regioni globali e layer NTN/satellite. Frontend-only, con dati runtime live già disponibili.
+  </p>
+  <div class="toolbar">
+    <button onclick="loadAll()">Refresh</button>
+    <a class="primary" href="/executive_mission_dashboard_v40.html">Executive Dashboard</a>
+    <a href="/rf_telco_mission_portal_v35.html">RF/Telco Portal</a>
+    <a href="/rf_telco_visual_cockpit_v36.html">Visual Cockpit</a>
+    <a href="/portal_index_v19.html">Portal Index</a>
+    <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+    <a href="/scenario_runner_console_v16.html">Scenario Runner</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+    <div class="kpi"><span>Journey Profile</span><b id="k_profile">—</b></div>
+    <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+    <div class="kpi"><span>RF Runs</span><b id="k_rf">—</b></div>
+    <div class="kpi"><span>Golden</span><b id="k_golden">—</b></div>
+  </div>
+</section>
+
+<section class="layout">
+  <div class="map">
+    <div class="route r1"></div><div class="route r2"></div><div class="route r3"></div><div class="route r4"></div><div class="route r5"></div>
+    <div class="route r6"></div><div class="route r7"></div><div class="route r8"></div><div class="route r9"></div><div class="route r10"></div>
+
+    <div class="node local"><b>Local UE</b><span>paese, utente remoto, endpoint locale</span></div>
+    <div class="node ran"><b>gNB / RAN</b><span>accesso radio, n78, antenna sector</span></div>
+    <div class="node central"><b>Centrale Locale</b><span>edge, routing locale, aggregation</span></div>
+    <div class="node core"><b>Core Nazionale</b><span>5GC, control/user plane, policy</span></div>
+    <div class="node gwan"><b>GWAN / Transit</b><span>dorsale, peering, backbone globale</span></div>
+    <div class="node usa"><b>USA Region</b><span>intercontinental destination</span></div>
+    <div class="node japan"><b>Japan Region</b><span>remote service region</span></div>
+    <div class="node india"><b>India Region</b><span>Asia routing profile</span></div>
+    <div class="node africa"><b>Africa Region</b><span>resilience / remote mission</span></div>
+    <div class="node australia"><b>Australia</b><span>long-haul global path</span></div>
+    <div class="node ntn"><b>NTN Layer</b><span>LEO / MEO / GEO conceptual overlay</span></div>
+    <div class="node soc"><b>SOC / Evidence</b><span>timeline, reports, vault, restore</span></div>
+  </div>
+
+  <div class="side">
+    <div class="panel">
+      <h2>Journey Profiles</h2>
+      <div class="body" id="profiles"><div class="profile active"><b>Paese locale → Giappone</b><span>Percorso UE locale, RAN, core nazionale, GWAN e regione Giappone.</span></div><div class="profile"><b>Paese locale → USA</b><span>Flusso dati/chiamata da scenario locale verso regione USA.</span></div><div class="profile"><b>Paese remoto → Africa mission</b><span>Scenario resiliente verso area remota con evidenze e recovery chain.</span></div><div class="profile"><b>Paese locale → India</b><span>Profilo Asia routing con attraversamento dorsale e correlazione.</span></div><div class="profile"><b>Paese locale → Australia</b><span>Profilo long-haul globale estremo verso regione Australia.</span></div><div class="profile"><b>NTN overlay / satellite future path</b><span>Overlay concettuale satellitare LEO/MEO/GEO su percorso terrestre.</span></div></div>
+    </div>
+    <div class="panel">
+      <h2>Selected Journey</h2>
+      <pre id="selected">{
+  "id": "local-to-japan",
+  "title": "Paese locale → Giappone",
+  "description": "Percorso UE locale, RAN, core nazionale, GWAN e regione Giappone.",
+  "path": [
+    "Local UE",
+    "gNB/RAN",
+    "Centrale locale",
+    "Core nazionale",
+    "GWAN",
+    "Japan Region"
+  ],
+  "focus": [
+    "long-haul latency",
+    "service continuity",
+    "regional evidence",
+    "mission graph"
+  ]
+}</pre>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card">
+    <h2>Local Access Layer</h2>
+    <p>Dal terminale locale al sito radio: copertura, potenza ricevuta, ostacoli, NLOS/LOS e contesto edge.</p>
+    <ul><li>UE / local village</li><li>RAN access</li><li>RF propagation</li></ul>
+  </div>
+  <div class="card">
+    <h2>National Transport Layer</h2>
+    <p>Dalla rete locale al core nazionale: aggregazione, policy, controllo e correlazione eventi.</p>
+    <ul><li>central office</li><li>5G core</li><li>transport policy</li></ul>
+  </div>
+  <div class="card">
+    <h2>Global / NTN Layer</h2>
+    <p>Dorsale globale, regioni remote e overlay satellitare per scenari mission-critical futuri.</p>
+    <ul><li>GWAN</li><li>intercontinental regions</li><li>NTN satellite layer</li></ul>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Runtime Data Snapshot</h2>
+  <pre id="runtime">{
+  "error": "SyntaxError: Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+}</pre>
+</section>
+
+<footer>TRFMC v0.37A · Local / National / Global Network Journey Map · frontend-only · localhost-only</footer>
+
+<script>
+const API="/api";
+
+const profiles=[
+  {
+    id:"local-to-japan",
+    title:"Paese locale → Giappone",
+    description:"Percorso UE locale, RAN, core nazionale, GWAN e regione Giappone.",
+    path:["Local UE","gNB/RAN","Centrale locale","Core nazionale","GWAN","Japan Region"],
+    focus:["long-haul latency","service continuity","regional evidence","mission graph"]
+  },
+  {
+    id:"local-to-usa",
+    title:"Paese locale → USA",
+    description:"Flusso dati/chiamata da scenario locale verso regione USA.",
+    path:["Local UE","RAN","5GC","Transit GWAN","USA Region"],
+    focus:["intercontinental route","policy","CloudEvents","report"]
+  },
+  {
+    id:"local-to-africa",
+    title:"Paese remoto → Africa mission",
+    description:"Scenario resiliente verso area remota con evidenze e recovery chain.",
+    path:["Remote UE","RAN","National Core","GWAN","Africa Region","Evidence/SOC"],
+    focus:["remote reachability","continuity","evidence vault","backup readiness"]
+  },
+  {
+    id:"local-to-india",
+    title:"Paese locale → India",
+    description:"Profilo Asia routing con attraversamento dorsale e correlazione.",
+    path:["Local UE","Edge","Core","GWAN","India Region"],
+    focus:["routing stages","regional hop","timeline","correlation"]
+  },
+  {
+    id:"local-to-australia",
+    title:"Paese locale → Australia",
+    description:"Profilo long-haul globale estremo verso regione Australia.",
+    path:["UE","RAN","Core","GWAN","Australia Region"],
+    focus:["distance","delay","global reach","mission report"]
+  },
+  {
+    id:"ntn-overlay",
+    title:"NTN overlay / satellite future path",
+    description:"Overlay concettuale satellitare LEO/MEO/GEO su percorso terrestre.",
+    path:["UE/Terminal","NTN segment","Satellite gateway","Core","Remote Region"],
+    focus:["coverage footprint","delay","resilience","future integration"]
+  }
+];
+
+let selected=profiles[0];
+
+async function getJson(url){
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw new Error(url+" HTTP "+r.status);
+  return await r.json();
+}
+function set(id,v){document.getElementById(id).textContent=v??"—";}
+
+function renderProfiles(){
+  const box=document.getElementById("profiles");
+  box.innerHTML="";
+  for(const p of profiles){
+    const div=document.createElement("div");
+    div.className="profile"+(p.id===selected.id?" active":"");
+    div.innerHTML=`<b>${p.title}</b><span>${p.description}</span>`;
+    div.onclick=()=>{selected=p;renderProfiles();renderSelected();loadAll();};
+    box.appendChild(div);
+  }
+}
+function renderSelected(){
+  document.getElementById("selected").textContent=JSON.stringify(selected,null,2);
+}
+async function loadAll(){
+  renderProfiles();
+  renderSelected();
+
+  const health=await getJson(API+"/health");
+  const portal=await getJson(API+"/portal/health-summary");
+  const docs=await getJson(API+"/docs/index");
+  const snap=await getJson("/runtime_golden_check_snapshot.json?nocache="+Date.now());
+
+  set("k_backend",health.version+" · "+health.operational_mode);
+  set("k_profile",selected.title);
+  set("k_events",portal.high_value_counts?.cloud_events);
+  set("k_rf",(portal.high_value_counts?.rf_coverage_runs??"—")+" cov / "+(portal.high_value_counts?.rf_field_runs??"—")+" field");
+  set("k_golden",snap.overall_status+" · "+(snap.checks||[]).length+" checks");
+
+  document.getElementById("runtime").textContent=JSON.stringify({
+    health,
+    portal,
+    docs,
+    golden_snapshot:snap,
+    selected_journey:selected
+  },null,2);
+}
+loadAll().catch(e=>{document.getElementById("runtime").textContent=JSON.stringify({error:String(e)},null,2);});
+setInterval(loadAll,30000);
+</script>
+<script defer="" src="/assets/trfmc_enterprise_shell_v34.js"></script>
+
+
+<section id="trfmc-shell-footer" class="trfmc-shell-footer">
+      <b>TRFMC v0.34 Enterprise Navigation Shell</b>
+      · unified console navigation · runtime status · golden check · operational lab mode
+    </section></body></html>

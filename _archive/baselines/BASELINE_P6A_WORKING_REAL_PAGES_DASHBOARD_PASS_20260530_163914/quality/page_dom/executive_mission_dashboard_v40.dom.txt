@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<title>TRFMC v0.40 Executive Mission Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_visual_polish_v41.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_evidence_overlay_v42.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_navigation_hub_v43.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_content_consolidation_v44.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_visual_depth_v45.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_instrument_cluster_v46.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_layout_stability_v47.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_scenario_command_v48.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_rf_signal_intel_v49.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_release_milestone_v50.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_visual_refinement_v51.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_visual_correction_v52.css">
+<link rel="stylesheet" href="/assets/trfmc_executive_final_alignment_v53.css">
+<style>
+:root{
+  --panel:rgba(5,18,31,.91);
+  --panel2:rgba(7,26,45,.84);
+  --line:rgba(88,214,249,.25);
+  --cyan:#58d6f9;
+  --green:#3fb950;
+  --amber:#d29922;
+  --red:#ff4d6d;
+  --violet:#a371f7;
+  --text:#edf8ff;
+  --muted:#8da4b3;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--text);font-family:Consolas,ui-monospace,monospace;padding:18px}
+.hero{
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at 12% 10%,rgba(88,214,249,.20),transparent 32%),
+    radial-gradient(circle at 84% 12%,rgba(163,113,247,.17),transparent 28%),
+    radial-gradient(circle at 48% 92%,rgba(63,185,80,.11),transparent 34%),
+    linear-gradient(135deg,rgba(88,214,249,.11),rgba(255,255,255,.025)),
+    var(--panel);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 0 64px rgba(88,214,249,.13);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"EXECUTIVE MISSION CONTROL";
+  position:absolute;
+  right:22px;
+  bottom:18px;
+  color:rgba(88,214,249,.16);
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:4px;
+}
+.hero h1{margin:0;color:var(--cyan);font-size:31px;letter-spacing:1.4px}
+.hero p{color:var(--muted);line-height:1.55;max-width:1260px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.toolbar a,.toolbar button{
+  border:1px solid rgba(88,214,249,.34);
+  background:rgba(88,214,249,.08);
+  color:var(--cyan);
+  border-radius:999px;
+  padding:8px 11px;
+  font-weight:900;
+  text-decoration:none;
+  font-family:inherit;
+  cursor:pointer;
+}
+.toolbar a.primary{
+  border-color:rgba(63,185,80,.48);
+  color:var(--green);
+  background:rgba(63,185,80,.10);
+}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px;margin-top:14px}
+.kpi{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:16px;padding:12px}
+.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}
+.kpi b{display:block;color:var(--cyan);font-size:17px;margin-top:5px;overflow:hidden;text-overflow:ellipsis}
+
+.command-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:14px}
+.command-map{
+  min-height:640px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(rgba(88,214,249,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(88,214,249,.055) 1px,transparent 1px),
+    radial-gradient(circle at 50% 42%,rgba(88,214,249,.15),transparent 42%),
+    rgba(0,0,0,.23);
+  background-size:42px 42px,42px 42px,100% 100%,100% 100%;
+  border-radius:24px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 58px rgba(88,214,249,.08) inset;
+}
+.command-map:before{
+  content:"";
+  position:absolute;
+  inset:38px;
+  border:1px solid rgba(88,214,249,.14);
+  border-radius:50%;
+  box-shadow:0 0 110px rgba(88,214,249,.10) inset;
+}
+.ring{
+  position:absolute;
+  border:1px solid rgba(88,214,249,.18);
+  border-radius:50%;
+  animation:ringPulse 5s infinite ease-in-out;
+}
+.ring.r1{width:270px;height:270px;left:11%;top:25%}
+.ring.r2{width:340px;height:340px;left:34%;top:13%;animation-delay:.7s}
+.ring.r3{width:300px;height:300px;right:9%;top:31%;animation-delay:1.2s}
+.ring.r4{width:260px;height:260px;left:37%;bottom:8%;animation-delay:1.8s}
+@keyframes ringPulse{0%,100%{opacity:.32;transform:scale(.98)}50%{opacity:.9;transform:scale(1.035)}}
+
+.node{
+  position:absolute;
+  border:1px solid rgba(88,214,249,.42);
+  background:rgba(5,18,31,.78);
+  border-radius:16px;
+  padding:11px;
+  min-width:155px;
+  box-shadow:0 0 34px rgba(88,214,249,.13);
+  z-index:3;
+}
+.node b{display:block;color:var(--cyan);font-size:12px;text-transform:uppercase}
+.node span{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.35}
+.n-portal{left:6%;top:43%}
+.n-rf{left:26%;top:27%}
+.n-world{left:48%;top:42%}
+.n-instr{right:8%;top:24%}
+.n-launch{right:7%;top:55%}
+.n-golden{left:38%;bottom:10%;border-color:rgba(63,185,80,.45);box-shadow:0 0 34px rgba(63,185,80,.14)}
+.n-evidence{left:11%;bottom:13%;border-color:rgba(210,153,34,.42);box-shadow:0 0 34px rgba(210,153,34,.12)}
+.route{
+  position:absolute;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(88,214,249,.90),rgba(63,185,80,.72),transparent);
+  transform-origin:left center;
+  z-index:2;
+  animation:routePulse 2.4s infinite linear;
+}
+.rt1{left:18%;top:47%;width:190px;transform:rotate(-31deg)}
+.rt2{left:38%;top:36%;width:220px;transform:rotate(21deg)}
+.rt3{left:58%;top:43%;width:230px;transform:rotate(-28deg)}
+.rt4{left:62%;top:49%;width:220px;transform:rotate(20deg)}
+.rt5{left:48%;top:60%;width:160px;transform:rotate(93deg);background:linear-gradient(90deg,transparent,rgba(63,185,80,.90),transparent)}
+.rt6{left:22%;top:69%;width:240px;transform:rotate(-17deg);background:linear-gradient(90deg,transparent,rgba(210,153,34,.85),transparent)}
+@keyframes routePulse{0%{opacity:.35;filter:brightness(.8)}50%{opacity:1;filter:brightness(1.45)}100%{opacity:.35;filter:brightness(.8)}}
+
+.side{display:grid;gap:12px}
+.panel{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 34px rgba(88,214,249,.07);
+}
+.panel h2{
+  margin:0;
+  padding:12px 14px;
+  border-bottom:1px solid rgba(88,214,249,.16);
+  color:var(--cyan);
+  font-size:13px;
+  text-transform:uppercase;
+}
+.panel .body{padding:12px}
+.status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.status{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.028);
+  border-radius:14px;
+  padding:10px;
+}
+.status span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase}
+.status b{display:block;color:var(--cyan);font-size:15px;margin-top:5px}
+.module{
+  display:block;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.028);
+  border-radius:14px;
+  padding:11px;
+  margin-bottom:8px;
+  text-decoration:none;
+}
+.module:hover{border-color:rgba(88,214,249,.45);background:rgba(88,214,249,.075)}
+.module b{display:block;color:var(--cyan);font-size:12px}
+.module span{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.35}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px}
+.card h2{margin:0 0 8px;color:var(--cyan);font-size:13px;text-transform:uppercase}
+.card p{color:var(--muted);font-size:11px;line-height:1.5}
+.card ul{font-size:11px;line-height:1.6;margin:8px 0 0;padding-left:18px}
+pre{margin:0;max-height:360px;overflow:auto;background:rgba(0,0,0,.25);padding:12px;color:#e8f6ff;font-size:10px;line-height:1.4}
+footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
+@media(max-width:1180px){.command-layout{grid-template-columns:1fr}.command-map{min-height:640px}.hero h1{font-size:24px}}
+@media(max-width:760px){.node{min-width:120px;font-size:10px}.command-map{min-height:760px}.status-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="trfmc-enterprise-shell v44-compact-mode v45-depth-enabled v47-layout-stable v51-refined v51-exec-view v52-corrected v53-final-aligned"><section id="trfmc-shell-topbar" class="trfmc-shell-topbar">
+      <div class="trfmc-shell-row">
+        <div class="trfmc-shell-brand">
+          <div class="trfmc-shell-mark" aria-hidden="true"></div>
+          <div class="trfmc-shell-title">
+            <b>TRFMC Mission Control</b>
+            <span>Mission Control · Enterprise Navigation Shell v0.34</span>
+          </div>
+        </div>
+
+        <nav class="trfmc-shell-nav" aria-label="TRFMC enterprise navigation">
+          <a class="" href="/portal_index_v19.html">Portal</a><a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_mission_portal_v35.html">RF/Telco</a><a class="" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a><a class="" href="/network_journey_world_map_v37.html">World Journey</a><a class="" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a><a class="" href="/operator_handbook_console_v23.html">Handbook</a><a class="" href="/security_console_v18.html">Security</a><a class="" href="/scenario_runner_console_v16.html">Scenarios</a><a class="" href="/scenario_report_console_v17.html">Reports</a><a class="" href="/observability_console_v13.html">Observability</a><a class="" href="/operational_backup_console_v21.html">Backup</a><a class="" href="/restore_readiness_console_v22.html">Restore</a>
+        </nav>
+
+        <div class="trfmc-shell-status">
+          <span id="trfmc-shell-backend" class="trfmc-shell-pill warn">Backend <strong>UNKNOWN</strong></span>
+          <span id="trfmc-shell-snapshot" class="trfmc-shell-pill ok">Golden <strong>OK</strong></span>
+          <span id="trfmc-shell-mode" class="trfmc-shell-pill warn">Mode <strong>UNKNOWN</strong></span>
+        </div>
+      </div>
+
+      <div class="trfmc-shell-subbar">
+        <span>localhost-only · simulation-only · controlled lab posture</span>
+        <span>
+          API <code>127.0.0.1:5173</code>
+          Frontend <code>127.0.0.1:5173</code>
+        </span>
+      </div>
+    </section>
+<section class="hero">
+  <h1>TRFMC EXECUTIVE MISSION DASHBOARD</h1>
+  <p>v0.53A · final visual alignment pass: plancia executive consolidata per revisione finale. Focus operativo su RF/Telco intelligence, Scenario Command, KPI Wall, Evidence posture, Master Index e Golden readiness.</p>
+  <div class="toolbar">
+    <button onclick="loadAll()">Refresh</button>
+    <a class="primary" href="/global_mission_scenario_launcher_v39.html">Global Launcher</a>
+    <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    <a href="/network_journey_world_map_v37.html">World Journey</a>
+    <a href="/rf_telco_visual_cockpit_v36.html">Visual Cockpit</a>
+    <a href="/portal_index_v19.html">Portal Index</a>
+    <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+    <div class="kpi"><span>Operational Mode</span><b id="k_mode">—</b></div>
+    <div class="kpi"><span>Golden Status</span><b id="k_golden">—</b></div>
+    <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+    <div class="kpi"><span>RF Runs</span><b id="k_rf">—</b></div>
+    <div class="kpi"><span>Indexed Pages</span><b id="k_pages">—</b></div>
+  </div>
+</section><section class="v51-review-band" id="v51_review">
+      <div>
+        <h2>Executive Final Visual Review Mode</h2>
+        <p>TRFMC_V0_53A_FINAL_VISUAL_ALIGNMENT_PASS · final alignment: gerarchia consolidata, sezioni compattate, RF/Scenario/KPI prioritari, dettagli engineering disponibili solo quando richiesti.</p>
+      </div>
+      <div class="v51-review-actions">
+        <button type="button" id="v51_exec_view" class="active">Executive View</button>
+        <button type="button" id="v51_eng_view">Engineering View</button>
+        <a href="#v50_master">Master</a>
+        <a href="#v49_rf_intel">RF Intel</a>
+        <a href="#v48_scenario">Scenario</a>
+        <a href="#v47_kpi">KPI</a>
+      </div>
+    </section><nav class="v47-section-nav">
+      <div class="v47-section-nav-head">
+        <b>Executive Section Navigator</b>
+        <span>TRFMC_V0_47A_EXECUTIVE_PAGE_PERFORMANCE_LAYOUT_STABILITY</span>
+      </div>
+      <div class="v47-section-links"><a href="#v51_review" data-v47-target="v53_final">Final</a><a href="#v51_review" data-v47-target="v52_correction">Corrected</a><a href="#v51_review" data-v47-target="v51_review">Review</a><a href="#v50_master" data-v47-target="v50_master">Master</a><a href="#v49_rf_intel" data-v47-target="v49_rf_intel">RF Intel</a><a href="#v48_scenario" data-v47-target="v48_scenario">Scenario</a>
+        <a href="#v47_kpi" data-v47-target="v47_kpi">KPI Wall</a><a href="#v47_glass" data-v47-target="v47_glass">Glass Command</a><a href="#v47_priority" data-v47-target="v47_priority">Priority Rail</a><a href="#v47_hub" data-v47-target="v47_hub">Entry Hub</a><a href="#v47_evidence" data-v47-target="v47_evidence">Evidence</a><a href="#v47_cinematic" data-v47-target="v47_cinematic">Cinematic</a><a href="#v47_legacy" data-v47-target="v47_legacy">Runtime Panels</a>
+        <button type="button" id="v47_motion_toggle">Reduce Motion</button>
+        <button type="button" id="v47_density_toggle">Compact Density</button>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+<section class="v50-release-milestone" id="v50_master">
+  <div class="v50-master-head">
+    <div>
+      <h2>Executive Release Milestone / Dashboard Master Index</h2>
+      <p>
+        v0.50A · checkpoint executive del ciclo v0.40A–v0.49A. Questa fascia dichiara lo stato
+        complessivo della piattaforma, collega tutte le sezioni principali e prepara la dashboard
+        alla revisione visuale finale: cosa tenere, cosa raffinare, cosa potenziare.
+      </p>
+    </div>
+    <div class="v50-master-badge">
+      <b id="v50_master_state">MILESTONE ATTENTION</b>
+      <span id="v50_master_detail">TRFMC_V0_50A_EXECUTIVE_RELEASE_MILESTONE_MASTER_INDEX · 16:39:15</span>
+    </div>
+  </div>
+
+  <div class="v50-master-grid">
+    <div class="v50-master-card">
+      <h3>Platform Milestone Score</h3>
+      <div class="v50-score-orb" style="--v50-score-deg: 83deg;">
+        <div class="v50-score-inner">
+          <b id="v50_master_score">23%</b>
+          <span>executive maturity</span>
+        </div>
+      </div>
+
+      <div class="v50-status-note">
+        <span>Release Posture</span>
+        <b id="v50_status_title">MILESTONE ATTENTION</b>
+        <small id="v50_status_detail">Executive chain v0.40A → v0.50A · backend — · golden OK</small>
+      </div>
+    </div>
+
+    <div class="v50-master-index">
+      <h3>Dashboard Master Index</h3>
+      <div class="v50-index-grid">
+        <a class="v50-index-link" href="#v49_rf_intel"><b>RF/Telco Signal Intelligence</b><span>RF path, spectrum, coverage, field model.</span></a>
+        <a class="v50-index-link" href="#v48_scenario"><b>Scenario Command</b><span>Mission selector, launcher, timeline/report links.</span></a>
+        <a class="v50-index-link" href="#v47_kpi"><b>Instrument Cluster</b><span>KPI wall, readiness gauge, live counters.</span></a>
+        <a class="v50-index-link" href="#v47_hub"><b>Mission Entry Hub</b><span>Command, RF, Global, Evidence, Docs.</span></a>
+        <a class="v50-index-link" href="#v47_evidence"><b>Evidence / Security</b><span>Evidence overlay, vault, restore posture.</span></a>
+        <a class="v50-index-link" href="#v47_cinematic"><b>Cinematic Layer</b><span>Visual situation awareness / glass cockpit.</span></a>
+      </div>
+    </div>
+
+    <div class="v50-release-chain">
+      <h3>Executive Release Chain</h3>
+      <div class="v50-chain-list">
+        <div class="v50-chain-item"><b>v0.40A</b><span>Executive Mission Dashboard</span><small>base</small></div>
+        <div class="v50-chain-item"><b>v0.41A</b><span>Cinematic Mission UI</span><small>ui</small></div>
+        <div class="v50-chain-item"><b>v0.42A</b><span>Evidence &amp; Mission Status Overlay</span><small>evidence</small></div>
+        <div class="v50-chain-item"><b>v0.43A</b><span>Mission Entry Hub</span><small>nav</small></div>
+        <div class="v50-chain-item"><b>v0.44A</b><span>Content Consolidation / Priority Rail</span><small>order</small></div>
+        <div class="v50-chain-item"><b>v0.45A</b><span>High-End Glass Command Center</span><small>depth</small></div>
+        <div class="v50-chain-item"><b>v0.46A</b><span>Executive Instrument Cluster / KPI Wall</span><small>kpi</small></div>
+        <div class="v50-chain-item"><b>v0.47A</b><span>Page Performance / Layout Stability</span><small>stable</small></div>
+        <div class="v50-chain-item"><b>v0.48A</b><span>Scenario Command Strip</span><small>ops</small></div>
+        <div class="v50-chain-item"><b>v0.49A</b><span>RF/Telco Signal Intelligence</span><small>rf</small></div>
+        <div class="v50-chain-item"><b>v0.50A</b><span>Release Milestone / Master Index</span><small>checkpoint</small></div>
+      </div>
+    <div class="v51-chain-note" style="margin-top: 8px; color: rgba(237, 248, 255, 0.48); font-size: 10px; line-height: 1.4;">Release chain compatta: usare questa sezione come checkpoint, non come area operativa primaria.</div></div>
+  </div>
+
+  <div class="v50-master-kpis">
+    <div class="v50-master-kpi"><span>Backend</span><b id="v50_backend">—</b></div>
+    <div class="v50-master-kpi"><span>Mode</span><b id="v50_mode">—</b></div>
+    <div class="v50-master-kpi"><span>Golden</span><b id="v50_golden">OK</b></div>
+    <div class="v50-master-kpi"><span>Git Dirty</span><b id="v50_git_dirty">0</b></div>
+    <div class="v50-master-kpi"><span>Pages</span><b id="v50_pages">—</b></div>
+    <div class="v50-master-kpi"><span>Docs</span><b id="v50_docs">—</b></div>
+    <div class="v50-master-kpi"><span>CloudEvents</span><b id="v50_events">—</b></div>
+    <div class="v50-master-kpi"><span>RF Cov / Field</span><b id="v50_rf_runs">— / —</b></div>
+    <div class="v50-master-kpi"><span>Evidence</span><b id="v50_evidence">—</b></div>
+    <div class="v50-master-kpi"><span>Assets</span><b id="v50_assets">—</b></div>
+    <div class="v50-master-kpi"><span>Refresh</span><b id="v50_refresh">16:39:15</b></div>
+    <div class="v50-master-kpi"><span>Review</span><b>VISUAL</b></div>
+  </div>
+
+  <div class="v50-master-actions">
+    <a href="/portal_index_v19.html">Portal Index</a>
+    <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+    <a href="/operator_handbook_console_v23.html">Operator Handbook</a>
+    <a href="/global_mission_scenario_launcher_v39.html">Global Launcher</a>
+    <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+    <a href="/scenario_report_console_v17.html">Scenario Reports</a>
+    <a href="/operational_backup_console_v21.html">Backup Console</a>
+  </div>
+</section>
+
+<section class="v49-rf-intel-strip" id="v49_rf_intel" data-v53-core="true" aria-label="Primary RF Telco Signal Intelligence">
+  <div class="v49-rf-head">
+    <div>
+      <h2>Executive RF/Telco Signal Intelligence Strip</h2>
+      <p>
+        v0.49A · sintesi RF/Telco executive: coverage, field model, path loss,
+        RX power, SNR, LOS/NLOS, campo radio, antenna gain e accesso rapido
+        agli strumenti RF, world map e visual cockpit. Frontend-only.
+      </p>
+    </div>
+    <div class="v49-rf-badge">
+      <b id="v49_rf_state">RF INTEL DEGRADED</b>
+      <span id="v49_rf_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</span>
+    </div>
+  </div>
+
+  <div class="v49-rf-grid">
+    <div class="v49-rf-panel">
+      <h3>RF Path Confidence</h3>
+      <div class="v49-confidence-wrap" style="--v49-confidence-deg: 0deg;">
+        <div class="v49-confidence-inner">
+          <b id="v49_rf_confidence">0%</b>
+          <span>path confidence</span>
+        </div>
+      </div>
+
+      <div class="v49-rf-status">
+        <span>Signal Intelligence State</span>
+        <b id="v49_rf_status">RF INTEL ERROR</b>
+        <small id="v49_rf_status_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</small>
+      </div>
+
+      <div class="v49-rf-kpi-grid">
+        <div class="v49-rf-kpi bad" id="v49_tile_rx"><span>RX Power</span><b id="v49_rx_power">—</b><small>received level</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_snr"><span>SNR</span><b id="v49_snr">—</b><small>signal/noise condition</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_loss"><span>Path Loss</span><b id="v49_path_loss">—</b><small>FSPL + obstruction</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_los"><span>LOS State</span><b id="v49_los_state">—</b><small>LOS/NLOS indicator</small></div>
+      </div>
+    </div>
+
+    <div class="v49-rf-spectrum">
+      <h3>Spectrum / Field Intelligence</h3>
+      <div class="v49-spectrum-window">
+        <div class="v49-spectrum-trace"></div>
+        <div class="v49-spectrum-carrier"></div>
+        <div class="v49-spectrum-labels"><span>Noise</span><span>Carrier</span><span>Adjacent</span></div>
+      </div>
+
+      <div class="v49-rf-kpi-grid">
+        <div class="v49-rf-kpi"><span>Frequency</span><b id="v49_frequency">—</b><small>carrier frequency</small></div>
+        <div class="v49-rf-kpi"><span>Wavelength</span><b id="v49_wavelength">—</b><small>lambda</small></div>
+        <div class="v49-rf-kpi" id="v49_tile_region"><span>Field Region</span><b id="v49_field_region">—</b><small>near / fresnel / far</small></div>
+        <div class="v49-rf-kpi"><span>Obstacles</span><b id="v49_obstacles">—</b><small>NLOS blockers</small></div>
+      </div>
+    </div>
+
+    <div class="v49-rf-links">
+      <h3>RF/Telco Quick Access</h3>
+
+      <div class="v49-rf-kpi-grid">
+        <div class="v49-rf-kpi" id="v49_tile_runs"><span>Coverage Runs</span><b id="v49_coverage_runs">—</b><small>RF coverage history</small></div>
+        <div class="v49-rf-kpi"><span>Field Runs</span><b id="v49_field_runs">—</b><small>RF field history</small></div>
+        <div class="v49-rf-kpi"><span>Antenna Gain</span><b id="v49_antenna">—</b><small>towards target</small></div>
+        <div class="v49-rf-kpi"><span>Bearing</span><b id="v49_bearing">—</b><small>target direction</small></div>
+      </div>
+
+      <div class="v49-rf-route">
+        <a class="v49-rf-link" href="/rf_instrumentation_signal_cockpit_v38.html"><b>RF Instruments</b><span>Spectrum, signal cockpit, KPI RF.</span></a>
+        <a class="v49-rf-link" href="/network_journey_world_map_v37.html"><b>World Map</b><span>Path globale, local/national/GWAN/world journey.</span></a>
+        <a class="v49-rf-link" href="/rf_telco_visual_cockpit_v36.html"><b>Visual Cockpit</b><span>Scenario RF/Telco visuale.</span></a>
+        <a class="v49-rf-link" href="/global_mission_scenario_launcher_v39.html"><b>Scenario Launcher</b><span>Missioni globali e NTN.</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="v48-scenario-command" id="v48_scenario" data-v53-core="true" aria-label="Primary Scenario Mission Command">
+  <div class="v48-command-head">
+    <div>
+      <h2>Executive Scenario Command Strip / Mission Launch Controls</h2>
+      <p>
+        v0.48A · comandi scenario executive per selezione missione, path globale,
+        quick launch verso Global Launcher / Scenario Runner e collegamento immediato
+        a timeline, mission graph, report ed evidence vault. Frontend-only.
+      </p>
+    </div>
+    <div class="v48-command-badge">
+      <b id="v48_launch_state">READY</b>
+      <span id="v48_launch_detail">TRFMC_V0_48A_EXECUTIVE_SCENARIO_COMMAND_STRIP · 16:39:15</span>
+    </div>
+  </div>
+
+  <div class="v48-command-grid">
+    <div class="v48-scenario-panel">
+      <h3>Mission Scenario Selector</h3>
+      <div class="v48-scenario-buttons">
+        <button class="v48-scenario-button active" data-scenario="rural-ue"><b>Rural UE</b><span>Remote UE / rural VoNR journey</span></button>
+        <button class="v48-scenario-button" data-scenario="japan"><b>Japan</b><span>Intercontinental APAC path</span></button>
+        <button class="v48-scenario-button" data-scenario="usa"><b>USA</b><span>Transatlantic GWAN mission</span></button>
+        <button class="v48-scenario-button" data-scenario="africa"><b>Africa</b><span>Long-haul / degraded route</span></button>
+        <button class="v48-scenario-button" data-scenario="india"><b>India</b><span>Regional APAC mission</span></button>
+        <button class="v48-scenario-button" data-scenario="australia"><b>Australia</b><span>High-latency remote path</span></button>
+        <button class="v48-scenario-button" data-scenario="ntn"><b>NTN</b><span>Satellite / non-terrestrial overlay</span></button>
+      </div>
+
+      <div class="v48-selected-card">
+        <span>Selected Mission</span>
+        <b id="v48_selected_title">Rural UE</b>
+        <small id="v48_selected_detail">Remote UE / rural VoNR journey</small>
+      </div>
+    </div>
+
+    <div class="v48-route-panel">
+      <h3>Scenario Route / Launch Chain</h3>
+      <div class="v48-route-lane" id="v48_route_lane">
+      <div class="v48-route-step active" style="transition-delay:0ms">
+        <b>1</b>
+        <span>UE</span>
+      </div>
+    
+      <div class="v48-route-step active" style="transition-delay:80ms">
+        <b>2</b>
+        <span>RAN</span>
+      </div>
+    
+      <div class="v48-route-step active" style="transition-delay:160ms">
+        <b>3</b>
+        <span>Transport</span>
+      </div>
+    
+      <div class="v48-route-step active" style="transition-delay:240ms">
+        <b>4</b>
+        <span>Core</span>
+      </div>
+    
+      <div class="v48-route-step active" style="transition-delay:320ms">
+        <b>5</b>
+        <span>GWAN</span>
+      </div>
+    
+      <div class="v48-route-step active" style="transition-delay:400ms">
+        <b>6</b>
+        <span>Evidence</span>
+      </div>
+    </div>
+
+      <div class="v48-mission-status">
+        <div class="v48-status-tile"><span>Region</span><b id="v48_selected_region">Rural / remote</b></div>
+        <div class="v48-status-tile"><span>Risk</span><b id="v48_selected_risk">MEDIUM</b></div>
+        <div class="v48-status-tile"><span>Last Scenario</span><b id="v48_last_scenario">Rural UE</b></div>
+        <div class="v48-status-tile"><span>Mode</span><b>SIMULATION</b></div>
+      </div>
+
+      <div class="v48-launch-row">
+        <button type="button" id="v48_open_global_launcher">Open Global Launcher</button>
+        <button type="button" id="v48_open_scenario_runner">Open Scenario Runner</button>
+        <a href="/timeline_console_v14.html">Timeline</a>
+        <a href="/mission_graph_console_v15.html">Mission Graph</a>
+        <a href="/scenario_report_console_v17.html">Reports</a>
+        <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+        <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="v47-section-label">KPI Wall</div><section class="v46-instrument-cluster v47-section-anchor" id="v47_kpi">
+  <div class="v46-cluster-head">
+    <div>
+      <h2>Executive Instrument Cluster / Live KPI Wall</h2>
+      <p>
+        v0.46A · parete strumenti executive per readiness missione, runtime, Golden Check,
+        RF coverage/field, CloudEvents, evidence, incidenti, documentazione e pagine indicizzate.
+        Frontend-only: il layer legge gli endpoint esistenti senza modificare backend o Docker.
+      </p>
+    </div>
+    <div class="v46-cluster-badge">
+      <b id="v46_cluster_state">KPI WALL DEGRADED</b>
+      <span id="v46_cluster_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</span>
+    </div>
+  </div>
+
+  <div class="v46-kpi-wall">
+    <div class="v46-gauge-panel">
+      <h3>Mission Readiness Gauge</h3>
+      <div class="v46-gauge-wrap" style="--v46-gauge-deg: 0deg;">
+        <div class="v46-gauge-inner">
+          <b id="v46_readiness_percent">0%</b>
+          <span id="v46_readiness_label">ERROR</span>
+        </div>
+      </div>
+      <div class="v46-gauge-detail" id="v46_readiness_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</div>
+      <div class="v46-gauge-actions">
+        <a href="/runtime_golden_check_console_v29.html">Golden</a>
+        <a href="/observability_console_v13.html">Observability</a>
+        <a href="/evidence_vault_console_v20.html">Evidence</a>
+        <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+      </div>
+    </div>
+
+    <div class="v46-kpi-board">
+      <h3>Live KPI Wall</h3>
+      <div class="v46-kpi-grid">
+        <div class="v46-kpi-tile bad" id="v46_tile_backend"><span>Backend Version</span><b id="v46_backend">—</b><small id="v46_mode">operational mode</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_golden"><span>Golden Check</span><b id="v46_golden">—</b><small><span id="v46_checks">—</span> checks</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_events"><span>CloudEvents</span><b id="v46_events">—</b><small>mission telemetry</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_rf_cov"><span>RF Coverage Runs</span><b id="v46_rf_cov">—</b><small>coverage model</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_rf_field"><span>RF Field Runs</span><b id="v46_rf_field">—</b><small>field / Maxwell layer</small></div>
+        <div class="v46-kpi-tile"><span>Assets</span><b id="v46_assets">—</b><small>mission inventory</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_evidence"><span>Evidence</span><b id="v46_evidence">—</b><small>vault records</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_incidents"><span>Incidents</span><b id="v46_incidents">—</b><small>security / mission events</small></div>
+        <div class="v46-kpi-tile" id="v46_tile_docs"><span>Docs</span><b id="v46_docs">—</b><small>handbook / release chain</small></div>
+        <div class="v46-kpi-tile"><span>Indexed Pages</span><b id="v46_pages">—</b><small>portal index</small></div>
+        <div class="v46-kpi-tile"><span>Git Dirty</span><b id="v46_dirty">—</b><small>snapshot state</small></div>
+        <div class="v46-kpi-tile"><span>Refresh</span><b id="v46_refresh">—</b><small>local browser time</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="v46-status-strip">
+    <div class="v46-strip-item"><b>Runtime</b><span id="v46_runtime">—</span></div>
+    <div class="v46-strip-item"><b>Portal</b><span id="v46_portal">—</span></div>
+    <div class="v46-strip-item"><b>RF</b><span>coverage / field</span></div>
+    <div class="v46-strip-item"><b>Evidence</b><span>vault / report</span></div>
+    <div class="v46-strip-item"><b>Security</b><span>simulation posture</span></div>
+    <div class="v46-strip-item"><b>Docs</b><span>operator chain</span></div>
+  </div>
+</section>
+
+<div class="v47-section-label">Glass Command</div><section class="v45-glass-command-band v47-section-anchor" id="v47_glass">
+  <div class="v45-band-head">
+    <div>
+      <h2>High-End Glass Command Center Layer</h2>
+      <p>
+        v0.45A · profondità visuale, glass cockpit, micro-illuminazione e stato
+        missione strumentale. Questo layer migliora la percezione executive senza
+        aggiungere rumore operativo e senza modificare backend o runtime Docker.
+      </p>
+    </div>
+    <div class="v45-depth-badge">
+      <b id="v45_depth_state">GLASS LAYER DEGRADED</b>
+      <span id="v45_depth_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</span>
+    </div>
+  </div>
+
+  <div class="v45-glass-grid">
+    <div class="v45-glass-card primary">
+      <span>Runtime Posture</span>
+      <b id="v45_depth_runtime">—</b>
+      <p id="v45_depth_runtime_detail">backend / local binding / operational mode</p>
+      <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+    </div>
+
+    <div class="v45-glass-card">
+      <span>Mission Confidence</span>
+      <b id="v45_depth_mission">—</b>
+      <p id="v45_depth_mission_detail">release and readiness confidence</p>
+      <a href="/executive_mission_dashboard_v40.html">Executive</a>
+    </div>
+
+    <div class="v45-glass-card">
+      <span>RF/Telco Signal State</span>
+      <b id="v45_depth_rf">—</b>
+      <p id="v45_depth_rf_detail">coverage / field measurement runs</p>
+      <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    </div>
+
+    <div class="v45-glass-card">
+      <span>Mission Telemetry</span>
+      <b id="v45_depth_events">—</b>
+      <p id="v45_depth_events_detail">events / telemetry / evidence stream</p>
+      <a href="/evidence_vault_console_v20.html">Evidence</a>
+    </div>
+  </div>
+</section>
+
+<div class="v47-section-label">Priority Rail</div><section class="v44-priority-rail v47-section-anchor" id="v47_priority">
+  <div class="v44-priority-head">
+    <div>
+      <h2>Executive Priority Rail</h2>
+      <p>
+        v0.44A · consolidamento contenuti: questa fascia chiarisce subito lo stato decisionale
+        della missione e indirizza l’operatore verso i quattro percorsi principali:
+        comando, RF/Telco, evidence/security e documentazione/readiness.
+      </p>
+    </div>
+    <div class="v44-priority-badge">
+      <b id="v44_priority_state">EXECUTIVE DEGRADED</b>
+      <span id="v44_priority_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</span>
+    </div>
+  </div>
+
+  <div class="v44-priority-grid">
+    <div class="v44-priority-card primary">
+      <span>Decision State</span>
+      <b id="v44_main_decision">—</b>
+      <p id="v44_main_decision_detail">mission runtime summary</p>
+      <a href="/runtime_golden_check_console_v29.html">Open Golden Check</a>
+    </div>
+
+    <div class="v44-priority-card">
+      <span>RF/Telco Engineering</span>
+      <b id="v44_rf_summary">—</b>
+      <p id="v44_rf_detail">coverage / field summary</p>
+      <a href="/rf_instrumentation_signal_cockpit_v38.html">Open RF Instruments</a>
+    </div>
+
+    <div class="v44-priority-card">
+      <span>Evidence / Security</span>
+      <b id="v44_evidence_summary">—</b>
+      <p id="v44_evidence_detail">events / incidents / evidence chain</p>
+      <a href="/evidence_vault_console_v20.html">Open Evidence Vault</a>
+    </div>
+
+    <div class="v44-priority-card">
+      <span>Documentation</span>
+      <b id="v44_docs_summary">—</b>
+      <p id="v44_docs_detail">docs / handbook / release chain</p>
+      <a href="/operator_handbook_console_v23.html">Open Handbook</a>
+    </div>
+  </div>
+</section>
+
+<div class="v44-section-divider">Mission Entry Hub · Primary Navigation</div>
+
+<div class="v47-section-label">Entry Hub</div><section class="v43-entry-hub v44-focus-outline v47-section-anchor" id="v47_hub">
+  <div class="v43-entry-head">
+    <div>
+      <h2>Executive Mission Entry Hub</h2>
+      <p>
+        v0.43A · navigazione executive raffinata: cinque aree operative ordinate per
+        mission command, ingegneria RF/Telco, scenari globali, evidence/security/restore,
+        documentazione e Golden Check. Questo diventa il punto d’ingresso alto del portale.
+      </p>
+    </div>
+    <div class="v43-entry-badge">
+      <b id="v43_hub_state">ENTRY HUB DEGRADED</b>
+      <span id="v43_hub_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</span>
+    </div>
+  </div>
+
+  <div class="v43-hub-grid">
+    <div class="v43-hub-column command">
+      <h3>1 · Mission Command</h3>
+      <p>Ingresso principale e controllo missione.</p>
+      <a class="v43-hub-link" href="/executive_mission_dashboard_v40.html">Executive Dashboard<span>plancia superiore</span></a>
+      <a class="v43-hub-link" href="/rf_telco_mission_portal_v35.html">RF/Telco Mission Portal<span>entrypoint tecnico</span></a>
+      <a class="v43-hub-link" href="/portal_index_v19.html">Portal Index<span>indice completo</span></a>
+    </div>
+
+    <div class="v43-hub-column rf">
+      <h3>2 · RF/Telco Engineering</h3>
+      <p>Misura, scenario e strumentazione RF.</p>
+      <a class="v43-hub-link" href="/rf_telco_visual_cockpit_v36.html">Visual Scenario Cockpit<span>scenario locale/nazionale/globale</span></a>
+      <a class="v43-hub-link" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments<span>spectrum, waterfall, RF KPI</span></a>
+      <a class="v43-hub-link" href="/observability_console_v13.html">Observability<span>health matrix / runtime</span></a>
+    </div>
+
+    <div class="v43-hub-column global">
+      <h3>3 · Global Scenario Operations</h3>
+      <p>Percorsi globali e playbook missione.</p>
+      <a class="v43-hub-link" href="/network_journey_world_map_v37.html">Network Journey World Map<span>RAN → core → GWAN → mondo</span></a>
+      <a class="v43-hub-link" href="/global_mission_scenario_launcher_v39.html">Global Mission Launcher<span>Giappone, USA, Africa, India, Australia, NTN</span></a>
+      <a class="v43-hub-link" href="/scenario_runner_console_v16.html">Scenario Runner<span>playbook e run controllati</span></a>
+    </div>
+
+    <div class="v43-hub-column evidence">
+      <h3>4 · Evidence / Security / Restore</h3>
+      <p>Catena evidenze, sicurezza e recuperabilità.</p>
+      <a class="v43-hub-link" href="/timeline_console_v14.html">Timeline<span>mission replay</span></a>
+      <a class="v43-hub-link" href="/evidence_vault_console_v20.html">Evidence Vault<span>vault evidenze</span></a>
+      <a class="v43-hub-link" href="/operational_backup_console_v21.html">Backup Console<span>backup operativo</span></a>
+      <a class="v43-hub-link" href="/restore_readiness_console_v22.html">Restore Readiness<span>DR drill</span></a>
+      <a class="v43-hub-link" href="/security_console_v18.html">Security<span>security baseline</span></a>
+    </div>
+
+    <div class="v43-hub-column docs">
+      <h3>5 · Documentation / Golden Check</h3>
+      <p>Documentazione, handbook e readiness release.</p>
+      <a class="v43-hub-link" href="/operator_handbook_console_v23.html">Operator Handbook<span>procedure operative</span></a>
+      <a class="v43-hub-link" href="/runtime_golden_check_console_v29.html">Golden Check<span>stato runtime / release</span></a>
+      <a class="v43-hub-link" href="/scenario_report_console_v17.html">Scenario Reports<span>report missione</span></a>
+      <a class="v43-hub-link" href="/mission_graph_console_v15.html">Mission Graph<span>correlazione missione</span></a>
+    </div>
+  </div>
+
+  <div class="v43-mini-status">
+    <div class="v43-mini-tile"><span>Backend</span><b id="v43_backend">—</b></div>
+    <div class="v43-mini-tile"><span>Pages</span><b id="v43_pages">—</b></div>
+    <div class="v43-mini-tile"><span>CloudEvents</span><b id="v43_events">—</b></div>
+    <div class="v43-mini-tile"><span>RF Coverage / Field</span><b id="v43_rf">—</b></div>
+    <div class="v43-mini-tile"><span>Docs</span><b id="v43_docs">—</b></div>
+    <div class="v43-mini-tile"><span>Golden</span><b id="v43_golden">—</b></div>
+  </div>
+</section>
+
+<div class="v44-section-divider">Evidence / Security / Restore · Operational Posture</div>
+<div class="v47-section-label">Evidence</div><section class="v42-evidence-overlay v47-section-anchor" id="v47_evidence">
+  <div class="v42-evidence-head">
+    <div>
+      <h2>Executive Evidence &amp; Mission Status Overlay</h2>
+      <p>
+        v0.42A · quadro sintetico per readiness missione, catena evidenze,
+        backup/restore posture, security posture, RF/Telco posture e Golden Check.
+        Layer frontend-only: nessuna modifica backend, nessun restart Docker.
+      </p>
+    </div>
+    <div class="v42-readiness-badge">
+      <b id="v42_readiness">OVERLAY ERROR</b>
+      <span id="v42_readiness_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</span>
+    </div>
+  </div>
+
+  <div class="v42-status-grid">
+    <div class="v42-status-tile critical" id="v42_tile_mission">
+      <span>Mission Readiness</span>
+      <b id="v42_mission_state">ERROR</b>
+      <small id="v42_mission_detail">SyntaxError: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_evidence">
+      <span>Evidence Chain</span>
+      <b id="v42_evidence_state">—</b>
+      <small id="v42_evidence_detail">events / incidents / vault</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_backup">
+      <span>Backup / Restore</span>
+      <b id="v42_backup_state">—</b>
+      <small id="v42_backup_detail">operational recovery posture</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_security">
+      <span>Security Posture</span>
+      <b id="v42_security_state">—</b>
+      <small id="v42_security_detail">simulation / restricted state</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_rf">
+      <span>RF/Telco Posture</span>
+      <b id="v42_rf_state">—</b>
+      <small id="v42_rf_detail">coverage / field run state</small>
+    </div>
+    <div class="v42-status-tile" id="v42_tile_golden">
+      <span>Golden Check</span>
+      <b id="v42_golden_state">—</b>
+      <small id="v42_golden_detail">release readiness</small>
+    </div>
+  </div>
+
+  <div class="v42-evidence-flow">
+    <div class="v42-flow-step"><b>Events</b><span>CloudEvents</span></div>
+    <div class="v42-flow-step"><b>Timeline</b><span>mission replay</span></div>
+    <div class="v42-flow-step"><b>Correlation</b><span>mission graph</span></div>
+    <div class="v42-flow-step"><b>Report</b><span>scenario evidence</span></div>
+    <div class="v42-flow-step"><b>Vault</b><span>evidence store</span></div>
+    <div class="v42-flow-step"><b>Restore</b><span>readiness drill</span></div>
+  </div>
+
+  <div class="v42-action-row">
+    <a href="/timeline_console_v14.html">Timeline</a>
+    <a href="/mission_graph_console_v15.html">Mission Graph</a>
+    <a href="/scenario_report_console_v17.html">Reports</a>
+    <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+    <a href="/operational_backup_console_v21.html">Backup</a>
+    <a href="/restore_readiness_console_v22.html">Restore Readiness</a>
+    <a href="/security_console_v18.html">Security</a>
+    <a href="/observability_console_v13.html">Observability</a>
+  </div>
+</section>
+
+<div class="v44-section-divider">Cinematic Mission Layer · Visual Situation Awareness</div>
+<div class="v47-section-label">Cinematic</div><section class="v41-command-strip v47-section-anchor" id="v47_cinematic">
+  <div class="v41-mission-core">
+    <div class="v41-core-copy">
+      <h2>Cinematic Mission Core</h2>
+      <p>
+        v0.41A · vista executive superiore: stato missione, readiness, catena RF/Telco,
+        evidenze operative e accesso rapido ai moduli principali. Questo layer è solo visuale
+        e non modifica backend, Docker o runtime.
+      </p>
+    </div>
+    <div class="v41-core-status">
+      <div class="v41-pill"><span>Mission Posture</span><b>SIMULATION ONLY</b></div>
+      <div class="v41-pill"><span>Binding</span><b>LOCALHOST</b></div>
+      <div class="v41-pill"><span>Release</span><b>v0.41A UI</b></div>
+    </div>
+    <div class="v41-core-radar"></div>
+  <div data-v51-legacy-watermark="true" style="position: absolute; left: 18px; bottom: 14px; color: rgba(88, 214, 249, 0.45); font-size: 10px; letter-spacing: 1.4px;">TRFMC v0.51A · Executive Review Mode</div></div>
+  <div class="v41-signal-board" style="box-shadow: rgba(88, 214, 249, 0.12) 0px 0px 42px, rgba(88, 214, 249, 0.043) 0px 0px 36px inset;">
+    <h2>Mission Signal Flow</h2>
+    <p>
+      Flussi logici: mission portal → visual cockpit → world journey → RF instruments →
+      global launcher → golden check → evidence chain.
+    </p>
+    <div class="v41-signal-lines">
+      <div class="v41-signal-line"></div>
+      <div class="v41-signal-line"></div>
+      <div class="v41-signal-line"></div>
+      <div class="v41-signal-line"></div>
+    </div>
+  </div>
+</section>
+
+<div class="v44-section-divider">Legacy Operational Panels · Detailed Runtime View</div>
+<div class="v47-section-label">Runtime Panels</div><section class="command-layout v47-section-anchor" id="v47_legacy">
+  <div class="command-map">
+    <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
+    <div class="route rt1"></div><div class="route rt2"></div><div class="route rt3"></div><div class="route rt4"></div><div class="route rt5"></div><div class="route rt6"></div>
+
+    <div class="node n-portal"><b>Mission Portal</b><span>RF/Telco/Cyber strategic entry</span></div>
+    <div class="node n-rf"><b>Visual Cockpit</b><span>local / national / global scenarios</span></div>
+    <div class="node n-world"><b>World Journey</b><span>global route and NTN overlay</span></div>
+    <div class="node n-instr"><b>RF Instruments</b><span>spectrum, waterfall, RF metrics</span></div>
+    <div class="node n-launch"><b>Global Launcher</b><span>mission playbooks and launch sequence</span></div>
+    <div class="node n-golden"><b>Golden Check</b><span>runtime status and release readiness</span></div>
+    <div class="node n-evidence"><b>Evidence Chain</b><span>timeline, vault, backup, restore</span></div>
+  </div>
+
+  <div class="side">
+    <div class="panel">
+      <h2>Executive Readiness</h2>
+      <div class="body">
+        <div class="status-grid">
+          <div class="status"><span>Backend HTTP</span><b id="s_backend_http">—</b></div>
+          <div class="status"><span>Frontend HTTP</span><b id="s_frontend_http">—</b></div>
+          <div class="status"><span>Docs API</span><b id="s_docs">—</b></div>
+          <div class="status"><span>Golden Checks</span><b id="s_checks">—</b></div>
+          <div class="status"><span>Assets</span><b id="s_assets">—</b></div>
+          <div class="status"><span>Reports / Evidence</span><b id="s_evidence">—</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Mission Modules</h2>
+      <div class="body">
+        <a class="module" href="/rf_telco_mission_portal_v35.html"><b>RF/Telco Mission Portal</b><span>Ingresso strategico del laboratorio RF/Telco/Cyber.</span></a>
+        <a class="module" href="/rf_telco_visual_cockpit_v36.html"><b>Visual Scenario Cockpit</b><span>Scenario locale, nazionale, globale e NTN.</span></a>
+        <a class="module" href="/network_journey_world_map_v37.html"><b>Network Journey World Map</b><span>Paese locale → RAN → core → dorsale globale.</span></a>
+        <a class="module" href="/rf_instrumentation_signal_cockpit_v38.html"><b>RF Instrumentation Cockpit</b><span>Spettro, waterfall, RF chain e metriche RF.</span></a>
+        <a class="module" href="/global_mission_scenario_launcher_v39.html"><b>Global Mission Launcher</b><span>Playbook Giappone, USA, Africa, India, Australia, NTN.</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card">
+    <h2>Operational Command Layer</h2>
+    <p>Vista superiore per decidere dove entrare: missione globale, mappa rete, strumentazione RF o readiness operativa.</p>
+    <ul><li>runtime status</li><li>mission modules</li><li>release readiness</li></ul>
+  </div>
+  <div class="card">
+    <h2>RF / Telco Engineering Layer</h2>
+    <p>Accesso rapido alla parte tecnica: campo, copertura, spettro, link budget, NLOS, SNR, EVM/BLER placeholder.</p>
+    <ul><li>RF instruments</li><li>network journey</li><li>scenario cockpit</li></ul>
+  </div>
+  <div class="card">
+    <h2>Evidence / Resilience Layer</h2>
+    <p>Accesso alla parte di sicurezza operativa: Golden Check, evidence vault, backup, restore readiness e report.</p>
+    <ul><li>Golden Check</li><li>evidence chain</li><li>restore readiness</li></ul>
+  </div>
+</section>
+
+<div class="v51-runtime-placeholder"><b>Engineering runtime details hidden.</b><br>Executive View mostra solo readiness, RF/Telco, scenario, KPI ed evidence. Usa Engineering View per JSON completo.</div><section class="panel v51-advanced-runtime" style="margin-top:14px">
+  <h2>Executive Runtime Snapshot</h2>
+  <pre id="runtime">{
+  "error": "SyntaxError: Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+}</pre>
+</section>
+
+<footer>TRFMC v0.53A · Final Visual Alignment Pass · frontend-only · localhost-only</footer>
+
+<script>
+const API="/api";
+
+async function getJson(url){
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw new Error(url+" HTTP "+r.status);
+  return await r.json();
+}
+async function httpCode(url){
+  try{
+    const r=await fetch(url,{method:"HEAD",cache:"no-store"});
+    return String(r.status);
+  }catch(e){return "000";}
+}
+function set(id,v){document.getElementById(id).textContent=v??"—";}
+
+async function loadAll(){
+  const health=await getJson(API+"/health");
+  const portal=await getJson(API+"/portal/health-summary");
+  const docs=await getJson(API+"/docs/index");
+  const snap=await getJson("/runtime_golden_check_snapshot.json?nocache="+Date.now());
+
+  const frontendCode=await httpCode("/portal_index_v19.html");
+  const backendCode="200";
+
+  set("k_backend",health.version);
+  set("k_mode",health.operational_mode);
+  set("k_golden",snap.overall_status+" · "+(snap.checks||[]).length+" checks");
+  set("k_events",portal.high_value_counts?.cloud_events);
+  set("k_rf",(portal.high_value_counts?.rf_coverage_runs??"—")+" cov / "+(portal.high_value_counts?.rf_field_runs??"—")+" field");
+  set("k_pages",portal.pages_active);
+
+  set("s_backend_http",backendCode);
+  set("s_frontend_http",frontendCode);
+  set("s_docs",docs.version+" · "+docs.count+" docs");
+  set("s_checks",snap.overall_status+" · "+(snap.checks||[]).length);
+  set("s_assets",portal.high_value_counts?.assets);
+  set("s_evidence",(portal.high_value_counts?.incidents??"—")+" incidents / "+(portal.persistence?.counts?.evidence??"—")+" evidence");
+
+  document.getElementById("runtime").textContent=JSON.stringify({
+    health,
+    portal,
+    docs,
+    golden_snapshot:snap,
+    executive_dashboard:{
+      version:"0.40A",
+      modules:[
+        "RF/Telco Mission Portal",
+        "RF/Telco Visual Scenario Cockpit",
+        "Network Journey World Map",
+        "RF Instrumentation Signal Cockpit",
+        "Global Mission Scenario Launcher",
+        "Golden Check",
+        "Evidence / Backup / Restore"
+      ]
+    }
+  },null,2);
+}
+
+loadAll().catch(e=>{document.getElementById("runtime").textContent=JSON.stringify({error:String(e)},null,2);});
+setInterval(loadAll,30000);
+</script>
+<script defer="" src="/assets/trfmc_enterprise_shell_v34.js"></script>
+<script defer="" src="/assets/trfmc_executive_visual_polish_v41.js"></script>
+<script defer="" src="/assets/trfmc_executive_evidence_overlay_v42.js"></script>
+<script defer="" src="/assets/trfmc_executive_navigation_hub_v43.js"></script>
+<script defer="" src="/assets/trfmc_executive_content_consolidation_v44.js"></script>
+<script defer="" src="/assets/trfmc_executive_visual_depth_v45.js"></script>
+<script defer="" src="/assets/trfmc_executive_instrument_cluster_v46.js"></script>
+<script defer="" src="/assets/trfmc_executive_layout_stability_v47.js"></script>
+<script defer="" src="/assets/trfmc_executive_scenario_command_v48.js"></script>
+<script defer="" src="/assets/trfmc_executive_rf_signal_intel_v49.js"></script>
+<script defer="" src="/assets/trfmc_executive_release_milestone_v50.js"></script>
+<script defer="" src="/assets/trfmc_executive_visual_refinement_v51.js"></script>
+<script defer="" src="/assets/trfmc_executive_visual_correction_v52.js"></script>
+<script defer="" src="/assets/trfmc_executive_final_alignment_v53.js"></script>
+
+
+<section id="trfmc-shell-footer" class="trfmc-shell-footer">
+      <b>TRFMC v0.34 Enterprise Navigation Shell</b>
+      · unified console navigation · runtime status · golden check · operational lab mode
+    </section><div class="v41-watermark" data-v51-legacy-watermark="true">TRFMC v0.51A · Executive Review Mode</div><div class="v45-depth-microgrid"></div></body></html>

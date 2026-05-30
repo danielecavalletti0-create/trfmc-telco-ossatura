@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Signal World Engine V2</title>
+<style>
+:root{
+  --bg:#020611;
+  --panel:rgba(6,15,31,.88);
+  --panel2:rgba(10,25,50,.72);
+  --line:rgba(120,190,255,.26);
+  --line2:rgba(120,255,210,.22);
+  --text:#eaf3ff;
+  --muted:#8fa8c5;
+  --cyan:#83d8ff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --red:#ff8d8d;
+  --violet:#bda7ff;
+  --blue:#6aa8ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{
+  background:
+    radial-gradient(circle at 14% 2%,rgba(54,126,255,.26),transparent 30%),
+    radial-gradient(circle at 86% 8%,rgba(0,255,200,.12),transparent 30%),
+    radial-gradient(circle at 52% 100%,rgba(170,100,255,.13),transparent 32%),
+    linear-gradient(180deg,#020611,#071225 52%,#020611);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.12));
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  border-bottom:1px solid var(--line);
+  background:rgba(2,6,17,.84);
+  backdrop-filter:blur(18px);
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:16px 22px;
+}
+.brand h1{
+  margin:0;
+  font-size:22px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.brand small{display:block;color:var(--muted);margin-top:3px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.nav a,.pill{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:999px;
+  padding:8px 11px;
+  font-size:12px;
+}
+.pill.ok{border-color:rgba(157,255,199,.55);color:var(--green)}
+main{position:relative;padding:20px}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),rgba(3,9,20,.90));
+  border-radius:22px;
+  box-shadow:0 18px 60px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.055);
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+.heroMain{padding:22px}
+.heroMain h2{
+  margin:0 0 10px;
+  font-size:42px;
+  line-height:1.02;
+  letter-spacing:-.045em;
+}
+.heroMain p{color:#c8daf1;line-height:1.55;max-width:980px}
+.kpiGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.kpi{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  border-radius:16px;
+  padding:13px;
+}
+.kpi b{display:block;font-size:23px}
+.kpi span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.statusPanel{padding:16px;display:grid;gap:9px}
+.statusRow{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:11px;
+}
+.statusRow span{color:var(--muted);text-align:right}
+.worldLayout{
+  display:grid;
+  grid-template-columns:320px minmax(600px,1fr) 360px;
+  gap:16px;
+}
+.controls,.rightRail,.worldPanel{padding:15px}
+.controls{display:grid;gap:12px;align-content:start}
+.controls h3,.rightRail h3{margin:0;color:var(--cyan)}
+.control{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:15px;
+  padding:11px;
+}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:12px;
+}
+input[type=range],select{width:100%;margin-top:8px}
+select{
+  background:#071326;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:9px;
+  border-radius:10px;
+}
+.bandButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bandButtons button{
+  border:1px solid rgba(120,190,255,.20);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  border-radius:12px;
+  padding:9px;
+  cursor:pointer;
+}
+.bandButtons button:hover,.bandButtons button.active{
+  border-color:rgba(131,216,255,.78);
+  background:linear-gradient(135deg,rgba(45,130,255,.20),rgba(0,255,200,.08));
+}
+.worldHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+.worldHead h3{margin:0;font-size:27px}
+.worldHead p{margin:5px 0 0;color:var(--muted)}
+.badge{
+  display:inline-block;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--cyan);
+  padding:6px 9px;
+  font-size:11px;
+  white-space:nowrap;
+}
+.stage{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+.canvasBox{
+  border:1px solid rgba(120,190,255,.24);
+  background:rgba(255,255,255,.025);
+  border-radius:18px;
+  overflow:hidden;
+}
+.canvasTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 11px;
+  color:var(--muted);
+  font-size:12px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+canvas{
+  width:100%;
+  display:block;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(30,85,150,.16),transparent 42%),
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+}
+#worldCanvas{height:520px}
+#spectrumCanvas,#waterfallCanvas{height:260px}
+.miniGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#iqCanvas,#constellationCanvas{height:260px}
+.rightRail{display:grid;gap:13px;align-content:start}
+.card{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:12px;
+}
+.card b{display:block}
+.card span,.card p{color:var(--muted);font-size:13px;line-height:1.42}
+.meter{
+  height:10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:8px;
+}
+.meter i{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--cyan),var(--green))}
+.eventLog{
+  max-height:280px;
+  overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:12px;
+  color:#bfd4ec;
+}
+.eventLog div{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.legend{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.legend div{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.035);
+  border-radius:12px;
+  padding:9px;
+  color:var(--muted);
+  font-size:12px;
+}
+.dot{display:inline-block;width:9px;height:9px;border-radius:99px;margin-right:6px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.dot.g{background:var(--green);box-shadow:0 0 12px var(--green)}
+.dot.a{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+.dot.r{background:var(--red);box-shadow:0 0 12px var(--red)}
+@media(max-width:1400px){
+  .worldLayout{grid-template-columns:300px 1fr}
+  .rightRail{grid-column:1/-1}
+}
+@media(max-width:960px){
+  .hero,.worldLayout,.miniGrid{grid-template-columns:1fr}
+  .kpiGrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .topbar{flex-direction:column;align-items:flex-start}
+  .kpiGrid{grid-template-columns:1fr}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>TRFMC Signal World Engine V2</h1>
+      <small>03_Signal_Analyzer · RF world · sweep · zero-span · spectrum terrain · IQ · waterfall · constellation</small>
+    </div>
+    <nav class="nav">
+      <span class="pill ok" id="healthPill">Health: online</span>
+      <a href="/trfmc_unified_navigation_shell_v1.html">Unified Shell</a>
+      <a href="/trfmc_master_digital_twin_console_v1.html">Master Console</a>
+      <a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>
+      <a href="/trfmc_rf_tm_war_room_v4.html">RF/TM War Room V4</a>
+      <a href="/trfmc_rf_tm_signal_universe_v3.html">RF/TM Signal Universe V3</a>
+      <a href="/trfmc_collaudo_report.html">Collaudo</a>
+      <a href="/api/health">Health</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="panel heroMain">
+      <h2>Il mondo dei segnali, vivo e misurabile</h2>
+      <p>
+        Questa console sostituisce la vista “povera” con un motore visuale RF: sorgenti,
+        lobi, propagazione, sweep sulle bande note, zero-span, waterfall, spettro,
+        IQ e costellazione. È ancora simulazione locale, ma la struttura è pensata
+        per ricevere campioni HackRF/IQ reali nella fase successiva.
+      </p>
+      <div class="kpiGrid">
+        <div class="kpi"><b id="kBand">3.5 GHz</b><span>banda osservata</span></div>
+        <div class="kpi"><b id="kMode">SWEEP</b><span>modalità scansione</span></div>
+        <div class="kpi"><b id="kClass">5G NR / OFDM</b><span>classificazione</span></div>
+        <div class="kpi"><b id="kRisk">24%</b><span>anomaly index</span></div>
+      </div>
+    </div>
+
+    <div class="panel statusPanel">
+      <div class="statusRow"><b>Engine status</b><span>interactive canvas runtime</span></div>
+      <div class="statusRow"><b>Portal mode</b><span>single-port 5173</span></div>
+      <div class="statusRow"><b>RF view</b><span>emitters · lobes · spectrum · IQ</span></div>
+      <div class="statusRow"><b>Next hook</b><span>HackRF IQ stream / capture / report</span></div>
+    </div>
+  </section>
+
+  <section class="worldLayout">
+    <aside class="panel controls">
+      <h3>RF Control Plane</h3>
+
+      <div class="control">
+        <label>Band preset <b id="bandLabel">3.5 GHz</b></label>
+        <select id="bandSelect">
+          <option value="27">27 MHz · CB / HF local</option>
+          <option value="144">144 MHz · VHF amateur</option>
+          <option value="244">244 MHz · VHF/UHF utility</option>
+          <option value="433">433 MHz · ISM remote controls</option>
+          <option value="868">868 MHz · ISM / IoT</option>
+          <option value="1800">1.8 GHz · LTE band</option>
+          <option value="2400">2.4 GHz · WiFi / ISM</option>
+          <option value="3500" selected="">3.5 GHz · 5G NR n78</option>
+          <option value="5800">5.8 GHz · WiFi / ISM</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label>Scan mode <b id="scanLabel">Sweep spectrum</b></label>
+        <select id="scanMode">
+          <option value="sweep" selected="">Sweep spectrum</option>
+          <option value="zerospan">Zero-span time view</option>
+          <option value="classifier">Classifier patrol</option>
+          <option value="jamwatch">Jamming watch</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label>Span <b id="spanLabel">86 MHz</b></label>
+        <input id="span" type="range" min="1" max="100" value="70">
+      </div>
+
+      <div class="control">
+        <label>Gain <b id="gainLabel">30 dB</b></label>
+        <input id="gain" type="range" min="1" max="100" value="58">
+      </div>
+
+      <div class="control">
+        <label>Noise floor <b id="noiseLabel">-92 dBm</b></label>
+        <input id="noise" type="range" min="1" max="100" value="35">
+      </div>
+
+      <div class="control">
+        <label>Emitter density <b id="densityLabel">62%</b></label>
+        <input id="density" type="range" min="1" max="100" value="62">
+      </div>
+
+      <div class="control">
+        <label>Modulation <b id="modLabel">OFDM</b></label>
+        <select id="modulation">
+          <option>AM</option>
+          <option>FM</option>
+          <option>PM</option>
+          <option>BPSK</option>
+          <option>QPSK</option>
+          <option>16QAM</option>
+          <option selected="">OFDM</option>
+          <option>WiFi-like</option>
+          <option>FSK Remote</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label>Bande rapide</label>
+        <div class="bandButtons" id="bandButtons"><button data-v="27">27 MHz</button><button data-v="144">144 MHz</button><button data-v="244">244 MHz</button><button data-v="433">433 MHz</button><button data-v="868">868 MHz</button><button data-v="1800">1.8 GHz</button><button data-v="2400">2.4 GHz</button><button data-v="3500" class="active">3.5 GHz</button><button data-v="5800">5.8 GHz</button></div>
+      </div>
+    </aside>
+
+    <section class="panel worldPanel">
+      <div class="worldHead">
+        <div>
+          <h3>RF World View</h3>
+          <p>Vista procedurale: emitter, lobi, propagazione, scanning beam e segnali nel dominio frequenza/tempo.</p>
+        </div>
+        <span class="badge" id="worldBadge">LIVE SYNTHETIC RF</span>
+      </div>
+
+      <div class="stage">
+        <div class="canvasBox">
+          <div class="canvasTitle"><b>RF Signal World</b><span id="worldReadout">emitters: 15 · band: 3.5 GHz</span></div>
+          <canvas id="worldCanvas" width="1400" height="620"></canvas>
+        </div>
+
+        <div class="miniGrid">
+          <div class="canvasBox">
+            <div class="canvasTitle"><b>Spectrum Terrain / FFT</b><span id="peakReadout">peak: -7.8 dBm</span></div>
+            <canvas id="spectrumCanvas" width="900" height="340"></canvas>
+          </div>
+          <div class="canvasBox">
+            <div class="canvasTitle"><b>Waterfall / Time-Frequency</b><span>density trail</span></div>
+            <canvas id="waterfallCanvas" width="900" height="340"></canvas>
+          </div>
+          <div class="canvasBox">
+            <div class="canvasTitle"><b>IQ Time Domain</b><span>I/Q synthetic capture</span></div>
+            <canvas id="iqCanvas" width="900" height="320"></canvas>
+          </div>
+          <div class="canvasBox">
+            <div class="canvasTitle"><b>Constellation / Demod View</b><span id="evmReadout">EVM: 23.2%</span></div>
+            <canvas id="constellationCanvas" width="900" height="320"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel rightRail">
+      <h3>RF Intelligence</h3>
+
+      <div class="card">
+        <b>Signal Classification</b>
+        <span id="classText">5G NR / OFDM · confidence 64%</span>
+        <div class="meter"><i id="classMeter" style="width: 64%;"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Occupied Bandwidth</b>
+        <span id="obwText">59 MHz</span>
+        <div class="meter"><i id="obwMeter" style="width: 59%;"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Anomaly / Jamming Risk</b>
+        <span id="riskText">24%</span>
+        <div class="meter"><i id="riskMeter" style="width: 24%;"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Legend</b>
+        <div class="legend">
+          <div><span class="dot"></span>carrier / RF source</div>
+          <div><span class="dot g"></span>valid signal</div>
+          <div><span class="dot a"></span>scan beam</div>
+          <div><span class="dot r"></span>anomaly / jammer</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <b>HackRF Hook Roadmap</b>
+        <p>
+          V2 è un motore visuale. Il passo successivo è sostituire il generatore sintetico
+          con sorgente IQ: acquisizione, FFT, waterfall, classificazione, report ed evidence vault.
+        </p>
+      </div>
+
+      <div class="card">
+        <b>Event Stream</b>
+        <div class="eventLog" id="eventLog"><div>[16:40:48] SWEEP 3.5 GHz 5G NR / OFDM emitters=15</div></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const bands = [
+  {v:"27", label:"27 MHz", cls:"HF/CB", mod:"AM", span:15},
+  {v:"144", label:"144 MHz", cls:"VHF voice/data", mod:"FM", span:28},
+  {v:"244", label:"244 MHz", cls:"VHF/UHF utility", mod:"FM", span:34},
+  {v:"433", label:"433 MHz", cls:"ISM remote / FSK", mod:"FSK Remote", span:26},
+  {v:"868", label:"868 MHz", cls:"ISM / IoT", mod:"FSK Remote", span:38},
+  {v:"1800", label:"1.8 GHz", cls:"LTE-like OFDM", mod:"OFDM", span:55},
+  {v:"2400", label:"2.4 GHz", cls:"WiFi / ISM", mod:"WiFi-like", span:74},
+  {v:"3500", label:"3.5 GHz", cls:"5G NR / OFDM", mod:"OFDM", span:80},
+  {v:"5800", label:"5.8 GHz", cls:"WiFi / ISM", mod:"WiFi-like", span:86}
+];
+
+const world = $("worldCanvas");
+const spec = $("spectrumCanvas");
+const waterfall = $("waterfallCanvas");
+const iq = $("iqCanvas");
+const cons = $("constellationCanvas");
+
+const wctx = world.getContext("2d");
+const sctx = spec.getContext("2d");
+const wfctx = waterfall.getContext("2d");
+const iqctx = iq.getContext("2d");
+const cctx = cons.getContext("2d");
+
+let t = 0;
+let emitters = [];
+let lastBand = "3500";
+let lastLog = 0;
+
+function initBandButtons(){
+  const box = $("bandButtons");
+  bands.forEach(b=>{
+    const btn = document.createElement("button");
+    btn.textContent = b.label;
+    btn.dataset.v = b.v;
+    btn.onclick = () => {
+      $("bandSelect").value = b.v;
+      $("span").value = b.span;
+      $("modulation").value = b.mod;
+      regenerateEmitters();
+    };
+    box.appendChild(btn);
+  });
+}
+
+function currentBand(){
+  return bands.find(b=>b.v === $("bandSelect").value) || bands[7];
+}
+
+function params(){
+  const b = currentBand();
+  return {
+    band: b,
+    freq: Number(b.v),
+    span: 5 + Number($("span").value)/100*115,
+    gain: 2 + Number($("gain").value)/100*48,
+    noise: -110 + Number($("noise").value)/100*50,
+    density: Number($("density").value),
+    mode: $("scanMode").value,
+    mod: $("modulation").value
+  };
+}
+
+function updateLabels(){
+  const p = params();
+  $("bandLabel").textContent = p.band.label;
+  $("scanLabel").textContent = $("scanMode").selectedOptions[0].textContent;
+  $("spanLabel").textContent = Math.round(p.span) + " MHz";
+  $("gainLabel").textContent = Math.round(p.gain) + " dB";
+  $("noiseLabel").textContent = Math.round(p.noise) + " dBm";
+  $("densityLabel").textContent = Math.round(p.density) + "%";
+  $("modLabel").textContent = p.mod;
+
+  $("kBand").textContent = p.band.label;
+  $("kMode").textContent = p.mode.toUpperCase();
+  $("kClass").textContent = classifyText(p);
+  document.querySelectorAll("#bandButtons button").forEach(btn=>btn.classList.toggle("active", btn.dataset.v === String(p.freq)));
+}
+
+function classifyText(p){
+  if(p.mod === "OFDM") return p.freq >= 3000 ? "5G NR / OFDM" : "LTE-like OFDM";
+  if(p.mod === "WiFi-like") return "WiFi / OFDM burst";
+  if(p.mod === "FSK Remote") return "FSK / remote burst";
+  if(p.freq <= 30) return "HF / AM voice";
+  if(p.mod === "FM") return "FM voice/data";
+  return p.mod + " signal";
+}
+
+function regenerateEmitters(){
+  const p = params();
+  emitters = [];
+  const count = Math.max(5, Math.round(6 + p.density/7));
+  for(let i=0;i<count;i++){
+    emitters.push({
+      x: 120 + Math.random()*(world.width-240),
+      y: 120 + Math.random()*(world.height-230),
+      power: 0.25 + Math.random()*0.75,
+      phase: Math.random()*Math.PI*2,
+      drift: (Math.random()-.5)*0.35,
+      type: Math.random() < 0.13 ? "jammer" : "signal",
+      freqOffset: (Math.random()-.5)*0.8
+    });
+  }
+  lastBand = $("bandSelect").value;
+}
+
+function grid(ctx,w,h){
+  ctx.strokeStyle = "rgba(120,190,255,.075)";
+  ctx.lineWidth = 1;
+  for(let x=0;x<w;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+}
+
+function label(ctx,txt,x,y,color="rgba(234,243,255,.82)",size=14){
+  ctx.fillStyle = color;
+  ctx.font = `${size}px system-ui`;
+  ctx.fillText(txt,x,y);
+}
+
+function drawWorld(){
+  const p = params();
+  const ctx = wctx;
+  const w = world.width, h = world.height;
+  ctx.clearRect(0,0,w,h);
+
+  const g = ctx.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,"rgba(255,255,255,.035)");
+  g.addColorStop(1,"rgba(255,255,255,.01)");
+  ctx.fillStyle = g;
+  ctx.fillRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  // terrain / floor
+  ctx.beginPath();
+  ctx.moveTo(0,h-86);
+  for(let x=0;x<=w;x+=18){
+    const y = h-86 + Math.sin(x*.012 + t*.01)*16 + Math.sin(x*.031)*7;
+    ctx.lineTo(x,y);
+  }
+  ctx.lineTo(w,h);
+  ctx.lineTo(0,h);
+  ctx.closePath();
+  ctx.fillStyle = "rgba(17,47,82,.55)";
+  ctx.fill();
+
+  // towers
+  const towers = [
+    {x:130,y:h-105,name:"RX"},
+    {x:w*0.46,y:h-122,name:"SITE A"},
+    {x:w*0.82,y:h-110,name:"SITE B"}
+  ];
+  towers.forEach((tw,idx)=>{
+    ctx.strokeStyle = "rgba(134,216,255,.65)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(tw.x,tw.y-105);
+    ctx.lineTo(tw.x-34,tw.y);
+    ctx.lineTo(tw.x+34,tw.y);
+    ctx.closePath();
+    ctx.stroke();
+    for(let k=0;k<4;k++){
+      ctx.beginPath();
+      ctx.moveTo(tw.x-22+k*14,tw.y-20-k*22);
+      ctx.lineTo(tw.x+22-k*14,tw.y-20-k*22);
+      ctx.stroke();
+    }
+    ctx.fillStyle = "rgba(157,255,199,.85)";
+    ctx.beginPath();ctx.arc(tw.x,tw.y-110,6,0,Math.PI*2);ctx.fill();
+    label(ctx,tw.name,tw.x-24,tw.y+18,"rgba(234,243,255,.72)",13);
+
+    // emission lobes
+    for(let r=40;r<230;r+=38){
+      ctx.strokeStyle = `rgba(134,216,255,${0.20-r/1300})`;
+      ctx.beginPath();
+      ctx.arc(tw.x,tw.y-110,r,Math.PI*1.08,Math.PI*1.92);
+      ctx.stroke();
+    }
+  });
+
+  // scan beam
+  const scanX = (Math.sin(t*.018)*0.5+0.5)*w;
+  const grd = ctx.createLinearGradient(scanX-80,0,scanX+80,0);
+  grd.addColorStop(0,"rgba(255,211,122,0)");
+  grd.addColorStop(.5,"rgba(255,211,122,.22)");
+  grd.addColorStop(1,"rgba(255,211,122,0)");
+  ctx.fillStyle = grd;
+  ctx.fillRect(scanX-90,0,180,h);
+
+  // emitters
+  emitters.forEach((e,i)=>{
+    e.x += e.drift;
+    if(e.x<50)e.x=w-50;
+    if(e.x>w-50)e.x=50;
+
+    const pulse = 25 + Math.sin(t*.05+e.phase)*14 + e.power*45;
+    const color = e.type === "jammer" ? "255,141,141" : "157,255,199";
+    const color2 = e.type === "jammer" ? "255,80,90" : "134,216,255";
+
+    for(let r=20;r<pulse*2.4;r+=22){
+      ctx.strokeStyle = `rgba(${color},${Math.max(.04,.18-r/420)})`;
+      ctx.beginPath();ctx.arc(e.x,e.y,r,0,Math.PI*2);ctx.stroke();
+    }
+
+    ctx.fillStyle = `rgba(${color2},.92)`;
+    ctx.beginPath();ctx.arc(e.x,e.y,4+e.power*5,0,Math.PI*2);ctx.fill();
+
+    if(e.type === "jammer"){
+      ctx.strokeStyle = "rgba(255,141,141,.8)";
+      ctx.beginPath();ctx.moveTo(e.x-12,e.y-12);ctx.lineTo(e.x+12,e.y+12);ctx.moveTo(e.x+12,e.y-12);ctx.lineTo(e.x-12,e.y+12);ctx.stroke();
+    }
+  });
+
+  // signal paths
+  emitters.slice(0,7).forEach((e,i)=>{
+    const rx = towers[i%towers.length];
+    ctx.strokeStyle = e.type === "jammer" ? "rgba(255,141,141,.20)" : "rgba(134,216,255,.18)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(e.x,e.y);
+    const mx = (e.x+rx.x)/2;
+    const my = Math.min(e.y,rx.y-110) - 80 - Math.sin(t*.02+i)*30;
+    ctx.quadraticCurveTo(mx,my,rx.x,rx.y-110);
+    ctx.stroke();
+  });
+
+  label(ctx,`Band: ${p.band.label} · ${classifyText(p)} · ${p.mode.toUpperCase()}`,24,34,"rgba(234,243,255,.88)",15);
+  label(ctx,`Procedural RF world: emitters, lobes, scan beam, propagation paths`,24,58,"rgba(148,169,197,.88)",13);
+
+  $("worldReadout").textContent = "emitters: " + emitters.length + " · band: " + p.band.label;
+}
+
+function generateSpectrum(){
+  const p = params();
+  const w = spec.width;
+  const arr = new Float32Array(w);
+  let peak = -140;
+
+  for(let x=0;x<w;x++){
+    let db = p.noise + (Math.random()-.5)*4 + Math.sin(x*.02+t*.025)*1.8;
+
+    emitters.forEach((e,i)=>{
+      const center = w*(0.5 + e.freqOffset*0.42 + Math.sin(t*.003+i)*0.018);
+      let width = 10 + p.span*.18 + e.power*26;
+      let amp = (12+p.gain*.45)*e.power*(p.density/100);
+      if(e.type === "jammer"){ width *= 3.2; amp *= 1.28; }
+      db += Math.exp(-Math.pow(x-center,2)/(width*width))*amp;
+    });
+
+    if(p.mode === "zerospan"){
+      const gate = Math.sin(t*.08) > 0 ? 1 : .25;
+      db += Math.exp(-Math.pow(x-w*.5,2)/(40*40))*gate*22;
+    }
+
+    if(p.mod === "OFDM" || p.mod === "WiFi-like"){
+      for(let k=-12;k<=12;k++){
+        const c = w*.5 + k*(5+p.span*.055);
+        db += Math.exp(-Math.pow(x-c,2)/(9+p.span*.04))*5.4;
+      }
+    }
+
+    if(p.mod === "FSK Remote"){
+      db += Math.exp(-Math.pow(x-w*.46,2)/(14*14))*12;
+      db += Math.exp(-Math.pow(x-w*.54,2)/(14*14))*12;
+    }
+
+    if(p.mod === "AM"){
+      db += Math.exp(-Math.pow(x-w*.5,2)/(10*10))*14;
+      db += Math.exp(-Math.pow(x-w*.43,2)/(15*15))*8;
+      db += Math.exp(-Math.pow(x-w*.57,2)/(15*15))*8;
+    }
+
+    arr[x] = db;
+    peak = Math.max(peak,db);
+  }
+
+  return {arr,peak};
+}
+
+function drawSpectrum(data){
+  const ctx=sctx,w=spec.width,h=spec.height;
+  ctx.clearRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  ctx.beginPath();
+  for(let x=0;x<w;x++){
+    const norm = Math.max(0,Math.min(1,(data.arr[x]+120)/85));
+    const y = h-30-norm*(h-60);
+    if(x===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle="rgba(131,216,255,.96)";
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  ctx.lineTo(w,h-30);ctx.lineTo(0,h-30);ctx.closePath();
+  ctx.fillStyle="rgba(131,216,255,.11)";
+  ctx.fill();
+
+  label(ctx,"Power dBm",16,24,"rgba(234,243,255,.75)",13);
+  label(ctx,"Frequency span",w-126,h-16,"rgba(234,243,255,.65)",13);
+  $("peakReadout").textContent = "peak: " + data.peak.toFixed(1) + " dBm";
+}
+
+function drawWaterfall(data){
+  const w=waterfall.width,h=waterfall.height;
+  const img=wfctx.getImageData(0,0,w,h-1);
+  wfctx.putImageData(img,0,1);
+
+  for(let x=0;x<w;x++){
+    const n=Math.max(0,Math.min(1,(data.arr[x]+115)/80));
+    const r=Math.round(15+n*110);
+    const g=Math.round(45+n*185);
+    const b=Math.round(85+n*160);
+    wfctx.fillStyle=`rgb(${r},${g},${b})`;
+    wfctx.fillRect(x,0,1,1);
+  }
+}
+
+function drawIQ(){
+  const p=params();
+  const ctx=iqctx,w=iq.width,h=iq.height;
+  ctx.clearRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  const midI=h*.34, midQ=h*.68;
+  function trace(mid,phase,color){
+    ctx.beginPath();
+    for(let x=0;x<w;x++){
+      let amp=24+p.density*.22;
+      if(p.mode==="zerospan") amp*=Math.sin(t*.07)>.1?1.35:.35;
+      const y=mid+Math.sin(x*.036+t*.05+phase)*amp+Math.sin(x*.011+t*.016+phase)*10+(Math.random()-.5)*(Number($("noise").value)*.08);
+      if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=color;ctx.lineWidth=1.6;ctx.stroke();
+  }
+  trace(midI,0,"rgba(131,216,255,.92)");
+  trace(midQ,Math.PI/2,"rgba(157,255,199,.86)");
+
+  label(ctx,"I",18,midI-10,"rgba(234,243,255,.75)",13);
+  label(ctx,"Q",18,midQ-10,"rgba(234,243,255,.75)",13);
+}
+
+function constellationPoints(){
+  const p=params();
+  const pts=[];
+  const n=420;
+  const noise=Math.max(.015,(100-Number($("gain").value))/550 + Number($("noise").value)/2800);
+
+  const add=(x,y)=>pts.push([x+(Math.random()-.5)*noise*2,y+(Math.random()-.5)*noise*2]);
+
+  for(let i=0;i<n;i++){
+    if(p.mod==="BPSK") add(Math.random()>.5?.75:-.75,0);
+    else if(p.mod==="QPSK") add(Math.random()>.5?.62:-.62,Math.random()>.5?.62:-.62);
+    else if(p.mod==="16QAM"){
+      const v=[-.75,-.25,.25,.75]; add(v[Math.floor(Math.random()*4)],v[Math.floor(Math.random()*4)]);
+    }else if(p.mod==="OFDM" || p.mod==="WiFi-like"){
+      const a=Math.random()*Math.PI*2, r=.18+Math.random()*.72; add(Math.cos(a)*r,Math.sin(a)*r);
+    }else if(p.mod==="FSK Remote"){
+      add(Math.random()>.5?.55:-.55, Math.sin(i*.4+t*.04)*.18);
+    }else{
+      const a=i*.19+t*.025, r=p.mod==="AM"?.35+Math.sin(i*.08+t*.02)*.22:.62; add(Math.cos(a)*r,Math.sin(a)*r);
+    }
+  }
+  return pts;
+}
+
+function drawConstellation(){
+  const ctx=cctx,w=cons.width,h=cons.height;
+  ctx.clearRect(0,0,w,h);
+  grid(ctx,w,h);
+  const cx=w/2,cy=h/2,scale=Math.min(w,h)*.36;
+
+  ctx.strokeStyle="rgba(157,255,199,.18)";
+  ctx.beginPath();ctx.moveTo(cx,28);ctx.lineTo(cx,h-28);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(28,cy);ctx.lineTo(w-28,cy);ctx.stroke();
+
+  const pts=constellationPoints();
+  ctx.fillStyle="rgba(157,255,199,.78)";
+  pts.forEach(([x,y])=>{
+    ctx.beginPath();ctx.arc(cx+x*scale,cy-y*scale,2.35,0,Math.PI*2);ctx.fill();
+  });
+
+  const evm=Math.max(1.1,Math.min(35,26-Number($("gain").value)*.12+Number($("noise").value)*.12+(params().mode==="jamwatch"?4:0)));
+  $("evmReadout").textContent="EVM: "+evm.toFixed(1)+"%";
+}
+
+function updateKpis(){
+  const p=params();
+  const riskBase = emitters.filter(e=>e.type==="jammer").length*8 + Number($("noise").value)*.22 + (p.mode==="jamwatch"?18:0);
+  const risk=Math.max(2,Math.min(98,Math.round(riskBase)));
+  const quality=Math.max(5,Math.min(99,Math.round(Number($("gain").value)*.82 + (100-Number($("noise").value))*.25)));
+  const obw=Math.round(p.span*(.28+p.density/150));
+
+  $("kRisk").textContent=risk+"%";
+  $("riskText").textContent=risk+"%";
+  $("riskMeter").style.width=risk+"%";
+
+  $("classText").textContent=classifyText(p)+" · confidence "+quality+"%";
+  $("classMeter").style.width=quality+"%";
+
+  $("obwText").textContent=obw+" MHz";
+  $("obwMeter").style.width=Math.min(100,obw)+"%";
+}
+
+function logEvent(){
+  const now=Date.now();
+  if(now-lastLog<1700) return;
+  lastLog=now;
+  const p=params();
+  const row=document.createElement("div");
+  row.textContent=`[${new Date().toLocaleTimeString()}] ${p.mode.toUpperCase()} ${p.band.label} ${classifyText(p)} emitters=${emitters.length}`;
+  $("eventLog").prepend(row);
+  while($("eventLog").children.length>20)$("eventLog").removeChild($("eventLog").lastChild);
+}
+
+function maybeAutoScan(){
+  const p=params();
+  if(p.mode==="classifier" && t%260===0){
+    const idx=(bands.findIndex(b=>b.v===$("bandSelect").value)+1)%bands.length;
+    $("bandSelect").value=bands[idx].v;
+    $("span").value=bands[idx].span;
+    $("modulation").value=bands[idx].mod;
+    regenerateEmitters();
+  }
+}
+
+function loop(){
+  t++;
+  if(lastBand !== $("bandSelect").value) regenerateEmitters();
+  maybeAutoScan();
+  updateLabels();
+  drawWorld();
+  const data=generateSpectrum();
+  drawSpectrum(data);
+  drawWaterfall(data);
+  drawIQ();
+  drawConstellation();
+  updateKpis();
+  logEvent();
+  requestAnimationFrame(loop);
+}
+
+async function health(){
+  try{
+    const res=await fetch("/api/health",{cache:"no-store"});
+    const data=await res.json();
+    $("healthPill").textContent=data.ok?"Health: online":"Health: degraded";
+  }catch(e){
+    $("healthPill").textContent="Health: unavailable";
+    $("healthPill").classList.remove("ok");
+  }
+}
+
+["bandSelect","scanMode","span","gain","noise","density","modulation"].forEach(id=>{
+  $(id).addEventListener("input",()=>{
+    if(id==="bandSelect") regenerateEmitters();
+    updateLabels();
+  });
+});
+
+initBandButtons();
+regenerateEmitters();
+health();
+updateLabels();
+loop();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC Signal World Engine V2<br>/trfmc_signal_world_engine_v2.html<br>Previous Authority V2 score: 65/100 · CRITICAL</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Signal World Engine V2</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

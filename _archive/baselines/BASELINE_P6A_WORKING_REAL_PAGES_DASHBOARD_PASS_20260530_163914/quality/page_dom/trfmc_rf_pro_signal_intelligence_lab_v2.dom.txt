@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC RF PRO Signal Intelligence Lab V2</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_v2.css">
+<style>
+.rf2-evidence{position:relative;z-index:1;margin:8px;border:1px solid rgba(0,229,255,.24);border-radius:12px;background:rgba(0,229,255,.035);padding:8px}
+.rf2-evidence h2{color:#00e5ff;font-size:13px;text-transform:uppercase;letter-spacing:.10em}
+table{width:100%;border-collapse:collapse;font-family:ui-monospace,Consolas,monospace;font-size:10px}
+th,td{border-bottom:1px solid rgba(0,229,255,.18);padding:6px;text-align:left;vertical-align:top}
+th{color:#00e5ff;background:rgba(0,229,255,.06)}
+</style>
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div>
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC RF PRO Signal Intelligence Lab V2</div>
+    <div class="leaf-sub">DSP worker · persistent waterfall · spectral mask · FHSS timeline · I/Q/EVM · WebGPU readiness · synthetic/lab-only</div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_rf_pro_signal_intelligence_lab_v1.html">V1</a>
+    <a class="leaf-btn" href="/trfmc_rf_spectrum_lab_v1.html">RF Spectrum</a>
+    <a class="leaf-btn" href="/trfmc_post_promotion_control_center_v1.html">Governance</a>
+    <a class="leaf-btn" href="/trfmc_rf_pro_signal_intelligence_manifest_v2.json">Manifest</a>
+  </div>
+</header>
+
+<trfmc-rf-pro-lab-v2>
+        <section class="rf2-root">
+          <div class="rf2-grid">
+            <aside class="rf2-panel">
+              <div class="rf2-title">RF PRO V2 Signal Intelligence</div>
+              <div class="rf2-sub">Instrument-grade synthetic RF console: DSP worker, persistent waterfall, spectrum mask, I/Q, FHSS timeline and GPU readiness.</div>
+
+              <div class="rf2-kpis">
+                <div class="rf2-kpi"><small>Profile</small><b data-kpi="profile">FHSS</b></div>
+                <div class="rf2-kpi"><small>SNR</small><b data-kpi="snr">28 dB</b></div>
+                <div class="rf2-kpi"><small>EVM</small><b data-kpi="evm">2.6%</b></div>
+                <div class="rf2-kpi"><small>OBW</small><b data-kpi="obw">7.2 MHz</b></div>
+                <div class="rf2-kpi"><small>ACLR</small><b data-kpi="aclr">51 dB</b></div>
+                <div class="rf2-kpi"><small>WebGPU</small><b data-kpi="gpu">READY</b></div>
+              </div>
+
+              <div class="rf2-card">
+                <h3>Scenario controls</h3>
+                <label class="rf2-control"><span>Profile</span><select data-control="profile">
+                  <option value="fhss">FHSS / hopping burst</option>
+                  <option value="ofdm">OFDM occupied channel</option>
+                  <option value="qpsk">QPSK narrowband</option>
+                  <option value="burst">Agile burst emitter</option>
+                  <option value="noise">Noise / baseline</option>
+                </select></label>
+                <label class="rf2-control"><span>SNR dB</span><input data-control="snr" type="range" min="4" max="42" value="28"></label>
+                <label class="rf2-control"><span>Span MHz</span><input data-control="spanMHz" type="range" min="5" max="120" value="40"></label>
+                <label class="rf2-control"><span>RBW kHz</span><input data-control="rbwKHz" type="range" min="1" max="300" value="30"></label>
+              </div>
+
+              <div class="rf2-card">
+                <h3>Lab-only doctrine</h3>
+                <p class="rf2-sub">Synthetic or lab-owned IQ only. No third-party interception, no SDR device control, no decoding of protected traffic. This is an RF engineering and evidence-visualization instrument panel.</p>
+              </div>
+
+              <div class="rf2-card">
+                <h3>Capabilities</h3>
+                <span class="rf2-pill">DSP Worker</span>
+                <span class="rf2-pill">Waterfall Memory</span>
+                <span class="rf2-pill">FHSS Hopset</span>
+                <span class="rf2-pill">Spectral Mask</span>
+                <span class="rf2-pill">I/Q Cloud</span>
+                <span class="rf2-pill">Formula Matrix</span>
+                <span class="rf2-pill">WebGPU Readiness</span>
+              </div>
+            </aside>
+
+            <main class="rf2-panel">
+              <div class="rf2-main">
+                <div class="rf2-stack">
+                  <div class="rf2-card"><h3>Vector Spectrum Analyzer</h3><canvas class="rf2-canvas tall" data-scope="spectrum" width="536" height="348"></canvas></div>
+                  <div class="rf2-card"><h3>Persistent Waterfall</h3><canvas class="rf2-canvas" data-scope="waterfall" width="536" height="248"></canvas></div>
+                  <div class="rf2-card"><h3>FHSS / Burst Intelligence Timeline</h3><canvas class="rf2-canvas small" data-scope="timeline" width="536" height="163"></canvas></div>
+                </div>
+
+                <div class="rf2-stack">
+                  <div class="rf2-card">
+                    <h3>Visual Asset Binding</h3>
+                    <div class="rf2-assets">
+                      <trfmc-visual-asset kind="spectrum-scope" data-size="medium" title="RF PRO V2 Spectrum"><canvas width="391" height="358" style="width: 100%; height: 100%; display: block;"></canvas><div class="trfmc-vae-caption">RF PRO V2 SPECTRUM</div></trfmc-visual-asset>
+                      <trfmc-visual-asset kind="cyber-evidence" data-size="small" title="RF Evidence Chain"><canvas width="190" height="218" style="width: 100%; height: 100%; display: block;"></canvas><div class="trfmc-vae-caption">RF EVIDENCE CHAIN</div></trfmc-visual-asset>
+                      <trfmc-visual-asset kind="core-map" data-size="small" title="NOC Correlation"><canvas width="190" height="218" style="width: 100%; height: 100%; display: block;"></canvas><div class="trfmc-vae-caption">NOC CORRELATION</div></trfmc-visual-asset>
+                    </div>
+                  </div>
+                  <div class="rf2-card"><h3>I/Q Constellation and EVM</h3><canvas class="rf2-canvas" data-scope="constellation" width="391" height="248"></canvas></div>
+                  <div class="rf2-card"><h3>Spectral Mask / ACLR Watch</h3><canvas class="rf2-canvas small" data-scope="mask" width="391" height="163"></canvas></div>
+                  <div class="rf2-card"><h3>Formula Matrix</h3><canvas class="rf2-canvas small" data-scope="formula" width="391" height="163"></canvas></div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </section>
+      </trfmc-rf-pro-lab-v2>
+
+<section class="rf2-evidence">
+<h2>Read-only source evidence</h2>
+<table>
+<thead><tr><th>Source orphan</th><th>Exists</th><th>Words</th><th>RF keywords</th><th>SHA256</th></tr></thead>
+<tbody><tr><td><a href="/signal_demod_v581.html">/signal_demod_v581.html</a></td><td>True</td><td>655</td><td>FFT,IQ,demod,spectrum,SNR,OBW</td><td>b1e7e16fbd0ff8f5…</td></tr><tr><td><a href="/signal_workbench_v580.html">/signal_workbench_v580.html</a></td><td>True</td><td>1050</td><td>FFT,IQ,demod,waterfall,spectrum</td><td>61531f82b13144b6…</td></tr><tr><td><a href="/signal_workbench_v582.html">/signal_workbench_v582.html</a></td><td>True</td><td>1088</td><td>FFT,IQ,demod,waterfall,spectrum,SNR,OBW</td><td>d872c9cc8aafa69e…</td></tr><tr><td><a href="/uav_fhss_v584.html">/uav_fhss_v584.html</a></td><td>True</td><td>727</td><td>IQ,FHSS,burst,spectrum,UAV,hop</td><td>7c63eb8209174c89…</td></tr></tbody>
+</table>
+</section>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_v2.js"></script>
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Cyber RF Intelligence</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC RF PRO Signal Intelligence Lab V2</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="true">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Cyber RF Intelligence · Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione.</div></body></html>

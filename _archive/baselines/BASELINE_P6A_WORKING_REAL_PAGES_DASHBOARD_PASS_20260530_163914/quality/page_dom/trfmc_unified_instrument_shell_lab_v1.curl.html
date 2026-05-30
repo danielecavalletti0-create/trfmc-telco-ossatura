@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Unified Instrument Shell Lab V1</title>
+<style>
+:root{
+  --bg:#02070f;--panel:#061120;--panel2:#0a1828;--line:#1d6f9f;
+  --text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;
+  --yellow:#ffd500;--red:#ff3366;--blue:#268cff;--purple:#c66bff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#01060d;color:var(--text);font:12px Inter,Segoe UI,system-ui,sans-serif;overflow:hidden}
+header{
+  height:54px;background:#050b13;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 12px;
+}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+.sub{color:var(--muted);font-size:11px}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+button,a{
+  color:var(--text);background:#10233a;border:1px solid #285d82;
+  border-radius:4px;padding:6px 9px;text-decoration:none;cursor:pointer;font-size:11px;
+}
+button:hover,a:hover{border-color:var(--cyan);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+.led{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.top{
+  height:74px;display:grid;grid-template-columns:230px repeat(10,1fr) 280px;gap:5px;padding:6px;
+  background:linear-gradient(90deg,#061120,#0a1828,#061120);
+  border-bottom:1px solid rgba(0,217,255,.45);
+}
+.cell,.id,.actions{
+  border:1px solid rgba(36,91,125,.95);background:linear-gradient(180deg,#09223a,#06111f);
+  border-radius:5px;padding:6px;min-width:0;position:relative;overflow:hidden;
+}
+.cell span,.id span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.04em}
+.cell b,.id b{display:block;color:var(--text);font-size:15px;line-height:1.12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.id b{color:var(--cyan)}
+.cell em,.id em{display:block;color:var(--green);font-style:normal;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:5px}
+.actions button{padding:4px 5px;text-align:center}
+main{
+  height:calc(100vh - 128px);
+  display:grid;grid-template-columns:250px 1fr 330px;gap:6px;padding:6px;
+}
+aside,.dock{
+  background:linear-gradient(180deg,#071524,#02070f);
+  border:1px solid #1d5e86;border-radius:6px;overflow:hidden;
+}
+.title{
+  background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);
+  font-weight:700;padding:7px 8px;text-transform:uppercase;
+}
+.body{padding:7px}
+.route{
+  border:1px solid #183d58;background:#081522;border-radius:5px;margin-bottom:6px;padding:8px;cursor:pointer;
+}
+.route:hover,.route.active{border-color:var(--yellow);box-shadow:inset 3px 0 0 var(--yellow);background:#10233a}
+.route b{display:block;color:var(--green);font-size:12px}
+.route span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.stage{
+  border:1px solid #1d5e86;border-radius:6px;overflow:hidden;background:#02070f;position:relative;
+}
+.stagebar{
+  height:34px;background:#071524;border-bottom:1px solid #1d5e86;display:flex;align-items:center;justify-content:space-between;padding:0 8px;
+}
+.stagebar b{color:var(--cyan)}
+.stagebar span{color:var(--muted);font-family:ui-monospace,monospace;font-size:11px}
+iframe{
+  width:100%;height:calc(100% - 34px);border:0;background:#02070f;display:block;
+}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);padding:5px 0;font-family:ui-monospace,monospace;font-size:11px}
+.kv span{color:#cde7ff}.kv b{color:var(--green)}
+.cmd{display:grid;grid-template-columns:1fr auto;gap:5px;margin:7px 0}
+.cmd input{background:#02070f;border:1px solid #285d82;color:var(--text);border-radius:4px;padding:7px;font-family:ui-monospace,monospace}
+.log{height:210px;overflow:auto;border:1px solid #183d58;background:#02070f;border-radius:5px;padding:6px;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid rgba(255,255,255,.06);padding:3px 0;color:#cde7ff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.grid2 button{margin:0;text-align:center}
+.badge{
+  position:absolute;right:10px;bottom:10px;z-index:5;border:1px solid rgba(125,255,79,.45);
+  color:var(--green);background:rgba(3,10,18,.8);border-radius:5px;padding:5px 8px;font:11px ui-monospace,monospace;
+}
+body.focus header,body.focus aside,body.focus .dock,body.focus .top{display:none}
+body.focus main{height:100vh;display:block;padding:4px}
+body.focus .stage{height:100%}
+body.focus iframe{height:calc(100% - 34px)}
+body.wall main{grid-template-columns:0 1fr 380px}
+body.wall aside{display:none}
+body.clean .top{display:none}
+body.clean main{height:calc(100vh - 54px)}
+@media(max-width:1350px){
+  .top{grid-template-columns:1fr 1fr 1fr}
+  main{grid-template-columns:1fr}
+  body{overflow:auto}
+  iframe{height:700px}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header>
+  <div>
+    <h1>TRFMC Unified Instrument Shell Lab V1</h1>
+    <div class="sub">Wrapper autonomo · nessuna iniezione nelle pagine stabili · portale ufficiale 127.0.0.1:5173</div>
+  </div>
+  <nav>
+    <button onclick="setLayout('normal')">Normal</button>
+    <button onclick="setLayout('focus')">Focus</button>
+    <button onclick="setLayout('wall')">Wall</button>
+    <button onclick="toggleClean()">Clean</button>
+    <button onclick="reloadFrame()">Reload</button>
+    <button onclick="resetBrokenStorage()">Reset State</button>
+    <button onclick="openStandalone()">Open Page</button>
+    <span class="led"></span>
+    <span id="clock">--:--:--</span>
+  </nav>
+</header>
+
+<section class="top">
+  <div class="id"><span>Instrument Workspace</span><b id="dom">ANTENNA</b><em id="sub">RRU/BBU · RET/AISG · MIMO</em></div>
+  <div class="cell"><span>Center</span><b id="center">3.500 GHz</b><em>carrier</em></div>
+  <div class="cell"><span>Span/BW</span><b id="span">100 MHz</b><em>analysis bandwidth</em></div>
+  <div class="cell"><span>RBW</span><b id="rbw">100 kHz</b><em>resolution</em></div>
+  <div class="cell"><span>VBW</span><b id="vbw">33 kHz</b><em>smoothing</em></div>
+  <div class="cell"><span>Reference</span><b>-10 dBm</b><em>display ref</em></div>
+  <div class="cell"><span>Sync</span><b>LOCKED</b><em>10 MHz REF</em></div>
+  <div class="cell"><span>Modulation</span><b id="mod">n78 / TDD</b><em>test model</em></div>
+  <div class="cell"><span>SNR</span><b id="snr">43.7 dB</b><em>proxy</em></div>
+  <div class="cell"><span>EVM</span><b id="evm">1.5%</b><em>vector error</em></div>
+  <div class="cell"><span>Gate</span><b id="gate">PASS</b><em>quality</em></div>
+  <div class="actions">
+    <button onclick="loadRoute('antenna')">Antenna</button>
+    <button onclick="loadRoute('dsp')">DSP</button>
+    <button onclick="loadRoute('wifi')">Wi-Fi</button>
+    <button onclick="loadRoute('core')">5G Core</button>
+    <button onclick="loadRoute('noc')">NOC</button>
+    <button onclick="loadRoute('master')">Master</button>
+  </div>
+</section>
+
+<main>
+  <aside>
+    <div class="title">Workspace Routes</div>
+    <div class="body" id="routes"></div>
+  </aside>
+
+  <section class="stage">
+    <div class="stagebar">
+      <b id="stageTitle">Antenna System Explorer · Stable Clean</b>
+      <span id="stageUrl">/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</span>
+    </div>
+    <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</div></div>
+    <div class="badge" id="badge">WRAPPER SAFE MODE</div>
+  </section>
+
+  <section class="dock">
+    <div class="title">Shell Control / Evidence</div>
+    <div class="body">
+      <div class="kv"><span>Mode</span><b id="mode">NORMAL</b></div>
+      <div class="kv"><span>Frame</span><b id="frameState">LOADED</b></div>
+      <div class="kv"><span>Injection</span><b>DISABLED</b></div>
+      <div class="kv"><span>Storage Guard</span><b>ON DEMAND</b></div>
+
+      <div class="cmd">
+        <input id="cmd" value="LOAD:ANTENNA">
+        <button onclick="execCmd()">EXEC</button>
+      </div>
+
+      <div class="grid2">
+        <button onclick="loadRoute('antenna')">Load Antenna</button>
+        <button onclick="loadRoute('dsp')">Load DSP</button>
+        <button onclick="loadRoute('wifi')">Load Wi-Fi/QAM</button>
+        <button onclick="loadRoute('core')">Load 5G Core</button>
+        <button onclick="loadRoute('noc')">Load NOC</button>
+        <button onclick="loadRoute('master')">Load Master</button>
+        <button onclick="setLayout('focus')">Canvas Focus</button>
+        <button onclick="setLayout('wall')">Measurement Wall</button>
+        <button onclick="exportState()">Export State</button>
+        <button onclick="resetBrokenStorage()">Reset Broken Keys</button>
+      </div>
+
+      <div class="title" style="margin:8px -7px 6px">Event Stream</div>
+      <div class="log" id="log"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const routes = {
+  antenna:{
+    title:"Antenna System Explorer · Stable Clean",
+    url:"/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html",
+    domain:"ANTENNA", sub:"RRU/BBU · RET/AISG · MIMO", center:"3.500 GHz", span:"100 MHz", rbw:"100 kHz", vbw:"33 kHz", mod:"n78 / TDD"
+  },
+  dsp:{
+    title:"Measurement Chain DSP Engine",
+    url:"/trfmc_measurement_chain_dsp_engine_v3.html",
+    domain:"DSP", sub:"Receiver · IF · RBW/VBW · FFT", center:"1.000 GHz", span:"20 MHz", rbw:"100 kHz", vbw:"30 kHz", mod:"Peak / Hann"
+  },
+  wifi:{
+    title:"Wi-Fi 5/6/7/8 QAM Engine",
+    url:"/trfmc_wifi_5_6_7_8_qam_engine_v1.html",
+    domain:"WIFI/QAM", sub:"802.11ax/be/bn · OFDMA · 4096-QAM", center:"5.975 GHz", span:"320 MHz", rbw:"1 MHz", vbw:"300 kHz", mod:"4096-QAM"
+  },
+  core:{
+    title:"5G Core/RAN Identity AKA Engine",
+    url:"/trfmc_5g_core_ran_identity_aka_engine_v1.html",
+    domain:"5G CORE", sub:"Open5GS · UERANSIM · SUPI/SUCI · AKA", center:"3.500 GHz", span:"100 MHz", rbw:"Protocol", vbw:"NAS/NGAP", mod:"5G-AKA"
+  },
+  noc:{
+    title:"Converged RF/5G NOC",
+    url:"/trfmc_converged_rf_5g_noc_v1.html",
+    domain:"NOC", sub:"RF · SDR · Core · Evidence", center:"MULTI", span:"LAB", rbw:"OPS", vbw:"LIVE", mod:"Mixed"
+  },
+  master:{
+    title:"Master Console",
+    url:"/trfmc_master_console_v4.html",
+    domain:"MASTER", sub:"TRFMC Mission Control", center:"PORTAL", span:"5173", rbw:"READY", vbw:"READY", mod:"Mission"
+  }
+};
+
+let active = "antenna";
+
+function $(id){return document.getElementById(id)}
+function log(m){
+  const d=document.createElement("div");
+  d.textContent="["+new Date().toLocaleTimeString()+"] "+m;
+  $("log").prepend(d);
+  while($("log").children.length>40) $("log").removeChild($("log").lastChild);
+}
+function renderRoutes(){
+  const box=$("routes");
+  box.innerHTML="";
+  Object.entries(routes).forEach(([k,r])=>{
+    const div=document.createElement("div");
+    div.className="route"+(k===active?" active":"");
+    div.onclick=()=>loadRoute(k);
+    div.innerHTML="<b>"+r.domain+"</b><span>"+r.title+"</span><span>"+r.url+"</span>";
+    box.appendChild(div);
+  });
+}
+function loadRoute(k){
+  active=k;
+  const r=routes[k];
+  $("labframe").src=r.url;
+  $("stageTitle").textContent=r.title;
+  $("stageUrl").textContent=r.url;
+  $("dom").textContent=r.domain;
+  $("sub").textContent=r.sub;
+  $("center").textContent=r.center;
+  $("span").textContent=r.span;
+  $("rbw").textContent=r.rbw;
+  $("vbw").textContent=r.vbw;
+  $("mod").textContent=r.mod;
+  $("frameState").textContent="LOADING";
+  renderRoutes();
+  log("loaded route → "+r.domain+" · "+r.url);
+}
+$("labframe").addEventListener("load",()=>{$("frameState").textContent="LOADED";log("iframe loaded → "+routes[active].title)});
+function setLayout(mode){
+  document.body.classList.remove("focus","wall");
+  if(mode==="focus") document.body.classList.add("focus");
+  if(mode==="wall") document.body.classList.add("wall");
+  $("mode").textContent=mode.toUpperCase();
+  log("layout → "+mode.toUpperCase());
+}
+function toggleClean(){
+  document.body.classList.toggle("clean");
+  log(document.body.classList.contains("clean")?"top strip hidden":"top strip visible");
+}
+function reloadFrame(){
+  $("labframe").contentWindow.location.reload();
+  log("iframe reload requested");
+}
+function openStandalone(){
+  window.open(routes[active].url,"_blank");
+  log("opened standalone → "+routes[active].url);
+}
+function resetBrokenStorage(){
+  const keys=[
+    "trfmc_global_instrument_shell_v1",
+    "trfmc_global_top_telemetry_v2",
+    "trfmc_v17_layout_mode",
+    "trfmc_antenna_v17_layout_mode"
+  ];
+  keys.forEach(k=>localStorage.removeItem(k));
+  log("removed broken experimental localStorage keys");
+}
+function exportState(){
+  const data={ts:new Date().toISOString(),active,route:routes[active],mode:$("mode").textContent};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="trfmc_unified_shell_state_"+new Date().toISOString().replace(/[:.]/g,"-")+".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  log("state exported");
+}
+function execCmd(){
+  const c=$("cmd").value.trim().toUpperCase();
+  if(c.includes("ANTENNA")) loadRoute("antenna");
+  else if(c.includes("DSP")) loadRoute("dsp");
+  else if(c.includes("WIFI") || c.includes("QAM")) loadRoute("wifi");
+  else if(c.includes("CORE") || c.includes("AKA")) loadRoute("core");
+  else if(c.includes("NOC")) loadRoute("noc");
+  else if(c.includes("MASTER")) loadRoute("master");
+  else if(c.includes("FOCUS")) setLayout("focus");
+  else if(c.includes("WALL")) setLayout("wall");
+  else if(c.includes("NORMAL")) setLayout("normal");
+  else if(c.includes("RESET")) resetBrokenStorage();
+  else log("unknown command → "+c);
+}
+window.addEventListener("keydown",ev=>{
+  if(["INPUT","TEXTAREA","SELECT"].includes(ev.target.tagName)) return;
+  const k=ev.key.toLowerCase();
+  if(k==="1")loadRoute("antenna");
+  if(k==="2")loadRoute("dsp");
+  if(k==="3")loadRoute("wifi");
+  if(k==="4")loadRoute("core");
+  if(k==="5")loadRoute("noc");
+  if(k==="6")loadRoute("master");
+  if(k==="f")setLayout("focus");
+  if(k==="w")setLayout("wall");
+  if(k==="n")setLayout("normal");
+  if(k==="r")reloadFrame();
+});
+function loop(){
+  $("clock").textContent=new Date().toLocaleTimeString();
+  const j=Math.sin(Date.now()/900);
+  $("snr").textContent=(43+j*2).toFixed(1)+" dB";
+  $("evm").textContent=(1.3+Math.abs(j)*0.4).toFixed(1)+"%";
+  $("gate").textContent="PASS";
+  requestAnimationFrame(loop);
+}
+renderRoutes();
+log("unified standalone shell online · no injection into stable pages");
+loop();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="microwave" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · MICROWAVE</div>
+      <div class="trfmc-perfection-sub">TRFMC Unified Instrument Shell Lab V1<br>/trfmc_unified_instrument_shell_lab_v1.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>49/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>microwave-dish</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="TRFMC MICROWAVE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, fade margin, band)
+Capacity ≈ B·log2(1+SNR)·rank</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="microwave"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC V6R2 Premium Instrument Console</title>
+<style>
+:root{
+  --bg:#01060d;--p:#061120;--p2:#081522;--line:#1d6f9f;--line2:#00d9ff;
+  --text:#eaf3ff;--muted:#86a7c6;--green:#7dff4f;--yellow:#ffd500;--red:#ff3366;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:
+radial-gradient(circle at 60% 0,rgba(0,217,255,.14),transparent 38%),
+linear-gradient(180deg,#01060d,#020814);color:var(--text);font:12px Segoe UI,system-ui,sans-serif}
+header{height:62px;background:#050b13;border-bottom:1px solid var(--line);display:grid;grid-template-columns:330px 1fr 520px;gap:8px;align-items:center;padding:0 10px}
+h1{margin:0;font-size:18px;letter-spacing:.08em;text-transform:uppercase}
+.sub{color:var(--muted);font-size:11px}
+.telemetry{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
+.cell{border:1px solid #245b7d;background:linear-gradient(180deg,#09223a,#06111f);border-radius:5px;padding:5px;min-width:0}
+.cell span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}
+.cell b{display:block;color:var(--green);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+button,a.btn{background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:6px 8px;text-decoration:none;cursor:pointer;font-size:10px;text-transform:uppercase}
+button:hover,a.btn:hover{border-color:var(--line2);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+.actions{display:flex;gap:5px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+main{height:calc(100vh - 62px);display:grid;grid-template-columns:315px 1fr 340px;gap:6px;padding:6px}
+aside,.stage,.dock{border:1px solid var(--line);background:linear-gradient(180deg,#061321,#02070f);border-radius:7px;overflow:hidden}
+.title{background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--line2);font-weight:700;padding:7px 8px;text-transform:uppercase;font-size:11px}
+.body{padding:7px}
+.module{border:1px solid #214a68;background:#081522;border-radius:6px;margin-bottom:6px;padding:8px;cursor:pointer;display:grid;grid-template-columns:42px 1fr;gap:8px;align-items:center}
+.module:hover,.module.active{border-color:var(--yellow);background:#10233a;box-shadow:inset 4px 0 0 var(--yellow)}
+.ico{height:38px;border:1px solid #285d82;border-radius:5px;display:grid;place-items:center;color:var(--line2);font-size:20px;background:#04111e}
+.module b{display:block;color:var(--green);font-size:12px;text-transform:uppercase}
+.module span{display:block;color:var(--muted);font-size:10px;line-height:1.25}
+.stage{display:grid;grid-template-rows:42px 1fr}
+.stagebar{height:42px;background:#071524;border-bottom:1px solid #1d5e86;display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 8px;gap:8px}
+.stagebar b{color:var(--line2);font-size:13px;text-transform:uppercase}
+.stagebar code{color:var(--muted);font-size:10px}
+iframe{width:100%;height:100%;border:0;background:#02070f;display:block}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);padding:5px 0;font:11px Consolas,monospace}
+.kv b{color:var(--green)}
+.log{height:300px;overflow:auto;border:1px solid #183d58;background:#01060d;border-radius:5px;padding:6px;font:11px Consolas,monospace}
+.log div{border-bottom:1px solid rgba(255,255,255,.06);padding:3px 0;color:#cde7ff}
+.badge{display:inline-block;border:1px solid rgba(125,255,79,.42);color:var(--green);padding:3px 6px;border-radius:4px;font:10px Consolas,monospace;margin:2px}
+body.focus header,body.focus aside,body.focus .dock{display:none}
+body.focus main{height:100vh;grid-template-columns:1fr;padding:0}
+body.focus .stage{border-radius:0;border:0}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>TRFMC V6R2 Premium Console</h1>
+    <div class="sub">Single-port portal 5173 · leaf modules · RF/Telco/Cyber instrumentation console</div>
+  </div>
+  <div class="telemetry">
+    <div class="cell"><span>Port</span><b>5173</b></div>
+    <div class="cell"><span>Gate</span><b>PASS</b></div>
+    <div class="cell"><span>Nested</span><b>ZERO</b></div>
+    <div class="cell"><span>External</span><b>ZERO</b></div>
+    <div class="cell"><span>Core</span><b>Open5GS</b></div>
+    <div class="cell"><span>RAN</span><b>UERANSIM</b></div>
+    <div class="cell"><span>RF</span><b>ACTIVE</b></div>
+    <div class="cell"><span>Clock</span><b id="clk">16:45:01</b></div>
+  </div>
+  <div class="actions">
+    <button onclick="layout('normal')">Normal</button>
+    <button onclick="layout('focus')">Focus</button>
+    <button onclick="health()">Health</button>
+    <button onclick="reloadFrame()">Reload</button>
+    <a class="btn" href="/trfmc_portal_link_graph_v1.html">Graph</a>
+    <a class="btn" href="/trfmc_official_safe_entrypoint_v6r1_flat.html">V6R1</a>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="title">Instrument Modules</div>
+    <div class="body" id="mods">
+    <div class="module active" onclick="load('rfwall')">
+      <div class="ico">▧</div>
+      <div><b>RF/Antenna Academy Wall</b><span>thermal noise · gain · RFID · Vivaldi · metasurface · Wi-Fi · site twin</span></div>
+    </div>
+    <div class="module " onclick="load('antenna')">
+      <div class="ico">⌁</div>
+      <div><b>Antenna System Explorer</b><span>RRU/BBU · RET/AISG · MIMO · VSWR · EIRP · coverage</span></div>
+    </div>
+    <div class="module " onclick="load('dsp')">
+      <div class="ico">∿</div>
+      <div><b>DSP Measurement Chain</b><span>receiver · LNA · mixer · IF · RBW/VBW · detector · FFT</span></div>
+    </div>
+    <div class="module " onclick="load('wifi')">
+      <div class="ico">≋</div>
+      <div><b>Wi-Fi/QAM Engine</b><span>Wi-Fi 5/6/6E/7/8 · OFDMA · MLO · 4096-QAM</span></div>
+    </div>
+    <div class="module " onclick="load('core')">
+      <div class="ico">5G</div>
+      <div><b>5G Core/RAN Identity</b><span>Open5GS · UERANSIM · SUPI/SUCI · IMSI · AKA · NGAP/PFCP/GTP-U</span></div>
+    </div>
+    <div class="module " onclick="load('noc')">
+      <div class="ico">N</div>
+      <div><b>Converged RF/5G NOC</b><span>RF · SDR · Core · evidence · alarms · operations</span></div>
+    </div>
+    <div class="module " onclick="load('war')">
+      <div class="ico">⚡</div>
+      <div><b>RF/TM War Room</b><span>signal universe · RF/TM · cyber RF intelligence · evidence</span></div>
+    </div>
+    <div class="module " onclick="load('master')">
+      <div class="ico">M</div>
+      <div><b>Master Console</b><span>portal master and legacy navigation</span></div>
+    </div></div>
+  </aside>
+
+  <section class="stage">
+    <div class="stagebar">
+      <div>
+        <b id="activeTitle">RF/Antenna Academy Wall</b><br>
+        <code id="activeUrl">/trfmc_rf_antenna_academy_wall_v2_premium.html</code>
+      </div>
+      <div>
+        <span class="badge">LEAF IFRAME</span>
+        <span class="badge">NO SHELL NESTING</span>
+      </div>
+    </div>
+    <iframe id="frame" src="/trfmc_rf_antenna_academy_wall_v2_premium.html"></iframe>
+  </section>
+
+  <aside class="dock">
+    <div class="title">Mission / Evidence</div>
+    <div class="body">
+      <div class="kv"><span>Active Module</span><b id="activeName">RF/Antenna</b></div>
+      <div class="kv"><span>Frame</span><b id="frameState">LOADED</b></div>
+      <div class="kv"><span>Policy</span><b>LEAF ONLY</b></div>
+      <div class="kv"><span>Storage Guard</span><b>MANUAL</b></div>
+
+      <div class="title" style="margin:8px -7px 6px">Quick Load</div>
+      <div class="grid2">
+        <button onclick="load('rfwall')">RF/Antenna</button>
+        <button onclick="load('antenna')">Antenna</button>
+        <button onclick="load('dsp')">DSP</button>
+        <button onclick="load('wifi')">Wi-Fi/QAM</button>
+        <button onclick="load('core')">5G Core</button>
+        <button onclick="load('noc')">NOC</button>
+        <button onclick="load('war')">War Room</button>
+        <button onclick="load('master')">Master</button>
+      </div>
+
+      <div class="title" style="margin:8px -7px 6px">Event Stream</div>
+      <div class="log" id="log"><div>[16:44:56] /api/health → HTTP 200</div><div>[16:44:56] master → HTTP 200</div><div>[16:44:56] war → HTTP 200</div><div>[16:44:56] noc → HTTP 200</div><div>[16:44:56] core → HTTP 200</div><div>[16:44:56] wifi → HTTP 200</div><div>[16:44:56] dsp → HTTP 200</div><div>[16:44:56] antenna → HTTP 200</div><div>[16:44:56] rfwall → HTTP 200</div><div>[16:44:56] health started</div><div>[16:44:55] iframe loaded → RF/Antenna Academy Wall</div><div>[16:44:55] V6R2 Premium Console online</div></div>
+    </div>
+  </aside>
+</main>
+
+<script>
+const M={
+ rfwall:{icon:"▧",name:"RF/Antenna Academy Wall",desc:"thermal noise · gain · RFID · Vivaldi · metasurface · Wi-Fi · site twin",url:"/trfmc_rf_antenna_academy_wall_v2_premium.html"},
+ antenna:{icon:"⌁",name:"Antenna System Explorer",desc:"RRU/BBU · RET/AISG · MIMO · VSWR · EIRP · coverage",url:"/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html"},
+ dsp:{icon:"∿",name:"DSP Measurement Chain",desc:"receiver · LNA · mixer · IF · RBW/VBW · detector · FFT",url:"/trfmc_measurement_chain_dsp_engine_v3.html"},
+ wifi:{icon:"≋",name:"Wi-Fi/QAM Engine",desc:"Wi-Fi 5/6/6E/7/8 · OFDMA · MLO · 4096-QAM",url:"/trfmc_wifi_5_6_7_8_qam_engine_v1.html"},
+ core:{icon:"5G",name:"5G Core/RAN Identity",desc:"Open5GS · UERANSIM · SUPI/SUCI · IMSI · AKA · NGAP/PFCP/GTP-U",url:"/trfmc_5g_core_ran_identity_aka_engine_v1.html"},
+ noc:{icon:"N",name:"Converged RF/5G NOC",desc:"RF · SDR · Core · evidence · alarms · operations",url:"/trfmc_converged_rf_5g_noc_v1.html"},
+ war:{icon:"⚡",name:"RF/TM War Room",desc:"signal universe · RF/TM · cyber RF intelligence · evidence",url:"/trfmc_rf_tm_war_room_v4.html"},
+ master:{icon:"M",name:"Master Console",desc:"portal master and legacy navigation",url:"/trfmc_master_console_v4.html"}
+};
+let active="rfwall";
+function $(x){return document.getElementById(x)}
+function log(m){const d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+m;$("log").prepend(d);while($("log").children.length>90)$("log").removeChild($("log").lastChild)}
+function render(){
+  $("mods").innerHTML=Object.entries(M).map(([k,m])=>`
+    <div class="module ${k===active?'active':''}" onclick="load('${k}')">
+      <div class="ico">${m.icon}</div>
+      <div><b>${m.name}</b><span>${m.desc}</span></div>
+    </div>`).join("");
+}
+function load(k){
+  if(!M[k])return;
+  active=k;const m=M[k];
+  $("frame").src=m.url;
+  $("activeTitle").textContent=m.name;
+  $("activeUrl").textContent=m.url;
+  $("activeName").textContent=m.name;
+  $("frameState").textContent="LOADING";
+  render();log("loaded leaf module → "+m.name);
+}
+$("frame").addEventListener("load",()=>{$("frameState").textContent="LOADED";log("iframe loaded → "+M[active].name)});
+function reloadFrame(){$("frame").contentWindow.location.reload();log("reload active frame")}
+function layout(m){document.body.classList.toggle("focus",m==="focus");log("layout → "+m)}
+async function health(){
+  log("health started");
+  for(const [k,m] of Object.entries(M)){
+    try{const r=await fetch(m.url,{method:"HEAD",cache:"no-store"});log(k+" → HTTP "+r.status)}
+    catch(e){log(k+" → ERR")}
+  }
+  try{const r=await fetch("/api/health",{cache:"no-store"});log("/api/health → HTTP "+r.status)}
+  catch(e){log("/api/health → ERR")}
+}
+setInterval(()=>$("clk").textContent=new Date().toLocaleTimeString(),1000);
+render();log("V6R2 Premium Console online");setTimeout(health,500);
+</script>
+
+
+</body></html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Unified Instrument Shell Lab V2</title>
+<style>
+:root{
+  --bg:#02070f;--panel:#061120;--panel2:#0a1828;--line:#1d6f9f;
+  --text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;
+  --yellow:#ffd500;--red:#ff3366;--blue:#268cff;--purple:#c66bff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#01060d;color:var(--text);font:12px Inter,Segoe UI,system-ui,sans-serif;overflow:hidden}
+header{
+  height:54px;background:#050b13;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 12px;
+}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+.sub{color:var(--muted);font-size:11px}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+button,a{
+  color:var(--text);background:#10233a;border:1px solid #285d82;
+  border-radius:4px;padding:6px 9px;text-decoration:none;cursor:pointer;font-size:11px;
+}
+button:hover,a:hover{border-color:var(--cyan);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+button.active{border-color:var(--yellow);box-shadow:inset 3px 0 0 var(--yellow);background:#14334b}
+.led{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.top{
+  height:78px;display:grid;grid-template-columns:230px repeat(11,1fr) 310px;gap:5px;padding:6px;
+  background:linear-gradient(90deg,#061120,#0a1828,#061120);
+  border-bottom:1px solid rgba(0,217,255,.45);
+}
+.cell,.id,.actions{
+  border:1px solid rgba(36,91,125,.95);background:linear-gradient(180deg,#09223a,#06111f);
+  border-radius:5px;padding:6px;min-width:0;position:relative;overflow:hidden;
+}
+.cell span,.id span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.04em}
+.cell b,.id b{display:block;color:var(--text);font-size:15px;line-height:1.12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.id b{color:var(--cyan)}
+.cell em,.id em{display:block;color:var(--green);font-style:normal;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:5px}
+.actions button{padding:4px 5px;text-align:center}
+main{
+  height:calc(100vh - 132px);
+  display:grid;grid-template-columns:270px 1fr 360px;gap:6px;padding:6px;
+}
+aside,.dock{
+  background:linear-gradient(180deg,#071524,#02070f);
+  border:1px solid #1d5e86;border-radius:6px;overflow:hidden;
+}
+.title{
+  background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);
+  font-weight:700;padding:7px 8px;text-transform:uppercase;
+}
+.body{padding:7px}
+.route{
+  border:1px solid #183d58;background:#081522;border-radius:5px;margin-bottom:6px;padding:8px;cursor:pointer;
+}
+.route:hover,.route.active{border-color:var(--yellow);box-shadow:inset 3px 0 0 var(--yellow);background:#10233a}
+.route b{display:block;color:var(--green);font-size:12px}
+.route span{display:block;color:var(--muted);font-size:10px;margin-top:2px;line-height:1.25}
+.route small{display:inline-block;margin-top:4px;color:#cde7ff;font-family:ui-monospace,monospace}
+.route .ok{color:var(--green)}.route .bad{color:var(--red)}.route .unk{color:var(--yellow)}
+.stage{
+  border:1px solid #1d5e86;border-radius:6px;overflow:hidden;background:#02070f;position:relative;
+  display:grid;grid-template-rows:34px 1fr;
+}
+.stagebar{
+  height:34px;background:#071524;border-bottom:1px solid #1d5e86;display:flex;align-items:center;justify-content:space-between;padding:0 8px;
+}
+.stagebar b{color:var(--cyan)}
+.stagebar span{color:var(--muted);font-family:ui-monospace,monospace;font-size:11px}
+.framegrid{height:100%;display:grid;grid-template-columns:1fr;gap:4px;padding:4px}
+.framegrid.split{grid-template-columns:1fr 1fr}
+.framebox{border:1px solid rgba(36,91,125,.8);border-radius:5px;overflow:hidden;display:grid;grid-template-rows:24px 1fr;background:#01060d}
+.framecaption{background:#061120;border-bottom:1px solid rgba(36,91,125,.8);padding:4px 7px;font-family:ui-monospace,monospace;font-size:10px;color:#cde7ff}
+iframe{width:100%;height:100%;border:0;background:#02070f;display:block}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);padding:5px 0;font-family:ui-monospace,monospace;font-size:11px}
+.kv span{color:#cde7ff}.kv b{color:var(--green)}
+.cmd{display:grid;grid-template-columns:1fr auto;gap:5px;margin:7px 0}
+.cmd input{background:#02070f;border:1px solid #285d82;color:var(--text);border-radius:4px;padding:7px;font-family:ui-monospace,monospace}
+.log{height:230px;overflow:auto;border:1px solid #183d58;background:#02070f;border-radius:5px;padding:6px;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid rgba(255,255,255,.06);padding:3px 0;color:#cde7ff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.grid2 button{margin:0;text-align:center}
+.badge{
+  position:absolute;right:10px;bottom:10px;z-index:5;border:1px solid rgba(125,255,79,.45);
+  color:var(--green);background:rgba(3,10,18,.8);border-radius:5px;padding:5px 8px;font:11px ui-monospace,monospace;
+}
+.miniwave{position:absolute;left:10px;right:10px;bottom:3px;height:16px;opacity:.6;pointer-events:none}
+body.focus header,body.focus aside,body.focus .dock,body.focus .top{display:none}
+body.focus main{height:100vh;display:block;padding:4px}
+body.focus .stage{height:100%}
+body.focus .framegrid{height:calc(100vh - 34px)}
+body.wall main{grid-template-columns:0 1fr 390px}
+body.wall aside{display:none}
+body.clean .top{display:none}
+body.clean main{height:calc(100vh - 54px)}
+body.kiosk header,body.kiosk aside,body.kiosk .dock,body.kiosk .top{display:none}
+body.kiosk main{height:100vh;display:block;padding:0}
+body.kiosk .stage{height:100%;border-radius:0;border:0}
+body.kiosk .framegrid{height:calc(100vh - 34px)}
+@media(max-width:1500px){
+  .top{grid-template-columns:210px repeat(6,1fr) 250px}
+  .cell:nth-of-type(n+8){display:none}
+}
+@media(max-width:1150px){
+  body{overflow:auto}
+  .top{grid-template-columns:1fr 1fr}
+  main{grid-template-columns:1fr;height:auto}
+  .stage{height:780px}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <div>
+    <h1>TRFMC Unified Instrument Shell Lab V2</h1>
+    <div class="sub">Standalone wrapper · zero reiniezione CSS/JS nelle pagine stabili · dual workspace · health · state guard</div>
+  </div>
+  <nav>
+    <button onclick="setLayout('normal')">Normal</button>
+    <button onclick="setLayout('focus')">Focus</button>
+    <button onclick="setLayout('wall')">Wall</button>
+    <button onclick="setLayout('kiosk')">Kiosk</button>
+    <button onclick="toggleSplit()">Split</button>
+    <button onclick="toggleClean()">Clean</button>
+    <button onclick="preflight()">Health</button>
+    <button onclick="resetBrokenStorage()">Reset State</button>
+    <span class="led"></span>
+    <span id="clock">--:--:--</span>
+  </nav>
+</header>
+
+<section class="top">
+  <div class="id"><span>Instrument Workspace</span><b id="dom">ANTENNA</b><em id="sub">RRU/BBU · RET/AISG · MIMO</em></div>
+  <div class="cell"><span>Center</span><b id="center">3.500 GHz</b><em>carrier</em></div>
+  <div class="cell"><span>Span/BW</span><b id="span">100 MHz</b><em>analysis bandwidth</em></div>
+  <div class="cell"><span>RBW</span><b id="rbw">100 kHz</b><em>resolution</em></div>
+  <div class="cell"><span>VBW</span><b id="vbw">33 kHz</b><em>smoothing</em></div>
+  <div class="cell"><span>Reference</span><b id="ref">-10 dBm</b><em>display ref</em></div>
+  <div class="cell"><span>Sync</span><b id="sync">LOCKED</b><em>10 MHz REF</em></div>
+  <div class="cell"><span>Modulation</span><b id="mod">n78 / TDD</b><em>test model</em></div>
+  <div class="cell"><span>SNR</span><b id="snr">43.7 dB</b><em>proxy</em></div>
+  <div class="cell"><span>EVM</span><b id="evm">1.5%</b><em>vector error</em></div>
+  <div class="cell"><span>Gate</span><b id="gate">PASS</b><em>quality</em></div>
+  <div class="cell"><span>Port</span><b>5173</b><em>single-port portal</em></div>
+  <div class="actions">
+    <button onclick="loadRoute('antenna')">Antenna</button>
+    <button onclick="loadRoute('dsp')">DSP</button>
+    <button onclick="loadRoute('wifi')">Wi-Fi</button>
+    <button onclick="loadRoute('core')">5G Core</button>
+    <button onclick="loadRoute('noc')">NOC</button>
+    <button onclick="loadRoute('war')">War</button>
+    <button onclick="loadRoute('master')">Master</button>
+    <button onclick="openStandalone()">Open</button>
+  </div>
+  <canvas id="mini" class="miniwave" width="900" height="20"></canvas>
+</section>
+
+<main>
+  <aside>
+    <div class="title">Whitelisted Workspaces</div>
+    <div class="body" id="routes"></div>
+  </aside>
+
+  <section class="stage">
+    <div class="stagebar">
+      <b id="stageTitle">Antenna System Explorer · Stable Clean</b>
+      <span id="stageUrl">/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</span>
+    </div>
+    <div class="framegrid" id="framegrid">
+      <div class="framebox">
+        <div class="framecaption" id="cap1">PRIMARY · ANTENNA</div>
+        <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</div></div>
+      </div>
+      <div class="framebox" id="secondBox" style="display:none">
+        <div class="framecaption" id="cap2">SECONDARY · DSP</div>
+        <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_measurement_chain_dsp_engine_v3.html</div></div>
+      </div>
+    </div>
+    <div class="badge" id="badge">STANDALONE SAFE WRAPPER</div>
+  </section>
+
+  <section class="dock">
+    <div class="title">Shell Control / Evidence</div>
+    <div class="body">
+      <div class="kv"><span>Layout</span><b id="mode">NORMAL</b></div>
+      <div class="kv"><span>Primary Frame</span><b id="f1state">LOADED</b></div>
+      <div class="kv"><span>Secondary Frame</span><b id="f2state">IDLE</b></div>
+      <div class="kv"><span>Split</span><b id="splitstate">OFF</b></div>
+      <div class="kv"><span>Injection</span><b>DISABLED</b></div>
+      <div class="kv"><span>Storage Guard</span><b>MANUAL ONLY</b></div>
+
+      <div class="cmd">
+        <input id="cmd" value="LOAD:ANTENNA">
+        <button onclick="execCmd()">EXEC</button>
+      </div>
+
+      <div class="grid2">
+        <button onclick="loadRoute('antenna')">Load Antenna</button>
+        <button onclick="loadRoute('dsp')">Load DSP</button>
+        <button onclick="loadRoute('wifi')">Load Wi-Fi/QAM</button>
+        <button onclick="loadRoute('core')">Load 5G Core</button>
+        <button onclick="loadRoute('noc')">Load NOC</button>
+        <button onclick="loadRoute('master')">Load Master</button>
+        <button onclick="setSecondary('dsp')">Secondary DSP</button>
+        <button onclick="setSecondary('core')">Secondary Core</button>
+        <button onclick="postPing()">postMessage Ping</button>
+        <button onclick="reloadFrames()">Reload Frames</button>
+        <button onclick="exportState()">Export State</button>
+        <button onclick="resetBrokenStorage()">Reset Broken Keys</button>
+      </div>
+
+      <div class="title" style="margin:8px -7px 6px">Event Stream</div>
+      <div class="log" id="log"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const routes = {
+  antenna:{
+    title:"Antenna System Explorer · Stable Clean",
+    url:"/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html",
+    domain:"ANTENNA", sub:"RRU/BBU · RET/AISG · MIMO", center:"3.500 GHz", span:"100 MHz", rbw:"100 kHz", vbw:"33 kHz", mod:"n78 / TDD", ref:"-10 dBm"
+  },
+  dsp:{
+    title:"Measurement Chain DSP Engine",
+    url:"/trfmc_measurement_chain_dsp_engine_v3.html",
+    domain:"DSP", sub:"Receiver · IF · RBW/VBW · FFT", center:"1.000 GHz", span:"20 MHz", rbw:"100 kHz", vbw:"30 kHz", mod:"Peak / Hann", ref:"-60 dBm"
+  },
+  wifi:{
+    title:"Wi-Fi 5/6/7/8 QAM Engine",
+    url:"/trfmc_wifi_5_6_7_8_qam_engine_v1.html",
+    domain:"WIFI/QAM", sub:"802.11ax/be/bn · OFDMA · 4096-QAM", center:"5.975 GHz", span:"320 MHz", rbw:"1 MHz", vbw:"300 kHz", mod:"4096-QAM", ref:"-30 dBm"
+  },
+  core:{
+    title:"5G Core/RAN Identity AKA Engine",
+    url:"/trfmc_5g_core_ran_identity_aka_engine_v1.html",
+    domain:"5G CORE", sub:"Open5GS · UERANSIM · SUPI/SUCI · AKA", center:"3.500 GHz", span:"100 MHz", rbw:"Protocol", vbw:"NAS/NGAP", mod:"5G-AKA", ref:"LAB"
+  },
+  noc:{
+    title:"Converged RF/5G NOC",
+    url:"/trfmc_converged_rf_5g_noc_v1.html",
+    domain:"NOC", sub:"RF · SDR · Core · Evidence", center:"MULTI", span:"LAB", rbw:"OPS", vbw:"LIVE", mod:"Mixed", ref:"OPS"
+  },
+  war:{
+    title:"RF/TM War Room",
+    url:"/trfmc_rf_tm_war_room_v4.html",
+    domain:"RF/TM", sub:"War Room · Evidence · Signals", center:"MULTI", span:"TACTICAL", rbw:"EVID", vbw:"LIVE", mod:"Scenario", ref:"OPS"
+  },
+  master:{
+    title:"Master Console",
+    url:"/trfmc_master_console_v4.html",
+    domain:"MASTER", sub:"TRFMC Mission Control", center:"PORTAL", span:"5173", rbw:"READY", vbw:"READY", mod:"Mission", ref:"CTRL"
+  }
+};
+
+let active = "antenna";
+let secondary = "dsp";
+let split = false;
+const health = {};
+
+function $(id){return document.getElementById(id)}
+function log(m){
+  const d=document.createElement("div");
+  d.textContent="["+new Date().toLocaleTimeString()+"] "+m;
+  $("log").prepend(d);
+  while($("log").children.length>70) $("log").removeChild($("log").lastChild);
+}
+function renderRoutes(){
+  const box=$("routes");
+  box.innerHTML="";
+  Object.entries(routes).forEach(([k,r])=>{
+    const h = health[k];
+    const cls = h===200 ? "ok" : h ? "bad" : "unk";
+    const label = h===200 ? "HTTP 200" : h ? "HTTP "+h : "not checked";
+    const div=document.createElement("div");
+    div.className="route"+(k===active?" active":"");
+    div.onclick=()=>loadRoute(k);
+    div.innerHTML="<b>"+r.domain+"</b><span>"+r.title+"</span><span>"+r.url+"</span><small class='"+cls+"'>"+label+"</small>";
+    box.appendChild(div);
+  });
+}
+function applyTelemetry(r){
+  $("dom").textContent=r.domain;
+  $("sub").textContent=r.sub;
+  $("center").textContent=r.center;
+  $("span").textContent=r.span;
+  $("rbw").textContent=r.rbw;
+  $("vbw").textContent=r.vbw;
+  $("mod").textContent=r.mod;
+  $("ref").textContent=r.ref;
+}
+function loadRoute(k){
+  if(!routes[k]) return log("blocked non-whitelisted route → "+k);
+  active=k;
+  const r=routes[k];
+  $("frame1").src=r.url;
+  $("stageTitle").textContent=r.title;
+  $("stageUrl").textContent=r.url;
+  $("cap1").textContent="PRIMARY · "+r.domain;
+  $("f1state").textContent="LOADING";
+  applyTelemetry(r);
+  renderRoutes();
+  log("primary loaded → "+r.domain+" · "+r.url);
+}
+function setSecondary(k){
+  if(!routes[k]) return log("blocked secondary route → "+k);
+  secondary=k;
+  const r=routes[k];
+  $("frame2").src=r.url;
+  $("cap2").textContent="SECONDARY · "+r.domain;
+  $("f2state").textContent="LOADING";
+  if(!split) toggleSplit();
+  log("secondary loaded → "+r.domain+" · "+r.url);
+}
+$("frame1").addEventListener("load",()=>{$("f1state").textContent="LOADED";log("primary iframe loaded → "+routes[active].title)});
+$("frame2").addEventListener("load",()=>{$("f2state").textContent=split?"LOADED":"IDLE";log("secondary iframe loaded → "+routes[secondary].title)});
+
+function setLayout(mode){
+  document.body.classList.remove("focus","wall","kiosk");
+  if(mode==="focus") document.body.classList.add("focus");
+  if(mode==="wall") document.body.classList.add("wall");
+  if(mode==="kiosk") document.body.classList.add("kiosk");
+  $("mode").textContent=mode.toUpperCase();
+  log("layout → "+mode.toUpperCase());
+}
+function toggleClean(){
+  document.body.classList.toggle("clean");
+  log(document.body.classList.contains("clean")?"top strip hidden":"top strip visible");
+}
+function toggleSplit(){
+  split=!split;
+  $("secondBox").style.display=split?"grid":"none";
+  $("framegrid").classList.toggle("split",split);
+  $("splitstate").textContent=split?"ON":"OFF";
+  $("f2state").textContent=split?"LOADED":"IDLE";
+  log(split?"split workspace enabled":"split workspace disabled");
+}
+function reloadFrames(){
+  $("frame1").contentWindow.location.reload();
+  if(split) $("frame2").contentWindow.location.reload();
+  log("reload requested for active frame(s)");
+}
+function openStandalone(){
+  window.open(routes[active].url,"_blank");
+  log("opened standalone → "+routes[active].url);
+}
+function resetBrokenStorage(){
+  const keys=[
+    "trfmc_global_instrument_shell_v1",
+    "trfmc_global_top_telemetry_v2",
+    "trfmc_v17_layout_mode",
+    "trfmc_antenna_v17_layout_mode"
+  ];
+  keys.forEach(k=>localStorage.removeItem(k));
+  log("removed broken experimental localStorage keys");
+}
+async function preflight(){
+  log("preflight started");
+  for(const [k,r] of Object.entries(routes)){
+    try{
+      const res=await fetch(r.url,{method:"HEAD",cache:"no-store"});
+      health[k]=res.status;
+      log("health "+k+" → HTTP "+res.status);
+    }catch(e){
+      health[k]="ERR";
+      log("health "+k+" → ERR");
+    }
+  }
+  try{
+    const res=await fetch("/api/health",{cache:"no-store"});
+    log("/api/health → HTTP "+res.status);
+  }catch(e){
+    log("/api/health → ERR");
+  }
+  renderRoutes();
+}
+function postPing(){
+  const msg={type:"TRFMC_PARENT_PING",ts:new Date().toISOString(),route:active};
+  $("frame1").contentWindow.postMessage(msg,location.origin);
+  if(split) $("frame2").contentWindow.postMessage(msg,location.origin);
+  log("postMessage ping sent to iframe(s)");
+}
+window.addEventListener("message",ev=>{
+  if(ev.origin!==location.origin) return;
+  log("postMessage received ← "+JSON.stringify(ev.data).slice(0,120));
+});
+function exportState(){
+  const data={ts:new Date().toISOString(),active,secondary,split,route:routes[active],secondaryRoute:routes[secondary],layout:$("mode").textContent,health};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="trfmc_unified_shell_v2_state_"+new Date().toISOString().replace(/[:.]/g,"-")+".json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  log("shell state exported");
+}
+function execCmd(){
+  const c=$("cmd").value.trim().toUpperCase();
+  if(c.includes("ANTENNA")) loadRoute("antenna");
+  else if(c.includes("DSP")) loadRoute("dsp");
+  else if(c.includes("WIFI") || c.includes("QAM")) loadRoute("wifi");
+  else if(c.includes("CORE") || c.includes("AKA")) loadRoute("core");
+  else if(c.includes("NOC")) loadRoute("noc");
+  else if(c.includes("WAR")) loadRoute("war");
+  else if(c.includes("MASTER")) loadRoute("master");
+  else if(c.includes("FOCUS")) setLayout("focus");
+  else if(c.includes("WALL")) setLayout("wall");
+  else if(c.includes("KIOSK")) setLayout("kiosk");
+  else if(c.includes("NORMAL")) setLayout("normal");
+  else if(c.includes("SPLIT")) toggleSplit();
+  else if(c.includes("HEALTH")) preflight();
+  else if(c.includes("RESET")) resetBrokenStorage();
+  else if(c.includes("PING")) postPing();
+  else log("unknown command → "+c);
+}
+window.addEventListener("keydown",ev=>{
+  if(["INPUT","TEXTAREA","SELECT"].includes(ev.target.tagName)) return;
+  const k=ev.key.toLowerCase();
+  if(k==="1")loadRoute("antenna");
+  if(k==="2")loadRoute("dsp");
+  if(k==="3")loadRoute("wifi");
+  if(k==="4")loadRoute("core");
+  if(k==="5")loadRoute("noc");
+  if(k==="6")loadRoute("war");
+  if(k==="7")loadRoute("master");
+  if(k==="s")toggleSplit();
+  if(k==="f")setLayout("focus");
+  if(k==="w")setLayout("wall");
+  if(k==="k")setLayout("kiosk");
+  if(k==="n")setLayout("normal");
+  if(k==="r")reloadFrames();
+  if(k==="h")preflight();
+});
+function drawMini(){
+  const c=$("mini"),x=c.getContext("2d"),w=c.width,h=c.height,t=Date.now()/50;
+  x.clearRect(0,0,w,h);
+  x.strokeStyle="rgba(125,255,79,.65)";
+  x.beginPath();
+  for(let i=0;i<w;i++){
+    const y=h/2+Math.sin((i+t)*.035)*5+Math.sin((i+t*.4)*.012)*3;
+    i?x.lineTo(i,y):x.moveTo(i,y);
+  }
+  x.stroke();
+}
+function loop(){
+  $("clock").textContent=new Date().toLocaleTimeString();
+  const j=Math.sin(Date.now()/900);
+  $("snr").textContent=(43+j*2).toFixed(1)+" dB";
+  $("evm").textContent=(1.3+Math.abs(j)*0.4).toFixed(1)+"%";
+  $("gate").textContent="PASS";
+  drawMini();
+  requestAnimationFrame(loop);
+}
+renderRoutes();
+log("unified standalone shell V2 online · no injection into stable pages");
+loop();
+setTimeout(preflight,600);
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="core" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · CORE</div>
+      <div class="trfmc-perfection-sub">TRFMC Unified Instrument Shell Lab V2<br>/trfmc_unified_instrument_shell_lab_v2.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>57/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>core-map</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="TRFMC CORE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP = gNB↔AMF control plane
+PFCP = SMF↔UPF session programming
+GTP-U = user-plane tunnel</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="core" width="609" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Unified Instrument Shell Lab V2</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

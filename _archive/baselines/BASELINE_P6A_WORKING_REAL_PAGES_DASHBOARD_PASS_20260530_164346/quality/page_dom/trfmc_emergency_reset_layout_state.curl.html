@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>TRFMC Emergency Reset Layout State</title>
+<style>
+body{margin:0;background:#02070f;color:#eaf3ff;font-family:Segoe UI,system-ui,sans-serif;display:grid;place-items:center;height:100vh}
+.box{border:1px solid #1d6f9f;background:#061120;border-radius:10px;padding:26px;max-width:760px}
+h1{color:#00d9ff;margin-top:0}
+code{color:#7dff4f}
+a{color:#ffd500}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>TRFMC Emergency Layout Reset</h1>
+<p>Rimuovo solo le chiavi layout/UI sperimentali da <code>localStorage</code>.</p>
+<pre id="out"></pre>
+<p>Tra pochi secondi apro la pagina stabile V1.6R2 Clean Dock.</p>
+<p><a href="/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html">Apri manualmente V1.6R2 Clean Dock</a></p>
+</div>
+<script>
+const keys = [
+  "trfmc_global_instrument_shell_v1",
+  "trfmc_global_top_telemetry_v2",
+  "trfmc_v17_layout_mode",
+  "trfmc_antenna_v17_layout_mode"
+];
+
+let out = [];
+for (const k of keys) {
+  try {
+    localStorage.removeItem(k);
+    out.push("REMOVED: " + k);
+  } catch(e) {
+    out.push("ERROR: " + k + " " + e);
+  }
+}
+
+document.getElementById("out").textContent = out.join("\n");
+
+setTimeout(() => {
+  location.href = "/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html";
+}, 1800);
+</script>
+</body>
+</html>

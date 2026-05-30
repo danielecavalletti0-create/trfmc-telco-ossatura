@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Orphan Consolidation Dossier V1</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<style>
+.dossier-grid{display:grid;grid-template-columns:390px 1fr;gap:8px;min-height:calc(100vh - 78px);padding:8px;position:relative;z-index:1}
+.dossier-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.dossier-kpi{border:1px solid rgba(0,229,255,.32);border-radius:9px;background:rgba(0,229,255,.05);padding:10px}
+.dossier-kpi small{display:block;color:#8fb8c8;text-transform:uppercase;font-size:10px}
+.dossier-kpi b{display:block;color:#75ff5b;font-size:20px}
+table{width:100%;border-collapse:collapse;font-family:ui-monospace,Consolas,monospace;font-size:10px}
+th,td{border-bottom:1px solid rgba(0,229,255,.18);padding:6px;text-align:left;vertical-align:top}
+th{color:#00e5ff;background:rgba(0,229,255,.06)}
+@media(max-width:1300px){.dossier-grid{grid-template-columns:1fr}.dossier-kpis{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC Orphan Consolidation Dossier V1</div>
+    <div class="leaf-sub">Dossier read-only per fusione controllata del debito storico</div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_orphan_triage_board_v1.html">Triage Board</a>
+    <a class="leaf-btn" href="/trfmc_orphan_quarantine_room_v1.html">Quarantine</a>
+    <a class="leaf-btn" href="/trfmc_change_control_policy_v1.html">Change Policy</a>
+    <a class="leaf-btn" href="/trfmc_post_promotion_control_center_v1.html">Governance</a>
+  </div>
+</header>
+
+<div class="dossier-grid">
+<aside class="leaf-panel">
+<h2>Consolidation</h2>
+<div class="leaf-card">
+<h3>Decisione</h3>
+<p><b>READ-ONLY DOSSIER</b></p>
+<p>Non modifica gli orphan e non modifica i target. Prepara solo il lavoro di fusione manuale.</p>
+</div>
+<div class="dossier-kpis">
+<div class="dossier-kpi"><small>Groups</small><b>7</b></div>
+<div class="dossier-kpi"><small>Orphan</small><b>23</b></div>
+<div class="dossier-kpi"><small>Mode</small><b>RO</b></div>
+</div>
+</aside>
+
+<main class="leaf-panel">
+<h2>Target dossiers</h2>
+
+<div class="leaf-card">
+<h3><a href="/trfmc_change_control_policy_v1.html">/trfmc_change_control_policy_v1.html</a></h3>
+<p>Orphan: <b>5</b> · Size: <b>55579</b> · Words estimate: <b>5602</b> · Target exists: <b>True</b></p>
+<p>Manual merge dossier: review sections, extract unique operational/theory material, then apply change-control.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>MERGE</td>
+<td><a href="/operational_backup_console_v21.html">/operational_backup_console_v21.html</a></td>
+<td>TRFMC v0.21 Operational Backup Control</td>
+<td>756</td>
+<td>Portare procedure operative dentro Change Control / governance.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/operator_handbook_console_v23.html">/operator_handbook_console_v23.html</a></td>
+<td>TRFMC v0.27 Operator Handbook Interactive Console</td>
+<td>1268</td>
+<td>Portare procedure operative dentro Change Control / governance.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/portal_index_v19.html">/portal_index_v19.html</a></td>
+<td>TRFMC v0.70A Unified Shell · TRFMC v0.30 Portal Index Golden Check Integration</td>
+<td>1840</td>
+<td>Portare procedure operative dentro Change Control / governance.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/restore_readiness_console_v22.html">/restore_readiness_console_v22.html</a></td>
+<td>TRFMC v0.22 Restore Readiness</td>
+<td>750</td>
+<td>Portare procedure operative dentro Change Control / governance.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/runtime_golden_check_console_v29.html">/runtime_golden_check_console_v29.html</a></td>
+<td>TRFMC v0.70A Unified Shell · TRFMC v0.29 Runtime Golden Check Console</td>
+<td>988</td>
+<td>Portare procedure operative dentro Change Control / governance.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="leaf-card">
+<h3><a href="/trfmc_datacenter_power_pdu_infrastructure_v1.html">/trfmc_datacenter_power_pdu_infrastructure_v1.html</a></h3>
+<p>Orphan: <b>1</b> · Size: <b>5556</b> · Words estimate: <b>223</b> · Target exists: <b>True</b></p>
+<p>Manual merge dossier: review sections, extract unique operational/theory material, then apply change-control.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>MERGE</td>
+<td><a href="/infrastructure_digital_twin_v63.html">/infrastructure_digital_twin_v63.html</a></td>
+<td>TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade</td>
+<td>223</td>
+<td>Valutare fusione con Data Center / infrastruttura.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="leaf-card">
+<h3><a href="/trfmc_master_digital_twin_console_v1.html">/trfmc_master_digital_twin_console_v1.html</a></h3>
+<p>Orphan: <b>5</b> · Size: <b>98554</b> · Words estimate: <b>7839</b> · Target exists: <b>True</b></p>
+<p>Manual merge dossier: review sections, extract unique operational/theory material, then apply change-control.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>MERGE</td>
+<td><a href="/executive_mission_dashboard_v40.html">/executive_mission_dashboard_v40.html</a></td>
+<td>TRFMC v0.40 Executive Mission Dashboard</td>
+<td>2741</td>
+<td>Integrare come scenario/mission layer nel Digital Twin principale.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/executive_mission_dashboard_v_next.html">/executive_mission_dashboard_v_next.html</a></td>
+<td>TRFMC v0.70A Unified Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer</td>
+<td>394</td>
+<td>Integrare come scenario/mission layer nel Digital Twin principale.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/global_mission_scenario_launcher_v39.html">/global_mission_scenario_launcher_v39.html</a></td>
+<td>TRFMC v0.39 Global Mission Scenario Launcher</td>
+<td>1878</td>
+<td>Integrare come scenario/mission layer nel Digital Twin principale.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/mission_graph_console_v15.html">/mission_graph_console_v15.html</a></td>
+<td>TRFMC v0.15 Correlation Engine &amp; Mission Graph</td>
+<td>1161</td>
+<td>Integrare come scenario/mission layer nel Digital Twin principale.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/network_journey_world_map_v37.html">/network_journey_world_map_v37.html</a></td>
+<td>TRFMC v0.37 Network Journey World Map</td>
+<td>1665</td>
+<td>Integrare come scenario/mission layer nel Digital Twin principale.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="leaf-card">
+<h3><a href="/trfmc_rf_spectrum_lab_v1.html">/trfmc_rf_spectrum_lab_v1.html</a></h3>
+<p>Orphan: <b>4</b> · Size: <b>47973</b> · Words estimate: <b>4840</b> · Target exists: <b>True</b></p>
+<p>Manual merge dossier: review sections, extract unique operational/theory material, then apply change-control.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>REBUILD_AS_LEAF</td>
+<td><a href="/signal_demod_v581.html">/signal_demod_v581.html</a></td>
+<td>RF PRO v5.8.1 · IQ Analysis &amp; Demod PRO</td>
+<td>892</td>
+<td>Recuperare contenuto RF PRO utile dentro RF Spectrum / FFT / IQ pipeline.</td>
+</tr>
+
+<tr>
+<td>REBUILD_AS_LEAF</td>
+<td><a href="/signal_workbench_v580.html">/signal_workbench_v580.html</a></td>
+<td>RF PRO v5.8.0 · Signal Workbench</td>
+<td>1503</td>
+<td>Recuperare contenuto RF PRO utile dentro RF Spectrum / FFT / IQ pipeline.</td>
+</tr>
+
+<tr>
+<td>REBUILD_AS_LEAF</td>
+<td><a href="/signal_workbench_v582.html">/signal_workbench_v582.html</a></td>
+<td>RF PRO v5.8.2 · Signal Workbench Restored</td>
+<td>1477</td>
+<td>Recuperare contenuto RF PRO utile dentro RF Spectrum / FFT / IQ pipeline.</td>
+</tr>
+
+<tr>
+<td>REBUILD_AS_LEAF</td>
+<td><a href="/uav_fhss_v584.html">/uav_fhss_v584.html</a></td>
+<td>RF PRO v5.8.4 · UAV FHSS / Burst</td>
+<td>968</td>
+<td>Recuperare contenuto RF PRO utile dentro RF Spectrum / FFT / IQ pipeline.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="leaf-card">
+<h3><a href="/trfmc_theory_spine_v86e.html">/trfmc_theory_spine_v86e.html</a></h3>
+<p>Orphan: <b>1</b> · Size: <b>7521</b> · Words estimate: <b>495</b> · Target exists: <b>True</b></p>
+<p>Manual merge dossier: review sections, extract unique operational/theory material, then apply change-control.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>MERGE</td>
+<td><a href="/sapienza_master_template_doctrine_v85a.html">/sapienza_master_template_doctrine_v85a.html</a></td>
+<td>TRFMC v0.85A · Sapienza Master Template Doctrine</td>
+<td>495</td>
+<td>Consolidare come knowledge/theory doctrine.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="leaf-card">
+<h3><a href="/trfmc_unified_evidence_supervisor_v4.html">/trfmc_unified_evidence_supervisor_v4.html</a></h3>
+<p>Orphan: <b>5</b> · Size: <b>43129</b> · Words estimate: <b>4102</b> · Target exists: <b>True</b></p>
+<p>Manual merge dossier: review sections, extract unique operational/theory material, then apply change-control.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>MERGE</td>
+<td><a href="/evidence_vault_console_v20.html">/evidence_vault_console_v20.html</a></td>
+<td>TRFMC v0.20 Evidence Vault</td>
+<td>830</td>
+<td>Convergere nel dominio Cyber Evidence / timeline / reportistica.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/observability_console_v13.html">/observability_console_v13.html</a></td>
+<td>TRFMC v0.13 Observability &amp; Evidence Console</td>
+<td>858</td>
+<td>Convergere nel dominio Cyber Evidence / timeline / reportistica.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/scenario_report_console_v17.html">/scenario_report_console_v17.html</a></td>
+<td>TRFMC v0.17 Scenario Evidence Report Export</td>
+<td>764</td>
+<td>Convergere nel dominio Cyber Evidence / timeline / reportistica.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/security_console_v18.html">/security_console_v18.html</a></td>
+<td>TRFMC v0.18 Security Baseline &amp; Access Guard</td>
+<td>757</td>
+<td>Convergere nel dominio Cyber Evidence / timeline / reportistica.</td>
+</tr>
+
+<tr>
+<td>MERGE</td>
+<td><a href="/timeline_console_v14.html">/timeline_console_v14.html</a></td>
+<td>TRFMC v0.14 Evidence Timeline &amp; Mission Replay</td>
+<td>893</td>
+<td>Convergere nel dominio Cyber Evidence / timeline / reportistica.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="leaf-card">
+<h3>KEEP QUARANTINED</h3>
+<p>Orphan: <b>2</b> · Size: <b>13829</b> · Words estimate: <b>1100</b> · Target exists: <b>False</b></p>
+<p>Keep quarantined until manual content inspection.</p>
+<table>
+<thead><tr><th>Action</th><th>Orphan URL</th><th>Title</th><th>Words</th><th>Reason</th></tr></thead>
+<tbody>
+<tr>
+<td>KEEP_QUARANTINED</td>
+<td><a href="/field_engineering_mode_v64.html">/field_engineering_mode_v64.html</a></td>
+<td>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</td>
+<td>250</td>
+<td>Tenere congelata fino ad analisi contenuto manuale.</td>
+</tr>
+
+<tr>
+<td>KEEP_QUARANTINED</td>
+<td><a href="/scenario_runner_console_v16.html">/scenario_runner_console_v16.html</a></td>
+<td>TRFMC v0.16 Scenario Runner &amp; Mission Playbooks</td>
+<td>850</td>
+<td>Tenere congelata fino ad analisi contenuto manuale.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</main>
+</div>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+</body>
+</html>

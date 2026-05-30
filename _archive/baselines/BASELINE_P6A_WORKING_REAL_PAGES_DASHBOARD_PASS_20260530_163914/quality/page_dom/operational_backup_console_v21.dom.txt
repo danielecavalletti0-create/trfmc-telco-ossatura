@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+  <meta charset="utf-8">
+  <title>TRFMC v0.21 Operational Backup Control</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --panel:rgba(5,18,31,.84);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(88,214,249,.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(63,185,80,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:20px;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 40px rgba(88,214,249,.10);
+    }
+    h1 { margin:0; font-size:26px; letter-spacing:1px; }
+    header p { margin:7px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:9px 13px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button, a.btn {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+      text-decoration:none;
+      display:inline-block;
+    }
+    button:hover, a.btn:hover { background:rgba(88,214,249,.16); }
+    .kpi {
+      flex:1 1 165px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:16px; overflow:hidden; text-overflow:ellipsis; }
+    .layout {
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .backups {
+      display:grid;
+      gap:9px;
+      max-height:720px;
+      overflow:auto;
+    }
+    .backup {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.028);
+      border-radius:13px;
+      padding:10px;
+    }
+    .backup b { color:var(--cyan); display:block; font-size:12px; }
+    .backup span { color:var(--text); display:block; margin-top:5px; font-size:11px; }
+    .backup em { color:var(--muted); display:block; margin-top:5px; font-size:10px; font-style:normal; overflow-wrap:anywhere; }
+    pre {
+      margin:0;
+      max-height:720px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css">
+</head>
+<body class="trfmc-enterprise-shell"><section id="trfmc-shell-topbar" class="trfmc-shell-topbar">
+      <div class="trfmc-shell-row">
+        <div class="trfmc-shell-brand">
+          <div class="trfmc-shell-mark" aria-hidden="true"></div>
+          <div class="trfmc-shell-title">
+            <b>TRFMC Mission Control</b>
+            <span>Operational Backup · Enterprise Navigation Shell v0.34</span>
+          </div>
+        </div>
+
+        <nav class="trfmc-shell-nav" aria-label="TRFMC enterprise navigation">
+          <a class="" href="/portal_index_v19.html">Portal</a><a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_mission_portal_v35.html">RF/Telco</a><a class="" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a><a class="" href="/network_journey_world_map_v37.html">World Journey</a><a class="" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a><a class="" href="/operator_handbook_console_v23.html">Handbook</a><a class="" href="/security_console_v18.html">Security</a><a class="" href="/scenario_runner_console_v16.html">Scenarios</a><a class="" href="/scenario_report_console_v17.html">Reports</a><a class="" href="/observability_console_v13.html">Observability</a><a class="trfmc-shell-active" href="/operational_backup_console_v21.html">Backup</a><a class="" href="/restore_readiness_console_v22.html">Restore</a>
+        </nav>
+
+        <div class="trfmc-shell-status">
+          <span id="trfmc-shell-backend" class="trfmc-shell-pill warn">Backend <strong>UNKNOWN</strong></span>
+          <span id="trfmc-shell-snapshot" class="trfmc-shell-pill ok">Golden <strong>OK</strong></span>
+          <span id="trfmc-shell-mode" class="trfmc-shell-pill warn">Mode <strong>UNKNOWN</strong></span>
+        </div>
+      </div>
+
+      <div class="trfmc-shell-subbar">
+        <span>localhost-only · simulation-only · controlled lab posture</span>
+        <span>
+          API <code>127.0.0.1:5173</code>
+          Frontend <code>127.0.0.1:5173</code>
+        </span>
+      </div>
+    </section>
+<header>
+  <div>
+    <h1>TRFMC OPERATIONAL BACKUP &amp; RECOVERY CONTROL</h1>
+    <p>v0.21 · runtime backup · evidence vault archive · SQLite hash · manifest · full project script</p>
+  </div>
+  <div class="badge" id="badge">ERROR</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh</button>
+  <button onclick="createRuntimeBackup()">Create Runtime Backup</button>
+  <button onclick="latestManifest()">Latest Manifest</button>
+  <a class="btn" href="/portal_index_v19.html">Portal Index</a>
+  <a class="btn" href="/evidence_vault_console_v20.html">Evidence Vault</a>
+  <a class="btn" href="/security_console_v18.html">Security</a>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>DB</span><b id="k_db">—</b></div>
+  <div class="kpi"><span>Vault Files</span><b id="k_vault_files">—</b></div>
+  <div class="kpi"><span>Backups</span><b id="k_backups">—</b></div>
+  <div class="kpi"><span>DB Size</span><b id="k_db_size">—</b></div>
+  <div class="kpi"><span>Vault Size</span><b id="k_vault_size">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Runtime Backups</h2>
+    <div class="body">
+      <div id="backups" class="backups">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Status / Manifest</h2>
+    <div class="body">
+      <pre id="output">{
+  "error": "SyntaxError: Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+}</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.21 · Host full backup: bash scripts/trfmc_backup_project.sh
+</footer>
+
+<script>
+const API = '/api'
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+async function post(path) {
+  const r = await fetch(API + path, { method:'POST' })
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+function fmtBytes(v) {
+  if (!v) return '0 B'
+  if (v < 1024) return v + ' B'
+  if (v < 1024*1024) return (v/1024).toFixed(1) + ' KiB'
+  return (v/1024/1024).toFixed(1) + ' MiB'
+}
+
+function renderBackups(list) {
+  const el = document.getElementById('backups')
+  el.innerHTML = ''
+  if (!list.length) {
+    el.innerHTML = '<div class="backup"><b>Nessun backup runtime</b><span>Premi Create Runtime Backup.</span></div>'
+    return
+  }
+  for (const b of list) {
+    const div = document.createElement('div')
+    div.className = 'backup'
+    div.innerHTML = `
+      <b>${b.name}</b>
+      <span>${fmtBytes(b.size_bytes)}</span>
+      <em>${b.sha256}</em>
+      <em>${b.archive}</em>
+    `
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  const status = await get('/ops/backup/status')
+  const list = await get('/ops/backup/list')
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+
+  k('k_backend', health.version)
+  k('k_db', status.sqlite_db.exists ? 'OK' : 'MISSING')
+  k('k_vault_files', status.evidence_vault.file_count)
+  k('k_backups', list.count)
+  k('k_db_size', fmtBytes(status.sqlite_db.size_bytes))
+  k('k_vault_size', fmtBytes(status.evidence_vault.size_bytes))
+
+  renderBackups(list.backups || [])
+  j('output', {status, list})
+}
+
+async function createRuntimeBackup() {
+  j('output', {status:'CREATING_RUNTIME_BACKUP'})
+  const res = await post('/ops/backup/create-runtime')
+  j('output', res)
+  await loadAll()
+}
+
+async function latestManifest() {
+  const res = await get('/ops/backup/latest-manifest')
+  j('output', res)
+}
+
+loadAll().catch(e => {
+  document.getElementById('badge').textContent = 'ERROR'
+  j('output', {error:String(e)})
+})
+setInterval(loadAll, 30000)
+</script>
+<script defer="" src="/assets/trfmc_enterprise_shell_v34.js"></script>
+
+
+<section id="trfmc-shell-footer" class="trfmc-shell-footer">
+      <b>TRFMC v0.34 Enterprise Navigation Shell</b>
+      · unified console navigation · runtime status · golden check · operational lab mode
+    </section></body></html>

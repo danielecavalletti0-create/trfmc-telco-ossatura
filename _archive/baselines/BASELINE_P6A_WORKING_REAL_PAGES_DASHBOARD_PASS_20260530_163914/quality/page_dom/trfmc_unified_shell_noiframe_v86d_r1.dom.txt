@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.86D-R1 · No-IFrame Route Console</title>
+  <link rel="stylesheet" href="/assets/trfmc_v086d_r1_noiframe_route_console.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-page="noiframe-route-console-v86d-r1" data-registry-url="/reports/trfmc_v86c_r1_portal_registry.json" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <div class="nr86-root">
+    <header class="nr86-top">
+      <div class="nr86-brand">
+        <span class="nr86-orb"></span>
+        <div>
+          <strong>TRFMC NO-IFRAME ROUTE CONSOLE</strong>
+          <small>v0.86D-R1 · registry spine · no nested shells · no production overwrite</small>
+        </div>
+      </div>
+      <nav class="nr86-nav">
+        <a href="/trfmc_portal_registry_v86c.html">Registry</a>
+        <a href="/rf_physics_sapienza_console_v86a.html">RF Physics v86A</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Stable v85E</a>
+        <a href="/trfmc_performance_gpu_gate_v86b_r1.html">GPU Gate</a>
+      </nav>
+      <div class="nr86-status">
+        <span id="nr86Backend">Backend OK</span>
+        <span>No CDN</span>
+        <span>No iframe</span>
+      </div>
+    </header>
+
+    <main class="nr86-main">
+      <section class="nr86-hero">
+        <div>
+          <p class="nr86-kicker">TRFMC v0.86D-R1 · CONTROLLO ROTTE · NESSUNA PAGINA INCAPSULATA</p>
+          <h1>No-IFrame Route Console</h1>
+          <p>
+            Questa sostituisce operativamente la v86D: niente preview annidata, niente shell dentro shell,
+            niente contaminazione visiva. La console governa il portale tramite registry, stato, priorità,
+            dominio e link diretto.
+          </p>
+        </div>
+        <aside>
+          <span>Console Integrity</span>
+          <strong id="nr86Integrity">100%</strong>
+          <small id="nr86IntegrityText">62/62 routes HTTP 200</small>
+        </aside>
+      </section>
+
+      <section class="nr86-kpis">
+        <article><span>Total pages</span><strong id="nr86Total">62</strong></article>
+        <article><span>HTTP 200</span><strong id="nr86Ok">62</strong></article>
+        <article><span>P0/P1 strategic</span><strong id="nr86Critical">10</strong></article>
+        <article><span>Domains</span><strong id="nr86Domains">9</strong></article>
+        <article><span>Hold / legacy</span><strong id="nr86Hold">45</strong></article>
+      </section>
+
+      <section class="nr86-controls">
+        <article>
+          <h2>Priority Filter</h2>
+          <div class="nr86-buttons">
+            <button type="button" data-filter="all" class="is-active">All</button>
+            <button type="button" data-filter="P0">P0</button>
+            <button type="button" data-filter="P1">P1</button>
+            <button type="button" data-filter="P2">P2</button>
+            <button type="button" data-filter="P3">P3</button>
+            <button type="button" data-filter="P4">P4</button>
+          </div>
+        </article>
+
+        <article>
+          <h2>Search</h2>
+          <input id="nr86Search" type="search" placeholder="cerca pagina, dominio, ruolo, generazione...">
+        </article>
+
+        <article>
+          <h2>Doctrine</h2>
+          <p>La shell non deve inglobare pagine. Deve classificarle, aprirle, verificare lo stato e guidare la promozione.</p>
+        </article>
+      </section>
+
+      <section class="nr86-layout">
+        <section class="nr86-routes">
+          <div class="nr86-panel-head">
+            <h2>Route Registry</h2>
+            <span id="nr86Visible">62 routes</span>
+          </div>
+          <div id="nr86Rows" class="nr86-rows"><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>evidence_vault_console_v20.html</strong>
+          <small>TRFMC v0.20 Evidence Vault</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/evidence_vault_console_v20.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>executive_mission_dashboard_v40.html</strong>
+          <small>TRFMC v0.40 Executive Mission Dashboard</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/executive_mission_dashboard_v40.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>executive_mission_dashboard_v_next.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/executive_mission_dashboard_v_next.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>field_engineering_mode_v64.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</small>
+          <small>Field Engineering · legacy · Field Engineering</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/field_engineering_mode_v64.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>global_mission_scenario_launcher_v39.html</strong>
+          <small>TRFMC v0.39 Global Mission Scenario Launcher</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/global_mission_scenario_launcher_v39.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p1">P1</span>
+        <div>
+          <strong>infrastructure_digital_twin_v63.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade</small>
+          <small>Infrastructure / Digital Twin · legacy · Infrastructure Digital Twin</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/infrastructure_digital_twin_v63.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>mission_graph_console_v15.html</strong>
+          <small>TRFMC v0.15 Correlation Engine &amp; Mission Graph</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/mission_graph_console_v15.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>network_journey_world_map_v37.html</strong>
+          <small>TRFMC v0.37 Network Journey World Map</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/network_journey_world_map_v37.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>observability_console_v13.html</strong>
+          <small>TRFMC v0.13 Observability &amp; Evidence Console</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/observability_console_v13.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>operational_backup_console_v21.html</strong>
+          <small>TRFMC v0.21 Operational Backup Control</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/operational_backup_console_v21.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>operator_handbook_console_v23.html</strong>
+          <small>TRFMC v0.27 Operator Handbook Interactive Console</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/operator_handbook_console_v23.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>portal_index_v19.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.30 Portal Index Golden Check Integration</small>
+          <small>Governance / QA · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/portal_index_v19.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>restore_readiness_console_v22.html</strong>
+          <small>TRFMC v0.22 Restore Readiness</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/restore_readiness_console_v22.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_instrumentation_signal_cockpit_v38.html</strong>
+          <small>TRFMC v0.38 RF Instrumentation &amp; Signal Analysis Cockpit</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_instrumentation_signal_cockpit_v38.html">Open</a>
+      </article><article class="nr86-row is-active">
+        <span class="nr86-priority nr86-priority-p0">P0</span>
+        <div>
+          <strong>rf_physics_sapienza_console_v86a.html</strong>
+          <small>TRFMC v0.86A · RF Physics Sapienza Console</small>
+          <small>RF Physics / Sapienza · v86 current · RF Physics Sapienza scoped console</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/rf_physics_sapienza_console_v86a.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>rf_propagation_sandbox_v62.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.62B · RF Propagation Sandbox Visual Upgrade</small>
+          <small>Propagation · legacy · RF Propagation Sandbox</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/rf_propagation_sandbox_v62.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84b.html</strong>
+          <small>TRFMC v0.84B · RF Sapienza Console</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84b.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84c.html</strong>
+          <small>TRFMC v0.84C · RF Sapienza Console R2 R2</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84c.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84d.html</strong>
+          <small>TRFMC v0.84D · RF Sapienza Truth Palette R2</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84d.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84e.html</strong>
+          <small>TRFMC v0.84E · RF Sapienza Instrument Truth View</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84e.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84f.html</strong>
+          <small>TRFMC v0.84F · RF Instrument Dark Field Discipline</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84f.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84g.html</strong>
+          <small>TRFMC v0.84G · RF Topographic Instrument View</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84g.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84h.html</strong>
+          <small>TRFMC v0.84H · RF Atlas Instrument View</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84h.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84i.html</strong>
+          <small>TRFMC v0.84I · RF Vector Cartography Console</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84i.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84j.html</strong>
+          <small>TRFMC v0.84J · RF 4D Measurement Theater</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84j.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84k.html</strong>
+          <small>TRFMC v0.84K · RF Sapienza Layer Director</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84k.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_sapienza_console_v84l.html</strong>
+          <small>TRFMC v0.84L · RF Sapienza Director Cockpit</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84l.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p1">P1</span>
+        <div>
+          <strong>rf_sapienza_console_v84m.html</strong>
+          <small>TRFMC v0.84M · RF Sapienza Production Baseline</small>
+          <small>RF Physics / Sapienza · v84 sapienza · Sapienza production baseline</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/rf_sapienza_console_v84m.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>rf_telco_component_library_v76.html</strong>
+          <small>TRFMC v0.76A · RF/Telco Component Object Library</small>
+          <small>General / Legacy · legacy · Component object library</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/rf_telco_component_library_v76.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_telco_knowledge_modules_v61.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.61A · RF/Telco Knowledge Modules</small>
+          <small>Theory / Knowledge · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_telco_knowledge_modules_v61.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>rf_telco_knowledge_os_v60.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.60A · RF/Telco Knowledge Operating System</small>
+          <small>Theory / Knowledge · legacy · RF/Telco Knowledge OS</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/rf_telco_knowledge_os_v60.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_telco_mission_portal_v35.html</strong>
+          <small>TRFMC v0.35 RF/Telco Mission Portal</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_telco_mission_portal_v35.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>rf_telco_visual_cockpit_v36.html</strong>
+          <small>TRFMC v0.36 RF/Telco Visual Scenario Cockpit</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/rf_telco_visual_cockpit_v36.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p3">P3</span>
+        <div>
+          <strong>runtime_golden_check_console_v29.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.29 Runtime Golden Check Console</small>
+          <small>Governance / QA · legacy · Golden runtime console</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/runtime_golden_check_console_v29.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p0">P0</span>
+        <div>
+          <strong>sapienza_master_template_doctrine_v85a.html</strong>
+          <small>TRFMC v0.85A · Sapienza Master Template Doctrine</small>
+          <small>RF Physics / Sapienza · v85 stable · Master template doctrine</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/sapienza_master_template_doctrine_v85a.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>scenario_report_console_v17.html</strong>
+          <small>TRFMC v0.17 Scenario Evidence Report Export</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/scenario_report_console_v17.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>scenario_runner_console_v16.html</strong>
+          <small>TRFMC v0.16 Scenario Runner &amp; Mission Playbooks</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/scenario_runner_console_v16.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>security_console_v18.html</strong>
+          <small>TRFMC v0.18 Security Baseline &amp; Access Guard</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/security_console_v18.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>timeline_console_v14.html</strong>
+          <small>TRFMC v0.14 Evidence Timeline &amp; Mission Replay</small>
+          <small>General / Legacy · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/timeline_console_v14.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>trfmc_performance_gpu_gate_v86b.html</strong>
+          <small>TRFMC v0.86B · Performance GPU Binding Gate</small>
+          <small>General / Legacy · v86 current · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/trfmc_performance_gpu_gate_v86b.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p0">P0</span>
+        <div>
+          <strong>trfmc_performance_gpu_gate_v86b_r1.html</strong>
+          <small>TRFMC v0.86B-R1 · Performance GPU Binding Gate R1</small>
+          <small>General / Legacy · v86 current · Performance / GPU binding gate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/trfmc_performance_gpu_gate_v86b_r1.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p1">P1</span>
+        <div>
+          <strong>trfmc_visual_qa_matrix_v71.html</strong>
+          <small>TRFMC v0.71A · Page-by-Page Visual QA Matrix</small>
+          <small>Governance / QA · legacy · Visual QA matrix</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/trfmc_visual_qa_matrix_v71.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v66.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.66A · WebGL RF Heatmap Engine</small>
+          <small>RF Visualization · legacy · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v66.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v67.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.67A · Urban Shadowing &amp; Clutter Engine</small>
+          <small>RF Visualization · legacy · Urban shadowing</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v67.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v68.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.68A · Seasonal Vegetation Clutter Engine</small>
+          <small>RF Visualization · legacy · Vegetation clutter original</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v68.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p2">P2</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v68_surgical_v81.html</strong>
+          <small>TRFMC v0.81C-R2 · Seasonal Vegetation Clutter Engine · Cinematic Surgical Rebuild</small>
+          <small>RF Visualization · legacy staged · Vegetation surgical sandbox</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p1">P1</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v69.html</strong>
+          <small>TRFMC v0.70A Unified Shell · TRFMC v0.69A · UE Mobility &amp; Handover Dynamics</small>
+          <small>Mobility / Handover · legacy · UE Mobility / Handover</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v69.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v82_native_lab.html</strong>
+          <small>TRFMC v0.82A · Native WebGL RF Vegetation Lab</small>
+          <small>RF Visualization · legacy staged · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v82_native_lab.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v82b_native_lab.html</strong>
+          <small>TRFMC v0.82B · Native WebGL RF Field Refinement</small>
+          <small>Field Engineering · legacy staged · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v82b_native_lab.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v82c_mission_replay.html</strong>
+          <small>TRFMC v0.82C · Native WebGL Mission Replay</small>
+          <small>RF Visualization · legacy staged · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v82c_mission_replay.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_heatmap_engine_v82c_r2_mission_replay.html</strong>
+          <small>TRFMC v0.82C-R2 · Native WebGL Mission Replay Layout Fix</small>
+          <small>RF Visualization · legacy staged · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v83.html</strong>
+          <small>TRFMC v0.83A · RF Physics Calibrated 4D Engine</small>
+          <small>RF Physics / Sapienza · v83 physics · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v83.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v83b.html</strong>
+          <small>TRFMC v0.83B · RF Precision Scale + Probe Diagnostics</small>
+          <small>RF Physics / Sapienza · v83 physics · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v83b.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v83c.html</strong>
+          <small>TRFMC v0.83C · RF Sanity Calibration + SINR-Aware Coverage</small>
+          <small>RF Physics / Sapienza · v83 physics · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v83c.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v83d.html</strong>
+          <small>TRFMC v0.83D · Instrument Layout + Link Budget Inspector</small>
+          <small>RF Physics / Sapienza · v83 physics · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v83d.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v83e.html</strong>
+          <small>TRFMC v0.83E · Instrument Readability + Vector Governance</small>
+          <small>RF Physics / Sapienza · v83 physics · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v83e.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v83f.html</strong>
+          <small>TRFMC v0.83F · Dual Instrument View + RSRP/SINR Profile</small>
+          <small>RF Physics / Sapienza · v83 physics · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v83f.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v85b_sapienza_baseline.html</strong>
+          <small>TRFMC v0.85B · Sapienza Physics Baseline + RSRP/SINR Profile</small>
+          <small>RF Physics / Sapienza · v85 stable · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v85b_sapienza_baseline.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p1">P1</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v85c_sapienza_identity.html</strong>
+          <small>TRFMC v0.85C · Sapienza Physics Baseline + RSRP/SINR Profile</small>
+          <small>RF Physics / Sapienza · v85 stable · Physics identity baseline</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v85c_sapienza_identity.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p1">P1</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v85d_runtime_identity_lock.html</strong>
+          <small>TRFMC v0.85D · Sapienza Physics Baseline + RSRP/SINR Profile</small>
+          <small>RF Physics / Sapienza · v85 stable · Runtime identity lock</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v85d_runtime_identity_lock.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p0">P0</span>
+        <div>
+          <strong>webgl_rf_physics_engine_v85e_viewport_discipline.html</strong>
+          <small>TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile</small>
+          <small>RF Physics / Sapienza · v85 stable · Stable RF physics viewport discipline</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>candidate</span>
+        <a class="nr86-open" href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Open</a>
+      </article><article class="nr86-row">
+        <span class="nr86-priority nr86-priority-p4">P4</span>
+        <div>
+          <strong>webgl_rf_tm_supreme_console_v84a.html</strong>
+          <small>TRFMC v0.84A · RF T&amp;M Supreme Console</small>
+          <small>RF Visualization · v84 sapienza · Unclassified / candidate</small>
+        </div>
+        <span class="nr86-http-ok">200</span>
+        <span>hold</span>
+        <a class="nr86-open" href="/webgl_rf_tm_supreme_console_v84a.html">Open</a>
+      </article></div>
+        </section>
+
+        <aside class="nr86-detail">
+          <div class="nr86-panel-head">
+            <h2>Selected Route</h2>
+            <span id="nr86SelectedHttp">HTTP 200</span>
+          </div>
+
+          <div class="nr86-selected-card">
+            <p class="nr86-selected-label">file</p>
+            <h3 id="nr86SelectedFile">rf_physics_sapienza_console_v86a.html</h3>
+
+            <p class="nr86-selected-label">titolo</p>
+            <p id="nr86SelectedTitle">TRFMC v0.86A · RF Physics Sapienza Console</p>
+
+            <div class="nr86-detail-grid">
+              <article><span>Priority</span><strong id="nr86SelectedPriority">P0</strong></article>
+              <article><span>Domain</span><strong id="nr86SelectedDomain">RF Physics / Sapienza</strong></article>
+              <article><span>Generation</span><strong id="nr86SelectedGeneration">v86 current</strong></article>
+              <article><span>Promotion</span><strong id="nr86SelectedPromotion">candidate</strong></article>
+            </div>
+
+            <a id="nr86OpenSelected" class="nr86-open-main" href="/rf_physics_sapienza_console_v86a.html">Open selected page</a>
+          </div>
+
+          <div class="nr86-warning">
+            <strong>Regola anti-danno</strong>
+            <p>
+              Nessuna preview iframe. Ogni pagina si apre come documento completo in una rotta propria.
+              La shell resta shell; la pagina resta pagina.
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="nr86-domain-grid" id="nr86DomainGrid"><article>
+        <h2>RF Physics / Sapienza</h2>
+        <strong>24</strong>
+        <p>P0 3 · P1 3 · P2 0 · P3 0 · P4 18</p>
+      </article><article>
+        <h2>General / Legacy</h2>
+        <strong>20</strong>
+        <p>P0 1 · P1 0 · P2 1 · P3 0 · P4 18</p>
+      </article><article>
+        <h2>RF Visualization</h2>
+        <strong>8</strong>
+        <p>P0 0 · P1 0 · P2 3 · P3 0 · P4 5</p>
+      </article><article>
+        <h2>Governance / QA</h2>
+        <strong>3</strong>
+        <p>P0 0 · P1 1 · P2 0 · P3 1 · P4 1</p>
+      </article><article>
+        <h2>Field Engineering</h2>
+        <strong>2</strong>
+        <p>P0 0 · P1 0 · P2 1 · P3 0 · P4 1</p>
+      </article><article>
+        <h2>Theory / Knowledge</h2>
+        <strong>2</strong>
+        <p>P0 0 · P1 0 · P2 1 · P3 0 · P4 1</p>
+      </article><article>
+        <h2>Infrastructure / Digital Twin</h2>
+        <strong>1</strong>
+        <p>P0 0 · P1 1 · P2 0 · P3 0 · P4 0</p>
+      </article><article>
+        <h2>Propagation</h2>
+        <strong>1</strong>
+        <p>P0 0 · P1 0 · P2 1 · P3 0 · P4 0</p>
+      </article><article>
+        <h2>Mobility / Handover</h2>
+        <strong>1</strong>
+        <p>P0 0 · P1 1 · P2 0 · P3 0 · P4 0</p>
+      </article></section>
+
+      <section class="nr86-gates">
+        <article><h2>Gate 01 · Inventory</h2><p>Conoscere tutto il portale prima di toccare l’estetica.</p></article>
+        <article><h2>Gate 02 · No Nesting</h2><p>Vietato incorporare shell complete dentro shell complete.</p></article>
+        <article><h2>Gate 03 · Scoped Only</h2><p>Ogni evoluzione deve essere isolata, verificabile, reversibile.</p></article>
+        <article><h2>Gate 04 · Promotion</h2><p>Promozione solo a batch piccoli: P0/P1, poi P2, poi resto.</p></article>
+      </section>
+    </main>
+
+    <footer class="nr86-footer">
+      TRFMC v0.86D-R1 · No-IFrame Route Console · v86D iframe page quarantined · no backend change
+    </footer>
+  </div>
+
+  <script defer="" src="/assets/trfmc_v086d_r1_noiframe_route_console.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC v0.86D-R1 · No-IFrame Route Console<br>/trfmc_unified_shell_noiframe_v86d_r1.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>65/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna" width="602" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> No-IFrame Route Console</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Antenna System Explorer V1.2 Operativo</title>
+<style>
+:root{
+  --bg:#02070f;--panel:#061120;--panel2:#0a1828;--line:#1d6f9f;
+  --text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;
+  --yellow:#ffd500;--red:#ff3366;--orange:#ff9e3d;--blue:#268cff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#01060d;color:var(--text);font:12px Inter,Segoe UI,system-ui,sans-serif;overflow:hidden}
+header{height:54px;background:#050b13;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+a,.tool{color:var(--text);text-decoration:none;border:1px solid #1d6f9f;background:#0a1828;border-radius:4px;padding:6px 9px}
+.tool{cursor:pointer}
+.led{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+main{height:calc(100vh - 54px);display:grid;grid-template-columns:250px 1fr 330px;gap:6px;padding:6px}
+.panel{background:linear-gradient(180deg,#071524,#02070f);border:1px solid #1d5e86;border-radius:6px;overflow:hidden}
+.title{background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);font-weight:700;padding:6px 8px;text-transform:uppercase}
+.body{padding:7px}
+.ctrl{border:1px solid #183d58;background:#081522;border-radius:5px;padding:7px;margin-bottom:7px}
+.ctrl b{color:var(--green);display:block;margin-bottom:5px}
+label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+input,select{width:100%;margin:3px 0 7px}
+select{background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:6px}
+button{width:100%;background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:7px;margin:4px 0;text-align:left;cursor:pointer}
+button.active,button:hover{background:#145078;border-color:var(--cyan);box-shadow:inset 3px 0 0 var(--yellow)}
+.kpis{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:6px}
+.kpi{background:#07111f;border:1px solid #214c6a;border-radius:5px;padding:7px;min-height:64px}
+.kpi b{font-size:18px;display:block}.kpi span{font-size:9px;color:var(--muted);text-transform:uppercase}.kpi em{display:block;font-style:normal;color:var(--muted);font-size:10px;margin-top:2px}
+.grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:360px 230px 230px;gap:6px;height:calc(100% - 70px)}
+.frame{background:#02070f;border:1px solid #1d5e86;border-radius:6px;overflow:hidden;position:relative}
+.frame h3{margin:0;background:#0a1b2e;border-bottom:1px solid #1d5e86;padding:5px 7px;color:var(--cyan);font-size:12px}
+canvas{width:100%;height:calc(100% - 26px);display:block}
+#siteFrame{grid-column:1/3}
+.toolbar{position:absolute;top:33px;left:8px;display:flex;gap:5px;z-index:3}
+.toolbar button{width:auto;margin:0;padding:5px 8px;font-size:11px}
+.overlayControls{position:absolute;top:34px;right:8px;display:flex;gap:10px;align-items:center;z-index:3;background:#061120cc;border:1px solid #1d5e86;border-radius:5px;padding:5px 8px}
+.overlayControls label{gap:4px;align-items:center}
+.overlayControls input{width:auto;margin:0}
+.formula{border:1px solid #183d58;background:#081522;border-radius:5px;padding:7px;margin-bottom:6px;font-family:ui-monospace,monospace;color:#d3e8ff}
+.formula b{color:var(--yellow)}
+.log{height:250px;overflow:auto;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid #17344c;padding:4px 0;color:#cde7ff}
+.alarm{border:1px solid #183d58;background:#081522;border-radius:5px;padding:8px;color:var(--green)}
+.smallGrid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+@media(max-width:1300px){body{overflow:auto}main{height:auto;grid-template-columns:1fr}.kpis,.grid{grid-template-columns:1fr}.grid{height:auto}#siteFrame{grid-column:auto}.frame{height:280px}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <div>
+    <h1>TRFMC Antenna System Explorer V1.2 Operativo</h1>
+    <div style="color:#86a7c6;font-size:11px">Panel antenna · RRU/BBU · RET/AISG · MIMO · Port mapping · VSWR · EIRP · Beam · Coverage</div>
+  </div>
+  <nav>
+<a href="/trfmc_antenna_system_explorer_v14_instrument_grade.html">Antenna V1.4 Instrument Grade</a>
+<a href="/trfmc_antenna_system_explorer_v13_premium.html">Antenna V1.3 Premium</a>
+    <a href="/trfmc_master_console_v4.html">Master</a>
+    <a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP</a>
+    <a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">Wi-Fi/QAM</a>
+    <a href="/trfmc_enterprise_prime_portal_v1.html">Prime</a>
+    <span class="tool" onclick="saveState()">Save</span>
+    <span class="tool" onclick="loadState()">Recall</span>
+    <span class="tool" onclick="resetState()">Reset</span>
+    <span class="led"></span>
+    <span id="clock">16:48:41</span>
+  </nav>
+</header>
+
+<main>
+<aside class="panel">
+  <div class="title">Antenna Controls</div>
+  <div class="body">
+    <div class="ctrl">
+      <b>System</b>
+      <label>Antenna Type</label>
+      <select id="type">
+        <option>Triple-band panel</option>
+        <option>Panel antenna 4T4R</option>
+        <option>Massive MIMO 8T8R</option>
+        <option>Massive MIMO 32T32R</option>
+        <option>Patch array</option>
+        <option>Parabolic dish</option>
+        <option>Yagi directional</option>
+      </select>
+      <label>Band / Service</label>
+      <select id="service">
+        <option value="n78">n78 / 3.5 GHz / TDD</option>
+        <option value="n77">n77 / 3.7 GHz / TDD</option>
+        <option value="b3">LTE B3 / 1800 MHz</option>
+        <option value="b1">LTE B1 / 2100 MHz</option>
+        <option value="b8">LTE B8 / 900 MHz</option>
+        <option value="wifi7">Wi-Fi 7 / 6 GHz</option>
+      </select>
+      <label>Frequency <span id="freqv">3.50 GHz</span></label><input id="freq" type="range" min="700" max="7125" value="3500">
+      <label>Gain <span id="gainv">18.0 dBi</span></label><input id="gain" type="range" min="0" max="30" step="0.5" value="18">
+      <label>Azimuth <span id="azv">0.0°</span></label><input id="az" type="range" min="-180" max="180" step="1" value="0">
+      <label>Electrical Tilt <span id="tiltv">+4.0°</span></label><input id="tilt" type="range" min="-10" max="20" step="0.5" value="4">
+    </div>
+
+    <div class="ctrl">
+      <b>RF Ports / Quality</b>
+      <label>VSWR <span id="vswrv">1.35</span></label><input id="vswr" type="range" min="100" max="300" value="135">
+      <label>Return Loss <span id="rlv">16.5 dB</span></label><input id="rl" type="range" min="5" max="35" step="0.5" value="16.5">
+      <label>Isolation <span id="isov">28 dB</span></label><input id="iso" type="range" min="10" max="50" value="28">
+      <label>Port Balance <span id="balv">0.8 dB</span></label><input id="bal" type="range" min="0" max="50" value="8">
+      <label>Tx Power / Port <span id="ptxv">24 dBm</span></label><input id="ptx" type="range" min="0" max="46" value="24">
+    </div>
+
+    <div class="ctrl">
+      <b>Tools / Views</b>
+      <button class="active" data-mode="SITE">Site / Sector</button>
+      <button data-mode="PATTERN">Radiation Pattern</button>
+      <button data-mode="PORTS">Port / Band Mapping</button>
+      <button data-mode="RET">RET / AISG / Tilt</button>
+      <button data-mode="MIMO">MIMO Beam Grid</button>
+    </div>
+  </div>
+</aside>
+
+<section>
+  <div class="kpis">
+    <div class="kpi"><span>Frequency</span><b id="kfreq">3.500 GHz</b><em id="ksvc">n78 / TDD</em></div>
+    <div class="kpi"><span>Gain</span><b id="kgain">18.0 dBi</b><em>max 18.5 dBi</em></div>
+    <div class="kpi"><span>Azimuth</span><b id="kaz">000.0°</b><em>sector center</em></div>
+    <div class="kpi"><span>Tilt Elec</span><b id="ktilt">+4.0°</b><em>down tilt</em></div>
+    <div class="kpi"><span>VSWR</span><b id="kvswr">1.35</b><em id="krl2">Return Loss 16.5 dB</em></div>
+    <div class="kpi"><span>Isolation</span><b id="kiso">28 dB</b><em>cross-pol</em></div>
+    <div class="kpi"><span>EIRP / Port</span><b id="keirp">41.5 dBm</b><em id="kptx">Ptx 24.0 dBm</em></div>
+    <div class="kpi"><span>MIMO</span><b id="kmimo">sector</b><em id="klayers">sector</em></div>
+    <div class="kpi"><span>RRU Temp</span><b id="ktemp">36.9 °C</b><em>OK</em></div>
+    <div class="kpi"><span>Status</span><b id="kstatus">NORM</b><em>no alarms</em></div>
+  </div>
+
+  <div class="grid">
+    <div class="frame" id="siteFrame">
+      <h3>1 · Site / Sector / Coverage Explorer</h3>
+      <div class="toolbar">
+        <button class="active" data-view="2D">2D View</button>
+        <button data-view="3D">3D View</button>
+        <button data-view="MAP">Map</button>
+        <button data-view="GRID">Grid</button>
+        <button data-view="HEAT">Heatmap</button>
+        <button onclick="clearMarks()">Clear</button>
+      </div>
+      <div class="overlayControls">
+        <label><input id="showMain" type="checkbox" checked="">Main lobe</label>
+        <label><input id="showSide" type="checkbox" checked="">Side lobes</label>
+        <label><input id="showTerrain" type="checkbox" checked="">Terrain</label>
+        <select id="sectors">
+          <option value="1">1 Sector</option>
+          <option value="3" selected="">3 Sector 120°</option>
+          <option value="6">6 Sector 60°</option>
+        </select>
+      </div>
+      <canvas id="site" width="1500" height="380"></canvas>
+    </div>
+
+    <div class="frame"><h3>2 · Radiation Pattern / E-H Plane</h3><canvas id="polar" width="760" height="260"></canvas></div>
+    <div class="frame"><h3>3 · Port / Band Mapping</h3><canvas id="ports" width="760" height="260"></canvas></div>
+    <div class="frame"><h3>4 · RET / AISG / Tilt Effect</h3><canvas id="ret" width="760" height="260"></canvas></div>
+    <div class="frame"><h3>5 · MIMO Beam / Array Grid</h3><canvas id="mimo" width="760" height="260"></canvas></div>
+  </div>
+</section>
+
+<aside class="panel">
+  <div class="title">Antenna Math</div>
+  <div class="body">
+    <div class="formula"><b>Wavelength</b><br>λ = c / f</div>
+    <div class="formula"><b>Free-space path loss</b><br>FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)</div>
+    <div class="formula"><b>VSWR</b><br>VSWR = (1+|Γ|)/(1−|Γ|)</div>
+    <div class="formula"><b>Return loss</b><br>RL = −20log10(|Γ|)</div>
+    <div class="formula"><b>EIRP</b><br>EIRP = Ptx + Gant − Lcable</div>
+    <div class="formula"><b>MIMO capacity</b><br>C ≈ min(Ntx,Nrx) · log2(1+SNR)</div>
+    <div class="title" style="margin:8px -7px 6px">Event Stream</div>
+    <div class="log" id="log"><div>[16:48:41] SITE · Triple-band panel loaded</div></div>
+    <div class="title" style="margin:8px -7px 6px">Alarm Summary</div>
+    <div class="alarm" id="alarm" style="color: rgb(125, 255, 79);">no active alarms</div>
+  </div>
+</aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const C={site:$("site"),polar:$("polar"),ports:$("ports"),ret:$("ret"),mimo:$("mimo")};
+const X={}; Object.entries(C).forEach(([k,c])=>X[k]=c.getContext("2d"));
+let tick=0,last=0,mode="SITE",view="2D",marks=[];
+function q(){
+  return {
+    type:$("type").value, service:$("service").value, freq:+$("freq").value, gain:+$("gain").value,
+    az:+$("az").value, tilt:+$("tilt").value, vswr:+$("vswr").value/100, rl:+$("rl").value,
+    iso:+$("iso").value, bal:+$("bal").value/10, ptx:+$("ptx").value, sectors:+$("sectors").value,
+    showMain:$("showMain").checked, showSide:$("showSide").checked, showTerrain:$("showTerrain").checked
+  }
+}
+function svcLabel(s){
+  return {n78:"n78 / TDD",n77:"n77 / TDD",b3:"LTE B3",b1:"LTE B1",b8:"LTE B8",wifi7:"Wi-Fi 7"}[s]||s
+}
+function mimoLabel(type){return type.includes("32")?"32T32R":type.includes("8")?"8T8R":type.includes("4")?"4T4R":"sector"}
+function fmtAz(a){return (a>=0?String(a).padStart(3,"0"):"-"+String(Math.abs(a)).padStart(3,"0"))+".0°"}
+function labels(){
+  const p=q(), eirp=p.ptx+p.gain-0.5, temp=36+Math.sin(tick*.01)*2+p.ptx/30;
+  $("freqv").textContent=p.freq>=1000?(p.freq/1000).toFixed(2)+" GHz":p.freq+" MHz";
+  $("gainv").textContent=p.gain.toFixed(1)+" dBi"; $("azv").textContent=p.az.toFixed(1)+"°"; $("tiltv").textContent=(p.tilt>=0?"+":"")+p.tilt.toFixed(1)+"°";
+  $("vswrv").textContent=p.vswr.toFixed(2); $("rlv").textContent=p.rl.toFixed(1)+" dB"; $("isov").textContent=p.iso+" dB"; $("balv").textContent=p.bal.toFixed(1)+" dB"; $("ptxv").textContent=p.ptx+" dBm";
+  $("kfreq").textContent=p.freq>=1000?(p.freq/1000).toFixed(3)+" GHz":p.freq+" MHz"; $("ksvc").textContent=svcLabel(p.service);
+  $("kgain").textContent=p.gain.toFixed(1)+" dBi"; $("kaz").textContent=fmtAz(p.az); $("ktilt").textContent=(p.tilt>=0?"+":"")+p.tilt.toFixed(1)+"°";
+  $("kvswr").textContent=p.vswr.toFixed(2); $("krl2").textContent="Return Loss "+p.rl.toFixed(1)+" dB"; $("kiso").textContent=p.iso+" dB";
+  $("keirp").textContent=eirp.toFixed(1)+" dBm"; $("kptx").textContent="Ptx "+p.ptx.toFixed(1)+" dBm";
+  $("kmimo").textContent=mimoLabel(p.type); $("klayers").textContent=mimoLabel(p.type).replace("T"," layers / ").replace("R","");
+  $("ktemp").textContent=temp.toFixed(1)+" °C";
+  const alarm=p.vswr>2.1||p.rl<10||p.iso<18;
+  $("kstatus").textContent=alarm?"WARN":"NORM"; $("alarm").textContent=alarm?"RF quality degraded: check VSWR / RL / isolation":"no active alarms";
+  $("alarm").style.color=alarm?"#ff3366":"#7dff4f";
+}
+function grid(c,w,h,step=50){
+  c.strokeStyle="rgba(120,190,240,.10)";
+  for(let x=0;x<w;x+=step){c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.stroke()}
+  for(let y=0;y<h;y+=40){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke()}
+}
+function terrain(c,w,h){
+  const grad=c.createLinearGradient(0,0,0,h); grad.addColorStop(0,"rgba(0,180,255,.04)"); grad.addColorStop(1,"rgba(125,255,79,.10)");
+  c.fillStyle=grad; c.fillRect(0,0,w,h);
+  c.strokeStyle="rgba(120,190,240,.10)";
+  for(let i=0;i<7;i++){c.beginPath(); for(let x=0;x<w;x+=12){let y=h-35-i*26+Math.sin(x*.006+i*1.7)*15+Math.sin(x*.017+i)*5; x?c.lineTo(x,y):c.moveTo(x,y)} c.stroke()}
+}
+function sector(c,cx,cy,az,spread,radius,color,alpha){
+  const a=(az-90)*Math.PI/180, s=spread*Math.PI/180;
+  c.fillStyle=color.replace("1)",alpha+")");
+  c.strokeStyle=color.replace("1)",".65)");
+  c.beginPath(); c.moveTo(cx,cy);
+  c.arc(cx,cy,radius,a-s/2,a+s/2); c.closePath(); c.fill(); c.stroke();
+  c.strokeStyle=color.replace("1)",".35)");
+  for(let k=1;k<8;k++){let aa=a-s/2+s*k/8;c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+Math.cos(aa)*radius,cy+Math.sin(aa)*radius);c.stroke()}
+}
+function site(){
+  const p=q(), c=X.site,w=C.site.width,h=C.site.height,cx=w/2,cy=h*.60; c.clearRect(0,0,w,h); grid(c,w,h,55);
+  if(p.showTerrain) terrain(c,w,h);
+  if(view==="HEAT"){for(let i=0;i<130;i++){let x=cx+(Math.random()-.5)*700,y=cy+(Math.random()-.1)*170,r=20+Math.random()*55;let g=c.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,"rgba(255,213,0,.20)");g.addColorStop(1,"rgba(0,0,0,0)");c.fillStyle=g;c.fillRect(x-r,y-r,r*2,r*2)}}
+  const radius=230+p.gain*10, count=p.sectors;
+  if(p.showMain){
+    if(count==="1") sector(c,cx,cy,p.az,80,radius,"rgba(125,255,79,1)",.18);
+    if(count==="3"){sector(c,cx,cy,p.az-120,70,radius,"rgba(0,217,255,1)",.15);sector(c,cx,cy,p.az,70,radius,"rgba(125,255,79,1)",.17);sector(c,cx,cy,p.az+120,70,radius,"rgba(255,213,0,1)",.16)}
+    if(count==="6"){for(let i=0;i<6;i++)sector(c,cx,cy,p.az+i*60,38,radius,i%2?"rgba(0,217,255,1)":"rgba(125,255,79,1)",.12)}
+  }
+  if(p.showSide){for(let i=0;i<8;i++){let a=(p.az-90+i*45)*Math.PI/180,r=70+i*14;c.strokeStyle="rgba(125,255,79,.22)";c.beginPath();c.ellipse(cx,cy,r,r*.28,0,0,Math.PI*2);c.stroke()}}
+  c.strokeStyle="#86a7c6"; c.lineWidth=5; c.beginPath(); c.moveTo(cx,cy+80); c.lineTo(cx,cy-70); c.stroke();
+  c.fillStyle="#eaf3ff"; c.fillRect(cx-18,cy-65,36,100);
+  c.fillStyle="#ffd500"; c.font="13px system-ui"; c.fillText(`${p.type} · ${$("kfreq").textContent} · Gain ${p.gain.toFixed(1)} dBi · Az ${p.az}° · Tilt ${p.tilt}° · ${view}`,20,26);
+  c.fillStyle="#eaf3ff"; c.fillText("500 m",w-300,h-35); c.fillText("2 km",w-220,h-35); c.fillText("5 km",w-120,h-35);
+}
+function polar(){
+  const p=q(), c=X.polar,w=C.polar.width,h=C.polar.height,cx=w/2,cy=h/2; c.clearRect(0,0,w,h); grid(c,w,h);
+  c.strokeStyle="rgba(255,255,255,.20)"; for(let r=30;r<110;r+=25){c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);c.stroke()}
+  ["E-Plane","H-Plane"].forEach((name,idx)=>{
+    const off=idx?170:-170, ccx=cx+off;
+    c.strokeStyle="rgba(255,255,255,.20)"; for(let r=30;r<95;r+=25){c.beginPath();c.arc(ccx,cy,r,0,Math.PI*2);c.stroke()}
+    [["#7dff4f",1],["#ffd500",.55],["#00d9ff",.4]].forEach(([col,scale])=>{
+      c.beginPath();
+      for(let i=0;i<=360;i++){let a=i*Math.PI/180, main=Math.exp(-Math.pow(Math.sin((a-p.az*Math.PI/180)/2),2)*7), side=.18*Math.abs(Math.sin(3*a+idx));let r=18+(main*scale+side)*75;let x=ccx+Math.cos(a-Math.PI/2)*r,y=cy+Math.sin(a-Math.PI/2)*r;i?c.lineTo(x,y):c.moveTo(x,y)}
+      c.strokeStyle=col;c.lineWidth=1.7;c.stroke();
+    });
+    c.fillStyle="#eaf3ff";c.fillText(name,ccx-25,h-20)
+  })
+}
+function ports(){
+  const c=X.ports,w=C.ports.width,h=C.ports.height,p=q(); c.clearRect(0,0,w,h); grid(c,w,h);
+  const rows=[
+    ["P1","Low Band 900","880-960","80","24.0","OK","#ff3366"],
+    ["P2","Mid Band 1800","1710-1880","170","24.0","OK","#ffd500"],
+    ["P3","High Band 2100","1920-2170","250","24.0","OK","#00d9ff"],
+    ["P4","n78 5G","3300-3800","100",p.ptx.toFixed(1),"OK","#7dff4f"],
+    ["P5","n77 5G","3300-4200","900","—","N/A","#555"]
+  ];
+  c.fillStyle="#86a7c6";["PORT","BAND / SERVICE","FREQ MHz","BW","POWER","STATUS"].forEach((x,i)=>c.fillText(x,28+i*115,30));
+  rows.forEach((r,idx)=>{let y=55+idx*34;c.fillStyle=r[6];c.beginPath();c.arc(35,y-5,5,0,Math.PI*2);c.fill();c.fillStyle="#dcecff";r.slice(0,6).forEach((x,i)=>c.fillText(x,55+i*115,y));});
+}
+function ret(){
+  const p=q(), c=X.ret,w=C.ret.width,h=C.ret.height; c.clearRect(0,0,w,h); grid(c,w,h);
+  c.fillStyle="#dcecff"; c.fillText(`RET electrical tilt ${p.tilt.toFixed(1)}° · AISG connected · step 0.1°`,18,24);
+  [-2,0,4,8].forEach((tilt,idx)=>{c.beginPath();for(let x=0;x<w;x++){let d=x/w*10+.1,y=h-30-(90/(1+Math.pow(d,2)))+tilt*5+idx*4;x?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle=["#ff3366","#ffd500","#7dff4f","#00d9ff"][idx];c.stroke()})
+}
+function mimo(){
+  const p=q(), c=X.mimo,w=C.mimo.width,h=C.mimo.height; c.clearRect(0,0,w,h); grid(c,w,h);
+  const n=p.type.includes("32")?8:p.type.includes("8")?6:4;
+  for(let r=0;r<n;r++)for(let col=0;col<n;col++){let x=38+col*24,y=45+r*20;c.fillStyle=`rgba(125,255,79,${.35+(r+col)/(2*n)})`;c.fillRect(x,y,13,13)}
+  const cx=300,cy=125; [-60,-30,0,30,60].forEach((a,i)=>{let rad=(a+p.az)*Math.PI/180;c.strokeStyle=["#00d9ff","#7dff4f","#ff3366","#ffd500","#c66bff"][i];c.beginPath();c.moveTo(cx,cy);c.lineTo(cx+Math.cos(rad)*320,cy+Math.sin(rad)*90);c.stroke()});
+  c.fillStyle="#dcecff"; c.fillText(`${mimoLabel(p.type)} array · beam width ${(65-p.gain).toFixed(0)}° · MU-MIMO vectors`,20,22)
+}
+function addLog(m){let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+m;$("log").prepend(d);while($("log").children.length>24)$("log").removeChild($("log").lastChild)}
+function log(){
+  const now=Date.now(); if(now-last<1400)return; last=now; const p=q();
+  const ev=[`SITE · ${p.type} loaded`,`RET · target tilt ${p.tilt.toFixed(1)}°`,`RF · VSWR ${p.vswr.toFixed(2)} RL ${p.rl.toFixed(1)} dB`,`MIMO · ${mimoLabel(p.type)} initialized`,`PORTS · band mapping OK`,`COVERAGE · heatmap refreshed`];
+  addLog(ev[Math.floor(Math.random()*ev.length)])
+}
+function saveState(){localStorage.setItem("trfmc_antenna_v12",JSON.stringify(q()));addLog("STATE · saved to localStorage")}
+function loadState(){
+  const s=localStorage.getItem("trfmc_antenna_v12"); if(!s){addLog("STATE · no saved state");return}
+  const p=JSON.parse(s); Object.entries(p).forEach(([k,v])=>{if($(k)){ if(typeof v==="boolean")$(k).checked=v; else $(k).value=v }});
+  addLog("STATE · recalled from localStorage")
+}
+function resetState(){localStorage.removeItem("trfmc_antenna_v12");location.reload()}
+function clearMarks(){marks=[];addLog("VIEW · markers cleared")}
+document.querySelectorAll("button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll("button[data-mode]").forEach(x=>x.classList.toggle("active",x===b));addLog("workspace → "+mode)});
+document.querySelectorAll("button[data-view]").forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll("button[data-view]").forEach(x=>x.classList.toggle("active",x===b));addLog("view → "+view)});
+["type","service","freq","gain","az","tilt","vswr","rl","iso","bal","ptx","sectors","showMain","showSide","showTerrain"].forEach(id=>$(id).addEventListener("input",labels));
+(function loop(){tick++;labels();site();polar();ports();ret();mimo();log();$("clock").textContent=new Date().toLocaleTimeString();requestAnimationFrame(loop)})();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC Antenna System Explorer V1.2 Operativo<br>/trfmc_antenna_system_explorer_v12_operativo.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="649" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Antenna / RRU / RET</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Antenna System Explorer V1.2 Operativo</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="true">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Antenna / RRU / RET · Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura.</div></body></html>

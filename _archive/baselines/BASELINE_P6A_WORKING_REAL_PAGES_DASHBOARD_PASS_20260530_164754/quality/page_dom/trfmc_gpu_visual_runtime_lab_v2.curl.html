@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC GPU Visual Runtime Lab V2</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<style>
+.lab-grid{display:grid;grid-template-columns:360px 1fr 420px;gap:8px;min-height:calc(100vh - 78px);padding:8px;position:relative;z-index:1}
+.big-stage{min-height:560px;border:1px solid rgba(0,229,255,.34);background:rgba(1,9,16,.72);box-shadow:0 0 40px rgba(0,229,255,.12),inset 0 0 32px rgba(0,229,255,.06);position:relative;overflow:hidden}
+.big-stage canvas{width:100%;height:100%;display:block;min-height:560px}
+.plugin{border:1px solid rgba(0,229,255,.22);border-radius:8px;padding:8px;margin:6px 0;background:rgba(0,229,255,.045)}
+.plugin b{color:#75ff5b}.mono{font-family:ui-monospace,Consolas,monospace;font-size:11px;color:#dffaff}
+@media(max-width:1300px){.lab-grid{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">GPU Visual Runtime Lab V2</div>
+    <div class="leaf-sub">WebGL shader layer · plugin registry · WebGPU probe · no CDN · no iframe · no shell parallela</div>
+  </div>
+  <div class="leaf-kpis">
+    <div class="leaf-kpi"><small>WebGL</small><b id="kWebgl">probe</b></div>
+    <div class="leaf-kpi"><small>WebGPU</small><b id="kWebgpu">probe</b></div>
+    <div class="leaf-kpi"><small>Plugins</small><b id="kPlugins">--</b></div>
+    <div class="leaf-kpi"><small>Mode</small><b>V2</b></div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_expansion_hub_v1.html">Expansion Hub</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="leaf-btn" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </div>
+</header>
+
+<div class="lab-grid">
+  <aside class="leaf-panel">
+    <h2>GPU Stack</h2>
+    <div class="leaf-card">
+      <h3>Runtime status</h3>
+      <div class="mono" id="runtimeBox">loading...</div>
+    </div>
+    <div class="leaf-card">
+      <h3>Controlli</h3>
+      <label class="mono">Shader power</label>
+      <input id="power" type="range" min="0.20" max="1.20" step="0.01" value="0.68">
+      <p class="mono">localStorage.TRFMC_GPU_RUNTIME = 'off' disabilita il layer.</p>
+    </div>
+    <div class="leaf-card">
+      <h3>Policy</h3>
+      <ul>
+        <li>No nuove barre.</li>
+        <li>No iframe.</li>
+        <li>No CDN.</li>
+        <li>Solo leaf pages.</li>
+        <li>V6R3 protetta.</li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="leaf-panel">
+    <h2>GPU Field Preview</h2>
+    <section class="big-stage">
+      <trfmc-visual-asset kind="tower-site" data-size="large" title="GPU Field Preview · Tower Site Asset"></trfmc-visual-asset>
+    </section>
+  </main>
+
+  <aside class="leaf-panel">
+    <h2>Plugin registry</h2>
+    <div id="plugins"></div>
+    <div class="leaf-card">
+      <h3>Prossimo salto</h3>
+      <p>V3 dovrà introdurre scene WebGL modulari per tower, antenna, RRU, rack, OTDR, Smith Chart, spectrum analyzer e 5G Core map con componenti riusabili.</p>
+    </div>
+  </aside>
+</div>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script>
+(async function(){
+  const manifest = await fetch("/trfmc_gpu_visual_runtime_manifest_v2.json").then(r=>r.json());
+  const rt = window.TRFMC_GPU_RUNTIME || {};
+  document.getElementById("kWebgl").textContent = rt.mode || "unknown";
+  document.getElementById("kWebgpu").textContent = navigator.gpu ? "available" : "not exposed";
+  document.getElementById("kPlugins").textContent = manifest.plugins.length;
+  document.getElementById("runtimeBox").textContent = JSON.stringify(rt, null, 2);
+  document.getElementById("plugins").innerHTML = manifest.plugins.map(p =>
+    '<div class="plugin"><b>'+p.id+'</b><br><span class="mono">'+p.type+'</span><br>'+p.purpose+'</div>'
+  ).join("");
+  document.getElementById("power").addEventListener("input", e=>{
+    document.documentElement.style.setProperty("--trfmc-gpu-power", e.target.value);
+  });
+})();
+</script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+</body>
+</html>

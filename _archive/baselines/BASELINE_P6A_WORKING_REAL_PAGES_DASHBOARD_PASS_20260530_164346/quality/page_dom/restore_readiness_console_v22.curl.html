@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.22 Restore Readiness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --panel:rgba(5,18,31,.84);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(88,214,249,.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(210,153,34,.12), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:20px;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 40px rgba(88,214,249,.10);
+    }
+    h1 { margin:0; font-size:26px; letter-spacing:1px; }
+    header p { margin:7px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:9px 13px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button, a.btn {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+      text-decoration:none;
+      display:inline-block;
+    }
+    button:hover, a.btn:hover { background:rgba(88,214,249,.16); }
+    .kpi {
+      flex:1 1 165px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:16px; overflow:hidden; text-overflow:ellipsis; }
+    .layout {
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .checks {
+      display:grid;
+      gap:8px;
+      max-height:720px;
+      overflow:auto;
+    }
+    .check {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.028);
+      border-radius:13px;
+      padding:10px;
+    }
+    .check.pass { border-color:rgba(63,185,80,.38); }
+    .check.fail { border-color:rgba(255,77,109,.45); }
+    .check b { color:var(--cyan); display:block; font-size:12px; }
+    .check span { color:var(--text); display:block; margin-top:5px; font-size:11px; }
+    .check em { color:var(--muted); display:block; margin-top:5px; font-size:10px; font-style:normal; overflow-wrap:anywhere; }
+    pre {
+      margin:0;
+      max-height:720px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css"/>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
+</head>
+<body class="trfmc-enterprise-shell">
+<header>
+  <div>
+    <h1>TRFMC RESTORE READINESS & DISASTER RECOVERY DRILL</h1>
+    <p>v0.22 · backup verification · SHA256 · manifest · cold restore plan · non-destructive dry-run</p>
+  </div>
+  <div class="badge" id="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh Readiness</button>
+  <button onclick="runDrill()">Run API Dry-Run Drill</button>
+  <button onclick="loadPlan()">Cold Restore Plan</button>
+  <button onclick="verifyBackup()">Verify Latest Backup</button>
+  <a class="btn" href="/portal_index_v19.html">Portal Index</a>
+  <a class="btn" href="/operational_backup_console_v21.html">Backup Console</a>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Readiness</span><b id="k_status">—</b></div>
+  <div class="kpi"><span>Checks</span><b id="k_checks">—</b></div>
+  <div class="kpi"><span>Latest Backup</span><b id="k_backup">—</b></div>
+  <div class="kpi"><span>Mode</span><b id="k_mode">—</b></div>
+  <div class="kpi"><span>Destructive</span><b id="k_destructive">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Readiness Checks</h2>
+    <div class="body">
+      <div id="checks" class="checks">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Plan / Drill / Verification Output</h2>
+    <div class="body">
+      <pre id="output">loading...</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.22 · Host dry-run: bash scripts/trfmc_restore_drill.sh
+</footer>
+
+<script>
+const API = '/api'
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function renderChecks(readiness) {
+  const el = document.getElementById('checks')
+  el.innerHTML = ''
+  for (const c of readiness.checks || []) {
+    const div = document.createElement('div')
+    div.className = 'check ' + (c.passed ? 'pass' : 'fail')
+    div.innerHTML = `
+      <b>${c.check_id} · ${c.passed ? 'PASS' : 'FAIL'} · ${c.severity}</b>
+      <span>${c.description}</span>
+      <em>${JSON.stringify(c.evidence)}</em>
+    `
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  const readiness = await get('/restore/readiness')
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+
+  k('k_backend', health.version)
+  k('k_status', readiness.overall_status)
+  k('k_checks', `${readiness.summary.passed}/${readiness.summary.total}`)
+  k('k_backup', readiness.summary.latest_backup || '—')
+  k('k_mode', readiness.mode)
+  k('k_destructive', String(readiness.destructive_actions_enabled))
+
+  renderChecks(readiness)
+  j('output', readiness)
+}
+
+async function runDrill() {
+  const drill = await get('/restore/drill')
+  j('output', drill)
+}
+
+async function loadPlan() {
+  const plan = await get('/restore/plan')
+  j('output', plan)
+}
+
+async function verifyBackup() {
+  const verify = await get('/restore/verify-backup')
+  j('output', verify)
+}
+
+loadAll().catch(e => {
+  document.getElementById('badge').textContent = 'ERROR'
+  j('output', {error:String(e)})
+})
+setInterval(loadAll, 30000)
+</script>
+<script defer src="/assets/trfmc_enterprise_shell_v34.js"></script>
+</body>
+</html>

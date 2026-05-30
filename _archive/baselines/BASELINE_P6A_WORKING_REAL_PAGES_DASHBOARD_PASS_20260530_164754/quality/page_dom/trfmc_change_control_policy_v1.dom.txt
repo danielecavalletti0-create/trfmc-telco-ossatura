@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Change Control Policy V1</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<style>
+.gov-grid{display:grid;grid-template-columns:390px 1fr;gap:8px;min-height:calc(100vh - 78px);padding:8px;position:relative;z-index:1}
+.gov-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
+.gov-kpi{border:1px solid rgba(0,229,255,.32);border-radius:9px;background:rgba(0,229,255,.05);padding:10px}
+.gov-kpi small{display:block;color:#8fb8c8;text-transform:uppercase;font-size:10px}
+.gov-kpi b{display:block;color:#75ff5b;font-size:20px}
+table{width:100%;border-collapse:collapse;font-family:ui-monospace,Consolas,monospace;font-size:10px}
+th,td{border-bottom:1px solid rgba(0,229,255,.18);padding:6px;text-align:left;vertical-align:top}
+th{color:#00e5ff;background:rgba(0,229,255,.06)}
+.badge{display:inline-block;border:1px solid rgba(117,255,91,.35);background:rgba(117,255,91,.07);color:#75ff5b;border-radius:6px;padding:2px 6px;font-size:9px}
+.warn{color:#ffd84d}
+.danger{color:#ff3d7f}
+@media(max-width:1300px){.gov-grid{grid-template-columns:1fr}.gov-kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div>
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC Change Control Policy V1</div>
+    <div class="leaf-sub">Regole per modificare il portale dopo la certificazione</div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_final_promotion_gate_v1.html">Final Gate</a>
+    <a class="leaf-btn" href="/trfmc_canonical_navigation_map_v1.html">Canonical Map</a>
+    <a class="leaf-btn" href="/trfmc_orphan_quarantine_room_v1.html">Orphan Room</a>
+    <a class="leaf-btn" href="/trfmc_change_control_policy_v1.html">Change Policy</a>
+  </div>
+</header>
+
+<div class="gov-grid">
+<aside class="leaf-panel">
+<h2>Change Control</h2>
+<div class="leaf-card">
+<h3>Blocco operativo</h3>
+<p><b>NO MASS PATCH</b></p>
+<p>Ogni modifica deve avere snapshot, hash, quality gate, rollback path.</p>
+</div>
+</aside>
+<main class="leaf-panel">
+<h2>Policy operativa</h2>
+<div class="leaf-card">
+<h3>Procedura ammessa</h3>
+<ol>
+<li>Definire una sola pagina o un solo dominio.</li>
+<li>Snapshot prima della modifica.</li>
+<li>Modifica scoped.</li>
+<li>HTTP gate.</li>
+<li>External/iframe gate.</li>
+<li>Hash V6R3 e Control Room invariati.</li>
+<li>Nuovo freeze se PASS.</li>
+</ol>
+</div>
+<div class="leaf-card">
+<h3>Divieti</h3>
+<p class="danger">Vietati iframe, CDN, patch massive, doppie barre, shell parallele, modifica diretta di V6R3 senza change request.</p>
+</div>
+</main>
+</div>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Change Control Policy V1</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> gpu-runtime · asset-engine</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

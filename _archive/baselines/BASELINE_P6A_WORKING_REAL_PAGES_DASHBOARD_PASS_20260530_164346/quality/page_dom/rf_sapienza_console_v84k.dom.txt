@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.84K · RF Sapienza Layer Director</title>
+  <link rel="stylesheet" href="/assets/trfmc_v084i_rf_vector_cartography.css">
+  <link rel="stylesheet" href="/assets/trfmc_v084j_rf_4d_measurement_theater.css">
+  <script defer="" src="/assets/trfmc_v084i_rf_vector_cartography.js"></script>
+  <script defer="" src="/assets/trfmc_v084j_rf_4d_measurement_theater.js"></script>
+  <link rel="stylesheet" href="/assets/trfmc_v084k_rf_sapienza_layer_director.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf v84j-theater v84k-director mode-measure v84f-dark-field v84g-topographic v84h-atlas v84i-vector" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <header class="shell">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC RF SAPIENZA · INSTRUMENT TRUTH VIEW</strong>
+        <span>v0.84E · field surface · diagnostic contours · IQ/PDP/H(f)/budget · no red curtain</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/rf_sapienza_console_v84d.html">v84D</a>
+      <a href="/rf_sapienza_console_v84c.html">v84C</a>
+      <a href="/rf_sapienza_console_v84b.html">v84B</a>
+      <a href="/rf_sapienza_console_v84e.html">v84E</a>
+      <a href="/rf_sapienza_console_v84f.html">v84F</a>
+      <a href="/rf_sapienza_console_v84g.html">v84G</a>
+      <a href="/rf_sapienza_console_v84h.html">v84H</a>
+      <a href="/rf_sapienza_console_v84i.html">v84I</a>
+      <a href="/rf_sapienza_console_v84j.html">v84J</a>
+      <a class="active" href="/rf_sapienza_console_v84k.html">v84K Director</a>
+      <a href="/webgl_rf_physics_engine_v83f.html">v83F</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span>NO CDN</span>
+      <span>NO OVERWRITE</span>
+      <span>LAB VIEW</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">TRFMC v0.84K · RF SAPIENZA LAYER GOVERNANCE</p>
+        <h1>RF Sapienza Layer Director</h1>
+        <p>Direttore dei layer RF Sapienza: misura pura, teatro 4D, modalità docente e vista pulita convivono senza sovrapporsi. La scena diventa governabile, leggibile e pronta per uso didattico avanzato.</p>
+      </div>
+
+      <aside class="score">
+        <span>Measurement Trust</span>
+        <strong id="trustScore">67%</strong>
+        <em id="trustLabel">dispersive</em>
+      </aside>
+    </section><section class="sapienza-director">
+      <article>
+        <h2>Layer Director</h2>
+        <p>Da questo punto in poi non si aggiunge grafica a caso: ogni layer deve avere una funzione di misura, diagnosi o didattica.</p>
+        <div class="sapienza-keys">
+          <span>1 Measure</span>
+          <span>2 4D</span>
+          <span>3 Teach</span>
+          <span>4 Clean</span>
+        </div>
+      </article>
+
+      <div class="director-modes">
+        <button data-mode="measure" class="active">Measure</button>
+        <button data-mode="4d">4D</button>
+        <button data-mode="teach">Teach</button>
+        <button data-mode="clean">Clean</button>
+      </div>
+
+      <article class="director-readout">
+        <b id="directorModeTitle">Measure Mode</b>
+        <p id="directorModeText">Vista strumentale pulita.</p>
+      </article>
+    </section>
+
+    <section class="workbench">
+      <aside class="panel controls">
+        <h2>RF Model</h2>
+
+        <label>Carrier frequency <b id="freqText">3500 MHz</b>
+          <input id="freq" type="range" min="700" max="28000" value="3500" step="100">
+        </label>
+
+        <label>EIRP sector <b id="eirpText">46 dBm</b>
+          <input id="eirp" type="range" min="20" max="65" value="46" step="1">
+        </label>
+
+        <label>Path-loss exponent n <b id="pathText">3.2</b>
+          <input id="pathN" type="range" min="2.0" max="5.0" value="3.2" step="0.1">
+        </label>
+
+        <label>Shadow fading σ <b id="shadowText">8 dB</b>
+          <input id="shadow" type="range" min="0" max="30" value="8" step="1">
+        </label>
+
+        <label>RMS delay spread <b id="delayText">130 ns</b>
+          <input id="delay" type="range" min="20" max="900" value="130" step="10">
+        </label>
+
+        <label>Rician K-factor <b id="kText">10 dB</b>
+          <input id="kfactor" type="range" min="-20" max="20" value="10" step="1">
+        </label>
+
+        <label>Beam azimuth <b id="beamText">18°</b>
+          <input id="beam" type="range" min="-70" max="70" value="18" step="1">
+        </label>
+
+        <div class="buttons">
+          <button id="btnBalanced">Balanced lab</button>
+          <button id="btnNlos">NLOS lesson</button>
+          <button id="btnSevere">Severe channel</button>
+          <button id="btnTeacher">Teacher overlay</button>
+        </div>
+
+        <div class="legend">
+          <h3>Truth scale</h3>
+          <span><i class="excellent"></i>Excellent · high trust</span>
+          <span><i class="good"></i>Good · serviceable</span>
+          <span><i class="edge"></i>Edge · margin</span>
+          <span><i class="weak"></i>Weak/NLOS</span>
+          <span><i class="critical"></i>Critical · real degradation</span>
+        </div>
+      </aside>
+
+      <section class="stage">
+        <div class="stage-head">
+          <div>
+            <h2>RF Sapienza Governed Measurement Surface</h2>
+            <p>Campo governato da modalità operative: Measure, 4D, Teach e Clean. Ogni layer ha uno scopo, nessun layer deve coprire la diagnosi.</p>
+          </div>
+
+          <div class="kpi" id="kpiServer"><span>Best server</span><b id="bestServer">SITE-B</b></div>
+          <div class="kpi good" id="kpiRsrp"><span>RSRP</span><b id="rsrpVal">-56.2 dBm</b></div>
+          <div class="kpi warn" id="kpiSinr"><span>SINR</span><b id="sinrVal">4.7 dB</b></div>
+          <div class="kpi critical" id="kpiEvm"><span>EVM</span><b id="evmVal">45.0%</b></div>
+        </div>
+
+        <canvas id="fieldCanvas" width="1399" height="650"></canvas>
+
+        <div class="caption">
+          <b>Field is not decorative</b>
+          <span>FSPL · log-distance · sector gain · obstruction · shadowing · TDL · SINR · EVM</span>
+        </div>
+      </section>
+
+      <aside class="panel interpretation">
+        <h2>Master Interpretation</h2>
+
+        <div class="metric good" id="mCoverage"><span>Coverage score</span><b id="coverageVal">67%</b></div>
+        <div class="metric good" id="mDelay"><span>RMS delay spread</span><b id="dsVal">101 ns</b></div>
+        <div class="metric" id="mCoherence"><span>Coherence BW</span><b id="cohVal">1.97 MHz</b></div>
+        <div class="metric warn" id="mDominance"><span>Dominance gap</span><b id="gapVal">5.0 dB</b></div>
+
+        <div class="teacher">
+          <b>Nota docente</b>
+          <p id="teacherText">Canale dispersivo: il campo può sembrare presente, ma PDP e costellazione mostrano multipath e qualità degradata. Caso perfetto per spiegare ISI, selettività in frequenza e OFDM.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="truth-row">
+      <article>
+        <h2>1 · Diagnosi cromatica</h2>
+        <p>Il rosso non è più un premio visivo. È un allarme locale e motivato da SINR basso, EVM alta, RSRP debole o score degradato.</p>
+        <code>red ⇔ critical(RSRP,SINR,EVM,score)</code>
+      </article>
+
+      <article>
+        <h2>2 · Regola strumentale</h2>
+        <p>La mappa suggerisce una zona. IQ, PDP, risposta in frequenza e budget stabiliscono la diagnosi.</p>
+        <code>field hypothesis → instrument proof</code>
+      </article>
+
+      <article>
+        <h2>3 · Metodo per l’allievo</h2>
+        <p>Prima geometria e ostacoli, poi best-server, poi RSRP/SINR, poi PDP/IQ/EVM. Solo alla fine giudizio tecnico.</p>
+        <code>observe → measure → correlate → explain</code>
+      </article>
+    </section>
+
+    <section class="instruments">
+      <article>
+        <h2>Vector Signal Analyzer · 16-QAM IQ</h2>
+        <canvas id="iqCanvas" width="1367" height="260"></canvas>
+      </article>
+
+      <article>
+        <h2>Power Delay Profile · TDL</h2>
+        <canvas id="pdpCanvas" width="1367" height="260"></canvas>
+      </article>
+
+      <article>
+        <h2>Frequency Response · |H(f)|</h2>
+        <canvas id="hCanvas" width="1367" height="260"></canvas>
+      </article>
+
+      <article>
+        <h2>Link Budget Trace · UE Probe</h2>
+        <table>
+          <thead>
+            <tr><th>Voce</th><th>Valore</th><th>Interpretazione</th></tr>
+          </thead>
+          <tbody id="budgetRows"><tr><td>Best server</td><td>SITE-B</td><td>serving-cell decision</td></tr><tr><td>EIRP</td><td>46.0 dBm</td><td>potenza equivalente irradiata</td></tr><tr><td>Distanza</td><td>382 m</td><td>geometria radio</td></tr><tr><td>FSPL</td><td>95.0 dB</td><td>perdita spazio libero</td></tr><tr><td>Path exponent</td><td>n=3.0</td><td>morfologia ambiente</td></tr><tr><td>Shadowing</td><td>5.0 dB</td><td>variabilità lenta</td></tr><tr><td>Delay spread</td><td>101 ns</td><td>dispersione temporale</td></tr><tr><td>Dominance gap</td><td>5.0 dB</td><td>separazione best-server</td></tr><tr><td>RSRP</td><td>-56.2 dBm</td><td>potenza ricevuta</td></tr><tr><td>SINR</td><td>4.7 dB</td><td>qualità/interferenza</td></tr></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="doctrine">
+      <article>
+        <h2>Osservazione</h2>
+        <p>La scena deve far riconoscere siti, UE, ostacoli, vettori e corridoi NLOS senza confondere lo studente.</p>
+      </article>
+      <article>
+        <h2>Misura</h2>
+        <p>RSRP, SINR, EVM e delay spread sono letture diverse dello stesso fenomeno. Nessuna da sola basta.</p>
+      </article>
+      <article>
+        <h2>Interpretazione</h2>
+        <p>Una zona verde con IQ degradato non è “buona”: è un caso didattico di qualità compromessa.</p>
+      </article>
+      <article>
+        <h2>Trasmissione</h2>
+        <p>L’allievo non deve ricordare colori: deve imparare il ragionamento diagnostico.</p>
+      </article>
+    </section>
+
+    <footer>
+      TRFMC v0.84K · RF Sapienza Layer Director · pagina isolata · nessun CDN · nessuna modifica backend
+    </footer>
+  </main>
+<script defer="" src="/assets/trfmc_v084k_rf_sapienza_layer_director.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC v0.84K · RF Sapienza Layer Director<br>/rf_sapienza_console_v84k.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Knowledge Base</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> RF Sapienza Layer Director</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> La teoria non è documento: è motore operativo che spiega ciò che il portale mostra.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Knowledge Base · La teoria non è documento: è motore operativo che spiega ciò che il portale mostra.</div></body></html>

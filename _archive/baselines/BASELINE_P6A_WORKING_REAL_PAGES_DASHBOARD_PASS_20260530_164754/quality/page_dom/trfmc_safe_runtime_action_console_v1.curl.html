@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Safe Runtime Action Console V1</title>
+<style>
+:root{--bg:#01040c;--panel:rgba(5,13,30,.94);--line:rgba(105,190,255,.30);--text:#eaf3ff;--muted:#90a9c7;--cyan:#74dcff;--green:#9dffc7;--amber:#ffd37a;--red:#ff8585}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 12% 0%,rgba(48,132,255,.34),transparent 31%),radial-gradient(circle at 88% 4%,rgba(0,255,205,.16),transparent 31%),linear-gradient(180deg,#01040c,#061327 52%,#01040c);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:20;background:rgba(1,4,12,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(22px)}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:15px 20px}.brand h1{margin:0;font-size:21px;letter-spacing:.10em;text-transform:uppercase}.brand small{display:block;color:var(--muted);margin-top:4px}.nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.nav a,.pill{color:var(--text);text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:999px;padding:7px 10px;font-size:11px}.pill.ok{color:var(--green);border-color:rgba(157,255,199,.55)}
+main{padding:16px}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}.panel{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),rgba(2,8,20,.94));border-radius:22px;box-shadow:0 22px 78px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.055)}.heroMain{padding:22px}.heroMain h2{margin:0 0 12px;font-size:42px;line-height:1;letter-spacing:-.05em}.heroMain p{color:#c8daf1;line-height:1.55}.status{padding:14px;display:grid;gap:9px}.statusRow{display:flex;justify-content:space-between;gap:12px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);border-radius:13px;padding:10px}.statusRow span{color:var(--muted);text-align:right}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.section{padding:14px}.section h3{margin:0 0 12px;color:var(--cyan)}.cmd{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);border-radius:15px;padding:12px;margin-bottom:10px}.cmd b{display:block;color:var(--green);margin-bottom:6px}.cmd p{color:var(--muted);font-size:12px;line-height:1.4}pre{white-space:pre-wrap;overflow:auto;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.28);border-radius:12px;padding:10px;color:#c0d5ee;font-size:11px}button{border:1px solid rgba(105,190,255,.30);background:rgba(255,255,255,.045);color:var(--text);border-radius:999px;padding:8px 12px;cursor:pointer;margin-top:6px}.warn{color:var(--amber)}
+@media(max-width:1200px){.hero,.grid{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header><div class="topbar"><div class="brand"><h1>TRFMC Safe Runtime Action Console V1</h1><small>Dry-run only · Copy commands · Open5GS · UERANSIM · HackRF · Evidence · 5173</small></div><nav class="nav">
+<a href="/trfmc_instrument_os_alignment_v1.html">Instrument OS</a>
+<a href="/trfmc_pr200_field_monitoring_receiver_v1.html">PR200 Field Receiver</a><span class="pill ok" id="healthPill">Health: checking</span><a href="/trfmc_enterprise_prime_portal_v1.html">Enterprise Prime</a><a href="/trfmc_runtime_hook_layer_v1.html">Runtime Hook</a><a href="/trfmc_converged_rf_5g_noc_v1.html">Converged NOC</a><a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">5G Identity/AKA</a><a href="/trfmc_rf_tm_war_room_v4.html">RF/TM</a></nav></div></header>
+<main>
+<section class="hero"><div class="panel heroMain"><h2>Console azioni sicure</h2><p>Questa pagina non esegue comandi. Presenta comandi controllati, copiabili e leggibili per verificare portale 5173, readiness runtime, Open5GS, UERANSIM, HackRF, PCAP/IQ evidence e disco.</p></div><aside class="panel status"><div class="statusRow"><b>Execution policy</b><span class="warn">nessuna esecuzione automatica</span></div><div class="statusRow"><b>Default mode</b><span>dry-run / read-only</span></div><div class="statusRow"><b>Portal rule</b><span>127.0.0.1:5173</span></div><div class="statusRow"><b>Snapshot</b><span>/trfmc_runtime_readiness_latest.json</span></div></aside></section>
+<section class="grid">
+<div class="panel section"><h3>Portal / Quality</h3>
+<div class="cmd"><b>Health portale 5173</b><p>Verifica middleware locale.</p><pre>curl -s --max-time 5 127.0.0.1:5173/api/health | python3 -m json.tool</pre><button onclick="copyCmd(this)">Copy</button></div>
+<div class="cmd"><b>Light HTTP check</b><p>Controllo leggero senza report pesanti.</p><pre>cd /home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2
+for url in \
+  127.0.0.1:5173/ \
+  127.0.0.1:5173/trfmc_enterprise_prime_portal_v1.html \
+  127.0.0.1:5173/trfmc_runtime_hook_layer_v1.html \
+  127.0.0.1:5173/trfmc_safe_runtime_action_console_v1.html \
+  127.0.0.1:5173/trfmc_converged_rf_5g_noc_v1.html \
+  127.0.0.1:5173/trfmc_5g_core_ran_identity_aka_engine_v1.html \
+  127.0.0.1:5173/trfmc_rf_tm_war_room_v4.html \
+  127.0.0.1:5173/api/health
+do
+  echo -n "$url -> "
+  curl -s -o /dev/null -w "%{http_code} %{size_download} bytes\n" --max-time 5 "$url"
+done</pre><button onclick="copyCmd(this)">Copy</button></div>
+<div class="cmd"><b>Disk guard</b><p>Prima di generare altro.</p><pre>df -h .
+du -h --max-depth=2 runtime 2>/dev/null | sort -h | tail -n 80</pre><button onclick="copyCmd(this)">Copy</button></div>
+</div>
+<div class="panel section"><h3>5G Core / RAN</h3>
+<div class="cmd"><b>Readiness snapshot</b><p>Rigenera snapshot read-only.</p><pre>cd /home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2
+./trfmc_runtime_readiness_check_v1.sh
+cat runtime/readiness/latest_runtime_readiness.json | python3 -m json.tool | sed -n '1,220p'</pre><button onclick="copyCmd(this)">Copy</button></div>
+<div class="cmd"><b>Open5GS inspection</b><p>Solo ispezione.</p><pre>command -v open5gs-amfd open5gs-smfd open5gs-upfd open5gs-ausfd open5gs-udmd || true
+ps aux | grep -E 'open5gs-(amf|smf|upf|ausf|udm|nrf|scp)' | grep -v grep || true
+ls -lah /var/log/open5gs 2>/dev/null || true</pre><button onclick="copyCmd(this)">Copy</button></div>
+<div class="cmd"><b>UERANSIM inspection</b><p>Solo verifica UE/gNB.</p><pre>command -v nr-gnb nr-ue nr-cli || true
+ls -lah "$HOME/lab/UERANSIM" 2>/dev/null || true
+ps aux | grep -E 'nr-(gnb|ue)' | grep -v grep || true</pre><button onclick="copyCmd(this)">Copy</button></div>
+</div>
+<div class="panel section"><h3>RF / HackRF / Evidence</h3>
+<div class="cmd"><b>HackRF probe</b><p>Verifica device, non trasmette.</p><pre>command -v hackrf_info hackrf_transfer hackrf_sweep SoapySDRUtil || true
+hackrf_info || true</pre><button onclick="copyCmd(this)">Copy</button></div>
+<div class="cmd"><b>Evidence folders</b><p>Cartelle leggere PCAP/IQ/log/report.</p><pre>cd /home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2
+mkdir -p runtime/evidence/pcap runtime/evidence/iq runtime/evidence/logs runtime/evidence/reports
+find runtime/evidence -maxdepth 2 -type d -print</pre><button onclick="copyCmd(this)">Copy</button></div>
+</div>
+</section>
+</main>
+<script>
+async function health(){try{let r=await fetch("/api/health",{cache:"no-store"}),j=await r.json();document.getElementById("healthPill").textContent=j.ok?"Health: online":"Health: degraded"}catch(e){document.getElementById("healthPill").textContent="Health: unavailable"}}
+function copyCmd(btn){let pre=btn.parentElement.querySelector("pre");navigator.clipboard.writeText(pre.textContent).then(()=>{let old=btn.textContent;btn.textContent="Copied";setTimeout(()=>btn.textContent=old,900)})}
+health()
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="microwave" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · MICROWAVE</div>
+      <div class="trfmc-perfection-sub">TRFMC Safe Runtime Action Console V1<br>/trfmc_safe_runtime_action_console_v1.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>49/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>microwave-dish</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="TRFMC MICROWAVE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, fade margin, band)
+Capacity ≈ B·log2(1+SNR)·rank</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="microwave"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

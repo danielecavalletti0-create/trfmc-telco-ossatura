@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Integration Control Room V2</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_design_tokens.css">
+<style>
+main{padding:12px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+input,select{background:#03101a;color:#e8f9ff;border:1px solid #0b75a8;border-radius:4px;padding:7px}
+.small{font-size:11px;color:#8bb7c9}
+</style>
+</head>
+<body>
+<header class="trfmc-shell-header">
+  <h1 class="trfmc-title">TRFMC Integration Control Room V2</h1>
+  <div class="trfmc-subtitle">registry unico · design system master · anti-frammentazione · moduli leaf controllati</div>
+</header>
+
+<main>
+  <section class="trfmc-card">
+    <h3>Policy operativa</h3>
+    <div class="trfmc-note">
+      V6R3 resta shell ufficiale. Nessuna promozione diretta di pagine con MULTIPLE_NAV_OR_TOOLBAR, fixed layer e molte z-index.
+      Le pagine WebGL premium diventano moduli leaf o sorgenti da cui estrarre stile, non portali paralleli.
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <input id="q" placeholder="cerca modulo, dominio, nome file..." size="42">
+    <select id="klass">
+      <option value="">tutte le classi</option>
+    </select>
+    <select id="webgl">
+      <option value="">WebGL: tutti</option>
+      <option value="true">solo WebGL</option>
+      <option value="false">no WebGL</option>
+    </select>
+  </div>
+
+  <section id="summary" class="trfmc-grid"></section>
+
+  <h2 class="trfmc-title" style="font-size:15px;margin-top:18px">Moduli censiti</h2>
+  <section id="pages" class="trfmc-grid"></section>
+</main>
+
+<script>
+let REG=null;
+
+function badge(txt,cls=""){return `<span class="trfmc-badge ${cls}">${txt}</span>`}
+
+function render(){
+ const q=document.getElementById('q').value.toLowerCase();
+ const klass=document.getElementById('klass').value;
+ const webgl=document.getElementById('webgl').value;
+
+ let pages=REG.pages.filter(x=>{
+   const blob=(x.name+" "+x.class+" "+(x.url||"")).toLowerCase();
+   if(q && !blob.includes(q)) return false;
+   if(klass && x.class!==klass) return false;
+   if(webgl && String(x.webgl)!==webgl) return false;
+   return true;
+ });
+
+ document.getElementById('summary').innerHTML=`
+  <div class="trfmc-card"><h3>Total HTML</h3><div class="trfmc-kpi">${REG.counts.total_html}</div></div>
+  <div class="trfmc-card"><h3>Leaf candidate</h3><div class="trfmc-kpi">${REG.counts.leaf_operational_candidate}</div></div>
+  <div class="trfmc-card"><h3>Orphan / legacy</h3><div class="trfmc-kpi trfmc-warn">${REG.counts.orphan_or_legacy_candidate}</div></div>
+  <div class="trfmc-card"><h3>Filtro attuale</h3><div class="trfmc-kpi">${pages.length}</div></div>
+ `;
+
+ document.getElementById('pages').innerHTML=pages.map(x=>`
+  <article class="trfmc-card">
+    <h3>${x.name}</h3>
+    <div>
+      ${badge(x.class)}
+      ${x.webgl?badge('WEBGL','trfmc-ok'):''}
+      ${x.core_api?badge('API','trfmc-warn'):''}
+      ${x.has_iframe?badge('IFRAME','trfmc-warn'):''}
+      ${x.external_refs?badge('EXT','trfmc-bad'):''}
+    </div>
+    <p class="small">size: ${x.size} bytes · refs: ${x.refs_count}</p>
+    <a class="trfmc-btn" href="${x.url}" target="_blank">Apri modulo</a>
+  </article>
+ `).join('');
+}
+
+async function boot(){
+ const r=await fetch('/trfmc_portal_registry_unified.json',{cache:'no-store'});
+ REG=await r.json();
+
+ const classes=[...new Set(REG.pages.map(x=>x.class))].sort();
+ const sel=document.getElementById('klass');
+ classes.forEach(c=>{
+   const o=document.createElement('option');
+   o.value=c; o.textContent=c;
+   sel.appendChild(o);
+ });
+
+ ['q','klass','webgl'].forEach(id=>document.getElementById(id).addEventListener('input',render));
+ render();
+}
+
+boot().catch(e=>document.body.innerHTML+='<pre>'+e+'</pre>');
+</script>
+</body>
+</html>

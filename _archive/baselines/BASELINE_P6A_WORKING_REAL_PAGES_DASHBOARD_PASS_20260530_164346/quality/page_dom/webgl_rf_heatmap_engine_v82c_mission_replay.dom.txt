@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.82C · Native WebGL Mission Replay</title>
+  <link rel="stylesheet" href="/assets/trfmc_v082b_native_webgl_rf_refinement.css">
+  <link rel="stylesheet" href="/assets/trfmc_v082c_mission_replay_sector_diagnostics.css">
+  <script defer="" src="/assets/trfmc_v082b_native_webgl_rf_refinement.js"></script>
+  <script defer="" src="/assets/trfmc_v082c_mission_replay_sector_diagnostics.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 no-webgl v82c-replay" data-trfmc-gpu-runtime="css-fallback" data-v82c-step="baseline"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <header class="shell">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC RF FIELD ENGINE</strong>
+        <span>v0.82B · calibrated native WebGL · v82A/v81C preserved</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">v81C-R2</a>
+      <a href="/webgl_rf_heatmap_engine_v82_native_lab.html">v82A</a>
+      <a href="/webgl_rf_heatmap_engine_v82b_native_lab.html">v82B</a>
+      <a class="active" href="/webgl_rf_heatmap_engine_v82c_mission_replay.html">v82C Replay</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span id="webglStatus">NO WEBGL</span>
+      <span>RF CAL</span>
+      <span>NO CDN</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">TRFMC v0.82C · MISSION REPLAY + SECTOR DIAGNOSTICS</div>
+        <h1>Native WebGL RF Mission Replay</h1>
+        <p>
+          Motore WebGL calibrato per visualizzare copertura RF multi-sito con dominanza di cella,
+          attenuazione da vegetazione, shadowing urbano, fading, contour lines e settori antenna leggibili.
+          Questa versione è parallela: non sostituisce v82A, v81C-R2 o v68 originale.
+        </p>
+      </div>
+
+      <aside class="hero-kpi">
+        <span>Coverage Integrity</span>
+        <strong id="gpuScore">—</strong>
+        <small id="gpuMode">native calibrated shader</small>
+      </aside>
+    </section>
+
+    <section class="lab-grid">
+      <aside class="control-panel">
+        <h2>RF Control Plane</h2>
+
+        <label>
+          <span>Frequency Layer</span>
+          <input id="freq" type="range" min="0" max="100" value="58">
+          <b id="freqVal">3.5 GHz · C-band</b>
+        </label>
+
+        <label>
+          <span>Vegetation Load</span>
+          <input id="veg" type="range" min="0" max="100" value="42">
+          <b id="vegVal">0.42</b>
+        </label>
+
+        <label>
+          <span>Urban Shadowing</span>
+          <input id="shadow" type="range" min="0" max="100" value="38">
+          <b id="shadowVal">0.38</b>
+        </label>
+
+        <label>
+          <span>Fading / Noise</span>
+          <input id="noise" type="range" min="0" max="100" value="24">
+          <b id="noiseVal">0.24</b>
+        </label>
+
+        <label>
+          <span>Beam Sectorization</span>
+          <input id="beam" type="range" min="0" max="100" value="66">
+          <b id="beamVal">0.66</b>
+        </label>
+
+        <div class="buttons">
+          <button id="pauseBtn">Pause</button>
+          <button id="resetBtn">Reset RF Baseline</button>
+          <button id="scenarioBtn">Mission Replay Step</button>
+        </div>
+
+        <div class="v82c-mission-panel">
+        <h3>Mission Replay</h3>
+        <span class="v82c-step-name" id="v82cStepName">01 · Baseline RF</span>
+        <span class="v82c-step-desc" id="v82cStepDesc">Copertura bilanciata C-band, clutter moderato, margine servizio stabile.</span>
+        <div class="v82c-step-bar"><i id="v82cStepBar" style="width: 20%;"></i></div>
+        <button class="v82c-auto" id="v82cAuto">Auto Replay: OFF</button>
+      </div><div class="legend">
+          <i class="excellent"></i><span>Excellent RSRP / serving dominance</span>
+          <i class="good"></i><span>Good service margin</span>
+          <i class="edge"></i><span>Cell edge / handover belt</span>
+          <i class="weak"></i><span>Weak NLOS / clutter loss</span>
+          <i class="outage"></i><span>Outage island / blocked corridor</span>
+        </div>
+      </aside>
+
+      <section class="webgl-stage">
+        <canvas id="rfCanvas"></canvas>
+
+        <div class="hud-grid"></div>
+        <div class="sector sector-a"></div>
+        <div class="sector sector-b"></div>
+        <div class="sector sector-c"></div>
+
+        <div class="overlay site a"><b>SITE-A</b><span>n78</span></div>
+        <div class="overlay site b"><b>SITE-B</b><span>C-band</span></div>
+        <div class="overlay site c"><b>SITE-C</b><span>load</span></div>
+
+        <div class="overlay block b1"></div>
+        <div class="overlay block b2"></div>
+        <div class="overlay block b3"></div>
+        <div class="overlay block b4"></div>
+        <div class="overlay block b5"></div>
+
+        <div class="overlay tree t1"></div>
+        <div class="overlay tree t2"></div>
+        <div class="overlay tree t3"></div>
+        <div class="overlay tree t4"></div>
+        <div class="overlay tree t5"></div>
+        <div class="overlay tree t6"></div>
+        <div class="overlay tree t7"></div>
+
+        <div class="contour-label l1">RSRP belt</div>
+        <div class="contour-label l2">handover edge</div>
+        <div class="contour-label l3">NLOS shadow</div>
+
+        <div class="caption">
+          <strong>Calibrated Native WebGL RF Field</strong>
+          <span id="captionText">01 · Baseline RF · Copertura bilanciata C-band, clutter moderato, margine servizio stabile.</span>
+        </div>
+
+        <div class="fallback" id="fallbackBox">
+          <strong>WebGL unavailable</strong>
+          <span>Apri la pagina v81C-R2 stabile oppure verifica accelerazione grafica del browser.</span>
+          <a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">Open v81C-R2 fallback</a>
+        </div>
+      <div class="v82c-sector-diag">
+        <div class="v82c-sector-card" data-sector="0">
+          <header><b>SITE-A</b><span>SERVING</span></header>
+          <small>RSRP -82 dBm · SINR 22 dB · low risk</small><div class="meter"><i style="width: 86%;"></i></div>
+        </div>
+        <div class="v82c-sector-card" data-sector="1">
+          <header><b>SITE-B</b><span>ANCHOR</span></header>
+          <small>RSRP -79 dBm · SINR 24 dB · best server</small><div class="meter"><i style="width: 91%;"></i></div>
+        </div>
+        <div class="v82c-sector-card" data-sector="2">
+          <header><b>SITE-C</b><span>LOAD</span></header>
+          <small>RSRP -88 dBm · SINR 18 dB · stable</small><div class="meter"><i style="width: 76%;"></i></div>
+        </div>
+      </div><div class="v82c-timeline">
+        <div class="v82c-timeline-title">RF Mission Replay Timeline</div>
+        <div class="v82c-timeline-track">
+          <div class="v82c-timeline-step active">Baseline</div>
+          <div class="v82c-timeline-step">Shadow</div>
+          <div class="v82c-timeline-step">Foliage</div>
+          <div class="v82c-timeline-step">Handover</div>
+          <div class="v82c-timeline-step">Recovery</div>
+        </div>
+      </div><div class="v82c-pulse pa"></div><div class="v82c-pulse pb"></div><div class="v82c-pulse pc"></div></section>
+
+      <aside class="telemetry">
+        <h2>RF Engineering Telemetry</h2>
+
+        <div class="metric">
+          <span>Renderer</span>
+          <strong id="rendererVal">fallback</strong>
+          <small>native WebGL context</small>
+        </div>
+
+        <div class="metric">
+          <span>Estimated Field Loss</span>
+          <strong id="lossVal">—</strong>
+          <small>vegetation + shadow + fading</small>
+        </div>
+
+        <div class="metric">
+          <span>Coverage Integrity</span>
+          <strong id="coverageVal">—</strong>
+          <small>synthetic service field</small>
+        </div>
+
+        <div class="metric">
+          <span>Outage Risk</span>
+          <strong id="riskVal">—</strong>
+          <small>cell edge + clutter + fade margin</small>
+        </div>
+
+        <div class="metric">
+          <span>Dominant RF Layer</span>
+          <strong id="dominantVal">—</strong>
+          <small>serving-cell visual estimate</small>
+        </div>
+
+        <div class="eventbus" id="eventBus"><b>AI RF Copilot</b><p>01 · Baseline RF: Copertura bilanciata C-band, clutter moderato, margine servizio stabile. Sector diagnostics refreshed. Next gate: verify dominance, edge stability and recovery margin.</p></div>
+      </aside>
+    </section>
+
+    <section class="bottom-kpi">
+      <article>
+        <span>Render Path</span>
+        <strong id="pathVal">DOM</strong>
+        <small>native WebGL shader</small>
+      </article>
+      <article>
+        <span>RF Sites</span>
+        <strong>3</strong>
+        <small>multi-cell dominance</small>
+      </article>
+      <article>
+        <span>Visual Mode</span>
+        <strong>CAL</strong>
+        <small>non-saturated palette</small>
+      </article>
+      <article>
+        <span>Fallback</span>
+        <strong>v81</strong>
+        <small>stable DOM/CSS console preserved</small>
+      </article>
+    </section>
+
+    <section class="notes">
+      <article>
+        <h3>Visual Fix</h3>
+        <p>La palette è stata compressa per evitare saturazione rossa continua e rendere leggibili margine, edge e outage.</p>
+      </article>
+      <article>
+        <h3>RF Semantics</h3>
+        <p>Settori, edifici, vegetazione e shadowing contribuiscono alla lettura del campo, non sono più semplice decorazione.</p>
+      </article>
+      <article>
+        <h3>Next Gate</h3>
+        <p>Se approvata, questa pagina diventa base per mission replay, fading timeline e correlazione handover.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    TRFMC v0.82C · Native WebGL Mission Replay · isolated sandbox · v82A/v81C preserved
+  </footer>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC v0.82C · Native WebGL Mission Replay<br>/webgl_rf_heatmap_engine_v82c_mission_replay.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>65/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna" width="602" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> Native WebGL RF Mission Replay</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

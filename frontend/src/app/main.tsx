@@ -28,9 +28,10 @@ import { MissionLayoutOrchestratorV42 } from '../layout_orchestrator/MissionLayo
 import { EngineeringConsoleExpansionV4 } from '../layout_orchestrator/EngineeringConsoleExpansionV4'
 import { PortalOSRoot } from '../portal-os/PortalOSRoot'
 import { portalOSModules } from '../portal-os/portalManifest'
+import { useRtStreamStore } from '../stores/rtStreamStore'
+import { useAppStateStore, type SectionId } from '../stores/appStateStore'
 
 type AnyObj = Record<string, any>
-type SectionId = 'overview' | 'rf' | 'network' | 'assets' | 'soc' | 'events' | 'restricted'
 
 async function apiGet<T = any>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`)
@@ -120,13 +121,22 @@ function App() {
 
   const trfmcPortalOsRouteActive = trfmcPortalOsPreview || trfmcPortalOsManifestRoute;
 
-  const [active, setActive] = React.useState<SectionId>('overview')
+  const stream = useRtStreamStore((state) => state.messages)
+  const wsState = useRtStreamStore((state) => state.wsState)
+  const rtConnect = useRtStreamStore((state) => state.connect)
+  const rtDisconnect = useRtStreamStore((state) => state.disconnect)
+
+  const active = useAppStateStore((state) => state.active)
+  const selectedTarget = useAppStateStore((state) => state.selectedTarget)
+  const loading = useAppStateStore((state) => state.loading)
+  const err = useAppStateStore((state) => state.err)
+
+  const setActive = useAppStateStore((state) => state.setActive)
+  const setSelectedTarget = useAppStateStore((state) => state.setSelectedTarget)
+  const setLoading = useAppStateStore((state) => state.setLoading)
+  const setErr = useAppStateStore((state) => state.setErr)
+
   const [data, setData] = React.useState<AnyObj>({})
-  const [stream, setStream] = React.useState<any[]>([])
-  const [selectedTarget, setSelectedTarget] = React.useState<string>('UE-REMOTE-001')
-  const [loading, setLoading] = React.useState<boolean>(true)
-  const [err, setErr] = React.useState<string>('')
-  const [wsState, setWsState] = React.useState<string>('CONNECTING')
 
   async function load(target = selectedTarget) {
     setLoading(true)
@@ -169,18 +179,13 @@ function App() {
       setLoading(false)
     })
 
-    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
-    ws.onopen = () => setWsState('CONNECTED')
-    ws.onclose = () => setWsState('CLOSED')
-    ws.onerror = () => setWsState('ERROR')
-    ws.onmessage = (ev) => {
-      try {
-        const msg = JSON.parse(ev.data)
-        setStream(prev => [msg, ...prev].slice(0, 20))
-      } catch {}
+    const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`
+    rtConnect(wsUrl)
+
+    return () => {
+      rtDisconnect()
     }
-    return () => ws.close()
-  }, [])
+  }, [rtConnect, rtDisconnect])
 
   async function switchTarget(target: string) {
     setSelectedTarget(target)

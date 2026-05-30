@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Integration Control Room V2</title>
+<style>
+:root{
+  --bg:#030711;
+  --panel:#071423;
+  --panel2:#0a1d32;
+  --line:#0d8ec7;
+  --line2:#1de7ff;
+  --text:#e8f8ff;
+  --muted:#8db3c7;
+  --green:#50ffb1;
+  --yellow:#ffd84d;
+  --red:#ff4f7b;
+  --violet:#a78bfa;
+  --blue:#42a5ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(0,229,255,.13),transparent 28%),
+    radial-gradient(circle at 90% 12%,rgba(167,139,250,.10),transparent 30%),
+    linear-gradient(180deg,#02050b,#05101c 48%,#02050b);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(29,231,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(29,231,255,.045) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent);
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:16px 22px;
+  border-bottom:1px solid rgba(29,231,255,.28);
+  background:rgba(3,7,17,.88);
+  backdrop-filter:blur(14px);
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+}
+h1{
+  margin:0;
+  color:var(--line2);
+  letter-spacing:.09em;
+  font-size:22px;
+  text-transform:uppercase;
+}
+.subtitle{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+}
+a.btn,button{
+  border:1px solid rgba(29,231,255,.32);
+  color:var(--text);
+  background:rgba(29,231,255,.08);
+  border-radius:999px;
+  padding:8px 11px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+}
+button{cursor:pointer}
+a.btn:hover,button:hover{
+  box-shadow:0 0 24px rgba(29,231,255,.18);
+  border-color:var(--line2);
+}
+main{
+  padding:18px 22px 40px;
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:14px;
+  margin-bottom:14px;
+}
+.card{
+  border:1px solid rgba(29,231,255,.24);
+  background:linear-gradient(180deg,rgba(10,29,50,.82),rgba(5,13,25,.88));
+  border-radius:16px;
+  padding:14px;
+  box-shadow:0 18px 60px rgba(0,0,0,.28), inset 0 0 30px rgba(29,231,255,.035);
+}
+.card h2,.card h3{
+  margin:0 0 10px;
+  color:#dff8ff;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.card h2{font-size:16px}
+.card h3{font-size:13px}
+.policy{
+  margin:0;
+  color:#cfeeff;
+  line-height:1.5;
+  font-size:13px;
+}
+.statusLine{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 8px;
+  border-radius:999px;
+  border:1px solid rgba(29,231,255,.24);
+  background:rgba(29,231,255,.07);
+  font-size:11px;
+  color:#dff8ff;
+}
+.ok{color:var(--green);border-color:rgba(80,255,177,.32);background:rgba(80,255,177,.07)}
+.warn{color:var(--yellow);border-color:rgba(255,216,77,.32);background:rgba(255,216,77,.07)}
+.bad{color:var(--red);border-color:rgba(255,79,123,.32);background:rgba(255,79,123,.07)}
+.violet{color:var(--violet);border-color:rgba(167,139,250,.32);background:rgba(167,139,250,.08)}
+.counts{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+.count{
+  border:1px solid rgba(29,231,255,.20);
+  border-radius:14px;
+  background:rgba(3,8,18,.44);
+  padding:12px;
+}
+.count small{
+  display:block;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:10px;
+  min-height:24px;
+}
+.count b{
+  display:block;
+  font-size:26px;
+  margin-top:4px;
+}
+.controls{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  margin-bottom:14px;
+}
+input{
+  width:100%;
+  border:1px solid rgba(29,231,255,.24);
+  background:#06111f;
+  color:var(--text);
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+input:focus{
+  border-color:var(--line2);
+  box-shadow:0 0 0 3px rgba(29,231,255,.10);
+}
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.sectionTitle{
+  margin:22px 0 10px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+.sectionTitle h2{margin:0;color:var(--line2);font-size:17px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:10px;
+}
+.module{
+  border:1px solid rgba(29,231,255,.22);
+  background:linear-gradient(180deg,rgba(7,20,35,.86),rgba(4,10,20,.92));
+  border-radius:14px;
+  padding:12px;
+  min-height:138px;
+  position:relative;
+  overflow:hidden;
+}
+.module:after{
+  content:"";
+  position:absolute;
+  right:-40px;
+  top:-40px;
+  width:120px;
+  height:120px;
+  background:radial-gradient(circle,rgba(29,231,255,.11),transparent 68%);
+}
+.module h3{
+  color:var(--yellow);
+  font-size:13px;
+  margin:0 0 7px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  position:relative;
+  z-index:1;
+}
+.meta{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+  position:relative;
+  z-index:1;
+}
+.moduleActions{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:1;
+}
+.moduleActions a{
+  color:var(--line2);
+  font-size:12px;
+  text-decoration:none;
+  border:1px solid rgba(29,231,255,.24);
+  padding:6px 8px;
+  border-radius:999px;
+}
+.priority{
+  border-color:rgba(80,255,177,.45);
+  box-shadow:0 0 28px rgba(80,255,177,.08);
+}
+.official{
+  border-color:rgba(29,231,255,.55);
+  box-shadow:0 0 30px rgba(29,231,255,.10);
+}
+.hidden{display:none}
+.footer{
+  margin-top:24px;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:1200px){
+  .hero{grid-template-columns:1fr}
+  .counts{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:760px){
+  main{padding:14px}
+  .top{align-items:flex-start;flex-direction:column}
+  .counts{grid-template-columns:1fr 1fr}
+  .controls{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div>
+      <h1>TRFMC Integration Control Room</h1>
+      <div class="subtitle">Registry unico · V6R3 baseline · controllo moduli · anti-frammentazione</div>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3 Official</a>
+      <a class="btn" href="/trfmc_portal_registry_unified.json">Registry JSON</a>
+      <a class="btn" href="/trfmc_home.html">Home</a>
+      <a class="btn" href="/trfmc.html">TRFMC</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="card">
+      <h2>Policy di consolidamento</h2>
+      <p class="policy">
+        La V6R3 Command Center resta la shell ufficiale. Ogni pagina o modulo deve essere governato dal registry.
+        Nessuna nuova pagina isolata deve essere promossa senza snapshot, entry registry, HTTP 200, test contenuto e quality report.
+      </p>
+      <div class="statusLine">
+        <span class="badge ok">Quality Gate: attivo</span>
+        <span class="badge ok">No CDN nella Control Room</span>
+        <span class="badge ok">No iframe nella Control Room</span>
+        <span class="badge warn">Moduli da classificare</span>
+        <span class="badge violet">V6R3 baseline</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Priorità operativa</h2>
+      <p class="policy">
+        Prima si consolidano i moduli già esistenti: V6R3, RF PRO, Signal Intelligence, WebGL RF Asset,
+        Core Network Live Ops, Antenna/RRU/RET, RF Metrology e RF Microwave/Smith Chart.
+      </p>
+      <div class="statusLine">
+        <span class="badge">Step 1: registry</span>
+        <span class="badge">Step 2: control room</span>
+        <span class="badge">Step 3: link nella V6R3</span>
+        <span class="badge">Step 4: UI unificata</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="counts" class="counts"></section>
+
+  <section class="controls">
+    <input id="search" placeholder="Cerca modulo, file, classe, RF, antenna, core, microwave, webgl..." />
+    <div class="filters">
+      <button data-filter="all">Tutti</button>
+      <button data-filter="official_shell">Official</button>
+      <button data-filter="leaf_operational_candidate">Operativi</button>
+      <button data-filter="orphan_or_legacy_candidate">Orfani/Legacy</button>
+      <button data-filter="service">Service</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="sectionTitle">
+      <h2>Moduli strategici da governare</h2>
+      <span class="badge warn">review manuale richiesta</span>
+    </div>
+    <div id="priority" class="grid"></div>
+  </section>
+
+  <section>
+    <div class="sectionTitle">
+      <h2>Tutti i moduli registrati</h2>
+      <span id="visibleCount" class="badge"></span>
+    </div>
+    <div id="pages" class="grid"></div>
+  </section>
+
+  <div class="footer">
+    TRFMC consolidation layer. Questa pagina non sostituisce la V6R3: la protegge e governa l'integrazione.
+  </div>
+</main>
+
+<script>
+let registry=null;
+let currentFilter='all';
+
+const priorityNames = [
+  'trfmc_official_safe_entrypoint_v6r3_command_center.html',
+  'rfpro_unified_console.html',
+  'trfmc_signal_intelligence_center_v1.html',
+  'trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html',
+  'trfmc_core_network_live_ops_bridge_v1.html',
+  'trfmc_rf_metrology_calibration_lab_v1.html',
+  'trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html',
+  'trfmc_rf_microwave_engineering_v1.html',
+  'trfmc_portal_link_graph_v1.html'
+];
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function badgeFor(x){
+  let arr=[];
+  arr.push(`<span class="badge">${esc(x.class)}</span>`);
+  if(x.webgl) arr.push('<span class="badge ok">WEBGL</span>');
+  if(x.core_api) arr.push('<span class="badge warn">API</span>');
+  if(x.has_iframe) arr.push('<span class="badge warn">IFRAME</span>');
+  if(x.external_refs) arr.push('<span class="badge bad">EXT</span>');
+  if(priorityNames.includes(x.name)) arr.push('<span class="badge violet">PRIORITY</span>');
+  return arr.join('');
+}
+
+function moduleCard(x, extra=''){
+  const official = x.class === 'official_shell' ? ' official' : '';
+  const priority = priorityNames.includes(x.name) ? ' priority' : '';
+  return `
+  <article class="module${official}${priority} ${extra}" data-class="${esc(x.class)}" data-name="${esc(x.name).toLowerCase()}">
+    <h3 title="${esc(x.name)}">${esc(x.name)}</h3>
+    <div>${badgeFor(x)}</div>
+    <div class="meta">
+      size: ${esc(x.size)} bytes<br>
+      refs: ${esc(x.refs_count)} · url: ${esc(x.url)}
+    </div>
+    <div class="moduleActions">
+      <a href="${esc(x.url)}" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>`;
+}
+
+function renderCounts(){
+  const c=registry.counts || {};
+  const labels=[
+    ['total_html','Totale HTML'],
+    ['official_shell','Official shell'],
+    ['service','Service'],
+    ['leaf_operational_candidate','Operativi'],
+    ['shell_or_legacy_container','Shell legacy'],
+    ['orphan_or_legacy_candidate','Orfani/legacy']
+  ];
+  document.getElementById('counts').innerHTML=labels.map(([k,label])=>`
+    <div class="count">
+      <small>${label}</small>
+      <b>${c[k] ?? 0}</b>
+    </div>
+  `).join('');
+}
+
+function applyFilters(){
+  const q=document.getElementById('search').value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll('.module')];
+  let visible=0;
+  cards.forEach(el=>{
+    const cls=el.dataset.class;
+    const name=el.dataset.name;
+    const okFilter=currentFilter==='all' || cls===currentFilter;
+    const okSearch=!q || name.includes(q) || cls.toLowerCase().includes(q);
+    const show=okFilter && okSearch;
+    el.classList.toggle('hidden',!show);
+    if(show) visible++;
+  });
+  document.getElementById('visibleCount').textContent=`visibili: ${visible}`;
+}
+
+function render(){
+  renderCounts();
+  const pages=registry.pages || [];
+  const priority=priorityNames
+    .map(n=>pages.find(p=>p.name===n))
+    .filter(Boolean);
+
+  document.getElementById('priority').innerHTML = priority.length
+    ? priority.map(x=>moduleCard(x)).join('')
+    : '<div class="card">Nessun modulo prioritario trovato nel registry.</div>';
+
+  document.getElementById('pages').innerHTML = pages.map(x=>moduleCard(x)).join('');
+  applyFilters();
+}
+
+async function boot(){
+  const r=await fetch('/trfmc_portal_registry_unified.json',{cache:'no-store'});
+  registry=await r.json();
+  render();
+
+  document.getElementById('search').addEventListener('input',applyFilters);
+  document.querySelectorAll('[data-filter]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      currentFilter=btn.dataset.filter;
+      applyFilters();
+    });
+  });
+}
+
+boot().catch(e=>{
+  document.body.innerHTML += '<pre style="color:#ff4f7b;padding:20px">'+esc(e.stack || e)+'</pre>';
+});
+</script>
+</body>
+</html>

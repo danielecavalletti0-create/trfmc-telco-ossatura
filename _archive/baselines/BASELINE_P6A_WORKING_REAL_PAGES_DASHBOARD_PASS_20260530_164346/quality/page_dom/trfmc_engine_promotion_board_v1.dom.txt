@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Engine Promotion Board V1</title>
+<style>
+:root{
+  --bg:#030711;
+  --panel:rgba(8,18,36,.88);
+  --line:rgba(125,190,255,.24);
+  --text:#eaf3ff;
+  --muted:#94a9c5;
+  --cyan:#86d7ff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --violet:#bda7ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(50,130,255,.24),transparent 30%),
+    radial-gradient(circle at 92% 10%,rgba(0,255,190,.10),transparent 28%),
+    linear-gradient(180deg,#030711,#07111f 50%,#030711);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:5;
+  padding:24px 32px;
+  border-bottom:1px solid var(--line);
+  background:rgba(3,7,17,.84);
+  backdrop-filter:blur(18px);
+}
+h1{margin:0;font-size:30px;letter-spacing:-.03em}
+header p{margin:8px 0 0;color:var(--muted)}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.nav a{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 11px;
+  background:rgba(255,255,255,.045);
+  font-size:12px;
+}
+main{padding:26px 32px 70px}
+.kpiGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.kpi{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.055);
+  border-radius:18px;
+  padding:16px;
+}
+.kpi b{display:block;font-size:28px;color:var(--cyan)}
+.kpi span{color:var(--muted);font-size:12px}
+.domain{
+  margin-top:18px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 18px 60px rgba(0,0,0,.28);
+}
+.domainHead{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding:18px 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.035);
+}
+.domainHead h2{margin:0;color:var(--cyan);font-size:21px}
+.domainHead p{margin:6px 0 0;color:var(--muted)}
+.count{
+  height:max-content;
+  color:var(--green);
+  border:1px solid rgba(157,255,199,.45);
+  border-radius:999px;
+  padding:8px 12px;
+}
+.domainGrid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;padding:18px 20px}
+.seed{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  border:1px solid rgba(157,255,199,.24);
+  background:rgba(157,255,199,.055);
+  border-radius:16px;
+  padding:14px;
+}
+.seed a{display:block;color:var(--text);font-weight:800;text-decoration:none;margin-top:5px}
+.seed p{color:var(--muted);margin:7px 0 0;font-size:13px}
+.empty{color:var(--muted)}
+.objects{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding-left:18px;color:#cfe1f7}
+.objects li{margin-bottom:4px}
+.miniGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.miniGrid div{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:12px;
+}
+.miniGrid b{display:block;font-size:24px}
+.miniGrid span{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px 11px;border-top:1px solid rgba(255,255,255,.07);font-size:13px;text-align:left;vertical-align:top}
+th{color:var(--cyan);background:rgba(80,130,220,.12)}
+a{color:#9ed0ff;text-decoration:none}
+.badge{display:inline-block;border-radius:999px;padding:5px 8px;font-size:11px;border:1px solid rgba(255,255,255,.18)}
+.PROMOTE{color:var(--green);border-color:rgba(157,255,199,.5)}
+.ENGINE{color:var(--cyan);border-color:rgba(134,215,255,.5)}
+.FUSE{color:var(--amber);border-color:rgba(255,211,122,.5)}
+.REWRITE{color:var(--violet);border-color:rgba(189,167,255,.5)}
+@media(max-width:1000px){
+  .kpiGrid,.domainGrid{grid-template-columns:1fr}
+  .objects{grid-template-columns:1fr}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <h1>TRFMC Engine Promotion Board V1</h1>
+  <p>Da pagine sane a motori tecnici interattivi: simulators, analyzers, explorers, digital twins.</p>
+  <div class="nav">
+    <a href="/trfmc_unified_navigation_shell_v1.html">Unified Shell</a>
+    <a href="/trfmc_master_digital_twin_console_v1.html">Master Console</a>
+    <a href="/trfmc_domain_registry_v1.html">Domain Registry</a>
+    <a href="/trfmc_collaudo_report.html">Collaudo</a>
+    <a href="/api/health">Health</a>
+  </div>
+</header>
+<main>
+  <div class="kpiGrid">
+    <div class="kpi"><b>12</b><span>domini ufficiali</span></div>
+    <div class="kpi"><b>89</b><span>pagine classificate</span></div>
+    <div class="kpi"><b>5173</b><span>porta unica</span></div>
+    <div class="kpi"><b>0/0/0</b><span>quality gate richiesto</span></div>
+  </div>
+
+  
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>01_Mission_Control — Mission Control</h2>
+          <p>Mission Control / NOC / Runtime Health Engine</p>
+        </div>
+        <div class="count">27 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          
+        <div class="seed">
+          <div>
+            <strong>Primary seed</strong>
+            <a href="/runtime_golden_check_console_v29.html">TRFMC v0.70A Unified Shell · TRFMC v0.29 Runtime Golden Check Console</a>
+            <p>Console di validazione e quality gate.</p>
+          </div>
+          <span class="badge PROMOTE">PROMOTE</span>
+        </div>
+        
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Lab State Matrix</li><li>Open5GS / UERANSIM Monitor</li><li>HackRF / SDR Control Plane</li><li>Alarm Correlation Wall</li><li>KPI Live Engine</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>2</b><span>PROMOTE</span></div>
+            <div><b>7</b><span>ENGINE</span></div>
+            <div><b>18</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="badge PROMOTE">PROMOTE</span></td>
+          <td><a href="/runtime_golden_check_console_v29.html">/runtime_golden_check_console_v29.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.29 Runtime Golden Check Console</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge PROMOTE">PROMOTE</span></td>
+          <td><a href="/trfmc_collaudo_report.html">/trfmc_collaudo_report.html</a></td>
+          <td>TRFMC Collaudo Portale 5173</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/executive_mission_dashboard_v_next.html">/executive_mission_dashboard_v_next.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/field_engineering_mode_v64.html">/field_engineering_mode_v64.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_cinematic_mission_atlas_v87c.html">/trfmc_cinematic_mission_atlas_v87c.html</a></td>
+          <td>TRFMC v0.87C · Cinematic Mission Atlas</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_domain_registry_v1.html">/trfmc_domain_registry_v1.html</a></td>
+          <td>TRFMC Domain Registry V1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_engine_promotion_board_v1.html">/trfmc_engine_promotion_board_v1.html</a></td>
+          <td>TRFMC Engine Promotion Board V1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_mission_control_home_v87b.html">/trfmc_mission_control_home_v87b.html</a></td>
+          <td>TRFMC v0.87B · Mission Control Home</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_visual_qa_matrix_v71.html">/trfmc_visual_qa_matrix_v71.html</a></td>
+          <td>TRFMC v0.71A · Page-by-Page Visual QA Matrix</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/evidence_vault_console_v20.html">/evidence_vault_console_v20.html</a></td>
+          <td>TRFMC v0.20 Evidence Vault</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/executive_mission_dashboard_v40.html">/executive_mission_dashboard_v40.html</a></td>
+          <td>TRFMC v0.40 Executive Mission Dashboard</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/global_mission_scenario_launcher_v39.html">/global_mission_scenario_launcher_v39.html</a></td>
+          <td>TRFMC v0.39 Global Mission Scenario Launcher</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>02_RF_Physics — RF Physics</h2>
+          <p>RF Physics Field Engine</p>
+        </div>
+        <div class="count">33 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          
+        <div class="seed">
+          <div>
+            <strong>Primary seed</strong>
+            <a href="/rf_physics_sapienza_console_v86a.html">TRFMC v0.86A · RF Physics Sapienza Console</a>
+            <p>Base tecnica da trasformare in engine interattivo maturo.</p>
+          </div>
+          <span class="badge ENGINE">ENGINE</span>
+        </div>
+        
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>RF Physics Field Engine</li><li>Fourier / FFT Explorer</li><li>Group Delay Simulator</li><li>Phase Noise Lab</li><li>Propagation Sandbox</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>7</b><span>ENGINE</span></div>
+            <div><b>26</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/rf_physics_sapienza_console_v86a.html">/rf_physics_sapienza_console_v86a.html</a></td>
+          <td>TRFMC v0.86A · RF Physics Sapienza Console</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_route_normalizer_v87f.html">/trfmc_route_normalizer_v87f.html</a></td>
+          <td>TRFMC v0.87F · Route Normalizer</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_unified_shell_noiframe_v86d_r1.html">/trfmc_unified_shell_noiframe_v86d_r1.html</a></td>
+          <td>TRFMC v0.86D-R1 · No-IFrame Route Console</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/webgl_rf_physics_engine_v85b_sapienza_baseline.html">/webgl_rf_physics_engine_v85b_sapienza_baseline.html</a></td>
+          <td>TRFMC v0.85B · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/webgl_rf_physics_engine_v85c_sapienza_identity.html">/webgl_rf_physics_engine_v85c_sapienza_identity.html</a></td>
+          <td>TRFMC v0.85C · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/webgl_rf_physics_engine_v85d_runtime_identity_lock.html">/webgl_rf_physics_engine_v85d_runtime_identity_lock.html</a></td>
+          <td>TRFMC v0.85D · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">/webgl_rf_physics_engine_v85e_viewport_discipline.html</a></td>
+          <td>TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_propagation_sandbox_v62.html">/rf_propagation_sandbox_v62.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.62B · RF Propagation Sandbox Visual Upgrade</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_sapienza_console_v84b.html">/rf_sapienza_console_v84b.html</a></td>
+          <td>TRFMC v0.84B · RF Sapienza Console</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_sapienza_console_v84c.html">/rf_sapienza_console_v84c.html</a></td>
+          <td>TRFMC v0.84C · RF Sapienza Console R2 R2</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_sapienza_console_v84d.html">/rf_sapienza_console_v84d.html</a></td>
+          <td>TRFMC v0.84D · RF Sapienza Truth Palette R2</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_sapienza_console_v84e.html">/rf_sapienza_console_v84e.html</a></td>
+          <td>TRFMC v0.84E · RF Sapienza Instrument Truth View</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>03_Signal_Analyzer — Signal Analyzer</h2>
+          <p>RF Spectrum Lab / VSA / IQ Analyzer</p>
+        </div>
+        <div class="count">6 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          
+        <div class="seed">
+          <div>
+            <strong>Primary seed</strong>
+            <a href="/trfmc_rf_spectrum_lab_v1.html">TRFMC RF Spectrum Lab V1</a>
+            <p>Base tecnica da trasformare in engine interattivo maturo.</p>
+          </div>
+          <span class="badge ENGINE">ENGINE</span>
+        </div>
+        
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>RF Spectrum Lab</li><li>Waterfall Engine</li><li>IQ / Constellation Lab</li><li>Modulation Classifier</li><li>HackRF 0-6 GHz Analyzer</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>5</b><span>ENGINE</span></div>
+            <div><b>1</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_rf_spectrum_lab_v1.html">/trfmc_rf_spectrum_lab_v1.html</a></td>
+          <td>TRFMC RF Spectrum Lab V1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_rf_tm_signal_universe_v3.html">/trfmc_rf_tm_signal_universe_v3.html</a></td>
+          <td>TRFMC RF/TM Signal Universe V3</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_rf_tm_war_room_v4.html">/trfmc_rf_tm_war_room_v4.html</a></td>
+          <td>TRFMC RF/TM War Room V4</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_signal_world_engine_v2.html">/trfmc_signal_world_engine_v2.html</a></td>
+          <td>TRFMC Signal World Engine V2</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/webgl_rf_tm_supreme_console_v84a.html">/webgl_rf_tm_supreme_console_v84a.html</a></td>
+          <td>TRFMC v0.84A · RF T&amp;M Supreme Console</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_instrumentation_signal_cockpit_v38.html">/rf_instrumentation_signal_cockpit_v38.html</a></td>
+          <td>TRFMC v0.38 RF Instrumentation &amp; Signal Analysis Cockpit</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>04_RF_Microwave_Engineering — RF Microwave Engineering</h2>
+          <p>Smith Chart &amp; Matching Engine</p>
+        </div>
+        <div class="count">0 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          <div class="seed empty">Nessun seed disponibile: dominio da costruire.</div>
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Smith Chart Engine</li><li>VSWR / Return Loss Analyzer</li><li>Transmission Line Simulator</li><li>Microstrip / Stripline Designer</li><li>Patch Antenna Designer</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>0</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>05_Antenna_System — Antenna System</h2>
+          <p>Antenna System Explorer / RRU RET CPRI Simulator</p>
+        </div>
+        <div class="count">0 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          <div class="seed empty">Nessun seed disponibile: dominio da costruire.</div>
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Antenna System Explorer</li><li>RRU / RET / CPRI Port Mapping Simulator</li><li>MIMO Array Simulator</li><li>Tilt / Azimuth Planner</li><li>AISG Chain Mapper</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>0</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>06_Microwave_Link — Microwave Link</h2>
+          <p>Microwave Link Budget Engine</p>
+        </div>
+        <div class="count">0 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          <div class="seed empty">Nessun seed disponibile: dominio da costruire.</div>
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>LOS / Fresnel Visualizer</li><li>Microwave Link Budget Engine</li><li>Rain Fading Simulator</li><li>XPIC Simulator</li><li>Adaptive Modulation Lab</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>0</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>07_Fiber_Optic — Fiber Optic</h2>
+          <p>Fiber / OTDR Trace Engine</p>
+        </div>
+        <div class="count">13 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          
+        <div class="seed">
+          <div>
+            <strong>Primary seed</strong>
+            <a href="/trfmc.html">TRFMC v0.87G · Public Operational Home</a>
+            <p>Home/entrypoint da collegare alla Master Console.</p>
+          </div>
+          <span class="badge PROMOTE">PROMOTE</span>
+        </div>
+        
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Fiber Connector Explorer</li><li>ODF / Fiber Route Mapper</li><li>OTDR Trace Simulator</li><li>Fronthaul / Backhaul Planner</li><li>Optical Loss Budget Engine</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>3</b><span>PROMOTE</span></div>
+            <div><b>6</b><span>ENGINE</span></div>
+            <div><b>3</b><span>FUSE</span></div>
+            <div><b>1</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="badge PROMOTE">PROMOTE</span></td>
+          <td><a href="/trfmc.html">/trfmc.html</a></td>
+          <td>TRFMC v0.87G · Public Operational Home</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge PROMOTE">PROMOTE</span></td>
+          <td><a href="/trfmc_home.html">/trfmc_home.html</a></td>
+          <td>TRFMC v0.87G · Public Operational Home</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge PROMOTE">PROMOTE</span></td>
+          <td><a href="/trfmc_home_v87g.html">/trfmc_home_v87g.html</a></td>
+          <td>TRFMC v0.87G · Public Operational Home</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/rf_telco_knowledge_os_v60.html">/rf_telco_knowledge_os_v60.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.60A · RF/Telco Knowledge Operating System</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_cinematic_command_deck_v87d.html">/trfmc_cinematic_command_deck_v87d.html</a></td>
+          <td>TRFMC v0.87D · Cinematic Command Deck</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_first_promotion_batch_v87a.html">/trfmc_first_promotion_batch_v87a.html</a></td>
+          <td>TRFMC v0.87A · First Promotion Batch</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_home_v87e.html">/trfmc_home_v87e.html</a></td>
+          <td>TRFMC v0.87E-R3 · Home Promotion Gate</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_unified_navigation_shell_v1.html">/trfmc_unified_navigation_shell_v1.html</a></td>
+          <td>TRFMC Unified Navigation Shell V1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_unified_shell_prototype_v86d.html">/trfmc_unified_shell_prototype_v86d.html</a></td>
+          <td>TRFMC v86D Quarantine · Route Locked</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/infrastructure_digital_twin_v63.html">/infrastructure_digital_twin_v63.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_telco_component_library_v76.html">/rf_telco_component_library_v76.html</a></td>
+          <td>TRFMC v0.76A · RF/Telco Component Object Library</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge FUSE">FUSE</span></td>
+          <td><a href="/rf_telco_knowledge_modules_v61.html">/rf_telco_knowledge_modules_v61.html</a></td>
+          <td>TRFMC v0.70A Unified Shell · TRFMC v0.61A · RF/Telco Knowledge Modules</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>08_Private_Networks — Private Networks</h2>
+          <p>Private Network Scenario Engine</p>
+        </div>
+        <div class="count">0 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          <div class="seed empty">Nessun seed disponibile: dominio da costruire.</div>
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>5G SA Private Planner</li><li>WiFi 7 / MLO Explorer</li><li>Industrial Mesh Simulator</li><li>Slicing / QoS Console</li><li>MEC Placement Console</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>0</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>09_Core_Network — Core Network</h2>
+          <p>5G Core / RAN Call-Flow Engine</p>
+        </div>
+        <div class="count">3 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          
+        <div class="seed">
+          <div>
+            <strong>Primary seed</strong>
+            <a href="/trfmc_master_digital_twin_console_v1.html">TRFMC Master Digital Twin Console</a>
+            <p>Master console già candidata a entrypoint funzionale.</p>
+          </div>
+          <span class="badge PROMOTE">PROMOTE</span>
+        </div>
+        
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>5G Core / RAN Call-Flow Engine</li><li>NGAP / PFCP / GTP-U Correlator</li><li>Open5GS Service Map</li><li>UERANSIM Attach Lab</li><li>PDU Session Explorer</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>1</b><span>PROMOTE</span></div>
+            <div><b>2</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="badge PROMOTE">PROMOTE</span></td>
+          <td><a href="/trfmc_master_digital_twin_console_v1.html">/trfmc_master_digital_twin_console_v1.html</a></td>
+          <td>TRFMC Master Digital Twin Console</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">/trfmc_5g_core_ran_identity_aka_engine_v1.html</a></td>
+          <td>TRFMC 5G Core/RAN Identity &amp; AKA Engine</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_converged_rf_5g_noc_v1.html">/trfmc_converged_rf_5g_noc_v1.html</a></td>
+          <td>TRFMC Converged RF + 5G NOC V1</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>10_Data_Center_Infrastructure — Data Center Infrastructure</h2>
+          <p>Infrastructure Digital Twin</p>
+        </div>
+        <div class="count">0 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          <div class="seed empty">Nessun seed disponibile: dominio da costruire.</div>
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Infrastructure Digital Twin</li><li>Rack Layout Explorer</li><li>Power Chain Monitor</li><li>Grounding / EMC Checklist</li><li>SNMP Monitoring Console</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>0</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>11_Cyber_RF_Intelligence — Cyber RF Intelligence</h2>
+          <p>Cyber RF Intelligence Engine</p>
+        </div>
+        <div class="count">0 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          <div class="seed empty">Nessun seed disponibile: dominio da costruire.</div>
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Spectrum Anomaly Detector</li><li>Jamming Scenario Lab</li><li>Rogue RF Hunter</li><li>Protocol Anomaly Correlator</li><li>Evidence Report Builder</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>0</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+    
+    <section class="domain">
+      <div class="domainHead">
+        <div>
+          <h2>12_Knowledge_Base — Knowledge Base</h2>
+          <p>Knowledge &amp; Procedure Engine</p>
+        </div>
+        <div class="count">7 pagine</div>
+      </div>
+
+      <div class="domainGrid">
+        <div>
+          
+        <div class="seed">
+          <div>
+            <strong>Primary seed</strong>
+            <a href="/sapienza_master_template_doctrine_v85a.html">TRFMC v0.85A · Sapienza Master Template Doctrine</a>
+            <p>Base tecnica da trasformare in engine interattivo maturo.</p>
+          </div>
+          <span class="badge ENGINE">ENGINE</span>
+        </div>
+        
+          <h3>Oggetti da trasformare in engine</h3>
+          <ul class="objects"><li>Formula Navigator</li><li>Procedure Runbook</li><li>Troubleshooting Tree</li><li>Checklist Engine</li><li>Lesson Plan Builder</li></ul>
+        </div>
+        <div>
+          <h3>Azioni</h3>
+          <div class="miniGrid">
+            <div><b>0</b><span>PROMOTE</span></div>
+            <div><b>7</b><span>ENGINE</span></div>
+            <div><b>0</b><span>FUSE</span></div>
+            <div><b>0</b><span>REWRITE</span></div>
+          </div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Azione</th><th>Route</th><th>Titolo</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/sapienza_master_template_doctrine_v85a.html">/sapienza_master_template_doctrine_v85a.html</a></td>
+          <td>TRFMC v0.85A · Sapienza Master Template Doctrine</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_design_token_audit_v86f.html">/trfmc_design_token_audit_v86f.html</a></td>
+          <td>TRFMC v0.86F · Design Token Audit</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_performance_gpu_gate_v86b.html">/trfmc_performance_gpu_gate_v86b.html</a></td>
+          <td>TRFMC v0.86B · Performance GPU Binding Gate</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_performance_gpu_gate_v86b_r1.html">/trfmc_performance_gpu_gate_v86b_r1.html</a></td>
+          <td>TRFMC v0.86B-R1 · Performance GPU Binding Gate R1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_portal_registry_v86c.html">/trfmc_portal_registry_v86c.html</a></td>
+          <td>TRFMC v0.86C · Portal Registry Navigation Spine</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_portal_registry_v86c_r1.html">/trfmc_portal_registry_v86c_r1.html</a></td>
+          <td>TRFMC v0.86C-R1 · Portal Registry Navigation Spine R1</td>
+        </tr>
+        
+        <tr>
+          <td><span class="badge ENGINE">ENGINE</span></td>
+          <td><a href="/trfmc_theory_spine_v86e.html">/trfmc_theory_spine_v86e.html</a></td>
+          <td>TRFMC v0.86E · Theory Spine</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+    
+</main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="generic">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · GENERIC</div>
+      <div class="trfmc-c3-sub">TRFMC Engine Promotion Board V1<br>/trfmc_engine_promotion_board_v1.html<br>Previous Authority V3 score: 82/100 · gaps closed: design_tokens,asset_engine</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>FLOW</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>ASSET</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>KPI</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>GATE</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch C GENERIC · core-map"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">System → signal → model → evidence
+KPI + formula + visual asset + operational context
+Premium leaf = tokens + asset engine + GPU + soul + quality gate</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="generic" width="601" height="158"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Engine Promotion Board V1</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

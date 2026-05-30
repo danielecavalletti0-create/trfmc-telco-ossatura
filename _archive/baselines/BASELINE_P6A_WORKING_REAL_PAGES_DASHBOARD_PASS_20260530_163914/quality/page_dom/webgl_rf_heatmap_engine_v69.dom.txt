@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.75A Shell · TRFMC v0.74A UE Handover · TRFMC v0.70A Unified Shell · TRFMC v0.69A · UE Mobility &amp; Handover Dynamics</title>
+  <link rel="stylesheet" href="/assets/trfmc_ue_handover_dynamics_v69.css">
+  <script defer="" src="/assets/trfmc_ue_handover_dynamics_v69.js"></script>
+  <link rel="stylesheet" href="/assets/trfmc_ue_handover_redesign_v74.css">
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+
+<body class="v69-shell trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf v74-ue-redesign trfmc-v75-active" data-v74-ue="TRFMC_V0_74A_UE_HANDOVER_PAGE_SPECIFIC_REDESIGN" data-v75-bound="true" data-v75="TRFMC_V0_75A_MASTER_VISUAL_RESET_SINGLE_SHELL" data-trfmc-gpu-runtime="css-fallback" data-risk="crit"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div><header class="trfmc-v75-masterbar">
+      <div class="v75-brand">
+        <div class="v75-orb"></div>
+        <div>
+          <b>TRFMC MISSION CONTROL</b>
+          <span id="v75_identity">webgl_rf_heatmap_engine_v69.html · single clean shell</span>
+        </div>
+      </div>
+
+      <nav class="v75-nav">
+        <a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_component_library_v76.html">Components</a><a class="active" href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a><a class="" href="/infrastructure_digital_twin_v63.html">Digital Twin</a><a class="" href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a><a class="" href="/webgl_rf_heatmap_engine_v67.html">Urban</a><a class="" href="/webgl_rf_heatmap_engine_v66.html">Heatmap</a><a class="" href="/field_engineering_mode_v64.html">Field</a><a class="" href="/rf_propagation_sandbox_v62.html">Propagation</a><a class="" href="/rf_telco_knowledge_os_v60.html">Knowledge</a><a class="" href="/trfmc_visual_qa_matrix_v71.html">QA</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a>
+      </nav>
+
+      <div class="v75-status">
+        <span id="v75_backend" class="">Backend OK</span>
+        <span id="v75_runtime" class="">SIMULATION</span>
+        <span id="v75_visual" class="">Shell v75</span>
+      </div>
+    </header><section class="v74-ue-mission-strip" data-v74-object="ue-object-0">
+      <div>
+        <h2>UE Mobility / Handover Operating View</h2>
+        <p>
+          Vista pagina-specifica: UE in movimento, celle candidate, serving cell, clutter urbano/vegetazione,
+          RSRP/RSRQ/SINR, trigger A3/A5, handover preparation, execution e KPI di continuità servizio.
+        </p>
+      </div>
+      <div class="v74-ue-flow">
+        <div class="v74-ue-step"><b>UE</b><span>trajectory, speed, serving cell</span></div>
+        <div class="v74-ue-step"><b>Measure</b><span>RSRP / RSRQ / SINR window</span></div>
+        <div class="v74-ue-step"><b>Event</b><span>A3/A5 threshold, hysteresis, TTT</span></div>
+        <div class="v74-ue-step"><b>HO</b><span>prepare, execute, complete</span></div>
+        <div class="v74-ue-step"><b>KPI</b><span>drop risk, ping-pong, outage</span></div>
+      </div>
+    </section><section class="v74-handover-legend" data-v74-object="ue-object-1">
+      <div class="ok"><b>Serving Cell</b><span>Primary radio link and control-plane anchor.</span></div>
+      <div><b>Candidate Cell</b><span>Neighbor selected by measurement report window.</span></div>
+      <div class="warn"><b>Risk Zone</b><span>Shadowing, clutter or vegetation may trigger degradation.</span></div>
+      <div class="crit"><b>Failure Mode</b><span>Radio link failure, late HO, ping-pong or outage.</span></div>
+    </section>
+  <canvas id="v69_canvas" data-v74-object="ue-object-2" width="1440" height="813" style="width: 1440px; height: 813px;"></canvas>
+  <div class="v69-scan"></div>
+  <div class="v69-glow g-a"></div>
+  <div class="v69-glow g-b"></div>
+  <div class="v69-glow g-c"></div>
+
+  <header class="v69-topbar">
+    <div class="v69-brand">
+      <div class="v69-orb"></div>
+      <div>
+        <b>TRFMC RF DIGITAL TWIN</b>
+        <span>v0.69A · UE Mobility · Handover · Hysteresis · Time-to-Trigger · Load Balance</span>
+      </div>
+    </div>
+
+    <nav class="v69-nav">
+      <a href="/portal_index_v19.html">Portal</a>
+      <a href="/webgl_rf_heatmap_engine_v66.html">Heatmap</a>
+      <a href="/webgl_rf_heatmap_engine_v67.html">Urban</a>
+      <a href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a>
+      <a class="active" href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/field_engineering_mode_v64.html">Field</a>
+      <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+        <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+  </nav>
+
+    <div class="v69-status">
+      <span id="backend_state">Backend OK</span>
+      <span id="fps_state">FPS —</span>
+      <span id="engine_state">Engine READY</span>
+    </div>
+  </header>
+
+  <main class="v69-hud">
+    <section class="v69-hero panel cut" data-v74-object="ue-object-3">
+      <div>
+        <div class="eyebrow">TRFMC v0.69A · mobile radio decision layer</div>
+        <h1>UE Mobility &amp; Handover Dynamics</h1>
+        <p>
+          Digital Twin RF con utenti mobili, veicoli connessi, link di servizio, RSRP sintetico,
+          isteresi, time-to-trigger, ping-pong detection, drop zone e load balancing multi-sito.
+          Gli edifici e la vegetazione non sono decorativi: alterano la decisione di handover.
+        </p>
+      </div>
+
+      <div class="mission-ring">
+        <span>Mobility Stability</span>
+        <b id="mobility_score">0%</b>
+        <small id="mobility_state">critical RF mobility degradation</small>
+      </div>
+    </section>
+
+    <section class="left-panel panel cut" data-v74-object="ue-object-4">
+      <h2>Mobility Control Plane</h2>
+
+      <label>
+        <span>UE / V2X population</span>
+        <input id="ue_count" type="range" min="12" max="140" step="1" value="64">
+        <b id="ue_count_value">64 UE</b>
+      </label>
+
+      <label>
+        <span>Mobility speed</span>
+        <input id="ue_speed" type="range" min="0.25" max="4.00" step="0.05" value="1.35">
+        <b id="ue_speed_value">1.35x</b>
+      </label>
+
+      <label>
+        <span>Hysteresis margin</span>
+        <input id="ho_hyst" type="range" min="0" max="10" step="0.5" value="3">
+        <b id="ho_hyst_value">3.0 dB</b>
+      </label>
+
+      <label>
+        <span>Time-to-trigger</span>
+        <input id="ho_ttt" type="range" min="80" max="1200" step="20" value="320">
+        <b id="ho_ttt_value">320 ms</b>
+      </label>
+
+      <label>
+        <span>Clutter severity</span>
+        <input id="clutter" type="range" min="0" max="1.5" step="0.01" value="0.74">
+        <b id="clutter_value">0.74x</b>
+      </label>
+
+      <div class="button-grid">
+        <button id="btn_pause">Pause</button>
+        <button id="btn_reset">Reset</button>
+        <button id="btn_rush">Rush Hour</button>
+        <button id="btn_park">Park Stress</button>
+      </div>
+    </section>
+
+    <section class="right-panel panel cut" data-v74-object="ue-object-5">
+      <h2>Live RF Mobility Metrics</h2>
+
+      <div class="metric-grid">
+        <article data-v74-object="ue-object-6">
+          <span>Average RSRP</span>
+          <b id="avg_rsrp">-108.6 dBm</b>
+          <small>synthetic serving-cell estimate</small>
+        </article>
+        <article data-v74-object="ue-object-7">
+          <span>Average SINR</span>
+          <b id="avg_sinr">3.5 dB</b>
+          <small>noise + clutter + load penalty</small>
+        </article>
+        <article data-v74-object="ue-object-8">
+          <span>Handover rate</span>
+          <b id="ho_rate">0/min</b>
+          <small>events / minute</small>
+        </article>
+        <article data-v74-object="ue-object-9">
+          <span>Drop risk</span>
+          <b id="drop_risk">62.5%</b>
+          <small>UE below service threshold</small>
+        </article>
+        <article data-v74-object="ue-object-10">
+          <span>Ping-pong</span>
+          <b id="pingpong">0</b>
+          <small>rapid HO instability</small>
+        </article>
+        <article data-v74-object="ue-object-11">
+          <span>Dominant site</span>
+          <b id="dominant_site">SITE-A</b>
+          <small>load balance indicator</small>
+        </article>
+      </div>
+
+      <div class="site-load">
+        <div><span>Site A</span><i id="load_a" style="width: 46%;"></i><b id="load_a_txt">46%</b></div>
+        <div><span>Site B</span><i id="load_b" style="width: 17%;"></i><b id="load_b_txt">17%</b></div>
+        <div><span>Site C</span><i id="load_c" style="width: 38%;"></i><b id="load_c_txt">38%</b></div>
+      </div>
+    </section>
+
+    <section class="event-panel panel cut" data-v74-object="ue-object-12">
+      <h2>AI RF Copilot / Mobility Event Bus</h2>
+      <div id="event_log" class="event-log"><div class="ok">AI RF Copilot: UE Mobility &amp; Handover Dynamics online: RSRP, hysteresis, TTT e clutter attivi.</div><div class="ok">AI RF Copilot: popolazione UE rigenerata: 64 entità mobili.</div></div>
+    </section>
+
+    <section class="bottom-panel panel cut" data-v74-object="ue-object-13">
+      <div class="mini-card">
+        <span>Algorithm</span>
+        <b>A3-like</b>
+        <small>best neighbor &gt; serving + hysteresis</small>
+      </div>
+      <div class="mini-card">
+        <span>Decision memory</span>
+        <b>TTT</b>
+        <small>candidate must persist before HO</small>
+      </div>
+      <div class="mini-card">
+        <span>RF environment</span>
+        <b>Urban + Trees</b>
+        <small>building and vegetation penalties</small>
+      </div>
+      <div class="mini-card">
+        <span>Next target</span>
+        <b>v0.70</b>
+        <small>Executive SOC convergence layer</small>
+      </div>
+    </section>
+  </main>
+<script defer="" src="/assets/trfmc_ue_handover_redesign_v74.js"></script>
+<script defer="" src="/assets/trfmc_master_shell_v75.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core" data-v74-object="ue-object-14">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC v0.70A Unified Shell · TRFMC v0.69A · UE Mobility &amp; Handover Dynamics<br>/webgl_rf_heatmap_engine_v69.html<br>Previous Authority V2 score: 65/100 · CRITICAL</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" data-v74-object="ue-object-15" width="649" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> UE Mobility / Handover Operating View</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

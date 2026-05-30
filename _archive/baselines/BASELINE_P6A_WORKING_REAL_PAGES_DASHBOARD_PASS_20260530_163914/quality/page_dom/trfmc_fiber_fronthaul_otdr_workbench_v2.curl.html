@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Fiber / Fronthaul / OTDR Workbench V2</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<style>
+.fb-grid{display:grid;grid-template-columns:370px 1fr 410px;gap:7px;min-height:calc(100vh - 76px);padding:7px;position:relative;z-index:1}
+.fb-stage{display:grid;grid-template-rows:1fr 280px;gap:7px;min-height:0}
+.fb-webgl-wrap{position:relative;min-height:420px;overflow:hidden}
+#fiberField{width:100%;height:100%;display:block;min-height:420px}
+.fb-plots{display:grid;grid-template-columns:1.1fr .9fr;gap:7px}
+.plotBox{border:1px solid rgba(0,229,255,.27);background:#010409;position:relative;overflow:hidden}
+.plotBox h3{position:absolute;left:10px;top:8px;margin:0;color:#00e5ff;font-size:11px;letter-spacing:1px;z-index:2}
+.plotBox canvas{width:100%;height:100%;display:block}
+.control label{display:block;color:#8fb8c8;font-size:10px;text-transform:uppercase;margin:8px 0 4px}
+.control input,.control select{width:100%;background:#03101a;color:#e9fbff;border:1px solid rgba(0,229,255,.35);border-radius:5px;padding:7px;font-size:12px}
+.value{color:#75ff5b;font-weight:800}
+.good{color:#75ff5b}.warn{color:#ffd84d}.bad{color:#ff3d7f}
+.formulaLive{font-family:ui-monospace,Consolas,monospace;background:#010409;border:1px solid rgba(0,229,255,.22);border-radius:6px;color:#dffaff;padding:8px;font-size:11px;line-height:1.5}
+@media(max-width:1300px){.fb-grid{grid-template-columns:1fr}.fb-plots{grid-template-columns:1fr}.fb-webgl-wrap{min-height:480px}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">Fiber / Fronthaul / OTDR Workbench V2</div>
+    <div class="leaf-sub">ODF · LC/SC/MPO · optical budget · OTDR events · CPRI/eCPRI latency</div>
+  </div>
+  <div class="leaf-kpis">
+    <div class="leaf-kpi"><small>RX Power</small><b id="kRx">--</b></div>
+    <div class="leaf-kpi"><small>Margin</small><b id="kMargin">--</b></div>
+    <div class="leaf-kpi"><small>Latency</small><b id="kLatency">--</b></div>
+    <div class="leaf-kpi"><small>Render</small><b data-gl-state>init</b></div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_expansion_hub_v1.html">Expansion Hub</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="leaf-btn" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </div>
+</header>
+
+<div class="fb-grid">
+  <aside class="leaf-panel">
+    <h2>Parametri fibra</h2>
+    <div class="leaf-scroll">
+      <div class="leaf-card control">
+        <h3>Optical Budget</h3>
+
+        <label>Lunghezza fibra [km]</label>
+        <input id="lengthKm" type="range" min="0.1" max="80" step="0.1" value="12">
+        <div class="leaf-note">L = <span class="value" id="lengthVal"></span> km</div>
+
+        <label>Attenuazione fibra [dB/km]</label>
+        <input id="alpha" type="range" min="0.16" max="0.60" step="0.01" value="0.25">
+        <div class="leaf-note">α = <span class="value" id="alphaVal"></span> dB/km</div>
+
+        <label>Connettori</label>
+        <input id="connectors" type="range" min="0" max="12" step="1" value="4">
+        <div class="leaf-note">Nconn = <span class="value" id="connVal"></span></div>
+
+        <label>Perdita per connettore [dB]</label>
+        <input id="connLoss" type="range" min="0.05" max="0.80" step="0.05" value="0.25">
+        <div class="leaf-note">Lconn = <span class="value" id="connLossVal"></span> dB</div>
+
+        <label>Giunzioni</label>
+        <input id="splices" type="range" min="0" max="30" step="1" value="6">
+        <div class="leaf-note">Nsplice = <span class="value" id="spliceVal"></span></div>
+
+        <label>TX optical power [dBm]</label>
+        <input id="txPower" type="range" min="-10" max="10" step="0.5" value="0">
+        <div class="leaf-note">Ptx = <span class="value" id="txVal"></span> dBm</div>
+
+        <label>RX sensitivity [dBm]</label>
+        <input id="rxSens" type="range" min="-32" max="-8" step="0.5" value="-18">
+        <div class="leaf-note">Sens = <span class="value" id="sensVal"></span> dBm</div>
+      </div>
+
+      <div class="leaf-card">
+        <h3>Formule operative</h3>
+        <div class="formulaLive">
+          Loss = L·α + Nconn·Lc + Nsplice·Ls + margin<br>
+          Prx = Ptx - Loss<br>
+          Latency ≈ 5 μs/km · L<br>
+          ORL = -10log10(Preflected/Pincident)
+        </div>
+      </div>
+
+      <div class="leaf-card">
+        <h3>Concetti</h3>
+        <ul>
+          <li>Il budget ottico deve chiudere con margine positivo.</li>
+          <li>OTDR mostra eventi distribuiti: connettori, giunti, macro-bend, fine fibra.</li>
+          <li>CPRI/eCPRI ha vincoli di latenza, jitter e sincronismo.</li>
+          <li>Cleaning e ispezione connettori sono parte del processo T&M.</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <main class="leaf-panel fb-stage">
+    <section class="fb-webgl-wrap">
+      <canvas id="fiberField"></canvas>
+      <div class="leaf-overlay">
+        <div class="leaf-stage-head">
+          <div class="leaf-stage-title">Optical Fronthaul Propagation Layer</div>
+          <div class="leaf-stage-sub">Percorso ODF/SFP/RRU con attenuazione, eventi OTDR e latenza fronthaul.</div>
+        </div>
+        <div></div>
+        <div class="leaf-stage-foot">
+          <div>Total loss: <span class="leaf-ok" id="lossVal">--</span></div>
+          <div>Events: <span id="eventVal">--</span></div>
+          <div>CPRI/eCPRI: <span id="lineRateVal">--</span></div>
+          <div>Budget: <span id="budgetVal">--</span></div>
+          <div>Quality: leaf</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fb-plots">
+      <div class="plotBox"><h3>OTDR TRACE</h3><canvas id="otdrPlot"></canvas></div>
+      <div class="plotBox"><h3>OPTICAL BUDGET</h3><canvas id="budgetPlot"></canvas></div>
+    </section>
+  </main>
+
+  <aside class="leaf-panel">
+    <h2>Risultati / Eventi</h2>
+    <div class="leaf-scroll">
+      <div class="leaf-card">
+        <h3>Budget live</h3>
+        <table class="leaf-table">
+          <tbody>
+            <tr><th>Fiber loss</th><td id="tFiberLoss">--</td></tr>
+            <tr><th>Connector loss</th><td id="tConnectorLoss">--</td></tr>
+            <tr><th>Splice loss</th><td id="tSpliceLoss">--</td></tr>
+            <tr><th>Total loss</th><td id="tTotalLoss">--</td></tr>
+            <tr><th>RX power</th><td id="tRxPower">--</td></tr>
+            <tr><th>Margin</th><td id="tMargin">--</td></tr>
+            <tr><th>Latency</th><td id="tLatency">--</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="leaf-card">
+        <h3>OTDR event table</h3>
+        <table class="leaf-table">
+          <thead><tr><th>km</th><th>event</th><th>loss</th></tr></thead>
+          <tbody id="eventTable"></tbody>
+        </table>
+      </div>
+
+      <div class="leaf-card">
+        <h3>Allarmi tecnici</h3>
+        <ul id="alarms"></ul>
+      </div>
+
+      <div class="leaf-card">
+        <h3>Da evolvere in V3</h3>
+        <ul>
+          <li>Database SFP/SFP+/QSFP vendor-like.</li>
+          <li>ODF patching map e porte CPRI/eCPRI.</li>
+          <li>OTDR bidirezionale e dead-zone.</li>
+          <li>Sync/PTP/SyncE latency budget.</li>
+          <li>Correlazione RU/DU/BBU e allarmi reali.</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function val(id){return +$(id).value;}
+
+function calc(){
+  const L=val("lengthKm");
+  const alpha=val("alpha");
+  const connectors=val("connectors");
+  const connLoss=val("connLoss");
+  const splices=val("splices");
+  const spliceLoss=0.08;
+  const tx=val("txPower");
+  const sens=val("rxSens");
+  const engineeringMargin=1.5;
+
+  const fiberLoss=L*alpha;
+  const connectorLoss=connectors*connLoss;
+  const spliceTotal=splices*spliceLoss;
+  const totalLoss=fiberLoss+connectorLoss+spliceTotal+engineeringMargin;
+  const rx=tx-totalLoss;
+  const margin=rx-sens;
+  const latency=L*5.0;
+  const events=[
+    {km:0.0,type:"ODF/SFP launch",loss:0.00},
+    {km:Math.max(0.1,L*0.18),type:"connector",loss:connLoss},
+    {km:Math.max(0.2,L*0.41),type:"splice group",loss:spliceLoss*Math.max(1,Math.round(splices/3))},
+    {km:Math.max(0.3,L*0.70),type:"macro-bend candidate",loss: margin<3 ? 0.65 : 0.15},
+    {km:L,type:"fiber end / RU",loss:connLoss}
+  ];
+
+  $("lengthVal").textContent=L.toFixed(1);
+  $("alphaVal").textContent=alpha.toFixed(2);
+  $("connVal").textContent=connectors.toFixed(0);
+  $("connLossVal").textContent=connLoss.toFixed(2);
+  $("spliceVal").textContent=splices.toFixed(0);
+  $("txVal").textContent=tx.toFixed(1);
+  $("sensVal").textContent=sens.toFixed(1);
+
+  $("lossVal").textContent=totalLoss.toFixed(2)+" dB";
+  $("eventVal").textContent=events.length;
+  $("lineRateVal").textContent=L<10 ? "CPRI/eCPRI safe" : L<25 ? "latency watch" : "latency critical";
+  $("budgetVal").innerHTML=margin>5 ? "<span class='good'>PASS</span>" : margin>1 ? "<span class='warn'>WATCH</span>" : "<span class='bad'>FAIL</span>";
+
+  $("kRx").textContent=rx.toFixed(1)+" dBm";
+  $("kMargin").textContent=margin.toFixed(1)+" dB";
+  $("kLatency").textContent=latency.toFixed(1)+" μs";
+
+  $("tFiberLoss").textContent=fiberLoss.toFixed(2)+" dB";
+  $("tConnectorLoss").textContent=connectorLoss.toFixed(2)+" dB";
+  $("tSpliceLoss").textContent=spliceTotal.toFixed(2)+" dB";
+  $("tTotalLoss").textContent=totalLoss.toFixed(2)+" dB";
+  $("tRxPower").textContent=rx.toFixed(2)+" dBm";
+  $("tMargin").innerHTML="<span class='"+(margin>5?"good":margin>1?"warn":"bad")+"'>"+margin.toFixed(2)+" dB</span>";
+  $("tLatency").textContent=latency.toFixed(2)+" μs";
+
+  $("eventTable").innerHTML=events.map(e=>`<tr><td>${e.km.toFixed(2)}</td><td>${e.type}</td><td>${e.loss.toFixed(2)} dB</td></tr>`).join("");
+
+  const alarms=[];
+  if(margin<1) alarms.push("CRITICO: optical budget insufficiente rispetto alla sensibilità RX.");
+  if(margin>=1 && margin<5) alarms.push("ATTENZIONE: margine ottico ridotto, verificare connettori e cleaning.");
+  if(latency>125) alarms.push("Latency fronthaul elevata: verificare profilo CPRI/eCPRI e sincronismo.");
+  if(connectorLoss>2.5) alarms.push("Perdite connettori significative: ispezione e pulizia obbligatorie.");
+  if(alarms.length===0) alarms.push("Budget coerente nel modello semplificato.");
+  $("alarms").innerHTML=alarms.map(a=>"<li>"+a+"</li>").join("");
+
+  return {L,alpha,connectors,connLoss,splices,spliceLoss,tx,sens,engineeringMargin,fiberLoss,connectorLoss,spliceTotal,totalLoss,rx,margin,latency,events};
+}
+
+function drawOTDR(c,p){
+  const ctx=c.getContext("2d");
+  const dpr=window.devicePixelRatio||1;
+  const w=c.clientWidth*dpr|0,h=c.clientHeight*dpr|0;
+  if(c.width!==w||c.height!==h){c.width=w;c.height=h;}
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="#010409";ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle="rgba(0,229,255,.14)";
+  for(let x=0;x<w;x+=w/12){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=h/6){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+
+  let level=h*.20;
+  ctx.strokeStyle="#00e5ff";ctx.lineWidth=2*dpr;
+  ctx.beginPath();
+  ctx.moveTo(20*dpr,level);
+  for(let i=1;i<=100;i++){
+    const km=p.L*i/100;
+    let y=level+(p.alpha*km*18*dpr);
+    p.events.forEach(e=>{ if(km>e.km) y+=e.loss*18*dpr; });
+    const x=20*dpr+i/100*(w-40*dpr);
+    ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  p.events.forEach(e=>{
+    const x=20*dpr+(e.km/p.L)*(w-40*dpr);
+    ctx.strokeStyle="#ffd84d";ctx.beginPath();ctx.moveTo(x,18*dpr);ctx.lineTo(x,h-18*dpr);ctx.stroke();
+  });
+
+  ctx.fillStyle="#8fb8c8";ctx.font=(11*dpr)+"px monospace";
+  ctx.fillText("OTDR simplified trace: distributed loss + reflective/non-reflective events",14*dpr,h-16*dpr);
+}
+
+function drawBudget(c,p){
+  const ctx=c.getContext("2d");
+  const dpr=window.devicePixelRatio||1;
+  const w=c.clientWidth*dpr|0,h=c.clientHeight*dpr|0;
+  if(c.width!==w||c.height!==h){c.width=w;c.height=h;}
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="#010409";ctx.fillRect(0,0,w,h);
+  const items=[
+    ["fiber",p.fiberLoss,"#00e5ff"],
+    ["connectors",p.connectorLoss,"#ffd84d"],
+    ["splices",p.spliceTotal,"#9b7cff"],
+    ["margin",p.engineeringMargin,"#75ff5b"]
+  ];
+  const max=Math.max(8,p.totalLoss);
+  items.forEach((it,i)=>{
+    const y=(50+i*42)*dpr;
+    const bw=(it[1]/max)*(w-130*dpr);
+    ctx.fillStyle=it[2];ctx.fillRect(100*dpr,y,bw,20*dpr);
+    ctx.fillStyle="#8fb8c8";ctx.font=(11*dpr)+"px monospace";
+    ctx.fillText(it[0],14*dpr,y+15*dpr);
+    ctx.fillText(it[1].toFixed(2)+" dB",105*dpr+bw,y+15*dpr);
+  });
+  ctx.fillStyle=p.margin>5?"#75ff5b":p.margin>1?"#ffd84d":"#ff3d7f";
+  ctx.font=(13*dpr)+"px monospace";
+  ctx.fillText("RX margin: "+p.margin.toFixed(2)+" dB",14*dpr,h-24*dpr);
+}
+
+function initWebGL(){
+  const canvas=$("fiberField");
+  const gl=canvas.getContext("webgl",{antialias:true,alpha:false});
+  if(!gl){document.querySelector("[data-gl-state]").textContent="fallback";return;}
+  document.querySelector("[data-gl-state]").textContent="webgl";
+  const vs='attribute vec2 p; varying vec2 v; void main(){v=p; gl_Position=vec4(p,0.0,1.0);}';
+  const fs='precision mediump float; varying vec2 v; uniform float t; uniform vec2 r; uniform float margin; uniform float loss; float line(vec2 p, vec2 a, vec2 b){vec2 pa=p-a,ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);return length(pa-ba*h);} void main(){vec2 uv=(v+1.0)*0.5; vec2 p=uv*2.0-1.0; p.x*=r.x/r.y; vec2 a=vec2(-.85,0.0), b=vec2(.85,0.0); float core=0.012/(line(p,a,b)+0.012); float pulse=sin((uv.x*18.0)-t*3.0)*.5+.5; float attenuation=1.0/(1.0+loss*.07); float grid=(step(.986,fract(uv.x*34.0))+step(.986,fract(uv.y*20.0)))*.05; vec3 col=vec3(.003,.014,.026); col+=vec3(0.0,.75,1.0)*core*attenuation*(.55+.45*pulse); col+=vec3(.45,1.0,.25)*grid; col+=vec3(.35,.15,1.0)*smoothstep(.0,8.0,margin)*.08; gl_FragColor=vec4(col,1.0);}';
+  function compile(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+  const pr=gl.createProgram();gl.attachShader(pr,compile(gl.VERTEX_SHADER,vs));gl.attachShader(pr,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,"p");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const ut=gl.getUniformLocation(pr,"t"),ur=gl.getUniformLocation(pr,"r"),um=gl.getUniformLocation(pr,"margin"),ul=gl.getUniformLocation(pr,"loss");
+  function frame(ms){
+    const dpr=window.devicePixelRatio||1; const w=canvas.clientWidth*dpr|0,h=canvas.clientHeight*dpr|0;
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
+    const p=calc();
+    gl.uniform1f(ut,ms*.001);gl.uniform2f(ur,canvas.width,canvas.height);gl.uniform1f(um,Math.max(0,p.margin));gl.uniform1f(ul,p.totalLoss);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+function tick(){
+  const p=calc();
+  drawOTDR($("otdrPlot"),p);
+  drawBudget($("budgetPlot"),p);
+  requestAnimationFrame(tick);
+}
+
+["lengthKm","alpha","connectors","connLoss","splices","txPower","rxSens"].forEach(id=>$(id).addEventListener("input",calc));
+initWebGL();
+tick();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+</body>
+</html>

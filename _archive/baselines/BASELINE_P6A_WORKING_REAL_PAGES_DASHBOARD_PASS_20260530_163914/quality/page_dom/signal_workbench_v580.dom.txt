@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RF PRO v5.8.0 · Signal Workbench</title>
+  <style>
+    :root{
+      --bg:#050812; --panel:#0b1324; --panel2:#111c31; --line:#1e3a5f;
+      --txt:#d9f3ff; --muted:#7fa6bf; --acc:#22d3ee; --ok:#39ff88;
+      --warn:#ffd166; --bad:#ff4d6d; --violet:#9b5cff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:
+        radial-gradient(circle at 10% 5%, rgba(34,211,238,.18), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(155,92,255,.15), transparent 26%),
+        linear-gradient(180deg,#050812,#03050b 72%);
+      color:var(--txt); font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+      overflow-x:hidden;
+    }
+    .top{
+      position:sticky; top:0; z-index:10; border-bottom:1px solid var(--line);
+      background:rgba(5,8,18,.92); backdrop-filter: blur(12px);
+      padding:14px 18px; display:flex; gap:14px; align-items:center; justify-content:space-between;
+    }
+    .brand{display:flex; flex-direction:column; gap:2px}
+    .brand h1{font-size:18px; letter-spacing:.12em; margin:0; text-transform:uppercase}
+    .brand span{font-size:12px; color:var(--muted)}
+    .pill{border:1px solid var(--line); background:rgba(17,28,49,.85); padding:7px 10px; border-radius:999px; color:var(--muted); font-size:12px}
+    .pill.ok{color:var(--ok); border-color:rgba(57,255,136,.4)}
+    .grid{
+      display:grid; grid-template-columns: 1.35fr .85fr; gap:14px;
+      padding:14px; max-width:1800px; margin:0 auto;
+    }
+    .panel{
+      border:1px solid var(--line); background:linear-gradient(180deg,rgba(17,28,49,.94),rgba(8,14,27,.94));
+      box-shadow:0 0 42px rgba(0,180,255,.08), inset 0 0 0 1px rgba(255,255,255,.025);
+      border-radius:18px; overflow:hidden;
+    }
+    .panel h2{
+      margin:0; padding:11px 13px; font-size:13px; letter-spacing:.09em; text-transform:uppercase;
+      background:rgba(34,211,238,.06); border-bottom:1px solid var(--line);
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .panel .body{padding:12px}
+    .controls{
+      display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-bottom:10px;
+    }
+    label{display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em}
+    input,select{
+      background:#06101d; border:1px solid #244766; color:var(--txt); border-radius:10px;
+      padding:9px 10px; outline:none; font-size:13px;
+    }
+    button{
+      background:linear-gradient(180deg,#0ea5e9,#075985); color:white; border:1px solid #38bdf8;
+      border-radius:12px; padding:9px 10px; cursor:pointer; font-weight:700; letter-spacing:.04em;
+    }
+    button.secondary{background:linear-gradient(180deg,#1f2937,#0f172a); border-color:#334155}
+    button.warn{background:linear-gradient(180deg,#b45309,#78350f); border-color:#f59e0b}
+    button.good{background:linear-gradient(180deg,#059669,#064e3b); border-color:#34d399}
+    button:disabled{opacity:.45; cursor:not-allowed}
+    canvas{width:100%; display:block; background:#020617}
+    #spectrum{height:360px; border-bottom:1px solid var(--line)}
+    #waterfall{height:210px}
+    .twocol{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .threecol{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px}
+    .log{
+      background:#030712; border:1px solid #1f3b57; border-radius:12px; padding:10px;
+      height:210px; overflow:auto; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:#a7f3d0;
+      white-space:pre-wrap;
+    }
+    table{width:100%; border-collapse:collapse; font-size:12px}
+    th,td{border-bottom:1px solid rgba(127,166,191,.18); padding:7px 6px; text-align:left}
+    th{color:var(--acc); font-size:11px; text-transform:uppercase; letter-spacing:.06em}
+    .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    .card{border:1px solid #1f3b57; background:#06101d; border-radius:13px; padding:10px}
+    .card b{font-size:18px; color:var(--ok)}
+    .card span{display:block; color:var(--muted); font-size:11px; text-transform:uppercase; margin-top:4px}
+    .audio{width:100%; margin-top:8px}
+    @media(max-width:1200px){.grid,.twocol,.threecol{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">
+      <h1>RF PRO v5.8.0 · Signal Workbench</h1>
+      <span>HackRF RX · GNU Radio style DSP · IQ Capture · Audio Demod · WiFi/Pineapple/Blueway Read-Only</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <span id="apiState" class="pill">API: offline</span>
+      <span class="pill ok">RX-ONLY</span>
+      <span class="pill">NO TX · NO DEAUTH · NO EVIL TWIN</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Live Spectrum / Waterfall <span id="spanInfo">—</span></h2>
+      <div class="body">
+        <div class="controls">
+          <label>Start MHz<input id="startMHz" value="88"></label>
+          <label>Stop MHz<input id="stopMHz" value="108"></label>
+          <label>Center MHz<input id="centerMHz" value="100"></label>
+          <label>Sample rate<input id="sampleRate" value="2000000"></label>
+          <label>RBW / bin Hz<input id="binHz" value="100000"></label>
+          <label>Demod
+            <select id="demodMode">
+              <option value="nfm">NFM</option>
+              <option value="wfm">WFM</option>
+              <option value="am">AM</option>
+              <option value="usb">USB/SSB</option>
+              <option value="lsb">LSB/SSB</option>
+              <option value="ook">OOK/ASK envelope</option>
+              <option value="fsk">FSK discriminator</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="controls">
+          <button onclick="sweepWindow()">SWEEP WINDOW</button>
+          <button onclick="fullSurvey()" class="secondary">FULL SURVEY</button>
+          <button onclick="lockPeak()" class="good">LOCK PEAK</button>
+          <button onclick="captureIQ()" class="warn">CAPTURE IQ</button>
+          <button onclick="analyzeIQ()">ANALYZE IQ</button>
+          <button onclick="demodAudio()">DEMOD AUDIO</button>
+        </div>
+
+        <canvas id="spectrum" width="1400" height="360"></canvas>
+        <canvas id="waterfall" width="1400" height="210"></canvas>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <h2>Signal Inspector</h2>
+      <div class="body">
+        <div class="cards">
+          <div class="card"><b id="mPeak">—</b><span>Peak dBm</span></div>
+          <div class="card"><b id="mFreq">—</b><span>Peak MHz</span></div>
+          <div class="card"><b id="mIQ">—</b><span>IQ file</span></div>
+          <div class="card"><b id="mMode">—</b><span>Mode</span></div>
+        </div>
+        <h3 style="font-size:12px;color:var(--acc);letter-spacing:.08em;text-transform:uppercase;margin-top:14px">Peaks / Candidates</h3>
+        <div style="height:250px;overflow:auto">
+          <table>
+            <thead><tr><th>#</th><th>Freq MHz</th><th>dBm</th><th>Action</th></tr></thead>
+            <tbody id="peaksTable"></tbody>
+          </table>
+        </div>
+        <audio id="audio" class="audio" controls=""></audio>
+      </div>
+    </aside>
+
+    <section class="panel">
+      <h2>IQ / Vector Lab</h2>
+      <div class="body twocol">
+        <canvas id="constellation" width="640" height="360"></canvas>
+        <div>
+          <div class="log" id="metrics">IQ metrics...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>WiFi / Mark VII / Blueway / Modem Observers</h2>
+      <div class="body">
+        <div class="controls" style="grid-template-columns:repeat(4,1fr)">
+          <button onclick="wifiMeta()">WIFI METADATA</button>
+          <button onclick="markVII()" class="secondary">MARK VII RECON</button>
+          <button onclick="blueway()" class="secondary">BLUEWAY STATUS</button>
+          <button onclick="modem()" class="secondary">MODEM/CELLULAR</button>
+        </div>
+        <div class="log" id="observerLog">Observers ready...</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Evidence / Files</h2>
+      <div class="body">
+        <div class="controls" style="grid-template-columns:repeat(3,1fr)">
+          <button onclick="evidence()" class="good">CREATE EVIDENCE</button>
+          <button onclick="files()" class="secondary">LIST FILES</button>
+          <button onclick="state()" class="secondary">REFRESH STATE</button>
+        </div>
+        <div class="log" id="log">[2026-05-30T14:39:54.271Z] Errore sweep: 404 
+[2026-05-30T14:39:54.261Z] Sweep window avviato
+{
+  "start_hz": 88000000,
+  "stop_hz": 108000000,
+  "bin_hz": 100000,
+  "points": 1000,
+  "use_hackrf": true
+}
+[2026-05-30T14:39:53.695Z] Errore state: Unexpected token '&lt;', "&lt;!doctype "... is not valid JSON
+Booting RF PRO v5.8.0...</div>
+      </div>
+    </section>
+  </div>
+
+<script>
+const $ = id => document.getElementById(id);
+let lastPoints = [];
+let lastPeaks = [];
+let lastIQ = null;
+let selectedPeak = null;
+let wfRows = [];
+
+function log(msg, obj=null){
+  const t = new Date().toISOString();
+  $('log').textContent = `[${t}] ${msg}\n` + (obj ? JSON.stringify(obj,null,2).slice(0,6000) + "\n" : "") + $('log').textContent;
+}
+function obs(msg, obj=null){
+  const t = new Date().toISOString();
+  $('observerLog').textContent = `[${t}] ${msg}\n` + (obj ? JSON.stringify(obj,null,2).slice(0,6000) + "\n" : "") + $('observerLog').textContent;
+}
+async function api(path, opts={}){
+  const r = await fetch(path, {headers:{'Content-Type':'application/json'}, ...opts});
+  if(!r.ok){
+    const tx = await r.text();
+    throw new Error(`${r.status} ${tx}`);
+  }
+  return await r.json();
+}
+function mhz(v){return Number(v)/1e6}
+function hzFromMHz(id){return Number($(id).value)*1e6}
+
+function renderSpectrum(points){
+  lastPoints = points || [];
+  const c = $('spectrum'), ctx = c.getContext('2d');
+  const w=c.width,h=c.height;
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="#020617"; ctx.fillRect(0,0,w,h);
+
+  for(let i=0;i<10;i++){
+    ctx.strokeStyle = i%5===0 ? "rgba(34,211,238,.20)" : "rgba(127,166,191,.08)";
+    ctx.beginPath(); ctx.moveTo(0, i*h/10); ctx.lineTo(w, i*h/10); ctx.stroke();
+  }
+  for(let i=0;i<12;i++){
+    ctx.strokeStyle="rgba(127,166,191,.08)";
+    ctx.beginPath(); ctx.moveTo(i*w/12,0); ctx.lineTo(i*w/12,h); ctx.stroke();
+  }
+  if(!points.length) return;
+
+  const minF = points[0].freq_hz, maxF = points[points.length-1].freq_hz;
+  const minDb=-120, maxDb=-20;
+  ctx.strokeStyle="#22d3ee"; ctx.lineWidth=2; ctx.beginPath();
+  points.forEach((p,i)=>{
+    const x = (p.freq_hz-minF)/(maxF-minF)*w;
+    const y = h - ((p.dbm-minDb)/(maxDb-minDb))*h;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  const pk = [...points].sort((a,b)=>b.dbm-a.dbm)[0];
+  if(pk){
+    const x=(pk.freq_hz-minF)/(maxF-minF)*w;
+    const y=h-((pk.dbm-minDb)/(maxDb-minDb))*h;
+    ctx.strokeStyle="#39ff88"; ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.stroke();
+    ctx.fillStyle="#d9f3ff"; ctx.fillText(`${(pk.freq_hz/1e6).toFixed(6)} MHz  ${pk.dbm.toFixed(1)} dBm`, x+10, Math.max(18,y-10));
+    $('mPeak').textContent = pk.dbm.toFixed(1);
+    $('mFreq').textContent = (pk.freq_hz/1e6).toFixed(3);
+  }
+
+  $('spanInfo').textContent = `${(minF/1e6).toFixed(3)}–${(maxF/1e6).toFixed(3)} MHz`;
+  addWaterfall(points);
+}
+function addWaterfall(points){
+  const c=$('waterfall'), ctx=c.getContext('2d'), w=c.width,h=c.height;
+  const row = points.map(p=>p.dbm);
+  wfRows.unshift(row);
+  wfRows = wfRows.slice(0, h);
+  const img = ctx.createImageData(w,h);
+  for(let y=0;y<h;y++){
+    const src = wfRows[y] || [];
+    for(let x=0;x<w;x++){
+      const idx = Math.floor(x / w * Math.max(1,src.length-1));
+      const db = src[idx] ?? -120;
+      const v = Math.max(0, Math.min(1, (db + 110)/70));
+      const off=(y*w+x)*4;
+      img.data[off] = Math.floor(20 + 40*v);
+      img.data[off+1] = Math.floor(40 + 210*v);
+      img.data[off+2] = Math.floor(90 + 120*(1-v));
+      img.data[off+3] = 255;
+    }
+  }
+  ctx.putImageData(img,0,0);
+}
+function renderPeaks(peaks){
+  lastPeaks = peaks || [];
+  const tb=$('peaksTable'); tb.innerHTML="";
+  lastPeaks.forEach((p,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}</td><td>${(p.freq_hz/1e6).toFixed(6)}</td><td>${p.dbm.toFixed(2)}</td><td><button class="secondary" onclick="selectPeak(${i})">LOCK</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+function selectPeak(i){
+  selectedPeak=lastPeaks[i];
+  if(selectedPeak){
+    $('centerMHz').value=(selectedPeak.freq_hz/1e6).toFixed(6);
+    log("Peak selezionato come centro", selectedPeak);
+  }
+}
+function lockPeak(){
+  if(!lastPeaks.length){ log("Nessun peak disponibile. Esegui prima SWEEP WINDOW."); return; }
+  selectPeak(0);
+}
+
+async function state(){
+  try{
+    const j=await api('/api/v580/workbench/state');
+    $('apiState').textContent="API: online";
+    $('apiState').className="pill ok";
+    log("State RF Workbench", j);
+  }catch(e){
+    $('apiState').textContent="API: offline";
+    $('apiState').className="pill";
+    log("Errore state: "+e.message);
+  }
+}
+async function sweepWindow(){
+  try{
+    const body={
+      start_hz: hzFromMHz('startMHz'),
+      stop_hz: hzFromMHz('stopMHz'),
+      bin_hz: Number($('binHz').value),
+      points: 1000,
+      use_hackrf: true
+    };
+    log("Sweep window avviato", body);
+    const j=await api('/api/v580/workbench/sweep/window',{method:'POST',body:JSON.stringify(body)});
+    renderSpectrum(j.points || []);
+    renderPeaks(j.peaks || []);
+    log("Sweep completato", {real_hackrf:j.real_hackrf, saved:j.saved, peaks:j.peaks});
+  }catch(e){log("Errore sweep: "+e.message);}
+}
+async function fullSurvey(){
+  try{
+    const j=await api('/api/v580/workbench/sweep/full',{method:'POST',body:'{}'});
+    log("Full survey preview completato", j);
+    if(j.bands && j.bands[0]){renderSpectrum(j.bands[0].points); renderPeaks(j.bands.flatMap(b=>b.peaks).slice(0,16));}
+  }catch(e){log("Errore full survey: "+e.message);}
+}
+async function captureIQ(){
+  try{
+    const body={
+      center_hz: Number($('centerMHz').value)*1e6,
+      sample_rate: Number($('sampleRate').value),
+      seconds: 1.0,
+      amp_enable: 0,
+      lna_gain: 16,
+      vga_gain: 16
+    };
+    log("Capture IQ RX-only avviata", body);
+    const j=await api('/api/v580/workbench/iq/capture',{method:'POST',body:JSON.stringify(body)});
+    if(j.file){ lastIQ=j.file; $('mIQ').textContent=j.file.slice(0,12)+"…"; }
+    log("Capture IQ completata", j);
+  }catch(e){log("Errore capture IQ: "+e.message);}
+}
+async function analyzeIQ(){
+  try{
+    const body={filename:lastIQ, sample_rate:Number($('sampleRate').value), fft_size:4096};
+    const j=await api('/api/v580/workbench/iq/analyze',{method:'POST',body:JSON.stringify(body)});
+    renderSpectrum(j.spectrum || []);
+    renderConstellation(j.constellation || []);
+    $('metrics').textContent=JSON.stringify(j.metrics || j,null,2).slice(0,5000);
+    log("IQ analyze completata", {status:j.status,file:j.file,sha256:j.sha256,metrics:j.metrics});
+  }catch(e){log("Errore IQ analyze: "+e.message);}
+}
+function renderConstellation(points){
+  const c=$('constellation'), ctx=c.getContext('2d'), w=c.width,h=c.height;
+  ctx.fillStyle="#020617"; ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle="rgba(127,166,191,.15)";
+  ctx.beginPath(); ctx.moveTo(w/2,0); ctx.lineTo(w/2,h); ctx.moveTo(0,h/2); ctx.lineTo(w,h/2); ctx.stroke();
+  ctx.strokeStyle="rgba(34,211,238,.15)";
+  for(let r=60;r<Math.min(w,h)/2;r+=60){ctx.beginPath();ctx.arc(w/2,h/2,r,0,Math.PI*2);ctx.stroke();}
+  ctx.fillStyle="#39ff88";
+  points.forEach(p=>{
+    const x=w/2 + p.i*w*.32;
+    const y=h/2 - p.q*h*.32;
+    if(x>=0&&x<w&&y>=0&&y<h) ctx.fillRect(x,y,2,2);
+  });
+}
+async function demodAudio(){
+  try{
+    const body={filename:lastIQ, mode:$('demodMode').value, sample_rate:Number($('sampleRate').value)};
+    $('mMode').textContent=body.mode.toUpperCase();
+    const j=await api('/api/v580/workbench/demod/audio',{method:'POST',body:JSON.stringify(body)});
+    $('audio').src=j.wav_url;
+    log("Audio demod completata", j);
+  }catch(e){log("Errore demod audio: "+e.message);}
+}
+async function wifiMeta(){try{const j=await api('/api/v580/wifi/metadata?rescan=false'); obs("WiFi metadata", j);}catch(e){obs("Errore WiFi: "+e.message);}}
+async function markVII(){try{const j=await api('/api/v580/markvii/recon'); obs("Mark VII Recon bridge", j);}catch(e){obs("Errore Mark VII: "+e.message);}}
+async function blueway(){try{const j=await api('/api/v580/blueway/status'); obs("Blueway bridge", j);}catch(e){obs("Errore Blueway: "+e.message);}}
+async function modem(){try{const j=await api('/api/v580/modem/cellular'); obs("Modem/cellular observer", j);}catch(e){obs("Errore modem: "+e.message);}}
+async function evidence(){try{const j=await api('/api/v580/workbench/evidence',{method:'POST',body:'{}'}); log("Evidence creato", j);}catch(e){log("Errore evidence: "+e.message);}}
+async function files(){try{const j=await api('/api/v580/workbench/files'); log("Files", j);}catch(e){log("Errore files: "+e.message);}}
+
+state();
+setTimeout(sweepWindow, 600);
+</script>
+
+
+</body></html>

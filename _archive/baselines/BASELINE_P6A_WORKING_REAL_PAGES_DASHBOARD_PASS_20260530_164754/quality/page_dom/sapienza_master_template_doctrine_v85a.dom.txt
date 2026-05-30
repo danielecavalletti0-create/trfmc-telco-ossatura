@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.85A · Sapienza Master Template Doctrine</title>
+  <link rel="stylesheet" href="/assets/trfmc_v085a_sapienza_master_template_doctrine.css">
+</head>
+<body class="v85a">
+  <header class="topbar">
+    <div class="brand">
+      <span class="orb"></span>
+      <div>
+        <b>TRFMC SAPIENZA MASTER DOCTRINE</b>
+        <small>v0.85A · template madre · governance visiva · RF/T&amp;M evidence chain</small>
+      </div>
+    </div>
+    <nav>
+      <a href="/rf_sapienza_console_v84m.html">v84M Baseline</a>
+      <a href="/rf_sapienza_console_v84l.html">v84L</a>
+      <a href="/rf_sapienza_console_v84k.html">v84K</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+      <a class="active" href="/sapienza_master_template_doctrine_v85a.html">v85A Doctrine</a>
+    </nav>
+    <div class="status">
+      <span>NO OVERWRITE</span>
+      <span>LOCAL ONLY</span>
+      <span>READY</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">TRFMC v0.85A · MASTER TEMPLATE DOCTRINE</p>
+        <h1>Sapienza Master Template Doctrine</h1>
+        <p class="lead">
+          Questa pagina cristallizza la grammatica madre del portale: shell, evidenza, misura, didattica,
+          controllo dei layer e criteri di promozione. Da qui in poi non si improvvisa più: ogni pagina deve
+          dimostrare coerenza RF, leggibilità strumentale e valore didattico.
+        </p>
+      </div>
+      <aside class="score">
+        <span>BASELINE</span>
+        <strong>v84M</strong>
+        <small>promotion candidate</small>
+      </aside>
+    </section>
+
+    <section class="doctrine-grid">
+      <article>
+        <b>01 · Visual Hierarchy</b>
+        <p>La scena RF è protagonista. Header, menu e controlli devono essere compatti, leggibili e subordinati alla misura.</p>
+        <code>hero compact · director compact · canvas primary</code>
+      </article>
+      <article>
+        <b>02 · Evidence Chain</b>
+        <p>Ogni diagnosi deve seguire la catena: geometria, canale, segnale, decisione, trasmissione didattica.</p>
+        <code>geometry → channel → signal → decision → teaching</code>
+      </article>
+      <article>
+        <b>03 · Instrument Truth</b>
+        <p>Il colore non basta. IQ, EVM, PDP, H(f), link budget e stato di serving devono confermare la scena.</p>
+        <code>IQ/EVM · PDP · H(f) · budget · best-server</code>
+      </article>
+      <article>
+        <b>04 · Layer Governance</b>
+        <p>Measure, 4D, Teach e Clean sono modalità operative, non decorazioni. Ogni layer deve poter essere spento.</p>
+        <code>Measure · 4D · Teach · Clean</code>
+      </article>
+      <article>
+        <b>05 · Object Grammar</b>
+        <p>Siti, UE, ostacoli, vettori, isolinee e probe devono essere oggetti riconoscibili, non chiazze grafiche.</p>
+        <code>site · UE · vector · obstacle · isoline · probe</code>
+      </article>
+      <article>
+        <b>06 · Didactic Mission</b>
+        <p>L’allievo deve capire il ragionamento: osservare, misurare, correlare, spiegare. La pagina deve insegnare metodo.</p>
+        <code>observe → measure → correlate → explain</code>
+      </article>
+    </section>
+
+    <section class="matrix">
+      <div class="matrix-head">
+        <div>
+          <p class="eyebrow">PORTAL PROMOTION MATRIX</p>
+          <h2>Target pagine da portare alla dottrina v85</h2>
+        </div>
+        <span>safe · staged · no overwrite</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Pagina</th>
+            <th>Ruolo</th>
+            <th>Problema attuale</th>
+            <th>Regola v85</th>
+            <th>Priorità</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="opacity: 1; transform: translateY(0px); transition: opacity 0.35s, transform 0.35s;">
+            <td>rf_sapienza_console_v84m.html</td>
+            <td>Baseline RF/T&amp;M</td>
+            <td>Da promuovere a template madre</td>
+            <td>Congelare come riferimento</td>
+            <td><b class="ok">P0</b></td>
+          </tr>
+          <tr style="opacity: 1; transform: translateY(0px); transition: opacity 0.35s, transform 0.35s;">
+            <td>webgl_rf_physics_engine_v83f.html</td>
+            <td>Fisica / RSRP / SINR</td>
+            <td>Ottima matematica, shell meno governata</td>
+            <td>Applicare director + evidence chain</td>
+            <td><b class="ok">P1</b></td>
+          </tr>
+          <tr style="opacity: 1; transform: translateY(0px); transition: opacity 0.35s, transform 0.35s;">
+            <td>webgl_rf_heatmap_engine_v69.html</td>
+            <td>Mobility / Handover</td>
+            <td>Troppo carica e meno didattica</td>
+            <td>Layer governance + mission replay pulito</td>
+            <td><b class="warn">P1</b></td>
+          </tr>
+          <tr style="opacity: 1; transform: translateY(0px); transition: opacity 0.35s, transform 0.35s;">
+            <td>infrastructure_digital_twin_v63.html</td>
+            <td>Digital Twin sito</td>
+            <td>Buona scena, ma shell non allineata</td>
+            <td>Oggetti + evidence + template shell</td>
+            <td><b class="warn">P2</b></td>
+          </tr>
+          <tr style="opacity: 1; transform: translateY(0px); transition: opacity 0.35s, transform 0.35s;">
+            <td>rf_telco_knowledge_os_v60.html</td>
+            <td>Sapienza teorica</td>
+            <td>Contenuto valido ma meno “strumentale”</td>
+            <td>Roadmap didattica + moduli verificabili</td>
+            <td><b class="warn">P2</b></td>
+          </tr>
+          <tr style="opacity: 1; transform: translateY(0px); transition: opacity 0.35s, transform 0.35s;">
+            <td>trfmc_visual_qa_matrix_v71.html</td>
+            <td>Governance QA</td>
+            <td>Utile, ma score non ancora basato su dottrina v85</td>
+            <td>QA per shell/evidence/object/instrument</td>
+            <td><b class="critical">P3</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="blueprint">
+      <article>
+        <h2>Master Shell Tokens</h2>
+        <p>Colori, bordi, radius, profondità, spaziatura e densità devono essere identici fra le pagine strategiche.</p>
+        <pre>{
+  "--shell-bg": "#01040b",
+  "--panel": "#061426",
+  "--cyan": "#8ff0ff",
+  "--green": "#42f56f",
+  "--amber": "#fbbf24",
+  "--red": "#ff3b5c",
+  "--radius-panel": "18px",
+  "--radius-shell": "28px",
+  "--density": "expert-compact"
+}</pre>
+      </article>
+
+      <article>
+        <h2>Promotion Gate</h2>
+        <p>Una pagina può diventare “production candidate” solo se supera questi gate minimi.</p>
+        <ul>
+          <li>HTTP 200 su pagina, CSS, JS e report scope.</li>
+          <li>Nessun CDN, nessun riferimento esterno, nessun overwrite di pagine stabili.</li>
+          <li>Shell compatta, canvas leggibile, strumenti non decorativi.</li>
+          <li>Evidence Chain presente o equivalente funzionale.</li>
+          <li>Modalità Clean disponibile per screenshot e revisione.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="next-step">
+      <div>
+        <p class="eyebrow">NEXT SAFE ACTION</p>
+        <h2>v85B dovrà applicare questa dottrina a una sola pagina bersaglio</h2>
+        <p>
+          La prima candidata è <b>webgl_rf_physics_engine_v83f.html</b>, perché contiene la migliore base matematica.
+          La regola resta chirurgica: nuova pagina parallela, nessun overwrite, confronto con originale, report e rollback.
+        </p>
+      </div>
+      <a href="/webgl_rf_physics_engine_v83f.html">Apri v83F</a>
+    </section>
+  </main>
+
+  <footer>
+    TRFMC v0.85A · Sapienza Master Template Doctrine · governance-only · local/offline · no production overwrite
+  </footer>
+
+  <script defer="" src="/assets/trfmc_v085a_sapienza_master_template_doctrine.js"></script>
+
+
+</body></html>

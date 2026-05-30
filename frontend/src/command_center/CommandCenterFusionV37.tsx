@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   extractString,
   fetchLiveContract,
@@ -6,8 +6,7 @@ import {
   type LiveContractResult,
 } from '../shared/liveContractsV32R1'
 import { commandCenterFusionMetaV37, commandCenterTilesV37, type CommandCenterTileV37 } from './commandCenterDataV37'
-
-type LiveMap = Record<string, LiveContractResult | undefined>
+import { useLiveMapStore } from '../stores/liveMapStore'
 
 function priorityRank(priority: CommandCenterTileV37['priority']) {
   if (priority === 'critical') return 0
@@ -59,39 +58,45 @@ function tileLiveDetail(tile: CommandCenterTileV37, live?: LiveContractResult) {
 }
 
 export function CommandCenterFusionV37() {
-  const [liveMap, setLiveMap] = useState<LiveMap>({})
-  const [tick, setTick] = useState(0)
+  const liveMap = useLiveMapStore((state) => state.liveMap)
+  const setLiveMap = useLiveMapStore((state) => state.setLiveMap)
+  const clearLiveMap = useLiveMapStore((state) => state.clearLiveMap)
   const [selectedDomain, setSelectedDomain] = useState<string>('all')
+
+  const loadLiveContracts = useCallback(
+    async (signal: AbortSignal) => {
+      const entries = await Promise.all(
+        commandCenterTilesV37
+          .filter((tile) => tile.liveEndpoint)
+          .map(async (tile) => [tile.id, await fetchLiveContract(tile.liveEndpoint as string, signal)] as const),
+      )
+      setLiveMap(Object.fromEntries(entries))
+    },
+    [setLiveMap],
+  )
+
+  const refreshLiveContracts = useCallback(async () => {
+    const controller = new AbortController()
+    try {
+      await loadLiveContracts(controller.signal)
+    } catch {
+      clearLiveMap()
+    }
+  }, [clearLiveMap, loadLiveContracts])
 
   useEffect(() => {
     const controller = new AbortController()
     let alive = true
 
-    async function load() {
-      const entries = await Promise.all(
-        commandCenterTilesV37
-          .filter((tile) => tile.liveEndpoint)
-          .map(async (tile) => [tile.id, await fetchLiveContract(tile.liveEndpoint as string, controller.signal)] as const),
-      )
-
-      if (!alive) return
-      setLiveMap(Object.fromEntries(entries))
-    }
-
-    load().catch(() => {
-      if (alive) setLiveMap({})
+    loadLiveContracts(controller.signal).catch(() => {
+      if (alive) clearLiveMap()
     })
 
     return () => {
       alive = false
       controller.abort()
     }
-  }, [tick])
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setTick((value) => value + 1), 15000)
-    return () => window.clearInterval(timer)
-  }, [])
+  }, [clearLiveMap, loadLiveContracts])
 
   const domains = useMemo(() => ['all', ...Array.from(new Set(commandCenterTilesV37.map((tile) => tile.domain)))], [])
 
@@ -131,7 +136,7 @@ export function CommandCenterFusionV37() {
             {domain === 'all' ? 'ALL DOMAINS' : domainLabel(domain as CommandCenterTileV37['domain'])}
           </button>
         ))}
-        <button type="button" onClick={() => setTick((value) => value + 1)}>
+        <button type="button" onClick={refreshLiveContracts}>
           Refresh live contracts
         </button>
       </div>

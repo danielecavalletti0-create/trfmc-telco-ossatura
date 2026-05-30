@@ -1,0 +1,223 @@
+diff --git a/frontend/src/portal-os/PortalOSRoot.tsx b/frontend/src/portal-os/PortalOSRoot.tsx
+index ad5c5dd..17c62ae 100644
+--- a/frontend/src/portal-os/PortalOSRoot.tsx
++++ b/frontend/src/portal-os/PortalOSRoot.tsx
+@@ -11,6 +11,7 @@ import {
+   type PortalOSModule,
+ } from './portalManifest'
+ import './portal-os.css'
++import { topWorkingPages, workingPageCategories, workingPagesByCategory } from './workingPagesRegistry'
+ 
+ type EndpointState = {
+   id: string
+@@ -152,6 +153,13 @@ function routeForModule(module?: PortalOSModule) {
+   return route.startsWith('#') ? route : `#${route}`
+ }
+ 
++function legacyUrlForModule(module?: PortalOSModule) {
++  const source = module?.source || ''
++  if (!source.startsWith('frontend/public/')) return ''
++  if (!source.endsWith('.html')) return ''
++  return `/${source.replace('frontend/public/', '')}`
++}
++
+ function moduleFromCurrentHash() {
+   if (typeof window === 'undefined') return undefined
+   return portalOSModules.find((module) => routeForModule(module) === window.location.hash)
+@@ -280,6 +288,8 @@ export function PortalOSRoot() {
+       data-trfmc-p4e-data-fabric-dashboard="mounted"
+       data-trfmc-p4f-dashboard-route-links="mounted"
+       data-trfmc-p4g-route-registry="mounted"
++      data-trfmc-p5b-real-legacy-links="mounted"
++      data-trfmc-p6a-working-real-pages="mounted"
+     >
+       <header className="trfmc-command-topbar">
+         <div className="trfmc-command-brand">
+@@ -372,6 +382,31 @@ export function PortalOSRoot() {
+             })}
+           </section>
+ 
++          <section className="trfmc-command-working-pages" data-trfmc-working-real-pages="active">
++            <div className="trfmc-command-strip-head">
++              <span>Working real pages</span>
++              <strong>{topWorkingPages.length} verified links · {workingPageCategories.length} categories</strong>
++            </div>
++
++            <div className="trfmc-command-working-category-row">
++              {workingPageCategories.slice(0, 12).map((category) => (
++                <span key={category}>
++                  {category} · {workingPagesByCategory(category).length}
++                </span>
++              ))}
++            </div>
++
++            <div className="trfmc-command-working-grid">
++              {topWorkingPages.map((page) => (
++                <a key={page.url} href={page.url} target="_blank" rel="noreferrer" data-trfmc-working-page-link={page.url}>
++                  <span>{page.category}</span>
++                  <strong>{page.title}</strong>
++                  <em>{page.url} · canvas {page.domCanvas || page.sourceCanvas} · RF hits {page.rfHits}</em>
++                </a>
++              ))}
++            </div>
++          </section>
++
+           <section className="trfmc-command-dashboard-pages" data-trfmc-dashboard-pages="active">
+             <div className="trfmc-command-strip-head">
+               <span>Dashboard pages</span>
+@@ -482,6 +517,18 @@ export function PortalOSRoot() {
+                 <dd>{activeModule.risks && activeModule.risks.length ? activeModule.risks.join(', ') : 'clean / governed'}</dd>
+               </div>
+             </dl>
++
++            <div className="trfmc-command-real-page-link" data-trfmc-real-page-link="active">
++              <span>Real page link</span>
++              {legacyUrlForModule(activeModule) ? (
++                <a href={legacyUrlForModule(activeModule)} target="_blank" rel="noreferrer">
++                  Apri pagina reale HTML
++                </a>
++              ) : (
++                <strong>Modulo React / nessuna pagina legacy diretta</strong>
++              )}
++              <em>{legacyUrlForModule(activeModule) || 'native-react-or-manifest-only'}</em>
++            </div>
+           </section>
+         </main>
+ 
+diff --git a/frontend/src/portal-os/portal-os.css b/frontend/src/portal-os/portal-os.css
+index b483699..dcb7e1a 100644
+--- a/frontend/src/portal-os/portal-os.css
++++ b/frontend/src/portal-os/portal-os.css
+@@ -707,3 +707,132 @@
+   }
+ }
+ /* TRFMC P4F DASHBOARD ROUTE LINKS END */
++
++/* TRFMC P5B REAL LEGACY PAGE LINKS START */
++.trfmc-command-real-page-link {
++  grid-column: 1 / -1;
++  border: 1px solid rgba(134, 239, 172, .22);
++  border-radius: 14px;
++  padding: 10px;
++  background: rgba(8, 47, 38, .18);
++}
++
++.trfmc-command-real-page-link span {
++  display: block;
++  color: #67e8f9;
++  font-size: 8.5px;
++  font-weight: 950;
++  letter-spacing: .11em;
++  text-transform: uppercase;
++}
++
++.trfmc-command-real-page-link a,
++.trfmc-command-real-page-link strong {
++  display: inline-block;
++  margin-top: 6px;
++  color: #86efac;
++  font-size: 12px;
++  font-weight: 900;
++  text-decoration: none;
++}
++
++.trfmc-command-real-page-link a:hover {
++  text-decoration: underline;
++}
++
++.trfmc-command-real-page-link em {
++  display: block;
++  margin-top: 5px;
++  color: #9fb8ca;
++  font-size: 10px;
++  font-style: normal;
++  word-break: break-word;
++}
++/* TRFMC P5B REAL LEGACY PAGE LINKS END */
++
++/* TRFMC P6A WORKING REAL PAGES START */
++.trfmc-command-working-pages {
++  margin-top: 10px;
++  border: 1px solid rgba(134, 239, 172, .18);
++  border-radius: 18px;
++  background:
++    radial-gradient(circle at 18% 0%, rgba(134, 239, 172, .08), transparent 30%),
++    rgba(0, 6, 16, .36);
++  padding: 10px;
++}
++
++.trfmc-command-working-category-row {
++  margin-top: 8px;
++  display: flex;
++  gap: 6px;
++  flex-wrap: wrap;
++}
++
++.trfmc-command-working-category-row span {
++  border: 1px solid rgba(103, 232, 249, .12);
++  border-radius: 999px;
++  padding: 4px 7px;
++  color: #9fb8ca;
++  font-size: 9px;
++  background: rgba(0, 10, 22, .48);
++}
++
++.trfmc-command-working-grid {
++  margin-top: 8px;
++  display: grid;
++  grid-template-columns: repeat(4, minmax(0, 1fr));
++  gap: 8px;
++  max-height: 360px;
++  overflow: auto;
++  padding-right: 3px;
++}
++
++.trfmc-command-working-grid a {
++  display: block;
++  text-decoration: none;
++  border: 1px solid rgba(103, 232, 249, .14);
++  border-radius: 14px;
++  background: linear-gradient(180deg, rgba(0, 18, 30, .62), rgba(0, 7, 16, .46));
++  color: inherit;
++  padding: 10px;
++}
++
++.trfmc-command-working-grid a:hover {
++  border-color: rgba(134, 239, 172, .48);
++  background: rgba(8, 47, 38, .24);
++  box-shadow: inset 0 0 0 1px rgba(134, 239, 172, .18), 0 0 28px rgba(16, 185, 129, .12);
++}
++
++.trfmc-command-working-grid span {
++  display: block;
++  color: #67e8f9;
++  font-size: 8.5px;
++  font-weight: 950;
++  letter-spacing: .11em;
++  text-transform: uppercase;
++}
++
++.trfmc-command-working-grid strong {
++  display: block;
++  margin-top: 5px;
++  color: #e8f7ff;
++  font-size: 12px;
++  line-height: 1.12;
++}
++
++.trfmc-command-working-grid em {
++  display: block;
++  margin-top: 5px;
++  color: #9fb8ca;
++  font-size: 9px;
++  font-style: normal;
++  line-height: 1.25;
++  word-break: break-word;
++}
++
++@media (max-width: 1440px) {
++  .trfmc-command-working-grid {
++    grid-template-columns: repeat(2, minmax(0, 1fr));
++  }
++}
++/* TRFMC P6A WORKING REAL PAGES END */

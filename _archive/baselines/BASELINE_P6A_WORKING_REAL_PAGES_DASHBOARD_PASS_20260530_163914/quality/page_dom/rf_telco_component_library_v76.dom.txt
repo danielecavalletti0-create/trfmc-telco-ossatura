@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.75A Shell · TRFMC v0.76A · RF/Telco Component Object Library</title>
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css">
+  <link rel="stylesheet" href="/assets/trfmc_rf_telco_component_library_v76.css">
+  <script defer="" src="/assets/trfmc_master_shell_v75.js"></script>
+  <script defer="" src="/assets/trfmc_rf_telco_component_library_v76.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+
+<body class="v76-shell trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-v75-active" data-v75-bound="true" data-v75="TRFMC_V0_75A_MASTER_VISUAL_RESET_SINGLE_SHELL" data-v76="TRFMC_V0_76A_RF_TELCO_COMPONENT_OBJECT_LIBRARY" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div><header class="trfmc-v75-masterbar">
+      <div class="v75-brand">
+        <div class="v75-orb"></div>
+        <div>
+          <b>TRFMC MISSION CONTROL</b>
+          <span id="v75_identity">rf_telco_component_library_v76.html · single clean shell</span>
+        </div>
+      </div>
+
+      <nav class="v75-nav">
+        <a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="active" href="/rf_telco_component_library_v76.html">Components</a><a class="" href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a><a class="" href="/infrastructure_digital_twin_v63.html">Digital Twin</a><a class="" href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a><a class="" href="/webgl_rf_heatmap_engine_v67.html">Urban</a><a class="" href="/webgl_rf_heatmap_engine_v66.html">Heatmap</a><a class="" href="/field_engineering_mode_v64.html">Field</a><a class="" href="/rf_propagation_sandbox_v62.html">Propagation</a><a class="" href="/rf_telco_knowledge_os_v60.html">Knowledge</a><a class="" href="/trfmc_visual_qa_matrix_v71.html">QA</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a>
+      </nav>
+
+      <div class="v75-status">
+        <span id="v75_backend" class="">Backend OK</span>
+        <span id="v75_runtime" class="">SIMULATION</span>
+        <span id="v75_visual" class="">Shell v75</span>
+      </div>
+    </header>
+  <div class="v76-bg-grid"></div>
+  <div class="v76-glow g1"></div>
+  <div class="v76-glow g2"></div>
+
+  <main class="v76-layout">
+    <section class="v76-hero v76-panel">
+      <div>
+        <div class="v76-eyebrow">TRFMC v0.76A · object-first RF/Telco design system</div>
+        <h1>RF/Telco Component Object Library</h1>
+        <p>
+          Questa pagina è la base per rifare il portale con oggetti definiti, non con rettangoli casuali.
+          Ogni oggetto ha identità, ruolo operativo, stato, KPI e possibile riuso nelle pagine mission-control,
+          digital twin, handover, field engineering, knowledge OS e visual QA.
+        </p>
+      </div>
+
+      <div class="v76-score">
+        <span>Object System Readiness</span>
+        <b id="v76_score">95%</b>
+        <small id="v76_score_label">13 reusable RF/Telco objects</small>
+      </div>
+    </section>
+
+    <section class="v76-panel v76-taxonomy">
+      <div class="v76-panel-head">
+        <h2>Component Taxonomy</h2>
+        <span>Physical · Radio · Transport · Core · Evidence</span>
+      </div>
+
+      <div class="v76-taxonomy-grid">
+        <button class="active" data-filter="all">All Objects</button>
+        <button data-filter="physical">Physical Site</button>
+        <button data-filter="radio">Radio/RAN</button>
+        <button data-filter="transport">Transport</button>
+        <button data-filter="core">5GC/Core</button>
+        <button data-filter="operations">Operations</button>
+      </div>
+    </section>
+
+    <section class="v76-panel v76-gallery">
+      <div class="v76-panel-head">
+        <h2>Object Gallery</h2>
+        <span id="v76_gallery_count">13 objects</span>
+      </div>
+
+      <div class="v76-object-grid" id="v76_object_grid">
+      <article class="v76-object-card active" data-id="tower" data-domain="physical">
+        <div class="v76-object-visual obj-tower">
+          <div class="truss"></div><div class="mast"></div><div class="pulse"></div>
+        </div>
+        <h3>Telecom Lattice Tower</h3>
+        <p>Struttura portante per settori antenna, apparati RRU, microwave e cablaggi AISG/fibra.</p>
+        <div class="v76-tags">
+          <span>tower</span><span>mast</span><span>site</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="antenna" data-domain="radio">
+        <div class="v76-object-visual obj-antenna">
+          <div class="panel p1"></div><div class="panel p2"></div><div class="pulse"></div>
+        </div>
+        <h3>Sector Antenna Panel</h3>
+        <p>Pannello antenna settoriale con azimuth, tilt, beamwidth e relazione diretta con copertura e handover.</p>
+        <div class="v76-tags">
+          <span>antenna</span><span>sector</span><span>beam</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="rru" data-domain="radio">
+        <div class="v76-object-visual obj-rru">
+          <div class="box"></div><div class="pulse"></div>
+        </div>
+        <h3>Remote Radio Unit</h3>
+        <p>Unità radio remota: PA, duplexer/filter chain, temperatura, fault, power state e KPI RF.</p>
+        <div class="v76-tags">
+          <span>RRU</span><span>PA</span><span>fault</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="ret" data-domain="radio">
+        <div class="v76-object-visual obj-ret">
+          <div class="box"></div><div class="pulse"></div>
+        </div>
+        <h3>RET / AISG Controller</h3>
+        <p>Controllo tilt remoto e calibrazione AISG: oggetto operativo per ottimizzazione e fault isolation.</p>
+        <div class="v76-tags">
+          <span>RET</span><span>AISG</span><span>tilt</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="microwave" data-domain="transport">
+        <div class="v76-object-visual obj-mw">
+          <div class="dish"></div><div class="pulse"></div>
+        </div>
+        <h3>Microwave Backhaul Dish</h3>
+        <p>Link microwave punto-punto per backhaul: allineamento, fade margin, availability e degradazione meteo.</p>
+        <div class="v76-tags">
+          <span>MW</span><span>backhaul</span><span>link</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="fiber" data-domain="transport">
+        <div class="v76-object-visual obj-fiber">
+          <div class="line"></div><div class="pulse"></div>
+        </div>
+        <h3>Fiber Transport Link</h3>
+        <p>Collegamento ottico per fronthaul/backhaul: loss budget, ODF, uplink e path continuity.</p>
+        <div class="v76-tags">
+          <span>fiber</span><span>ODF</span><span>transport</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="shelter" data-domain="physical">
+        <div class="v76-object-visual obj-shelter">
+          <div class="box"></div><div class="pulse"></div>
+        </div>
+        <h3>Shelter / Edge Cabinet</h3>
+        <p>Shelter o cabinet contenente BBU/edge, cooling, power distribution e sistemi di controllo.</p>
+        <div class="v76-tags">
+          <span>shelter</span><span>edge</span><span>cooling</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="power" data-domain="physical">
+        <div class="v76-object-visual obj-power">
+          <div class="box"></div><div class="pulse"></div>
+        </div>
+        <h3>-48 VDC Power Chain</h3>
+        <p>Catena energetica di sito: rettificatore, batterie, autonomia, breaker, allarmi e continuità servizio.</p>
+        <div class="v76-tags">
+          <span>power</span><span>battery</span><span>-48V</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="ue" data-domain="radio">
+        <div class="v76-object-visual obj-ue">
+          <div class="phone"></div><div class="pulse"></div>
+        </div>
+        <h3>UE / V2X Device</h3>
+        <p>Terminale utente o V2X: traiettoria, serving cell, candidate cell, RSRP/SINR e rischio drop.</p>
+        <div class="v76-tags">
+          <span>UE</span><span>V2X</span><span>mobility</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="gnb" data-domain="radio">
+        <div class="v76-object-visual obj-gnb">
+          <div class="node"></div><div class="pulse"></div>
+        </div>
+        <h3>gNB Logical Node</h3>
+        <p>Nodo gNB logico: NGAP/N2, GTP-U/N3, cell identity, scheduling e RAN state.</p>
+        <div class="v76-tags">
+          <span>gNB</span><span>RAN</span><span>NGAP</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="core" data-domain="core">
+        <div class="v76-object-visual obj-core">
+          <div class="node"></div><div class="pulse"></div>
+        </div>
+        <h3>5GC Service Core</h3>
+        <p>Oggetto logico 5GC per AMF, SMF, UPF, NRF, AUSF e correlazione eventi protocollo.</p>
+        <div class="v76-tags">
+          <span>5GC</span><span>AMF</span><span>UPF</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="cloud" data-domain="core">
+        <div class="v76-object-visual obj-cloud">
+          <div class="node"></div><div class="pulse"></div>
+        </div>
+        <h3>Cloud / Edge Compute</h3>
+        <p>Cloud/edge domain per servizi containerizzati, observability, workload e runtime posture.</p>
+        <div class="v76-tags">
+          <span>cloud</span><span>edge</span><span>k8s</span>
+        </div>
+      </article>
+    
+      <article class="v76-object-card" data-id="evidence" data-domain="operations">
+        <div class="v76-object-visual obj-evidence">
+          <div class="node"></div><div class="pulse"></div>
+        </div>
+        <h3>Evidence Recorder</h3>
+        <p>Oggetto di raccolta evidenze: snapshot, log, metriche, report, QA e tracciabilità laboratorio.</p>
+        <div class="v76-tags">
+          <span>evidence</span><span>QA</span><span>report</span>
+        </div>
+      </article>
+    </div>
+    </section>
+
+    <section class="v76-panel v76-preview">
+      <div class="v76-panel-head">
+        <h2>Selected Object Engineering View</h2>
+        <span id="v76_selected_label">Telecom Lattice Tower</span>
+      </div>
+
+      <div class="v76-preview-grid">
+        <div class="v76-preview-stage obj-tower" id="v76_preview_stage"><div class="truss"></div><div class="mast"></div><div class="pulse"></div></div>
+
+        <div class="v76-object-sheet">
+          <h3 id="v76_sheet_title">Telecom Lattice Tower</h3>
+          <p id="v76_sheet_desc">Struttura portante per settori antenna, apparati RRU, microwave e cablaggi AISG/fibra.</p>
+
+          <div class="v76-sheet-kpis">
+            <div><span>Domain</span><b id="v76_kpi_domain">physical</b></div>
+            <div><span>Layer</span><b id="v76_kpi_layer">Site Infrastructure</b></div>
+            <div><span>Status</span><b id="v76_kpi_status">Reusable</b></div>
+            <div><span>Reuse</span><b id="v76_kpi_reuse">Digital Twin / Field</b></div>
+          </div>
+
+          <div class="v76-integration">
+            <h4>Integration Target</h4>
+            <ul id="v76_targets"><li>Infrastructure Digital Twin</li><li>Field Engineering</li><li>Executive Dashboard</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v76-panel v76-roadmap">
+      <div class="v76-panel-head">
+        <h2>Next Integration Roadmap</h2>
+        <span>v0.77A · object integration into pages</span>
+      </div>
+
+      <div class="v76-roadmap-grid">
+        <article>
+          <b>1 · Executive</b>
+          <span>Sostituire KPI/card generiche con oggetti mission-control coerenti.</span>
+        </article>
+        <article>
+          <b>2 · Handover</b>
+          <span>UE, gNB, serving/candidate cell e radio link come oggetti espliciti.</span>
+        </article>
+        <article>
+          <b>3 · Digital Twin</b>
+          <span>Torre, RRU, RET, microwave, shelter e power come componenti reali.</span>
+        </article>
+        <article>
+          <b>4 · Knowledge</b>
+          <span>Ogni modulo teorico agganciato a un oggetto visuale e operativo.</span>
+        </article>
+      </div>
+    </section>
+  </main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC v0.76A · RF/Telco Component Object Library<br>/rf_telco_component_library_v76.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>63/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna" width="602" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> RF/Telco Component Object Library</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

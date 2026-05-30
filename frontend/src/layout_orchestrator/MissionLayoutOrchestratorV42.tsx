@@ -1,16 +1,17 @@
-import { useEffect, useMemo, useState } from 'react'
-import { VisualAssetRuntimeV41 } from '../visual_assets/VisualAssetRuntimeV41'
-import { ScenarioKnowledgeBindingV40 } from '../knowledge_binding/ScenarioKnowledgeBindingV40'
-import { NavigationMapV39 } from '../navigation/NavigationMapV39'
-import { CommandCenterFusionV37 } from '../command_center/CommandCenterFusionV37'
-import { RFDynamicScenarioDeckV36 } from '../rf_scenarios/RFDynamicScenarioDeckV36'
-import { RFOperationalDeckV41VisualAssetFusion } from '../rf_instruments/instruments/RFOperationalDeckV41VisualAssetFusion'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { EngineeringContentEnrichmentV49 } from './EngineeringContentEnrichmentV49'
 import { PortalShellNavigationP0 } from '../app/PortalShellNavigationP0'
 import { MissionControlContentP0C } from '../app/MissionControlContentP0C'
-import { RFPhysicsRouteP1 } from '../app/RFPhysicsRouteP1'
-import { SignalAnalyzerRouteP2 } from '../app/SignalAnalyzerRouteP2'
-import { AntennaSystemRouteP3 } from '../app/AntennaSystemRouteP3'
+
+const VisualAssetRuntimeV41 = lazy(() => import('../visual_assets/VisualAssetRuntimeV41').then((mod) => ({ default: mod.VisualAssetRuntimeV41 })))
+const ScenarioKnowledgeBindingV40 = lazy(() => import('../knowledge_binding/ScenarioKnowledgeBindingV40').then((mod) => ({ default: mod.ScenarioKnowledgeBindingV40 })))
+const NavigationMapV39 = lazy(() => import('../navigation/NavigationMapV39').then((mod) => ({ default: mod.NavigationMapV39 })))
+const CommandCenterFusionV37 = lazy(() => import('../command_center/CommandCenterFusionV37').then((mod) => ({ default: mod.CommandCenterFusionV37 })))
+const RFDynamicScenarioDeckV36 = lazy(() => import('../rf_scenarios/RFDynamicScenarioDeckV36').then((mod) => ({ default: mod.RFDynamicScenarioDeckV36 })))
+const RFOperationalDeckV41VisualAssetFusion = lazy(() => import('../rf_instruments/instruments/RFOperationalDeckV41VisualAssetFusion').then((mod) => ({ default: mod.RFOperationalDeckV41VisualAssetFusion })))
+const RFPhysicsRouteP1 = lazy(() => import('../app/RFPhysicsRouteP1').then((mod) => ({ default: mod.RFPhysicsRouteP1 })))
+const SignalAnalyzerRouteP2 = lazy(() => import('../app/SignalAnalyzerRouteP2').then((mod) => ({ default: mod.SignalAnalyzerRouteP2 })))
+const AntennaSystemRouteP3 = lazy(() => import('../app/AntennaSystemRouteP3').then((mod) => ({ default: mod.AntennaSystemRouteP3 })))
 
 const trfmcV49ResolveEnrichmentSectionFromHash = (activeSection: string) => {
   if (typeof window !== 'undefined') {
@@ -371,12 +372,38 @@ export function MissionLayoutOrchestratorV42() {
         ))}
       </nav>
 
-          {active === 'visual-assets' ? <div data-trfmc-v45a-visual-assets-active="true" data-trfmc-section-active="visual-assets"><VisualAssetRuntimeV41 /></div> : null}
-          {active === 'knowledge' ? <ScenarioKnowledgeBindingV40 /> : null}
-          {active === 'navigation' ? <NavigationMapV39 /> : null}
-          {active === 'command' ? <CommandCenterFusionV37 /> : null}
-          {active === 'scenarios' ? <RFDynamicScenarioDeckV36 /> : null}
-          {active === 'full-engineering' ? <RFOperationalDeckV41VisualAssetFusion /> : null}
+          {active === 'visual-assets' ? (
+            <Suspense fallback={<div className="mc-suspense">Loading Visual Assets...</div>}>
+              <div data-trfmc-v45a-visual-assets-active="true" data-trfmc-section-active="visual-assets">
+                <VisualAssetRuntimeV41 />
+              </div>
+            </Suspense>
+          ) : null}
+          {active === 'knowledge' ? (
+            <Suspense fallback={<div className="mc-suspense">Loading Knowledge...</div>}>
+              <ScenarioKnowledgeBindingV40 />
+            </Suspense>
+          ) : null}
+          {active === 'navigation' ? (
+            <Suspense fallback={<div className="mc-suspense">Loading Navigation...</div>}>
+              <NavigationMapV39 />
+            </Suspense>
+          ) : null}
+          {active === 'command' ? (
+            <Suspense fallback={<div className="mc-suspense">Loading Command Center...</div>}>
+              <CommandCenterFusionV37 />
+            </Suspense>
+          ) : null}
+          {active === 'scenarios' ? (
+            <Suspense fallback={<div className="mc-suspense">Loading Scenarios...</div>}>
+              <RFDynamicScenarioDeckV36 />
+            </Suspense>
+          ) : null}
+          {active === 'full-engineering' ? (
+            <Suspense fallback={<div className="mc-suspense">Loading Full Engineering...</div>}>
+              <RFOperationalDeckV41VisualAssetFusion />
+            </Suspense>
+          ) : null}
         </main>
       </div>
     </section>

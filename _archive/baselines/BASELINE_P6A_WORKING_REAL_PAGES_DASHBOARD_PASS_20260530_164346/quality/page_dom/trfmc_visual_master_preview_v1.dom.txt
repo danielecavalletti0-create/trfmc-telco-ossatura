@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Visual Master Preview V1</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_visual_master_v1.css">
+</head>
+<body class="trfmc-vm">
+<header class="vm-top">
+  <div>
+    <div class="vm-title">TRFMC Visual Master Preview V1</div>
+    <div class="vm-sub">preview separata · no iframe · no CDN · V6R3 ufficiale intoccata · WebGL GPU visual discipline</div>
+  </div>
+  <div class="vm-kpis">
+    <div class="vm-kpi"><small>Roadmap</small><b id="kRoadmap">17</b></div>
+    <div class="vm-kpi"><small>Existing</small><b id="kExisting">11</b></div>
+    <div class="vm-kpi"><small>Missing</small><b id="kMissing">6</b></div>
+    <div class="vm-kpi"><small>Registry</small><b id="kRegistry">10</b></div>
+    <div class="vm-kpi"><small>Policy</small><b>SAFE</b></div>
+  </div>
+  <div class="vm-actions">
+    <a class="vm-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html" target="_blank">V6R3</a>
+    <a class="vm-btn" href="/trfmc_integration_control_room.html" target="_blank">Control Room</a>
+    <a class="vm-btn" href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    <a class="vm-btn" href="/trfmc_visual_master_roadmap_v1.json" target="_blank">Roadmap</a>
+  </div>
+</header>
+
+<div class="vm-layout">
+  <aside class="vm-panel">
+    <h2>Moduli / Roadmap</h2>
+    <div class="vm-tools">
+      <input id="q" class="vm-input" placeholder="cerca area, modulo, stato...">
+      <select id="area" class="vm-select"><option value="">tutte le aree</option><option value="00 Governance">00 Governance</option><option value="01 Visual Twin">01 Visual Twin</option><option value="02 RF Physics">02 RF Physics</option><option value="03 Signal Analyzer">03 Signal Analyzer</option><option value="04 RF Microwave Engineering">04 RF Microwave Engineering</option><option value="05 Antenna System">05 Antenna System</option><option value="06 Microwave Link">06 Microwave Link</option><option value="07 Fiber Optic">07 Fiber Optic</option><option value="08 Private Networks">08 Private Networks</option><option value="09 Core Network">09 Core Network</option><option value="10 Data Center Infrastructure">10 Data Center Infrastructure</option><option value="11 Cyber RF Intelligence">11 Cyber RF Intelligence</option><option value="12 Knowledge Base">12 Knowledge Base</option></select>
+    </div>
+    <div id="modules" class="vm-scroll">
+    <article class="vm-card" onclick="activate('official_v6r3')">
+      <h3>V6R3 Official Command Center</h3>
+      <div class="vm-meta">00 Governance</div>
+      <div>
+        <span class="vm-badge vm-ok">LOCKED_BASELINE</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">12.5 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('control_room')">
+      <h3>Integration Control Room</h3>
+      <div class="vm-meta">00 Governance</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">12.6 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('control_room_v2')">
+      <h3>Integration Control Room V2 Preview</h3>
+      <div class="vm-meta">00 Governance</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_PREVIEW</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge ">3.8 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('visual_donor')">
+      <h3>3D RF Asset Renderer WebGL V2R2 Reality</h3>
+      <div class="vm-meta">01 Visual Twin</div>
+      <div>
+        <span class="vm-badge vm-ok">VISUAL_DONOR</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">48.1 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('rf_physics')">
+      <h3>WebGL RF Physics Engine V85E</h3>
+      <div class="vm-meta">02 RF Physics</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">9.8 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('signal_intelligence')">
+      <h3>Signal Intelligence Center</h3>
+      <div class="vm-meta">03 Signal Analyzer</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF_OR_CHECK</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">22.5 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('rf_metrology')">
+      <h3>RF Metrology Calibration Lab</h3>
+      <div class="vm-meta">04 RF Microwave Engineering</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF_OR_CHECK</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">25.9 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('smith_microwave')">
+      <h3>RF Microwave / Smith Chart Lab</h3>
+      <div class="vm-meta">04 RF Microwave Engineering</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF_OR_CHECK</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">24.1 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('antenna_system')">
+      <h3>Antenna System Explorer</h3>
+      <div class="vm-meta">05 Antenna System</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF_OR_CHECK</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">95.4 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('microwave_link')">
+      <h3>Microwave Link Operations Center</h3>
+      <div class="vm-meta">06 Microwave Link</div>
+      <div>
+        <span class="vm-badge vm-warn">MISSING_TO_BUILD</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge vm-warn">BUILD</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('fiber_optic')">
+      <h3>Fiber / CPRI / ODF / OTDR Workbench</h3>
+      <div class="vm-meta">07 Fiber Optic</div>
+      <div>
+        <span class="vm-badge vm-warn">MISSING_TO_BUILD</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge vm-warn">BUILD</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('private_networks')">
+      <h3>5G Private / Wi-Fi 7 / MLO / Industrial Mesh</h3>
+      <div class="vm-meta">08 Private Networks</div>
+      <div>
+        <span class="vm-badge vm-warn">MISSING_TO_BUILD</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge vm-warn">BUILD</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('core_identity')">
+      <h3>5G Core / RAN Identity AKA Engine</h3>
+      <div class="vm-meta">09 Core Network</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF_OR_CHECK</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">18.5 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('core_live')">
+      <h3>Core Network Live Ops Bridge</h3>
+      <div class="vm-meta">09 Core Network</div>
+      <div>
+        <span class="vm-badge vm-ok">ACTIVE_LEAF_OR_CHECK</span>
+        <span class="vm-badge vm-ok">REGISTRY</span>
+        <span class="vm-badge ">12.8 KiB</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('datacenter')">
+      <h3>Rack / PDU / UPS / Grounding / SNMP</h3>
+      <div class="vm-meta">10 Data Center Infrastructure</div>
+      <div>
+        <span class="vm-badge vm-warn">MISSING_TO_BUILD</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge vm-warn">BUILD</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('cyber_rf')">
+      <h3>Cyber RF Intelligence / Jamming / Rogue RF / Evidence</h3>
+      <div class="vm-meta">11 Cyber RF Intelligence</div>
+      <div>
+        <span class="vm-badge vm-warn">MISSING_TO_BUILD</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge vm-warn">BUILD</span>
+      </div>
+    </article>
+  
+    <article class="vm-card" onclick="activate('knowledge')">
+      <h3>Glossary / Formulas / Procedures / Lesson Plan</h3>
+      <div class="vm-meta">12 Knowledge Base</div>
+      <div>
+        <span class="vm-badge vm-warn">MISSING_TO_BUILD</span>
+        <span class="vm-badge vm-warn">NO REG</span>
+        <span class="vm-badge vm-warn">BUILD</span>
+      </div>
+    </article>
+  </div>
+  </aside>
+
+  <main class="vm-panel vm-stage">
+    <canvas id="vmWebgl"></canvas>
+    <div class="vm-overlay">
+      <div class="vm-stage-head">
+        <div class="vm-stage-title" id="activeTitle">3D RF Asset Renderer WebGL V2R2 Reality</div>
+        <div class="vm-stage-sub" id="activeSub">01 Visual Twin · VISUAL_DONOR</div>
+      </div>
+      <div></div>
+      <div class="vm-stage-foot">
+        <div>Render: <span class="vm-ok" id="glState">fallback</span></div>
+        <div>Shell: V6R3 locked</div>
+        <div>Iframe: denied</div>
+        <div>CDN: denied</div>
+        <div>Promotion: quality gate</div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="vm-panel">
+    <h2>Decisione / Mancanti</h2>
+    <div class="vm-scroll">
+      <div class="vm-card">
+        <h3>Regola operativa</h3>
+        <div class="vm-note">
+          Questo livello serve a creare lo stile 3D/GPU comune e la matrice dei moduli mancanti.
+          Non sostituisce V6R3 e non ingloba pagine tramite iframe.
+        </div>
+        <div>
+          <span class="vm-badge vm-ok">NO IFRAME</span>
+          <span class="vm-badge vm-ok">NO CDN</span>
+          <span class="vm-badge vm-ok">V6R3 LOCKED</span>
+        </div>
+      </div>
+
+      <div class="vm-card">
+        <h3>Modulo attivo</h3>
+        <div id="activeDesc" class="vm-note">Modulo esistente: /trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html. Deve restare leaf o riferimento controllato.</div>
+        <div id="activeBadges"><span class="vm-badge ">01 Visual Twin</span><span class="vm-badge vm-ok">VISUAL_DONOR</span><span class="vm-badge vm-ok">registry present</span></div>
+        <div style="margin-top:8px">
+          <a id="openActive" class="vm-btn" href="/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html" target="_blank">Apri modulo</a>
+        </div>
+      </div>
+
+      <div class="vm-card">
+        <h3>Cosa manca da costruire</h3>
+        <ul id="missingList"><li>06 Microwave Link: Microwave Link Operations Center</li><li>07 Fiber Optic: Fiber / CPRI / ODF / OTDR Workbench</li><li>08 Private Networks: 5G Private / Wi-Fi 7 / MLO / Industrial Mesh</li><li>10 Data Center Infrastructure: Rack / PDU / UPS / Grounding / SNMP</li><li>11 Cyber RF Intelligence: Cyber RF Intelligence / Jamming / Rogue RF / Evidence</li><li>12 Knowledge Base: Glossary / Formulas / Procedures / Lesson Plan</li></ul>
+      </div>
+
+      <div class="vm-card">
+        <h3>Event stream</h3>
+        <div id="log" class="vm-log">[16:45:22] Visual Master Preview loaded
+[16:45:22] selected: 3D RF Asset Renderer WebGL V2R2 Reality
+</div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+let ROADMAP=null;
+let ACTIVE=null;
+
+function $(id){return document.getElementById(id)}
+function log(m){
+  const t=new Date().toLocaleTimeString();
+  $("log").textContent = `[${t}] ${m}\n` + $("log").textContent;
+}
+function badge(t,cls=""){return `<span class="vm-badge ${cls}">${t}</span>`}
+
+function renderModules(){
+  const q=$("q").value.toLowerCase();
+  const area=$("area").value;
+  const list=ROADMAP.modules.filter(m=>{
+    const blob=(m.area+" "+m.title+" "+m.status+" "+m.url).toLowerCase();
+    if(q && !blob.includes(q)) return false;
+    if(area && m.area!==area) return false;
+    return true;
+  });
+
+  $("modules").innerHTML=list.map(m=>`
+    <article class="vm-card" onclick="activate('${m.id}')">
+      <h3>${m.title}</h3>
+      <div class="vm-meta">${m.area}</div>
+      <div>
+        ${badge(m.status, m.exists?'vm-ok':'vm-warn')}
+        ${m.registry_present?badge('REGISTRY','vm-ok'):badge('NO REG','vm-warn')}
+        ${m.exists?badge((m.size/1024).toFixed(1)+' KiB'):badge('BUILD','vm-warn')}
+      </div>
+    </article>
+  `).join('');
+}
+
+function activate(id){
+  const m=ROADMAP.modules.find(x=>x.id===id);
+  if(!m) return;
+  ACTIVE=m;
+  $("activeTitle").textContent=m.title;
+  $("activeSub").textContent=m.area+" · "+m.status;
+  $("activeDesc").textContent=m.exists
+    ? `Modulo esistente: ${m.url}. Deve restare leaf o riferimento controllato.`
+    : `Modulo mancante: va progettato come leaf module, con registry e quality gate.`;
+  $("activeBadges").innerHTML =
+    badge(m.area)+badge(m.status,m.exists?'vm-ok':'vm-warn')+
+    (m.registry_present?badge('registry present','vm-ok'):badge('registry missing','vm-warn'));
+  $("openActive").href=m.url || "/trfmc_integration_control_room.html";
+  $("openActive").textContent=m.exists ? "Apri modulo" : "Apri Control Room";
+  log("selected: "+m.title);
+}
+
+function renderMissing(){
+  const missing=ROADMAP.modules.filter(x=>!x.exists);
+  $("missingList").innerHTML=missing.map(m=>`<li>${m.area}: ${m.title}</li>`).join('');
+}
+
+async function boot(){
+  const r=await fetch('/trfmc_visual_master_roadmap_v1.json',{cache:'no-store'});
+  ROADMAP=await r.json();
+
+  $("kRoadmap").textContent=ROADMAP.counts.total_targets;
+  $("kExisting").textContent=ROADMAP.counts.existing;
+  $("kMissing").textContent=ROADMAP.counts.missing_to_build;
+  $("kRegistry").textContent=ROADMAP.counts.registry_present;
+
+  const areas=[...new Set(ROADMAP.modules.map(x=>x.area))].sort();
+  $("area").innerHTML='<option value="">tutte le aree</option>'+areas.map(a=>`<option value="${a}">${a}</option>`).join('');
+
+  $("q").addEventListener("input",renderModules);
+  $("area").addEventListener("input",renderModules);
+
+  renderModules();
+  renderMissing();
+  activate("visual_donor");
+  log("Visual Master Preview loaded");
+}
+
+function initWebGL(){
+  const canvas=$("vmWebgl");
+  const gl=canvas.getContext("webgl",{antialias:true,alpha:false});
+  if(!gl){$("glState").textContent="fallback"; return;}
+
+  $("glState").textContent="webgl";
+
+  const vs=`attribute vec2 p; varying vec2 v; void main(){v=p; gl_Position=vec4(p,0.0,1.0);}`;
+  const fs=`precision mediump float;
+  varying vec2 v; uniform float t; uniform vec2 r;
+  float line(vec2 p, vec2 a, vec2 b){
+    vec2 pa=p-a, ba=b-a;
+    float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);
+    return length(pa-ba*h);
+  }
+  void main(){
+    vec2 uv=(v+1.0)*0.5;
+    vec2 p=uv*2.0-1.0;
+    p.x*=r.x/r.y;
+    float g=0.0;
+    for(int i=0;i<7;i++){
+      float fi=float(i);
+      vec2 a=vec2(sin(t*.21+fi)*.72, cos(t*.17+fi*1.7)*.45);
+      vec2 b=vec2(cos(t*.19+fi*1.3)*.80, sin(t*.23+fi*.9)*.48);
+      float d=line(p,a,b);
+      g+=0.006/(d+0.006);
+    }
+    float grid=(step(.985,fract(uv.x*32.0))+step(.985,fract(uv.y*18.0)))*.10;
+    vec3 col=vec3(0.005,0.018,0.030);
+    col+=vec3(0.0,0.70,1.0)*g*.34;
+    col+=vec3(0.2,1.0,0.35)*grid;
+    col+=vec3(0.0,0.18,0.25)*(1.0-length(p)*.55);
+    gl_FragColor=vec4(col,1.0);
+  }`;
+
+  function compile(type,src){
+    const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return s;
+  }
+  const pr=gl.createProgram();
+  gl.attachShader(pr,compile(gl.VERTEX_SHADER,vs));
+  gl.attachShader(pr,compile(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(pr); gl.useProgram(pr);
+
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,"p");
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+
+  const ut=gl.getUniformLocation(pr,"t");
+  const ur=gl.getUniformLocation(pr,"r");
+
+  function frame(ms){
+    const dpr=window.devicePixelRatio||1;
+    const w=canvas.clientWidth*dpr|0, h=canvas.clientHeight*dpr|0;
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
+    gl.uniform1f(ut,ms*.001);
+    gl.uniform2f(ur,canvas.width,canvas.height);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+initWebGL();
+boot().catch(e=>{log("boot error: "+e.message);});
+</script>
+
+
+</body></html>

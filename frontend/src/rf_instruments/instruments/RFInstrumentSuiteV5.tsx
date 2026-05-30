@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { RFInstrumentDockV4 } from "./RFInstrumentDockV4";
 import { SmithChartRenderer } from "../renderers/SmithChartRenderer";
 import { AntennaPatternRenderer } from "../renderers/AntennaPatternRenderer";
 import { MicrowaveLinkRenderer } from "../renderers/MicrowaveLinkRenderer";
 import { OFDMGridRenderer } from "../renderers/OFDMGridRenderer";
+import { useRAFLoop } from "../../hooks/useRAFLoop";
 
 type SuiteTab = "vsa" | "smith" | "antenna" | "microwave" | "ofdm";
 

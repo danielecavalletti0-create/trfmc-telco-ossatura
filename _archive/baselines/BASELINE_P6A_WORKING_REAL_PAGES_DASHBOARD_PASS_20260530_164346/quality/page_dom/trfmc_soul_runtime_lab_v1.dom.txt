@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Soul Runtime Lab V1</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<style>
+.soul-lab{display:grid;grid-template-columns:390px 1fr 430px;gap:8px;min-height:calc(100vh - 78px);padding:8px;position:relative;z-index:1}
+.soul-stage{display:grid;grid-template-rows:1fr 260px;gap:8px}
+.soul-map{border:1px solid rgba(0,229,255,.34);border-radius:10px;background:rgba(1,9,16,.72);position:relative;overflow:hidden;min-height:520px}
+.soul-map canvas{width:100%;height:100%;display:block}
+.mono{font-family:ui-monospace,Consolas,monospace;color:#dffaff;font-size:11px}
+@media(max-width:1400px){.soul-lab{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div>
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC Soul Runtime Lab V1</div>
+    <div class="leaf-sub">Mission cortex · identità viva · domini tecnici · feedback sensoriale opzionale · portale come organismo</div>
+  </div>
+  <div class="leaf-kpis">
+    <div class="leaf-kpi"><small>Runtime</small><b>Soul</b></div>
+    <div class="leaf-kpi"><small>Audio</small><b>opt-in</b></div>
+    <div class="leaf-kpi"><small>Registry</small><b>local</b></div>
+    <div class="leaf-kpi"><small>Mode</small><b>V1</b></div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_visual_asset_engine_lab_v3.html">Asset Engine</a>
+    <a class="leaf-btn" href="/trfmc_gpu_visual_runtime_lab_v2.html">GPU Lab</a>
+    <a class="leaf-btn" href="/trfmc_expansion_hub_v1.html">Expansion Hub</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+  </div>
+</header>
+
+<div class="soul-lab">
+  <aside class="leaf-panel">
+    <h2>Che cosa aggiunge</h2>
+    <div class="leaf-card">
+      <h3>Anima del portale</h3>
+      <p>Non è solo estetica. È una regia che dice: dove sei, cosa stai guardando, perché è importante, quali segnali sono vivi e come quel modulo si collega agli altri.</p>
+    </div>
+    <div class="leaf-card">
+      <h3>Runtime object</h3>
+      <pre class="mono" id="runtimeBox">{
+  "id": "TRFMC_SOUL_RUNTIME_V1",
+  "domain": "rf",
+  "module": "TRFMC Soul Runtime Lab V1",
+  "signals": [
+    "canvas",
+    "gpu-runtime",
+    "asset-engine",
+    "visual-assets",
+    "kpi"
+  ],
+  "counts": {
+    "orphan_or_legacy_candidate": 23,
+    "leaf_operational_candidate": 133,
+    "service": 19,
+    "official_shell": 3,
+    "total_html": 178,
+    "shell_or_legacy_container": 0
+  },
+  "audio": false,
+  "createdAt": "2026-05-30T14:45:16.750Z"
+}</pre>
+    </div>
+  </aside>
+
+  <main class="leaf-panel soul-stage">
+    <section class="soul-map">
+      <canvas id="soulCanvas" width="569" height="518"></canvas>
+    </section>
+    <trfmc-visual-asset kind="core-map" data-size="small" title="Core / RF / Cyber continuity"><canvas width="569" height="258" style="width: 100%; height: 100%; display: block;"></canvas><div class="trfmc-vae-caption">CORE / RF / CYBER CONTINUITY</div></trfmc-visual-asset>
+  </main>
+
+  <aside class="leaf-panel">
+    <h2>Mission domains</h2>
+    <div class="leaf-card"><h3>RF</h3><p>Campo, fase, spettro, energia.</p></div>
+    <div class="leaf-card"><h3>Antenna</h3><p>Beam, porte, tilt, EIRP, copertura.</p></div>
+    <div class="leaf-card"><h3>Microwave / Fiber</h3><p>Link, attenuazione, riflessione, latenza.</p></div>
+    <div class="leaf-card"><h3>5G Core / Cyber</h3><p>Identità, sessioni, evidenza, decisione.</p></div>
+  </aside>
+</div>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script>
+(function(){
+  const canvas=document.getElementById("soulCanvas");
+  const nodes=[
+    ["RF",.18,.35],["ANTENNA",.36,.25],["MW",.55,.35],["FIBER",.72,.25],
+    ["CORE",.54,.62],["CYBER",.78,.65],["KNOWLEDGE",.28,.68]
+  ];
+  function fit(){
+    const dpr=Math.min(2,devicePixelRatio||1);
+    const w=canvas.clientWidth*dpr,h=canvas.clientHeight*dpr;
+    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+    return {ctx:canvas.getContext("2d"),w,h,dpr};
+  }
+  function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function frame(ms){
+    const {ctx,w,h,dpr}=fit();
+    const t=ms*.001;
+    const g=ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,"#061827");g.addColorStop(1,"#010409");
+    ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+
+    ctx.strokeStyle="rgba(0,229,255,.08)";
+    for(let i=0;i<18;i++){ctx.beginPath();ctx.moveTo(w*i/17,0);ctx.lineTo(w*.50,h*.50);ctx.stroke();}
+
+    ctx.lineWidth=2*dpr;
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const a=nodes[i],b=nodes[j];
+        const pulse=(Math.sin(t*1.7+i+j)+1)/2;
+        ctx.strokeStyle=`rgba(0,229,255,${.08+.16*pulse})`;
+        ctx.beginPath();ctx.moveTo(w*a[1],h*a[2]);ctx.lineTo(w*b[1],h*b[2]);ctx.stroke();
+      }
+    }
+
+    nodes.forEach((n,i)=>{
+      const x=w*n[1],y=h*n[2],pulse=(Math.sin(t*2+i)+1)/2;
+      ctx.fillStyle=`rgba(${i===5?255:0},${i===5?61:229},${i===5?127:255},${.10+.10*pulse})`;
+      rr(ctx,x-58*dpr,y-22*dpr,116*dpr,44*dpr,10*dpr);ctx.fill();
+      ctx.strokeStyle=i===5?"rgba(255,61,127,.58)":"rgba(0,229,255,.55)";
+      ctx.stroke();
+      ctx.fillStyle=i===5?"#ff3d7f":"#75ff5b";
+      ctx.font=(13*dpr)+"px ui-monospace,Consolas,monospace";
+      ctx.fillText(n[0],x-ctx.measureText(n[0]).width/2,y+4*dpr);
+    });
+
+    ctx.fillStyle="#00e5ff";
+    ctx.font=(15*dpr)+"px ui-monospace,Consolas,monospace";
+    ctx.fillText("TRFMC MISSION CORTEX · DAL SEGNALE ALLA DECISIONE",24*dpr,34*dpr);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  setTimeout(()=>{document.getElementById("runtimeBox").textContent=JSON.stringify(window.TRFMC_SOUL_RUNTIME_V1||{},null,2)},600);
+})();
+</script>
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Soul Runtime Lab V1</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

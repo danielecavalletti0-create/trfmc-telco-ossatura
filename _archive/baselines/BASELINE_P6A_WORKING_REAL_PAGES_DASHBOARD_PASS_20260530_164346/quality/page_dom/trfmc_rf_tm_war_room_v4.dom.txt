@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head></head><body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div><a href="/trfmc_measurement_chain_dsp_engine_v2.html">DSP Measurement Chain</a>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC RF/TM War Room V4</title>
+<style>
+:root{
+  --bg:#01040c;
+  --panel:rgba(5,13,30,.92);
+  --panel2:rgba(9,24,52,.78);
+  --glass:rgba(255,255,255,.045);
+  --line:rgba(105,190,255,.30);
+  --line2:rgba(115,255,210,.25);
+  --text:#eaf3ff;
+  --muted:#90a9c7;
+  --cyan:#74dcff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --red:#ff8585;
+  --violet:#bda7ff;
+  --blue:#6aa8ff;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(48,132,255,.34),transparent 30%),
+    radial-gradient(circle at 86% 5%,rgba(0,255,205,.15),transparent 30%),
+    radial-gradient(circle at 50% 112%,rgba(170,90,255,.18),transparent 34%),
+    linear-gradient(180deg,#01040c,#061327 52%,#01040c);
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.95),rgba(0,0,0,.10));
+}
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(transparent 50%,rgba(255,255,255,.018) 50%);
+  background-size:100% 4px;
+  opacity:.35;
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:30;
+  border-bottom:1px solid var(--line);
+  background:rgba(1,4,12,.88);
+  backdrop-filter:blur(22px);
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:14px 18px 10px;
+}
+.brand h1{
+  margin:0;
+  font-size:20px;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+.brand small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+}
+.nav{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.nav a,.pill{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+}
+.pill.ok{
+  color:var(--green);
+  border-color:rgba(157,255,199,.55);
+}
+.instrumentBus{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:8px;
+  padding:0 18px 12px;
+}
+.busTile{
+  border:1px solid rgba(105,190,255,.22);
+  background:rgba(255,255,255,.035);
+  border-radius:14px;
+  padding:8px 10px;
+}
+.busTile b{
+  display:block;
+  font-size:12px;
+}
+.busTile span{
+  color:var(--muted);
+  font-size:10px;
+}
+main{
+  padding:16px;
+}
+.commandGrid{
+  display:grid;
+  grid-template-columns:330px minmax(720px,1fr) 370px;
+  gap:14px;
+}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),rgba(2,8,20,.94));
+  border-radius:22px;
+  box-shadow:0 22px 78px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.055);
+}
+.leftRack,.rightRack,.centerDeck{
+  padding:14px;
+}
+.leftRack,.rightRack{
+  display:grid;
+  gap:11px;
+  align-content:start;
+}
+.rackTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+.rackTitle h2{
+  margin:0;
+  color:var(--cyan);
+  font-size:17px;
+}
+.badge{
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--cyan);
+  padding:5px 8px;
+  font-size:10px;
+  white-space:nowrap;
+}
+.block{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:11px;
+}
+.block h3{
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:13px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.control{
+  margin-top:8px;
+}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:11px;
+}
+input[type=range],select{
+  width:100%;
+  margin-top:6px;
+}
+select{
+  background:#071326;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:8px;
+  border-radius:10px;
+  font-size:12px;
+}
+.modeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.modeGrid button{
+  border:1px solid rgba(105,190,255,.22);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  border-radius:12px;
+  padding:8px;
+  cursor:pointer;
+  font-size:11px;
+}
+.modeGrid button.active,
+.modeGrid button:hover{
+  border-color:rgba(116,220,255,.80);
+  background:linear-gradient(135deg,rgba(45,132,255,.22),rgba(0,255,205,.09));
+}
+.centerHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:10px;
+}
+.centerHead h2{
+  margin:0;
+  font-size:29px;
+  letter-spacing:-.035em;
+}
+.centerHead p{
+  margin:5px 0 0;
+  color:var(--muted);
+  line-height:1.42;
+  max-width:950px;
+}
+.kpiStrip{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  margin-bottom:10px;
+}
+.kpi{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:10px;
+}
+.kpi b{
+  display:block;
+  font-size:18px;
+}
+.kpi span{
+  color:var(--muted);
+  font-size:10px;
+}
+.canvasFrame{
+  border:1px solid rgba(105,190,255,.26);
+  background:rgba(255,255,255,.022);
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+}
+.canvasTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 10px;
+  color:var(--muted);
+  font-size:11px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+canvas{
+  width:100%;
+  display:block;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(24,82,150,.16),transparent 42%),
+    linear-gradient(180deg,rgba(255,255,255,.032),rgba(255,255,255,.010));
+}
+#warCanvas{height:610px}
+.instrumentMatrix{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+#scopeCanvas,#spectrumCanvas,#phaseCanvas,#spaceCanvas,#waterfallCanvas,#constellationCanvas{
+  height:220px;
+}
+.readoutCard{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:11px;
+}
+.readoutCard b{
+  display:block;
+  font-size:13px;
+}
+.readoutCard span,.readoutCard p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+}
+.meter{
+  height:9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:7px;
+}
+.meter i{
+  display:block;
+  height:100%;
+  width:50%;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+}
+.eventLog{
+  max-height:280px;
+  overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:11px;
+  color:#c0d5ee;
+}
+.eventLog div{
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.chain{
+  display:grid;
+  gap:6px;
+}
+.chain div{
+  display:flex;
+  justify-content:space-between;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.035);
+  border-radius:11px;
+  padding:7px 8px;
+  color:var(--muted);
+  font-size:11px;
+}
+.chain b{
+  color:var(--text);
+}
+.legend{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.legend div{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.035);
+  border-radius:12px;
+  padding:8px;
+  color:var(--muted);
+  font-size:11px;
+}
+.dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:99px;
+  margin-right:6px;
+  background:var(--cyan);
+  box-shadow:0 0 12px var(--cyan);
+}
+.dot.g{background:var(--green);box-shadow:0 0 12px var(--green)}
+.dot.a{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+.dot.r{background:var(--red);box-shadow:0 0 12px var(--red)}
+@media(max-width:1560px){
+  .commandGrid{grid-template-columns:315px 1fr}
+  .rightRack{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:1100px){
+  .commandGrid,.instrumentMatrix,.rightRack{grid-template-columns:1fr}
+  .instrumentBus,.kpiStrip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .topbar{align-items:flex-start;flex-direction:column}
+  .instrumentBus,.kpiStrip{grid-template-columns:1fr}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>TRFMC RF/TM War Room V4</h1>
+      <small>Receiver · Generator · Oscilloscope · Spectrum · VSA · Phase · Space · RF Intelligence</small>
+    </div>
+    <nav class="nav">
+<a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">Wi-Fi/QAM Engine</a>
+<a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP Engine V3</a>
+<a href="/trfmc_instrument_os_alignment_v1.html">Instrument OS</a>
+<a href="/trfmc_pr200_field_monitoring_receiver_v1.html">PR200 Field Receiver</a>
+      <span class="pill ok" id="healthPill">Health: online</span>
+      <a href="/trfmc_unified_navigation_shell_v1.html">Unified Shell</a>
+      <a href="/trfmc_rf_tm_signal_universe_v3.html">Signal Universe V3</a>
+      <a href="/trfmc_signal_world_engine_v2.html">Signal World V2</a>
+      <a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>
+      <a href="/trfmc_converged_rf_5g_noc_v1.html">Converged RF+5G NOC</a>
+      <a href="/trfmc_collaudo_report.html">Collaudo</a>
+    </nav>
+  </div>
+
+  <section class="instrumentBus">
+    <div class="busTile"><b>RF Receiver</b><span>LNA · Mixer · IF · ADC</span></div>
+    <div class="busTile"><b>Signal Generator</b><span>Carrier · modulation</span></div>
+    <div class="busTile"><b>Function Gen</b><span>Sine · pulse · chirp</span></div>
+    <div class="busTile"><b>Oscilloscope</b><span>Time domain</span></div>
+    <div class="busTile"><b>Spectrum</b><span>Frequency domain</span></div>
+    <div class="busTile"><b>VSA/IQ</b><span>Constellation · EVM</span></div>
+    <div class="busTile"><b>Phase</b><span>Delay · Lissajous</span></div>
+    <div class="busTile"><b>Space</b><span>RF field · emitters</span></div>
+  </section>
+</header>
+
+<main>
+  <section class="commandGrid">
+    <aside class="panel leftRack">
+      <div class="rackTitle">
+        <h2>Instrument Rack</h2>
+        <span class="badge">CONTROL</span>
+      </div>
+
+      <div class="block">
+        <h3>RF Receiver</h3>
+        <div class="control">
+          <label>Band <b id="rxBandText">3.50 GHz</b></label>
+          <select id="rxBand">
+            <option value="27">27 MHz · HF/CB</option>
+            <option value="144">144 MHz · VHF</option>
+            <option value="244">244 MHz · Utility</option>
+            <option value="433">433 MHz · ISM Remote</option>
+            <option value="868">868 MHz · IoT/ISM</option>
+            <option value="1800">1.8 GHz · LTE-like</option>
+            <option value="2400">2.4 GHz · WiFi</option>
+            <option value="3500" selected="">3.5 GHz · 5G NR</option>
+            <option value="5800">5.8 GHz · WiFi/ISM</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Span <b id="spanText">86 MHz</b></label>
+          <input id="span" type="range" min="1" max="100" value="70">
+        </div>
+        <div class="control">
+          <label>RX Gain <b id="gainText">33 dB</b></label>
+          <input id="gain" type="range" min="1" max="100" value="64">
+        </div>
+        <div class="control">
+          <label>Noise Floor <b id="noiseText">-91 dBm</b></label>
+          <input id="noise" type="range" min="1" max="100" value="38">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Generator</h3>
+        <div class="control">
+          <label>Function <b id="waveText">Chirp</b></label>
+          <select id="wave">
+            <option>Sine</option>
+            <option>Square</option>
+            <option>Saw</option>
+            <option>Pulse</option>
+            <option selected="">Chirp</option>
+            <option>Burst</option>
+            <option>Noise</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Function Freq <b id="funcText">441 kHz</b></label>
+          <input id="func" type="range" min="1" max="100" value="44">
+        </div>
+        <div class="control">
+          <label>Amplitude <b id="ampText">74%</b></label>
+          <input id="amp" type="range" min="1" max="100" value="74">
+        </div>
+        <div class="control">
+          <label>Sweep <b id="sweepText">60%</b></label>
+          <input id="sweep" type="range" min="1" max="100" value="60">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Modulation / Scenario</h3>
+        <div class="control">
+          <label>Modulation <b id="modText">5GNR-like</b></label>
+          <select id="mod">
+            <option>AM</option>
+            <option>FM</option>
+            <option>PM</option>
+            <option>ASK</option>
+            <option>FSK</option>
+            <option>BPSK</option>
+            <option>QPSK</option>
+            <option>16QAM</option>
+            <option>OFDM</option>
+            <option>WiFi-like</option>
+            <option selected="">5GNR-like</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>View Mode</label>
+          <div class="modeGrid">
+            <button data-mode="3D">3D</button>
+            <button data-mode="4D">4D</button>
+            <button data-mode="5D" class="active">5D</button>
+            <button data-mode="RF-WATCH">RF Watch</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="panel centerDeck">
+      <div class="centerHead">
+        <div>
+          <h2>Integrated RF/TM Tactical Instrumentation Deck</h2>
+          <p>
+            Ricevitore, generatore, oscilloscopio, spettro, VSA/IQ, fase e spazio RF in una
+            plancia unica. Ogni vista è canvas runtime, non immagine statica.
+          </p>
+        </div>
+        <span class="badge" id="modeBadge">5D RF/TM</span>
+      </div>
+
+      <div class="kpiStrip">
+        <div class="kpi"><b id="kBand">3.50 GHz</b><span>RX center</span></div>
+        <div class="kpi"><b id="kMod">5GNR-like</b><span>modulation</span></div>
+        <div class="kpi"><b id="kEvm">23.9%</b><span>EVM</span></div>
+        <div class="kpi"><b id="kObw">65 MHz</b><span>OBW</span></div>
+        <div class="kpi"><b id="kRisk">44%</b><span>RF anomaly</span></div>
+        <div class="kpi"><b id="kLoad">57%</b><span>DSP load</span></div>
+      </div>
+
+      <div class="canvasFrame">
+        <div class="canvasTitle"><b>RF/TM 3D-4D-5D Signal Theater</b><span id="warReadout">emitters: 22 · 5GNR-like · 5D</span></div>
+        <canvas id="warCanvas" width="1600" height="720"></canvas>
+      </div>
+
+      <div class="instrumentMatrix">
+        <div class="canvasFrame">
+          <div class="canvasTitle"><b>Oscilloscope</b><span id="scopeReadout">Chirp</span></div>
+          <canvas id="scopeCanvas" width="700" height="300"></canvas>
+        </div>
+        <div class="canvasFrame">
+          <div class="canvasTitle"><b>Spectrum Analyzer</b><span id="peakReadout">peak: 113.4 dBm</span></div>
+          <canvas id="spectrumCanvas" width="700" height="300"></canvas>
+        </div>
+        <div class="canvasFrame">
+          <div class="canvasTitle"><b>Phase Analyzer</b><span id="phaseReadout">phase: 108°</span></div>
+          <canvas id="phaseCanvas" width="700" height="300"></canvas>
+        </div>
+        <div class="canvasFrame">
+          <div class="canvasTitle"><b>Spatial RF Analyzer</b><span id="spaceReadout">22 sources</span></div>
+          <canvas id="spaceCanvas" width="700" height="300"></canvas>
+        </div>
+        <div class="canvasFrame">
+          <div class="canvasTitle"><b>Waterfall</b><span>time-frequency persistence</span></div>
+          <canvas id="waterfallCanvas" width="700" height="300"></canvas>
+        </div>
+        <div class="canvasFrame">
+          <div class="canvasTitle"><b>VSA / IQ Constellation</b><span id="evmReadout">EVM: 23.9%</span></div>
+          <canvas id="constellationCanvas" width="700" height="300"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel rightRack">
+      <div class="rackTitle">
+        <h2>RF Intelligence</h2>
+        <span class="badge">READOUT</span>
+      </div>
+
+      <div class="readoutCard">
+        <b>Receiver Pipeline</b>
+        <div class="chain">
+          <div><b>LNA</b><span id="lnaState">nominal</span></div>
+          <div><b>Mixer</b><span id="mixerState">locked</span></div>
+          <div><b>IF</b><span id="ifState">stable</span></div>
+          <div><b>ADC</b><span id="adcState">streaming</span></div>
+          <div><b>DSP</b><span id="dspState">analyzing</span></div>
+        </div>
+      </div>
+
+      <div class="readoutCard">
+        <b>Classification</b>
+        <span id="classText">5G NR n78 · 5GNR-like · confidence 64%</span>
+        <div class="meter"><i id="classMeter" style="width: 64%;"></i></div>
+      </div>
+
+      <div class="readoutCard">
+        <b>Phase Coherence</b>
+        <span id="coherenceText">64% coherent</span>
+        <div class="meter"><i id="coherenceMeter" style="width: 64%;"></i></div>
+      </div>
+
+      <div class="readoutCard">
+        <b>RF Anomaly / Jamming</b>
+        <span id="riskText">44%</span>
+        <div class="meter"><i id="riskMeter" style="width: 44%;"></i></div>
+      </div>
+
+      <div class="readoutCard">
+        <b>Legend</b>
+        <div class="legend">
+          <div><span class="dot"></span>carrier/source</div>
+          <div><span class="dot g"></span>valid signal</div>
+          <div><span class="dot a"></span>sweep/probe</div>
+          <div><span class="dot r"></span>anomaly</div>
+        </div>
+      </div>
+
+      <div class="readoutCard">
+        <b>Event Stream</b>
+        <div class="eventLog" id="eventLog"><div>[16:45:13] 5D 3.50 GHz 5GNR-like Chirp emitters=22</div></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const C = {
+  war: $("warCanvas"),
+  scope: $("scopeCanvas"),
+  spectrum: $("spectrumCanvas"),
+  phase: $("phaseCanvas"),
+  space: $("spaceCanvas"),
+  waterfall: $("waterfallCanvas"),
+  constellation: $("constellationCanvas")
+};
+const X = {};
+Object.entries(C).forEach(([k,c])=>X[k]=c.getContext("2d"));
+
+let t = 0;
+let mode = "5D";
+let emitters = [];
+let lastBand = "3500";
+let lastLog = 0;
+
+const bandNames = {
+  27:"HF/CB AM",
+  144:"VHF FM",
+  244:"VHF/UHF Utility",
+  433:"ISM Remote FSK",
+  868:"ISM IoT",
+  1800:"LTE-like OFDM",
+  2400:"WiFi OFDM",
+  3500:"5G NR n78",
+  5800:"WiFi/ISM"
+};
+
+function params(){
+  const band = Number($("rxBand").value);
+  return {
+    band,
+    bandLabel: band >= 1000 ? (band/1000).toFixed(2)+" GHz" : band+" MHz",
+    span: 5 + Number($("span").value)/100*115,
+    gain: 2 + Number($("gain").value)/100*48,
+    noise: -110 + Number($("noise").value)/100*50,
+    wave: $("wave").value,
+    func: 1 + Number($("func").value)/100*999,
+    amp: Number($("amp").value),
+    sweep: Number($("sweep").value),
+    mod: $("mod").value,
+    mode
+  };
+}
+
+function updateLabels(){
+  const p = params();
+  $("rxBandText").textContent = p.bandLabel;
+  $("spanText").textContent = Math.round(p.span)+" MHz";
+  $("gainText").textContent = Math.round(p.gain)+" dB";
+  $("noiseText").textContent = Math.round(p.noise)+" dBm";
+  $("waveText").textContent = p.wave;
+  $("funcText").textContent = Math.round(p.func)+" kHz";
+  $("ampText").textContent = Math.round(p.amp)+"%";
+  $("sweepText").textContent = Math.round(p.sweep)+"%";
+  $("modText").textContent = p.mod;
+
+  $("kBand").textContent = p.bandLabel;
+  $("kMod").textContent = p.mod;
+  $("modeBadge").textContent = mode+" RF/TM";
+}
+
+function regenerateEmitters(){
+  const p = params();
+  const base = p.band >= 2400 ? 22 : p.band >= 433 ? 16 : 11;
+  emitters = [];
+  for(let i=0;i<base;i++){
+    emitters.push({
+      x:(Math.random()-.5)*2.2,
+      y:(Math.random()-.5)*1.35,
+      z:Math.random()*2.4-.35,
+      a:.20+Math.random()*.90,
+      ph:Math.random()*Math.PI*2,
+      drift:(Math.random()-.5)*.004,
+      type: Math.random() < (mode==="RF-WATCH" ? .26 : .10) ? "anomaly" : "valid",
+      off:(Math.random()-.5)*.92
+    });
+  }
+  lastBand = String(p.band);
+}
+
+function grid(ctx,w,h){
+  ctx.strokeStyle="rgba(105,190,255,.075)";
+  ctx.lineWidth=1;
+  for(let x=0;x<w;x+=48){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=38){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+}
+
+function label(ctx,text,x,y,color="rgba(234,243,255,.82)",size=12){
+  ctx.fillStyle=color;
+  ctx.font=size+"px system-ui";
+  ctx.fillText(text,x,y);
+}
+
+function project(p,w,h){
+  const z = p.z + 3.0;
+  const scale = 450 / z;
+  return {
+    x:w/2 + p.x*scale,
+    y:h/2 + p.y*scale - p.z*58,
+    s:scale/270,
+    z
+  };
+}
+
+function drawWar(){
+  const ctx = X.war, w=C.war.width, h=C.war.height;
+  const p = params();
+  ctx.clearRect(0,0,w,h);
+
+  const bg = ctx.createRadialGradient(w/2,h/2,20,w/2,h/2,w*.75);
+  bg.addColorStop(0,"rgba(30,115,220,.20)");
+  bg.addColorStop(.48,"rgba(20,45,85,.09)");
+  bg.addColorStop(1,"rgba(255,255,255,.006)");
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  // perspective floor
+  ctx.strokeStyle="rgba(115,255,210,.11)";
+  for(let i=-12;i<=12;i++){
+    const a=project({x:i*.16,y:-.95,z:0},w,h);
+    const b=project({x:i*.16,y:1.0,z:2.55},w,h);
+    ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+  }
+  for(let j=0;j<=12;j++){
+    ctx.beginPath();
+    for(let i=-13;i<=13;i++){
+      const q=project({x:i*.16,y:-.95+j*.16,z:j*.21},w,h);
+      if(i===-13)ctx.moveTo(q.x,q.y);else ctx.lineTo(q.x,q.y);
+    }
+    ctx.stroke();
+  }
+
+  const rx = project({x:-1.30,y:.56,z:.35},w,h);
+  const gen = project({x:1.30,y:.56,z:.35},w,h);
+
+  function node(q,name,color){
+    ctx.shadowColor=color;
+    ctx.shadowBlur=20;
+    ctx.fillStyle=color;
+    ctx.beginPath();ctx.arc(q.x,q.y,13,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
+    label(ctx,name,q.x-45,q.y+32);
+  }
+  node(rx,"RX / VSA","rgba(116,220,255,.96)");
+  node(gen,"GEN / AWG","rgba(157,255,199,.96)");
+
+  // generator to receiver arc
+  ctx.strokeStyle="rgba(255,211,122,.26)";
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(gen.x,gen.y);
+  ctx.bezierCurveTo(w*.72,h*.18,w*.28,h*.18,rx.x,rx.y);
+  ctx.stroke();
+
+  // vertical sweep wall
+  const sx = w*(.12 + (.5+.5*Math.sin(t*.018))*.76);
+  const wall = ctx.createLinearGradient(sx-135,0,sx+135,0);
+  wall.addColorStop(0,"rgba(255,211,122,0)");
+  wall.addColorStop(.5,"rgba(255,211,122,.22)");
+  wall.addColorStop(1,"rgba(255,211,122,0)");
+  ctx.fillStyle=wall;
+  ctx.fillRect(sx-145,0,290,h);
+
+  // emitters
+  emitters.forEach((e,i)=>{
+    e.ph += .025 + e.a*.016;
+    e.x += e.drift;
+    if(e.x>1.35)e.x=-1.35;
+    if(e.x<-1.35)e.x=1.35;
+
+    const q = project({
+      x:e.x + Math.sin(t*.004+i)*.05,
+      y:e.y + Math.cos(t*.003+i)*.045,
+      z:e.z + Math.sin(t*.006+e.ph)*.09
+    },w,h);
+
+    const col = e.type==="anomaly" ? "255,133,133" : "116,220,255";
+    const glow = e.type==="anomaly" ? "255,80,90" : "157,255,199";
+
+    // rings
+    for(let r=22;r<120+e.a*90;r+=24){
+      ctx.strokeStyle=`rgba(${col},${Math.max(.035,.18-r/700)})`;
+      ctx.beginPath();
+      ctx.ellipse(q.x,q.y,r*q.s*1.9,r*q.s*.66,0,0,Math.PI*2);
+      ctx.stroke();
+    }
+
+    // phase spiral in 5D/RF watch
+    if(mode==="5D" || mode==="RF-WATCH"){
+      ctx.strokeStyle="rgba(189,167,255,.34)";
+      ctx.beginPath();
+      for(let k=0;k<90;k++){
+        const a=e.ph+k*.12;
+        const rr=(k*.42+10)*q.s;
+        const px=q.x+Math.cos(a)*rr;
+        const py=q.y+Math.sin(a)*rr*.45;
+        if(k===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+      }
+      ctx.stroke();
+    }
+
+    ctx.shadowColor=`rgba(${glow},.9)`;
+    ctx.shadowBlur=18;
+    ctx.fillStyle=`rgba(${glow},.94)`;
+    ctx.beginPath();ctx.arc(q.x,q.y,5+e.a*8*q.s,0,Math.PI*2);ctx.fill();
+    ctx.shadowBlur=0;
+
+    ctx.strokeStyle=e.type==="anomaly"?"rgba(255,133,133,.26)":"rgba(116,220,255,.16)";
+    ctx.beginPath();ctx.moveTo(q.x,q.y);ctx.lineTo(rx.x,rx.y);ctx.stroke();
+
+    if(e.type==="anomaly"){
+      ctx.strokeStyle="rgba(255,133,133,.85)";
+      ctx.beginPath();
+      ctx.moveTo(q.x-10,q.y-10);ctx.lineTo(q.x+10,q.y+10);
+      ctx.moveTo(q.x+10,q.y-10);ctx.lineTo(q.x-10,q.y+10);
+      ctx.stroke();
+    }
+  });
+
+  label(ctx,`RF/TM Theater · ${p.bandLabel} · ${bandNames[p.band]} · ${p.mod} · ${p.wave} · ${mode}`,22,30,"rgba(234,243,255,.88)",13);
+  label(ctx,"Space + Time + Frequency + Phase + Amplitude/Anomaly",22,52,"rgba(144,169,199,.88)",12);
+  $("warReadout").textContent = `emitters: ${emitters.length} · ${p.mod} · ${mode}`;
+}
+
+function sampleWave(i,phase=0){
+  const p = params();
+  const x = i*.034 + t*.055 + phase;
+  let y = 0;
+  if(p.wave==="Sine") y=Math.sin(x);
+  else if(p.wave==="Square") y=Math.sin(x)>0?1:-1;
+  else if(p.wave==="Saw") y=((x/Math.PI)%2)-1;
+  else if(p.wave==="Pulse") y=Math.sin(x)>0.72?1:0;
+  else if(p.wave==="Chirp") y=Math.sin(x + Math.sin(t*.01)*i*.006);
+  else if(p.wave==="Burst") y=Math.sin(x)*(Math.sin(t*.025)>0?.95:.18);
+  else y=(Math.random()-.5)*2;
+  return y*p.amp/100;
+}
+
+function drawScope(){
+  const ctx=X.scope,w=C.scope.width,h=C.scope.height;
+  ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  const mid=h/2;
+  ctx.strokeStyle="rgba(157,255,199,.92)";
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  for(let i=0;i<w;i++){
+    const y=mid-sampleWave(i)*105+Math.sin(i*.012+t*.03)*7;
+    if(i===0)ctx.moveTo(i,y);else ctx.lineTo(i,y);
+  }
+  ctx.stroke();
+
+  ctx.strokeStyle="rgba(116,220,255,.70)";
+  ctx.beginPath();
+  for(let i=0;i<w;i++){
+    const y=mid-sampleWave(i,Math.PI/2)*67;
+    if(i===0)ctx.moveTo(i,y);else ctx.lineTo(i,y);
+  }
+  ctx.stroke();
+  label(ctx,"Oscilloscope CH1/CH2",14,22);
+  $("scopeReadout").textContent=params().wave;
+}
+
+function spectrumData(){
+  const p=params(), w=C.spectrum.width;
+  const arr=new Float32Array(w);
+  let peak=-140;
+  for(let i=0;i<w;i++){
+    let db=p.noise+(Math.random()-.5)*4+Math.sin(i*.018+t*.022)*2;
+    emitters.forEach((e,k)=>{
+      const center=w*(.5+e.off*.42+Math.sin(t*.004+k)*.015);
+      let width=11+p.span*.16+e.a*24;
+      let amp=(14+p.gain*.45)*e.a;
+      if(e.type==="anomaly"){width*=3.1;amp*=1.35;}
+      db+=Math.exp(-Math.pow(i-center,2)/(width*width))*amp;
+    });
+    if(["OFDM","WiFi-like","5GNR-like"].includes(p.mod)){
+      for(let k=-15;k<=15;k++){
+        const c=w*.5+k*(5+p.span*.044);
+        db+=Math.exp(-Math.pow(i-c,2)/(8+p.span*.04))*5.2;
+      }
+    }
+    if(p.mod==="FSK"){
+      db+=Math.exp(-Math.pow(i-w*.45,2)/(13*13))*13;
+      db+=Math.exp(-Math.pow(i-w*.55,2)/(13*13))*13;
+    }
+    if(p.mod==="AM"){
+      db+=Math.exp(-Math.pow(i-w*.5,2)/(10*10))*14;
+      db+=Math.exp(-Math.pow(i-w*.42,2)/(16*16))*8;
+      db+=Math.exp(-Math.pow(i-w*.58,2)/(16*16))*8;
+    }
+    arr[i]=db; peak=Math.max(peak,db);
+  }
+  return {arr,peak};
+}
+
+function drawSpectrum(d){
+  const ctx=X.spectrum,w=C.spectrum.width,h=C.spectrum.height;
+  ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  ctx.beginPath();
+  for(let i=0;i<w;i++){
+    const n=Math.max(0,Math.min(1,(d.arr[i]+120)/85));
+    const y=h-28-n*(h-56);
+    if(i===0)ctx.moveTo(i,y);else ctx.lineTo(i,y);
+  }
+  ctx.strokeStyle="rgba(116,220,255,.96)";
+  ctx.lineWidth=2;
+  ctx.stroke();
+  ctx.lineTo(w,h-28);ctx.lineTo(0,h-28);ctx.closePath();
+  ctx.fillStyle="rgba(116,220,255,.10)";
+  ctx.fill();
+  $("peakReadout").textContent="peak: "+d.peak.toFixed(1)+" dBm";
+  label(ctx,"Spectrum Analyzer",14,22);
+}
+
+function drawWaterfall(d){
+  const ctx=X.waterfall,w=C.waterfall.width,h=C.waterfall.height;
+  const img=ctx.getImageData(0,0,w,h-1);
+  ctx.putImageData(img,0,1);
+  for(let i=0;i<w;i++){
+    const n=Math.max(0,Math.min(1,(d.arr[i]+115)/80));
+    const r=Math.round(12+n*115);
+    const g=Math.round(42+n*185);
+    const b=Math.round(85+n*160);
+    ctx.fillStyle=`rgb(${r},${g},${b})`;
+    ctx.fillRect(i,0,1,1);
+  }
+}
+
+function drawPhase(){
+  const ctx=X.phase,w=C.phase.width,h=C.phase.height;
+  ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  const cx=w/2,cy=h/2;
+  ctx.strokeStyle="rgba(157,255,199,.18)";
+  ctx.beginPath();ctx.moveTo(cx,22);ctx.lineTo(cx,h-22);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(22,cy);ctx.lineTo(w-22,cy);ctx.stroke();
+
+  ctx.beginPath();
+  for(let i=0;i<720;i++){
+    const a=i*.03+t*.02;
+    const ph=Number($("sweep").value)/100*Math.PI;
+    const x=Math.sin(a)*Math.cos(ph)-Math.sin(a*.72+t*.01)*Math.sin(ph);
+    const y=Math.sin(a*.72+t*.01);
+    const px=cx+x*w*.32,py=cy-y*h*.32;
+    if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+  }
+  ctx.strokeStyle="rgba(189,167,255,.92)";
+  ctx.lineWidth=1.8;
+  ctx.stroke();
+
+  const deg=Math.round((Number($("sweep").value)/100)*180);
+  $("phaseReadout").textContent="phase: "+deg+"°";
+  label(ctx,"Phase / Lissajous",14,22);
+}
+
+function drawSpace(){
+  const ctx=X.space,w=C.space.width,h=C.space.height;
+  const p=params();
+  ctx.clearRect(0,0,w,h);
+  const cell=18;
+  for(let y=0;y<h;y+=cell){
+    for(let x=0;x<w;x+=cell){
+      let v=0;
+      emitters.forEach(e=>{
+        const ex=w/2+e.x*w*.32, ey=h/2+e.y*h*.34;
+        const dist=Math.hypot(x-ex,y-ey)+1;
+        v+=e.a*1250/(dist*dist+230);
+      });
+      const n=Math.max(0,Math.min(1,v*(p.gain/28)));
+      const r=Math.round(10+n*90);
+      const g=Math.round(32+n*175);
+      const b=Math.round(70+n*175);
+      ctx.fillStyle=`rgba(${r},${g},${b},.75)`;
+      ctx.fillRect(x,y,cell,cell);
+    }
+  }
+  grid(ctx,w,h);
+  label(ctx,"Spatial RF Field",14,22);
+  $("spaceReadout").textContent=emitters.length+" sources";
+}
+
+function constellationPts(){
+  const p=params(), pts=[];
+  const n=430;
+  const noise=Math.max(.015,(100-Number($("gain").value))/620+Number($("noise").value)/3200);
+  const add=(a,b)=>pts.push([a+(Math.random()-.5)*noise*2,b+(Math.random()-.5)*noise*2]);
+  for(let i=0;i<n;i++){
+    if(p.mod==="BPSK") add(Math.random()>.5?.75:-.75,0);
+    else if(p.mod==="QPSK") add(Math.random()>.5?.62:-.62,Math.random()>.5?.62:-.62);
+    else if(p.mod==="16QAM"){
+      const v=[-.75,-.25,.25,.75]; add(v[Math.floor(Math.random()*4)],v[Math.floor(Math.random()*4)]);
+    }else if(["OFDM","WiFi-like","5GNR-like"].includes(p.mod)){
+      const a=Math.random()*Math.PI*2,r=.15+Math.random()*.78; add(Math.cos(a)*r,Math.sin(a)*r);
+    }else if(p.mod==="FSK"){
+      add(Math.random()>.5?.55:-.55,Math.sin(i*.4+t*.04)*.18);
+    }else{
+      const a=i*.19+t*.025,r=p.mod==="AM"?.35+Math.sin(i*.08+t*.02)*.22:.62; add(Math.cos(a)*r,Math.sin(a)*r);
+    }
+  }
+  return pts;
+}
+
+function drawConstellation(){
+  const ctx=X.constellation,w=C.constellation.width,h=C.constellation.height;
+  ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  const cx=w/2,cy=h/2,s=Math.min(w,h)*.36;
+  ctx.strokeStyle="rgba(157,255,199,.18)";
+  ctx.beginPath();ctx.moveTo(cx,22);ctx.lineTo(cx,h-22);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(22,cy);ctx.lineTo(w-22,cy);ctx.stroke();
+  ctx.fillStyle="rgba(157,255,199,.78)";
+  constellationPts().forEach(([x,y])=>{
+    ctx.beginPath();ctx.arc(cx+x*s,cy-y*s,2.2,0,Math.PI*2);ctx.fill();
+  });
+  const evm=Math.max(1.1,Math.min(38,27-Number($("gain").value)*.12+Number($("noise").value)*.12+(mode==="RF-WATCH"?6:0)));
+  $("evmReadout").textContent="EVM: "+evm.toFixed(1)+"%";
+  $("kEvm").textContent=evm.toFixed(1)+"%";
+  label(ctx,"VSA / IQ",14,22);
+}
+
+function updateReadouts(){
+  const p=params();
+  const risk=Math.max(2,Math.min(99,Math.round(emitters.filter(e=>e.type==="anomaly").length*9+Number($("noise").value)*.2+(mode==="RF-WATCH"?22:0))));
+  const conf=Math.max(5,Math.min(99,Math.round(Number($("gain").value)*.75+(100-Number($("noise").value))*.25)));
+  const coherence=Math.max(6,Math.min(98,Math.round(100-Number($("sweep").value)*.55-Number($("noise").value)*.08)));
+  const load=Math.max(10,Math.min(99,Math.round(p.span*.42+p.gain*.65)));
+  const obw=Math.round(p.span*(.35+p.amp/180));
+
+  $("kRisk").textContent=risk+"%";
+  $("riskText").textContent=risk+"%";
+  $("riskMeter").style.width=risk+"%";
+  $("classText").textContent=(bandNames[p.band]||"RF")+" · "+p.mod+" · confidence "+conf+"%";
+  $("classMeter").style.width=conf+"%";
+  $("coherenceText").textContent=coherence+"% coherent";
+  $("coherenceMeter").style.width=coherence+"%";
+  $("kLoad").textContent=load+"%";
+  $("kObw").textContent=obw+" MHz";
+
+  $("lnaState").textContent=risk>70?"stress":"nominal";
+  $("mixerState").textContent=coherence<35?"phase drift":"locked";
+  $("ifState").textContent=load>82?"high load":"stable";
+  $("adcState").textContent=load>90?"near limit":"streaming";
+  $("dspState").textContent=risk>60?"alerting":"analyzing";
+}
+
+function logEvent(){
+  const now=Date.now();
+  if(now-lastLog<1500)return;
+  lastLog=now;
+  const p=params();
+  const row=document.createElement("div");
+  row.textContent=`[${new Date().toLocaleTimeString()}] ${mode} ${p.bandLabel} ${p.mod} ${p.wave} emitters=${emitters.length}`;
+  $("eventLog").prepend(row);
+  while($("eventLog").children.length>20)$("eventLog").removeChild($("eventLog").lastChild);
+}
+
+function loop(){
+  t++;
+  if(lastBand!==$("rxBand").value) regenerateEmitters();
+  updateLabels();
+  drawWar();
+  drawScope();
+  const d=spectrumData();
+  drawSpectrum(d);
+  drawWaterfall(d);
+  drawPhase();
+  drawSpace();
+  drawConstellation();
+  updateReadouts();
+  logEvent();
+  requestAnimationFrame(loop);
+}
+
+async function health(){
+  try{
+    const r=await fetch("/api/health",{cache:"no-store"});
+    const j=await r.json();
+    $("healthPill").textContent=j.ok?"Health: online":"Health: degraded";
+  }catch(e){
+    $("healthPill").textContent="Health: unavailable";
+    $("healthPill").classList.remove("ok");
+  }
+}
+
+document.querySelectorAll(".modeGrid button").forEach(b=>{
+  b.onclick=()=>{
+    mode=b.dataset.mode;
+    document.querySelectorAll(".modeGrid button").forEach(x=>x.classList.toggle("active",x===b));
+    if(mode==="RF-WATCH") emitters.forEach((e,i)=>{if(i%4===0)e.type="anomaly";});
+    updateLabels();
+  };
+});
+
+["rxBand","span","gain","noise","wave","func","amp","sweep","mod"].forEach(id=>{
+  $(id).addEventListener("input",()=>{
+    if(id==="rxBand") regenerateEmitters();
+    updateLabels();
+  });
+});
+
+regenerateEmitters();
+health();
+updateLabels();
+loop();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC RF/TM War Room V4<br>/trfmc_rf_tm_war_room_v4.html<br>Previous Authority V2 score: 65/100 · CRITICAL</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Cyber RF Intelligence</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC RF/TM War Room V4</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="true">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Cyber RF Intelligence · Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione.</div></body></html>

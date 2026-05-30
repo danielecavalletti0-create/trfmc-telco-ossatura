@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<title>TRFMC v0.27 Operator Handbook Interactive Console</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg:#020711;
+  --panel:rgba(5,18,31,.88);
+  --panel2:rgba(9,28,44,.74);
+  --line:rgba(88,214,249,.25);
+  --cyan:#58d6f9;
+  --amber:#d29922;
+  --green:#3fb950;
+  --red:#ff4d6d;
+  --text:#edf8ff;
+  --muted:#8da4b3;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 10% 5%,rgba(88,214,249,.18),transparent 28%),
+    radial-gradient(circle at 80% 8%,rgba(63,185,80,.10),transparent 25%),
+    linear-gradient(135deg,#020711,#06111d 55%,#02040a);
+  color:var(--text);
+  font-family:Consolas,ui-monospace,monospace;
+  padding:18px;
+}
+header,.panel,.kpi,.mission-tile{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 0 34px rgba(88,214,249,.08);
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+h1{margin:0;color:var(--cyan);font-size:25px;letter-spacing:1px}
+h2{margin:0 0 12px;color:var(--cyan);font-size:14px;text-transform:uppercase}
+p,span,em{color:var(--muted)}
+.badge{
+  border:1px solid rgba(88,214,249,.35);
+  color:var(--cyan);
+  border-radius:999px;
+  padding:9px 13px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.toolbar,.kpis,.viewer-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+button,a{
+  border:1px solid rgba(88,214,249,.35);
+  background:rgba(88,214,249,.08);
+  color:var(--cyan);
+  border-radius:10px;
+  padding:9px 11px;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+  font-family:inherit;
+  display:inline-block;
+}
+button:hover,a:hover{background:rgba(88,214,249,.16)}
+.kpi{flex:1 1 150px}
+.kpi span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+}
+.kpi b{
+  display:block;
+  margin-top:6px;
+  color:var(--text);
+  font-size:16px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.mission-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:10px;
+  margin:14px 0;
+}
+.mission-tile{
+  background:
+    linear-gradient(135deg,rgba(88,214,249,.08),rgba(255,255,255,.025)),
+    var(--panel2);
+}
+.mission-tile b{
+  display:block;
+  color:var(--cyan);
+  text-transform:uppercase;
+  font-size:12px;
+  margin-bottom:7px;
+}
+.mission-tile span{
+  display:block;
+  line-height:1.45;
+  font-size:11px;
+}
+.layout{
+  display:grid;
+  grid-template-columns:.78fr 1.22fr;
+  gap:12px;
+}
+.control-panel{
+  border:1px solid rgba(88,214,249,.20);
+  background:rgba(5,18,31,.74);
+  border-radius:16px;
+  padding:12px;
+  margin-bottom:12px;
+}
+.control-panel b{
+  display:block;
+  color:var(--cyan);
+  margin-bottom:8px;
+  text-transform:uppercase;
+  font-size:12px;
+}
+input.control-input{
+  width:100%;
+  border:1px solid rgba(88,214,249,.28);
+  background:rgba(0,0,0,.30);
+  color:var(--text);
+  border-radius:10px;
+  padding:10px 11px;
+  font-family:inherit;
+  outline:none;
+}
+input.control-input:focus{
+  border-color:rgba(88,214,249,.70);
+  box-shadow:0 0 0 2px rgba(88,214,249,.10);
+}
+.doc{
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  padding:11px;
+  margin-bottom:8px;
+  cursor:pointer;
+  background:rgba(255,255,255,.025);
+}
+.doc:hover{
+  border-color:rgba(88,214,249,.45);
+  background:rgba(88,214,249,.07);
+}
+.doc.active{
+  border-color:rgba(63,185,80,.55);
+  background:linear-gradient(135deg,rgba(63,185,80,.11),rgba(88,214,249,.055));
+  box-shadow:0 0 26px rgba(63,185,80,.08);
+}
+.doc b{color:var(--cyan);display:block;font-size:12px}
+.doc span{display:block;margin-top:6px;color:var(--text);font-size:11px;line-height:1.35}
+.doc em{display:block;margin-top:6px;color:var(--muted);font-style:normal;font-size:10px;overflow-wrap:anywhere}
+.status-ok{color:var(--green)}
+.viewer-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  margin-bottom:10px;
+}
+.viewer-title b{
+  color:var(--cyan);
+  font-size:15px;
+}
+.viewer-title span{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+  overflow-wrap:anywhere;
+}
+.viewer{
+  overflow:auto;
+  max-height:760px;
+  background:rgba(0,0,0,.28);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  padding:15px;
+  color:#e8f6ff;
+  font-size:12px;
+  line-height:1.55;
+}
+.viewer h1,.viewer h2,.viewer h3{
+  color:var(--cyan);
+  margin:14px 0 8px;
+}
+.viewer h1{font-size:18px}
+.viewer h2{font-size:15px}
+.viewer h3{font-size:13px}
+.viewer pre{
+  white-space:pre-wrap;
+  overflow:auto;
+  background:rgba(2,7,17,.82);
+  border:1px solid rgba(88,214,249,.17);
+  border-radius:10px;
+  padding:12px;
+  color:#e8f6ff;
+}
+.viewer code{
+  color:#e8f6ff;
+}
+.viewer p{
+  color:#e8f6ff;
+  margin:7px 0;
+}
+.empty-state{
+  color:var(--muted);
+  border:1px dashed rgba(88,214,249,.20);
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+}
+@media(max-width:1050px){
+  .layout{grid-template-columns:1fr}
+  header{flex-direction:column;align-items:flex-start}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css">
+</head>
+<body class="trfmc-enterprise-shell"><section id="trfmc-shell-topbar" class="trfmc-shell-topbar">
+      <div class="trfmc-shell-row">
+        <div class="trfmc-shell-brand">
+          <div class="trfmc-shell-mark" aria-hidden="true"></div>
+          <div class="trfmc-shell-title">
+            <b>TRFMC Mission Control</b>
+            <span>Operator Handbook · Enterprise Navigation Shell v0.34</span>
+          </div>
+        </div>
+
+        <nav class="trfmc-shell-nav" aria-label="TRFMC enterprise navigation">
+          <a class="" href="/portal_index_v19.html">Portal</a><a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_mission_portal_v35.html">RF/Telco</a><a class="" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a><a class="" href="/network_journey_world_map_v37.html">World Journey</a><a class="" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a><a class="trfmc-shell-active" href="/operator_handbook_console_v23.html">Handbook</a><a class="" href="/security_console_v18.html">Security</a><a class="" href="/scenario_runner_console_v16.html">Scenarios</a><a class="" href="/scenario_report_console_v17.html">Reports</a><a class="" href="/observability_console_v13.html">Observability</a><a class="" href="/operational_backup_console_v21.html">Backup</a><a class="" href="/restore_readiness_console_v22.html">Restore</a>
+        </nav>
+
+        <div class="trfmc-shell-status">
+          <span id="trfmc-shell-backend" class="trfmc-shell-pill warn">Backend <strong>UNKNOWN</strong></span>
+          <span id="trfmc-shell-snapshot" class="trfmc-shell-pill ok">Golden <strong>OK</strong></span>
+          <span id="trfmc-shell-mode" class="trfmc-shell-pill warn">Mode <strong>UNKNOWN</strong></span>
+        </div>
+      </div>
+
+      <div class="trfmc-shell-subbar">
+        <span>localhost-only · simulation-only · controlled lab posture</span>
+        <span>
+          API <code>127.0.0.1:5173</code>
+          Frontend <code>127.0.0.1:5173</code>
+        </span>
+      </div>
+    </section>
+<header>
+  <div>
+    <h1>TRFMC Operator Handbook &amp; Documentation Console</h1>
+    <p>v0.27 · interactive handbook · searchable documents · markdown viewer · operational quick links</p>
+  </div>
+  <div class="badge" id="badge">ERROR</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh</button>
+  <a href="/portal_index_v19.html">Portal Index</a>
+  <a href="/restore_readiness_console_v22.html">Restore Readiness</a>
+  <a href="/operational_backup_console_v21.html">Backup Console</a>
+  <a href="/security_console_v18.html">Security</a>
+  <a href="/api/docs/index">Docs API</a>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Mode</span><b id="k_mode">—</b></div>
+  <div class="kpi"><span>Docs</span><b id="k_docs">—</b></div>
+  <div class="kpi"><span>Selected</span><b id="k_selected">—</b></div>
+  <div class="kpi"><span>Size</span><b id="k_size">—</b></div>
+</section>
+
+<section class="mission-strip">
+  <div class="mission-tile">
+    <b>Operator Knowledge Base</b>
+    <span>Manuale operativo, architettura, comandi, sicurezza, backup/restore e catena release.</span>
+  </div>
+  <div class="mission-tile">
+    <b>Operational Continuity</b>
+    <span>Accesso immediato alle console di backup, restore readiness e sicurezza locale.</span>
+  </div>
+  <div class="mission-tile">
+    <b>Localhost Development Posture</b>
+    <span>Ambiente SIMULATION_ONLY, restricted disabilitato, binding locale e SQLite runtime.</span>
+  </div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Documentation Index</h2>
+    <div class="control-panel">
+      <b>Search</b>
+      <input id="doc_search" class="control-input" placeholder="Cerca documento, endpoint, descrizione...">
+    </div>
+    <div id="docs">loading...</div>
+  </div>
+
+  <div class="panel">
+    <h2>Document Viewer</h2>
+    <div class="viewer-head">
+      <div class="viewer-title">
+        <b id="viewer_title">—</b>
+        <span id="viewer_endpoint">—</span>
+      </div>
+      <div class="viewer-actions">
+        <a id="raw_api_link" href="/api/docs/index">Raw API</a>
+        <button onclick="reloadSelected()">Reload Selected</button>
+      </div>
+    </div>
+    <div id="viewer" class="viewer">{
+  "error": "SyntaxError: Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+}</div>
+  </div>
+</section>
+
+<script>
+const API="/api";
+const state={
+  health:null,
+  index:null,
+  docs:[],
+  selected:null,
+  query:""
+};
+
+async function get(p){
+  const r=await fetch(API+p);
+  if(!r.ok)throw new Error(p+" HTTP "+r.status);
+  return await r.json();
+}
+
+function set(id,v){
+  const el=document.getElementById(id);
+  if(el) el.textContent=v??"—";
+}
+
+function esc(s){
+  return String(s??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+}
+
+function renderMarkdown(md){
+  const lines=String(md??"").split("\\n");
+  let html="";
+  let inCode=false;
+  let code=[];
+  for(const line of lines){
+    if(line.trim().startsWith("```")){
+      if(!inCode){
+        inCode=true;
+        code=[];
+      }else{
+        html += "<pre><code>"+esc(code.join("\\n"))+"</code></pre>";
+        inCode=false;
+      }
+      continue;
+    }
+    if(inCode){
+      code.push(line);
+      continue;
+    }
+    if(line.startsWith("# ")){
+      html += "<h1>"+esc(line.slice(2))+"</h1>";
+    }else if(line.startsWith("## ")){
+      html += "<h2>"+esc(line.slice(3))+"</h2>";
+    }else if(line.startsWith("### ")){
+      html += "<h3>"+esc(line.slice(4))+"</h3>";
+    }else if(line.trim()===""){
+      html += "";
+    }else{
+      html += "<p>"+esc(line)+"</p>";
+    }
+  }
+  if(inCode){
+    html += "<pre><code>"+esc(code.join("\\n"))+"</code></pre>";
+  }
+  return html || "<div class='empty-state'>Documento vuoto.</div>";
+}
+
+function filteredDocs(){
+  const q=String(state.query||"").toLowerCase();
+  return state.docs.filter(d=>{
+    const hay=`${d.id} ${d.title} ${d.description} ${d.endpoint} ${d.path}`.toLowerCase();
+    return !q || hay.includes(q);
+  });
+}
+
+function renderDocs(){
+  const box=document.getElementById("docs");
+  box.innerHTML="";
+  const docs=filteredDocs();
+  if(!docs.length){
+    box.innerHTML="<div class='empty-state'>Nessun documento trovato con la ricerca corrente.</div>";
+    return;
+  }
+  for(const d of docs){
+    const div=document.createElement("div");
+    div.className="doc"+(state.selected && state.selected.id===d.id ? " active" : "");
+    div.innerHTML=`
+      <b>${d.title}</b>
+      <span>${d.description}</span>
+      <em>${d.endpoint} · ${d.exists?"OK":"MISSING"} · ${d.size_bytes} bytes</em>
+    `;
+    div.onclick=()=>loadDoc(d);
+    box.appendChild(div);
+  }
+}
+
+async function loadDoc(doc){
+  state.selected=doc;
+  renderDocs();
+  set("k_selected",doc.title);
+  set("k_size",doc.size_bytes+" B");
+  set("viewer_title",doc.title);
+  set("viewer_endpoint",doc.endpoint);
+  document.getElementById("raw_api_link").href=""+doc.endpoint;
+
+  const d=await get(doc.endpoint.replace("/api",""));
+  document.getElementById("viewer").innerHTML=renderMarkdown(d.content);
+}
+
+async function reloadSelected(){
+  if(state.selected){
+    await loadDoc(state.selected);
+  }else{
+    await loadAll();
+  }
+}
+
+async function loadAll(){
+  const h=await get("/health");
+  const idx=await get("/docs/index");
+
+  state.health=h;
+  state.index=idx;
+  state.docs=idx.documents||[];
+
+  document.getElementById("badge").textContent=h.version+" · "+h.operational_mode;
+  set("k_backend",h.version);
+  set("k_mode",h.operational_mode);
+  set("k_docs",idx.count);
+
+  renderDocs();
+
+  if(state.selected){
+    const refreshed=state.docs.find(d=>d.id===state.selected.id) || state.docs[0];
+    if(refreshed) await loadDoc(refreshed);
+  }else if(state.docs.length){
+    await loadDoc(state.docs[0]);
+  }
+}
+
+document.getElementById("doc_search").addEventListener("input",e=>{
+  state.query=e.target.value;
+  renderDocs();
+});
+
+loadAll().catch(e=>{
+  document.getElementById("badge").textContent="ERROR";
+  document.getElementById("viewer").textContent=JSON.stringify({error:String(e)},null,2);
+});
+</script>
+<script defer="" src="/assets/trfmc_enterprise_shell_v34.js"></script>
+
+
+<section id="trfmc-shell-footer" class="trfmc-shell-footer">
+      <b>TRFMC v0.34 Enterprise Navigation Shell</b>
+      · unified console navigation · runtime status · golden check · operational lab mode
+    </section></body></html>

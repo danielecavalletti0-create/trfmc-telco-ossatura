@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile</title>
+  <link rel="stylesheet" href="/assets/trfmc_v083c_rf_sanity_sinr_calibration.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v083d_instrument_link_budget.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v083e_instrument_readability_vector.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v083f_dual_instrument_profile.css"/>
+  <script defer src="/assets/trfmc_v083c_rf_sanity_sinr_calibration.js"></script>
+  <script defer src="/assets/trfmc_v083d_instrument_link_budget.js"></script>
+  <script defer src="/assets/trfmc_v083e_instrument_readability_vector.js"></script>
+  <script defer src="/assets/trfmc_v083f_dual_instrument_profile.js"></script>
+  <link rel="stylesheet" href="/assets/trfmc_v085b_rf_physics_sapienza_baseline.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v085c_rf_physics_identity_fix.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_v085e_rf_physics_viewport_discipline.css"/>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf">
+  <header class="topbar">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <strong>TRFMC RF PHYSICS SAPIENZA ENGINE</strong>
+        <span>v0.83A · formula-driven WebGL · no production overwrite</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">v82C-R2</a>
+      <a href="/webgl_rf_heatmap_engine_v82c_mission_replay.html">v82C</a>
+      <a href="/webgl_rf_heatmap_engine_v82b_native_lab.html">v82B</a>
+      <a href="/webgl_rf_physics_engine_v83.html">v83A</a>
+      <a href="/webgl_rf_physics_engine_v83b.html">v83B</a>
+      <a href="/webgl_rf_physics_engine_v83c.html">v83C</a>
+      <a href="/webgl_rf_physics_engine_v83d.html">v83D</a>
+      <a href="/webgl_rf_physics_engine_v83e.html">v83E</a>
+      <a class="active" href="/webgl_rf_physics_engine_v83f.html">v85E Dual View</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="badges">
+      <span id="webglBadge">WEBGL CHECK</span>
+      <span>FORMULA OK</span>
+      <span>NO CDN</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">TRFMC v0.85E · DUAL INSTRUMENT VIEW + RSRP/SINR PROFILE</div>
+        <h1>RF Sapienza Physics Baseline + RSRP/SINR Profile</h1>
+        <p>
+          Scena WebGL RF costruita su modello fisico semplificato: FSPL, log-distance path loss,
+          sector gain, attenuazione da vegetazione, shadowing urbano, fading temporale e mappa RSRP/SINR.
+          La grafica è guidata dalla matematica: i colori non sono decorativi, rappresentano soglie operative.
+        </p>
+      </div>
+
+      <aside class="hero-kpi">
+        <span>Physics Integrity</span>
+        <strong id="physicsScore">—</strong>
+        <small>formula-driven RF field</small>
+      </aside>
+    </section>
+
+    <section class="workbench">
+      <aside class="control">
+        <h2>RF Model Controls</h2>
+
+        <label>
+          <span>Carrier Frequency</span>
+          <input id="freqMHz" type="range" min="700" max="28000" value="3500"/>
+          <b id="freqMHzVal">3500 MHz</b>
+        </label>
+
+        <label>
+          <span>EIRP / Sector</span>
+          <input id="eirp" type="range" min="28" max="64" value="46"/>
+          <b id="eirpVal">46 dBm</b>
+        </label>
+
+        <label>
+          <span>Path-loss Exponent n</span>
+          <input id="pathN" type="range" min="20" max="45" value="32"/>
+          <b id="pathNVal">3.2</b>
+        </label>
+
+        <label>
+          <span>Vegetation Depth</span>
+          <input id="vegDepth" type="range" min="0" max="80" value="28"/>
+          <b id="vegDepthVal">28 m</b>
+        </label>
+
+        <label>
+          <span>Urban Shadowing</span>
+          <input id="shadowDb" type="range" min="0" max="30" value="11"/>
+          <b id="shadowDbVal">11 dB</b>
+        </label>
+
+        <label>
+          <span>Sector Beam Gain</span>
+          <input id="sectorGain" type="range" min="0" max="100" value="72"/>
+          <b id="sectorGainVal">7.2 dB</b>
+        </label>
+
+        <label>
+          <span>Temporal Fading</span>
+          <input id="fading" type="range" min="0" max="100" value="26"/>
+          <b id="fadingVal">2.6 dB</b>
+        </label>
+
+        <div class="buttons">
+          <button id="pauseBtn">Pause</button>
+          <button id="baselineBtn">Baseline</button>
+          <button id="urbanBtn">Urban Canyon</button>
+          <button id="foliageBtn">Wet Foliage</button>
+          <button id="recoveryBtn">Beam Recovery</button>
+        </div>
+
+        <div class="legend">
+          <i class="excellent"></i><span>Very strong: RSRP ≥ -75 dBm</span>
+          <i class="good"></i><span>Good: -90 / -75 dBm</span>
+          <i class="edge"></i><span>Cell edge: -100 / -90 dBm</span>
+          <i class="weak"></i><span>Weak/NLOS: -110 / -100 dBm</span>
+          <i class="outage"></i><span>Outage: &lt; -110 dBm</span>
+        </div>
+      </aside>
+
+      <section class="stage">
+        <canvas id="rfCanvas"></canvas>
+
+        <div class="depth-grid"></div>
+
+        <div class="site site-a"><em></em><b>SITE-A</b><span>n78</span></div>
+        <div class="site site-b"><em></em><b>SITE-B</b><span>C-band</span></div>
+        <div class="site site-c"><em></em><b>SITE-C</b><span>load</span></div>
+
+        <div class="beam beam-a"></div>
+        <div class="beam beam-b"></div>
+        <div class="beam beam-c"></div>
+
+        <div class="building b1"></div>
+        <div class="building b2"></div>
+        <div class="building b3"></div>
+        <div class="building b4"></div>
+        <div class="building b5"></div>
+
+        <div class="tree t1"></div>
+        <div class="tree t2"></div>
+        <div class="tree t3"></div>
+        <div class="tree t4"></div>
+        <div class="tree t5"></div>
+        <div class="tree t6"></div>
+        <div class="tree t7"></div>
+        <div class="tree t8"></div>
+
+        <div class="ue ue1"><b>UE-17</b></div>
+        <div class="ue ue2"><b>UE-42</b></div>
+        <div class="ue ue3"><b>UE-63</b></div>
+
+        <div class="caption">
+          <strong>Formula-driven RF canvas</strong>
+          <span id="captionText">FSPL + log-distance + foliage + shadow + fading</span>
+        </div>
+
+        <div class="fallback" id="fallback">
+          <strong>WebGL non disponibile</strong>
+          <span>Usa la pagina v82C-R2 stabile oppure verifica accelerazione grafica del browser.</span>
+          <a href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">Open v82C-R2</a>
+        </div>
+      </section>
+
+      <aside class="telemetry">
+        <h2>RF Telemetry</h2>
+
+        <div class="metric">
+          <span>Renderer</span>
+          <strong id="rendererVal">—</strong>
+          <small>native WebGL shader</small>
+        </div>
+
+        <div class="metric">
+          <span>Serving RSRP</span>
+          <strong id="rsrpVal">—</strong>
+          <small>UE probe estimate</small>
+        </div>
+
+        <div class="metric">
+          <span>SINR Estimate</span>
+          <strong id="sinrVal">—</strong>
+          <small>serving vs interference + noise</small>
+        </div>
+
+        <div class="metric">
+          <span>Total Loss</span>
+          <strong id="lossVal">—</strong>
+          <small>path + clutter + fading</small>
+        </div>
+
+        <div class="metric">
+          <span>Coverage Integrity</span>
+          <strong id="coverageVal">—</strong>
+          <small>RSRP/SINR synthetic score</small>
+        </div>
+
+        <div class="metric">
+          <span>Dominant Cell</span>
+          <strong id="cellVal">—</strong>
+          <small>best-server decision</small>
+        </div>
+
+        <div class="copilot" id="copilot">
+          <b>AI RF Copilot</b>
+          <p>Physics engine initializing.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="formula-dock">
+      <article>
+        <h3>1 · Free Space Path Loss</h3>
+        <code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code>
+        <p id="fsplLive">—</p>
+      </article>
+
+      <article>
+        <h3>2 · Log-distance Model</h3>
+        <code>PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ</code>
+        <p id="plLive">—</p>
+      </article>
+
+      <article>
+        <h3>3 · Vegetation / Clutter</h3>
+        <code>Lveg[dB] = K · fGHz^0.3 · dveg^0.6 · ρ</code>
+        <p id="vegLive">—</p>
+      </article>
+
+      <article>
+        <h3>4 · Received Power</h3>
+        <code>Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade</code>
+        <p id="prxLive">—</p>
+      </article>
+    </section>
+
+    <section class="diagnostics">
+      <article>
+        <h3>Design Doctrine</h3>
+        <p>La scena non deve sembrare una mappa casuale: ogni colore deve avere una soglia, ogni ostacolo deve produrre attenuazione, ogni settore deve avere una funzione.</p>
+      </article>
+      <article>
+        <h3>4D Meaning</h3>
+        <p>La quarta dimensione è il tempo: fading, replay, variazione di clutter e ricalibrazione beam. La profondità è pseudo-3D controllata, non decorazione.</p>
+      </article>
+      <article>
+        <h3>Next Gate</h3>
+        <p>Dopo approvazione visiva, si può collegare questa pagina alla mission replay v82C-R2 e ai moduli UE handover.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile · formula-driven WebGL · isolated page · no backend change
+  </footer>
+<script defer src="/assets/trfmc_v085b_rf_physics_sapienza_baseline.js"></script>
+<script defer src="/assets/trfmc_v085c_rf_physics_identity_fix.js"></script>
+<script defer src="/assets/trfmc_v085e_rf_physics_viewport_discipline.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="rf">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · RF</div>
+      <div class="trfmc-c3-sub">TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile<br>/webgl_rf_physics_engine_v85e_viewport_discipline.html<br>Previous Authority V3 score: 71/100 · gaps closed: design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:spectrum-scope</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi"><small>FFT</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>EVM</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>SNR</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>ACLR</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="spectrum-scope" data-size="medium" title="Batch C RF · spectrum-scope"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">x(t) ⇄ X(f) via Fourier transform
+RBW controls spectral resolution
+EVM = RMS(error_vector)/RMS(reference_vector)
+SNR = signal_power/noise_power
+ACLR and OBW bind spectrum to compliance</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="rf"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

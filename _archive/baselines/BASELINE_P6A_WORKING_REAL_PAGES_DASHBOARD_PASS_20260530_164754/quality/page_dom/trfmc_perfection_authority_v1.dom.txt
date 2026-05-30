@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Perfection Authority V1</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<style>
+.pa-grid{display:grid;grid-template-columns:390px 1fr;gap:8px;min-height:calc(100vh - 78px);padding:8px;position:relative;z-index:1}
+.pa-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:8px}
+.pa-kpi{border:1px solid rgba(0,229,255,.32);border-radius:8px;background:rgba(0,229,255,.05);padding:10px;box-shadow:0 0 22px rgba(0,229,255,.10)}
+.pa-kpi small{display:block;color:#8fb8c8;text-transform:uppercase;font-size:10px}
+.pa-kpi b{display:block;color:#75ff5b;font-size:20px;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-family:ui-monospace,Consolas,monospace;font-size:10px}
+th,td{border-bottom:1px solid rgba(0,229,255,.18);padding:6px;text-align:left;vertical-align:top}
+th{color:#00e5ff;background:rgba(0,229,255,.06)}
+tr.critical td{color:#ff9abc}
+tr.weak td{color:#ffd84d}
+tr.good td{color:#dffaff}
+tr.premium td{color:#75ff5b}
+.debt{border:1px solid rgba(255,216,77,.28);border-radius:8px;margin:6px 0;padding:8px;background:rgba(255,216,77,.035);font-family:ui-monospace,Consolas,monospace;font-size:10px}
+.debt b{color:#ffd84d} .debt span{color:#8fb8c8}
+@media(max-width:1300px){.pa-grid{grid-template-columns:1fr}.pa-kpis{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div>
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC Perfection Authority V1</div>
+    <div class="leaf-sub">Misura l’abisso: score, gap, dominio, asset mancanti, debiti visuali e tecnico-ingegneristici</div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="leaf-btn" href="/trfmc_visual_asset_engine_lab_v3.html">Asset Engine</a>
+    <a class="leaf-btn" href="/trfmc_soul_runtime_lab_v1.html">Soul Lab</a>
+    <a class="leaf-btn" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </div>
+</header>
+
+<div class="pa-grid">
+  <aside class="leaf-panel">
+    <h2>Perfection Gate</h2>
+    <div class="leaf-card">
+      <h3>Stato</h3>
+      <p><b>NOT_YET</b></p>
+      <p>Obiettivo: average ≥ 92, critical = 0, premium ratio ≥ 80%.</p>
+      <p>Questo è il punto di verità: finché non passa, il portale è potente ma non perfetto.</p>
+    </div>
+    <div class="leaf-card">
+      <h3>Top debt</h3>
+      <div class="debt"><b>CRITICAL · 25/100</b><br><a href="/mission_graph_console_v15.html">/mission_graph_console_v15.html</a><br><span>no_external, design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi</span></div>
+<div class="debt"><b>CRITICAL · 25/100</b><br><a href="/trfmc_official_safe_entrypoint_v6r1_flat.html">/trfmc_official_safe_entrypoint_v6r1_flat.html</a><br><span>no_iframe, design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi</span></div>
+<div class="debt"><b>CRITICAL · 31/100</b><br><a href="/trfmc_official_safe_entrypoint_v6r2_premium_console.html">/trfmc_official_safe_entrypoint_v6r2_premium_console.html</a><br><span>no_iframe, design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/evidence_vault_console_v20.html">/evidence_vault_console_v20.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/global_mission_scenario_launcher_v39.html">/global_mission_scenario_launcher_v39.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/network_journey_world_map_v37.html">/network_journey_world_map_v37.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/observability_console_v13.html">/observability_console_v13.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/operational_backup_console_v21.html">/operational_backup_console_v21.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/operator_handbook_console_v23.html">/operator_handbook_console_v23.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/portal_index_v19.html">/portal_index_v19.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/restore_readiness_console_v22.html">/restore_readiness_console_v22.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/runtime_golden_check_console_v29.html">/runtime_golden_check_console_v29.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/scenario_report_console_v17.html">/scenario_report_console_v17.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/scenario_runner_console_v16.html">/scenario_runner_console_v16.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/security_console_v18.html">/security_console_v18.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/timeline_console_v14.html">/timeline_console_v14.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/trfmc_emergency_reset_layout_state.html">/trfmc_emergency_reset_layout_state.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+<div class="debt"><b>CRITICAL · 33/100</b><br><a href="/trfmc_reset_browser_state_v6r1.html">/trfmc_reset_browser_state_v6r1.html</a><br><span>design_tokens, visual_xp, gpu_runtime, asset_engine, soul_runtime, canvas, kpi, formulas</span></div>
+    </div>
+  </aside>
+
+  <main class="leaf-panel">
+    <h2>Perfection Dashboard</h2>
+    <div class="pa-kpis">
+      <div class="pa-kpi"><small>Average</small><b>70.01</b></div>
+      <div class="pa-kpi"><small>Premium</small><b>29</b></div>
+      <div class="pa-kpi"><small>Good</small><b>18</b></div>
+      <div class="pa-kpi"><small>Weak</small><b>54</b></div>
+      <div class="pa-kpi"><small>Critical</small><b>61</b></div>
+    </div>
+
+    <div class="leaf-card">
+      <h3>Domain maturity</h3>
+      <table>
+        <thead><tr><th>Domain</th><th>Pages</th><th>Avg</th><th>Critical</th><th>Weak</th><th>Good/Premium</th></tr></thead>
+        <tbody><tr><td>antenna</td><td>57</td><td>77.77</td><td>8</td><td>22</td><td>27</td></tr>
+<tr><td>core</td><td>12</td><td>60.83</td><td>7</td><td>1</td><td>4</td></tr>
+<tr><td>generic</td><td>1</td><td>38.0</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>microwave</td><td>92</td><td>66.75</td><td>45</td><td>31</td><td>16</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="leaf-card">
+      <h3>Worst-first scorecard</h3>
+      <table>
+        <thead><tr><th>Score</th><th>Severity</th><th>Domain</th><th>URL</th><th>Gaps</th></tr></thead>
+        <tbody><tr class="critical"><td>25</td><td>CRITICAL</td><td>antenna</td><td><a href="/trfmc_official_safe_entrypoint_v6r1_flat.html">/trfmc_official_safe_entrypoint_v6r1_flat.html</a></td><td>no_iframe,design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>25</td><td>CRITICAL</td><td>core</td><td><a href="/mission_graph_console_v15.html">/mission_graph_console_v15.html</a></td><td>no_external,design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>31</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_official_safe_entrypoint_v6r2_premium_console.html">/trfmc_official_safe_entrypoint_v6r2_premium_console.html</a></td><td>no_iframe,design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>antenna</td><td><a href="/trfmc_emergency_reset_layout_state.html">/trfmc_emergency_reset_layout_state.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>antenna</td><td><a href="/trfmc_reset_browser_state_v6r1.html">/trfmc_reset_browser_state_v6r1.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>core</td><td><a href="/operator_handbook_console_v23.html">/operator_handbook_console_v23.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/evidence_vault_console_v20.html">/evidence_vault_console_v20.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/global_mission_scenario_launcher_v39.html">/global_mission_scenario_launcher_v39.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/network_journey_world_map_v37.html">/network_journey_world_map_v37.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/observability_console_v13.html">/observability_console_v13.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/operational_backup_console_v21.html">/operational_backup_console_v21.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/portal_index_v19.html">/portal_index_v19.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/restore_readiness_console_v22.html">/restore_readiness_console_v22.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/runtime_golden_check_console_v29.html">/runtime_golden_check_console_v29.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/scenario_report_console_v17.html">/scenario_report_console_v17.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/scenario_runner_console_v16.html">/scenario_runner_console_v16.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/security_console_v18.html">/security_console_v18.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>33</td><td>CRITICAL</td><td>microwave</td><td><a href="/timeline_console_v14.html">/timeline_console_v14.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>38</td><td>CRITICAL</td><td>generic</td><td><a href="/trfmc_official_safe_entrypoint_v6.html">/trfmc_official_safe_entrypoint_v6.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,formulas</td></tr>
+<tr class="critical"><td>39</td><td>CRITICAL</td><td>antenna</td><td><a href="/trfmc_portal_link_graph_v1.html">/trfmc_portal_link_graph_v1.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>39</td><td>CRITICAL</td><td>core</td><td><a href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">/trfmc_official_safe_entrypoint_v6r3_command_center.html</a></td><td>no_iframe,design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>41</td><td>CRITICAL</td><td>core</td><td><a href="/signal_demod_v581.html">/signal_demod_v581.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,formulas,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>41</td><td>CRITICAL</td><td>core</td><td><a href="/signal_workbench_v580.html">/signal_workbench_v580.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,formulas,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>41</td><td>CRITICAL</td><td>core</td><td><a href="/signal_workbench_v582.html">/signal_workbench_v582.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,formulas,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>41</td><td>CRITICAL</td><td>core</td><td><a href="/trfmc_integration_control_room.html">/trfmc_integration_control_room.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,formulas,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="critical"><td>41</td><td>CRITICAL</td><td>microwave</td><td><a href="/sapienza_master_template_doctrine_v85a.html">/sapienza_master_template_doctrine_v85a.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>41</td><td>CRITICAL</td><td>microwave</td><td><a href="/uav_fhss_v584.html">/uav_fhss_v584.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>45</td><td>CRITICAL</td><td>antenna</td><td><a href="/infrastructure_digital_twin_v63.html">/infrastructure_digital_twin_v63.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>45</td><td>CRITICAL</td><td>microwave</td><td><a href="/executive_mission_dashboard_v40.html">/executive_mission_dashboard_v40.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,canvas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>47</td><td>CRITICAL</td><td>antenna</td><td><a href="/field_engineering_mode_v64.html">/field_engineering_mode_v64.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>47</td><td>CRITICAL</td><td>microwave</td><td><a href="/executive_mission_dashboard_v_next.html">/executive_mission_dashboard_v_next.html</a></td><td>design_tokens,visual_xp,gpu_runtime,asset_engine,soul_runtime,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>61</td><td>CRITICAL</td><td>antenna</td><td><a href="/trfmc_expansion_hub_v1.html">/trfmc_expansion_hub_v1.html</a></td><td>visual_xp,gpu_runtime,asset_engine,soul_runtime,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html">/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">/trfmc_5g_core_ran_identity_aka_engine_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_converged_rf_5g_noc_v1.html">/trfmc_converged_rf_5g_noc_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_core_network_live_ops_bridge_v1.html">/trfmc_core_network_live_ops_bridge_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_design_token_audit_v86f.html">/trfmc_design_token_audit_v86f.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_domain_registry_v1.html">/trfmc_domain_registry_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_enterprise_prime_portal_v1.html">/trfmc_enterprise_prime_portal_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_first_promotion_batch_v87a.html">/trfmc_first_promotion_batch_v87a.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_home.html">/trfmc_home.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_home_v87g.html">/trfmc_home_v87g.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_measurement_chain_dsp_engine_v2.html">/trfmc_measurement_chain_dsp_engine_v2.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_measurement_chain_dsp_engine_v3.html">/trfmc_measurement_chain_dsp_engine_v3.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_performance_gpu_gate_v86b.html">/trfmc_performance_gpu_gate_v86b.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_performance_gpu_gate_v86b_r1.html">/trfmc_performance_gpu_gate_v86b_r1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_pr200_field_monitoring_receiver_v1.html">/trfmc_pr200_field_monitoring_receiver_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_realtime_fft_gapless_receiver_lab_v1.html">/trfmc_realtime_fft_gapless_receiver_lab_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_rf_tm_signal_universe_v3.html">/trfmc_rf_tm_signal_universe_v3.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_rf_tm_war_room_v4.html">/trfmc_rf_tm_war_room_v4.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_signal_world_engine_v2.html">/trfmc_signal_world_engine_v2.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">/trfmc_wifi_5_6_7_8_qam_engine_v1.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/webgl_rf_heatmap_engine_v66.html">/webgl_rf_heatmap_engine_v66.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/webgl_rf_heatmap_engine_v67.html">/webgl_rf_heatmap_engine_v67.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/webgl_rf_heatmap_engine_v68.html">/webgl_rf_heatmap_engine_v68.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">/webgl_rf_heatmap_engine_v68_surgical_v81.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/webgl_rf_heatmap_engine_v69.html">/webgl_rf_heatmap_engine_v69.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>65</td><td>CRITICAL</td><td>microwave</td><td><a href="/webgl_rf_heatmap_engine_v82_native_lab.html">/webgl_rf_heatmap_engine_v82_native_lab.html</a></td><td>design_tokens,asset_engine,kpi,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>69</td><td>CRITICAL</td><td>antenna</td><td><a href="/rf_telco_knowledge_modules_v61.html">/rf_telco_knowledge_modules_v61.html</a></td><td>design_tokens,asset_engine,canvas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="critical"><td>69</td><td>CRITICAL</td><td>microwave</td><td><a href="/rf_instrumentation_signal_cockpit_v38.html">/rf_instrumentation_signal_cockpit_v38.html</a></td><td>design_tokens,asset_engine,canvas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="critical"><td>69</td><td>CRITICAL</td><td>microwave</td><td><a href="/rf_telco_visual_cockpit_v36.html">/rf_telco_visual_cockpit_v36.html</a></td><td>design_tokens,asset_engine,canvas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/rf_sapienza_console_v84b.html">/rf_sapienza_console_v84b.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/rf_sapienza_console_v84c.html">/rf_sapienza_console_v84c.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/rf_sapienza_console_v84d.html">/rf_sapienza_console_v84d.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/rf_sapienza_console_v84e.html">/rf_sapienza_console_v84e.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/rf_sapienza_console_v84j.html">/rf_sapienza_console_v84j.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_3d_rf_asset_renderer_lab_v1.html">/trfmc_3d_rf_asset_renderer_lab_v1.html</a></td><td>design_tokens,asset_engine,formulas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v1.html">/trfmc_antenna_system_explorer_v1.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v12_operativo.html">/trfmc_antenna_system_explorer_v12_operativo.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v13_premium.html">/trfmc_antenna_system_explorer_v13_premium.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_mission_control_home_v87b.html">/trfmc_mission_control_home_v87b.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_rf_antenna_academy_wall_v2_premium.html">/trfmc_rf_antenna_academy_wall_v2_premium.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_rf_antenna_theory_engine_v1.html">/trfmc_rf_antenna_theory_engine_v1.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_theory_spine_v86e.html">/trfmc_theory_spine_v86e.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_physics_sapienza_console_v86a.html">/rf_physics_sapienza_console_v86a.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84f.html">/rf_sapienza_console_v84f.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84g.html">/rf_sapienza_console_v84g.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84h.html">/rf_sapienza_console_v84h.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84i.html">/rf_sapienza_console_v84i.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84k.html">/rf_sapienza_console_v84k.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84m.html">/rf_sapienza_console_v84m.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html">/trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html</a></td><td>design_tokens,asset_engine,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html">/trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html</a></td><td>design_tokens,asset_engine,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_portal_registry_v86c.html">/trfmc_portal_registry_v86c.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_portal_registry_v86c_r1.html">/trfmc_portal_registry_v86c_r1.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_rf_metrology_calibration_lab_v1.html">/trfmc_rf_metrology_calibration_lab_v1.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_rf_microwave_engineering_v1.html">/trfmc_rf_microwave_engineering_v1.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_rf_spectrum_lab_v1.html">/trfmc_rf_spectrum_lab_v1.html</a></td><td>design_tokens,asset_engine,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v83.html">/webgl_rf_physics_engine_v83.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v83b.html">/webgl_rf_physics_engine_v83b.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v83c.html">/webgl_rf_physics_engine_v83c.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v83d.html">/webgl_rf_physics_engine_v83d.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v83e.html">/webgl_rf_physics_engine_v83e.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v83f.html">/webgl_rf_physics_engine_v83f.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v85b_sapienza_baseline.html">/webgl_rf_physics_engine_v85b_sapienza_baseline.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v85c_sapienza_identity.html">/webgl_rf_physics_engine_v85c_sapienza_identity.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v85d_runtime_identity_lock.html">/webgl_rf_physics_engine_v85d_runtime_identity_lock.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">/webgl_rf_physics_engine_v85e_viewport_discipline.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>71</td><td>WEAK</td><td>microwave</td><td><a href="/webgl_rf_tm_supreme_console_v84a.html">/webgl_rf_tm_supreme_console_v84a.html</a></td><td>design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/rf_telco_knowledge_os_v60.html">/rf_telco_knowledge_os_v60.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html">/trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v14_instrument_grade.html">/trfmc_antenna_system_explorer_v14_instrument_grade.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v15_instrument_center.html">/trfmc_antenna_system_explorer_v15_instrument_center.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v16_metrology_premium.html">/trfmc_antenna_system_explorer_v16_metrology_premium.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v16r1_visible_antenna.html">/trfmc_antenna_system_explorer_v16r1_visible_antenna.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html">/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html">/trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>core</td><td><a href="/trfmc_signal_intelligence_center_v1.html">/trfmc_signal_intelligence_center_v1.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:core-map</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>microwave</td><td><a href="/rf_sapienza_console_v84l.html">/rf_sapienza_console_v84l.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_engine_promotion_board_v1.html">/trfmc_engine_promotion_board_v1.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>77</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_master_digital_twin_console_v1.html">/trfmc_master_digital_twin_console_v1.html</a></td><td>design_tokens,asset_engine,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>79</td><td>WEAK</td><td>antenna</td><td><a href="/trfmc_fiber_fronthaul_otdr_workbench_v1.html">/trfmc_fiber_fronthaul_otdr_workbench_v1.html</a></td><td>asset_engine,formulas,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="weak"><td>79</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_cyber_rf_intelligence_evidence_v1.html">/trfmc_cyber_rf_intelligence_evidence_v1.html</a></td><td>asset_engine,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>79</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_datacenter_power_pdu_infrastructure_v1.html">/trfmc_datacenter_power_pdu_infrastructure_v1.html</a></td><td>asset_engine,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="weak"><td>79</td><td>WEAK</td><td>microwave</td><td><a href="/trfmc_private_networks_wifi7_5g_mesh_v1.html">/trfmc_private_networks_wifi7_5g_mesh_v1.html</a></td><td>asset_engine,formulas,required_assets,missing_domain_assets:microwave-dish,smith-chart</td></tr>
+<tr class="good"><td>85</td><td>GOOD</td><td>antenna</td><td><a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html">/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html</a></td><td>asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="good"><td>85</td><td>GOOD</td><td>antenna</td><td><a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v2.html">/trfmc_antenna_rru_ret_cpri_port_mapping_v2.html</a></td><td>asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="good"><td>85</td><td>GOOD</td><td>antenna</td><td><a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v3.html">/trfmc_antenna_rru_ret_cpri_port_mapping_v3.html</a></td><td>asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="good"><td>85</td><td>GOOD</td><td>antenna</td><td><a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html">/trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html</a></td><td>asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr>
+<tr class="good"><td>85</td><td>GOOD</td><td>antenna</td><td><a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html">/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html</a></td><td>asset_engine,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</td></tr></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Perfection Authority V1</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> gpu-runtime · asset-engine</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>
