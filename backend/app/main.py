@@ -29,6 +29,9 @@ from app.domains.evidence.api import router as evidence_router
 from app.domains.restricted.api import router as restricted_router
 from app.persistence.api import router as persistence_router
 from app.domains.time_cursor.api import router as time_cursor_router
+from app.domains.uav.api import router as uav_router
+from app.domains.core_network.api import router as core_network_router
+from app.domains.autonomous_vehicles.api import router as autonomous_vehicles_router
 
 bootstrap_database()
 
@@ -75,6 +78,9 @@ app.include_router(evidence_router)
 app.include_router(restricted_router)
 app.include_router(persistence_router)
 app.include_router(time_cursor_router)
+app.include_router(uav_router)
+app.include_router(core_network_router)
+app.include_router(autonomous_vehicles_router)
 app.include_router(observability_router)
 app.include_router(timeline_router)
 app.include_router(correlation_router)
