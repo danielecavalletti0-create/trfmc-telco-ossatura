@@ -137,6 +137,34 @@ class LatencyTracker {
   }
 }
 
+const sharedWorkerUrl = new URL('../rtStreamWorker.ts', import.meta.url)
+let sharedWorker: SharedWorker | null = null
+let sharedPort: MessagePort | null = null
+let sharedWorkerHasConnected = false
+
+function createSharedWorkerPort(onEvent: (event: any) => void) {
+  if (typeof SharedWorker === 'undefined') return null
+
+  if (!sharedWorker) {
+    sharedWorker = new SharedWorker(sharedWorkerUrl, { type: 'module' })
+  }
+
+  const port = sharedWorker.port
+  port.start()
+  port.onmessage = (event) => onEvent(event.data)
+  port.onerror = (event) => console.warn('[RTStreamStore] shared worker error', event)
+  sharedPort = port
+  return port
+}
+
+function closeSharedWorkerPort() {
+  if (sharedPort) {
+    sharedPort.close()
+    sharedPort = null
+    sharedWorkerHasConnected = false
+  }
+}
+
 interface RtStreamState {
   messages: StreamMessage[]
   wsState: WsState
@@ -239,6 +267,47 @@ export const useRtStreamStore = create<RtStreamState>((set, get) => {
 
       set({ wsState: 'CONNECTING' })
 
+      const useSharedWorker = typeof SharedWorker !== 'undefined'
+      if (useSharedWorker) {
+        const port = createSharedWorkerPort((event) => {
+          if (event?.type === 'status') {
+            set({ wsState: event.status })
+            if (event.status === 'ERROR' || event.status === 'CLOSED') {
+              set((state) => ({
+                metrics: {
+                  ...state.metrics,
+                  last_error: event.reason ?? state.metrics.last_error,
+                  last_error_time: event.reason ? Date.now() : state.metrics.last_error_time
+                }
+              }))
+            }
+          }
+
+          if (event?.type === 'message') {
+            get().addMessage({
+              type: typeof event.payload?.type === 'string' ? event.payload.type : 'stream',
+              data: event.payload
+            })
+          }
+
+          if (event?.type === 'error') {
+            set((state) => ({
+              metrics: {
+                ...state.metrics,
+                last_error: event.error,
+                last_error_time: Date.now()
+              }
+            }))
+          }
+        })
+
+        if (port) {
+          sharedWorkerHasConnected = true
+          port.postMessage({ type: 'connect', url })
+          return
+        }
+      }
+
       try {
         const ws = new WebSocket(url)
 
@@ -314,6 +383,10 @@ export const useRtStreamStore = create<RtStreamState>((set, get) => {
       if (state._ws) {
         state._ws.close()
         set({ _ws: null })
+      }
+      if (sharedWorkerHasConnected && sharedPort) {
+        sharedPort.postMessage({ type: 'disconnect' })
+        closeSharedWorkerPort()
       }
       if (state._reconnectTimer) {
         clearTimeout(state._reconnectTimer)

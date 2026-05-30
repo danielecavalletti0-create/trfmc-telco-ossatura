@@ -30,6 +30,18 @@ import { PortalOSRoot } from '../portal-os/PortalOSRoot'
 import { portalOSModules } from '../portal-os/portalManifest'
 import { useRtStreamStore } from '../stores/rtStreamStore'
 import { useAppStateStore, type SectionId } from '../stores/appStateStore'
+import { OfflineService } from '../offlineService'
+
+async function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    try {
+      await navigator.serviceWorker.register('/sw.js')
+      console.info('[SW] registered /sw.js')
+    } catch (error) {
+      console.warn('[SW] registration failed', error)
+    }
+  }
+}
 
 type AnyObj = Record<string, any>
 
@@ -174,6 +186,11 @@ function App() {
   }
 
   React.useEffect(() => {
+    registerServiceWorker()
+    OfflineService.init().catch((error) => {
+      console.warn('[OfflineService] init failed', error)
+    })
+
     load().catch(e => {
       setErr(String(e))
       setLoading(false)
