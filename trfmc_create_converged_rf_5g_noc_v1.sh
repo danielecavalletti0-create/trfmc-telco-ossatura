@@ -1,0 +1,918 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+BASE="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
+PUBLIC="$BASE/frontend/public"
+TS="$(date +%Y%m%d_%H%M%S)"
+
+echo "============================================================"
+echo "TRFMC CONVERGED RF + 5G NOC V1"
+echo "RF/TM · HACKRF-READY · OPEN5GS · UERANSIM · SUPI/SUCI · AKA"
+echo "============================================================"
+date
+echo "BASE=$BASE"
+echo "PUBLIC=$PUBLIC"
+
+mkdir -p "$PUBLIC" "$BASE/runtime/engines"
+
+PAGE="$PUBLIC/trfmc_converged_rf_5g_noc_v1.html"
+
+if [ -f "$PAGE" ]; then
+  cp -a "$PAGE" "$PAGE.bak_$TS"
+fi
+
+cat > "$PAGE" <<'HTML'
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Converged RF + 5G NOC V1</title>
+<style>
+:root{
+  --bg:#01040c;
+  --panel:rgba(5,13,30,.93);
+  --glass:rgba(255,255,255,.045);
+  --line:rgba(105,190,255,.30);
+  --text:#eaf3ff;
+  --muted:#90a9c7;
+  --cyan:#74dcff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --red:#ff8585;
+  --violet:#bda7ff;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(48,132,255,.34),transparent 31%),
+    radial-gradient(circle at 88% 4%,rgba(0,255,205,.16),transparent 31%),
+    radial-gradient(circle at 52% 112%,rgba(170,90,255,.18),transparent 34%),
+    linear-gradient(180deg,#01040c,#061327 52%,#01040c);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.95),rgba(0,0,0,.10));
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:30;
+  border-bottom:1px solid var(--line);
+  background:rgba(1,4,12,.88);
+  backdrop-filter:blur(22px);
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:14px 18px 10px;
+}
+.brand h1{
+  margin:0;
+  font-size:20px;
+  text-transform:uppercase;
+  letter-spacing:.10em;
+}
+.brand small{
+  display:block;
+  color:var(--muted);
+  margin-top:3px;
+}
+.nav{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.nav a,.pill{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+}
+.pill.ok{
+  color:var(--green);
+  border-color:rgba(157,255,199,.55);
+}
+.bus{
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:7px;
+  padding:0 18px 12px;
+}
+.bus div{
+  border:1px solid rgba(105,190,255,.22);
+  background:rgba(255,255,255,.035);
+  border-radius:13px;
+  padding:8px 9px;
+}
+.bus b{display:block;font-size:11px}
+.bus span{color:var(--muted);font-size:10px}
+main{padding:16px}
+.grid{
+  display:grid;
+  grid-template-columns:330px minmax(760px,1fr) 390px;
+  gap:14px;
+}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),rgba(2,8,20,.94));
+  border-radius:22px;
+  box-shadow:0 22px 78px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.055);
+}
+.left,.center,.right{padding:14px}
+.left,.right{display:grid;gap:11px;align-content:start}
+.rackTitle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.rackTitle h2{
+  margin:0;
+  color:var(--cyan);
+  font-size:17px;
+}
+.badge{
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--cyan);
+  padding:5px 8px;
+  font-size:10px;
+}
+.block{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:11px;
+}
+.block h3{
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:13px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+.control{margin-top:8px}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:11px;
+}
+input[type=range],select{
+  width:100%;
+  margin-top:6px;
+}
+select{
+  background:#071326;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:8px;
+  border-radius:10px;
+  font-size:12px;
+}
+.modeGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.modeGrid button{
+  border:1px solid rgba(105,190,255,.22);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  border-radius:12px;
+  padding:8px;
+  cursor:pointer;
+  font-size:11px;
+}
+.modeGrid button.active,
+.modeGrid button:hover{
+  border-color:rgba(116,220,255,.80);
+  background:linear-gradient(135deg,rgba(45,132,255,.22),rgba(0,255,205,.09));
+}
+.centerHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  margin-bottom:10px;
+}
+.centerHead h2{
+  margin:0;
+  font-size:29px;
+  letter-spacing:-.035em;
+}
+.centerHead p{
+  margin:5px 0 0;
+  color:var(--muted);
+  line-height:1.42;
+  max-width:980px;
+}
+.kpiStrip{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:8px;
+  margin-bottom:10px;
+}
+.kpi{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:9px;
+}
+.kpi b{
+  display:block;
+  font-size:16px;
+}
+.kpi span{
+  color:var(--muted);
+  font-size:10px;
+}
+.canvasFrame{
+  border:1px solid rgba(105,190,255,.26);
+  background:rgba(255,255,255,.022);
+  border-radius:20px;
+  overflow:hidden;
+}
+.canvasTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 10px;
+  color:var(--muted);
+  font-size:11px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+canvas{
+  width:100%;
+  display:block;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(24,82,150,.16),transparent 42%),
+    linear-gradient(180deg,rgba(255,255,255,.032),rgba(255,255,255,.010));
+}
+#nocCanvas{height:600px}
+.matrix{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.card{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:11px;
+}
+.card b{display:block;font-size:13px}
+.card span,.card p{color:var(--muted);font-size:12px;line-height:1.4}
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+.table th,.table td{
+  padding:7px 8px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-size:11px;
+  text-align:left;
+  vertical-align:top;
+}
+.table th{color:var(--cyan)}
+.meter{
+  height:9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:7px;
+}
+.meter i{
+  display:block;
+  height:100%;
+  width:50%;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+}
+.eventLog{
+  max-height:290px;
+  overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:11px;
+  color:#c0d5ee;
+}
+.eventLog div{
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.stepList{
+  display:grid;
+  gap:6px;
+}
+.step{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.035);
+  border-radius:11px;
+  padding:7px 8px;
+  color:var(--muted);
+  font-size:11px;
+}
+.step.active{
+  border-color:rgba(157,255,199,.50);
+  color:var(--text);
+  background:rgba(157,255,199,.075);
+}
+@media(max-width:1550px){
+  .grid{grid-template-columns:320px 1fr}
+  .right{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:1100px){
+  .grid,.right,.matrix,.bus,.kpiStrip{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>TRFMC Converged RF + 5G NOC V1</h1>
+      <small>RF/TM · HackRF-ready · Open5GS · UERANSIM · SUPI/SUCI · AKA · NAS · NGAP/PFCP/GTP-U</small>
+    </div>
+    <nav class="nav">
+      <span class="pill ok" id="healthPill">Health: checking</span>
+      <a href="/trfmc_unified_navigation_shell_v1.html">Unified Shell</a>
+      <a href="/trfmc_rf_tm_war_room_v4.html">RF/TM War Room</a>
+      <a href="/trfmc_master_digital_twin_console_v1.html">Master</a>
+      <a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>
+      <a href="/trfmc_collaudo_report.html">Collaudo</a>
+    </nav>
+  </div>
+
+  <section class="bus">
+    <div><b>HackRF/SDR</b><span>IQ · FFT · waterfall</span></div>
+    <div><b>RF Receiver</b><span>LNA · mixer · ADC</span></div>
+    <div><b>gNB</b><span>UERANSIM RAN</span></div>
+    <div><b>UE</b><span>SUPI/SUCI</span></div>
+    <div><b>AMF</b><span>NAS · NGAP</span></div>
+    <div><b>AUSF</b><span>AKA anchor</span></div>
+    <div><b>UDM/ARPF</b><span>subscriber data</span></div>
+    <div><b>SMF</b><span>PDU session</span></div>
+    <div><b>UPF</b><span>GTP-U tunnel</span></div>
+    <div><b>DN</b><span>data network</span></div>
+  </section>
+</header>
+
+<main>
+  <section class="grid">
+    <aside class="panel left">
+      <div class="rackTitle">
+        <h2>Control Plane</h2>
+        <span class="badge">LAB</span>
+      </div>
+
+      <div class="block">
+        <h3>RF / SDR</h3>
+        <div class="control">
+          <label>RF band <b id="rfBandText">3.5 GHz</b></label>
+          <select id="rfBand">
+            <option value="433">433 MHz · ISM</option>
+            <option value="868">868 MHz · IoT</option>
+            <option value="1800">1.8 GHz · LTE-like</option>
+            <option value="2400">2.4 GHz · WiFi</option>
+            <option value="3500" selected>3.5 GHz · 5G NR n78</option>
+            <option value="5800">5.8 GHz · WiFi/ISM</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>RF anomaly <b id="rfAnomalyText">18%</b></label>
+          <input id="rfAnomaly" type="range" min="1" max="100" value="18">
+        </div>
+        <div class="control">
+          <label>Signal density <b id="densityText">64%</b></label>
+          <input id="density" type="range" min="1" max="100" value="64">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Open5GS / UERANSIM</h3>
+        <div class="control">
+          <label>Core state <b id="coreStateText">Open5GS simulated</b></label>
+          <select id="coreState">
+            <option selected>Open5GS simulated</option>
+            <option>Open5GS log-ready</option>
+            <option>Open5GS attach replay</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>RAN state <b id="ranStateText">UERANSIM gNB+UE</b></label>
+          <select id="ranState">
+            <option selected>UERANSIM gNB+UE</option>
+            <option>UERANSIM attach replay</option>
+            <option>RAN security lab</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Identity / Security</h3>
+        <div class="control">
+          <label>Identity focus <b id="identityText">SUPI/SUCI</b></label>
+          <select id="identity">
+            <option selected>SUPI/SUCI</option>
+            <option>IMSI/SUPI mapping</option>
+            <option>SUCI concealment</option>
+            <option>5G-GUTI lifecycle</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>AKA mode <b id="akaText">5G-AKA</b></label>
+          <select id="aka">
+            <option selected>5G-AKA</option>
+            <option>EAP-AKA'</option>
+            <option>NAS security focus</option>
+            <option>Vector replay lab</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>PKI/SBI readiness <b id="pkiText">72%</b></label>
+          <input id="pki" type="range" min="1" max="100" value="72">
+        </div>
+        <div class="control">
+          <label>NAS security <b id="nasText">84%</b></label>
+          <input id="nas" type="range" min="1" max="100" value="84">
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Scenario</h3>
+        <div class="modeGrid">
+          <button data-mode="REGISTER" class="active">Register</button>
+          <button data-mode="AKA">AKA</button>
+          <button data-mode="PDU">PDU</button>
+          <button data-mode="RF-ATTACK">RF Attack</button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="panel center">
+      <div class="centerHead">
+        <div>
+          <h2>Converged RF/Telco/Cyber Mission Control</h2>
+          <p>
+            Vista unica RF + 5G: il mondo radio entra nel flusso gNB/UE/Core. 
+            Identità SUPI/SUCI, autenticazione AKA, NAS security, NGAP, PFCP, GTP-U
+            e anomalie RF sono correlati in un unico canvas operativo.
+          </p>
+        </div>
+        <span class="badge" id="modeBadge">REGISTER</span>
+      </div>
+
+      <div class="kpiStrip">
+        <div class="kpi"><b id="kRf">3.5G</b><span>RF band</span></div>
+        <div class="kpi"><b id="kSupi">SUPI</b><span>identity</span></div>
+        <div class="kpi"><b id="kSuci">SUCI</b><span>concealment</span></div>
+        <div class="kpi"><b id="kAka">5G-AKA</b><span>auth</span></div>
+        <div class="kpi"><b id="kNas">84%</b><span>NAS</span></div>
+        <div class="kpi"><b id="kPki">72%</b><span>PKI/SBI</span></div>
+        <div class="kpi"><b id="kPdu">READY</b><span>PDU</span></div>
+        <div class="kpi"><b id="kRisk">18%</b><span>RF risk</span></div>
+      </div>
+
+      <div class="canvasFrame">
+        <div class="canvasTitle"><b>RF + 5G Core/RAN Identity Graph</b><span id="readout">registration</span></div>
+        <canvas id="nocCanvas" width="1600" height="700"></canvas>
+      </div>
+
+      <div class="matrix">
+        <div class="card">
+          <b>Identity Material</b>
+          <table class="table">
+            <tr><th>Field</th><th>Lab value</th></tr>
+            <tr><td>IMSI/SUPI</td><td>imsi-001010000000001</td></tr>
+            <tr><td>SUCI</td><td>suci-0-001-01-lab-concealed</td></tr>
+            <tr><td>HNPKI</td><td>profile-a / lab PKI</td></tr>
+            <tr><td>5G-GUTI</td><td>assigned after registration</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <b>Protocol Correlation</b>
+          <table class="table">
+            <tr><th>Plane</th><th>Protocol</th></tr>
+            <tr><td>Uu/NAS</td><td>Registration / AKA / Security Mode</td></tr>
+            <tr><td>N2</td><td>NGAP gNB ⇄ AMF</td></tr>
+            <tr><td>N4</td><td>PFCP SMF ⇄ UPF</td></tr>
+            <tr><td>N3</td><td>GTP-U user-plane</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <b>Evidence Targets</b>
+          <table class="table">
+            <tr><th>Artifact</th><th>Meaning</th></tr>
+            <tr><td>PCAP</td><td>NGAP/PFCP/GTP-U capture</td></tr>
+            <tr><td>IQ</td><td>RF evidence / signal capture</td></tr>
+            <tr><td>Log</td><td>Open5GS/UERANSIM timeline</td></tr>
+            <tr><td>Report</td><td>lab-only security evidence</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel right">
+      <div class="rackTitle">
+        <h2>Security Readout</h2>
+        <span class="badge">EVIDENCE</span>
+      </div>
+
+      <div class="card">
+        <b>Call-flow Steps</b>
+        <div class="stepList" id="steps"></div>
+      </div>
+
+      <div class="card">
+        <b>AKA / Identity Score</b>
+        <span id="akaScoreText">--</span>
+        <div class="meter"><i id="akaMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>RF Anomaly Impact</b>
+        <span id="rfImpactText">--</span>
+        <div class="meter"><i id="rfMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>NAS Security Context</b>
+        <span id="nasContextText">ciphering / integrity ready</span>
+        <div class="meter"><i id="nasMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Event Stream</b>
+        <div class="eventLog" id="events"></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const canvas = $("nocCanvas");
+const ctx = canvas.getContext("2d");
+let tick = 0;
+let mode = "REGISTER";
+let currentStep = 0;
+let lastLog = 0;
+
+const steps = [
+  "RRC Setup",
+  "Initial Registration Request",
+  "SUCI/SUPI handling",
+  "AUSF/UDM authentication vector",
+  "5G-AKA challenge/response",
+  "NAS Security Mode Command",
+  "Registration Accept",
+  "PDU Session Establishment",
+  "PFCP N4 programming",
+  "GTP-U tunnel ready"
+];
+
+const nodes = [
+  {id:"RF", x:.07, y:.54, c:"cyan"},
+  {id:"HackRF", x:.16, y:.32, c:"green"},
+  {id:"UE", x:.16, y:.64, c:"cyan"},
+  {id:"gNB", x:.31, y:.50, c:"green"},
+  {id:"AMF", x:.47, y:.36, c:"cyan"},
+  {id:"AUSF", x:.62, y:.20, c:"violet"},
+  {id:"UDM/ARPF", x:.80, y:.20, c:"amber"},
+  {id:"SMF", x:.62, y:.58, c:"cyan"},
+  {id:"UPF", x:.80, y:.58, c:"green"},
+  {id:"DN", x:.93, y:.58, c:"green"}
+];
+
+function col(c){
+  return {
+    cyan:"rgba(116,220,255,.95)",
+    green:"rgba(157,255,199,.95)",
+    amber:"rgba(255,211,122,.95)",
+    violet:"rgba(189,167,255,.95)",
+    red:"rgba(255,133,133,.95)"
+  }[c] || "rgba(116,220,255,.95)";
+}
+
+function p(){
+  return {
+    rf:Number($("rfBand").value),
+    anomaly:Number($("rfAnomaly").value),
+    density:Number($("density").value),
+    pki:Number($("pki").value),
+    nas:Number($("nas").value),
+    aka:$("aka").value,
+    identity:$("identity").value
+  };
+}
+
+function bandLabel(v){
+  return v>=1000 ? (v/1000).toFixed(1)+"G" : v+"M";
+}
+
+function updateLabels(){
+  const x=p();
+  $("rfBandText").textContent = x.rf>=1000 ? (x.rf/1000).toFixed(2)+" GHz" : x.rf+" MHz";
+  $("rfAnomalyText").textContent = x.anomaly+"%";
+  $("densityText").textContent = x.density+"%";
+  $("coreStateText").textContent = $("coreState").value;
+  $("ranStateText").textContent = $("ranState").value;
+  $("identityText").textContent = x.identity;
+  $("akaText").textContent = x.aka;
+  $("pkiText").textContent = x.pki+"%";
+  $("nasText").textContent = x.nas+"%";
+
+  $("kRf").textContent = bandLabel(x.rf);
+  $("kAka").textContent = x.aka;
+  $("kNas").textContent = x.nas+"%";
+  $("kPki").textContent = x.pki+"%";
+  $("kRisk").textContent = x.anomaly+"%";
+  $("kPdu").textContent = mode==="PDU" ? "ACTIVE" : "READY";
+  $("modeBadge").textContent = mode;
+
+  const akaScore = Math.max(5, Math.min(99, Math.round((x.pki+x.nas)/2 - x.anomaly*.10)));
+  $("akaScoreText").textContent = akaScore+"% · "+x.aka+" · "+x.identity;
+  $("akaMeter").style.width = akaScore+"%";
+
+  $("rfImpactText").textContent = x.anomaly+"% · density "+x.density+"%";
+  $("rfMeter").style.width = x.anomaly+"%";
+
+  $("nasContextText").textContent = x.nas+"% · ciphering/integrity";
+  $("nasMeter").style.width = x.nas+"%";
+}
+
+function grid(w,h){
+  ctx.strokeStyle="rgba(105,190,255,.075)";
+  ctx.lineWidth=1;
+  for(let x=0;x<w;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+}
+
+function label(text,x,y,clr="rgba(234,243,255,.82)",size=12){
+  ctx.fillStyle=clr;
+  ctx.font=size+"px system-ui";
+  ctx.fillText(text,x,y);
+}
+
+function node(n,w,h){
+  const x=n.x*w, y=n.y*h;
+  ctx.shadowColor=col(n.c);
+  ctx.shadowBlur=18;
+  ctx.fillStyle=col(n.c);
+  ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+
+  ctx.strokeStyle="rgba(255,255,255,.20)";
+  ctx.beginPath();ctx.arc(x,y,25+Math.sin(tick*.05+n.x*10)*4,0,Math.PI*2);ctx.stroke();
+
+  label(n.id,x-28,y+42,"rgba(234,243,255,.86)",13);
+}
+
+function getNode(id){
+  return nodes.find(n=>n.id===id);
+}
+
+function edge(a,b,name,active=false,warning=false){
+  const w=canvas.width,h=canvas.height;
+  const A=getNode(a), B=getNode(b);
+  const ax=A.x*w, ay=A.y*h, bx=B.x*w, by=B.y*h;
+  ctx.strokeStyle = warning ? "rgba(255,133,133,.45)" : active ? "rgba(157,255,199,.75)" : "rgba(116,220,255,.18)";
+  ctx.lineWidth = active ? 2.5 : 1.3;
+  ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
+
+  if(active || warning){
+    const q = (Math.sin(tick*.06)*.5+.5);
+    const px=ax+(bx-ax)*q, py=ay+(by-ay)*q;
+    ctx.fillStyle=warning ? "rgba(255,133,133,.95)" : "rgba(255,211,122,.95)";
+    ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();
+  }
+
+  label(name,(ax+bx)/2,(ay+by)/2-8,"rgba(144,169,199,.86)",10);
+}
+
+function drawRfField(w,h){
+  const x=p();
+  const cx=.07*w, cy=.54*h;
+  const count = Math.round(6 + x.density/7);
+  for(let i=0;i<count;i++){
+    const a = i/count*Math.PI*2 + tick*.01;
+    const r = 55 + (i%5)*24 + Math.sin(tick*.04+i)*8;
+    const px = cx + Math.cos(a)*r;
+    const py = cy + Math.sin(a)*r*.62;
+    const warn = i%7===0 && x.anomaly>35;
+    ctx.strokeStyle = warn ? "rgba(255,133,133,.22)" : "rgba(116,220,255,.16)";
+    ctx.beginPath();ctx.arc(px,py,28+i%3*10,0,Math.PI*2);ctx.stroke();
+    ctx.fillStyle = warn ? "rgba(255,133,133,.92)" : "rgba(116,220,255,.80)";
+    ctx.beginPath();ctx.arc(px,py,warn?5:3.6,0,Math.PI*2);ctx.fill();
+  }
+}
+
+function drawCapsules(w,h){
+  ctx.strokeStyle="rgba(157,255,199,.30)";
+  ctx.fillStyle="rgba(157,255,199,.055)";
+  ctx.roundRect(60,50,440,130,18);ctx.fill();ctx.stroke();
+  label("Identity Plane",84,80,"rgba(157,255,199,.92)",15);
+  label("IMSI/SUPI: imsi-001010000000001",84,108);
+  label("SUCI: suci-0-001-01-lab-concealed",84,133);
+  label("5G-GUTI: assigned after registration",84,158);
+
+  ctx.strokeStyle="rgba(189,167,255,.30)";
+  ctx.fillStyle="rgba(189,167,255,.055)";
+  ctx.roundRect(w-535,50,465,130,18);ctx.fill();ctx.stroke();
+  label("Security Plane",w-508,80,"rgba(189,167,255,.92)",15);
+  label("AKA: "+$("aka").value,w-508,108);
+  label("PKI/SBI readiness: "+$("pki").value+"%",w-508,133);
+  label("NAS ciphering/integrity: "+$("nas").value+"%",w-508,158);
+}
+
+function draw(){
+  const w=canvas.width,h=canvas.height;
+  const x=p();
+  ctx.clearRect(0,0,w,h);
+  const bg=ctx.createRadialGradient(w/2,h/2,20,w/2,h/2,w*.72);
+  bg.addColorStop(0,"rgba(30,115,220,.18)");
+  bg.addColorStop(1,"rgba(255,255,255,.006)");
+  ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  grid(w,h);
+
+  drawRfField(w,h);
+
+  const s=currentStep;
+  const rfWarn = x.anomaly > 55 || mode==="RF-ATTACK";
+
+  edge("RF","HackRF","IQ/FFT",true,rfWarn);
+  edge("RF","UE","Uu influence",rfWarn,rfWarn);
+  edge("HackRF","gNB","RF observation",true,rfWarn);
+  edge("UE","gNB","RRC/Uu",s<=1,rfWarn);
+  edge("gNB","AMF","N2/NGAP",s>=1 && s<=6);
+  edge("AMF","AUSF","N12",s>=3 && s<=5);
+  edge("AUSF","UDM/ARPF","N13",s>=3 && s<=5);
+  edge("AMF","SMF","N11",s>=7);
+  edge("SMF","UPF","N4/PFCP",s>=8);
+  edge("gNB","UPF","N3/GTP-U",s>=9);
+  edge("UPF","DN","N6",s>=9);
+
+  nodes.forEach(n=>node(n,w,h));
+  drawCapsules(w,h);
+
+  label("Converged RF + 5G Core/RAN · Open5GS + UERANSIM · SUPI/SUCI · AKA · NAS · NGAP/PFCP/GTP-U",52,h-48,"rgba(255,211,122,.94)",15);
+  label("Current step: "+steps[currentStep],52,h-24,"rgba(234,243,255,.80)",13);
+
+  $("readout").textContent = steps[currentStep];
+}
+
+function renderSteps(){
+  const box=$("steps");
+  box.innerHTML="";
+  steps.forEach((s,i)=>{
+    const d=document.createElement("div");
+    d.className="step"+(i===currentStep?" active":"");
+    d.textContent=String(i+1).padStart(2,"0")+" · "+s;
+    box.appendChild(d);
+  });
+}
+
+function log(){
+  const now=Date.now();
+  if(now-lastLog<1700)return;
+  lastLog=now;
+  const row=document.createElement("div");
+  row.textContent="["+new Date().toLocaleTimeString()+"] "+mode+" · "+steps[currentStep]+" · "+$("aka").value+" · RF risk "+$("rfAnomaly").value+"%";
+  $("events").prepend(row);
+  while($("events").children.length>24)$("events").removeChild($("events").lastChild);
+}
+
+function loop(){
+  tick++;
+  if(tick%130===0) currentStep=(currentStep+1)%steps.length;
+  updateLabels();
+  renderSteps();
+  draw();
+  log();
+  requestAnimationFrame(loop);
+}
+
+async function health(){
+  try{
+    const r=await fetch("/api/health",{cache:"no-store"});
+    const j=await r.json();
+    $("healthPill").textContent=j.ok?"Health: online":"Health: degraded";
+  }catch(e){
+    $("healthPill").textContent="Health: unavailable";
+    $("healthPill").classList.remove("ok");
+  }
+}
+
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    this.beginPath();
+    this.moveTo(x+r,y);
+    this.arcTo(x+w,y,x+w,y+h,r);
+    this.arcTo(x+w,y+h,x,y+h,r);
+    this.arcTo(x,y+h,x,y,r);
+    this.arcTo(x,y,x+w,y,r);
+    return this;
+  }
+}
+
+document.querySelectorAll(".modeGrid button").forEach(b=>{
+  b.onclick=()=>{
+    mode=b.dataset.mode;
+    document.querySelectorAll(".modeGrid button").forEach(x=>x.classList.toggle("active",x===b));
+    $("modeBadge").textContent=mode;
+    if(mode==="AKA") currentStep=3;
+    if(mode==="PDU") currentStep=7;
+    if(mode==="RF-ATTACK") $("rfAnomaly").value=Math.max(Number($("rfAnomaly").value),72);
+    updateLabels();
+  };
+});
+
+["rfBand","rfAnomaly","density","coreState","ranState","identity","aka","pki","nas"].forEach(id=>{
+  $(id).addEventListener("input",updateLabels);
+});
+
+health();
+updateLabels();
+loop();
+</script>
+</body>
+</html>
+HTML
+
+echo
+echo "=== PATCH NAVIGATION LINKS ==="
+
+python3 - <<'PY'
+from pathlib import Path
+
+files = [
+    Path("frontend/public/trfmc_unified_navigation_shell_v1.html"),
+    Path("frontend/public/trfmc_master_digital_twin_console_v1.html"),
+    Path("frontend/public/trfmc_engine_promotion_board_v1.html"),
+    Path("frontend/public/trfmc_domain_registry_v1.html"),
+    Path("frontend/public/trfmc_rf_tm_war_room_v4.html"),
+    Path("frontend/public/api/portal/index"),
+]
+
+link = '<a href="/trfmc_converged_rf_5g_noc_v1.html">Converged RF+5G NOC</a>'
+li = '<li><a href="/trfmc_converged_rf_5g_noc_v1.html">TRFMC Converged RF + 5G NOC V1</a></li>'
+
+for p in files:
+    if not p.exists():
+        print("SKIP:", p)
+        continue
+    s = p.read_text(errors="ignore")
+    old = s
+
+    if "trfmc_converged_rf_5g_noc_v1.html" not in s:
+        if '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>' in s:
+            s = s.replace(
+                '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>',
+                '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>\n      ' + link,
+                1
+            )
+        elif '<a href="/trfmc_rf_tm_war_room_v4.html">RF/TM War Room V4</a>' in s:
+            s = s.replace(
+                '<a href="/trfmc_rf_tm_war_room_v4.html">RF/TM War Room V4</a>',
+                link + '\n      <a href="/trfmc_rf_tm_war_room_v4.html">RF/TM War Room V4</a>',
+                1
+            )
+        elif "<ul>" in s:
+            s = s.replace("<ul>", "<ul>\n" + li, 1)
+
+    if s != old:
+        p.write_text(s)
+        print("PATCHED:", p)
+    else:
+        print("UNCHANGED:", p)
+PY
+
+echo
+echo "=== TEST HTTP ==="
+curl -I --max-time 5 http://127.0.0.1:5173/trfmc_converged_rf_5g_noc_v1.html
+
+echo
+echo "CONVERGED RF + 5G NOC:"
+echo "http://127.0.0.1:5173/trfmc_converged_rf_5g_noc_v1.html"

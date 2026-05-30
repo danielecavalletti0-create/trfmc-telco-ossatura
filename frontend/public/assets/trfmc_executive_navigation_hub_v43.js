@@ -1,6 +1,6 @@
 (function(){
   const VERSION = "TRFMC_V0_43A_EXECUTIVE_NAVIGATION_REFINEMENT_MISSION_ENTRY_HUB";
-  const API = "http://127.0.0.1:8000/api";
+  const API = "/api";
 
   function ready(fn){
     if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);

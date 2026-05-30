@@ -1,0 +1,317 @@
+.trfmc-pos-root-v2 {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(103, 232, 249, .11), transparent 30%),
+    radial-gradient(circle at 88% 16%, rgba(134, 239, 172, .09), transparent 30%),
+    linear-gradient(135deg, #020814 0%, #04101f 55%, #01040b 100%);
+  color: #e8f7ff;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.trfmc-pos-v2-status {
+  min-height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(103, 232, 249, .18);
+  background: rgba(0, 6, 16, .90);
+}
+
+.trfmc-pos-v2-status strong {
+  display: block;
+  color: #e8f7ff;
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.trfmc-pos-v2-status span {
+  color: #9fb8ca;
+  font-size: 11px;
+}
+
+.trfmc-pos-v2-status > div:last-child {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.trfmc-pos-v2-status > div:last-child span {
+  border: 1px solid rgba(103, 232, 249, .18);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(103, 232, 249, .06);
+  color: #67e8f9;
+}
+
+.trfmc-pos-v2-layout {
+  height: calc(100vh - 56px);
+  display: grid;
+  grid-template-columns: 310px minmax(0, 1fr) 340px;
+  gap: 10px;
+  padding: 10px;
+}
+
+.trfmc-pos-v2-launcher,
+.trfmc-pos-v2-viewport,
+.trfmc-pos-v2-evidence {
+  min-height: 0;
+  border: 1px solid rgba(103, 232, 249, .16);
+  border-radius: 18px;
+  background: rgba(2, 12, 24, .72);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .32);
+}
+
+.trfmc-pos-v2-launcher,
+.trfmc-pos-v2-evidence {
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.trfmc-pos-v2-panel-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid rgba(103, 232, 249, .14);
+}
+
+.trfmc-pos-v2-panel-title span {
+  color: #67e8f9;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.trfmc-pos-v2-panel-title strong {
+  color: #86efac;
+  font-size: 14px;
+}
+
+.trfmc-pos-v2-module-list {
+  overflow: auto;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.trfmc-pos-v2-module-list button,
+.trfmc-pos-v2-domain-grid button {
+  text-align: left;
+  border: 1px solid rgba(103, 232, 249, .13);
+  border-radius: 14px;
+  background: rgba(0, 6, 16, .45);
+  color: inherit;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.trfmc-pos-v2-module-list button.is-active,
+.trfmc-pos-v2-module-list button:hover,
+.trfmc-pos-v2-domain-grid button:hover {
+  border-color: rgba(134, 239, 172, .42);
+  background: rgba(8, 47, 38, .22);
+}
+
+.trfmc-pos-v2-module-list span,
+.trfmc-pos-v2-domain-grid span,
+.trfmc-pos-v2-metrics span,
+.trfmc-pos-v2-module-grid span,
+.trfmc-pos-v2-contract span {
+  display: block;
+  color: #67e8f9;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.trfmc-pos-v2-module-list strong,
+.trfmc-pos-v2-domain-grid strong {
+  display: block;
+  margin-top: 5px;
+  color: #e8f7ff;
+  font-size: 12px;
+}
+
+.trfmc-pos-v2-module-list em,
+.trfmc-pos-v2-domain-grid em {
+  display: block;
+  margin-top: 5px;
+  color: #9fb8ca;
+  font-size: 10px;
+  font-style: normal;
+  line-height: 1.25;
+}
+
+.trfmc-pos-v2-viewport {
+  overflow: auto;
+  padding: 14px;
+}
+
+.trfmc-pos-v2-hero {
+  border: 1px solid rgba(103, 232, 249, .14);
+  border-radius: 18px;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(103, 232, 249, .12), transparent 35%),
+    linear-gradient(180deg, rgba(2, 18, 34, .75), rgba(0, 6, 16, .52));
+}
+
+.trfmc-pos-v2-hero p {
+  margin: 0 0 8px;
+  color: #67e8f9;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.trfmc-pos-v2-hero h1 {
+  margin: 0 0 8px;
+  color: #e8f7ff;
+  font-size: 32px;
+  line-height: .98;
+}
+
+.trfmc-pos-v2-hero span {
+  color: #9fb8ca;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.trfmc-pos-v2-metrics,
+.trfmc-pos-v2-module-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.trfmc-pos-v2-metrics article,
+.trfmc-pos-v2-module-grid article,
+.trfmc-pos-v2-contract {
+  border: 1px solid rgba(103, 232, 249, .13);
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(0, 6, 16, .34);
+}
+
+.trfmc-pos-v2-metrics strong,
+.trfmc-pos-v2-module-grid strong {
+  display: block;
+  margin-top: 8px;
+  color: #86efac;
+  font-size: 23px;
+  line-height: 1;
+  word-break: break-word;
+}
+
+.trfmc-pos-v2-module-grid strong {
+  color: #e8f7ff;
+  font-size: 13px;
+}
+
+.trfmc-pos-v2-metrics em,
+.trfmc-pos-v2-module-grid em {
+  display: block;
+  margin-top: 8px;
+  color: #9fb8ca;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.trfmc-pos-v2-domain-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.trfmc-pos-v2-contract {
+  margin-top: 10px;
+}
+
+.trfmc-pos-v2-contract strong {
+  display: block;
+  margin-top: 8px;
+  color: #e8f7ff;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.trfmc-pos-v2-evidence section {
+  margin: 10px;
+  border: 1px solid rgba(103, 232, 249, .13);
+  border-radius: 14px;
+  padding: 10px;
+  background: rgba(0, 6, 16, .34);
+}
+
+.trfmc-pos-v2-evidence h3 {
+  margin: 0 0 8px;
+  color: #67e8f9;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.trfmc-pos-v2-evidence p,
+.trfmc-pos-v2-evidence code {
+  color: #9fb8ca;
+  font-size: 11px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.trfmc-pos-v2-endpoint {
+  display: grid;
+  gap: 3px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(103, 232, 249, .10);
+}
+
+.trfmc-pos-v2-endpoint span {
+  color: #e8f7ff;
+  font-size: 11px;
+}
+
+.trfmc-pos-v2-endpoint strong {
+  color: #fbbf24;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.trfmc-pos-v2-endpoint.is-online strong {
+  color: #86efac;
+}
+
+.trfmc-pos-v2-endpoint.is-offline strong {
+  color: #f87171;
+}
+
+.trfmc-pos-v2-endpoint em {
+  color: #9fb8ca;
+  font-size: 9px;
+  font-style: normal;
+}
+
+@media (max-width: 1280px) {
+  .trfmc-pos-v2-layout {
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+
+  .trfmc-pos-v2-evidence {
+    display: none;
+  }
+
+  .trfmc-pos-v2-domain-grid,
+  .trfmc-pos-v2-metrics,
+  .trfmc-pos-v2-module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

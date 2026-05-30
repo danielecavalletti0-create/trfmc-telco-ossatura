@@ -1,0 +1,409 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+BASE="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
+FRONTEND="$BASE/frontend"
+PUBLIC="$FRONTEND/public"
+RUNTIME="$BASE/runtime/collaudo"
+TS="$(date +%Y%m%d_%H%M%S)"
+OUT="$RUNTIME/TRFMC_COLLAUDO_5173_$TS"
+PORTAL="http://127.0.0.1:5173"
+
+mkdir -p "$OUT"
+
+echo "============================================================"
+echo "TRFMC COLLAUDO PORTALE - SOLO PORTA 5173"
+echo "============================================================"
+date
+echo "BASE=$BASE"
+echo "FRONTEND=$FRONTEND"
+echo "PUBLIC=$PUBLIC"
+echo "OUT=$OUT"
+echo
+
+echo "=== 0) CONTROLLO CHE IL PORTALE SIA ATTIVO SU 5173 ==="
+if ! ss -ltnp | grep -q ':5173'; then
+  echo "ERRORE: il portale non risulta in ascolto su 5173."
+  echo "Avvia prima:"
+  echo "  cd $BASE && ./start_portale_5173.sh"
+  exit 1
+fi
+
+echo "OK: porta 5173 attiva"
+ss -ltnp | grep ':5173' || true
+
+echo
+echo "=== 1) SNAPSHOT SICURO PRE-COLLAUDO ==="
+FREEZE="$OUT/TRFMC_PRE_COLLAUDO_FREEZE_$TS.tar.gz"
+tar -czf "$FREEZE" \
+  --exclude='frontend/node_modules' \
+  --exclude='frontend/dist' \
+  --exclude='.venv' \
+  --exclude='runtime/collaudo' \
+  -C "$BASE" .
+ls -lh "$FREEZE"
+
+echo
+echo "=== 2) CENSIMENTO FILE HTML ==="
+python3 - <<'PY' "$BASE" "$FRONTEND" "$PUBLIC" "$OUT"
+from pathlib import Path
+import sys
+
+base = Path(sys.argv[1])
+frontend = Path(sys.argv[2])
+public = Path(sys.argv[3])
+out = Path(sys.argv[4])
+
+rows = []
+
+for p in sorted(frontend.rglob("*.html")):
+    parts = set(p.parts)
+    if "node_modules" in parts or "dist" in parts:
+        continue
+
+    try:
+        rel_front = p.relative_to(frontend)
+    except ValueError:
+        continue
+
+    # Vite serve:
+    # - file in frontend root come /nome.html
+    # - file in frontend/public come /nome.html, senza /public
+    if public in p.parents or p == public:
+        rel_pub = p.relative_to(public)
+        route = "/" + rel_pub.as_posix()
+    else:
+        route = "/" + rel_front.as_posix()
+
+    rows.append((route, str(p), p.stat().st_size))
+
+(out / "html_routes.tsv").write_text(
+    "route\tfile\tsize_bytes\n" +
+    "\n".join(f"{r}\t{f}\t{s}" for r, f, s in rows) +
+    "\n"
+)
+
+print(f"HTML trovati: {len(rows)}")
+for r, f, s in rows[:80]:
+    print(f"{r}\t{s}\t{f}")
+PY
+
+echo
+echo "=== 3) TEST HTTP DI TUTTE LE PAGINE HTML ==="
+{
+  echo -e "route\tstatus\tbytes\ttime_total\tfile"
+  tail -n +2 "$OUT/html_routes.tsv" | while IFS=$'\t' read -r route file size; do
+    url="$PORTAL$route"
+    result="$(curl -s -o /tmp/trfmc_collaudo_body.$$ -w "%{http_code}\t%{size_download}\t%{time_total}" --max-time 10 "$url" || echo -e "000\t0\t0")"
+    echo -e "$route\t$result\t$file"
+    rm -f /tmp/trfmc_collaudo_body.$$
+  done
+} | tee "$OUT/http_pages.tsv"
+
+echo
+echo "=== 4) TEST HEALTH JSON ==="
+{
+  echo "URL: $PORTAL/api/health"
+  curl -s --max-time 5 "$PORTAL/api/health" | python3 -m json.tool
+} | tee "$OUT/health.txt"
+
+echo
+echo "=== 5) ANALISI LINK, ASSET, RIFERIMENTI PROIBITI ==="
+python3 - <<'PY' "$BASE" "$FRONTEND" "$PUBLIC" "$OUT"
+from pathlib import Path
+from html.parser import HTMLParser
+from urllib.parse import urlparse, unquote
+import sys, re, json, html
+
+base = Path(sys.argv[1])
+frontend = Path(sys.argv[2])
+public = Path(sys.argv[3])
+out = Path(sys.argv[4])
+
+class Parser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.refs = []
+    def handle_starttag(self, tag, attrs):
+        d = dict(attrs)
+        for attr in ("href", "src", "poster", "data-src"):
+            if attr in d:
+                self.refs.append((tag, attr, d[attr]))
+
+def route_for_file(p: Path):
+    if public in p.parents:
+        return "/" + p.relative_to(public).as_posix()
+    return "/" + p.relative_to(frontend).as_posix()
+
+def candidates_for_ref(current_file: Path, ref: str):
+    ref = ref.strip()
+    if not ref:
+        return []
+
+    if ref.startswith(("#", "mailto:", "tel:", "javascript:", "data:", "blob:")):
+        return []
+
+    parsed = urlparse(ref)
+
+    if parsed.scheme in ("http", "https"):
+        return []
+
+    path = unquote(parsed.path)
+    if not path:
+        return []
+
+    cands = []
+
+    if path.startswith("/"):
+        clean = path.lstrip("/")
+        cands.append(public / clean)
+        cands.append(frontend / clean)
+    else:
+        cands.append((current_file.parent / path).resolve())
+        cands.append((public / path).resolve())
+        cands.append((frontend / path).resolve())
+
+    return cands
+
+html_files = []
+for p in sorted(frontend.rglob("*.html")):
+    parts = set(p.parts)
+    if "node_modules" in parts or "dist" in parts:
+        continue
+    html_files.append(p)
+
+broken = []
+external = []
+refs_rows = []
+for p in html_files:
+    text = p.read_text(errors="ignore")
+    parser = Parser()
+    parser.feed(text)
+    route = route_for_file(p)
+
+    for tag, attr, ref in parser.refs:
+        ref_s = ref.strip()
+        parsed = urlparse(ref_s)
+
+        if parsed.scheme in ("http", "https"):
+            external.append((route, tag, attr, ref_s))
+            refs_rows.append((route, tag, attr, ref_s, "EXTERNAL", ""))
+            continue
+
+        cands = candidates_for_ref(p, ref_s)
+        if not cands:
+            refs_rows.append((route, tag, attr, ref_s, "SKIP", ""))
+            continue
+
+        exists = [c for c in cands if c.exists()]
+        if exists:
+            refs_rows.append((route, tag, attr, ref_s, "OK", str(exists[0])))
+        else:
+            broken.append((route, tag, attr, ref_s, " | ".join(str(c) for c in cands)))
+            refs_rows.append((route, tag, attr, ref_s, "BROKEN", " | ".join(str(c) for c in cands)))
+
+# riferimenti proibiti / pericolosi
+bad_patterns = [
+    ("PORTA_8000", re.compile(r"127\.0\.0\.1:8000|localhost:8000")),
+    ("PORTA_5174", re.compile(r"127\.0\.0\.1:5174|localhost:5174")),
+    ("RUNTIME_ROOT_ASSOLUTO", re.compile(r"['\"]?/runtime/")),
+    ("CDN_REMOTO", re.compile(r"https?://(?:cdn\.|unpkg\.com|cdnjs\.cloudflare\.com|jsdelivr\.net|esm\.sh|fonts\.googleapis\.com|fonts\.gstatic\.com)")),
+]
+
+bad_rows = []
+scan_exts = {".html", ".js", ".css", ".ts", ".tsx", ".jsx", ".json", ".mjs"}
+for p in sorted(frontend.rglob("*")):
+    if not p.is_file():
+        continue
+    parts = set(p.parts)
+    if "node_modules" in parts or "dist" in parts:
+        continue
+    if p.suffix.lower() not in scan_exts:
+        continue
+    txt = p.read_text(errors="ignore")
+    rel = p.relative_to(frontend).as_posix()
+    for name, rx in bad_patterns:
+        for i, line in enumerate(txt.splitlines(), 1):
+            if rx.search(line):
+                bad_rows.append((name, rel, i, line.strip()[:300]))
+
+(out / "refs_all.tsv").write_text(
+    "page\ttag\tattr\tref\tstatus\tresolved\n" +
+    "\n".join("\t".join(map(str, r)) for r in refs_rows) +
+    "\n"
+)
+
+(out / "broken_assets.tsv").write_text(
+    "page\ttag\tattr\tref\tcandidates\n" +
+    "\n".join("\t".join(map(str, r)) for r in broken) +
+    "\n"
+)
+
+(out / "external_refs.tsv").write_text(
+    "page\ttag\tattr\tref\n" +
+    "\n".join("\t".join(map(str, r)) for r in external) +
+    "\n"
+)
+
+(out / "forbidden_refs.tsv").write_text(
+    "type\tfile\tline\tcontent\n" +
+    "\n".join("\t".join(map(str, r)) for r in bad_rows) +
+    "\n"
+)
+
+summary = {
+    "html_files": len(html_files),
+    "total_refs": len(refs_rows),
+    "broken_refs": len(broken),
+    "external_refs": len(external),
+    "forbidden_refs": len(bad_rows),
+}
+
+(out / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False))
+
+# Report HTML
+def esc(x): return html.escape(str(x))
+
+http_rows = []
+http_tsv = out / "http_pages.tsv"
+if http_tsv.exists():
+    lines = http_tsv.read_text(errors="ignore").splitlines()
+    for line in lines[1:]:
+        cols = line.split("\t")
+        if len(cols) >= 5:
+            http_rows.append(cols[:5])
+
+def table(headers, rows, limit=500):
+    h = "".join(f"<th>{esc(x)}</th>" for x in headers)
+    body = []
+    for row in rows[:limit]:
+        body.append("<tr>" + "".join(f"<td>{esc(x)}</td>" for x in row) + "</tr>")
+    return f"<table><thead><tr>{h}</tr></thead><tbody>{''.join(body)}</tbody></table>"
+
+bad_http = [r for r in http_rows if len(r) > 1 and r[1] != "200"]
+broken_rows = list(broken)
+forbidden_rows = list(bad_rows)
+
+report = f"""<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>TRFMC Collaudo Portale 5173</title>
+<style>
+body {{
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #050812;
+  color: #eaf2ff;
+}}
+header {{
+  padding: 28px 36px;
+  background: linear-gradient(135deg, #10182f, #07101f);
+  border-bottom: 1px solid rgba(120,180,255,.25);
+}}
+h1 {{ margin: 0 0 8px; font-size: 30px; }}
+h2 {{ margin-top: 32px; color: #9ed0ff; }}
+main {{ padding: 28px 36px 60px; }}
+.grid {{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 16px;
+}}
+.card {{
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(130,180,255,.22);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 0 28px rgba(0,120,255,.08);
+}}
+.kpi {{
+  font-size: 32px;
+  font-weight: 800;
+}}
+.ok {{ color: #9cffc7; }}
+.warn {{ color: #ffd37a; }}
+.bad {{ color: #ff8e8e; }}
+table {{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(130,180,255,.18);
+}}
+th, td {{
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13px;
+}}
+th {{ color: #9ed0ff; background: rgba(80,130,220,.14); }}
+code {{
+  background: rgba(255,255,255,.08);
+  padding: 2px 5px;
+  border-radius: 5px;
+}}
+a {{ color: #9ed0ff; }}
+</style>
+</head>
+<body>
+<header>
+  <h1>TRFMC — Collaudo Portale 5173</h1>
+  <div>Report generato da <code>trfmc_collaudo_portale_5173.sh</code></div>
+  <div>Portale ufficiale: <a href="http://127.0.0.1:5173">http://127.0.0.1:5173</a></div>
+</header>
+<main>
+  <div class="grid">
+    <div class="card"><div>HTML</div><div class="kpi">{summary["html_files"]}</div></div>
+    <div class="card"><div>Reference totali</div><div class="kpi">{summary["total_refs"]}</div></div>
+    <div class="card"><div>Asset/link rotti</div><div class="kpi {'ok' if summary["broken_refs"] == 0 else 'bad'}">{summary["broken_refs"]}</div></div>
+    <div class="card"><div>Reference esterni</div><div class="kpi {'ok' if summary["external_refs"] == 0 else 'warn'}">{summary["external_refs"]}</div></div>
+    <div class="card"><div>Riferimenti proibiti</div><div class="kpi {'ok' if summary["forbidden_refs"] == 0 else 'bad'}">{summary["forbidden_refs"]}</div></div>
+  </div>
+
+  <h2>Pagine HTTP non OK</h2>
+  {table(["route", "status", "bytes", "time", "file"], bad_http) if bad_http else '<p class="ok">Tutte le pagine censite rispondono HTTP 200.</p>'}
+
+  <h2>Asset/link interni rotti</h2>
+  {table(["page", "tag", "attr", "ref", "candidates"], broken_rows) if broken_rows else '<p class="ok">Nessun asset/link interno rotto rilevato.</p>'}
+
+  <h2>Riferimenti proibiti o da bonificare</h2>
+  {table(["type", "file", "line", "content"], forbidden_rows) if forbidden_rows else '<p class="ok">Nessun riferimento proibito rilevato.</p>'}
+
+  <h2>Tutte le pagine testate</h2>
+  {table(["route", "status", "bytes", "time", "file"], http_rows)}
+</main>
+</body>
+</html>
+"""
+
+(out / "trfmc_collaudo_report.html").write_text(report)
+(public / "trfmc_collaudo_report.html").write_text(report)
+
+print(json.dumps(summary, indent=2, ensure_ascii=False))
+PY
+
+echo
+echo "=== 6) REPORT SINTETICO ==="
+cat "$OUT/summary.json" | python3 -m json.tool
+
+echo
+echo "=== 7) PAGINE NON 200 ==="
+awk -F'\t' 'NR==1 || $2!="200" {print}' "$OUT/http_pages.tsv" | column -t -s $'\t' || true
+
+echo
+echo "=== 8) ASSET / LINK ROTTI ==="
+column -t -s $'\t' "$OUT/broken_assets.tsv" | sed -n '1,120p' || true
+
+echo
+echo "=== 9) RIFERIMENTI PROIBITI ==="
+column -t -s $'\t' "$OUT/forbidden_refs.tsv" | sed -n '1,160p' || true
+
+echo
+echo "============================================================"
+echo "REPORT COMPLETO:"
+echo "$OUT"
+echo
+echo "REPORT HTML NEL PORTALE:"
+echo "$PORTAL/trfmc_collaudo_report.html"
+echo "============================================================"

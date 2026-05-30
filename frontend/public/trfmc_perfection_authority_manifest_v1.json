@@ -1,0 +1,20 @@
+{
+  "id": "TRFMC_PERFECTION_AUTHORITY_V1",
+  "generated": "2026-05-23T20:28:17.869506+00:00",
+  "score_model": {
+    "external_refs": "must be zero",
+    "iframe_refs": "must be zero",
+    "design_tokens": "mandatory for premium",
+    "gpu_runtime": "mandatory for premium",
+    "asset_engine": "mandatory for domain reality",
+    "soul_runtime": "mandatory for mission continuity",
+    "formulas_kpi": "mandatory for engineering credibility",
+    "domain_assets": "mandatory for visual consistency"
+  },
+  "reports": {
+    "summary": "runtime/quality/latest_perfection_authority_v1/summary.json",
+    "scorecard": "runtime/quality/latest_perfection_authority_v1/page_scorecard.tsv",
+    "domain_summary": "runtime/quality/latest_perfection_authority_v1/domain_summary.tsv",
+    "backlog": "runtime/quality/latest_perfection_authority_v1/PERFECTION_BACKLOG.md"
+  }
+}

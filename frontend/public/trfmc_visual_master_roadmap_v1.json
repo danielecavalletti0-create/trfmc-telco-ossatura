@@ -1,0 +1,201 @@
+{
+  "timestamp": "2026-05-23T18:20:40.921362+00:00",
+  "policy": "Visual Master Preview only. V6R3 remains official. No iframe. No CDN. No shell promotion.",
+  "official_shell": "/trfmc_official_safe_entrypoint_v6r3_command_center.html",
+  "preview": "/trfmc_visual_master_preview_v1.html",
+  "counts": {
+    "total_targets": 17,
+    "existing": 11,
+    "missing_to_build": 6,
+    "registry_present": 10
+  },
+  "modules": [
+    {
+      "id": "official_v6r3",
+      "area": "00 Governance",
+      "title": "V6R3 Official Command Center",
+      "url": "/trfmc_official_safe_entrypoint_v6r3_command_center.html",
+      "status": "LOCKED_BASELINE",
+      "priority": 100,
+      "exists": true,
+      "size": 12831,
+      "registry_present": true
+    },
+    {
+      "id": "control_room",
+      "area": "00 Governance",
+      "title": "Integration Control Room",
+      "url": "/trfmc_integration_control_room.html",
+      "status": "ACTIVE",
+      "priority": 98,
+      "exists": true,
+      "size": 12908,
+      "registry_present": true
+    },
+    {
+      "id": "control_room_v2",
+      "area": "00 Governance",
+      "title": "Integration Control Room V2 Preview",
+      "url": "/trfmc_integration_control_room_v2.html",
+      "status": "ACTIVE_PREVIEW",
+      "priority": 97,
+      "exists": true,
+      "size": 3860,
+      "registry_present": false
+    },
+    {
+      "id": "visual_donor",
+      "area": "01 Visual Twin",
+      "title": "3D RF Asset Renderer WebGL V2R2 Reality",
+      "url": "/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html",
+      "status": "VISUAL_DONOR",
+      "priority": 96,
+      "exists": true,
+      "size": 49230,
+      "registry_present": true
+    },
+    {
+      "id": "rf_physics",
+      "area": "02 RF Physics",
+      "title": "WebGL RF Physics Engine V85E",
+      "url": "/webgl_rf_physics_engine_v85e_viewport_discipline.html",
+      "status": "ACTIVE_LEAF",
+      "priority": 94,
+      "exists": true,
+      "size": 10040,
+      "registry_present": true
+    },
+    {
+      "id": "signal_intelligence",
+      "area": "03 Signal Analyzer",
+      "title": "Signal Intelligence Center",
+      "url": "/trfmc_signal_intelligence_center_v1.html",
+      "status": "ACTIVE_LEAF_OR_CHECK",
+      "priority": 92,
+      "exists": true,
+      "size": 23055,
+      "registry_present": true
+    },
+    {
+      "id": "rf_metrology",
+      "area": "04 RF Microwave Engineering",
+      "title": "RF Metrology Calibration Lab",
+      "url": "/trfmc_rf_metrology_calibration_lab_v1.html",
+      "status": "ACTIVE_LEAF_OR_CHECK",
+      "priority": 90,
+      "exists": true,
+      "size": 26568,
+      "registry_present": true
+    },
+    {
+      "id": "smith_microwave",
+      "area": "04 RF Microwave Engineering",
+      "title": "RF Microwave / Smith Chart Lab",
+      "url": "/trfmc_rf_microwave_engineering_v1.html",
+      "status": "ACTIVE_LEAF_OR_CHECK",
+      "priority": 88,
+      "exists": true,
+      "size": 24695,
+      "registry_present": true
+    },
+    {
+      "id": "antenna_system",
+      "area": "05 Antenna System",
+      "title": "Antenna System Explorer",
+      "url": "/trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html",
+      "status": "ACTIVE_LEAF_OR_CHECK",
+      "priority": 86,
+      "exists": true,
+      "size": 97684,
+      "registry_present": true
+    },
+    {
+      "id": "microwave_link",
+      "area": "06 Microwave Link",
+      "title": "Microwave Link Operations Center",
+      "url": "",
+      "status": "MISSING_TO_BUILD",
+      "priority": 84,
+      "exists": false,
+      "size": 0,
+      "registry_present": false
+    },
+    {
+      "id": "fiber_optic",
+      "area": "07 Fiber Optic",
+      "title": "Fiber / CPRI / ODF / OTDR Workbench",
+      "url": "",
+      "status": "MISSING_TO_BUILD",
+      "priority": 82,
+      "exists": false,
+      "size": 0,
+      "registry_present": false
+    },
+    {
+      "id": "private_networks",
+      "area": "08 Private Networks",
+      "title": "5G Private / Wi-Fi 7 / MLO / Industrial Mesh",
+      "url": "",
+      "status": "MISSING_TO_BUILD",
+      "priority": 80,
+      "exists": false,
+      "size": 0,
+      "registry_present": false
+    },
+    {
+      "id": "core_identity",
+      "area": "09 Core Network",
+      "title": "5G Core / RAN Identity AKA Engine",
+      "url": "/trfmc_5g_core_ran_identity_aka_engine_v1.html",
+      "status": "ACTIVE_LEAF_OR_CHECK",
+      "priority": 78,
+      "exists": true,
+      "size": 18971,
+      "registry_present": true
+    },
+    {
+      "id": "core_live",
+      "area": "09 Core Network",
+      "title": "Core Network Live Ops Bridge",
+      "url": "/trfmc_core_network_live_ops_bridge_v1.html",
+      "status": "ACTIVE_LEAF_OR_CHECK",
+      "priority": 76,
+      "exists": true,
+      "size": 13135,
+      "registry_present": true
+    },
+    {
+      "id": "datacenter",
+      "area": "10 Data Center Infrastructure",
+      "title": "Rack / PDU / UPS / Grounding / SNMP",
+      "url": "",
+      "status": "MISSING_TO_BUILD",
+      "priority": 74,
+      "exists": false,
+      "size": 0,
+      "registry_present": false
+    },
+    {
+      "id": "cyber_rf",
+      "area": "11 Cyber RF Intelligence",
+      "title": "Cyber RF Intelligence / Jamming / Rogue RF / Evidence",
+      "url": "",
+      "status": "MISSING_TO_BUILD",
+      "priority": 72,
+      "exists": false,
+      "size": 0,
+      "registry_present": false
+    },
+    {
+      "id": "knowledge",
+      "area": "12 Knowledge Base",
+      "title": "Glossary / Formulas / Procedures / Lesson Plan",
+      "url": "",
+      "status": "MISSING_TO_BUILD",
+      "priority": 70,
+      "exists": false,
+      "size": 0,
+      "registry_present": false
+    }
+  ]
+}

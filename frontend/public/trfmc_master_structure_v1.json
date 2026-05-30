@@ -1,0 +1,27 @@
+{
+  "portal": "TRFMC / 5G RF TELCO LAB",
+  "official_port": 5173,
+  "rule": "Every visual object must be technical and interactive. No static decorative images as primary objects.",
+  "target_identity": [
+    "Digital Twin RF/Telco/Cyber",
+    "Laboratorio SDR/HackRF",
+    "Piattaforma didattica avanzata",
+    "NOC tecnico-operativo",
+    "Simulatore fisico dei segnali",
+    "Console 5G Core/RAN"
+  ],
+  "domains": [
+    "01_Mission_Control",
+    "02_RF_Physics",
+    "03_Signal_Analyzer",
+    "04_RF_Microwave_Engineering",
+    "05_Antenna_System",
+    "06_Microwave_Link",
+    "07_Fiber_Optic",
+    "08_Private_Networks",
+    "09_Core_Network",
+    "10_Data_Center_Infrastructure",
+    "11_Cyber_RF_Intelligence",
+    "12_Knowledge_Base"
+  ]
+}

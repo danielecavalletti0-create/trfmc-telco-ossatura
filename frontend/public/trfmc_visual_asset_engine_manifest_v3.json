@@ -1,0 +1,24 @@
+{
+  "id": "TRFMC_VISUAL_ASSET_ENGINE_V3",
+  "version": "3.0.0",
+  "policy": "Reusable visual components. No CDN. No iframe. No new navbar. V6R3 protected.",
+  "assets": {
+    "css": "/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css",
+    "js": "/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"
+  },
+  "components": [
+    "tower-site",
+    "rru-panel",
+    "microwave-dish",
+    "fiber-otdr",
+    "spectrum-scope",
+    "smith-chart",
+    "rack-pdu",
+    "core-map",
+    "cyber-evidence",
+    "port-map"
+  ],
+  "next": {
+    "v4": "Local GLB/GLTF asset loading, PBR material presets, camera orbit controls, object picking and telemetry binding"
+  }
+}

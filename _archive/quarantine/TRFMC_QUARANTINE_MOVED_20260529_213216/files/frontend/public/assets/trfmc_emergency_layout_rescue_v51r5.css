@@ -1,0 +1,300 @@
+/*
+  TRFMC V51R5 - Emergency Layout Rescue
+  Obiettivo:
+  - eliminare effetto pagina miniaturizzata;
+  - usare davvero il monitor largo;
+  - correggere sidebar/menu laterali;
+  - impedire blocchi appendice sotto il portale;
+  - mantenere entrypoint 127.0.0.1:5173.
+*/
+
+:root {
+  --v51r5-page-max: 1900px;
+  --v51r5-page-pad: clamp(18px, 2.2vw, 42px);
+  --v51r5-gap: clamp(14px, 1.4vw, 26px);
+  --v51r5-sidebar: clamp(260px, 18vw, 340px);
+  --v51r5-panel: rgba(5, 16, 31, .88);
+  --v51r5-panel-2: rgba(8, 24, 44, .92);
+  --v51r5-border: rgba(103, 232, 249, .26);
+  --v51r5-border-strong: rgba(103, 232, 249, .52);
+  --v51r5-cyan: #67e8f9;
+  --v51r5-green: #86efac;
+  --v51r5-text: #e8f7ff;
+  --v51r5-muted: #9db6c9;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow-x: hidden !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(8, 145, 178, .18), transparent 32%),
+    radial-gradient(circle at 86% 12%, rgba(14, 116, 144, .14), transparent 34%),
+    linear-gradient(180deg, #020812 0%, #020617 48%, #00040a 100%) !important;
+  color: var(--v51r5-text);
+}
+
+body *,
+body *::before,
+body *::after {
+  box-sizing: border-box;
+}
+
+body.trfmc-v51r5-rescue-active {
+  font-size: clamp(14px, .78vw, 17px);
+}
+
+/* 1. Il portale non deve più sembrare una striscia stretta al centro */
+body.trfmc-v51r5-rescue-active :where(
+  #root,
+  main,
+  .app,
+  .App,
+  .shell,
+  .Shell,
+  .layout,
+  .Layout,
+  .workspace,
+  .Workspace,
+  .dashboard,
+  .Dashboard,
+  .orchestrator,
+  .Orchestrator,
+  [class*="shell" i],
+  [class*="layout" i],
+  [class*="workspace" i],
+  [class*="dashboard" i],
+  [class*="orchestrator" i],
+  [class*="mission" i],
+  [class*="control" i]
+) {
+  max-width: min(var(--v51r5-page-max), calc(100vw - 2 * var(--v51r5-page-pad))) !important;
+  width: min(var(--v51r5-page-max), calc(100vw - 2 * var(--v51r5-page-pad))) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* 2. Se qualche componente aveva width hardcoded ridicola, lo forziamo */
+body.trfmc-v51r5-rescue-active :where(
+  [style*="width: 900px"],
+  [style*="width:900px"],
+  [style*="width: 960px"],
+  [style*="width:960px"],
+  [style*="width: 1000px"],
+  [style*="width:1000px"],
+  [style*="max-width: 900px"],
+  [style*="max-width:900px"],
+  [style*="max-width: 960px"],
+  [style*="max-width:960px"],
+  [style*="max-width: 1000px"],
+  [style*="max-width:1000px"]
+) {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* 3. Shell principale: più larga, meno giocattolo */
+body.trfmc-v51r5-rescue-active :where(
+  section,
+  article,
+  header,
+  footer,
+  div,
+  aside,
+  nav
+) {
+  min-width: 0;
+}
+
+body.trfmc-v51r5-rescue-active :where(
+  .panel,
+  .Panel,
+  .card,
+  .Card,
+  .tile,
+  .Tile,
+  [class*="panel" i],
+  [class*="card" i],
+  [class*="tile" i]
+) {
+  border-color: var(--v51r5-border) !important;
+  min-width: 0 !important;
+  overflow: hidden;
+}
+
+/* 4. Side menu: larghezza reale, non colonnina compressa */
+body.trfmc-v51r5-rescue-active :where(
+  aside,
+  .sidebar,
+  .Sidebar,
+  .side-menu,
+  .SideMenu,
+  .left-menu,
+  .LeftMenu,
+  .left-nav,
+  .LeftNav,
+  [class*="sidebar" i],
+  [class*="side-menu" i],
+  [class*="left-nav" i]
+) {
+  width: var(--v51r5-sidebar) !important;
+  max-width: var(--v51r5-sidebar) !important;
+  min-width: var(--v51r5-sidebar) !important;
+  flex: 0 0 var(--v51r5-sidebar) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* 5. Link menu leggibili */
+body.trfmc-v51r5-rescue-active :where(
+  aside a,
+  aside button,
+  nav a,
+  nav button,
+  [class*="sidebar" i] a,
+  [class*="sidebar" i] button,
+  [class*="side-menu" i] a,
+  [class*="side-menu" i] button,
+  [class*="left-nav" i] a,
+  [class*="left-nav" i] button
+) {
+  min-height: 38px !important;
+  padding: 9px 11px !important;
+  border-radius: 10px !important;
+  line-height: 1.18 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* 6. Se esiste un layout con sidebar + contenuto, gli diamo proporzioni serie */
+body.trfmc-v51r5-rescue-active :where(
+  [class*="layout" i],
+  [class*="workspace" i],
+  [class*="orchestrator" i]
+) {
+  gap: var(--v51r5-gap) !important;
+}
+
+/* 7. Griglie più professionali */
+body.trfmc-v51r5-rescue-active :where(
+  .grid,
+  .Grid,
+  .cards,
+  .Cards,
+  [class*="grid" i],
+  [class*="cards" i]
+) {
+  gap: var(--v51r5-gap) !important;
+}
+
+/* 8. Tipografia: basta microscopica */
+body.trfmc-v51r5-rescue-active h1 {
+  font-size: clamp(34px, 3.4vw, 72px) !important;
+  line-height: .96 !important;
+  letter-spacing: -.055em !important;
+}
+
+body.trfmc-v51r5-rescue-active h2 {
+  font-size: clamp(24px, 2.2vw, 44px) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.038em !important;
+}
+
+body.trfmc-v51r5-rescue-active h3 {
+  font-size: clamp(18px, 1.28vw, 28px) !important;
+  line-height: 1.14 !important;
+}
+
+body.trfmc-v51r5-rescue-active p,
+body.trfmc-v51r5-rescue-active li,
+body.trfmc-v51r5-rescue-active dd,
+body.trfmc-v51r5-rescue-active td,
+body.trfmc-v51r5-rescue-active th {
+  line-height: 1.48 !important;
+}
+
+/* 9. Rimozione completa appendici grafiche sbagliate V51R3 */
+body.trfmc-v51r5-rescue-active #trfmc-v51r3-matrix-host,
+body.trfmc-v51r5-rescue-active #trfmc-v51r3-mini {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 10. Immagini/canvas/tabelle non devono rompere la pagina */
+body.trfmc-v51r5-rescue-active img,
+body.trfmc-v51r5-rescue-active svg,
+body.trfmc-v51r5-rescue-active canvas,
+body.trfmc-v51r5-rescue-active video {
+  max-width: 100%;
+}
+
+body.trfmc-v51r5-rescue-active table,
+body.trfmc-v51r5-rescue-active pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* 11. Top block: più respiro */
+body.trfmc-v51r5-rescue-active :where(
+  header,
+  [class*="header" i],
+  [class*="hero" i],
+  [class*="top" i]
+) {
+  min-width: 0;
+}
+
+/* 12. Anti-miniatura: se la UI è stata scalata internamente */
+body.trfmc-v51r5-rescue-active [style*="transform: scale"] {
+  transform: none !important;
+}
+
+/* 13. Mobile/tablet */
+@media (max-width: 1100px) {
+  :root {
+    --v51r5-sidebar: 100%;
+  }
+
+  body.trfmc-v51r5-rescue-active :where(
+    #root,
+    main,
+    .app,
+    .App,
+    .shell,
+    .Shell,
+    .layout,
+    .Layout,
+    .workspace,
+    .Workspace,
+    .dashboard,
+    .Dashboard,
+    [class*="layout" i],
+    [class*="workspace" i],
+    [class*="dashboard" i]
+  ) {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+  }
+
+  body.trfmc-v51r5-rescue-active :where(
+    aside,
+    .sidebar,
+    .Sidebar,
+    [class*="sidebar" i],
+    [class*="side-menu" i],
+    [class*="left-nav" i]
+  ) {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex-basis: auto !important;
+    position: relative !important;
+  }
+}

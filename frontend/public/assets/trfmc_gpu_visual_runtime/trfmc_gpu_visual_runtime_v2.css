@@ -1,0 +1,116 @@
+/*
+ TRFMC GPU Visual Runtime V2
+ Global leaf-only cinematic GPU skin.
+ No navbar. No iframe. No CDN.
+*/
+
+:root{
+  --trfmc-gpu-x:50%;
+  --trfmc-gpu-y:45%;
+  --trfmc-gpu-power:.68;
+  --trfmc-cyan:#00e5ff;
+  --trfmc-green:#75ff5b;
+  --trfmc-gold:#ffd84d;
+  --trfmc-red:#ff3d7f;
+}
+
+body.trfmc-gpu-v2{
+  background:#010409 !important;
+  color:#e9fbff;
+}
+
+.trfmc-gpu-layer{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.74;
+  mix-blend-mode:screen;
+}
+
+.trfmc-gpu-fallback{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.55;
+  background:
+    radial-gradient(circle at var(--trfmc-gpu-x) var(--trfmc-gpu-y), rgba(0,229,255,.18), transparent 34vw),
+    radial-gradient(circle at 80% 20%, rgba(117,255,91,.08), transparent 26vw),
+    linear-gradient(135deg, #010409, #031421 62%, #010409);
+}
+
+body.trfmc-gpu-v2 > *:not(.trfmc-gpu-layer):not(.trfmc-gpu-fallback):not(.trfmc-gpu-hud){
+  position:relative;
+  z-index:1;
+}
+
+body.trfmc-gpu-v2 .leaf-panel,
+body.trfmc-gpu-v2 .leaf-card,
+body.trfmc-gpu-v2 .plotBox,
+body.trfmc-gpu-v2 .leaf-kpi,
+body.trfmc-gpu-v2 .formulaLive{
+  transform:translateZ(0);
+  border-color:rgba(0,229,255,.38) !important;
+  box-shadow:
+    0 0 30px rgba(0,229,255,.16),
+    inset 0 0 22px rgba(0,229,255,.055),
+    0 12px 42px rgba(0,0,0,.38) !important;
+}
+
+body.trfmc-gpu-v2 .leaf-panel,
+body.trfmc-gpu-v2 .leaf-card,
+body.trfmc-gpu-v2 .plotBox{
+  background:
+    linear-gradient(145deg, rgba(2,18,30,.90), rgba(1,7,13,.89)),
+    radial-gradient(circle at 88% 8%, rgba(0,229,255,.14), transparent 30%) !important;
+  backdrop-filter:blur(15px) saturate(130%);
+}
+
+body.trfmc-gpu-v2 canvas{
+  image-rendering:auto;
+  filter:
+    drop-shadow(0 0 18px rgba(0,229,255,.24))
+    saturate(1.12)
+    contrast(1.06);
+}
+
+.trfmc-gpu-hud{
+  position:fixed;
+  right:12px;
+  bottom:12px;
+  z-index:20;
+  pointer-events:none;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size:10px;
+  line-height:1.35;
+  color:#8fb8c8;
+  padding:8px 10px;
+  border:1px solid rgba(0,229,255,.28);
+  border-radius:8px;
+  background:rgba(1,9,16,.58);
+  box-shadow:0 0 24px rgba(0,229,255,.12);
+  backdrop-filter:blur(10px);
+}
+
+.trfmc-gpu-hud b{
+  color:#75ff5b;
+  text-shadow:0 0 10px rgba(117,255,91,.35);
+}
+
+body.trfmc-gpu-v2 .leaf-title,
+body.trfmc-gpu-v2 h1,
+body.trfmc-gpu-v2 h2,
+body.trfmc-gpu-v2 h3{
+  text-shadow:0 0 18px rgba(0,229,255,.35);
+}
+
+body.trfmc-gpu-v2 .leaf-btn:hover,
+body.trfmc-gpu-v2 button:hover,
+body.trfmc-gpu-v2 a:hover{
+  filter:brightness(1.16) saturate(1.14);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .trfmc-gpu-layer{display:none;}
+}

@@ -1,0 +1,732 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+BASE="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
+PUBLIC="$BASE/frontend/public"
+TS="$(date +%Y%m%d_%H%M%S)"
+
+echo "============================================================"
+echo "TRFMC 5G CORE/RAN IDENTITY & AKA ENGINE V1"
+echo "OPEN5GS · UERANSIM · SUPI/SUCI · IMSI · PKI · 5G-AKA"
+echo "============================================================"
+date
+echo "BASE=$BASE"
+echo "PUBLIC=$PUBLIC"
+
+mkdir -p "$PUBLIC" "$BASE/runtime/engines"
+
+PAGE="$PUBLIC/trfmc_5g_core_ran_identity_aka_engine_v1.html"
+
+if [ -f "$PAGE" ]; then
+  cp -a "$PAGE" "$PAGE.bak_$TS"
+fi
+
+cat > "$PAGE" <<'HTML'
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC 5G Core/RAN Identity & AKA Engine</title>
+<style>
+:root{
+  --bg:#01040c;
+  --panel:rgba(5,13,30,.92);
+  --glass:rgba(255,255,255,.045);
+  --line:rgba(105,190,255,.30);
+  --text:#eaf3ff;
+  --muted:#90a9c7;
+  --cyan:#74dcff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --red:#ff8585;
+  --violet:#bda7ff;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(48,132,255,.34),transparent 31%),
+    radial-gradient(circle at 88% 4%,rgba(0,255,205,.15),transparent 31%),
+    radial-gradient(circle at 50% 112%,rgba(170,90,255,.18),transparent 34%),
+    linear-gradient(180deg,#01040c,#061327 52%,#01040c);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);
+  background-size:38px 38px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.95),rgba(0,0,0,.10));
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:30;
+  border-bottom:1px solid var(--line);
+  background:rgba(1,4,12,.88);
+  backdrop-filter:blur(22px);
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:15px 20px;
+}
+.brand h1{
+  margin:0;
+  font-size:21px;
+  text-transform:uppercase;
+  letter-spacing:.09em;
+}
+.brand small{display:block;color:var(--muted);margin-top:3px}
+.nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.nav a,.pill{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+}
+.pill.ok{color:var(--green);border-color:rgba(157,255,199,.55)}
+main{padding:16px}
+.grid{
+  display:grid;
+  grid-template-columns:340px minmax(720px,1fr) 390px;
+  gap:14px;
+}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),rgba(2,8,20,.94));
+  border-radius:22px;
+  box-shadow:0 22px 78px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.055);
+}
+.left,.center,.right{padding:14px}
+.left,.right{display:grid;gap:11px;align-content:start}
+h2,h3{margin:0}
+h2{font-size:28px;letter-spacing:-.035em}
+h3{color:var(--cyan);font-size:17px}
+p{color:var(--muted);line-height:1.45}
+.block{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:11px;
+}
+.block h4{
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.control{margin-top:8px}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:11px;
+}
+input[type=range],select{
+  width:100%;
+  margin-top:6px;
+}
+select{
+  background:#071326;
+  border:1px solid var(--line);
+  color:var(--text);
+  padding:8px;
+  border-radius:10px;
+  font-size:12px;
+}
+.kpiStrip{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  margin:12px 0;
+}
+.kpi{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:10px;
+}
+.kpi b{display:block;font-size:18px}
+.kpi span{color:var(--muted);font-size:10px}
+.canvasFrame{
+  border:1px solid rgba(105,190,255,.26);
+  background:rgba(255,255,255,.022);
+  border-radius:20px;
+  overflow:hidden;
+}
+.canvasTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:8px 10px;
+  color:var(--muted);
+  font-size:11px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+canvas{
+  width:100%;
+  display:block;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(24,82,150,.16),transparent 42%),
+    linear-gradient(180deg,rgba(255,255,255,.032),rgba(255,255,255,.010));
+}
+#flowCanvas{height:560px}
+.matrix{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+.card{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:11px;
+}
+.card b{display:block}
+.card span,.card p{color:var(--muted);font-size:12px;line-height:1.4}
+.badge{
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--cyan);
+  padding:5px 8px;
+  font-size:10px;
+  white-space:nowrap;
+}
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+.table th,.table td{
+  padding:7px 8px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-size:11px;
+  text-align:left;
+  vertical-align:top;
+}
+.table th{color:var(--cyan)}
+.meter{
+  height:9px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:7px;
+}
+.meter i{
+  display:block;
+  height:100%;
+  width:50%;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+}
+.eventLog{
+  max-height:310px;
+  overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:11px;
+  color:#c0d5ee;
+}
+.eventLog div{
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.stepList{
+  display:grid;
+  gap:6px;
+}
+.step{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.035);
+  border-radius:12px;
+  padding:8px;
+  color:var(--muted);
+  font-size:12px;
+}
+.step.active{
+  border-color:rgba(157,255,199,.50);
+  color:var(--text);
+  background:rgba(157,255,199,.075);
+}
+@media(max-width:1500px){
+  .grid{grid-template-columns:330px 1fr}
+  .right{grid-column:1/-1;grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:1050px){
+  .grid,.right,.matrix,.kpiStrip{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>09 · 5G Core/RAN Identity & AKA Engine</h1>
+      <small>Open5GS · UERANSIM · SUPI/SUCI · IMSI · PKI · 5G-AKA · NGAP · PFCP · GTP-U</small>
+    </div>
+    <nav class="nav">
+      <span class="pill ok" id="healthPill">Health: checking</span>
+      <a href="/trfmc_unified_navigation_shell_v1.html">Unified Shell</a>
+      <a href="/trfmc_master_digital_twin_console_v1.html">Master Console</a>
+      <a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>
+      <a href="/trfmc_collaudo_report.html">Collaudo</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="grid">
+    <aside class="panel left">
+      <h3>Core/RAN Control</h3>
+
+      <div class="block">
+        <h4>Lab stack</h4>
+        <div class="control">
+          <label>Core mode <b id="coreModeText">Open5GS</b></label>
+          <select id="coreMode">
+            <option selected>Open5GS</option>
+            <option>Open5GS + MongoDB</option>
+            <option>Open5GS + simulated SBI</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>RAN simulator <b id="ranText">UERANSIM</b></label>
+          <select id="ranMode">
+            <option selected>UERANSIM</option>
+            <option>UERANSIM gNB + UE</option>
+            <option>RAN replay mode</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Identity analysis</h4>
+        <div class="control">
+          <label>Identity view <b id="identityText">SUPI/SUCI</b></label>
+          <select id="identityView">
+            <option selected>SUPI/SUCI</option>
+            <option>IMSI/SUPI mapping</option>
+            <option>SUCI concealment</option>
+            <option>5G-GUTI/TMSI lifecycle</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>Concealment strength <b id="concealText">72%</b></label>
+          <input id="conceal" type="range" min="1" max="100" value="72">
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Authentication</h4>
+        <div class="control">
+          <label>AKA mode <b id="akaText">5G-AKA</b></label>
+          <select id="akaMode">
+            <option selected>5G-AKA</option>
+            <option>EAP-AKA'</option>
+            <option>Vector replay lab</option>
+            <option>NAS security focus</option>
+          </select>
+        </div>
+        <div class="control">
+          <label>PKI/SBI readiness <b id="pkiText">68%</b></label>
+          <input id="pki" type="range" min="1" max="100" value="68">
+        </div>
+        <div class="control">
+          <label>NAS security <b id="nasText">82%</b></label>
+          <input id="nas" type="range" min="1" max="100" value="82">
+        </div>
+      </div>
+
+      <div class="block">
+        <h4>Protocol focus</h4>
+        <div class="control">
+          <label>Plane <b id="planeText">Registration</b></label>
+          <select id="plane">
+            <option selected>Registration</option>
+            <option>Authentication</option>
+            <option>Security Mode</option>
+            <option>PDU Session</option>
+            <option>NGAP/PFCP/GTP-U</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <section class="panel center">
+      <div>
+        <h2>Open5GS + UERANSIM Core/RAN Security Flow</h2>
+        <p>
+          Motore visuale per non perdere il perimetro 5G: identità, privacy, autenticazione,
+          PKI/SBI, NAS security, PDU session e correlazione control-plane/user-plane.
+          I dati sono sintetici/lab-only: la pagina è pronta per aggancio successivo ai log reali.
+        </p>
+      </div>
+
+      <div class="kpiStrip">
+        <div class="kpi"><b id="kSupi">SUPI</b><span>identity anchor</span></div>
+        <div class="kpi"><b id="kSuci">SUCI</b><span>concealed ID</span></div>
+        <div class="kpi"><b id="kAka">5G-AKA</b><span>auth mode</span></div>
+        <div class="kpi"><b id="kNas">82%</b><span>NAS security</span></div>
+        <div class="kpi"><b id="kPki">68%</b><span>PKI/SBI</span></div>
+        <div class="kpi"><b id="kPdu">PDU</b><span>session state</span></div>
+      </div>
+
+      <div class="canvasFrame">
+        <div class="canvasTitle"><b>5G Core/RAN Call-Flow & Identity Graph</b><span id="flowReadout">registration</span></div>
+        <canvas id="flowCanvas" width="1500" height="660"></canvas>
+      </div>
+
+      <div class="matrix">
+        <div class="card">
+          <b>Identity Material</b>
+          <table class="table">
+            <tr><th>Field</th><th>Lab value</th></tr>
+            <tr><td>IMSI/SUPI</td><td id="tblSupi">imsi-001010000000001</td></tr>
+            <tr><td>SUCI</td><td id="tblSuci">suci-0-001-01-...</td></tr>
+            <tr><td>HNPKI</td><td id="tblPki">profile-a / ECIES-like lab</td></tr>
+            <tr><td>5G-GUTI</td><td id="tblGuti">generated after registration</td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <b>Protocol Correlation</b>
+          <table class="table">
+            <tr><th>Interface</th><th>Purpose</th></tr>
+            <tr><td>N1/NAS</td><td>registration, auth, security mode</td></tr>
+            <tr><td>N2/NGAP</td><td>gNB ⇄ AMF signaling</td></tr>
+            <tr><td>N4/PFCP</td><td>SMF ⇄ UPF session programming</td></tr>
+            <tr><td>N3/GTP-U</td><td>user-plane tunnel</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel right">
+      <h3>Security / Evidence Readout</h3>
+
+      <div class="card">
+        <b>AKA State</b>
+        <span id="akaState">AUSF/UDM vector exchange simulated</span>
+        <div class="meter"><i id="akaMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>SUCI Privacy</b>
+        <span id="privacyState">concealment active</span>
+        <div class="meter"><i id="privacyMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>NAS Security Context</b>
+        <span id="nasState">ciphering/integrity negotiated</span>
+        <div class="meter"><i id="nasMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Call-Flow Steps</b>
+        <div class="stepList" id="stepList"></div>
+      </div>
+
+      <div class="card">
+        <b>Event Stream</b>
+        <div class="eventLog" id="eventLog"></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const canvas = $("flowCanvas");
+const ctx = canvas.getContext("2d");
+let tick = 0;
+let currentStep = 0;
+let lastLog = 0;
+
+const steps = [
+  "RRC Setup",
+  "Initial Registration Request",
+  "SUCI/SUPI handling",
+  "AUSF/UDM authentication vector",
+  "5G-AKA challenge/response",
+  "NAS Security Mode Command",
+  "Registration Accept",
+  "PDU Session Establishment",
+  "PFCP N4 programming",
+  "GTP-U tunnel ready"
+];
+
+const nodes = [
+  {id:"UE", x:.06, y:.58, color:"cyan"},
+  {id:"gNB", x:.20, y:.42, color:"green"},
+  {id:"AMF", x:.38, y:.34, color:"cyan"},
+  {id:"AUSF", x:.56, y:.20, color:"violet"},
+  {id:"UDM/ARPF", x:.75, y:.20, color:"amber"},
+  {id:"SMF", x:.56, y:.54, color:"cyan"},
+  {id:"UPF", x:.75, y:.56, color:"green"},
+  {id:"DN", x:.91, y:.56, color:"green"}
+];
+
+function color(name){
+  return {
+    cyan:"rgba(116,220,255,.95)",
+    green:"rgba(157,255,199,.95)",
+    amber:"rgba(255,211,122,.95)",
+    violet:"rgba(189,167,255,.95)",
+    red:"rgba(255,133,133,.95)"
+  }[name] || "rgba(116,220,255,.95)";
+}
+
+function p(){
+  return {
+    conceal:Number($("conceal").value),
+    pki:Number($("pki").value),
+    nas:Number($("nas").value),
+    aka:$("akaMode").value,
+    plane:$("plane").value,
+    idView:$("identityView").value
+  };
+}
+
+function updateLabels(){
+  const x = p();
+  $("coreModeText").textContent = $("coreMode").value;
+  $("ranText").textContent = $("ranMode").value;
+  $("identityText").textContent = x.idView;
+  $("concealText").textContent = x.conceal+"%";
+  $("akaText").textContent = x.aka;
+  $("pkiText").textContent = x.pki+"%";
+  $("nasText").textContent = x.nas+"%";
+  $("planeText").textContent = x.plane;
+
+  $("kAka").textContent = x.aka;
+  $("kNas").textContent = x.nas+"%";
+  $("kPki").textContent = x.pki+"%";
+  $("kPdu").textContent = x.plane === "PDU Session" || x.plane === "NGAP/PFCP/GTP-U" ? "ACTIVE" : "READY";
+
+  $("privacyMeter").style.width = x.conceal+"%";
+  $("akaMeter").style.width = Math.max(40, (x.pki+x.nas)/2)+"%";
+  $("nasMeter").style.width = x.nas+"%";
+}
+
+function drawGrid(w,h){
+  ctx.strokeStyle="rgba(105,190,255,.075)";
+  ctx.lineWidth=1;
+  for(let x=0;x<w;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+}
+
+function label(text,x,y,clr="rgba(234,243,255,.82)",size=13){
+  ctx.fillStyle=clr;
+  ctx.font=size+"px system-ui";
+  ctx.fillText(text,x,y);
+}
+
+function drawNode(n,w,h){
+  const x=n.x*w, y=n.y*h;
+  ctx.shadowColor=color(n.color);
+  ctx.shadowBlur=18;
+  ctx.fillStyle=color(n.color);
+  ctx.beginPath();ctx.arc(x,y,12,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+
+  ctx.strokeStyle="rgba(255,255,255,.20)";
+  ctx.beginPath();ctx.arc(x,y,25+Math.sin(tick*.05+n.x*8)*4,0,Math.PI*2);ctx.stroke();
+
+  label(n.id,x-28,y+42,"rgba(234,243,255,.86)",14);
+}
+
+function edge(a,b,name,active=false){
+  const w=canvas.width,h=canvas.height;
+  const A=nodes.find(n=>n.id===a), B=nodes.find(n=>n.id===b);
+  const ax=A.x*w, ay=A.y*h, bx=B.x*w, by=B.y*h;
+  ctx.strokeStyle=active?"rgba(157,255,199,.75)":"rgba(116,220,255,.18)";
+  ctx.lineWidth=active?2.5:1.4;
+  ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
+
+  if(active){
+    const q=(Math.sin(tick*.06)*.5+.5);
+    const px=ax+(bx-ax)*q, py=ay+(by-ay)*q;
+    ctx.fillStyle="rgba(255,211,122,.95)";
+    ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();
+  }
+
+  label(name,(ax+bx)/2,(ay+by)/2-8,"rgba(144,169,199,.86)",11);
+}
+
+function draw(){
+  const w=canvas.width,h=canvas.height;
+  const x=p();
+  ctx.clearRect(0,0,w,h);
+  const bg=ctx.createRadialGradient(w/2,h/2,20,w/2,h/2,w*.72);
+  bg.addColorStop(0,"rgba(30,115,220,.18)");
+  bg.addColorStop(1,"rgba(255,255,255,.006)");
+  ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+  drawGrid(w,h);
+
+  const s=currentStep;
+
+  edge("UE","gNB","RRC/Uu",s<=1);
+  edge("gNB","AMF","N2/NGAP",s>=1 && s<=6);
+  edge("AMF","AUSF","N12",s>=3 && s<=5);
+  edge("AUSF","UDM/ARPF","N13/UDM",s>=3 && s<=5);
+  edge("AMF","SMF","N11",s>=7);
+  edge("SMF","UPF","N4/PFCP",s>=8);
+  edge("UPF","DN","N6",s>=9);
+  edge("gNB","UPF","N3/GTP-U",s>=9);
+
+  nodes.forEach(n=>drawNode(n,w,h));
+
+  // identity capsule
+  ctx.strokeStyle="rgba(157,255,199,.30)";
+  ctx.fillStyle="rgba(157,255,199,.055)";
+  ctx.roundRect(60,58,430,132,18);
+  ctx.fill();ctx.stroke();
+  label("Identity Plane",84,88,"rgba(157,255,199,.92)",15);
+  label("IMSI/SUPI: imsi-001010000000001",84,116);
+  label("SUCI: concealed subscriber identity",84,141);
+  label("5G-GUTI: assigned after registration",84,166);
+
+  // security capsule
+  ctx.strokeStyle="rgba(189,167,255,.30)";
+  ctx.fillStyle="rgba(189,167,255,.055)";
+  ctx.roundRect(w-520,58,450,132,18);
+  ctx.fill();ctx.stroke();
+  label("Security Plane",w-492,88,"rgba(189,167,255,.92)",15);
+  label("AKA: "+x.aka,w-492,116);
+  label("PKI/SBI readiness: "+x.pki+"%",w-492,141);
+  label("NAS ciphering/integrity: "+x.nas+"%",w-492,166);
+
+  label("Current step: "+steps[currentStep],60,h-46,"rgba(255,211,122,.94)",16);
+  $("flowReadout").textContent = steps[currentStep];
+}
+
+function renderSteps(){
+  const box=$("stepList");
+  box.innerHTML="";
+  steps.forEach((s,i)=>{
+    const div=document.createElement("div");
+    div.className="step"+(i===currentStep?" active":"");
+    div.textContent=String(i+1).padStart(2,"0")+" · "+s;
+    box.appendChild(div);
+  });
+}
+
+function log(){
+  const now=Date.now();
+  if(now-lastLog<1800)return;
+  lastLog=now;
+  const row=document.createElement("div");
+  row.textContent="["+new Date().toLocaleTimeString()+"] "+steps[currentStep]+" · "+$("akaMode").value+" · "+$("identityView").value;
+  $("eventLog").prepend(row);
+  while($("eventLog").children.length>22)$("eventLog").removeChild($("eventLog").lastChild);
+}
+
+function loop(){
+  tick++;
+  if(tick%130===0) currentStep=(currentStep+1)%steps.length;
+  updateLabels();
+  renderSteps();
+  draw();
+  log();
+  requestAnimationFrame(loop);
+}
+
+async function health(){
+  try{
+    const r=await fetch("/api/health",{cache:"no-store"});
+    const j=await r.json();
+    $("healthPill").textContent=j.ok?"Health: online":"Health: degraded";
+  }catch(e){
+    $("healthPill").textContent="Health: unavailable";
+    $("healthPill").classList.remove("ok");
+  }
+}
+
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    this.beginPath();
+    this.moveTo(x+r,y);
+    this.arcTo(x+w,y,x+w,y+h,r);
+    this.arcTo(x+w,y+h,x,y+h,r);
+    this.arcTo(x,y+h,x,y,r);
+    this.arcTo(x,y,x+w,y,r);
+    return this;
+  }
+}
+
+["coreMode","ranMode","identityView","conceal","akaMode","pki","nas","plane"].forEach(id=>{
+  $(id).addEventListener("input",updateLabels);
+});
+
+health();
+updateLabels();
+loop();
+</script>
+</body>
+</html>
+HTML
+
+echo
+echo "=== PATCH NAVIGATION LINKS ==="
+
+python3 - <<'PY'
+from pathlib import Path
+
+files = [
+    Path("frontend/public/trfmc_unified_navigation_shell_v1.html"),
+    Path("frontend/public/trfmc_master_digital_twin_console_v1.html"),
+    Path("frontend/public/trfmc_engine_promotion_board_v1.html"),
+    Path("frontend/public/trfmc_domain_registry_v1.html"),
+    Path("frontend/public/api/portal/index"),
+]
+
+link = '<a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">5G Core/RAN Identity AKA</a>'
+li = '<li><a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">5G Core/RAN Identity & AKA Engine V1</a></li>'
+
+for p in files:
+    if not p.exists():
+        print("SKIP:", p)
+        continue
+    s = p.read_text(errors="ignore")
+    old = s
+
+    if "trfmc_5g_core_ran_identity_aka_engine_v1.html" not in s:
+        if '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>' in s:
+            s = s.replace(
+                '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>',
+                '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>\n      ' + link,
+                1
+            )
+        elif "<ul>" in s:
+            s = s.replace("<ul>", "<ul>\n" + li, 1)
+
+    if s != old:
+        p.write_text(s)
+        print("PATCHED:", p)
+    else:
+        print("UNCHANGED:", p)
+PY
+
+echo
+echo "=== TEST HTTP ==="
+curl -I --max-time 5 http://127.0.0.1:5173/trfmc_5g_core_ran_identity_aka_engine_v1.html
+
+echo
+echo "5G CORE/RAN IDENTITY & AKA ENGINE:"
+echo "http://127.0.0.1:5173/trfmc_5g_core_ran_identity_aka_engine_v1.html"

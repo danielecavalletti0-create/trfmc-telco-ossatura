@@ -1,0 +1,180 @@
+class	path	line	text
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_source_bridge_v7_20260525_142149	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_enterprise_css_20260525_115628	423	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_evidence_v10_20260525_143909	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_chunk_observatory_v16_20260525_151906	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_surface_v3_worker_20260525_134553	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_instrument_suite_v5_20260525_141512	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_surface_v2_20260525_120055	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_instrument_lab_20260525_111803	423	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_zero_forbidden	423	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_instrument_dock_v4_20260525_140914	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_operational_deck_v15_lazy_20260525_151305	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_true_spectrum_20260525_113619	423	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_source_runtime_v8_20260525_142516	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_bridge_readiness_v9_20260525_143127	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_api8000_20260517_143049	423	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+ACTIVE_REACT_DEBT	frontend/src/app/main.tsx	425	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_operational_deck_v14_auto_20260525_150553	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+FALSE_POSITIVE_BACKUP	frontend/src/app/main.tsx.bak_rf_suite_v6_turbo_20260525_141826	424	                  Restricted EW/SIGINT/advanced red-team functions remain locked. This section is a controlled placeholder for future PKI, smartcard, mTLS, RBAC/ABAC, immutable audit and RF safety interlock integration.
+ACTIVE_REACT_DEBT	frontend/src/layout_orchestrator/EngineeringContentEnrichmentV49.tsx	75	      { label: 'Real-render ratio', meaning: 'Counts assets served as real engineering renders rather than fallback SVG placeholders.', target: 'real-render active' },
+ACTIVE_REACT_DEBT	frontend/src/navigation/navigationDataV39.ts	102	    capabilities: ['fiber context placeholder', 'transport knowledge'],
+ACTIVE_REACT_DEBT	frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	126	    evidence: ['tower asset', 'backhaul path', 'link budget placeholder', 'future-live marker'],
+PUBLIC_DEBT	frontend/public/trfmc_unified_shell_noiframe_v86d_r1.html	79	          <input id="nr86Search" type="search" placeholder="cerca pagina, dominio, ruolo, generazione..."/>
+PUBLIC_DEBT	frontend/public/global_mission_scenario_launcher_v39.html	102	{id:"rf-degradation",title:"RF Degradation / NLOS / Obstruction",risk:"HIGH",description:"Degradazione radio, ostacoli, NLOS, path loss e misure RF.",path:["UE","Obstacle/NLOS","RAN","RF Field","Coverage Analysis","Instrumentation"],objecti
+PUBLIC_DEBT	frontend/public/rf_telco_knowledge_os_v60.html	142	      <li>Direction finding placeholder</li>
+PUBLIC_DEBT	frontend/public/trfmc_private_networks_wifi7_5g_mesh_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/trfmc_design_token_audit_v86f.html	82	        <input id="searchBox" placeholder="cerca file, rischio, CSS, HTML, v85, v86, iframe, global..."/>
+PUBLIC_DEBT	frontend/public/security_console_v18.html	126	    .ATTENTION_REQUIRED, .DENY, .TODO { color:var(--red); }
+PUBLIC_DEBT	frontend/public/trfmc_integration_control_room_v2.html	31	    <input id="q" placeholder="cerca modulo, dominio, nome file..." size="42">
+PUBLIC_DEBT	frontend/public/rf_instrumentation_signal_cockpit_v38.html	209	    RSRP, noise floor, SNR, EVM, BLER e throughput placeholder. Frontend-only, senza modifica backend.
+PUBLIC_DEBT	frontend/public/rf_instrumentation_signal_cockpit_v38.html	321	    <ul><li>I/Q samples</li><li>constellation</li><li>EVM placeholder</li></ul>
+PUBLIC_DEBT	frontend/public/rf_instrumentation_signal_cockpit_v38.html	347	    focus:["RSRP/Rx power","path loss","noise floor","SNR","ACLR placeholder"]
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	33	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	62	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	91	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	119	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	147	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	175	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	207	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43.json	235	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	33	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	62	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	91	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	119	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	147	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	175	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	207	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43c.json	235	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	33	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	58	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	83	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	107	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	131	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	155	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	180	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v41_fallback.json	204	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	33	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	58	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	83	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	107	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	131	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	155	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	180	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v35.json	204	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	33	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	62	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	91	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	119	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	147	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	175	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	207	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_active.json	235	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	33	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	62	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	91	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	119	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	147	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	175	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	207	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_assets/visual_knowledge/visual_asset_registry_v43d.json	235	        "render_placeholder",
+PUBLIC_DEBT	frontend/public/trfmc_cyber_rf_intelligence_evidence_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/trfmc_datacenter_power_pdu_infrastructure_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/trfmc_3d_rf_asset_renderer_webgl_v2.html	193	            <tr><td>fake asset</td><td>procedural RF component model</td></tr>
+PUBLIC_DEBT	frontend/public/assets/trfmc_executive_visual_correction_v52.js	75	    const ph = document.querySelector(".v51-runtime-placeholder");
+PUBLIC_DEBT	frontend/public/assets/trfmc_executive_visual_refinement_v51.js	22	    if(!document.querySelector(".v51-runtime-placeholder")){
+PUBLIC_DEBT	frontend/public/assets/trfmc_executive_visual_refinement_v51.js	24	      ph.className = "v51-runtime-placeholder";
+PUBLIC_DEBT	frontend/public/assets/trfmc_executive_visual_refinement_v51.css	215	.v51-runtime-placeholder {
+PUBLIC_DEBT	frontend/public/assets/trfmc_executive_visual_refinement_v51.css	225	.v51-exec-view .v51-runtime-placeholder {
+PUBLIC_DEBT	frontend/public/assets/trfmc_executive_visual_refinement_v51.css	229	.v51-engineering-view .v51-runtime-placeholder {
+PUBLIC_DEBT	frontend/public/assets/trfmc_ue_handover_dynamics_v69.js	316	        const fake = {x:nx,y:ny,jitter:0,serving:0};
+PUBLIC_DEBT	frontend/public/assets/trfmc_ue_handover_dynamics_v69.js	317	        const maxSig = Math.max(signalFor(0,fake), signalFor(1,fake), signalFor(2,fake));
+PUBLIC_DEBT	frontend/public/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js	268	    label(ctx,dpr,"SMITH CHART ENGINE","impedance matching · Γ · VSWR · stub");
+PUBLIC_DEBT	frontend/public/portal_index_v19.html	383	    <input id="page_search" class="control-input" placeholder="Cerca console, categoria, versione, descrizione..."/>
+PUBLIC_DEBT	frontend/public/portal_index_v19.html	388	    <input id="api_search" class="control-input" placeholder="Cerca endpoint, dominio, metodo..."/>
+PUBLIC_DEBT	frontend/public/scenario_report_console_v17.html	147	  <input id="runInput" placeholder="SCN-RUN-XXXXXXXXXXXX"/>
+PUBLIC_DEBT	frontend/public/trfmc_microwave_link_operations_center_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/trfmc_integration_control_room.html	332	    <input id="search" placeholder="Cerca modulo, file, classe, RF, antenna, core, microwave, webgl..." />
+PUBLIC_DEBT	frontend/public/trfmc_visual_master_preview_v1.html	34	      <input id="q" class="vm-input" placeholder="cerca area, modulo, stato...">
+PUBLIC_DEBT	frontend/public/trfmc_theory_spine_v86e.html	83	        <input id="searchBox" placeholder="cerca formula, pagina, dominio, misura, RSRP, SINR, FSPL, handover..."/>
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/examples/jsm/loaders/GLTFLoader.js	1739			// @TODO: Can we support InstancedMesh + SkinnedMesh?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/examples/jsm/controls/OrbitControls.js	1084						// minimal placeholder event - allows state correction on pointer-up
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	4253		// TODO lengthSquared?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	6223			//TODO: make this more efficient
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	9419			// TODO: Copied from Object3D.toJSON
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	14355			// TODO (abelnation): RectAreaLight BRDF data needs to be moved from example to main src
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	15339						// TODO Attribute may not be available on context restore
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	19638		// TODO Send this event to Three.js DevTools
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	21447					// TODO (abelnation): set RectAreaLight shadow uniforms
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	21630						// TODO : do it if required only
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	24468					// populate depth texture with dummy data
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	24958						// TODO: Uniformly handle mipmap definitions
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	26826					newRenderTarget.isXRRenderTarget = true; // TODO Remove this when possible, see #23278
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	26959				// TODO: Better way to apply this offset?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	28001							// TODO add integer and struct support
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	29902					// TODO (abelnation): add area lights shadow info to uniforms
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	32778	// @TODO: SkinnedMesh support?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	32779	// @TODO: geometry.groups support?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	32780	// @TODO: geometry.drawRange support?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	32781	// @TODO: geometry.morphAttributes support?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	32782	// @TODO: Support uniform parameter per geometry
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	32783	// @TODO: Add an "optimize" function to pack geometry and remove data gaps
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	33409			// @TODO: Map geometryId to index of the arrays because
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	34468			console.warn( 'THREE.Curve: .getPoint() not implemented.' );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	36179			this.currentPoint.set( x, y ); // TODO consider referencing vectors instead of copying?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	38497				const placeholder = [];
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	38529					// TODO1 - have a .isClosed in spline?
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	39042					placeholder.push( x );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	39043					placeholder.push( y );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	39044					placeholder.push( z );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	39090					verticesArray.push( placeholder[ index * 3 + 0 ] );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	39091					verticesArray.push( placeholder[ index * 3 + 1 ] );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	39092					verticesArray.push( placeholder[ index * 3 + 2 ] );
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	44974			this.intensity = json.intensity; // TODO: Move this bit to Light.fromJSON();
+FALSE_POSITIVE_VENDOR	frontend/public/vendor/three/build/three.module.js	51713		// TODO: delete this comment?
+PUBLIC_DEBT	frontend/public/executive_mission_dashboard_v40.html	850	    <p>Accesso rapido alla parte tecnica: campo, copertura, spettro, link budget, NLOS, SNR, EVM/BLER placeholder.</p>
+PUBLIC_DEBT	frontend/public/trfmc_fiber_fronthaul_otdr_workbench_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/mission_graph_console_v15.html	210	  <input id="assetInput" value="CELL-N78-A" placeholder="asset id"/>
+PUBLIC_DEBT	frontend/public/trfmc_knowledge_base_theory_procedures_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	120	    .stub{position:absolute;left:48%;top:54px;width:3px;height:70px;background:linear-gradient(var(--cyan),var(--violet));box-shadow:0 0 14px rgba(155,124,255,.55)}
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	121	    .stub:after{content:"jB";position:absolute;left:10px;top:28px;color:var(--violet);font-weight:800}
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	249	          Return Loss, VSWR, potenza consegnata e calcolo preliminare di matching con shunt stub.
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	268	            <div class="stub"></div>
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	272	            Il matching ideale avviene quando Γ = 0 e VSWR = 1. Nel caso di stub parallelo,
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	313	            <select id="stubType">
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	314	              <option value="open">Open-circuit stub</option>
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	315	              <option value="short">Short-circuit stub</option>
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	363	        <table class="table" id="stubTable">
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	368	              <th>Bstub</th>
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	401	        <p class="hint">Lo stub non “assorbe” il problema: aggiunge reattanza controllata per compensare la parte immaginaria vista dalla linea.</p>
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	454	  function stubLenOpen(b){
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	460	  function stubLenShort(b){
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	610	      const bstub=-yin.im;
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	611	      const stub = type==="short" ? stubLenShort(bstub) : stubLenOpen(bstub);
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	612	      rows.push({idx:idx+1,line,bstub,stub,mm:stub*lambdaMm});
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	623	    const type=$("stubType").value;
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	653	    const tb=$("stubTable").querySelector("tbody");
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	658	        tr.innerHTML="<td>"+s.idx+"</td><td>"+fmt(s.line,4)+"λ</td><td>"+fmt(s.bstub,3)+"</td><td>"+fmt(s.stub,4)+"λ</td><td>"+fmt(s.mm,1)+"</td>";
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	675	    $("z0").value=50; $("rl").value=25; $("xl").value=50; $("freq").value=2.4; $("vf").value=.66; $("stubType").value="open"; calc();
+PUBLIC_DEBT	frontend/public/trfmc_rf_microwave_engineering_v1.html	677	  ["z0","rl","xl","freq","vf","stubType"].forEach(id=>$(id).addEventListener("input",calc));
+PUBLIC_DEBT	frontend/public/trfmc_rf_physics_theory_atlas_v1.html	72	        <h3>Da implementare / collegare</h3>
+PUBLIC_DEBT	frontend/public/trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html	193	            <tr><td>fake asset</td><td>procedural RF component model</td></tr>
+PUBLIC_DEBT	frontend/public/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html	193	            <tr><td>fake asset</td><td>procedural RF component model</td></tr><tr><td>simple cone beam</td><td>3D primary/secondary radiation lobes</td></tr><tr><td>flat surface</td><td>PBR roughness, shadows, atmosphere</td></tr>
+PUBLIC_DEBT	frontend/public/operator_handbook_console_v23.html	280	      <input id="doc_search" class="control-input" placeholder="Cerca documento, endpoint, descrizione..."/>
+PUBLIC_DEBT	frontend/public/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html	72	        <h3>Da implementare / collegare</h3>
+BACKEND_CONTRACT_DEBT	backend/app/persistence/bootstrap.py	59	        ("ROGUE-CELL-PLACEHOLDER-001", "ROGUE_CELL_PLACEHOLDER", "ACCESS_TRUST", "LOCKED_SIMULATION_ONLY", {"purpose": "defensive simulation placeholder", "real_rf_emission": False}),
+BACKEND_CONTRACT_DEBT	backend/app/persistence/bootstrap.py	60	        ("ROGUE-WIFI-PLACEHOLDER-001", "ROGUE_WIFI_PLACEHOLDER", "ACCESS_TRUST", "LOCKED_SIMULATION_ONLY", {"purpose": "evil twin defensive simulation placeholder", "real_rf_emission": False}),
+BACKEND_CONTRACT_DEBT	backend/app/persistence/bootstrap.py	102	        data={"note": "Initial persistence bootstrap evidence placeholder"},
+BACKEND_CONTRACT_DEBT	backend/app/persistence/bootstrap.py	111	        data={"note": "Initial SOC/NOC incident placeholder for persistence validation"},
+BACKEND_CONTRACT_DEBT	backend/app/domains/network_fabric/services.py	157	                "notes": "Security context placeholder for SBC, IPX/GRX, peering, route leak and DDoS correlation.",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	74	                "red_sigint_ew_area": "placeholder only; requires PKI/smartcard/mTLS/RBAC before activation",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	229	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	235	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	241	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	247	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	253	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	259	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	277	                "status": "TODO",
+BACKEND_CONTRACT_DEBT	backend/app/domains/security_baseline/services.py	278	                "notes": "Da implementare prima di qualsiasi funzione attiva o potenzialmente sensibile.",
+BACKEND_CONTRACT_DEBT	backend/readonly_bridge_v28/app.py	458	def api_correlation_stub() -> dict[str, Any]:
+BACKEND_CONTRACT_DEBT	backend/readonly_bridge_v28/app.py	464	            "note": "V28 contract placeholder; V31 can bind SOC/NOC correlation sources.",

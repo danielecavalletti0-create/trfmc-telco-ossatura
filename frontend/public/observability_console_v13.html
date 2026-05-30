@@ -185,11 +185,11 @@
   </section>
 
   <footer>
-    TRFMC v0.13 · Observability & Evidence Console · API: http://127.0.0.1:8000/api/observability/*
+    TRFMC v0.13 · Observability & Evidence Console · API: /api/observability/*
   </footer>
 
 <script>
-const API = 'http://127.0.0.1:8000/api'
+const API = '/api'
 let live = []
 
 async function get(path) {
@@ -291,7 +291,7 @@ function openMain() {
 }
 
 function connectWs() {
-  const ws = new WebSocket('ws://127.0.0.1:8000/api/events/stream')
+  const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
   ws.onopen = () => live.unshift({type:'WS_CONNECTED', subject:'event stream', time:new Date().toISOString()})
   ws.onmessage = ev => {
     try { live.unshift(JSON.parse(ev.data)); live = live.slice(0, 50); renderEvents() } catch {}

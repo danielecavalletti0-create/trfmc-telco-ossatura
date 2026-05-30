@@ -1,0 +1,66 @@
+.trfmc-instrument-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 75% 8%, rgba(0,229,255,.16), transparent 32%),
+    radial-gradient(circle at 12% 88%, rgba(120,255,99,.07), transparent 28%),
+    linear-gradient(145deg, #020912, #000307 65%, #000);
+  color: #eafbff;
+  font-family: ui-monospace, Consolas, JetBrains Mono, monospace;
+}
+
+.trfmc-instrument-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0,229,255,.28);
+  background: linear-gradient(180deg, rgba(2,20,34,.98), rgba(1,7,13,.98));
+}
+
+.trfmc-instrument-header h1 {
+  margin: 0;
+  color: #00e5ff;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: .13em;
+  text-shadow: 0 0 18px rgba(0,229,255,.55);
+}
+
+.trfmc-instrument-header p {
+  margin: 3px 0 0;
+  color: #8fb8c8;
+  font-size: 10px;
+}
+
+.trfmc-instrument-grid {
+  display: grid;
+  grid-template-columns: 330px 1fr 420px;
+  gap: 8px;
+  padding: 8px;
+  min-height: calc(100vh - 64px);
+  box-sizing: border-box;
+}
+
+.trfmc-instrument-panel {
+  border: 1px solid rgba(0,229,255,.24);
+  border-radius: 22px;
+  background:
+    linear-gradient(145deg, rgba(2,18,30,.86), rgba(1,6,12,.96)),
+    radial-gradient(circle at 65% 0%, rgba(0,229,255,.11), transparent 36%);
+  box-shadow:
+    0 0 55px rgba(0,229,255,.12),
+    inset 0 0 32px rgba(0,229,255,.05),
+    0 26px 78px rgba(0,0,0,.62);
+  padding: 10px;
+  overflow: hidden;
+}
+
+.trfmc-instrument-main {
+  min-height: 640px;
+}
+
+@media (max-width: 1300px) {
+  .trfmc-instrument-grid {
+    grid-template-columns: 1fr;
+  }
+}

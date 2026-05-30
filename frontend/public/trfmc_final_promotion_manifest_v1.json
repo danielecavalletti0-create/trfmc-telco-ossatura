@@ -1,0 +1,23 @@
+{
+  "id": "TRFMC_FINAL_PROMOTION_GATE_V1_SAFE",
+  "timestamp": "2026-05-23T20:42:30.764921+00:00",
+  "leaf_gate": {
+    "timestamp": "2026-05-23T20:38:33.621801+00:00",
+    "authority": "TRFMC_FINAL_PROMOTION_AUTHORITY_V1_SAFE",
+    "leaf_pages": 129,
+    "average_score": 96.22,
+    "critical_pages": 0,
+    "weak_pages": 0,
+    "good_pages": 15,
+    "premium_pages": 114,
+    "premium_ratio": 0.884,
+    "gate": "PASS"
+  },
+  "failed_pages_repair": {
+    "failed_count": 0,
+    "resolved_count": 0,
+    "ignored_count": 0,
+    "unresolved_count": 0
+  },
+  "policy": "Final promotion after Batch C leaf gate PASS. No CDN. No iframe. V6R3 and Control Room protected."
+}

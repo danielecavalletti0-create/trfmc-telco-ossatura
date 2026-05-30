@@ -1,0 +1,42 @@
+{
+  "id": "TRFMC_SOUL_TOKENS_V1",
+  "mission": {
+    "name": "TRFMC / RF Telco Cyber Digital Twin",
+    "motto": "Dal campo elettromagnetico al core 5G, dal segnale alla decisione.",
+    "stance": "engineering-grade, instrument-like, evidence-driven, cinematic"
+  },
+  "domains": {
+    "rf": {
+      "name": "RF Physics",
+      "soul": "Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione."
+    },
+    "antenna": {
+      "name": "Antenna / RRU / RET",
+      "soul": "Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura."
+    },
+    "microwave": {
+      "name": "Microwave Link",
+      "soul": "Il collegamento vive fra linea di vista, fade margin, modulazione, RSL, BER e disponibilità."
+    },
+    "fiber": {
+      "name": "Fiber / Fronthaul",
+      "soul": "La fibra porta tempo, perdita, riflessione, latenza, CPRI/eCPRI e continuità di servizio."
+    },
+    "core": {
+      "name": "5G Core / RAN",
+      "soul": "Identità, autenticazione, sessioni, policy, tunnel e sicurezza diventano flusso operativo."
+    },
+    "cyber": {
+      "name": "Cyber RF Intelligence",
+      "soul": "Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione."
+    },
+    "datacenter": {
+      "name": "Data Center / Power",
+      "soul": "Senza energia, raffreddamento, rack, PDU e telemetria non esiste continuità digitale."
+    },
+    "knowledge": {
+      "name": "Knowledge Base",
+      "soul": "La teoria non è documento: è motore operativo che spiega ciò che il portale mostra."
+    }
+  }
+}

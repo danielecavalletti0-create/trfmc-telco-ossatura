@@ -1,5 +1,5 @@
 (function(){
-  const API="http://127.0.0.1:8000";
+  const API="";
   function ready(fn){document.readyState==="loading"?document.addEventListener("DOMContentLoaded",fn):fn();}
   function set(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
   async function getJson(path){const r=await fetch(API+path,{cache:"no-store"});if(!r.ok)throw new Error(path+" "+r.status);return await r.json();}

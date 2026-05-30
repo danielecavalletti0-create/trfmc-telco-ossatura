@@ -1,0 +1,832 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+BASE="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
+PUBLIC="$BASE/frontend/public"
+TS="$(date +%Y%m%d_%H%M%S)"
+
+echo "============================================================"
+echo "TRFMC CREATE RF SPECTRUM LAB V1 - 03_SIGNAL_ANALYZER"
+echo "============================================================"
+date
+echo "BASE=$BASE"
+echo "PUBLIC=$PUBLIC"
+
+mkdir -p "$PUBLIC" "$BASE/runtime/engines"
+
+PAGE="$PUBLIC/trfmc_rf_spectrum_lab_v1.html"
+
+if [ -f "$PAGE" ]; then
+  cp -a "$PAGE" "$PAGE.bak_$TS"
+fi
+
+cat > "$PAGE" <<'HTML'
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC RF Spectrum Lab V1</title>
+<style>
+:root{
+  --bg:#030711;
+  --panel:rgba(8,18,36,.90);
+  --panel2:rgba(12,28,55,.74);
+  --line:rgba(125,190,255,.25);
+  --line2:rgba(157,255,199,.20);
+  --text:#eaf3ff;
+  --muted:#94a9c5;
+  --cyan:#86d7ff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --red:#ff8d8d;
+  --violet:#bda7ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 0%,rgba(50,130,255,.24),transparent 30%),
+    radial-gradient(circle at 90% 8%,rgba(0,255,190,.10),transparent 28%),
+    linear-gradient(180deg,#030711,#07111f 52%,#030711);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.85),rgba(0,0,0,.16));
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(3,7,17,.84);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  padding:18px 24px;
+}
+.brand h1{
+  margin:0;
+  font-size:22px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.brand small{color:var(--muted)}
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:8px;
+}
+.nav a,.pill{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  padding:8px 11px;
+  border-radius:999px;
+  font-size:12px;
+}
+.pill.ok{
+  color:var(--green);
+  border-color:rgba(157,255,199,.55);
+}
+main{
+  position:relative;
+  padding:24px;
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),rgba(5,12,25,.90));
+  border-radius:22px;
+  box-shadow:0 18px 60px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.heroMain{
+  padding:24px;
+}
+.heroMain h2{
+  margin:0 0 10px;
+  font-size:40px;
+  line-height:1.02;
+  letter-spacing:-.04em;
+}
+.heroMain p{
+  color:#c8d9ef;
+  max-width:900px;
+  line-height:1.55;
+}
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+.kpi{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  border-radius:16px;
+  padding:14px;
+}
+.kpi b{
+  display:block;
+  font-size:24px;
+}
+.kpi span{
+  color:var(--muted);
+  font-size:12px;
+}
+.status{
+  padding:18px;
+  display:grid;
+  gap:10px;
+}
+.statusRow{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:12px;
+}
+.statusRow span{color:var(--muted)}
+.lab{
+  display:grid;
+  grid-template-columns:320px 1fr 360px;
+  gap:18px;
+}
+.controls{
+  padding:16px;
+  display:grid;
+  gap:13px;
+  align-content:start;
+}
+.controls h3,.side h3{
+  margin:0;
+  color:var(--cyan);
+}
+.control{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:15px;
+  padding:12px;
+}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:12px;
+}
+input[type=range],select{
+  width:100%;
+  margin-top:8px;
+}
+select{
+  border:1px solid var(--line);
+  background:#081326;
+  color:var(--text);
+  border-radius:10px;
+  padding:9px;
+}
+.scope{
+  padding:16px;
+}
+.scopeHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+.scopeHead h3{
+  margin:0;
+  font-size:26px;
+}
+.scopeHead p{
+  margin:6px 0 0;
+  color:var(--muted);
+}
+.canvasGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.canvasBox{
+  border:1px solid rgba(125,190,255,.24);
+  background:rgba(255,255,255,.025);
+  border-radius:18px;
+  overflow:hidden;
+}
+.canvasTitle{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 12px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  color:var(--muted);
+  font-size:12px;
+}
+canvas{
+  width:100%;
+  height:280px;
+  display:block;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(28,80,140,.15),transparent 45%),
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+}
+#spectrumCanvas{height:320px}
+#waterfallCanvas{height:320px}
+.side{
+  padding:16px;
+  display:grid;
+  gap:14px;
+  align-content:start;
+}
+.card{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:13px;
+}
+.card b{
+  display:block;
+}
+.card span,.card p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.42;
+}
+.meter{
+  height:10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:8px;
+}
+.meter i{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+  width:50%;
+}
+.eventLog{
+  max-height:260px;
+  overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:12px;
+  color:#bfd2ea;
+}
+.eventLog div{
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:6px 0;
+}
+.badge{
+  display:inline-block;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:11px;
+  color:var(--cyan);
+}
+@media(max-width:1350px){
+  .lab{grid-template-columns:300px 1fr}
+  .side{grid-column:1/-1}
+}
+@media(max-width:950px){
+  .hero,.lab,.canvasGrid{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .topbar{flex-direction:column;align-items:flex-start}
+  .kpis{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>03 · RF Spectrum Lab V1</h1>
+      <small>Spectrum · Waterfall · IQ · Constellation · Modulation Lab · HackRF-ready</small>
+    </div>
+    <nav class="nav">
+      <span class="pill ok" id="healthPill">Health: checking</span>
+      <a href="/trfmc_unified_navigation_shell_v1.html">Unified Shell</a>
+      <a href="/trfmc_master_digital_twin_console_v1.html">Master Console</a>
+      <a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>
+      <a href="/trfmc_collaudo_report.html">Collaudo</a>
+      <a href="/api/health">Health</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="panel heroMain">
+      <h2>RF Spectrum Lab</h2>
+      <p>
+        Primo engine interattivo del dominio 03_Signal_Analyzer. Genera un segnale RF sintetico
+        con rumore, picchi spettrali, waterfall, IQ plot e costellazione. La struttura è pronta
+        per essere collegata successivamente ad acquisizione HackRF, mantenendo il portale su porta 5173.
+      </p>
+      <div class="kpis">
+        <div class="kpi"><b id="kCenter">3.50 GHz</b><span>center frequency</span></div>
+        <div class="kpi"><b id="kSpan">80 MHz</b><span>span</span></div>
+        <div class="kpi"><b id="kSnr">28 dB</b><span>SNR stimato</span></div>
+        <div class="kpi"><b id="kMod">QPSK</b><span>modulazione</span></div>
+      </div>
+    </div>
+
+    <div class="panel status">
+      <div class="statusRow"><b>Engine</b><span>RF Spectrum Lab V1</span></div>
+      <div class="statusRow"><b>Mode</b><span>simulation / HackRF-ready</span></div>
+      <div class="statusRow"><b>Portal</b><span>single-port 5173</span></div>
+      <div class="statusRow"><b>Quality</b><span>no CDN · no external refs · no forbidden ports</span></div>
+    </div>
+  </section>
+
+  <section class="lab">
+    <aside class="panel controls">
+      <h3>Controlli RF</h3>
+
+      <div class="control">
+        <label>Center frequency <b id="centerVal">3.50 GHz</b></label>
+        <input id="center" type="range" min="1" max="100" value="58">
+      </div>
+
+      <div class="control">
+        <label>Span <b id="spanVal">80 MHz</b></label>
+        <input id="span" type="range" min="1" max="100" value="70">
+      </div>
+
+      <div class="control">
+        <label>Gain <b id="gainVal">26 dB</b></label>
+        <input id="gain" type="range" min="1" max="100" value="58">
+      </div>
+
+      <div class="control">
+        <label>Noise floor <b id="noiseVal">-84 dBm</b></label>
+        <input id="noise" type="range" min="1" max="100" value="35">
+      </div>
+
+      <div class="control">
+        <label>Signal activity <b id="activityVal">62%</b></label>
+        <input id="activity" type="range" min="1" max="100" value="62">
+      </div>
+
+      <div class="control">
+        <label>Modulation <b id="modVal">QPSK</b></label>
+        <select id="modulation">
+          <option>AM</option>
+          <option>FM</option>
+          <option>PM</option>
+          <option>BPSK</option>
+          <option selected>QPSK</option>
+          <option>16QAM</option>
+          <option>OFDM</option>
+        </select>
+      </div>
+    </aside>
+
+    <section class="panel scope">
+      <div class="scopeHead">
+        <div>
+          <h3>Analyzer View</h3>
+          <p>Spectrum, waterfall, IQ e costellazione aggiornati in tempo reale dal motore sintetico.</p>
+        </div>
+        <span class="badge" id="labMode">SIMULATED IQ</span>
+      </div>
+
+      <div class="canvasGrid">
+        <div class="canvasBox">
+          <div class="canvasTitle"><b>Spectrum / FFT</b><span id="peakReadout">peak: -- dBm</span></div>
+          <canvas id="spectrumCanvas" width="900" height="420"></canvas>
+        </div>
+        <div class="canvasBox">
+          <div class="canvasTitle"><b>Waterfall</b><span>time-frequency density</span></div>
+          <canvas id="waterfallCanvas" width="900" height="420"></canvas>
+        </div>
+        <div class="canvasBox">
+          <div class="canvasTitle"><b>IQ Time Plot</b><span>I/Q synthetic samples</span></div>
+          <canvas id="iqCanvas" width="900" height="360"></canvas>
+        </div>
+        <div class="canvasBox">
+          <div class="canvasTitle"><b>Constellation</b><span id="evmReadout">EVM: --%</span></div>
+          <canvas id="constellationCanvas" width="900" height="360"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel side">
+      <h3>KPI Analyzer</h3>
+
+      <div class="card">
+        <b>Occupied Bandwidth</b>
+        <span id="obwText">-- MHz</span>
+        <div class="meter"><i id="obwMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Signal Quality</b>
+        <span id="qualityText">--%</span>
+        <div class="meter"><i id="qualityMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>Anomaly Index</b>
+        <span id="anomalyText">--%</span>
+        <div class="meter"><i id="anomalyMeter"></i></div>
+      </div>
+
+      <div class="card">
+        <b>HackRF Integration Hook</b>
+        <p>
+          V1 lavora in simulazione locale. La fase successiva potrà collegare sorgenti IQ reali
+          senza cambiare la porta del portale: acquisizione, FFT, classificazione e registrazione evidenze.
+        </p>
+      </div>
+
+      <div class="card">
+        <b>Event Log</b>
+        <div class="eventLog" id="eventLog"></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const spectrum = $("spectrumCanvas");
+const waterfall = $("waterfallCanvas");
+const iqCanvas = $("iqCanvas");
+const constellation = $("constellationCanvas");
+
+const sctx = spectrum.getContext("2d");
+const wctx = waterfall.getContext("2d");
+const iqctx = iqCanvas.getContext("2d");
+const cctx = constellation.getContext("2d");
+
+const controls = ["center","span","gain","noise","activity"].map($);
+const modulation = $("modulation");
+
+let t = 0;
+let lastLog = 0;
+
+async function loadHealth(){
+  try{
+    const res = await fetch("/api/health", {cache:"no-store"});
+    const data = await res.json();
+    $("healthPill").textContent = data.ok ? "Health: online" : "Health: degraded";
+  }catch(e){
+    $("healthPill").textContent = "Health: unavailable";
+    $("healthPill").classList.remove("ok");
+  }
+}
+
+function params(){
+  const center = 0.1 + Number($("center").value) / 100 * 5.9;
+  const span = 5 + Number($("span").value) / 100 * 115;
+  const gain = 2 + Number($("gain").value) / 100 * 48;
+  const noise = -110 + Number($("noise").value) / 100 * 50;
+  const activity = Number($("activity").value);
+  const mod = modulation.value;
+  const snr = Math.max(2, Math.round(gain - (noise + 110) * 0.18 + activity * 0.18));
+  return {center, span, gain, noise, activity, mod, snr};
+}
+
+function updateLabels(){
+  const p = params();
+  $("centerVal").textContent = p.center.toFixed(2) + " GHz";
+  $("spanVal").textContent = Math.round(p.span) + " MHz";
+  $("gainVal").textContent = Math.round(p.gain) + " dB";
+  $("noiseVal").textContent = Math.round(p.noise) + " dBm";
+  $("activityVal").textContent = Math.round(p.activity) + "%";
+  $("modVal").textContent = p.mod;
+
+  $("kCenter").textContent = p.center.toFixed(2) + " GHz";
+  $("kSpan").textContent = Math.round(p.span) + " MHz";
+  $("kSnr").textContent = p.snr + " dB";
+  $("kMod").textContent = p.mod;
+}
+
+function grid(ctx, w, h){
+  ctx.strokeStyle = "rgba(125,190,255,.08)";
+  ctx.lineWidth = 1;
+  for(let x=0;x<w;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+}
+
+function generateSpectrum(){
+  const p = params();
+  const w = spectrum.width;
+  const h = spectrum.height;
+  const arr = new Float32Array(w);
+
+  const centers = [
+    w * (0.20 + p.center / 6 * 0.20),
+    w * (0.50 + Math.sin(t * 0.006) * 0.08),
+    w * (0.78 - p.center / 6 * 0.12)
+  ];
+  const widths = [
+    18 + p.span * 0.18,
+    25 + p.span * 0.24,
+    14 + p.activity * 0.16
+  ];
+
+  let peak = -140;
+
+  for(let x=0;x<w;x++){
+    let db = p.noise + (Math.random() - 0.5) * 4;
+    db += Math.sin(x * 0.025 + t * 0.02) * 1.8;
+
+    centers.forEach((c,i)=>{
+      const g = Math.exp(-Math.pow(x-c,2)/(widths[i]*widths[i]));
+      db += g * (18 + p.gain * (0.35 + i*0.08)) * (p.activity/100);
+    });
+
+    if(p.mod === "OFDM"){
+      for(let k=-8;k<=8;k++){
+        const c = w*0.5 + k * (5 + p.span * 0.06);
+        db += Math.exp(-Math.pow(x-c,2)/(10+p.span*.05)) * 5.2 * p.activity/100;
+      }
+    }
+
+    if(p.mod === "AM"){
+      db += Math.exp(-Math.pow(x-w*0.5,2)/(12*12)) * 12;
+      db += Math.exp(-Math.pow(x-w*0.43,2)/(16*16)) * 7;
+      db += Math.exp(-Math.pow(x-w*0.57,2)/(16*16)) * 7;
+    }
+
+    arr[x] = db;
+    peak = Math.max(peak, db);
+  }
+
+  return {arr, peak};
+}
+
+function drawSpectrum(spec){
+  const ctx = sctx, w = spectrum.width, h = spectrum.height;
+  ctx.clearRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  ctx.fillStyle = "rgba(234,243,255,.75)";
+  ctx.font = "14px system-ui";
+  ctx.fillText("Power dBm", 18, 26);
+  ctx.fillText("Frequency span", w-135, h-18);
+
+  ctx.beginPath();
+  for(let x=0;x<w;x++){
+    const db = spec.arr[x];
+    const norm = Math.max(0, Math.min(1, (db + 120) / 80));
+    const y = h - 35 - norm * (h - 70);
+    if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = "rgba(134,215,255,.96)";
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.lineTo(w,h-35);
+  ctx.lineTo(0,h-35);
+  ctx.closePath();
+  ctx.fillStyle = "rgba(134,215,255,.10)";
+  ctx.fill();
+
+  $("peakReadout").textContent = "peak: " + spec.peak.toFixed(1) + " dBm";
+}
+
+function drawWaterfall(spec){
+  const w = waterfall.width;
+  const h = waterfall.height;
+
+  const img = wctx.getImageData(0,0,w,h-1);
+  wctx.putImageData(img,0,1);
+
+  for(let x=0;x<w;x++){
+    const db = spec.arr[x];
+    const n = Math.max(0, Math.min(1, (db + 115) / 75));
+    const r = Math.round(20 + n*90);
+    const g = Math.round(55 + n*170);
+    const b = Math.round(85 + n*160);
+    wctx.fillStyle = `rgb(${r},${g},${b})`;
+    wctx.fillRect(x,0,1,1);
+  }
+}
+
+function constellationPoints(){
+  const p = params();
+  const pts = [];
+  const n = 360;
+  const noise = Math.max(0.015, (100 - p.snr*2) / 600);
+
+  function add(x,y){
+    pts.push([
+      x + (Math.random()-0.5)*noise*2,
+      y + (Math.random()-0.5)*noise*2
+    ]);
+  }
+
+  for(let i=0;i<n;i++){
+    if(p.mod === "BPSK"){
+      add(Math.random() > .5 ? 0.75 : -0.75, 0);
+    }else if(p.mod === "QPSK"){
+      add(Math.random() > .5 ? 0.65 : -0.65, Math.random() > .5 ? 0.65 : -0.65);
+    }else if(p.mod === "16QAM"){
+      const vals = [-0.75,-0.25,0.25,0.75];
+      add(vals[Math.floor(Math.random()*4)], vals[Math.floor(Math.random()*4)]);
+    }else if(p.mod === "OFDM"){
+      const a = Math.random()*Math.PI*2;
+      const r = 0.25 + Math.random()*0.65;
+      add(Math.cos(a)*r, Math.sin(a)*r);
+    }else{
+      const a = i * .18 + t * .025;
+      const r = p.mod === "AM" ? 0.35 + Math.sin(i*.08+t*.02)*0.2 : 0.62;
+      add(Math.cos(a)*r, Math.sin(a)*r);
+    }
+  }
+  return pts;
+}
+
+function drawConstellation(){
+  const ctx = cctx, w = constellation.width, h = constellation.height;
+  ctx.clearRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  const cx = w/2, cy = h/2;
+  const scale = Math.min(w,h)*0.36;
+
+  ctx.strokeStyle = "rgba(157,255,199,.18)";
+  ctx.beginPath();ctx.moveTo(cx,30);ctx.lineTo(cx,h-30);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(30,cy);ctx.lineTo(w-30,cy);ctx.stroke();
+
+  const pts = constellationPoints();
+  ctx.fillStyle = "rgba(157,255,199,.78)";
+  pts.forEach(([x,y])=>{
+    ctx.beginPath();
+    ctx.arc(cx+x*scale, cy-y*scale, 2.4, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  const p = params();
+  const evm = Math.max(1.2, Math.min(28, 32 - p.snr * .7 + Number($("noise").value)*.035));
+  $("evmReadout").textContent = "EVM: " + evm.toFixed(1) + "%";
+}
+
+function drawIQ(){
+  const ctx = iqctx, w = iqCanvas.width, h = iqCanvas.height;
+  ctx.clearRect(0,0,w,h);
+  grid(ctx,w,h);
+
+  const p = params();
+  const mid1 = h*0.34;
+  const mid2 = h*0.68;
+
+  ctx.font = "13px system-ui";
+  ctx.fillStyle = "rgba(234,243,255,.75)";
+  ctx.fillText("I", 16, mid1-8);
+  ctx.fillText("Q", 16, mid2-8);
+
+  function trace(mid, phase, color){
+    ctx.beginPath();
+    for(let x=0;x<w;x++){
+      const y = mid + Math.sin(x*.035 + t*.05 + phase) * (25 + p.activity*.18)
+        + Math.sin(x*.011 + t*.015 + phase) * 9
+        + (Math.random()-.5) * Math.max(2, Number($("noise").value)*.06);
+      if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.6;
+    ctx.stroke();
+  }
+
+  trace(mid1,0,"rgba(134,215,255,.90)");
+  trace(mid2,Math.PI/2,"rgba(157,255,199,.86)");
+}
+
+function updateKpis(){
+  const p = params();
+  const obw = Math.round(p.span * (0.25 + p.activity/160));
+  const quality = Math.max(5, Math.min(99, Math.round(p.snr*2.1 + (100-Number($("noise").value))*0.22)));
+  const anomaly = Math.max(2, Math.min(98, Math.round(Number($("noise").value)*0.35 + p.activity*0.08 + (p.mod==="OFDM"?8:0))));
+
+  $("obwText").textContent = obw + " MHz";
+  $("obwMeter").style.width = Math.min(100, obw) + "%";
+
+  $("qualityText").textContent = quality + "%";
+  $("qualityMeter").style.width = quality + "%";
+
+  $("anomalyText").textContent = anomaly + "%";
+  $("anomalyMeter").style.width = anomaly + "%";
+}
+
+function logEvent(){
+  const now = Date.now();
+  if(now - lastLog < 1800) return;
+  lastLog = now;
+
+  const p = params();
+  const log = $("eventLog");
+  const row = document.createElement("div");
+  const time = new Date().toLocaleTimeString();
+  row.textContent = `[${time}] ${p.mod} center=${p.center.toFixed(2)}GHz span=${Math.round(p.span)}MHz snr=${p.snr}dB`;
+  log.prepend(row);
+  while(log.children.length > 18) log.removeChild(log.lastChild);
+}
+
+function loop(){
+  t++;
+  updateLabels();
+  const spec = generateSpectrum();
+  drawSpectrum(spec);
+  drawWaterfall(spec);
+  drawIQ();
+  drawConstellation();
+  updateKpis();
+  logEvent();
+  requestAnimationFrame(loop);
+}
+
+controls.forEach(c=>c.addEventListener("input", updateLabels));
+modulation.addEventListener("change", updateLabels);
+
+loadHealth();
+updateLabels();
+loop();
+</script>
+</body>
+</html>
+HTML
+
+echo
+echo "=== PATCH LINK NEI PUNTI DI NAVIGAZIONE ==="
+
+python3 - <<'PY'
+from pathlib import Path
+
+targets = [
+    Path("frontend/public/trfmc_unified_navigation_shell_v1.html"),
+    Path("frontend/public/trfmc_master_digital_twin_console_v1.html"),
+    Path("frontend/public/trfmc_engine_promotion_board_v1.html"),
+    Path("frontend/public/api/portal/index"),
+]
+
+link_html = '<a href="/trfmc_rf_spectrum_lab_v1.html">RF Spectrum Lab</a>'
+li_html = '<li><a href="/trfmc_rf_spectrum_lab_v1.html">RF Spectrum Lab V1</a></li>'
+
+for p in targets:
+    if not p.exists():
+        print("SKIP:", p)
+        continue
+    s = p.read_text(errors="ignore")
+    old = s
+
+    if "trfmc_rf_spectrum_lab_v1.html" not in s:
+        if "<ul>" in s:
+            s = s.replace("<ul>", "<ul>\n" + li_html, 1)
+        elif '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>' in s:
+            s = s.replace(
+                '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>',
+                '<a href="/trfmc_engine_promotion_board_v1.html">Engine Board</a>\n      ' + link_html,
+                1
+            )
+        elif '<a href="/trfmc_domain_registry_v1.html">Domain Registry</a>' in s:
+            s = s.replace(
+                '<a href="/trfmc_domain_registry_v1.html">Domain Registry</a>',
+                '<a href="/trfmc_domain_registry_v1.html">Domain Registry</a>\n      ' + link_html,
+                1
+            )
+
+    if s != old:
+        p.write_text(s)
+        print("PATCHED:", p)
+    else:
+        print("UNCHANGED:", p)
+PY
+
+echo
+echo "=== TEST HTTP ==="
+curl -I --max-time 5 http://127.0.0.1:5173/trfmc_rf_spectrum_lab_v1.html
+
+echo
+echo "RF SPECTRUM LAB URL:"
+echo "http://127.0.0.1:5173/trfmc_rf_spectrum_lab_v1.html"

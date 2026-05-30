@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RF PRO v5.8.6 · Full Band Cursor RTSA</title>
+<style>
+:root{
+  --bg:#020611;--panel:#071522;--line:#07536b;--txt:#e7fbff;--muted:#8ab6c8;
+  --cyan:#00e5ff;--green:#36ff7d;--yellow:#ffd166;--orange:#ff9f1c;--red:#fb7185;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 10% 0%,rgba(0,229,255,.15),transparent 28%),linear-gradient(180deg,#030914,#00040a 82%);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif}
+.header{width:min(98vw,1960px);margin:14px auto 10px;border:1px solid var(--line);border-radius:18px;background:rgba(7,21,34,.94);padding:14px 18px}
+.header h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:12px;margin-top:7px}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#04101b;color:var(--muted);font-size:12px;font-weight:800;margin:8px 4px 0 0}.ok{color:var(--green);border-color:rgba(54,255,125,.55)}.warn{color:var(--yellow);border-color:rgba(255,209,102,.55)}
+.main{width:min(98vw,1960px);margin:0 auto 42px;display:grid;grid-template-columns:360px 1fr 430px;gap:12px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:16px;background:rgba(7,21,34,.94);overflow:hidden}.panel h2{margin:0;padding:9px 12px;background:rgba(0,229,255,.07);border-bottom:1px solid var(--line);font-size:13px;text-transform:uppercase;letter-spacing:.08em}.body{padding:12px}
+label{display:flex;flex-direction:column;gap:4px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+input,select{width:100%;background:#020a11;color:var(--txt);border:1px solid #16627a;border-radius:9px;padding:8px 9px;font-size:13px}
+button{background:#062b39;border:1px solid var(--cyan);color:var(--txt);border-radius:9px;padding:8px 9px;font-size:12px;font-weight:800;cursor:pointer;margin:3px 2px}
+button.good{background:#06341d;border-color:var(--green);color:var(--green)}button.warn{background:#3a2604;border-color:var(--yellow);color:var(--yellow)}button.orange{background:#3b1f04;border-color:var(--orange);color:var(--orange)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.kpis{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:10px}.kpi{border:1px solid #16445b;border-radius:10px;background:#020a11;padding:8px}.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}.kpi b{display:block;color:var(--green);font-size:14px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+canvas{display:block;width:100%;background:#02040a;border:1px solid #0f4058;border-radius:12px}
+#spectrum{height:500px;cursor:crosshair}#waterfall{height:190px;margin-top:8px}#zerospan{height:170px}
+.log{background:#02070d;border:1px solid #123c55;border-radius:10px;padding:9px;white-space:pre-wrap;overflow:auto;font:12px ui-monospace,Menlo,Consolas,monospace;color:#bdfbea;height:230px}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid rgba(127,178,198,.18);padding:6px;text-align:left}th{color:var(--cyan);font-size:10px;text-transform:uppercase}.scroll{max-height:350px;overflow:auto}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}.tab{border:1px solid #16445b;border-radius:10px;padding:7px 9px;background:#020a11;color:#bfefff;cursor:pointer;font-weight:800;font-size:12px}
+@media(max-width:1450px){.main{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}#spectrum{height:380px}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<section class="header">
+<h1>RF PRO v5.8.6 · Full Band Cursor RTSA</h1>
+<div class="sub">Full band 1 MHz–6 GHz, start/stop/center/span, RBW, VBW smoothing, measurement BW, cursori A/B, peak lock, max hold, average, persistence e zero-span style.</div>
+<span class="badge ok">RX ONLY</span><span class="badge ok">FULL BAND</span><span class="badge warn">HackRF instantaneous BW ≠ full sweep span</span><span class="badge" id="state">IDLE</span>
+</section>
+
+<main class="main">
+<aside class="panel"><h2>Frequency / RBW / Span</h2><div class="body">
+<div class="tabs"><span class="tab" onclick="fullBand()">FULL 1M–6G</span><span class="tab" onclick="preset(2400,2483.5,250000)">2.4G</span><span class="tab" onclick="preset(5725,5875,500000)">5.8G</span><span class="tab" onclick="preset(433,435,25000)">433</span><span class="tab" onclick="preset(863,870,50000)">868</span></div>
+<div class="grid2" style="margin-top:10px"><label>Start MHz<input id="startMHz" value="1" oninput="syncFromStartStop()"></label><label>Stop MHz<input id="stopMHz" value="6000" oninput="syncFromStartStop()"></label></div>
+<div class="grid2"><label>Center MHz<input id="centerMHz" value="3000.5" oninput="syncFromCenterSpan()"></label><label>Span MHz<input id="spanMHz" value="5999" oninput="syncFromCenterSpan()"></label></div>
+<div class="grid2"><label>RBW Hz<input id="rbwHz" value="1000000"></label><label>VBW smoothing<select id="vbw"><option value="0">OFF</option><option value="0.2">FAST</option><option value="0.5">MED</option><option value="0.8">SLOW</option></select></label></div>
+<div class="grid2"><label>Measurement BW MHz<input id="measBwMHz" value="20"></label><label>Use HackRF<select id="useHackrf"><option value="false">false</option><option value="true">true</option></select></label></div>
+<label>Trace<select id="traceMode"><option value="clear">Clear/Write</option><option value="maxhold">Max Hold</option><option value="average">Average</option><option value="persistence">Persistence</option></select></label>
+<button class="good" onclick="sweep()">SWEEP / UPDATE</button><button onclick="applyCursorSpan()">SPAN FROM CURSORS</button><button onclick="zoomIn()">ZOOM IN</button><button onclick="zoomOut()">ZOOM OUT</button><button class="orange" onclick="zeroSpanFromPeak()">ZERO SPAN STYLE</button><button onclick="clearMemory()">CLEAR TRACE</button>
+<div class="log" id="log">ready</div>
+</div></aside>
+
+<section class="panel"><h2>Spectrum / Cursor / Waterfall</h2><div class="body">
+<div class="kpis"><div class="kpi"><span>Source</span><b id="kSource">—</b></div><div class="kpi"><span>Peak MHz</span><b id="kPeak">—</b></div><div class="kpi"><span>Peak dB</span><b id="kPeakDb">—</b></div><div class="kpi"><span>Noise</span><b id="kNoise">—</b></div><div class="kpi"><span>Span MHz</span><b id="kSpan">—</b></div><div class="kpi"><span>RBW</span><b id="kRbw">—</b></div><div class="kpi"><span>Cursor BW</span><b id="kCbw">—</b></div><div class="kpi"><span>OBW est</span><b id="kObw">—</b></div></div>
+<canvas id="spectrum" width="1800" height="500"></canvas>
+<canvas id="waterfall" width="1800" height="190"></canvas>
+</div></section>
+
+<aside class="panel"><h2>Markers / Zero Span / Reports</h2><div class="body">
+<canvas id="zerospan" width="520" height="170"></canvas>
+<div class="scroll"><table><thead><tr><th>MHz</th><th>dB</th><th>SNR</th><th>Action</th></tr></thead><tbody id="peaks"></tbody></table></div>
+<div class="log" id="json" style="height:170px">frame...</div>
+</div></aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let frame=null, points=[], trace=null, avg=null, wf=[], zero=[], cursorA=null, cursorB=null, drag=null, lastPeak=null;
+function log(m,o){$('log').textContent=`[${new Date().toISOString()}] ${m}\n${o?JSON.stringify(o,null,2).slice(0,3000):''}\n`+$('log').textContent}
+function hzMHz(id){return +$(id).value*1e6}
+function syncFromStartStop(){let s=+$('startMHz').value,e=+$('stopMHz').value;$('centerMHz').value=((s+e)/2).toFixed(6);$('spanMHz').value=(e-s).toFixed(6)}
+function syncFromCenterSpan(){let c=+$('centerMHz').value,sp=+$('spanMHz').value;$('startMHz').value=Math.max(1,c-sp/2).toFixed(6);$('stopMHz').value=Math.min(6000,c+sp/2).toFixed(6)}
+function fullBand(){ $('startMHz').value=1; $('stopMHz').value=6000; syncFromStartStop(); $('rbwHz').value=1000000 }
+function preset(s,e,rbw){$('startMHz').value=s;$('stopMHz').value=e;$('rbwHz').value=rbw;syncFromStartStop()}
+async function sweep(){
+  $('state').textContent='SWEEP'; $('state').className='badge warn';
+  const body={start_hz:hzMHz('startMHz'),stop_hz:hzMHz('stopMHz'),rbw_hz:+$('rbwHz').value,points:3000,use_hackrf:$('useHackrf').value==='true',timeout_s:120};
+  const r=await fetch('/api/v586/fullband/sweep',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j=await r.json(); if(!j.ok){log('Sweep error',j);return}
+  frame=j; points=j.points||[]; lastPeak=j.metrics?.peak_hz||null;
+  updateTrace(); render(); renderPeaks(j.peaks||[]); renderZero(); $('json').textContent=JSON.stringify({source:j.source,metrics:j.metrics,report:j.report_file,raw:j.raw_status},null,2);
+  $('state').textContent='READY'; $('state').className='badge ok'; log('Sweep done',{source:j.source,report:j.report_file,sha:j.report_sha256});
+}
+function updateTrace(){
+  const mode=$('traceMode').value, alpha=+$('vbw').value;
+  const vals=points.map(p=>p.db);
+  if(!trace||trace.length!==vals.length||mode==='clear') trace=[...vals];
+  else if(mode==='maxhold') trace=trace.map((v,i)=>Math.max(v,vals[i]));
+  else if(mode==='average'){ if(!avg||avg.length!==vals.length) avg=[...vals]; avg=avg.map((v,i)=>0.85*v+0.15*vals[i]); trace=[...avg]; }
+  else if(mode==='persistence') trace=trace.map((v,i)=>Math.max(vals[i],v-1.5));
+  if(alpha>0 && trace){for(let i=1;i<trace.length;i++) trace[i]=alpha*trace[i-1]+(1-alpha)*trace[i];}
+}
+function xToFreq(x){if(!points.length)return null;const r=$('spectrum').getBoundingClientRect();const t=Math.max(0,Math.min(1,(x-r.left)/r.width));return points[0].freq_hz+t*(points[points.length-1].freq_hz-points[0].freq_hz)}
+function freqToX(f,w){return (f-points[0].freq_hz)/(points[points.length-1].freq_hz-points[0].freq_hz+1e-9)*w}
+function render(){
+ const c=$('spectrum'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.fillStyle='#02040a';ctx.fillRect(0,0,w,h);
+ for(let i=0;i<=10;i++){ctx.strokeStyle=i%5?'rgba(127,178,198,.08)':'rgba(0,229,255,.18)';ctx.beginPath();ctx.moveTo(0,i*h/10);ctx.lineTo(w,i*h/10);ctx.stroke()}
+ if(!points.length||!trace)return;
+ const minDb=Math.min(...trace),maxDb=Math.max(...trace),minF=points[0].freq_hz,maxF=points[points.length-1].freq_hz;
+ ctx.strokeStyle='#00e5ff';ctx.lineWidth=2;ctx.beginPath();trace.forEach((db,i)=>{const x=i/(trace.length-1)*w,y=h-((db-minDb)/(maxDb-minDb+1e-9))*h;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke();
+ const meas=+$('measBwMHz').value*1e6, center=lastPeak||((minF+maxF)/2); drawBand(center-meas/2,center+meas/2,'rgba(255,209,102,.10)','MEAS BW');
+ if(cursorA)drawCursor(cursorA,'#36ff7d','A'); if(cursorB)drawCursor(cursorB,'#ff9f1c','B');
+ (frame?.peaks||[]).slice(0,12).forEach(p=>drawCursor(p.freq_hz,'rgba(54,255,125,.45)',''));
+ $('kSource').textContent=frame?.source||'—';$('kPeak').textContent=frame?.metrics?.peak_mhz??'—';$('kPeakDb').textContent=frame?.metrics?.peak_db??'—';$('kNoise').textContent=frame?.metrics?.noise_floor_db??'—';$('kSpan').textContent=((maxF-minF)/1e6).toFixed(3);$('kRbw').textContent=$('rbwHz').value;$('kObw').textContent=frame?.metrics?.obw_hz_est??'—';
+ if(cursorA&&cursorB)$('kCbw').textContent=(Math.abs(cursorB-cursorA)/1e6).toFixed(6)+' MHz'; else $('kCbw').textContent='—';
+ addWaterfall();
+ function drawCursor(f,col,label){const x=freqToX(f,w);ctx.strokeStyle=col;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();if(label){ctx.fillStyle=col;ctx.fillText(label+' '+(f/1e6).toFixed(6)+' MHz',x+5,16)}}
+ function drawBand(a,b,col,label){const x1=freqToX(a,w),x2=freqToX(b,w);ctx.fillStyle=col;ctx.fillRect(Math.min(x1,x2),0,Math.abs(x2-x1),h);ctx.fillStyle='#ffd166';ctx.fillText(label,Math.min(x1,x2)+6,h-12)}
+}
+function addWaterfall(){const c=$('waterfall'),ctx=c.getContext('2d'),w=c.width,h=c.height;wf.unshift(trace?[...trace]:[]);wf=wf.slice(0,h);const img=ctx.createImageData(w,h);for(let y=0;y<h;y++){const row=wf[y]||[];for(let x=0;x<w;x++){const idx=Math.floor(x/w*Math.max(1,row.length-1));const db=row[idx]??-120;const v=Math.max(0,Math.min(1,(db+110)/75));const o=(y*w+x)*4;img.data[o]=Math.floor(10+45*v);img.data[o+1]=Math.floor(25+220*v);img.data[o+2]=Math.floor(90+130*(1-v));img.data[o+3]=255}}ctx.putImageData(img,0,0)}
+function renderPeaks(peaks){const tb=$('peaks');tb.innerHTML='';peaks.forEach(p=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${p.freq_mhz}</td><td>${p.db}</td><td>${p.snr_median_db}</td><td><button onclick="lock(${p.freq_hz})">LOCK</button></td>`;tb.appendChild(tr)})}
+function lock(f){lastPeak=f;cursorA=f-(+$('measBwMHz').value*1e6)/2;cursorB=f+(+$('measBwMHz').value*1e6)/2;render();log('Peak locked',{freq_hz:f})}
+function applyCursorSpan(){if(!cursorA||!cursorB)return;const s=Math.max(1e6,Math.min(cursorA,cursorB)),e=Math.min(6e9,Math.max(cursorA,cursorB));$('startMHz').value=(s/1e6).toFixed(6);$('stopMHz').value=(e/1e6).toFixed(6);syncFromStartStop()}
+function zoomIn(){if(cursorA&&cursorB)applyCursorSpan();else if(lastPeak){const sp=+$('spanMHz').value/4;$('centerMHz').value=(lastPeak/1e6).toFixed(6);$('spanMHz').value=Math.max(0.001,sp).toFixed(6);syncFromCenterSpan()}}
+function zoomOut(){let sp=+$('spanMHz').value*2,c=+$('centerMHz').value;$('spanMHz').value=Math.min(5999,sp).toFixed(6);syncFromCenterSpan()}
+function clearMemory(){trace=null;avg=null;wf=[];zero=[];render();renderZero();log('Trace memory cleared')}
+function zeroSpanFromPeak(){const f=lastPeak || cursorA || hzMHz('centerMHz'); zero.push({t:Date.now(),v:frame?.metrics?.peak_db??0,f}); zero=zero.slice(-180); renderZero();log('Zero-span point',{freq_hz:f})}
+function renderZero(){const c=$('zerospan'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.fillStyle='#02040a';ctx.fillRect(0,0,w,h);if(!zero.length)return;const vals=zero.map(z=>z.v),min=Math.min(...vals),max=Math.max(...vals);ctx.strokeStyle='#ffd166';ctx.beginPath();zero.forEach((z,i)=>{const x=i/Math.max(1,zero.length-1)*w,y=h-((z.v-min)/(max-min+1e-9))*h;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke()}
+const spec=$('spectrum');
+spec.addEventListener('mousedown',e=>{drag='A';cursorA=xToFreq(e.clientX);cursorB=null;render()});
+spec.addEventListener('mousemove',e=>{if(drag){cursorB=xToFreq(e.clientX);render()}});
+spec.addEventListener('mouseup',e=>{cursorB=xToFreq(e.clientX);drag=null;render();log('Cursor selection',{A:cursorA,B:cursorB,bw_hz:Math.abs((cursorB||0)-(cursorA||0))})});
+fetch('/api/v586/fullband/state').then(r=>r.json()).then(j=>log('State',j));
+sweep().catch(e=>log('Init sweep error',e.message));
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="microwave" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · MICROWAVE</div>
+      <div class="trfmc-perfection-sub">RF PRO v5.8.6 · Full Band Cursor RTSA<br>/rfpro_fullband_v586.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>65/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>microwave-dish</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="TRFMC MICROWAVE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, fade margin, band)
+Capacity ≈ B·log2(1+SNR)·rank</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="microwave"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

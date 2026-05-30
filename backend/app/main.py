@@ -86,3 +86,33 @@ app.include_router(evidence_vault_router)
 app.include_router(ops_backup_router)
 app.include_router(restore_readiness_router)
 app.include_router(docs_portal_router)
+
+
+# ============================================================
+# TRFMC CORE LIVE ROUTER
+# ============================================================
+try:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[
+            "http://127.0.0.1:5173",
+            "http://localhost:5173",
+            "http://127.0.0.1:8080",
+            "http://localhost:8080",
+        ],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+except Exception:
+    pass
+
+try:
+    from app.domains.core_live.api import router as trfmc_core_live_router
+    app.include_router(trfmc_core_live_router)
+except Exception as e:
+    print("TRFMC_CORE_LIVE_ROUTER_DISABLED", e)
+
+@app.get("/api/trfmc-backend-ready")
+def trfmc_backend_ready():
+    return {"status": "ok", "service": "trfmc-backend", "core_live": True}

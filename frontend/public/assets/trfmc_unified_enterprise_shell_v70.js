@@ -153,7 +153,7 @@
     const visual = document.getElementById("v70_visual");
 
     try{
-      const r = await fetch("http://127.0.0.1:8000/api/health", {cache:"no-store"});
+      const r = await fetch("/api/health", {cache:"no-store"});
       if(!r.ok) throw new Error("backend " + r.status);
       const j = await r.json();
 
@@ -165,7 +165,7 @@
       visual.className = "";
 
       try{
-        const m = await fetch("http://127.0.0.1:8000/api/observability/health-matrix", {cache:"no-store"});
+        const m = await fetch("/api/observability/health-matrix", {cache:"no-store"});
         if(m.ok){
           const mj = await m.json();
           runtime.textContent = mj.overall_status ? "Matrix " + mj.overall_status : runtime.textContent;

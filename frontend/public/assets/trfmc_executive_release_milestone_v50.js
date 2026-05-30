@@ -1,6 +1,6 @@
 (function(){
   const VERSION = "TRFMC_V0_50A_EXECUTIVE_RELEASE_MILESTONE_MASTER_INDEX";
-  const API = "http://127.0.0.1:8000/api";
+  const API = "/api";
 
   function ready(fn){
     if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);

@@ -28,7 +28,7 @@
 
   async function backendHealth(){
     try{
-      const r = await fetch("http://127.0.0.1:8000/api/health", {cache:"no-store"});
+      const r = await fetch("/api/health", {cache:"no-store"});
       $("backend_state").textContent = r.ok ? "Backend OK" : "Backend WARN";
       $("backend_state").className = r.ok ? "" : "warn";
     }catch(e){

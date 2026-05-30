@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>TRFMC Portal Index</title>
+<style>
+body{margin:0;background:#050812;color:#eaf2ff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:32px}
+.card{max-width:980px;background:rgba(255,255,255,.06);border:1px solid rgba(130,180,255,.24);border-radius:18px;padding:24px;box-shadow:0 0 32px rgba(0,120,255,.10)}
+h1{margin-top:0;color:#9ed0ff}
+code{background:rgba(255,255,255,.09);padding:3px 6px;border-radius:6px}
+a{color:#9ed0ff}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>TRFMC — Portal Index</h1>
+<p>Indice operativo locale del portale. Porta ufficiale: <code>5173</code>.</p>
+<ul>
+<li><a href="/trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html">Antenna V1.7 Layout Lock</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html">Antenna V1.6R2 Clean Dock</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v16r1_visible_antenna.html">Antenna V1.6R1 Visible</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v16_metrology_premium.html">Antenna V1.6 Metrology Premium</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v15_instrument_center.html">Antenna V1.5 Instrument Center</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v14_instrument_grade.html">Antenna V1.4 Instrument Grade</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v13_premium.html">Antenna V1.3 Premium</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v12_operativo.html">Antenna V1.2 Operativo</a></li>
+<li><a href="/trfmc_antenna_system_explorer_v1.html">Antenna Explorer</a></li>
+<li><a href="/trfmc_master_console_v4.html">Master Console V4</a></li>
+<li><a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">Wi-Fi/QAM Engine</a></li>
+<li><a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP Engine V3</a></li>
+<li><a href="/trfmc_measurement_chain_dsp_engine_v2.html">DSP Measurement Chain</a></li>
+<li><a href="/trfmc_instrument_os_alignment_v1.html">Instrument OS</a></li>
+<li><a href="/trfmc_pr200_field_monitoring_receiver_v1.html">TRFMC PR200 Field Monitoring Receiver V1</a></li>
+<li><a href="/trfmc_runtime_hook_layer_v1.html">TRFMC Runtime Hook Layer V1</a></li>
+<li><a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">5G Core/RAN Identity & AKA Engine V1</a></li>
+<li><a href="/trfmc_converged_rf_5g_noc_v1.html">Converged RF+5G NOC</a>
+      <a href="/trfmc_rf_tm_war_room_v4.html">RF/TM War Room V4</a>
+      <a href="/trfmc_rf_tm_signal_universe_v3.html">RF/TM Signal Universe V3</a></li>
+<li><a href="/trfmc_signal_world_engine_v2.html">TRFMC Signal World Engine V2</a></li>
+<li><a href="/trfmc_rf_spectrum_lab_v1.html">RF Spectrum Lab V1</a></li>
+<li><a href="/trfmc_engine_promotion_board_v1.html">TRFMC Engine Promotion Board V1</a></li>
+<li><a href="/trfmc_unified_navigation_shell_v1.html">TRFMC Unified Navigation Shell V1</a></li>
+<li><a href="/trfmc_domain_registry_v1.html">TRFMC Domain Registry V1</a></li>
+<li><a href="/trfmc_master_digital_twin_console_v1.html">Master Digital Twin Console</a></li>
+<li><a href="/trfmc_home_v87g.html">Home v87g</a></li>
+<li><a href="/trfmc_home.html">Home</a></li>
+<li><a href="/trfmc.html">TRFMC</a></li>
+<li><a href="/operator_handbook_console_v23.html">Operator Handbook Console</a></li>
+<li><a href="/runtime_golden_check_console_v29.html">Runtime Golden Check Console</a></li>
+<li><a href="/observability_console_v13.html">Observability Console</a></li>
+<li><a href="/trfmc_collaudo_report.html">Report Collaudo</a></li>
+</ul>
+</div>
+</body>
+</html>

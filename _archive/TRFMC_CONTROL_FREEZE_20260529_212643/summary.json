@@ -1,0 +1,14 @@
+{
+  "timestamp": "20260529_212643",
+  "operation": "TRFMC_CONTROL_FREEZE",
+  "mutation": false,
+  "base": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2",
+  "freeze": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/_archive/TRFMC_CONTROL_FREEZE_20260529_212643",
+  "master_register": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/latest_master_portal_register",
+  "git_dirty_total": 533,
+  "promote_total": 25,
+  "archive_total": 29,
+  "v51_residue_total": 10,
+  "build_result": "PASS",
+  "result": "FREEZE_CREATED"
+}

@@ -1,0 +1,107 @@
+:root{
+  --trfmc-bg:#02070d;
+  --trfmc-bg-2:#061827;
+  --trfmc-panel:#071827;
+  --trfmc-panel-2:#092033;
+  --trfmc-line:#0b75a8;
+  --trfmc-line-soft:#0b3f5f;
+  --trfmc-cyan:#00e5ff;
+  --trfmc-green:#75ff5b;
+  --trfmc-yellow:#ffd84d;
+  --trfmc-red:#ff3d7f;
+  --trfmc-blue:#1e9cff;
+  --trfmc-text:#e8f9ff;
+  --trfmc-muted:#8bb7c9;
+  --trfmc-shadow:0 0 22px rgba(0,229,255,.18);
+  --trfmc-font:Inter,Segoe UI,Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 30% 0%,rgba(0,229,255,.08),transparent 28%),
+    linear-gradient(180deg,#02070d,#010409 70%);
+  color:var(--trfmc-text);
+  font-family:var(--trfmc-font);
+}
+
+.trfmc-shell-header{
+  padding:12px 16px;
+  border-bottom:1px solid var(--trfmc-line);
+  background:linear-gradient(90deg,#04101b,#06243a);
+  box-shadow:var(--trfmc-shadow);
+}
+
+.trfmc-title{
+  margin:0;
+  color:var(--trfmc-cyan);
+  letter-spacing:2px;
+  font-size:18px;
+  text-transform:uppercase;
+}
+
+.trfmc-subtitle{
+  color:var(--trfmc-muted);
+  font-size:12px;
+}
+
+.trfmc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:10px;
+}
+
+.trfmc-card{
+  border:1px solid var(--trfmc-line);
+  background:linear-gradient(180deg,rgba(7,24,39,.98),rgba(3,12,20,.98));
+  border-radius:6px;
+  padding:12px;
+  box-shadow:inset 0 0 0 1px rgba(0,229,255,.04);
+}
+
+.trfmc-card h3{
+  margin:0 0 8px;
+  color:var(--trfmc-yellow);
+  font-size:13px;
+  text-transform:uppercase;
+}
+
+.trfmc-badge{
+  display:inline-block;
+  padding:2px 7px;
+  border:1px solid var(--trfmc-line);
+  border-radius:4px;
+  margin:2px;
+  font-size:10px;
+  color:var(--trfmc-cyan);
+  background:#03101a;
+}
+
+.trfmc-ok{color:var(--trfmc-green)}
+.trfmc-warn{color:var(--trfmc-yellow)}
+.trfmc-bad{color:var(--trfmc-red)}
+
+.trfmc-btn{
+  display:inline-block;
+  border:1px solid var(--trfmc-line);
+  background:#06243a;
+  color:var(--trfmc-cyan);
+  padding:7px 10px;
+  border-radius:4px;
+  text-decoration:none;
+  font-size:12px;
+}
+.trfmc-btn:hover{background:#08324f}
+
+.trfmc-kpi{
+  font-size:28px;
+  color:var(--trfmc-green);
+  font-weight:700;
+}
+
+.trfmc-note{
+  color:var(--trfmc-muted);
+  font-size:12px;
+  line-height:1.45;
+}

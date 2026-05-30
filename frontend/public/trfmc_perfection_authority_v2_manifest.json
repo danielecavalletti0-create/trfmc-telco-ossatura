@@ -1,0 +1,10 @@
+{
+  "id": "TRFMC_PERFECTION_AUTHORITY_V2_SCOPED",
+  "generated": "2026-05-23T20:30:55.037836+00:00",
+  "reports": {
+    "summary": "runtime/quality/latest_false_external_repair_and_authority_v2/authority_v2_summary.json",
+    "scope_summary": "runtime/quality/latest_false_external_repair_and_authority_v2/authority_v2_scope_summary.tsv",
+    "leaf_domain_summary": "runtime/quality/latest_false_external_repair_and_authority_v2/authority_v2_leaf_domain_summary.tsv",
+    "leaf_scorecard": "runtime/quality/latest_false_external_repair_and_authority_v2/authority_v2_leaf_scorecard.tsv"
+  }
+}

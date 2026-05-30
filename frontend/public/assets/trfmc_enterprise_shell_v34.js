@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const API = "http://127.0.0.1:8000/api";
+  const API = "/api";
 
   const NAV = [
     { label: "Portal", href: "/portal_index_v19.html" },
@@ -93,7 +93,7 @@
       <div class="trfmc-shell-subbar">
         <span>localhost-only · simulation-only · controlled lab posture</span>
         <span>
-          API <code>127.0.0.1:8000</code>
+          API <code>127.0.0.1:5173</code>
           Frontend <code>127.0.0.1:5173</code>
         </span>
       </div>

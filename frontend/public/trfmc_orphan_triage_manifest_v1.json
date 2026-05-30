@@ -1,0 +1,17 @@
+{
+  "id": "TRFMC_ORPHAN_TRIAGE_BOARD_V1",
+  "timestamp": "2026-05-23T20:49:06.359378+00:00",
+  "summary": {
+    "timestamp": "2026-05-23T20:49:06.338669+00:00",
+    "operation": "TRFMC_ORPHAN_TRIAGE_BOARD_V1",
+    "orphan_pages": 23,
+    "actions": {
+      "MERGE": 17,
+      "KEEP_QUARANTINED": 2,
+      "REBUILD_AS_LEAF": 4
+    },
+    "policy": "Read-only triage. No orphan file changed. No orphan promoted."
+  },
+  "board": "/trfmc_orphan_triage_board_v1.html",
+  "policy": "Read-only orphan triage. No orphan file changed."
+}

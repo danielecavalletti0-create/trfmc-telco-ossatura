@@ -1,6 +1,6 @@
 (function(){
   const VERSION = "TRFMC_V0_42A_EXECUTIVE_EVIDENCE_MISSION_STATUS_OVERLAY";
-  const API = "http://127.0.0.1:8000/api";
+  const API = "/api";
 
   function ready(fn){
     if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);

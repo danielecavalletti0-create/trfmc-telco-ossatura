@@ -1,0 +1,44 @@
+{
+  "id": "TRFMC_RF_PRO_SIGNAL_INTELLIGENCE_LAB_V3_REALITY",
+  "timestamp": "2026-05-23T21:08:15.257736+00:00",
+  "page": "/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html",
+  "source_policy": {
+    "source": "RF PRO V2 PASS",
+    "v2_result": "PASS",
+    "v3_mode": "reality_instrument_cockpit",
+    "mutation_policy": "V3 creates new leaf and local assets only. V2, V6R3, Control Room and orphan files remain unchanged.",
+    "expected": {
+      "visual_language": "real RF/Telco instrument cockpit",
+      "instrument_blocks": [
+        "VSA",
+        "waterfall",
+        "constellation",
+        "FHSS intelligence",
+        "RF scene",
+        "evidence chain"
+      ],
+      "no_cdn": true,
+      "no_iframe": true
+    }
+  },
+  "mode": "synthetic_lab_only_reality_cockpit",
+  "architecture": {
+    "web_component": "trfmc-rf-pro-reality-v3",
+    "worker": "/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_worker_v3.js",
+    "shader_registry": "/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_shaders_v3.js",
+    "renderer": "canvas_2d_reality_instrument_renderer",
+    "gpu": "webgpu_readiness_with_webgl2_label_fallback"
+  },
+  "capabilities": [
+    "rf_reality_scene",
+    "vsa_markers",
+    "max_hold_trace",
+    "dense_persistent_waterfall",
+    "iq_cloud_error_vectors",
+    "fhss_hop_intelligence",
+    "peak_marker_table",
+    "formula_spine",
+    "visual_evidence_binding"
+  ],
+  "policy": "New V3 reality leaf. V2 unchanged. Orphans unchanged. V6R3 and Control Room protected."
+}

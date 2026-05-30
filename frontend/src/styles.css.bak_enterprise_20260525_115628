@@ -1,0 +1,135 @@
+:root{
+  --bg:#050b14;
+  --bg2:#09192b;
+  --panel:#08111f;
+  --panel2:#0b1d31;
+  --border:#123a5f;
+  --cyan:#39d7ff;
+  --cyanSoft:#1ca3d1;
+  --green:#7dffb2;
+  --text:#d7ecff;
+  --muted:#7f9bb3;
+  --danger:#ff5f7a;
+  --warning:#ffd166;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:
+    radial-gradient(circle at top,#10233f 0%,#07111d 45%,#04070d 100%);
+  color:var(--text);
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button{
+  background:linear-gradient(180deg,#10243d,#09111c);
+  border:1px solid #17466d;
+  color:#cfeaff;
+  border-radius:8px;
+  padding:8px 14px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  border-color:#39d7ff;
+  box-shadow:0 0 10px rgba(57,215,255,.35);
+}
+
+input,
+select{
+  background:#08111d;
+  border:1px solid #17466d;
+  color:#d8f1ff;
+  border-radius:6px;
+  padding:6px 10px;
+}
+
+.trfmc-shell{
+  padding:18px;
+}
+
+.trfmc-title{
+  font-size:48px;
+  font-weight:800;
+  letter-spacing:.08em;
+  margin-bottom:10px;
+  color:#e8f6ff;
+  text-shadow:
+    0 0 12px rgba(57,215,255,.35),
+    0 0 28px rgba(57,215,255,.15);
+}
+
+.trfmc-subtitle{
+  color:#8eb5d6;
+  margin-bottom:22px;
+  font-size:15px;
+}
+
+.mc-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(360px,1fr));
+  gap:18px;
+}
+
+.mc-panel{
+  background:
+    linear-gradient(180deg,#0b1625,#08111d);
+  border:1px solid #163552;
+  border-radius:16px;
+  padding:16px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(57,215,255,.05),
+    0 10px 30px rgba(0,0,0,.45);
+}
+
+.mc-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(57,215,255,.04),
+      transparent
+    );
+  pointer-events:none;
+}
+
+.mc-panel h2{
+  margin-top:0;
+  font-size:18px;
+  letter-spacing:.06em;
+  color:#dbf5ff;
+}
+
+.mc-span-2{
+  grid-column:span 2;
+}
+
+@media(max-width:1200px){
+  .mc-span-2{
+    grid-column:span 1;
+  }
+}

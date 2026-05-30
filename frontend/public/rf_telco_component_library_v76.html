@@ -8,9 +8,15 @@
   <link rel="stylesheet" href="/assets/trfmc_rf_telco_component_library_v76.css"/>
   <script defer src="/assets/trfmc_master_shell_v75.js"></script>
   <script defer src="/assets/trfmc_rf_telco_component_library_v76.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
 </head>
 
-<body class="v76-shell">
+<body class="v76-shell trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
   <div class="v76-bg-grid"></div>
   <div class="v76-glow g1"></div>
   <div class="v76-glow g2"></div>
@@ -121,5 +127,54 @@
       </div>
     </section>
   </main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC v0.76A · RF/Telco Component Object Library<br>/rf_telco_component_library_v76.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>63/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>

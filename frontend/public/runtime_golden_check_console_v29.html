@@ -155,8 +155,8 @@ footer{
   <a href="/operator_handbook_console_v23.html">Operator Handbook</a>
   <a href="/restore_readiness_console_v22.html">Restore</a>
   <a href="/operational_backup_console_v21.html">Backup</a>
-  <a href="http://127.0.0.1:8000/api/health">Health API</a>
-  <a href="http://127.0.0.1:8000/api/docs/index">Docs API</a>
+  <a href="/api/health">Health API</a>
+  <a href="/api/docs/index">Docs API</a>
 </section>
 
 <section class="kpis">
@@ -201,7 +201,7 @@ footer{
 </footer>
 
 <script>
-const API = 'http://127.0.0.1:8000/api'
+const API = '/api'
 
 async function getJson(url){
   const r = await fetch(url, {cache:'no-store'})

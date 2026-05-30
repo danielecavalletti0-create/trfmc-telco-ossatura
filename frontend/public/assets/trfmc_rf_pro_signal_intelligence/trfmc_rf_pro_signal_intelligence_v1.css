@@ -1,0 +1,188 @@
+/*
+ TRFMC RF PRO Signal Intelligence Lab V1
+ Instrument-grade cinematic UI.
+ No CDN. No iframe. No external refs.
+*/
+
+:root{
+  --rfp-bg:#010409;
+  --rfp-panel:rgba(2,18,30,.92);
+  --rfp-cyan:#00e5ff;
+  --rfp-green:#75ff5b;
+  --rfp-warn:#ffd84d;
+  --rfp-red:#ff3d7f;
+  --rfp-text:#dffaff;
+  --rfp-muted:#8fb8c8;
+}
+
+.rfpro-root{
+  min-height:100vh;
+  color:var(--rfp-text);
+  background:
+    radial-gradient(circle at 82% 8%, rgba(0,229,255,.18), transparent 30%),
+    radial-gradient(circle at 14% 88%, rgba(117,255,91,.07), transparent 28%),
+    linear-gradient(145deg,#020812,#010409 60%,#000);
+  font-family:ui-monospace,Consolas,monospace;
+}
+
+.rfpro-topology{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:390px 1fr;
+  gap:8px;
+  padding:8px;
+  min-height:calc(100vh - 78px);
+}
+
+.rfpro-panel{
+  border:1px solid rgba(0,229,255,.28);
+  border-radius:14px;
+  background:
+    linear-gradient(145deg,rgba(2,18,30,.92),rgba(1,7,13,.96)),
+    radial-gradient(circle at 70% 0%,rgba(0,229,255,.08),transparent 35%);
+  box-shadow:
+    0 0 38px rgba(0,229,255,.12),
+    inset 0 0 24px rgba(0,229,255,.05),
+    0 20px 54px rgba(0,0,0,.42);
+  padding:9px;
+}
+
+.rfpro-title{
+  color:var(--rfp-cyan);
+  font-size:15px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  text-shadow:0 0 16px rgba(0,229,255,.45);
+}
+
+.rfpro-sub{
+  color:var(--rfp-muted);
+  font-size:10px;
+  line-height:1.5;
+  margin-top:4px;
+}
+
+.rfpro-kpis{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:7px;
+  margin-top:8px;
+}
+
+.rfpro-kpi{
+  border:1px solid rgba(0,229,255,.24);
+  background:rgba(0,229,255,.045);
+  border-radius:10px;
+  padding:7px;
+}
+
+.rfpro-kpi small{
+  display:block;
+  color:var(--rfp-muted);
+  text-transform:uppercase;
+  font-size:8px;
+}
+
+.rfpro-kpi b{
+  display:block;
+  color:var(--rfp-green);
+  font-size:16px;
+  margin-top:2px;
+}
+
+.rfpro-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:8px;
+}
+
+.rfpro-stack{
+  display:grid;
+  gap:8px;
+}
+
+.rfpro-card{
+  border:1px solid rgba(0,229,255,.22);
+  border-radius:12px;
+  background:rgba(0,229,255,.035);
+  padding:8px;
+}
+
+.rfpro-card h3{
+  color:var(--rfp-warn);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin:0 0 6px 0;
+}
+
+.rfpro-card p,
+.rfpro-formulas{
+  color:var(--rfp-text);
+  font-size:10px;
+  line-height:1.52;
+}
+
+.rfpro-formulas{
+  white-space:pre-wrap;
+}
+
+.rfpro-canvas{
+  width:100%;
+  height:230px;
+  display:block;
+  background:#010409;
+  border:1px solid rgba(0,229,255,.20);
+  border-radius:11px;
+}
+
+.rfpro-canvas.tall{
+  height:330px;
+}
+
+.rfpro-canvas.small{
+  height:150px;
+}
+
+.rfpro-assets{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.rfpro-assets trfmc-visual-asset:first-child{
+  grid-column:1 / -1;
+}
+
+.rfpro-pill{
+  display:inline-block;
+  border:1px solid rgba(117,255,91,.34);
+  background:rgba(117,255,91,.07);
+  color:var(--rfp-green);
+  border-radius:7px;
+  padding:2px 6px;
+  margin:2px 3px 2px 0;
+  font-size:9px;
+}
+
+.rfpro-source{
+  font-size:9px;
+  color:var(--rfp-muted);
+  border-bottom:1px solid rgba(0,229,255,.15);
+  padding:5px 0;
+}
+
+.rfpro-source a{
+  color:var(--rfp-cyan);
+}
+
+@media(max-width:1350px){
+  .rfpro-topology{grid-template-columns:1fr}
+  .rfpro-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:900px){
+  .rfpro-assets{grid-template-columns:1fr}
+  .rfpro-kpis{grid-template-columns:1fr}
+}

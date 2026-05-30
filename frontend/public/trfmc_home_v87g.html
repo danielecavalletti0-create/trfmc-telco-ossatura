@@ -5,8 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>TRFMC v0.87G · Public Operational Home</title>
   <link rel="stylesheet" href="/assets/trfmc_v087g_public_operational_home.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
 </head>
-<body style="margin:0;background:#02040a;">
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" style="margin:0;background:#02040a;">
 <main data-trfmc-page="v87g-public-home" class="g87-shell">
   <canvas class="g87-canvas" aria-hidden="true"></canvas>
 
@@ -88,5 +94,51 @@
   </footer>
 </main>
 <script src="/assets/trfmc_v087g_public_operational_home.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="rf">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · RF</div>
+      <div class="trfmc-b2-sub">TRFMC v0.87G · Public Operational Home<br>/trfmc_home_v87g.html<br>Previous Authority V2 score: 65/100 · CRITICAL</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>FFT</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>EVM</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>SNR</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>ACLR</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="spectrum-scope" data-size="medium" title="Batch B RF Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">x(t) ⇄ X(f) via Fourier transform
+RBW controls spectral resolution
+EVM = RMS(error vector) / RMS(reference vector)
+SNR = signal_power / noise_power
+ACLR/OBW/FFT bind signal to measurement</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="rf"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>

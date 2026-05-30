@@ -1,0 +1,110 @@
+/*
+ TRFMC Instrument Design System V1
+ Global visual grammar for RF/Telco/Cyber instrument-grade pages.
+ No CDN. No external refs.
+*/
+
+:root{
+  --trfmc-i-bg:#000307;
+  --trfmc-i-panel:rgba(2,16,27,.82);
+  --trfmc-i-panel-deep:rgba(1,7,13,.96);
+  --trfmc-i-cyan:#00e5ff;
+  --trfmc-i-green:#75ff5b;
+  --trfmc-i-yellow:#ffd84d;
+  --trfmc-i-red:#ff3d7f;
+  --trfmc-i-blue:#4aa3ff;
+  --trfmc-i-text:#e8fbff;
+  --trfmc-i-muted:#8fb8c8;
+  --trfmc-i-border:rgba(0,229,255,.25);
+  --trfmc-i-border-soft:rgba(0,229,255,.14);
+  --trfmc-i-shadow:0 0 48px rgba(0,229,255,.12), inset 0 0 28px rgba(0,229,255,.05), 0 28px 80px rgba(0,0,0,.58);
+  --trfmc-i-radius:20px;
+  --trfmc-i-font:ui-monospace,Consolas,monospace;
+}
+
+.trfmc-instrument-body{
+  min-height:100vh;
+  margin:0;
+  color:var(--trfmc-i-text);
+  font-family:var(--trfmc-i-font);
+  background:
+    radial-gradient(circle at 75% 5%,rgba(0,229,255,.16),transparent 30%),
+    radial-gradient(circle at 15% 88%,rgba(117,255,91,.06),transparent 28%),
+    linear-gradient(145deg,#020812,#000307 62%,#000);
+}
+
+.trfmc-instrument-panel{
+  position:relative;
+  border:1px solid var(--trfmc-i-border);
+  border-radius:var(--trfmc-i-radius);
+  background:
+    linear-gradient(145deg,var(--trfmc-i-panel),var(--trfmc-i-panel-deep)),
+    radial-gradient(circle at 70% 0%,rgba(0,229,255,.10),transparent 35%);
+  box-shadow:var(--trfmc-i-shadow);
+  backdrop-filter:blur(12px);
+  overflow:hidden;
+}
+
+.trfmc-instrument-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.035),transparent 16%,transparent 84%,rgba(255,255,255,.025)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.014) 0,rgba(255,255,255,.014) 1px,transparent 1px,transparent 5px);
+  mix-blend-mode:screen;
+  opacity:.42;
+}
+
+.trfmc-instrument-title{
+  color:var(--trfmc-i-cyan);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  text-shadow:0 0 18px rgba(0,229,255,.55);
+}
+
+.trfmc-instrument-sub{
+  color:var(--trfmc-i-muted);
+  font-size:10px;
+  line-height:1.45;
+}
+
+.trfmc-instrument-kpi{
+  border:1px solid rgba(0,229,255,.22);
+  border-radius:13px;
+  background:rgba(0,229,255,.04);
+  padding:8px;
+}
+
+.trfmc-instrument-kpi small{
+  display:block;
+  color:var(--trfmc-i-muted);
+  text-transform:uppercase;
+  font-size:8px;
+}
+
+.trfmc-instrument-kpi b{
+  display:block;
+  color:var(--trfmc-i-green);
+  font-size:17px;
+  margin-top:2px;
+}
+
+.trfmc-instrument-button{
+  color:var(--trfmc-i-cyan);
+  text-decoration:none;
+  border:1px solid rgba(0,229,255,.35);
+  background:rgba(0,229,255,.055);
+  border-radius:10px;
+  padding:7px 10px;
+  font-size:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+.trfmc-instrument-button:hover{
+  background:rgba(0,229,255,.12);
+  box-shadow:0 0 18px rgba(0,229,255,.18);
+}

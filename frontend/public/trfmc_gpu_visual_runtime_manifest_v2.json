@@ -1,0 +1,41 @@
+{
+  "id": "TRFMC_GPU_VISUAL_RUNTIME_V2",
+  "mode": "leaf_global_visual_runtime",
+  "policy": "No iframe. No CDN. No new navbar. V6R3 and Control Room protected.",
+  "assets": {
+    "css": "/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css",
+    "js": "/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"
+  },
+  "plugins": [
+    {
+      "id": "rf_interference_field",
+      "type": "webgl_shader",
+      "purpose": "Animated RF interference, wavefront and energy field layer"
+    },
+    {
+      "id": "spectral_grid_depth",
+      "type": "webgl_shader",
+      "purpose": "Instrument-style depth grid and spectrum ambience"
+    },
+    {
+      "id": "instrument_glass_hud",
+      "type": "css_runtime",
+      "purpose": "T&M glass panels, glow, depth, HUD diagnostics"
+    },
+    {
+      "id": "panel_depth_lighting",
+      "type": "css_runtime",
+      "purpose": "Light/reflection model for cards, panels and cockpit components"
+    },
+    {
+      "id": "webgpu_capability_probe",
+      "type": "capability_probe",
+      "purpose": "Detect navigator.gpu for future compute and WebGPU scene engine"
+    },
+    {
+      "id": "reduced_motion_guard",
+      "type": "safety",
+      "purpose": "Respect reduced-motion and fallback to static layer"
+    }
+  ]
+}

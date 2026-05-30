@@ -246,7 +246,7 @@ input.control-input:focus{
   <a href="/restore_readiness_console_v22.html">Restore Readiness</a>
   <a href="/operational_backup_console_v21.html">Backup Console</a>
   <a href="/security_console_v18.html">Security</a>
-  <a href="http://127.0.0.1:8000/api/docs/index">Docs API</a>
+  <a href="/api/docs/index">Docs API</a>
 </section>
 
 <section class="kpis">
@@ -290,7 +290,7 @@ input.control-input:focus{
         <span id="viewer_endpoint">—</span>
       </div>
       <div class="viewer-actions">
-        <a id="raw_api_link" href="http://127.0.0.1:8000/api/docs/index">Raw API</a>
+        <a id="raw_api_link" href="/api/docs/index">Raw API</a>
         <button onclick="reloadSelected()">Reload Selected</button>
       </div>
     </div>
@@ -299,7 +299,7 @@ input.control-input:focus{
 </section>
 
 <script>
-const API="http://127.0.0.1:8000/api";
+const API="/api";
 const state={
   health:null,
   index:null,
@@ -400,7 +400,7 @@ async function loadDoc(doc){
   set("k_size",doc.size_bytes+" B");
   set("viewer_title",doc.title);
   set("viewer_endpoint",doc.endpoint);
-  document.getElementById("raw_api_link").href="http://127.0.0.1:8000"+doc.endpoint;
+  document.getElementById("raw_api_link").href=""+doc.endpoint;
 
   const d=await get(doc.endpoint.replace("/api",""));
   document.getElementById("viewer").innerHTML=renderMarkdown(d.content);

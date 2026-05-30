@@ -1,0 +1,23 @@
+{
+  "id": "TRFMC_RF_PRO_SIGNAL_INTELLIGENCE_LAB_V4_INSTRUMENT",
+  "timestamp": "2026-05-23T21:11:50.487320+00:00",
+  "page": "/trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html",
+  "mode": "synthetic_lab_only_true_webgl_instrument_cockpit",
+  "architecture": {
+    "web_component": "trfmc-rf-pro-instrument-v4",
+    "worker": "/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_worker_v3.js",
+    "renderer": "true_webgl_scene_plus_canvas_2d_measurement_surfaces",
+    "mutation_policy": "new leaf only; V3, V2, orphan files, V6R3 and Control Room unchanged"
+  },
+  "capabilities": [
+    "true_webgl_rf_scene",
+    "instrument_skin",
+    "vsa_marker_table",
+    "dense_waterfall",
+    "iq_error_vectors",
+    "fhss_hop_map",
+    "formula_spine",
+    "visual_evidence_binding"
+  ],
+  "policy": "V4 is an instrument-grade leaf. No shell mutation."
+}

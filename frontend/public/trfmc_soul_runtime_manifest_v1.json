@@ -1,0 +1,24 @@
+{
+  "id": "TRFMC_SOUL_RUNTIME_V1",
+  "version": "1.0.0",
+  "policy": "Mission cortex layer. No CDN. No iframe. No new navigation bar. V6R3 and Control Room protected.",
+  "assets": {
+    "css": "/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css",
+    "js": "/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js",
+    "tokens": "/trfmc_soul_tokens_v1.json"
+  },
+  "features": [
+    "mission_context",
+    "domain_detection",
+    "living_status_panel",
+    "quality_signal_detection",
+    "registry_count_bridge",
+    "optional_local_web_audio_feedback",
+    "disable_switch",
+    "technical_micro_narrative"
+  ],
+  "disable": {
+    "runtime": "localStorage.TRFMC_SOUL_RUNTIME='off'",
+    "audio": "localStorage.TRFMC_SOUL_AUDIO='off'"
+  }
+}
