@@ -1,7 +1,7 @@
 /**
  * CANDIDATE-ONLY — NOT ROUTED TO PRODUCTION
  *
- * SignalAnalyzerV2_Candidate.tsx
+ * SignalAnalyzerV2_Candidate.tsx  (P2B-A Rev.1.1)
  *
  * Standalone React component.  Connects to /api/iq/ws via a Dedicated Worker,
  * receives Transferable ArrayBuffer output, and draws a live spectrum on a
@@ -112,6 +112,20 @@ export function SignalAnalyzerV2_Candidate() {
   const canvasRef     = useRef<HTMLCanvasElement | null>(null)
   const rafIdRef      = useRef<number | null>(null)   // null-safe cancel
   const lastMetricsMs = useRef<number>(0)
+  const workerRef     = useRef<Worker | null>(null)   // P2B-A: button handlers
+
+  // Candidate-only controls — access workerRef, never trigger React re-render
+  const handleReconnect = useCallback((): void => {
+    workerRef.current?.postMessage(
+      { type: "connect", wsUrl: DEFAULT_WS_URL } satisfies WorkerInbound,
+    )
+  }, [])
+
+  const handleDisconnect = useCallback((): void => {
+    workerRef.current?.postMessage(
+      { type: "disconnect" } satisfies WorkerInbound,
+    )
+  }, [])
 
   // Stable draw callback — reads refs only, triggers no React re-render
   const draw = useCallback((): void => {
@@ -142,6 +156,7 @@ export function SignalAnalyzerV2_Candidate() {
       new URL("../workers/iqJsonWsDspWorkerV2.candidate.ts", import.meta.url),
       { type: "module" },
     )
+    workerRef.current = worker
 
     worker.onmessage = (ev: MessageEvent<WorkerOutbound>): void => {
       const msg = ev.data
@@ -157,6 +172,11 @@ export function SignalAnalyzerV2_Candidate() {
           break
         case "ws_closed":
           setWsStatus(`CLOSED (${msg.code})`)
+          break
+        case "ws_reconnecting":
+          setWsStatus(
+            `RECONNECTING... attempt ${msg.attempt} · ${msg.delayMs} ms`,
+          )
           break
         case "worker_error":
           setWorkerStatus(`ERROR: ${msg.message}`)
@@ -184,6 +204,7 @@ export function SignalAnalyzerV2_Candidate() {
     return (): void => {
       worker.postMessage({ type: "disconnect" } satisfies WorkerInbound)
       worker.terminate()
+      workerRef.current = null
     }
   }, [])
 
@@ -198,6 +219,18 @@ export function SignalAnalyzerV2_Candidate() {
         <span>Worker: <b>{workerStatus}</b></span>
         <span>WS: <b>{wsStatus}</b></span>
         <span style={styles.note}>JSON legacy P1 &middot; Worker-first DSP &middot; Transferable output</span>
+      </div>
+
+      {/* Candidate-only control buttons — P2B-A */}
+      <div style={styles.controls}>
+        {wsStatus !== "CONNECTED" && (
+          <button style={styles.btnReconnect} onClick={handleReconnect}>
+            Reconnect
+          </button>
+        )}
+        <button style={styles.btnDisconnect} onClick={handleDisconnect}>
+          Disconnect
+        </button>
       </div>
 
       <div style={styles.canvasWrap}>
@@ -221,7 +254,37 @@ export function SignalAnalyzerV2_Candidate() {
           <MetricRow label="Dropped"      value={String(displayMetrics.droppedFrames)} />
           <MetricRow label="Parse errors" value={String(displayMetrics.parseErrors)} />
           <MetricRow label="Schema errs"  value={String(displayMetrics.schemaErrors)} />
-          <MetricRow label="DSP latency"  value={`${displayMetrics.latencyMs.toFixed(2)} ms`} />
+          <MetricRow
+            label="Worker latency"
+            value={`${displayMetrics.workerLatencyMs.toFixed(2)} ms`}
+          />
+          <MetricRow
+            label="Queue wait"
+            value={`${displayMetrics.queueWaitMs.toFixed(2)} ms`}
+          />
+          <MetricRow
+            label="DSP latency"
+            value={`${displayMetrics.dspLatencyMs.toFixed(2)} ms`}
+          />
+          {displayMetrics.sourceClockDeltaMs !== null && (
+            <MetricRow
+              label="Source clock delta"
+              value={`${displayMetrics.sourceClockDeltaMs.toFixed(0)} ms`}
+            />
+          )}
+          <MetricRow label="Queue depth"   value={String(displayMetrics.queueDepth)} />
+          <MetricRow label="Queue dropped" value={String(displayMetrics.queueDroppedFrames)} />
+          <MetricRow label="Total queued"  value={String(displayMetrics.queuedFrames)} />
+          <MetricRow
+            label="Reconnects"
+            value={String(displayMetrics.totalReconnectAttempts)}
+          />
+          <MetricRow
+            label="Last delay"
+            value={displayMetrics.lastReconnectDelayMs > 0
+              ? `${displayMetrics.lastReconnectDelayMs} ms`
+              : "—"}
+          />
           <MetricRow
             label="IQ preview"
             value={iqPreviewRef.current !== null
@@ -232,8 +295,9 @@ export function SignalAnalyzerV2_Candidate() {
       )}
 
       <div style={styles.archNote}>
-        P2A candidate &middot; JSON legacy P1 path &middot; Worker-first DSP &middot;
-        Transferable output &middot; OffscreenCanvas not active &middot; SharedArrayBuffer not used
+        P2B-A candidate &middot; JSON legacy P1 path &middot; Worker-first DSP &middot;
+        Transferable output &middot; Async ring buffer &middot; Epoch-guarded reconnect &middot;
+        OffscreenCanvas not active &middot; SharedArrayBuffer not used
       </div>
     </div>
   )
@@ -244,30 +308,43 @@ export function SignalAnalyzerV2_Candidate() {
 // ---------------------------------------------------------------------------
 
 const styles = {
-  root:        { fontFamily: "ui-monospace, Consolas, monospace", background: "#020b14",
-                 color: "#b0d8e8", border: "1px solid #0d3d5c", borderRadius: 4,
-                 padding: 12, maxWidth: 900, userSelect: "none" as const },
-  header:      { display: "flex", alignItems: "center", gap: 12, marginBottom: 8 },
-  title:       { fontSize: 13, fontWeight: 700, color: "#00e5ff", letterSpacing: "0.05em" },
-  badge:       { fontSize: 10, fontWeight: 700, color: "#ff6b35",
-                 background: "rgba(255,107,53,.12)", border: "1px solid rgba(255,107,53,.35)",
-                 borderRadius: 3, padding: "2px 6px", letterSpacing: "0.06em" },
-  statusBar:   { display: "flex", gap: 16, fontSize: 11, marginBottom: 8, color: "#7aadcc" },
-  note:        { marginLeft: "auto", color: "#3a6a8a", fontSize: 10 },
-  canvasWrap:  { position: "relative" as const, width: "100%", height: 220,
-                 background: "#010810", borderRadius: 3, overflow: "hidden", marginBottom: 8 },
-  idle:        { position: "absolute" as const, inset: 0, display: "flex",
-                 alignItems: "center", justifyContent: "center",
-                 color: "#2a5a7a", fontSize: 12, letterSpacing: "0.1em",
-                 pointerEvents: "none" as const },
-  canvas:      { display: "block", width: "100%", height: "100%" },
-  metrics:     { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(155px, 1fr))",
-                 gap: 4, marginBottom: 8 },
-  metricRow:   { display: "flex", flexDirection: "column" as const,
-                 background: "rgba(0,229,255,.04)", border: "1px solid rgba(0,229,255,.10)",
-                 borderRadius: 3, padding: "4px 8px" },
-  metricLabel: { fontSize: 9, color: "#4a8aaa", textTransform: "uppercase" as const,
-                 letterSpacing: "0.08em" },
-  metricValue: { fontSize: 12, color: "#c0e8f8", fontWeight: 600 },
-  archNote:    { fontSize: 9, color: "#2a4a5a", letterSpacing: "0.05em", marginTop: 4 },
+  root:         { fontFamily: "ui-monospace, Consolas, monospace", background: "#020b14",
+                  color: "#b0d8e8", border: "1px solid #0d3d5c", borderRadius: 4,
+                  padding: 12, maxWidth: 900, userSelect: "none" as const },
+  header:       { display: "flex", alignItems: "center", gap: 12, marginBottom: 8 },
+  title:        { fontSize: 13, fontWeight: 700, color: "#00e5ff", letterSpacing: "0.05em" },
+  badge:        { fontSize: 10, fontWeight: 700, color: "#ff6b35",
+                  background: "rgba(255,107,53,.12)", border: "1px solid rgba(255,107,53,.35)",
+                  borderRadius: 3, padding: "2px 6px", letterSpacing: "0.06em" },
+  statusBar:    { display: "flex", gap: 16, fontSize: 11, marginBottom: 8, color: "#7aadcc" },
+  note:         { marginLeft: "auto", color: "#3a6a8a", fontSize: 10 },
+  controls:     { display: "flex", gap: 8, marginBottom: 8, flexWrap: "wrap" as const },
+  btnReconnect: {
+    fontSize: 11, fontFamily: "ui-monospace, Consolas, monospace",
+    background: "rgba(0,229,255,.10)", color: "#00e5ff",
+    border: "1px solid rgba(0,229,255,.28)", borderRadius: 3,
+    padding: "4px 12px", cursor: "pointer",
+  },
+  btnDisconnect: {
+    fontSize: 11, fontFamily: "ui-monospace, Consolas, monospace",
+    background: "rgba(255,107,53,.08)", color: "#ff6b35",
+    border: "1px solid rgba(255,107,53,.22)", borderRadius: 3,
+    padding: "4px 12px", cursor: "pointer",
+  },
+  canvasWrap:   { position: "relative" as const, width: "100%", height: 220,
+                  background: "#010810", borderRadius: 3, overflow: "hidden", marginBottom: 8 },
+  idle:         { position: "absolute" as const, inset: 0, display: "flex",
+                  alignItems: "center", justifyContent: "center",
+                  color: "#2a5a7a", fontSize: 12, letterSpacing: "0.1em",
+                  pointerEvents: "none" as const },
+  canvas:       { display: "block", width: "100%", height: "100%" },
+  metrics:      { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(155px, 1fr))",
+                  gap: 4, marginBottom: 8 },
+  metricRow:    { display: "flex", flexDirection: "column" as const,
+                  background: "rgba(0,229,255,.04)", border: "1px solid rgba(0,229,255,.10)",
+                  borderRadius: 3, padding: "4px 8px" },
+  metricLabel:  { fontSize: 9, color: "#4a8aaa", textTransform: "uppercase" as const,
+                  letterSpacing: "0.08em" },
+  metricValue:  { fontSize: 12, color: "#c0e8f8", fontWeight: 600 },
+  archNote:     { fontSize: 9, color: "#2a4a5a", letterSpacing: "0.05em", marginTop: 4 },
 } as const
