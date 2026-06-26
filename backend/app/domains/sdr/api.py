@@ -3,7 +3,7 @@ SDR I/Q stream router.
 
 The I/Q pipeline is driven by SimulatedIQDriver coupled to sdr_stream_bridge
 via StreamingPipeline.  The pipeline starts and stops with the router's
-lifespan — no main.py modification required.
+lifespan; register via app.include_router(router) in main.py.
 
 LegacyPayloadWSAdapter translates the bridge's flat event format to the
 nested payload schema expected by the existing frontend contract.
