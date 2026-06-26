@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TRFMC Academy / Operations Center</title>
+<style>
+:root {
+  --bg:#020812;
+  --panel:rgba(3,14,28,.84);
+  --panel2:rgba(0,10,22,.92);
+  --line:rgba(103,232,249,.20);
+  --text:#e8f7ff;
+  --muted:#9fb8ca;
+  --cyan:#67e8f9;
+  --green:#86efac;
+  --amber:#fbbf24;
+  --red:#fb7185;
+  --violet:#c084fc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(14,165,233,.25), transparent 30%),
+    radial-gradient(circle at 86% 4%, rgba(16,185,129,.18), transparent 30%),
+    radial-gradient(circle at 50% 48%, rgba(192,132,252,.09), transparent 34%),
+    linear-gradient(180deg,#020812,#020617 56%,#00040b);
+}
+#trfmc-field-canvas{
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  opacity:.62;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    linear-gradient(rgba(103,232,249,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(103,232,249,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(circle at 50% 28%,black,transparent 80%);
+}
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  padding:10px 20px;
+  border-bottom:1px solid var(--line);
+  background:rgba(2,8,18,.94);
+  backdrop-filter:blur(18px);
+}
+.topbar a{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid rgba(103,232,249,.24);
+  border-radius:999px;
+  padding:8px 11px;
+  background:rgba(0,12,24,.72);
+  font-size:12px;
+  font-weight:900;
+}
+.topbar a:hover{color:var(--green);border-color:rgba(134,239,172,.62)}
+.shell{max-width:1920px;margin:0 auto;padding:20px}
+.hero{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:16px;
+  border:1px solid var(--line);
+  border-radius:34px;
+  padding:24px;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(103,232,249,.17),transparent 32%),
+    linear-gradient(135deg,rgba(0,19,34,.92),rgba(0,7,16,.80));
+  box-shadow:0 36px 140px rgba(0,0,0,.44);
+}
+.eyebrow{
+  color:var(--cyan);
+  font-size:11px;
+  font-weight:950;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+h1{
+  margin:10px 0 0;
+  font-size:54px;
+  line-height:.94;
+  letter-spacing:-.065em;
+}
+.hero p{max-width:1120px;color:var(--muted);line-height:1.55}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.kpi{
+  border:1px solid rgba(103,232,249,.14);
+  border-radius:18px;
+  padding:13px;
+  background:rgba(0,9,20,.66);
+}
+.kpi span{display:block;color:var(--muted);font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.11em}
+.kpi strong{display:block;margin-top:6px;color:var(--green);font-size:28px}
+.theater{
+  min-height:325px;
+  border:1px solid rgba(103,232,249,.14);
+  border-radius:28px;
+  background:radial-gradient(circle at 50% 50%,rgba(103,232,249,.09),transparent 42%),rgba(0,8,18,.62);
+  position:relative;
+  overflow:hidden;
+}
+.theater svg{position:absolute;inset:0;width:100%;height:100%}
+.main-grid{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:14px;
+  margin-top:14px;
+  align-items:start;
+}
+.side-nav{
+  position:sticky;
+  top:64px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:12px;
+  background:var(--panel);
+}
+.side-nav a{
+  display:flex;
+  gap:9px;
+  align-items:center;
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid rgba(103,232,249,.13);
+  border-radius:16px;
+  padding:10px;
+  margin-bottom:7px;
+  background:rgba(0,9,20,.68);
+  font-size:12px;
+  font-weight:850;
+}
+.side-nav a:hover{border-color:rgba(134,239,172,.58);color:var(--green)}
+.side-nav span{
+  display:inline-flex;
+  min-width:38px;
+  height:30px;
+  align-items:center;
+  justify-content:center;
+  color:var(--cyan);
+  border-radius:12px;
+  background:rgba(103,232,249,.10);
+  font-weight:950;
+}
+.domain-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.domain-card{
+  border:1px solid rgba(103,232,249,.15);
+  border-radius:24px;
+  padding:14px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+    rgba(3,14,28,.80);
+  box-shadow:0 22px 80px rgba(0,0,0,.28);
+}
+.domain-card.ok{border-color:rgba(134,239,172,.28)}
+.domain-card.build{border-color:rgba(251,191,36,.30)}
+.domain-card.ref{border-color:rgba(148,163,184,.22)}
+.domain-head{
+  display:grid;
+  grid-template-columns:58px 1fr auto;
+  gap:12px;
+  align-items:start;
+}
+.domain-code{
+  width:54px;
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:18px;
+  color:var(--accent);
+  border:1px solid color-mix(in srgb, var(--accent) 46%, transparent);
+  background:rgba(0,8,18,.62);
+  font-weight:950;
+}
+.domain-head h3{margin:0;font-size:20px;letter-spacing:-.035em}
+.domain-head p{margin:6px 0 0;color:var(--muted);line-height:1.38;font-size:13px}
+.domain-head strong{
+  white-space:nowrap;
+  border:1px solid color-mix(in srgb, var(--accent) 36%, transparent);
+  color:var(--accent);
+  border-radius:999px;
+  padding:7px 9px;
+  font-size:10px;
+  background:rgba(0,8,18,.58);
+}
+.domain-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.domain-meta span{
+  color:var(--muted);
+  border:1px solid rgba(103,232,249,.12);
+  border-radius:999px;
+  padding:6px 8px;
+  font-size:10px;
+  background:rgba(0,8,18,.52);
+}
+.domain-sources{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+.source-link{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid rgba(103,232,249,.12);
+  border-radius:14px;
+  padding:10px;
+  background:rgba(0,8,18,.62);
+}
+.source-link:hover{border-color:rgba(134,239,172,.52)}
+.source-link b{display:block;font-size:12px;line-height:1.18}
+.source-link span{display:block;margin-top:4px;color:var(--muted);font-size:10px}
+.source-missing{
+  border:1px dashed rgba(251,191,36,.38);
+  border-radius:14px;
+  padding:10px;
+  color:var(--amber);
+  background:rgba(251,191,36,.06);
+  font-size:12px;
+  font-weight:850;
+}
+.ops-strip{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-top:14px;
+}
+.ops-card{
+  border:1px solid rgba(103,232,249,.14);
+  border-radius:20px;
+  padding:14px;
+  background:rgba(0,9,20,.68);
+}
+.ops-card b{display:block;color:var(--cyan)}
+.ops-card span{display:block;margin-top:6px;color:var(--muted);font-size:12px;line-height:1.35}
+@media(max-width:1300px){
+  .hero,.main-grid{grid-template-columns:1fr}
+  .side-nav{position:relative;top:auto}
+}
+@media(max-width:900px){
+  h1{font-size:36px}
+  .kpi-grid,.domain-grid,.ops-strip{grid-template-columns:1fr}
+  .domain-head{grid-template-columns:48px 1fr}
+  .domain-head strong{grid-column:1 / -1;width:max-content}
+}
+
+/* TRFMC P8E1 V2 MISSION GOVERNANCE START */
+.p8e1v2-governance {
+  margin-top: 14px;
+  border: 1px solid rgba(134, 239, 172, 0.26);
+  border-radius: 30px;
+  padding: 16px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(134, 239, 172, 0.12), transparent 28%),
+    radial-gradient(circle at 92% 8%, rgba(103, 232, 249, 0.12), transparent 30%),
+    rgba(3, 14, 28, 0.86);
+  box-shadow: 0 28px 110px rgba(0, 0, 0, 0.34);
+}
+
+.p8e1v2-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.13);
+}
+
+.p8e1v2-head h2 {
+  margin: 6px 0 0;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.p8e1v2-head p {
+  max-width: 1120px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.p8e1v2-badge {
+  white-space: nowrap;
+  border: 1px solid rgba(134, 239, 172, 0.45);
+  border-radius: 999px;
+  padding: 8px 11px;
+  color: var(--green);
+  background: rgba(8, 47, 38, 0.22);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.p8e1v2-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.p8e1v2-panel {
+  border: 1px solid rgba(103, 232, 249, 0.14);
+  border-radius: 22px;
+  padding: 13px;
+  background: rgba(0, 9, 20, 0.64);
+}
+
+.p8e1v2-panel h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.p8e1v2-kpi-grid,
+.p8e1v2-policy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.p8e1v2-kpi,
+.p8e1v2-policy,
+.p8e1v2-domain,
+.p8e1v2-blocker,
+.p8e1v2-phase,
+.p8e1v2-evidence {
+  border: 1px solid rgba(103, 232, 249, 0.12);
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(0, 8, 18, 0.64);
+}
+
+.p8e1v2-kpi span,
+.p8e1v2-policy span,
+.p8e1v2-domain span,
+.p8e1v2-blocker span,
+.p8e1v2-phase span,
+.p8e1v2-evidence span {
+  display: block;
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.p8e1v2-kpi strong,
+.p8e1v2-policy strong,
+.p8e1v2-domain strong,
+.p8e1v2-blocker strong,
+.p8e1v2-phase strong,
+.p8e1v2-evidence strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.p8e1v2-kpi em,
+.p8e1v2-policy em,
+.p8e1v2-domain em,
+.p8e1v2-domain small,
+.p8e1v2-blocker em,
+.p8e1v2-phase em,
+.p8e1v2-evidence em {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.p8e1v2-domain-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-height: 430px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.p8e1v2-domain.active {
+  border-color: rgba(134, 239, 172, 0.58);
+  background: rgba(8, 47, 38, 0.20);
+}
+
+.p8e1v2-domain.build {
+  border-color: rgba(251, 191, 36, 0.28);
+}
+
+.p8e1v2-blocker.red {
+  border-color: rgba(251, 113, 133, 0.40);
+}
+
+.p8e1v2-blocker.black {
+  border-color: rgba(148, 163, 184, 0.32);
+}
+
+.p8e1v2-blocker.weak {
+  border-color: rgba(251, 191, 36, 0.30);
+}
+
+.p8e1v2-list {
+  display: grid;
+  gap: 8px;
+}
+
+@media (max-width: 1200px) {
+  .p8e1v2-head,
+  .p8e1v2-grid,
+  .p8e1v2-kpi-grid,
+  .p8e1v2-policy-grid,
+  .p8e1v2-domain-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* TRFMC P8E1 V2 MISSION GOVERNANCE END */
+
+
+/* TRFMC P8E2B OSS ASSURANCE PANEL START */
+.p8e2-oss-panel {
+  margin-top: 14px;
+  border: 1px solid rgba(103, 232, 249, 0.24);
+  border-radius: 30px;
+  padding: 16px;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(103, 232, 249, 0.13), transparent 28%),
+    radial-gradient(circle at 92% 10%, rgba(134, 239, 172, 0.12), transparent 30%),
+    rgba(3, 14, 28, 0.86);
+  box-shadow: 0 28px 110px rgba(0, 0, 0, 0.34);
+}
+
+.p8e2-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.13);
+}
+
+.p8e2-head h2 {
+  margin: 6px 0 0;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.p8e2-head p {
+  max-width: 1160px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.p8e2-badge {
+  white-space: nowrap;
+  border: 1px solid rgba(103, 232, 249, 0.45);
+  border-radius: 999px;
+  padding: 8px 11px;
+  color: var(--cyan);
+  background: rgba(8, 47, 73, 0.22);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.p8e2-grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.p8e2-panel {
+  border: 1px solid rgba(103, 232, 249, 0.14);
+  border-radius: 22px;
+  padding: 13px;
+  background: rgba(0, 9, 20, 0.64);
+}
+
+.p8e2-panel h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.p8e2-kpi-grid,
+.p8e2-readiness-grid,
+.p8e2-list {
+  display: grid;
+  gap: 8px;
+}
+
+.p8e2-kpi-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.p8e2-readiness-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.p8e2-kpi,
+.p8e2-readiness,
+.p8e2-api-card,
+.p8e2-source-card,
+.p8e2-timeline-card,
+.p8e2-policy-card {
+  border: 1px solid rgba(103, 232, 249, 0.12);
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(0, 8, 18, 0.64);
+}
+
+.p8e2-kpi span,
+.p8e2-readiness span,
+.p8e2-api-card span,
+.p8e2-source-card span,
+.p8e2-timeline-card span,
+.p8e2-policy-card span {
+  display: block;
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.p8e2-kpi strong,
+.p8e2-readiness strong,
+.p8e2-api-card strong,
+.p8e2-source-card strong,
+.p8e2-timeline-card strong,
+.p8e2-policy-card strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.p8e2-kpi em,
+.p8e2-readiness em,
+.p8e2-api-card em,
+.p8e2-source-card em,
+.p8e2-timeline-card em,
+.p8e2-policy-card em {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.p8e2-readiness.pass {
+  border-color: rgba(134, 239, 172, 0.38);
+}
+
+.p8e2-readiness.warn {
+  border-color: rgba(251, 191, 36, 0.34);
+}
+
+.p8e2-source-card {
+  border-color: rgba(251, 191, 36, 0.24);
+}
+
+.p8e2-blocked {
+  color: var(--red);
+}
+
+@media (max-width: 1200px) {
+  .p8e2-head,
+  .p8e2-grid,
+  .p8e2-kpi-grid,
+  .p8e2-readiness-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* TRFMC P8E2B OSS ASSURANCE PANEL END */
+
+</style>
+</head>
+<body data-trfmc-p8c-academy-operations-center="mounted">
+<canvas id="trfmc-field-canvas" aria-hidden="true"></canvas>
+
+<nav class="topbar" aria-label="TRFMC top navigation">
+  <a href="/#portal-os-preview">Portal OS</a>
+  <a href="/trfmc_domain_registry_v1.html">Domain Registry</a>
+  <a href="/trfmc_engine_promotion_board_v1.html">Promotion Board</a>
+  <a href="#domains">Domains</a>
+  <a href="#operations">Operations</a>
+</nav>
+
+<div class="shell">
+  <header class="hero">
+    <section>
+      <div class="eyebrow">TRFMC · Academy / Operations Center · P8C1</div>
+      <h1>RF / Telco / Cyber Academic Operations Shell</h1>
+      <p>
+        Home madre governata: non copia le dashboard sperimentali, non monta HTML legacy,
+        non usa iframe o DOM injection. Ogni dominio è classificato come source evidence o TO BUILD,
+        con percorso verso React, sanificazione e integrazione controllata.
+      </p>
+      <div class="kpi-grid">
+        <div class="kpi"><span>Domains</span><strong>14</strong></div>
+        <div class="kpi"><span>Selected sources</span><strong>14</strong></div>
+        <div class="kpi"><span>Backlog</span><strong>13</strong></div>
+        <div class="kpi"><span>Mode</span><strong>SAFE</strong></div>
+      </div>
+    </section>
+
+    <section class="theater" aria-label="Operational theater">
+      <svg viewBox="0 0 900 420" role="img" aria-label="TRFMC operational theater">
+        <defs>
+          <linearGradient id="beam" x1="0" x2="1">
+            <stop stop-color="#86efac" stop-opacity=".65"/>
+            <stop offset="1" stop-color="#67e8f9" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <circle cx="450" cy="210" r="132" fill="none" stroke="rgba(103,232,249,.18)" stroke-width="2"/>
+        <circle cx="450" cy="210" r="74" fill="rgba(103,232,249,.05)" stroke="#67e8f9" stroke-width="2" filter="url(#glow)"/>
+        <path d="M450 210 L835 65 L835 355 Z" fill="url(#beam)" opacity=".72"/>
+        <path d="M450 210 L80 80 L80 340 Z" fill="url(#beam)" opacity=".28"/>
+        <line x1="450" y1="95" x2="450" y2="330" stroke="#e8f7ff" stroke-width="4"/>
+        <line x1="398" y1="330" x2="450" y2="95" stroke="#67e8f9" stroke-width="2"/>
+        <line x1="502" y1="330" x2="450" y2="95" stroke="#67e8f9" stroke-width="2"/>
+        <rect x="462" y="118" width="18" height="62" rx="8" fill="#e8f7ff"/>
+        <rect x="420" y="150" width="18" height="62" rx="8" fill="#e8f7ff"/>
+        <text x="450" y="214" text-anchor="middle" fill="#e8f7ff" font-size="18" font-weight="900">TRFMC</text>
+        <text x="450" y="238" text-anchor="middle" fill="#9fb8ca" font-size="12">RF · TELCO · CYBER · ACADEMY</text>
+        <text x="790" y="54" fill="#86efac" font-size="12" font-weight="900">RF BEAM</text>
+        <text x="70" y="66" fill="#67e8f9" font-size="12" font-weight="900">SIGINT / SOC</text>
+        <text x="420" y="382" fill="#fbbf24" font-size="12" font-weight="900">5GC / EPC / O-RAN / NTN / UAV</text>
+      </svg>
+    </section>
+  </header>
+
+  <section class="ops-strip" id="operations">
+    <article class="ops-card"><b>Runtime contracts</b><span>Backend, bridge, proxy and QA are represented as governance states, not decorative badges.</span></article>
+    <article class="ops-card"><b>Source policy</b><span>GREEN and AMBER are evidence. RED is excluded. BLACK experiments are not primary navigation.</span></article>
+    <article class="ops-card"><b>Academic scope</b><span>Theory, formulas, protocols, simulations and lesson paths must become first-class content.</span></article>
+    <article class="ops-card"><b>Cyber posture</b><span>Red/Blue/Purple, SIGINT and SOC are defensive/academic domains marked TO BUILD until real modules exist.</span></article>
+  </section>
+
+  
+<section class="p8e1v2-governance" data-trfmc-p8e1-mission-governance-v2="mounted">
+  <div class="p8e1v2-head">
+    <div>
+      <div class="eyebrow">P8E1 · Mission Command / Portal OS Governance</div>
+      <h2>Governance, Baseline, Evidence and Domain Execution</h2>
+      <p>
+        Questa sezione trasforma la home madre in cabina di regia: baseline attiva, runtime contract,
+        blocker RED/BLACK, sequenza P8E, policy di sicurezza e dominio Mission Command come primo controllo operativo.
+      </p>
+    </div>
+    <div class="p8e1v2-badge">P8D2 BASELINE PASS</div>
+  </div>
+
+  <div class="p8e1v2-grid">
+    <section class="p8e1v2-panel">
+      <h3>Runtime / Baseline Contract</h3>
+      <div class="p8e1v2-kpi-grid">
+        <article class="p8e1v2-kpi"><span>Freeze</span><strong>BASELINE_P8D2_PORTAL_OS_ACADEMY_OPS_LINK_PASS_20260530_222751</strong><em>PASS</em></article>
+        <article class="p8e1v2-kpi"><span>Portal OS</span><strong>linked</strong><em>Academy / Operations Center entrypoint presente</em></article>
+        <article class="p8e1v2-kpi"><span>Mission sources</span><strong>23</strong><em>RED 13 · BLACK 3</em></article>
+        <article class="p8e1v2-kpi"><span>Execution</span><strong>P8E1</strong><em>stabilize_portal_os_and_governance</em></article>
+      </div>
+    </section>
+
+    <section class="p8e1v2-panel">
+      <h3>Safe Operation Policy</h3>
+      <div class="p8e1v2-policy-grid">
+        <article class="p8e1v2-policy"><span>V42</span><strong>no automatic patch</strong><em>Serve gate dedicato e restore</em></article>
+        <article class="p8e1v2-policy"><span>Legacy</span><strong>evidence only</strong><em>RED/BLACK esclusi dalla navigazione primaria</em></article>
+        <article class="p8e1v2-policy"><span>Mutation</span><strong>backup / restore / diff</strong><em>Ogni fase deve essere reversibile</em></article>
+        <article class="p8e1v2-policy"><span>Promotion</span><strong>QA before integration</strong><em>HTTP, DOM, screenshot, static safety</em></article>
+      </div>
+    </section>
+
+    <section class="p8e1v2-panel">
+      <h3>P8E Domain Execution Matrix</h3>
+      <div class="p8e1v2-domain-grid">
+        
+      <article class="p8e1v2-domain active">
+        <span>1</span>
+        <strong>Mission Command / Portal OS</strong>
+        <em>P8E1 · stabilize_portal_os_and_governance</em>
+        <small>GREEN 0 · AMBER 0 · RED 13 · BLACK 3</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>2</span>
+        <strong>OSS / Assurance / Inventory / NOC</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 1 · RED 9 · BLACK 1</small>
+      </article>
+    
+      <article class="p8e1v2-domain integrate">
+        <span>3</span>
+        <strong>RF / Microwave Engineering</strong>
+        <em>P8E_INTEGRATE · normalize_and_integrate_governed_sources</em>
+        <small>GREEN 6 · AMBER 44 · RED 12 · BLACK 8</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>4</span>
+        <strong>Antenna / RRU / RET / CPRI / AISG</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 4 · RED 29 · BLACK 2</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>5</span>
+        <strong>Signal / DSP / Measurement</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 1 · RED 5 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>6</span>
+        <strong>5G NR / 5GC / Open5GS / UERANSIM</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 2 · AMBER 8 · RED 17 · BLACK 1</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>7</span>
+        <strong>2G / 3G / 4G / EPC</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 0 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>8</span>
+        <strong>O-RAN / SMO / RIC / xApps / rApps</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 0 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>9</span>
+        <strong>Satellite / NTN / LEO / MEO / GEO</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 0 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>10</span>
+        <strong>UAV / Drone / Datalink / Payload</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 0 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>11</span>
+        <strong>SIGINT / Spectrum Intelligence</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 1 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>12</span>
+        <strong>Red / Blue / Purple Team / Cyber Range</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 0 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>13</span>
+        <strong>Electronics / Instrumentation / Lab</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 3 · BLACK 0</small>
+      </article>
+    
+      <article class="p8e1v2-domain build">
+        <span>14</span>
+        <strong>Academy / Theory / Simulation</strong>
+        <em>P8E_BUILD · create_missing_or_weak_domain</em>
+        <small>GREEN 0 · AMBER 0 · RED 3 · BLACK 1</small>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="p8e1v2-panel">
+      <h3>Primary Blockers</h3>
+      <div class="p8e1v2-list">
+        
+      <article class="p8e1v2-blocker red">
+        <span>mission_command</span>
+        <strong>RED_SANITIZE_REQUIRED</strong>
+        <em>13 · do_not_promote_red_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker black">
+        <span>mission_command</span>
+        <strong>BLACK_DEPRECATED_EXPERIMENTS</strong>
+        <em>3 · exclude_from_primary_navigation</em>
+      </article>
+    
+      <article class="p8e1v2-blocker weak">
+        <span>mission_command</span>
+        <strong>MISSING_OR_WEAK_DOMAIN</strong>
+        <em>WEAK · build_missing_content_and_normalize_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker red">
+        <span>oss_assurance_inventory</span>
+        <strong>RED_SANITIZE_REQUIRED</strong>
+        <em>9 · do_not_promote_red_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker black">
+        <span>oss_assurance_inventory</span>
+        <strong>BLACK_DEPRECATED_EXPERIMENTS</strong>
+        <em>1 · exclude_from_primary_navigation</em>
+      </article>
+    
+      <article class="p8e1v2-blocker weak">
+        <span>oss_assurance_inventory</span>
+        <strong>MISSING_OR_WEAK_DOMAIN</strong>
+        <em>WEAK · build_missing_content_and_normalize_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker red">
+        <span>rf_microwave_engineering</span>
+        <strong>RED_SANITIZE_REQUIRED</strong>
+        <em>12 · do_not_promote_red_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker black">
+        <span>rf_microwave_engineering</span>
+        <strong>BLACK_DEPRECATED_EXPERIMENTS</strong>
+        <em>8 · exclude_from_primary_navigation</em>
+      </article>
+    
+      <article class="p8e1v2-blocker red">
+        <span>antenna_rru_ret_cpri</span>
+        <strong>RED_SANITIZE_REQUIRED</strong>
+        <em>29 · do_not_promote_red_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker black">
+        <span>antenna_rru_ret_cpri</span>
+        <strong>BLACK_DEPRECATED_EXPERIMENTS</strong>
+        <em>2 · exclude_from_primary_navigation</em>
+      </article>
+    
+      <article class="p8e1v2-blocker weak">
+        <span>antenna_rru_ret_cpri</span>
+        <strong>MISSING_OR_WEAK_DOMAIN</strong>
+        <em>WEAK · build_missing_content_and_normalize_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker red">
+        <span>signal_dsp_measurement</span>
+        <strong>RED_SANITIZE_REQUIRED</strong>
+        <em>5 · do_not_promote_red_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker weak">
+        <span>signal_dsp_measurement</span>
+        <strong>MISSING_OR_WEAK_DOMAIN</strong>
+        <em>WEAK · build_missing_content_and_normalize_sources</em>
+      </article>
+    
+      <article class="p8e1v2-blocker red">
+        <span>nr_5gc_open5gs</span>
+        <strong>RED_SANITIZE_REQUIRED</strong>
+        <em>17 · do_not_promote_red_sources</em>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="p8e1v2-panel">
+      <h3>Evidence Chain</h3>
+      <div class="p8e1v2-list">
+        <article class="p8e1v2-evidence"><span>P8D2</span><strong>Integrated Portal OS baseline</strong><em>BASELINE_P8D2_PORTAL_OS_ACADEMY_OPS_LINK_PASS_20260530_222751</em></article>
+        <article class="p8e1v2-evidence"><span>P8E0</span><strong>Domain execution plan</strong><em>14 domains · Mission Command first</em></article>
+        <article class="p8e1v2-evidence"><span>P8E1</span><strong>Mission Governance Panel</strong><em>Static safe mutation on Academy home only</em></article>
+      </div>
+    </section>
+
+    <section class="p8e1v2-panel">
+      <h3>Phase Sequence</h3>
+      <div class="p8e1v2-list">
+        
+      <article class="p8e1v2-phase">
+        <span>P8E0</span>
+        <strong>all</strong>
+        <em>Create execution master plan</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E1</span>
+        <strong>mission_command</strong>
+        <em>Stabilize Portal OS governance and command shell</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E2</span>
+        <strong>oss_assurance_inventory</strong>
+        <em>Normalize assurance/inventory/NOC evidence</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E3</span>
+        <strong>rf_microwave_engineering</strong>
+        <em>Promote RF/Microwave engineering domain</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E4</span>
+        <strong>antenna_rru_ret_cpri</strong>
+        <em>Promote antenna/RRU/RET/CPRI domain</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E5</span>
+        <strong>signal_dsp_measurement</strong>
+        <em>Promote DSP/spectrum/measurement domain</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E6</span>
+        <strong>nr_5gc_open5gs</strong>
+        <em>Promote 5GC/Open5GS/UERANSIM domain</em>
+      </article>
+    
+      <article class="p8e1v2-phase">
+        <span>P8E7</span>
+        <strong>missing_domains</strong>
+        <em>Create missing/weak domain shells</em>
+      </article>
+    
+      </div>
+    </section>
+  </div>
+</section>
+
+
+
+<section class="p8e2-oss-panel" data-trfmc-p8e2-oss-assurance-panel="mounted">
+  <div class="p8e2-head">
+    <div>
+      <div class="eyebrow">P8E2 · OSS / Assurance / Inventory / NOC</div>
+      <h2>NOC Assurance, Evidence, Runtime and Source Governance</h2>
+      <p>
+        Questo pannello introduce il dominio OSS/Assurance senza promuovere pagine RED/BLACK.
+        Usa runtime health, API candidate, readiness, evidence chain e sorgenti AMBER/GRAY solo come reference governate.
+      </p>
+    </div>
+    <div class="p8e2-badge">ASSURANCE DOMAIN · CONTROLLED</div>
+  </div>
+
+  <div class="p8e2-grid">
+    <section class="p8e2-panel">
+      <h3>OSS / Assurance KPIs</h3>
+      <div class="p8e2-kpi-grid">
+        <article class="p8e2-kpi"><span>Source candidates</span><strong>24</strong><em>GREEN 0 · AMBER 5</em></article>
+        <article class="p8e2-kpi"><span>API candidates</span><strong>96</strong><em>Backend inventory for NOC/assurance</em></article>
+        <article class="p8e2-kpi"><span>Public hints</span><strong>14</strong><em>Reference material, not primary navigation</em></article>
+        <article class="p8e2-kpi"><span>Blocked</span><strong class="p8e2-blocked">18</strong><em>RED/BLACK excluded before promotion</em></article>
+      </div>
+    </section>
+
+    <section class="p8e2-panel">
+      <h3>Readiness Matrix</h3>
+      <div class="p8e2-readiness-grid">
+        
+      <article class="p8e2-readiness pass">
+        <span>runtime_health</span>
+        <strong>PASS</strong>
+        <em>backend/bridge/proxy health exposed · evidence 96</em>
+      </article>
+    
+      <article class="p8e2-readiness warn">
+        <span>alarm_inventory</span>
+        <strong>MISSING_OR_WEAK</strong>
+        <em>alarms/status/evidence candidate routes · evidence 0</em>
+      </article>
+    
+      <article class="p8e2-readiness pass">
+        <span>event_stream</span>
+        <strong>PASS</strong>
+        <em>events/timeline candidate routes · evidence 6</em>
+      </article>
+    
+      <article class="p8e2-readiness pass">
+        <span>evidence_chain</span>
+        <strong>PASS</strong>
+        <em>evidence/audit/quality sources · evidence 14</em>
+      </article>
+    
+      <article class="p8e2-readiness pass">
+        <span>noc_visual_panel</span>
+        <strong>PASS</strong>
+        <em>NOC/Assurance UI candidate sources · evidence 5</em>
+      </article>
+    
+      <article class="p8e2-readiness warn">
+        <span>sanitization</span>
+        <strong>BLOCKED_ITEMS_PRESENT</strong>
+        <em>RED/BLACK excluded before promotion · evidence 18</em>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="p8e2-panel">
+      <h3>NOC / Assurance API Candidates</h3>
+      <div class="p8e2-list">
+        
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/api/health</strong>
+        <em>backend/app/main.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/runtime</strong>
+        <em>backend/app/domains/observability/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/status</strong>
+        <em>backend/app/persistence/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/events</strong>
+        <em>backend/app/persistence/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/evidence</strong>
+        <em>backend/app/persistence/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/evidence-console</strong>
+        <em>backend/app/domains/observability/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/health-matrix</strong>
+        <em>backend/app/domains/observability/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/status</strong>
+        <em>backend/app/domains/evidence_vault/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/api/trfmc-backend-ready</strong>
+        <em>backend/app/main.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/asset-links</strong>
+        <em>backend/app/persistence/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/assets</strong>
+        <em>backend/app/persistence/api.py</em>
+      </article>
+    
+      <article class="p8e2-api-card">
+        <span>GET</span>
+        <strong>/device-trust</strong>
+        <em>backend/app/persistence/api.py</em>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="p8e2-panel">
+      <h3>Governed Source References</h3>
+      <div class="p8e2-list">
+        
+      <article class="p8e2-source-card">
+        <span>AMBER_NAV_FIX_REFERENCE_CANDIDATE</span>
+        <strong>trfmc_official_safe_entrypoint_v6</strong>
+        <em>/trfmc_official_safe_entrypoint_v6.html · score 73 · evidence only</em>
+      </article>
+    
+      <article class="p8e2-source-card">
+        <span>GRAY_REFERENCE_LOW_VALUE</span>
+        <strong>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</strong>
+        <em>/field_engineering_mode_v64.html · score 10 · evidence only</em>
+      </article>
+    
+      <article class="p8e2-source-card">
+        <span>AMBER_NAV_FIX_REFERENCE_CANDIDATE</span>
+        <strong>TRFMC v0.86F · Design Token Audit</strong>
+        <em>/trfmc_design_token_audit_v86f.html · score 10 · evidence only</em>
+      </article>
+    
+      <article class="p8e2-source-card">
+        <span>AMBER_NAV_FIX_REFERENCE_CANDIDATE</span>
+        <strong>TRFMC Soul Runtime Lab V1</strong>
+        <em>/trfmc_soul_runtime_lab_v1.html · score 10 · evidence only</em>
+      </article>
+    
+      <article class="p8e2-source-card">
+        <span>AMBER_NAV_FIX_REFERENCE_CANDIDATE</span>
+        <strong>TRFMC v0.83B · RF Precision Scale + Probe Diagnostics</strong>
+        <em>/webgl_rf_physics_engine_v83b.html · score 10 · evidence only</em>
+      </article>
+    
+      <article class="p8e2-source-card">
+        <span>AMBER_NAV_FIX_REFERENCE_CANDIDATE</span>
+        <strong>TRFMC v0.85D · Sapienza Physics Baseline + RSRP/SINR Profile</strong>
+        <em>/webgl_rf_physics_engine_v85d_runtime_identity_lock.html · score 10 · evidence only</em>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="p8e2-panel">
+      <h3>Operations Timeline</h3>
+      <div class="p8e2-list">
+        
+      <article class="p8e2-timeline-card">
+        <span>P8D2</span>
+        <strong>Portal OS + Academy link baseline</strong>
+        <em>PASS · integrated baseline frozen</em>
+      </article>
+    
+      <article class="p8e2-timeline-card">
+        <span>P8E1</span>
+        <strong>Mission Governance Panel</strong>
+        <em>PASS · policy, blockers, domains, phase sequence</em>
+      </article>
+    
+      <article class="p8e2-timeline-card">
+        <span>P8E2A</span>
+        <strong>OSS / Assurance audit</strong>
+        <em>PASS · read-only inventory and API mapping</em>
+      </article>
+    
+      <article class="p8e2-timeline-card">
+        <span>P8E2B</span>
+        <strong>OSS / Assurance / NOC panel</strong>
+        <em>current controlled mutation</em>
+      </article>
+    
+      </div>
+    </section>
+
+    <section class="p8e2-panel">
+      <h3>Promotion Policy</h3>
+      <div class="p8e2-list">
+        <article class="p8e2-policy-card"><span>RED / BLACK</span><strong>excluded</strong><em>Sanitize or archive before any primary navigation.</em></article>
+        <article class="p8e2-policy-card"><span>AMBER</span><strong>reference only</strong><em>Needs return-nav and manual review before source promotion.</em></article>
+        <article class="p8e2-policy-card"><span>Alarm inventory</span><strong>weak</strong><em>Build clean alarm model instead of copying unsafe legacy pages.</em></article>
+        <article class="p8e2-policy-card"><span>Next phase</span><strong>P8E2C freeze</strong><em>Freeze before RF/Microwave P8E3.</em></article>
+      </div>
+    </section>
+  </div>
+</section>
+
+
+<main class="main-grid" id="domains">
+    <aside class="side-nav">
+      <a href="#domain-mission_command"><span>OPS</span>Mission Command</a><a href="#domain-oss_assurance_inventory"><span>NOC</span>OSS / Assurance / Inventory</a><a href="#domain-rf_microwave_engineering"><span>RF</span>RF / Microwave Engineering</a><a href="#domain-antenna_rru_ret_cpri"><span>ANT</span>Antenna / RRU / RET / CPRI</a><a href="#domain-signal_dsp_measurement"><span>DSP</span>Signal / DSP / Measurement</a><a href="#domain-cellular_2g_3g_4g_epc"><span>EPC</span>2G / 3G / 4G / EPC</a><a href="#domain-nr_5gc_open5gs"><span>5GC</span>5G NR / 5GC</a><a href="#domain-oran_ric_smo"><span>RIC</span>O-RAN / SMO / RIC</a><a href="#domain-satellite_ntn_space"><span>NTN</span>Satellite / NTN</a><a href="#domain-uav_drone_rf"><span>UAV</span>UAV / Drone RF</a><a href="#domain-sigint_intelligence"><span>SIG</span>SIGINT / Intelligence</a><a href="#domain-red_blue_purple_team"><span>RBP</span>Red / Blue / Purple Team</a><a href="#domain-electronics_instrumentation"><span>LAB</span>Electronics / Instrumentation</a><a href="#domain-academy_theory_simulation"><span>EDU</span>Academy / Theory / Simulation</a>
+    </aside>
+    <section class="domain-grid">
+      
+      <section class="domain-card ok" id="domain-mission_command" style="--accent:#67e8f9">
+        <div class="domain-head">
+          <div class="domain-code">OPS</div>
+          <div>
+            <h3>Mission Command</h3>
+            <p>Portal OS, governance, runtime readiness, evidence chain.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>2 governed source(s)</span>
+          <span>mission_command</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/executive_mission_dashboard_v_next.html" target="_blank" rel="noreferrer"><b>TRFMC v0.70A Unified Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer</b><span>GRAY_REFERENCE_LOW_VALUE · score 73</span></a><a class="source-link" href="/trfmc_perfection_authority_v1.html" target="_blank" rel="noreferrer"><b>TRFMC Perfection Authority V1</b><span>GRAY_REFERENCE_LOW_VALUE · score 64</span></a></div>
+      </section>
+    
+      <section class="domain-card ok" id="domain-oss_assurance_inventory" style="--accent:#86efac">
+        <div class="domain-head">
+          <div class="domain-code">NOC</div>
+          <div>
+            <h3>OSS / Assurance / Inventory</h3>
+            <p>NOC, inventory, observability, alarms, source governance.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>1 governed source(s)</span>
+          <span>oss_assurance_inventory</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/trfmc_official_safe_entrypoint_v6.html" target="_blank" rel="noreferrer"><b>trfmc_official_safe_entrypoint_v6</b><span>AMBER_NAV_FIX_REFERENCE_CANDIDATE · score 51</span></a></div>
+      </section>
+    
+      <section class="domain-card ok" id="domain-rf_microwave_engineering" style="--accent:#38bdf8">
+        <div class="domain-head">
+          <div class="domain-code">RF</div>
+          <div>
+            <h3>RF / Microwave Engineering</h3>
+            <p>Propagation, link budget, Smith, Fresnel, RSRP/SINR, RF physics.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>3 governed source(s)</span>
+          <span>rf_microwave_engineering</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/rf_sapienza_console_v84l.html" target="_blank" rel="noreferrer"><b>TRFMC v0.84L · RF Sapienza Director Cockpit</b><span>GREEN_NAV_FIX_THEN_VISUAL_REVIEW · score 184</span></a><a class="source-link" href="/rf_sapienza_console_v84m.html" target="_blank" rel="noreferrer"><b>TRFMC v0.84M · RF Sapienza Production Baseline</b><span>GREEN_NAV_FIX_THEN_VISUAL_REVIEW · score 182</span></a><a class="source-link" href="/rf_sapienza_console_v84j.html" target="_blank" rel="noreferrer"><b>TRFMC v0.84J · RF 4D Measurement Theater</b><span>GREEN_NAV_FIX_THEN_VISUAL_REVIEW · score 176</span></a></div>
+      </section>
+    
+      <section class="domain-card ok" id="domain-antenna_rru_ret_cpri" style="--accent:#fb7185">
+        <div class="domain-head">
+          <div class="domain-code">ANT</div>
+          <div>
+            <h3>Antenna / RRU / RET / CPRI</h3>
+            <p>Antenna systems, RRU/RET/AISG/CPRI, MIMO, beam and coverage.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>3 governed source(s)</span>
+          <span>antenna_rru_ret_cpri</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html" target="_blank" rel="noreferrer"><b>TRFMC v0.82C-R2 · Native WebGL Mission Replay Layout Fix</b><span>AMBER_NAV_FIX_REFERENCE_CANDIDATE · score 114</span></a><a class="source-link" href="/webgl_rf_heatmap_engine_v82c_mission_replay.html" target="_blank" rel="noreferrer"><b>TRFMC v0.82C · Native WebGL Mission Replay</b><span>AMBER_NAV_FIX_REFERENCE_CANDIDATE · score 112</span></a><a class="source-link" href="/webgl_rf_heatmap_engine_v82b_native_lab.html" target="_blank" rel="noreferrer"><b>TRFMC v0.82B · Native WebGL RF Field Refinement</b><span>AMBER_NAV_FIX_REFERENCE_CANDIDATE · score 110</span></a></div>
+      </section>
+    
+      <section class="domain-card ok" id="domain-signal_dsp_measurement" style="--accent:#fbbf24">
+        <div class="domain-head">
+          <div class="domain-code">DSP</div>
+          <div>
+            <h3>Signal / DSP / Measurement</h3>
+            <p>FFT, IQ, waterfall, VSA, spectrum, measurement chain.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>1 governed source(s)</span>
+          <span>signal_dsp_measurement</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/trfmc_rf_spectrum_lab_v1.html" target="_blank" rel="noreferrer"><b>TRFMC RF Spectrum Lab V1</b><span>AMBER_NAV_FIX_REFERENCE_CANDIDATE · score 131</span></a></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-cellular_2g_3g_4g_epc" style="--accent:#a3e635">
+        <div class="domain-head">
+          <div class="domain-code">EPC</div>
+          <div>
+            <h3>2G / 3G / 4G / EPC</h3>
+            <p>GSM, UMTS, LTE, EPC, MME, HSS, SGW, PGW, legacy cellular.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>cellular_2g_3g_4g_epc</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">create_domain_from_scratch</div></div>
+      </section>
+    
+      <section class="domain-card ok" id="domain-nr_5gc_open5gs" style="--accent:#c084fc">
+        <div class="domain-head">
+          <div class="domain-code">5GC</div>
+          <div>
+            <h3>5G NR / 5GC</h3>
+            <p>Open5GS, UERANSIM, AMF, SMF, UPF, NGAP, PFCP, GTP-U, identity.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>2 governed source(s)</span>
+          <span>nr_5gc_open5gs</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/trfmc_signal_world_engine_v2.html" target="_blank" rel="noreferrer"><b>TRFMC Signal World Engine V2</b><span>GREEN_NAV_FIX_THEN_VISUAL_REVIEW · score 188</span></a><a class="source-link" href="/trfmc_instrument_os_alignment_v1.html" target="_blank" rel="noreferrer"><b>TRFMC Instrument OS Alignment V1</b><span>GREEN_NAV_FIX_THEN_VISUAL_REVIEW · score 174</span></a></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-oran_ric_smo" style="--accent:#22c55e">
+        <div class="domain-head">
+          <div class="domain-code">RIC</div>
+          <div>
+            <h3>O-RAN / SMO / RIC</h3>
+            <p>SMO, Non-RT RIC, Near-RT RIC, rApps, xApps, A1/O1/E2.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>oran_ric_smo</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">create_domain_from_scratch</div></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-satellite_ntn_space" style="--accent:#60a5fa">
+        <div class="domain-head">
+          <div class="domain-code">NTN</div>
+          <div>
+            <h3>Satellite / NTN</h3>
+            <p>LEO, MEO, GEO, NTN, Doppler, satellite backhaul, orbital layer.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>satellite_ntn_space</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">create_domain_from_scratch</div></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-uav_drone_rf" style="--accent:#f97316">
+        <div class="domain-head">
+          <div class="domain-code">UAV</div>
+          <div>
+            <h3>UAV / Drone RF</h3>
+            <p>Datalink, C2, payload, airborne RF, controlled lab validation.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>uav_drone_rf</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">create_domain_from_scratch</div></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-sigint_intelligence" style="--accent:#e879f9">
+        <div class="domain-head">
+          <div class="domain-code">SIG</div>
+          <div>
+            <h3>SIGINT / Intelligence</h3>
+            <p>Spectrum intelligence, classification, monitoring, DF workflow, evidence.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>sigint_intelligence</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">build_missing_content_and_normalize_sources</div></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-red_blue_purple_team" style="--accent:#f43f5e">
+        <div class="domain-head">
+          <div class="domain-code">RBP</div>
+          <div>
+            <h3>Red / Blue / Purple Team</h3>
+            <p>SOC, NOC, defensive simulation, detection, response, purple evidence.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>red_blue_purple_team</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">create_domain_from_scratch</div></div>
+      </section>
+    
+      <section class="domain-card ok" id="domain-electronics_instrumentation" style="--accent:#14b8a6">
+        <div class="domain-head">
+          <div class="domain-code">LAB</div>
+          <div>
+            <h3>Electronics / Instrumentation</h3>
+            <p>SDR, spectrum analyzer, VNA, oscilloscope, generator, SCPI/VISA.</p>
+          </div>
+          <strong>SOURCE EVIDENCE</strong>
+        </div>
+        <div class="domain-meta">
+          <span>2 governed source(s)</span>
+          <span>electronics_instrumentation</span>
+        </div>
+        <div class="domain-sources"><a class="source-link" href="/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html" target="_blank" rel="noreferrer"><b>TRFMC RF PRO Signal Intelligence Lab V3 Reality</b><span>GRAY_REFERENCE_LOW_VALUE · score 24</span></a><a class="source-link" href="/trfmc_rf_pro_signal_intelligence_lab_v1.html" target="_blank" rel="noreferrer"><b>TRFMC RF PRO Signal Intelligence Lab V1</b><span>GRAY_REFERENCE_LOW_VALUE · score 22</span></a></div>
+      </section>
+    
+      <section class="domain-card build" id="domain-academy_theory_simulation" style="--accent:#fde047">
+        <div class="domain-head">
+          <div class="domain-code">EDU</div>
+          <div>
+            <h3>Academy / Theory / Simulation</h3>
+            <p>Formulas, protocols, theory, lesson plan, simulators, procedures.</p>
+          </div>
+          <strong>TO BUILD</strong>
+        </div>
+        <div class="domain-meta">
+          <span>domain missing/weak</span>
+          <span>academy_theory_simulation</span>
+        </div>
+        <div class="domain-sources"><div class="source-missing">build_missing_content_and_normalize_sources</div></div>
+      </section>
+    
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  const canvas = document.getElementById('trfmc-field-canvas');
+  const ctx = canvas.getContext('2d');
+  let points = [];
+
+  function resize(){
+    canvas.width = window.innerWidth * window.devicePixelRatio;
+    canvas.height = window.innerHeight * window.devicePixelRatio;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+    points = Array.from({length: Math.min(120, Math.floor(window.innerWidth / 14))}, function(){
+      return {
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - .5) * .24,
+        vy: (Math.random() - .5) * .24,
+        r: Math.random() * 1.5 + .4
+      };
+    });
+  }
+
+  function frame(){
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (const p of points) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+      if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+    }
+
+    ctx.strokeStyle = 'rgba(103,232,249,.07)';
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const a = points[i];
+        const b = points[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 130) {
+          ctx.globalAlpha = 1 - d / 130;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = 'rgba(103,232,249,.55)';
+    for (const p of points) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  frame();
+
+  const endpoints = [
+    ['/trfmc-api/backend/api/health', 'backend'],
+    ['/trfmc-api/bridge/api/health', 'bridge']
+  ];
+  for (const pair of endpoints) {
+    fetch(pair[0], {cache:'no-store'})
+      .then(function(r){ return r.ok ? r.text() : 'WARN'; })
+      .then(function(){ document.body.setAttribute('data-trfmc-' + pair[1], 'ok'); })
+      .catch(function(){ document.body.setAttribute('data-trfmc-' + pair[1], 'offline'); });
+  }
+}());
+</script>
+</body>
+</html>
