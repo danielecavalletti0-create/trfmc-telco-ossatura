@@ -1,6 +1,33 @@
 <!doctype html>
 <html lang="it">
 <head>
+
+<script id="trfmc-master-embedded-title-fix-a5r2-runtime">
+(function () {
+  "use strict";
+
+  function markEmbedded() {
+    try {
+      if (window.self !== window.top) {
+        document.documentElement.classList.add("trfmc-master-embedded-leaf");
+        document.documentElement.setAttribute("data-trfmc-master-embedded-title-fix-a5r2", "true");
+      } else {
+        document.documentElement.classList.add("trfmc-master-standalone");
+      }
+    } catch (_) {
+      document.documentElement.classList.add("trfmc-master-embedded-leaf");
+      document.documentElement.setAttribute("data-trfmc-master-embedded-title-fix-a5r2", "true");
+    }
+  }
+
+  markEmbedded();
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", markEmbedded);
+  }
+})();
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TRFMC Master Console V4</title>
@@ -37,6 +64,83 @@ canvas{width:100%;height:280px;background:#02070f;border:1px solid #1d5e86;borde
 <link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
 <link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
 <link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+
+<style id="trfmc-master-embedded-title-fix-a5r2">
+/* TRFMC A5R2 · Master Console embedded-frame correction.
+   Direct Master was already clean. Residual issue exists only when loaded as V6R3 leaf iframe:
+   H1 "TRFMC Master Console V4" top=-10 / viewportOverflow / clippedByParent.
+*/
+html.trfmc-master-embedded-leaf,
+html.trfmc-master-embedded-leaf body {
+  min-width: 0 !important;
+  overflow-x: hidden !important;
+}
+
+html.trfmc-master-embedded-leaf body {
+  padding-top: 44px !important;
+  margin-top: 0 !important;
+}
+
+html.trfmc-master-embedded-leaf h1:first-of-type {
+  position: relative !important;
+  top: auto !important;
+  transform: none !important;
+  translate: none !important;
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+  padding-top: 0 !important;
+  line-height: 1.14 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: anywhere !important;
+  min-height: 46px !important;
+}
+
+html.trfmc-master-embedded-leaf .title,
+html.trfmc-master-embedded-leaf div.title {
+  position: relative !important;
+  top: auto !important;
+  transform: none !important;
+  translate: none !important;
+  margin-top: 12px !important;
+  margin-bottom: 10px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  min-height: 38px !important;
+  height: auto !important;
+  line-height: 1.22 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Only remove clipping in ancestors that actually contain the flagged Master titles. */
+html.trfmc-master-embedded-leaf body,
+html.trfmc-master-embedded-leaf main,
+html.trfmc-master-embedded-leaf section,
+html.trfmc-master-embedded-leaf article,
+html.trfmc-master-embedded-leaf header,
+html.trfmc-master-embedded-leaf .container,
+html.trfmc-master-embedded-leaf .shell,
+html.trfmc-master-embedded-leaf .wrap,
+html.trfmc-master-embedded-leaf .panel,
+html.trfmc-master-embedded-leaf .content,
+html.trfmc-master-embedded-leaf [class*="shell" i],
+html.trfmc-master-embedded-leaf [class*="wrap" i],
+html.trfmc-master-embedded-leaf [class*="panel" i],
+html.trfmc-master-embedded-leaf [class*="content" i],
+html.trfmc-master-embedded-leaf [class*="domain" i],
+html.trfmc-master-embedded-leaf [class*="mission" i] {
+  overflow: visible !important;
+}
+
+/* Direct standalone Master must remain visually close to original. */
+html:not(.trfmc-master-embedded-leaf) h1:first-of-type {
+  overflow-wrap: anywhere;
+}
+</style>
+
+<link id="trfmc-title-hygiene-patch-v1" rel="stylesheet" href="/trfmc_title_hygiene_patch_v1.css">
 </head>
 <body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
 <header>
@@ -182,6 +286,98 @@ KPI/Formulas/Canvas: OK</div>
     </div>
   </div>
 </section>
+
+
+<script id="trfmc-title-hygiene-runtime-a5r3">
+(function () {
+  "use strict";
+
+  function classifyPage() {
+    const p = location.pathname.toLowerCase();
+    let page = "generic";
+
+    if (p.includes("official_safe_entrypoint_v6r3_command_center")) page = "v6r3-official-host";
+    else if (p.includes("master_console")) page = "master-console";
+    else if (p.includes("fft_gapless")) page = "fft-gapless";
+    else if (p.includes("rf_antenna_academy")) page = "rf-antenna-wall";
+    else if (p.includes("3d_rf_asset_renderer")) page = "rf-3d-visual-twin";
+
+    document.documentElement.setAttribute("data-trfmc-a5r3", "true");
+
+    if (document.body) {
+      document.body.setAttribute("data-trfmc-page", page);
+      document.body.classList.add("trfmc-a5r3-body");
+    }
+  }
+
+  function isVisible(el) {
+    const r = el.getBoundingClientRect();
+    const cs = getComputedStyle(el);
+    return r.width > 6 &&
+           r.height > 6 &&
+           r.bottom > 0 &&
+           r.top < innerHeight &&
+           cs.display !== "none" &&
+           cs.visibility !== "hidden" &&
+           Number(cs.opacity || "1") > 0.05;
+  }
+
+  function markTitles() {
+    const titleNodes = Array.from(document.querySelectorAll(
+      "h1,h2,h3,.title,.page-title,.module-title,.leaf-title,.panel-title,.app-title,.brand-title,[class*='title' i],[class*='headline' i]"
+    )).filter(isVisible);
+
+    let primary = null;
+
+    for (const el of titleNodes) {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (text.length < 5) continue;
+
+      el.classList.add("trfmc-a5r3-title");
+
+      if (!primary && (
+        /TRFMC|MASTER CONSOLE|GAPLESS|RF\s*\/\s*ANTENNA|3D RF|COMMAND CENTER|ASSET RENDERER/i.test(text) ||
+        el.tagName === "H1"
+      )) {
+        primary = el;
+      }
+    }
+
+    if (primary) primary.classList.add("trfmc-a5r3-primary-title");
+  }
+
+  function markToolbars() {
+    const candidates = Array.from(document.querySelectorAll("div,nav,section,header"));
+
+    for (const el of candidates) {
+      const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (txt.length < 20 || txt.length > 900) continue;
+
+      const buttonCount = el.querySelectorAll("button,a.btn,.btn,[role='button']").length;
+      if (buttonCount >= 3) {
+        el.classList.add("trfmc-a5r3-toolbar");
+      }
+    }
+  }
+
+  function boot() {
+    classifyPage();
+    markTitles();
+    markToolbars();
+
+    window.TRFMC_A5R3_TITLE_HYGIENE_READY = true;
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+
+  setTimeout(boot, 250);
+  setTimeout(boot, 1000);
+})();
+</script>
 
 </body>
 </html>

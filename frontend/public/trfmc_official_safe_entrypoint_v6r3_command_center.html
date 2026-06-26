@@ -55,6 +55,7 @@ body.focus main{height:100vh;grid-template-columns:1fr;padding:0}
 body.focus .stage{border-radius:0;border:0;grid-template-rows:42px 1fr 34px}
 @media(max-width:1500px){header{grid-template-columns:320px 1fr 410px}.tiles{grid-template-columns:repeat(4,1fr)}}
 </style>
+<link id="trfmc-title-hygiene-patch-v1" rel="stylesheet" href="/trfmc_title_hygiene_patch_v1.css">
 </head>
 <body>
 <header>
@@ -209,5 +210,97 @@ setInterval(()=>$("clk").textContent=new Date().toLocaleTimeString(),1000);
 function loop(){tick+=.04;drawMini();requestAnimationFrame(loop)}
 render();log("V6R3 Command Center online");setTimeout(health,500);loop();
 </script>
+
+<script id="trfmc-title-hygiene-runtime-a5r3">
+(function () {
+  "use strict";
+
+  function classifyPage() {
+    const p = location.pathname.toLowerCase();
+    let page = "generic";
+
+    if (p.includes("official_safe_entrypoint_v6r3_command_center")) page = "v6r3-official-host";
+    else if (p.includes("master_console")) page = "master-console";
+    else if (p.includes("fft_gapless")) page = "fft-gapless";
+    else if (p.includes("rf_antenna_academy")) page = "rf-antenna-wall";
+    else if (p.includes("3d_rf_asset_renderer")) page = "rf-3d-visual-twin";
+
+    document.documentElement.setAttribute("data-trfmc-a5r3", "true");
+
+    if (document.body) {
+      document.body.setAttribute("data-trfmc-page", page);
+      document.body.classList.add("trfmc-a5r3-body");
+    }
+  }
+
+  function isVisible(el) {
+    const r = el.getBoundingClientRect();
+    const cs = getComputedStyle(el);
+    return r.width > 6 &&
+           r.height > 6 &&
+           r.bottom > 0 &&
+           r.top < innerHeight &&
+           cs.display !== "none" &&
+           cs.visibility !== "hidden" &&
+           Number(cs.opacity || "1") > 0.05;
+  }
+
+  function markTitles() {
+    const titleNodes = Array.from(document.querySelectorAll(
+      "h1,h2,h3,.title,.page-title,.module-title,.leaf-title,.panel-title,.app-title,.brand-title,[class*='title' i],[class*='headline' i]"
+    )).filter(isVisible);
+
+    let primary = null;
+
+    for (const el of titleNodes) {
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (text.length < 5) continue;
+
+      el.classList.add("trfmc-a5r3-title");
+
+      if (!primary && (
+        /TRFMC|MASTER CONSOLE|GAPLESS|RF\s*\/\s*ANTENNA|3D RF|COMMAND CENTER|ASSET RENDERER/i.test(text) ||
+        el.tagName === "H1"
+      )) {
+        primary = el;
+      }
+    }
+
+    if (primary) primary.classList.add("trfmc-a5r3-primary-title");
+  }
+
+  function markToolbars() {
+    const candidates = Array.from(document.querySelectorAll("div,nav,section,header"));
+
+    for (const el of candidates) {
+      const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+      if (txt.length < 20 || txt.length > 900) continue;
+
+      const buttonCount = el.querySelectorAll("button,a.btn,.btn,[role='button']").length;
+      if (buttonCount >= 3) {
+        el.classList.add("trfmc-a5r3-toolbar");
+      }
+    }
+  }
+
+  function boot() {
+    classifyPage();
+    markTitles();
+    markToolbars();
+
+    window.TRFMC_A5R3_TITLE_HYGIENE_READY = true;
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+
+  setTimeout(boot, 250);
+  setTimeout(boot, 1000);
+})();
+</script>
+
 </body>
 </html>
