@@ -19,3 +19,9 @@ runtime_restore_test/
 runtime_before_restore_*/
 frontend/public/runtime_golden_check_snapshot.json
 logs/
+
+# TRFMC P8: local-only artifacts
+_archive/
+callgraph_streaming.json
+candidate_report.html
+evidence_matrix.json
