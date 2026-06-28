@@ -1,13 +1,24 @@
 /**
  * CANDIDATE-ONLY — NOT ROUTED TO PRODUCTION
  *
- * iqJsonWsDspWorkerV2.candidate.ts
+ * iqJsonWsDspWorkerV2.candidate.ts  (P2B-A Rev.1.1)
  *
  * Dedicated Module Worker.  Opens /api/iq/ws directly, validates the JSON
  * legacy P1 schema, converts payload.i / payload.q number arrays to
  * Float32Array, applies a Hann window, runs an in-place Radix-2 FFT, and
  * posts Transferable ArrayBuffer output to the main thread at no more than
  * 60 fps.
+ *
+ * P2B-A additions over P2A:
+ * - Async ring buffer (capacity 4, drop-oldest): onmessage only enqueues;
+ *   drainLoop() runs asynchronously via setTimeout, paced at 60 fps.
+ * - connectionEpoch guards all socket handlers against stale events.
+ * - Exponential-backoff reconnect (1 s base, 30 s max, x2); epoch-checked.
+ * - Manual disconnect disables auto-reconnect until next explicit connect.
+ * - Latency breakdown: workerLatencyMs, queueWaitMs, dspLatencyMs.
+ * - sourceClockDeltaMs: diagnostic only (server monotonic != client clock).
+ * - Separate counters: currentReconnectAttempt (backoff) vs
+ *   totalReconnectAttempts (cumulative, never reset).
  *
  * No SharedArrayBuffer.  No OffscreenCanvas.  No React.
  * No useRtStreamStore.  No unsafe type suppressions.
@@ -26,7 +37,26 @@ export interface DspMetrics {
   readonly droppedFrames: number
   readonly parseErrors: number
   readonly schemaErrors: number
-  readonly latencyMs: number
+  // Latency breakdown — P2B-A (all values from client performance.now(); no
+  // cross-domain clock ambiguity)
+  readonly workerLatencyMs: number        // receiveMs to outputMs (queue wait + DSP)
+  readonly queueWaitMs: number            // receiveMs to dspStartMs (time in queue)
+  readonly dspLatencyMs: number           // dspStartMs to outputMs (FFT + output)
+  /**
+   * Diagnostic delta: outputMs minus payload.time times 1000.
+   * payload.time is server-side monotonic (seconds since boot) and is NOT
+   * comparable with client performance.now().  The absolute value is NOT a
+   * network RTT.  Useful only for detecting relative drift across frames.
+   * null when payload.time is absent or non-positive.
+   */
+  readonly sourceClockDeltaMs: number | null
+  // Queue metrics — P2B-A
+  readonly queueDepth: number
+  readonly queueDroppedFrames: number
+  readonly queuedFrames: number
+  // Reconnect metrics — P2B-A
+  readonly totalReconnectAttempts: number
+  readonly lastReconnectDelayMs: number
 }
 
 export type WorkerInbound =
@@ -36,8 +66,9 @@ export type WorkerInbound =
 export type WorkerOutbound =
   | { readonly type: "worker_ready" }
   | { readonly type: "ws_open" }
-  | { readonly type: "ws_closed";    readonly code: number; readonly reason: string }
-  | { readonly type: "worker_error"; readonly message: string }
+  | { readonly type: "ws_closed";       readonly code: number; readonly reason: string }
+  | { readonly type: "ws_reconnecting"; readonly delayMs: number; readonly attempt: number }
+  | { readonly type: "worker_error";    readonly message: string }
   | {
       readonly type: "dsp_frame"
       readonly seq: number
@@ -66,6 +97,13 @@ interface LegacyIQFrame {
   readonly payload: LegacyIQPayload
 }
 
+// receiveMs is captured at onmessage time so that queue-wait latency remains
+// measurable after the async drain delay.
+interface QueuedFrame {
+  readonly frame:     LegacyIQFrame
+  readonly receiveMs: number
+}
+
 // Local interface — avoids dependency on the WebWorker lib not listed in tsconfig.
 interface WorkerPostScope {
   postMessage(message: WorkerOutbound, transfer?: Transferable[]): void
@@ -77,6 +115,10 @@ interface WorkerPostScope {
 
 const OUTPUT_INTERVAL_MS = 1000 / 60   // ~16.67 ms — caps output at 60 fps
 const FPS_WINDOW_MS      = 1000        // 1-second sliding FPS counter window
+const QUEUE_CAPACITY     = 4           // ring buffer max depth (drop-oldest on overflow)
+const BACKOFF_BASE_MS    = 1000        // initial reconnect delay (ms)
+const BACKOFF_MAX_MS     = 30_000      // maximum reconnect delay (ms)
+const BACKOFF_MULTIPLIER = 2.0         // exponential factor per attempt
 
 // ---------------------------------------------------------------------------
 // postMessage helper
@@ -161,12 +203,37 @@ function fftInPlace(real: Float32Array, imag: Float32Array): void {
 // ---------------------------------------------------------------------------
 
 let socket:       WebSocket | null = null
+let currentWsUrl: string | null    = null    // stored for auto-reconnect
+let manualDisconnect               = false   // true = user explicitly disconnected
+/**
+ * Incremented on every openSocket() and closeSocket().
+ * Captured as a const by each set of socket handlers so that events arriving
+ * from a superseded socket are silently ignored.
+ */
+let connectionEpoch = 0
+
+// WS error counters
 let droppedFrames = 0
 let parseErrors   = 0
 let schemaErrors  = 0
 let lastOutputMs  = 0
 
-// 1-second sliding window FPS counters
+// Async ring buffer — P2B-A
+// Drop-oldest policy: on overflow the head (oldest frame) is evicted so that
+// the drain loop always works on the most recently received data.
+const frameQueue:      QueuedFrame[] = []
+let queuedFrames       = 0    // cumulative frames accepted into queue (ever)
+let queueDepth         = 0    // mirrors frameQueue.length for metrics
+let queueDroppedFrames = 0    // frames evicted on overflow (not throttle-dropped)
+let drainScheduled     = false  // true while a setTimeout(drainLoop) is pending
+
+// Reconnect state — P2B-A
+let currentReconnectAttempt  = 0    // used for backoff; reset to 0 on ws_open
+let totalReconnectAttempts   = 0    // cumulative; never reset
+let lastReconnectDelayMs     = 0
+let reconnectTimerId: ReturnType<typeof setTimeout> | null = null
+
+// 1-second sliding FPS counters
 let fpsWindowStart = 0
 let fpsInAccum     = 0
 let fpsOutAccum    = 0
@@ -209,20 +276,21 @@ function isLegacyIQFrame(raw: unknown): raw is LegacyIQFrame {
 // Frame processing
 // ---------------------------------------------------------------------------
 
-function processFrame(frame: LegacyIQFrame): void {
-  const receiveMs = performance.now()
+// processFrame no longer manages the 60-fps throttle — that is delegated to
+// drainLoop, which calls processFrame only when the output slot is ready.
+function processFrame(
+  frame:      LegacyIQFrame,
+  receiveMs:  number,    // performance.now() captured at onmessage
+  dspStartMs: number,    // performance.now() captured in drainLoop before DSP
+): void {
   fpsInAccum++
-  tickFps(receiveMs)
+  tickFps(dspStartMs)
 
   const { seq, sample_rate, frame_size, i, q } = frame.payload
 
-  // Corrupt payload: both channel arrays must have equal length
+  // droppedFrames counts only payload/FFT faults, not throttle or queue overflow.
   if (i.length !== q.length) { droppedFrames++; return }
 
-  // Throttle: skip DSP computation inside the 60-fps output interval
-  if (receiveMs - lastOutputMs < OUTPUT_INTERVAL_MS) return
-
-  // Guard frame_size vs actual array length to avoid silent overread
   const actualLen = Math.min(frame_size, i.length, q.length)
   const fftN      = floorPow2(actualLen)
   if (fftN < 2) { droppedFrames++; return }
@@ -258,16 +326,36 @@ function processFrame(frame: LegacyIQFrame): void {
 
   const outputMs = performance.now()
 
+  // All three latency values use client performance.now() exclusively.
+  const workerLatencyMs = outputMs   - receiveMs    // total: queue wait + DSP
+  const queueWaitMs     = dspStartMs - receiveMs    // time spent waiting in queue
+  const dspLatencyMs    = outputMs   - dspStartMs   // FFT + output cost
+
+  // Diagnostic: server monotonic vs client performance.now() (different origins).
+  // The absolute value is not a network RTT — use only for inter-frame drift.
+  const sourceClockDeltaMs: number | null =
+    typeof frame.payload.time === "number" && frame.payload.time > 0
+      ? outputMs - frame.payload.time * 1000
+      : null
+
   const metrics: DspMetrics = {
     seq,
-    sampleRate:   sample_rate,
-    frameSize:    frame_size,
-    fpsIn:        currentFpsIn,
-    fpsOut:       currentFpsOut,
+    sampleRate:            sample_rate,
+    frameSize:             frame_size,
+    fpsIn:                 currentFpsIn,
+    fpsOut:                currentFpsOut,
     droppedFrames,
     parseErrors,
     schemaErrors,
-    latencyMs:    outputMs - receiveMs,
+    workerLatencyMs,
+    queueWaitMs,
+    dspLatencyMs,
+    sourceClockDeltaMs,
+    queueDepth,
+    queueDroppedFrames,
+    queuedFrames,
+    totalReconnectAttempts,
+    lastReconnectDelayMs,
   }
 
   // Transfer primary.buffer and iqPreview.buffer — zero-copy to main thread.
@@ -284,25 +372,110 @@ function processFrame(frame: LegacyIQFrame): void {
 }
 
 // ---------------------------------------------------------------------------
+// Async drain loop — P2B-A
+// ---------------------------------------------------------------------------
+
+// scheduleDrain() is the ONLY entry point from onmessage.
+// drainLoop() is NEVER called inline inside onmessage.
+function scheduleDrain(): void {
+  if (drainScheduled) return
+  drainScheduled = true
+  setTimeout(drainLoop, 0)
+}
+
+function drainLoop(): void {
+  drainScheduled = false
+  if (frameQueue.length === 0) return
+
+  const now        = performance.now()
+  const timeToNext = lastOutputMs + OUTPUT_INTERVAL_MS - now
+
+  if (timeToNext > 0) {
+    // Output slot not yet open — schedule drain at the exact moment it opens.
+    // This never burns frames; it just waits.
+    drainScheduled = true
+    setTimeout(drainLoop, timeToNext)
+    return
+  }
+
+  // Output slot is open: dequeue one frame and run DSP.
+  const queued     = frameQueue.shift()!
+  queueDepth       = frameQueue.length
+  const dspStartMs = performance.now()
+
+  try {
+    processFrame(queued.frame, queued.receiveMs, dspStartMs)
+  } catch (err) {
+    post({ type: "worker_error", message: `processFrame: ${String(err)}` })
+  }
+
+  // If more frames are waiting, schedule next drain at the next 60 fps slot.
+  if (frameQueue.length > 0) {
+    drainScheduled = true
+    setTimeout(drainLoop, OUTPUT_INTERVAL_MS)
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Reconnect management — P2B-A
+// ---------------------------------------------------------------------------
+
+function cancelReconnect(): void {
+  if (reconnectTimerId !== null) {
+    clearTimeout(reconnectTimerId)
+    reconnectTimerId = null
+  }
+}
+
+function scheduleReconnect(): void {
+  if (manualDisconnect || currentWsUrl === null) return
+  cancelReconnect()
+  const epoch   = connectionEpoch  // captured: ignored if stale when timer fires
+  const delayMs = Math.min(
+    BACKOFF_BASE_MS * Math.pow(BACKOFF_MULTIPLIER, currentReconnectAttempt),
+    BACKOFF_MAX_MS,
+  )
+  currentReconnectAttempt++
+  totalReconnectAttempts++
+  lastReconnectDelayMs = delayMs
+  post({ type: "ws_reconnecting", delayMs, attempt: currentReconnectAttempt })
+  reconnectTimerId = setTimeout((): void => {
+    reconnectTimerId = null
+    if (!manualDisconnect && currentWsUrl !== null && epoch === connectionEpoch) {
+      openSocket(currentWsUrl)
+    }
+  }, delayMs)
+}
+
+// ---------------------------------------------------------------------------
 // WebSocket management
 // ---------------------------------------------------------------------------
 
 function openSocket(wsUrl: string): void {
   if (socket !== null) { socket.close(); socket = null }
+  currentWsUrl     = wsUrl
+  manualDisconnect = false
+  connectionEpoch++
+  const epoch = connectionEpoch   // captured once; all handlers below close over it
 
   try {
     socket = new WebSocket(wsUrl)
   } catch (err) {
     post({ type: "worker_error", message: `WebSocket constructor: ${String(err)}` })
+    scheduleReconnect()
     return
   }
 
   socket.onopen = (): void => {
+    if (epoch !== connectionEpoch) return   // stale: a newer socket already took over
+    currentReconnectAttempt = 0             // reset backoff counter on successful open
+    lastReconnectDelayMs    = 0
     post({ type: "ws_open" })
   }
 
-  // Guard on ev.data type before calling JSON.parse
   socket.onmessage = (ev: MessageEvent): void => {
+    if (epoch !== connectionEpoch) return   // stale event from superseded socket
+
     if (typeof ev.data !== "string") {
       schemaErrors++
       return
@@ -315,24 +488,43 @@ function openSocket(wsUrl: string): void {
       return
     }
     if (!isLegacyIQFrame(parsed)) { schemaErrors++; return }
-    try {
-      processFrame(parsed)
-    } catch (err) {
-      post({ type: "worker_error", message: `processFrame: ${String(err)}` })
+
+    const receiveMs = performance.now()
+    queuedFrames++
+
+    // Ring buffer: drop-oldest policy on overflow
+    if (frameQueue.length >= QUEUE_CAPACITY) {
+      frameQueue.shift()
+      queueDroppedFrames++
     }
+    frameQueue.push({ frame: parsed, receiveMs })
+    queueDepth = frameQueue.length
+
+    // Do NOT call drainLoop() inline — schedule it asynchronously.
+    scheduleDrain()
   }
 
   socket.onerror = (): void => {
+    if (epoch !== connectionEpoch) return   // stale
     post({ type: "worker_error", message: "WebSocket error event" })
   }
 
   socket.onclose = (ev: CloseEvent): void => {
+    if (epoch !== connectionEpoch) return   // stale: onclose from a socket we already replaced
     post({ type: "ws_closed", code: ev.code, reason: ev.reason })
     socket = null
+    if (!manualDisconnect) {
+      scheduleReconnect()
+    }
   }
 }
 
 function closeSocket(): void {
+  connectionEpoch++            // invalidates ALL handlers on the current socket
+  manualDisconnect  = true
+  cancelReconnect()
+  frameQueue.length = 0        // discard queued frames on explicit disconnect
+  queueDepth        = 0
   if (socket !== null) { socket.close(); socket = null }
 }
 
