@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 import json
@@ -13,7 +14,11 @@ class EvidenceVaultService:
     service_name = "TRFMC_PERSISTENT_REPORT_ARCHIVE_EVIDENCE_VAULT_V0_20"
 
     def __init__(self):
-        self.root = Path("/runtime/evidence_vault")
+        configured_root = os.environ.get("TRFMC_VAULT_ROOT")
+        if configured_root:
+            self.root = Path(configured_root).expanduser()
+        else:
+            self.root = Path.home() / ".local" / "share" / "trfmc" / "vault"
         self.reports_dir = self.root / "reports"
         self.html_dir = self.root / "html"
         self.snapshots_dir = self.root / "snapshots"
