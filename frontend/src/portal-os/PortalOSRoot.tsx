@@ -294,6 +294,15 @@ export function PortalOSRoot() {
       <header className="trfmc-command-topbar">
         <div className="trfmc-command-brand">
           <span>TRFMC Portal OS</span>
+          <a
+            className="trfmc-p8d-academy-ops-entry"
+            href="/trfmc_academy_operations_center_v1.html"
+            target="_blank"
+            rel="noreferrer"
+            data-trfmc-p8d-academy-ops-entry="mounted"
+          >
+            Academy / Operations Center
+          </a>
           <strong>Command Center Home</strong>
           <em>V63-style · React governed · manifest source of truth</em>
         </div>

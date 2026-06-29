@@ -836,3 +836,35 @@
   }
 }
 /* TRFMC P6A WORKING REAL PAGES END */
+
+
+/* TRFMC P8D ACADEMY OPS ENTRY START */
+.trfmc-p8d-academy-ops-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: 0.75rem;
+  padding: 0.48rem 0.72rem;
+  border: 1px solid rgba(134, 239, 172, 0.42);
+  border-radius: 999px;
+  color: #dcfce7;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(103, 232, 249, 0.18), transparent 34%),
+    rgba(5, 46, 22, 0.22);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  box-shadow: 0 0 22px rgba(16, 185, 129, 0.08);
+}
+
+.trfmc-p8d-academy-ops-entry:hover,
+.trfmc-p8d-academy-ops-entry:focus-visible {
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.72);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(103, 232, 249, 0.24), transparent 34%),
+    rgba(6, 78, 59, 0.36);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.16);
+}
+/* TRFMC P8D ACADEMY OPS ENTRY END */
