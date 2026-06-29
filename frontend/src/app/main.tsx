@@ -196,7 +196,7 @@ function App() {
       setLoading(false)
     })
 
-    const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`
+    const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/iq/ws`
     rtConnect(wsUrl)
 
     return () => {
