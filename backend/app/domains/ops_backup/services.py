@@ -11,7 +11,11 @@ class OpsBackupService:
     service_name = "TRFMC_OPERATIONAL_BACKUP_RECOVERY_CONTROL_V0_21"
 
     def __init__(self):
-        self.runtime_root = Path("/runtime")
+        configured_root = os.environ.get("TRFMC_RUNTIME_ROOT")
+        if configured_root:
+            self.runtime_root = Path(configured_root).expanduser()
+        else:
+            self.runtime_root = Path.home() / ".local" / "share" / "trfmc" / "runtime"
         self.backup_root = self.runtime_root / "backups"
         self.backup_root.mkdir(parents=True, exist_ok=True)
 
