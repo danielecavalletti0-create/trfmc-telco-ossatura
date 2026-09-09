@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.75A Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer</title>
+  <link rel="stylesheet" href="/assets/trfmc_executive_next_v54.css">
+  <link rel="stylesheet" href="/assets/trfmc_executive_spatial_command_v55.css">
+  <link rel="stylesheet" href="/assets/trfmc_executive_spatial_micro_polish_v56.css">
+  <link rel="stylesheet" href="/assets/trfmc_executive_holographic_globe_v57.css">
+  <link rel="stylesheet" href="/assets/trfmc_executive_final_spatial_calibration_v58.css">
+  <link rel="stylesheet" href="/assets/trfmc_executive_enterprise_ops_v59.css">
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css">
+</head>
+<body class="trfmc-next-shell v55-spatial-command v56-micro-polish v57-holographic-globe v58-final-calibrated v59-enterprise-production trfmc-v75-active" data-v75-bound="true" data-v75="TRFMC_V0_75A_MASTER_VISUAL_RESET_SINGLE_SHELL"><header class="trfmc-v75-masterbar">
+      <div class="v75-brand">
+        <div class="v75-orb"></div>
+        <div>
+          <b>TRFMC MISSION CONTROL</b>
+          <span id="v75_identity">executive_mission_dashboard_v_next.html · single clean shell</span>
+        </div>
+      </div>
+
+      <nav class="v75-nav">
+        <a class="active" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_component_library_v76.html">Components</a><a class="" href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a><a class="" href="/infrastructure_digital_twin_v63.html">Digital Twin</a><a class="" href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a><a class="" href="/webgl_rf_heatmap_engine_v67.html">Urban</a><a class="" href="/webgl_rf_heatmap_engine_v66.html">Heatmap</a><a class="" href="/field_engineering_mode_v64.html">Field</a><a class="" href="/rf_propagation_sandbox_v62.html">Propagation</a><a class="" href="/rf_telco_knowledge_os_v60.html">Knowledge</a><a class="" href="/trfmc_visual_qa_matrix_v71.html">QA</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a>
+      </nav>
+
+      <div class="v75-status">
+        <span id="v75_backend" class="">Backend OK</span>
+        <span id="v75_runtime" class="">SIMULATION</span>
+        <span id="v75_visual" class="">Shell v75</span>
+      </div>
+    </header>
+  <div class="trfmc-bg-grid"></div>
+  <div class="trfmc-bg-glow glow-a"></div>
+  <div class="trfmc-bg-glow glow-b"></div>
+
+  <header class="top-shell">
+    <div class="brand">
+      <div class="brand-orb"></div>
+      <div>
+        <b>TRFMC MISSION CONTROL</b>
+        <span>Executive Dashboard Next · Enterprise Production Layer · v0.59A</span>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="/portal_index_v19.html">Portal</a>
+      <a class="active" href="/executive_mission_dashboard_v_next.html">Executive Next</a>
+      <a href="/executive_mission_dashboard_v40.html">Executive Legacy</a>
+      <a href="/rf_telco_mission_portal_v35.html">RF/Telco</a>
+      <a href="/rf_telco_knowledge_os_v60.html">Knowledge OS</a>
+      <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+      <a href="/global_mission_scenario_launcher_v39.html">Scenarios</a>
+      <a href="/runtime_golden_check_console_v29.html">Golden</a>
+        <a href="/webgl_rf_heatmap_engine_v66.html">WebGL Heatmap</a>
+      <a href="/webgl_rf_heatmap_engine_v67.html">Urban Shadowing</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+  </nav>
+
+    <div class="status-pills">
+      <span id="top_backend">Backend —</span>
+      <span id="top_golden">Golden OK</span>
+      <span id="top_mode">Mode —</span>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="hero-next">
+      <div class="hero-copy">
+        <div class="eyebrow">TRFMC v0.59A · ENTERPRISE PRODUCTION LAYER</div>
+        <h1>Executive Mission Dashboard Next</h1>
+        <p>Plancia executive enterprise per RF/Telco, scenario command, KPI live, evidence posture e runtime readiness. Questa versione promuove la v_next a console executive ufficiale: grafica space calibrata, postura operativa, readiness e collegamenti di governo.</p><div class="v56-hero-badge-row">
+      <span class="good">Mission Console</span>
+      <span>RF/Telco Intelligence</span>
+      <span>Scenario Command</span>
+      <span>KPI Wall</span>
+      <span>Evidence Ready</span>
+    </div>
+
+        <div class="hero-actions">
+          <a href="/global_mission_scenario_launcher_v39.html" data-v56-polished="true">Launch Global Mission</a>
+          <a href="/rf_instrumentation_signal_cockpit_v38.html" data-v56-polished="true">Open RF Instruments</a>
+          <a href="/network_journey_world_map_v37.html" data-v56-polished="true">World Journey</a>
+          <a href="/evidence_vault_console_v20.html" data-v56-polished="true">Evidence Vault</a>
+        </div>
+      </div>
+
+      <div class="hero-readiness">
+        <div class="readiness-ring" id="readiness_ring" style="--score-deg: 65deg;">
+          <div>
+            <b id="readiness_score">18%</b>
+            <span>Mission Readiness</span>
+          </div>
+        </div>
+        <div class="readiness-note">
+          <b id="mission_state">MISSION ATTENTION</b>
+          <span id="mission_state_detail">backend — · golden OK · RF —/—</span>
+        </div>
+      </div>
+    <div class="v55-orbital-stack">
+      <div class="v55-orbit o1"></div>
+      <div class="v55-orbit o2"></div>
+      <div class="v55-orbit o3"></div>
+      <div class="v55-satellite s1"></div>
+      <div class="v55-satellite s2"></div>
+      <div class="v55-satellite s3"></div>
+    </div><div class="v56-mission-horizon"></div><div class="v57-holo-globe">
+      <div class="v57-holo-sphere"></div>
+      <div class="v57-holo-ring r1"></div>
+      <div class="v57-holo-ring r2"></div>
+      <div class="v57-holo-link l1"></div>
+      <div class="v57-holo-link l2"></div>
+      <div class="v57-holo-link l3"></div>
+      <div class="v57-holo-node n1"></div>
+      <div class="v57-holo-node n2"></div>
+      <div class="v57-holo-node n3"></div>
+      <div class="v57-holo-node n4"></div>
+      <div class="v57-holo-label"><span>Global Mission Mesh</span><b id="v57_globe_state">TRACKING</b></div>
+    </div></section>
+
+    <section class="quick-kpis">
+      <div class="kpi-card"><span>Backend</span><b id="kpi_backend">—</b><small id="kpi_backend_detail">runtime</small></div>
+      <div class="kpi-card"><span>Golden</span><b id="kpi_golden">OK</b><small id="kpi_golden_detail">10 checks</small></div>
+      <div class="kpi-card"><span>CloudEvents</span><b id="kpi_events">—</b><small>mission telemetry</small></div>
+      <div class="kpi-card"><span>RF Runs</span><b id="kpi_rf_runs">— / —</b><small>coverage / field</small></div>
+      <div class="kpi-card"><span>Evidence</span><b id="kpi_evidence">—</b><small>vault chain</small></div>
+      <div class="kpi-card"><span>Assets</span><b id="kpi_assets">—</b><small>mission inventory</small></div>
+    </section>
+
+    <section class="control-strip">
+      <div>
+        <b>Executive Control Strip</b>
+        <span>single-page operational view · engineering details hidden by default · localhost-only · simulation-only</span>
+      <div class="v56-command-ticker">TRFMC_V0_58A_EXECUTIVE_DASHBOARD_NEXT_FINAL_SPATIAL_CALIBRATION · final spatial calibration active · clean dashboard baseline</div></div>
+      <div class="strip-actions">
+        <button type="button" id="btn_refresh" data-v56-polished="true">Refresh</button>
+        <button type="button" id="btn_compact" data-v56-polished="true">Compact</button>
+        <button type="button" id="btn_engineering" data-v56-polished="true">Engineering Detail</button>
+      <button type="button" id="btn_enterprise_freeze">Freeze Visuals</button></div>
+    </section><section class="v59-enterprise-ops" id="enterprise_ops">
+      <div class="v59-enterprise-head">
+        <div>
+          <h2>Enterprise Operations / Production Readiness</h2>
+          <p>
+            TRFMC_V0_59A_EXECUTIVE_DASHBOARD_NEXT_ENTERPRISE_PRODUCTION_LAYER · executive ufficiale: readiness operativo, release posture, RF/Telco core,
+            evidence chain, golden baseline e stato UI. Nessuna modifica backend, localhost-only, simulation posture.
+          </p>
+        </div>
+        <div class="v59-release-badge">OFFICIAL EXECUTIVE · v0.59A</div>
+      </div>
+
+      <div class="v59-enterprise-grid">
+        <div class="v59-op-tile bad" id="v59_tile_runtime"><span>Runtime</span><b id="v59_runtime">ATTENTION</b><small id="v59_runtime_detail">backend — · —</small></div>
+        <div class="v59-op-tile good" id="v59_tile_release"><span>Release</span><b id="v59_release">v0.59A</b><small>enterprise production layer</small></div>
+        <div class="v59-op-tile good" id="v59_tile_golden"><span>Golden</span><b id="v59_golden">OK</b><small id="v59_golden_detail">10 checks</small></div>
+        <div class="v59-op-tile warn" id="v59_tile_rf"><span>RF/Telco</span><b id="v59_rf">— / —</b><small>coverage / field</small></div>
+        <div class="v59-op-tile warn" id="v59_tile_evidence"><span>Evidence</span><b id="v59_evidence">— / —</b><small>vault / incidents</small></div>
+        <div class="v59-op-tile good" id="v59_tile_ui"><span>UI State</span><b id="v59_ui">OFFICIAL</b><small>next dashboard official</small></div>
+      </div>
+
+      <div class="v59-enterprise-actions">
+        <a href="/executive_mission_dashboard_v_next.html">Executive Official</a>
+        <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+        <a href="/operator_handbook_console_v23.html">Operator Handbook</a>
+        <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+        <a href="/backup_console_v21.html">Backup Console</a>
+        <a href="/restore_readiness_console_v22.html">Restore Readiness</a>
+        <button type="button" id="v59_print">Print / Review</button>
+      </div>
+    </section><div class="v55-command-ribbon">
+      <div><span>Spatial Layer</span><b>ORBITAL UI</b></div>
+      <div><span>RF Core</span><b id="v55_rf_core">RF DEGRADED</b></div>
+      <div><span>Scenario</span><b id="v55_scenario_core">READY</b></div>
+      <div><span>Review</span><b>V0.58A</b></div>
+    </div>
+
+    <section class="primary-grid">
+      <article class="panel rf-panel">
+        <div class="panel-head">
+          <div>
+            <h2>RF/Telco Signal Intelligence</h2>
+            <p>Path confidence, spectrum, link budget, LOS/NLOS, RF field and antenna state.</p>
+          </div>
+          <strong id="rf_state">RF DEGRADED</strong>
+        </div>
+
+        <div class="rf-layout">
+          <div class="rf-gauge">
+            <div class="rf-semi" id="rf_confidence_ring" style="--rf-deg: 140deg;">
+              <div>
+                <b id="rf_confidence">50%</b>
+                <span>RF Path</span>
+              </div>
+            </div>
+
+            <div class="rf-note">
+              <b id="rf_path_status">RF PATH WATCH</b>
+              <span id="rf_path_detail">— · LOS/NLOS · RF FIELD</span>
+            </div>
+
+            <div class="rf-mini-grid">
+              <div><span>RX Power</span><b id="rf_rx_power">—</b></div>
+              <div><span>SNR</span><b id="rf_snr">—</b></div>
+              <div><span>Path Loss</span><b id="rf_loss">—</b></div>
+              <div><span>LOS State</span><b id="rf_los">LOS/NLOS</b></div>
+            </div>
+          </div>
+
+          <div class="spectrum-block">
+            <div class="spectrum-window">
+              <div class="trace"></div>
+              <div class="carrier" id="carrier_line" style="--carrier-left: 50%;"></div>
+              <div class="noise-floor"></div>
+              <div class="spectrum-labels"><span>Noise</span><span>Carrier</span><span>Adjacent</span></div>
+            <div class="v57-spectrum-target"></div></div>
+
+            <div class="rf-mini-grid bottom">
+              <div><span>Frequency</span><b id="rf_frequency">—</b></div>
+              <div><span>Wavelength</span><b id="rf_wavelength">—</b></div>
+              <div><span>Field</span><b id="rf_field">RF FIELD</b></div>
+              <div><span>Obstacles</span><b id="rf_obstacles">—</b></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel scenario-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Scenario Command</h2>
+            <p>Mission selector, launch chain and direct access to global journey, timeline, reports and evidence.</p>
+          </div>
+          <strong id="scenario_state">READY</strong>
+        </div>
+
+        <div class="scenario-layout">
+          <div class="scenario-selector">
+            <button data-scenario="rural" class="selected"><b>Rural UE</b><span>Remote VoNR journey</span></button>
+            <button data-scenario="japan"><b>Japan</b><span>Intercontinental APAC path</span></button>
+            <button data-scenario="usa"><b>USA</b><span>Transatlantic GWAN mission</span></button>
+            <button data-scenario="africa"><b>Africa</b><span>Long-haul degraded route</span></button>
+            <button data-scenario="india"><b>India</b><span>Regional APAC mission</span></button>
+            <button data-scenario="ntn"><b>NTN</b><span>Satellite / non-terrestrial overlay</span></button>
+          </div>
+
+          <div class="launch-chain">
+            <div class="chain">
+              <span>UE</span><span>RAN</span><span>Transport</span><span>Core</span><span>GWAN</span><span>Evidence</span>
+            </div>
+
+            <div class="scenario-status-grid">
+              <div><span>Region</span><b id="scenario_region">Rural / remote</b></div>
+              <div><span>Risk</span><b id="scenario_risk">MEDIUM</b></div>
+              <div><span>Mode</span><b>SIMULATION</b></div>
+              <div><span>Last Scenario</span><b id="scenario_last">Rural UE</b></div>
+            </div>
+
+            <div class="launch-actions">
+              <a href="/global_mission_scenario_launcher_v39.html" data-v56-polished="true">Global Launcher</a>
+              <a href="/scenario_runner_console_v16.html" data-v56-polished="true">Scenario Runner</a>
+              <a href="/timeline_console_v14.html" data-v56-polished="true">Timeline</a>
+              <a href="/mission_graph_console_v15.html" data-v56-polished="true">Mission Graph</a>
+              <a href="/scenario_report_console_v17.html" data-v56-polished="true">Reports</a>
+              <a href="/evidence_vault_console_v20.html" data-v56-polished="true">Evidence</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="secondary-grid">
+      <article class="panel kpi-wall">
+        <div class="panel-head slim">
+          <div>
+            <h2>Live KPI Wall</h2>
+            <p>Operational readiness, runtime, RF, evidence, documents and indexed pages.</p>
+          </div>
+          <strong id="kpi_wall_state">KPI READY</strong>
+        </div>
+
+        <div class="kpi-wall-grid">
+          <div><span>Runtime</span><b id="wall_runtime">online</b><small>backend health</small></div>
+          <div><span>Golden</span><b id="wall_golden">OK</b><small>checks</small></div>
+          <div><span>Docs</span><b id="wall_docs">—</b><small>handbook chain</small></div>
+          <div><span>Pages</span><b id="wall_pages">13</b><small>portal index</small></div>
+          <div><span>RF Coverage</span><b id="wall_rf_cov">—</b><small>coverage runs</small></div>
+          <div><span>RF Field</span><b id="wall_rf_field">—</b><small>field runs</small></div>
+          <div><span>Incidents</span><b id="wall_incidents">—</b><small>mission events</small></div>
+          <div><span>Refresh</span><b id="wall_refresh">16:43:47</b><small>local browser time</small></div>
+        </div>
+      </article>
+
+      <article class="panel mission-map-panel">
+        <div class="panel-head slim">
+          <div>
+            <h2>Mission Entry / Operational Map</h2>
+            <p>Clean entry points for command, RF engineering, global scenarios, evidence and documentation.</p>
+          </div>
+          <strong>ENTRY READY</strong>
+        </div>
+
+        <div class="mission-map">
+          <a href="/executive_mission_dashboard_v_next.html">Executive Next</a>
+          <a href="/rf_telco_mission_portal_v35.html">RF/Telco Portal</a>
+          <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+          <a href="/network_journey_world_map_v37.html">World Journey</a>
+          <a href="/global_mission_scenario_launcher_v39.html">Global Launcher</a>
+          <a href="/evidence_vault_console_v20.html">Evidence Vault</a>
+          <a href="/runtime_golden_check_console_v29.html">Golden Check</a>
+          <a href="/operator_handbook_console_v23.html">Handbook</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="support-grid">
+      <article class="support-card">
+        <h3>Evidence / Security</h3>
+        <b id="support_evidence">— incidents / — evidence</b>
+        <span>Evidence chain, incidents, reports and restore posture.</span>
+        <a href="/evidence_vault_console_v20.html">Open Evidence</a>
+      </article>
+
+      <article class="support-card">
+        <h3>RF / Engineering</h3>
+        <b id="support_rf">— coverage / — field</b>
+        <span>RF coverage, field model, spectrum and link metrics.</span>
+        <a href="/rf_instrumentation_signal_cockpit_v38.html">Open RF</a>
+      </article>
+
+      <article class="support-card">
+        <h3>Release Readiness</h3>
+        <b id="support_release">OK · — docs</b>
+        <span>Golden check, documents, backup and restore readiness.</span>
+        <a href="/runtime_golden_check_console_v29.html">Open Golden</a>
+      </article>
+    </section>
+
+    <section class="engineering-detail" id="engineering_detail">
+      <div class="panel-head slim">
+        <div>
+          <h2>Engineering Runtime Detail</h2>
+          <p>Hidden by default. Used only for diagnostics and evidence review.</p>
+        </div>
+        <strong>DETAIL</strong>
+      </div>
+      <pre id="runtime_json">{
+  "health": {
+    "ok": true,
+    "status": "online",
+    "service": "trfmc-portal",
+    "mode": "vite-middleware-health",
+    "portal_port": 5173,
+    "portal_url": "http://127.0.0.1:5173",
+    "architecture": "single-port-portal",
+    "message": "TRFMC portal is alive on port 5173"
+  },
+  "portal": {},
+  "docs": {},
+  "snapshot": {
+    "service": "TRFMC_PORTAL_INDEX_GOLDEN_CHECK_INTEGRATION_V0_30",
+    "timestamp": "2026-05-14T13:03:29.760271+00:00",
+    "overall_status": "OK",
+    "project": "Telco RF Mission Control Platform",
+    "release_context": {
+      "current_feature_branch": "v0.39a-global-mission-scenario-launcher",
+      "base_runtime_version": "0.30.0",
+      "console_version": "0.30.0",
+      "head": "4d27ffc",
+      "tags_on_head": "v0.39a-global-mission-scenario-launcher-working",
+      "git_dirty_files": 0
+    },
+    "checks": [
+      {
+        "name": "backend_health_version",
+        "ok": true,
+        "value": "0.30.0",
+        "expected": "0.30.0"
+      },
+      {
+        "name": "docs_api_version",
+        "ok": true,
+        "value": "0.30.0",
+        "expected": "0.30.0"
+      },
+      {
+        "name": "docs_count",
+        "ok": true,
+        "value": 6,
+        "expected": 6
+      },
+      {
+        "name": "portal_health_summary",
+        "ok": true,
+        "value": "OK",
+        "expected": "OK"
+      },
+      {
+        "name": "portal_index_http",
+        "ok": true,
+        "value": "200",
+        "expected": "200"
+      },
+      {
+        "name": "operator_handbook_http",
+        "ok": true,
+        "value": "200",
+        "expected": "200"
+      },
+      {
+        "name": "restore_console_http",
+        "ok": true,
+        "value": "200",
+        "expected": "200"
+      },
+      {
+        "name": "backup_console_http",
+        "ok": true,
+        "value": "200",
+        "expected": "200"
+      },
+      {
+        "name": "git_dirty_files",
+        "ok": true,
+        "value": 0,
+        "expected": 0
+      },
+      {
+        "name": "backup_v28_present",
+        "ok": true,
+        "value": "/home/sentinel/Scaricati/trfmc_full_project_backup_v39a_20260514_143740.tar.gz",
+        "expected": "latest v28 backup present"
+      }
+    ],
+    "runtime": {
+      "health": {
+        "status": "ok",
+        "project": "Telco RF Mission Control Platform",
+        "version": "0.30.0",
+        "environment": "dev",
+        "operational_mode": "SIMULATION_ONLY",
+        "restricted_enabled": false,
+        "persistence": "sqlite",
+        "event_stream": "websocket"
+      },
+      "docs": {
+        "service": "TRFMC_PORTAL_INDEX_GOLDEN_CHECK_INTEGRATION_V0_30",
+        "timestamp": "2026-05-14T13:03:29.590674+00:00",
+        "version": "0.30.0",
+        "docs_root": "/app/docs",
+        "count": 6,
+        "documents": [
+          {
+            "id": "operator-handbook",
+            "title": "Operator Handbook",
+            "path": "TRFMC_OPERATOR_HANDBOOK.md",
+            "endpoint": "/api/docs/operator-handbook",
+            "description": "Procedure operative principali.",
+            "exists": true,
+            "size_bytes": 1815
+          },
+          {
+            "id": "architecture",
+            "title": "Architecture Current State",
+            "path": "TRFMC_ARCHITECTURE_CURRENT_STATE.md",
+            "endpoint": "/api/docs/architecture",
+            "description": "Architettura corrente.",
+            "exists": true,
+            "size_bytes": 1951
+          },
+          {
+            "id": "backup-restore",
+            "title": "Backup and Restore",
+            "path": "TRFMC_BACKUP_AND_RESTORE.md",
+            "endpoint": "/api/docs/backup-restore",
+            "description": "Backup, restore readiness e drill.",
+            "exists": true,
+            "size_bytes": 2093
+          },
+          {
+            "id": "release-chain",
+            "title": "Release Chain",
+            "path": "TRFMC_RELEASE_CHAIN.md",
+            "endpoint": "/api/docs/release-chain",
+            "description": "Catena release.",
+            "exists": true,
+            "size_bytes": 2087
+          },
+          {
+            "id": "security",
+            "title": "Security Baseline",
+            "path": "TRFMC_SECURITY_BASELINE.md",
+            "endpoint": "/api/docs/security",
+            "description": "Postura sicurezza.",
+            "exists": true,
+            "size_bytes": 1710
+          },
+          {
+            "id": "commands",
+            "title": "Command Reference",
+            "path": "TRFMC_COMMAND_REFERENCE.md",
+            "endpoint": "/api/docs/commands",
+            "description": "Comandi ufficiali.",
+            "exists": true,
+            "size_bytes": 1409
+          }
+        ]
+      },
+      "portal_summary": {
+        "service": "TRFMC_PORTAL_INDEX_GOLDEN_CHECK_INTEGRATION_V0_30",
+        "timestamp": "2026-05-14T13:03:29.605853+00:00",
+        "overall_status": "OK",
+        "version": "0.30.0",
+        "persistence": {
+          "db_path": "runtime/trfmc.db",
+          "exists": true,
+          "counts": {
+            "missions": 1,
+            "cloud_events": 120,
+            "assets": 17,
+            "evidence": 1,
+            "device_trust_events": 0,
+            "network_paths": 1,
+            "incidents": 1,
+            "asset_links": 16,
+            "time_cursors": 1,
+            "rf_obstacles": 3,
+            "rf_coverage_runs": 35,
+            "rf_field_runs": 34
+          }
+        },
+        "event_count_sample": 120,
+        "high_value_counts": {
+          "assets": 17,
+          "cloud_events": 120,
+          "network_paths": 1,
+          "rf_coverage_runs": 35,
+          "rf_field_runs": 34,
+          "incidents": 1
+        },
+        "pages_active": 13,
+        "api_endpoints_indexed": 35
+      },
+      "persistence": {
+        "db_path": "runtime/trfmc.db",
+        "exists": true,
+        "counts": {
+          "missions": 1,
+          "cloud_events": 120,
+          "assets": 17,
+          "evidence": 1,
+          "device_trust_events": 0,
+          "network_paths": 1,
+          "incidents": 1,
+          "asset_links": 16,
+          "time_cursors": 1,
+          "rf_obstacles": 3,
+          "rf_coverage_runs": 35,
+          "rf_field_runs": 34
+        }
+      }
+    },
+    "frontend_http": {
+      "portal_index_v19": "200",
+      "operator_handbook_v23": "200",
+      "restore_readiness_v22": "200",
+      "operational_backup_v21": "200"
+    },
+    "host": {
+      "docker_ps": [],
+      "ports": [
+        "LISTEN 0      4096       127.0.0.1:5173       0.0.0.0:*          ",
+        "LISTEN 0      4096       127.0.0.1:5173       0.0.0.0:*          "
+      ],
+      "git_status_short": []
+    },
+    "backup": {
+      "latest_backup": "/home/sentinel/Scaricati/trfmc_full_project_backup_v39a_20260514_143740.tar.gz",
+      "latest_manifest": "/home/sentinel/Scaricati/trfmc_full_project_backup_v39a_20260514_143740_manifest.txt",
+      "sha256": "2a2a9eba3a893ce2dea2fcfa73a6efc121e1c432b7c76962ec768e29f889e11e"
+    }
+  },
+  "rf_coverage": {},
+  "rf_field": {}
+}</pre>
+    </section>
+  </main>
+
+  <footer class="next-footer">TRFMC v0.59A · Executive Dashboard Next / Enterprise Production Layer · official executive console · frontend-only · localhost-only · backend simulation-only</footer>
+
+  <script defer="" src="/assets/trfmc_executive_next_v54.js"></script>
+  <script defer="" src="/assets/trfmc_executive_spatial_command_v55.js"></script>
+  <script defer="" src="/assets/trfmc_executive_spatial_micro_polish_v56.js"></script>
+  <script defer="" src="/assets/trfmc_executive_holographic_globe_v57.js"></script>
+  <script defer="" src="/assets/trfmc_executive_final_spatial_calibration_v58.js"></script>
+  <script defer="" src="/assets/trfmc_executive_enterprise_ops_v59.js"></script>
+<script defer="" src="/assets/trfmc_master_shell_v75.js"></script>
+
+
+</body></html>

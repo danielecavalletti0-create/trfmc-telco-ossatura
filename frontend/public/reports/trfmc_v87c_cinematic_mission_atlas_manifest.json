@@ -1,0 +1,88 @@
+{
+  "version": "TRFMC v0.87C",
+  "generated_at": "20260516_214933",
+  "purpose": "Cinematic RF/Telco Mission Atlas",
+  "policy": {
+    "new_parallel_page_only": true,
+    "no_backend_change": true,
+    "no_iframe": true,
+    "no_cdn": true,
+    "no_global_css": true,
+    "wow_home": true,
+    "service_pages_hidden": true
+  },
+  "mission_routes": [
+    {
+      "id": "rf",
+      "title": "RF Physics Console",
+      "subtitle": "Formula-driven RF measurement",
+      "file": "rf_physics_sapienza_console_v86a.html",
+      "domain": "RF Physics",
+      "x": 22,
+      "y": 62,
+      "kind": "primary"
+    },
+    {
+      "id": "field",
+      "title": "Stable RF Field",
+      "subtitle": "Safe stable RF baseline",
+      "file": "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+      "domain": "RF Baseline",
+      "x": 48,
+      "y": 38,
+      "kind": "stable"
+    },
+    {
+      "id": "twin",
+      "title": "Digital Twin",
+      "subtitle": "Site, shelter, tower, physical assets",
+      "file": "infrastructure_digital_twin_v63.html",
+      "domain": "Infrastructure",
+      "x": 74,
+      "y": 55,
+      "kind": "infra"
+    },
+    {
+      "id": "handover",
+      "title": "Handover Dynamics",
+      "subtitle": "UE mobility and serving decision",
+      "file": "webgl_rf_heatmap_engine_v69.html",
+      "domain": "Mobility",
+      "x": 64,
+      "y": 74,
+      "kind": "mobility"
+    },
+    {
+      "id": "academy",
+      "title": "Theory Spine",
+      "subtitle": "Formula, method, evidence chain",
+      "file": "trfmc_theory_spine_v86e.html",
+      "domain": "Academy",
+      "x": 37,
+      "y": 82,
+      "kind": "theory"
+    }
+  ],
+  "engineering_routes": [
+    {
+      "title": "Mission Home v87B",
+      "file": "trfmc_mission_control_home_v87b.html"
+    },
+    {
+      "title": "No-Iframe Route Console",
+      "file": "trfmc_unified_shell_noiframe_v86d_r1.html"
+    },
+    {
+      "title": "Design Token Audit",
+      "file": "trfmc_design_token_audit_v86f.html"
+    },
+    {
+      "title": "Portal Registry",
+      "file": "trfmc_portal_registry_v86c.html"
+    },
+    {
+      "title": "Performance GPU Gate",
+      "file": "trfmc_performance_gpu_gate_v86b_r1.html"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+url	status	bytes
+http://127.0.0.1:5173/#full-engineering-stack	200	387
+http://127.0.0.1:4181/api/health	200	215
+http://127.0.0.1:8000/api/health	200	4653

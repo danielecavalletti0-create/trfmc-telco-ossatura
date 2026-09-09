@@ -1,0 +1,542 @@
+Sul branch v0.87g-public-operational-home
+Modifiche non nell'area di staging per il commit:
+  (usa "git add <file>..." per aggiornare gli elementi di cui sarà eseguito il commit)
+  (usa "git restore <file>..." per scartare le modifiche nella directory di lavoro)
+	modificato:             backend/app/main.py
+	modificato:             frontend/index.html
+	modificato:             frontend/package-lock.json
+	modificato:             frontend/package.json
+	modificato:             frontend/public/assets/trfmc_enterprise_shell_v34.js
+	modificato:             frontend/public/assets/trfmc_executive_content_consolidation_v44.js
+	modificato:             frontend/public/assets/trfmc_executive_enterprise_ops_v59.js
+	modificato:             frontend/public/assets/trfmc_executive_evidence_overlay_v42.js
+	modificato:             frontend/public/assets/trfmc_executive_instrument_cluster_v46.js
+	modificato:             frontend/public/assets/trfmc_executive_navigation_hub_v43.js
+	modificato:             frontend/public/assets/trfmc_executive_next_v54.js
+	modificato:             frontend/public/assets/trfmc_executive_release_milestone_v50.js
+	modificato:             frontend/public/assets/trfmc_executive_rf_signal_intel_v49.js
+	modificato:             frontend/public/assets/trfmc_executive_visual_depth_v45.js
+	modificato:             frontend/public/assets/trfmc_field_telemetry_v65.js
+	modificato:             frontend/public/assets/trfmc_master_shell_v75.js
+	modificato:             frontend/public/assets/trfmc_seasonal_vegetation_clutter_v68.js
+	modificato:             frontend/public/assets/trfmc_ue_handover_dynamics_v69.js
+	modificato:             frontend/public/assets/trfmc_unified_enterprise_shell_v70.js
+	modificato:             frontend/public/assets/trfmc_visual_qa_matrix_v71.js
+	modificato:             frontend/public/evidence_vault_console_v20.html
+	modificato:             frontend/public/executive_mission_dashboard_v40.html
+	modificato:             frontend/public/global_mission_scenario_launcher_v39.html
+	modificato:             frontend/public/mission_graph_console_v15.html
+	modificato:             frontend/public/network_journey_world_map_v37.html
+	modificato:             frontend/public/observability_console_v13.html
+	modificato:             frontend/public/operational_backup_console_v21.html
+	modificato:             frontend/public/operator_handbook_console_v23.html
+	modificato:             frontend/public/portal_index_v19.html
+	modificato:             frontend/public/restore_readiness_console_v22.html
+	modificato:             frontend/public/rf_instrumentation_signal_cockpit_v38.html
+	modificato:             frontend/public/rf_physics_sapienza_console_v86a.html
+	modificato:             frontend/public/rf_propagation_sandbox_v62.html
+	modificato:             frontend/public/rf_sapienza_console_v84b.html
+	modificato:             frontend/public/rf_sapienza_console_v84c.html
+	modificato:             frontend/public/rf_sapienza_console_v84d.html
+	modificato:             frontend/public/rf_sapienza_console_v84e.html
+	modificato:             frontend/public/rf_sapienza_console_v84f.html
+	modificato:             frontend/public/rf_sapienza_console_v84g.html
+	modificato:             frontend/public/rf_sapienza_console_v84h.html
+	modificato:             frontend/public/rf_sapienza_console_v84i.html
+	modificato:             frontend/public/rf_sapienza_console_v84j.html
+	modificato:             frontend/public/rf_sapienza_console_v84k.html
+	modificato:             frontend/public/rf_sapienza_console_v84l.html
+	modificato:             frontend/public/rf_sapienza_console_v84m.html
+	modificato:             frontend/public/rf_telco_component_library_v76.html
+	modificato:             frontend/public/rf_telco_knowledge_modules_v61.html
+	modificato:             frontend/public/rf_telco_knowledge_os_v60.html
+	modificato:             frontend/public/rf_telco_mission_portal_v35.html
+	modificato:             frontend/public/rf_telco_visual_cockpit_v36.html
+	modificato:             frontend/public/runtime_golden_check_console_v29.html
+	modificato:             frontend/public/scenario_report_console_v17.html
+	modificato:             frontend/public/scenario_runner_console_v16.html
+	modificato:             frontend/public/security_console_v18.html
+	modificato:             frontend/public/timeline_console_v14.html
+	modificato:             frontend/public/trfmc.html
+	modificato:             frontend/public/trfmc_cinematic_command_deck_v87d.html
+	modificato:             frontend/public/trfmc_cinematic_mission_atlas_v87c.html
+	modificato:             frontend/public/trfmc_design_token_audit_v86f.html
+	modificato:             frontend/public/trfmc_first_promotion_batch_v87a.html
+	modificato:             frontend/public/trfmc_home.html
+	modificato:             frontend/public/trfmc_home_v87e.html
+	modificato:             frontend/public/trfmc_home_v87g.html
+	modificato:             frontend/public/trfmc_mission_control_home_v87b.html
+	modificato:             frontend/public/trfmc_performance_gpu_gate_v86b.html
+	modificato:             frontend/public/trfmc_performance_gpu_gate_v86b_r1.html
+	modificato:             frontend/public/trfmc_portal_registry_v86c.html
+	modificato:             frontend/public/trfmc_portal_registry_v86c_r1.html
+	modificato:             frontend/public/trfmc_route_normalizer_v87f.html
+	modificato:             frontend/public/trfmc_theory_spine_v86e.html
+	modificato:             frontend/public/trfmc_unified_shell_noiframe_v86d_r1.html
+	modificato:             frontend/public/trfmc_unified_shell_prototype_v86d.html
+	modificato:             frontend/public/trfmc_visual_qa_matrix_v71.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v66.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v67.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v68.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v68_surgical_v81.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v69.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v82_native_lab.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v82b_native_lab.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v82c_mission_replay.html
+	modificato:             frontend/public/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v83.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v83b.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v83c.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v83d.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v83e.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v83f.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v85b_sapienza_baseline.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v85c_sapienza_identity.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v85d_runtime_identity_lock.html
+	modificato:             frontend/public/webgl_rf_physics_engine_v85e_viewport_discipline.html
+	modificato:             frontend/public/webgl_rf_tm_supreme_console_v84a.html
+	modificato:             frontend/src/app/main.tsx
+	modificato:             frontend/src/shared/api.ts
+	modificato:             frontend/src/styles.css
+
+File non tracciati:
+  (usa "git add <file>..." per includere l'elemento fra quelli di cui verrà eseguito il commit)
+	PROMOTION_CERTIFIED_STATE.md
+	V35
+	_archive/
+	audit_trfmc_iframe_topology_v1.sh
+	backend/__init__.py
+	backend/app/domains/core_live/
+	backend/app/domains/ops_backup/services.py.bak_20260517_143049
+	backend/app/main.py.bak_20260517_142708
+	backend/app/main.py.bak_portal5173_20260517_143049
+	backend/core_live_standalone_server.py
+	backend/main_v580.py
+	backend/readonly_bridge_v28/
+	backend/routers/
+	create_core_network_live_ops_bridge_v1_SAFE.sh
+	create_rf_physics_telecom_academy_v1.sh
+	create_trfmc_3d_rf_asset_renderer_lab_v1.sh
+	create_trfmc_3d_rf_asset_renderer_webgl_v2.sh
+	create_trfmc_backend_probe_hygiene_v30.sh
+	create_trfmc_backend_probe_hygiene_v30r1_fix_import.sh
+	create_trfmc_boot_persistence_verification_pack_v25.sh
+	create_trfmc_candidate_image_review_v43b1.py
+	create_trfmc_clean_offline_api_gateway_pack_v22.sh
+	create_trfmc_command_center_fusion_audit_v37.sh
+	create_trfmc_command_center_fusion_audit_v37r1_adaptive.sh
+	create_trfmc_content_quality_audit_v48.py
+	create_trfmc_contract_coverage_expansion_v31.sh
+	create_trfmc_contract_semantics_hygiene_v31r1.sh
+	create_trfmc_copy_candidate_set_to_staging_v43b2.py
+	create_trfmc_deeplink_section_autoopen_v45.py
+	create_trfmc_dynamic_rf_telco_scenarios_v35.sh
+	create_trfmc_dynamic_rf_telco_scenarios_v35r1_recovery.sh
+	create_trfmc_dynamic_rf_telco_scenarios_v36_visual_runtime.sh
+	create_trfmc_engineering_content_enrichment_marker_runtime_qa_v49r3.sh
+	create_trfmc_engineering_content_enrichment_runtime_qa_v49r1.sh
+	create_trfmc_engineering_content_enrichment_section_markers_v49r2.py
+	create_trfmc_engineering_content_enrichment_v49.py
+	create_trfmc_frontend_api_binding_audit_v32.sh
+	create_trfmc_frontend_live_contract_overlay_v32r1.sh
+	create_trfmc_frontend_live_contract_overlay_v32r1r2_recovery.sh
+	create_trfmc_full_engineering_stack_hash_bridge_fix_v49r4.py
+	create_trfmc_full_section_coverage_runtime_qa_v47.sh
+	create_trfmc_manual_render_staging_v43b.py
+	create_trfmc_mission_layout_orchestrator_v42.py
+	create_trfmc_native_rf_bridge_readiness_binding_v34r1.sh
+	create_trfmc_native_rf_panels_binding_feasibility_v34.sh
+	create_trfmc_navigation_deeplink_runtime_qa_v46r1.sh
+	create_trfmc_navigation_hardening_deeplink_index_v46.py
+	create_trfmc_navigation_inventory_audit_v39a.sh
+	create_trfmc_navigation_map_v39r1.py
+	create_trfmc_official_safe_entry_v6.sh
+	create_trfmc_portal_contract_audit_v27.sh
+	create_trfmc_production_release_control_pack_v19.sh
+	create_trfmc_promote_staged_renders_v43c.py
+	create_trfmc_readonly_backend_bridge_v28.sh
+	create_trfmc_readonly_backend_bridge_v28r1_bootstrap.sh
+	create_trfmc_readonly_backend_systemd_pack_v29.sh
+	create_trfmc_real_render_import_audit_v43a.py
+	create_trfmc_real_render_visual_qa_v43r1r1.sh
+	create_trfmc_realtime_fft_gapless_receiver_lab_v1.sh
+	create_trfmc_restore_v42_active_mount_v45b.py
+	create_trfmc_rf_metrology_calibration_lab_v1.sh
+	create_trfmc_rf_microwave_lab_render_v43d.py
+	create_trfmc_rf_microwave_smith_chart_lab_v1.sh
+	create_trfmc_runtime_mode_matrix_pack_v23.sh
+	create_trfmc_runtime_visual_qa_v42r1.sh
+	create_trfmc_safe_single_render_import_v43r1.py
+	create_trfmc_scenario_knowledge_binding_v40.py
+	create_trfmc_static_api_gateway_pack_v21.sh
+	create_trfmc_static_production_server_pack_v20.sh
+	create_trfmc_systemd_unit_hygiene_pack_v26.sh
+	create_trfmc_systemd_user_service_pack_v24.sh
+	create_trfmc_unified_design_system_v38.sh
+	create_trfmc_v34r1_runtime_visibility_recovery.sh
+	create_trfmc_v6r2_premium_console.sh
+	create_trfmc_v6r3_command_center.sh
+	create_trfmc_v6r4_signal_intelligence_center.sh
+	create_trfmc_visual_asset_binding_audit_v41a.py
+	create_trfmc_visual_asset_runtime_binding_v41r1.py
+	create_trfmc_visual_asset_scaffold_v41b.py
+	create_trfmc_visual_asset_zoom_autofit_v44.py
+	create_trfmc_visual_asset_zoom_runtime_qa_v44r1.sh
+	create_trfmc_visual_asset_zoom_runtime_visible_v44r2.sh
+	create_trfmc_visual_asset_zoom_runtime_visible_v44r2r1_recovery.sh
+	create_trfmc_visual_assets_deeplink_v45a.py
+	create_trfmc_visual_assets_runtime_qa_v45b1.sh
+	create_trfmc_visual_runtime_qa_v33.sh
+	emergency_rollback_global_shell_toptelemetry.sh
+	finalize_trfmc_command_center_fusion_v37.sh
+	finalize_trfmc_v35_no_chrome.sh
+	fix_consolidation_gate_latest_v1.sh
+	fix_core_live_backend_8000_and_page_v1.sh
+	fix_core_live_backend_v3_bounded_probe.sh
+	fix_trfmc_v6r1_flat_no_nested_iframe.sh
+	fix_v580_backend_only.sh
+	fix_v580_standalone_app.sh
+	force_mount_v584_uav.sh
+	freeze_trfmc_v6_safe.sh
+	frontend/create_rf_bridge_readiness_v9.sh
+	frontend/create_rf_chunk_observatory_v16.sh
+	frontend/create_rf_evidence_flight_recorder_v10.sh
+	frontend/create_rf_governor_live_binding_v13.sh
+	frontend/create_rf_instrument_dock_v4.sh
+	frontend/create_rf_instrument_suite_v5.sh
+	frontend/create_rf_instrument_suite_v6_turbo_safe.sh
+	frontend/create_rf_operational_deck_v14.sh
+	frontend/create_rf_operational_deck_v14_auto.sh
+	frontend/create_rf_operational_deck_v15_lazy.sh
+	frontend/create_rf_production_build_gate_v17.sh
+	frontend/create_rf_production_preview_gate_v18.sh
+	frontend/create_rf_production_preview_gate_v18r2.sh
+	frontend/create_rf_render_governor_v12.sh
+	frontend/create_rf_source_bridge_v7_prep.sh
+	frontend/create_rf_source_runtime_v8_probe.sh
+	frontend/create_rf_surface_engine_v2.sh
+	frontend/create_rf_surface_engine_v3_dsp_worker.sh
+	frontend/index.html.bak_before_react_root_20260525_114311
+	frontend/index.html.before_cleanup_v51_20260529_201510
+	frontend/patch_enterprise_react_css_v1.sh
+	frontend/public/api/
+	frontend/public/assets/trfmc_balanced_layout_calibration_v51r6.css
+	frontend/public/assets/trfmc_balanced_layout_calibration_v51r6.js
+	frontend/public/assets/trfmc_design_system/
+	frontend/public/assets/trfmc_emergency_layout_rescue_v51r5.css
+	frontend/public/assets/trfmc_emergency_layout_rescue_v51r5.js
+	frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.css
+	frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.js
+	frontend/public/assets/trfmc_gpu_visual_runtime/
+	frontend/public/assets/trfmc_instrument_design_system/
+	frontend/public/assets/trfmc_layout_proportions_repair_v51r4.css
+	frontend/public/assets/trfmc_layout_proportions_repair_v51r4.js
+	frontend/public/assets/trfmc_perfection_bridge/
+	frontend/public/assets/trfmc_rf_pro_signal_intelligence/
+	frontend/public/assets/trfmc_soul_runtime/
+	frontend/public/assets/trfmc_unified_cockpit_shell_v51r7.css
+	frontend/public/assets/trfmc_unified_cockpit_shell_v51r7.js
+	frontend/public/assets/trfmc_visual_asset_engine/
+	frontend/public/assets/trfmc_visual_xp/
+	frontend/public/rfpro_fullband_v586.html
+	frontend/public/rfpro_master_v583.html
+	frontend/public/rfpro_realtime_v585.html
+	frontend/public/rfpro_unified_console.html
+	frontend/public/signal_demod_v581.html
+	frontend/public/signal_workbench_v580.html
+	frontend/public/signal_workbench_v582.html
+	frontend/public/trfmc_3d_rf_asset_renderer_lab_v1.html
+	frontend/public/trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html
+	frontend/public/trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html
+	frontend/public/trfmc_3d_rf_asset_renderer_webgl_v2.html
+	frontend/public/trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html
+	frontend/public/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html
+	frontend/public/trfmc_5g_core_ran_identity_aka_engine_v1.html
+	frontend/public/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html
+	frontend/public/trfmc_antenna_rru_ret_cpri_port_mapping_v2.html
+	frontend/public/trfmc_antenna_rru_ret_cpri_port_mapping_v3.html
+	frontend/public/trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html
+	frontend/public/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html
+	frontend/public/trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html
+	frontend/public/trfmc_antenna_system_explorer_v1.html
+	frontend/public/trfmc_antenna_system_explorer_v12_operativo.html
+	frontend/public/trfmc_antenna_system_explorer_v13_premium.html
+	frontend/public/trfmc_antenna_system_explorer_v14_instrument_grade.html
+	frontend/public/trfmc_antenna_system_explorer_v15_instrument_center.html
+	frontend/public/trfmc_antenna_system_explorer_v16_metrology_premium.html
+	frontend/public/trfmc_antenna_system_explorer_v16r1_visible_antenna.html
+	frontend/public/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html
+	frontend/public/trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html
+	frontend/public/trfmc_assets/
+	frontend/public/trfmc_canonical_navigation_map_v1.html
+	frontend/public/trfmc_change_control_policy_v1.html
+	frontend/public/trfmc_collaudo_report.html
+	frontend/public/trfmc_converged_rf_5g_noc_v1.html
+	frontend/public/trfmc_core_network_live_ops_bridge_v1.html
+	frontend/public/trfmc_cyber_rf_intelligence_evidence_v1.html
+	frontend/public/trfmc_datacenter_power_pdu_infrastructure_v1.html
+	frontend/public/trfmc_domain_registry_v1.html
+	frontend/public/trfmc_domain_registry_v1.json
+	frontend/public/trfmc_emergency_reset_layout_state.html
+	frontend/public/trfmc_engine_promotion_board_v1.html
+	frontend/public/trfmc_engine_promotion_board_v1.json
+	frontend/public/trfmc_enterprise_prime_portal_v1.html
+	frontend/public/trfmc_expansion_hub_v1.html
+	frontend/public/trfmc_expansion_modules_v1.json
+	frontend/public/trfmc_fiber_fronthaul_otdr_workbench_v1.html
+	frontend/public/trfmc_fiber_fronthaul_otdr_workbench_v2.html
+	frontend/public/trfmc_final_promotion_gate_v1.html
+	frontend/public/trfmc_final_promotion_manifest_v1.json
+	frontend/public/trfmc_gpu_visual_runtime_lab_v2.html
+	frontend/public/trfmc_gpu_visual_runtime_manifest_v2.json
+	frontend/public/trfmc_instrument_design_system_lab_v1.html
+	frontend/public/trfmc_instrument_design_system_manifest_v1.json
+	frontend/public/trfmc_instrument_os_alignment_v1.html
+	frontend/public/trfmc_integration_control_room.html
+	frontend/public/trfmc_integration_control_room_v2.html
+	frontend/public/trfmc_knowledge_base_theory_procedures_v1.html
+	frontend/public/trfmc_master_console_v4.html
+	frontend/public/trfmc_master_digital_twin_console_v1.html
+	frontend/public/trfmc_master_structure_v1.json
+	frontend/public/trfmc_measurement_chain_dsp_engine_v2.html
+	frontend/public/trfmc_measurement_chain_dsp_engine_v3.html
+	frontend/public/trfmc_microwave_link_operations_center_v1.html
+	frontend/public/trfmc_microwave_link_operations_center_v2.html
+	frontend/public/trfmc_official_safe_entrypoint_v6.html
+	frontend/public/trfmc_official_safe_entrypoint_v6r1_flat.html
+	frontend/public/trfmc_official_safe_entrypoint_v6r2_premium_console.html
+	frontend/public/trfmc_official_safe_entrypoint_v6r3_command_center.html
+	frontend/public/trfmc_orphan_consolidation_dossier_v1.html
+	frontend/public/trfmc_orphan_consolidation_manifest_v1.json
+	frontend/public/trfmc_orphan_quarantine_room_v1.html
+	frontend/public/trfmc_orphan_triage_board_v1.html
+	frontend/public/trfmc_orphan_triage_manifest_v1.json
+	frontend/public/trfmc_perfection_authority_manifest_v1.json
+	frontend/public/trfmc_perfection_authority_v1.html
+	frontend/public/trfmc_perfection_authority_v2_manifest.json
+	frontend/public/trfmc_perfection_authority_v2_scoped.html
+	frontend/public/trfmc_perfection_authority_v3_manifest.json
+	frontend/public/trfmc_perfection_authority_v3_scoped.html
+	frontend/public/trfmc_portal_link_graph_v1.html
+	frontend/public/trfmc_portal_registry_unified.json
+	frontend/public/trfmc_post_promotion_control_center_v1.html
+	frontend/public/trfmc_post_promotion_governance_manifest_v1.json
+	frontend/public/trfmc_pr200_field_monitoring_receiver_v1.html
+	frontend/public/trfmc_private_networks_wifi7_5g_mesh_v1.html
+	frontend/public/trfmc_realtime_fft_gapless_receiver_lab_v1.html
+	frontend/public/trfmc_reset_browser_state_v6r1.html
+	frontend/public/trfmc_rf_antenna_academy_wall_v2_premium.html
+	frontend/public/trfmc_rf_antenna_theory_engine_v1.html
+	frontend/public/trfmc_rf_metrology_calibration_lab_v1.html
+	frontend/public/trfmc_rf_microwave_engineering.html
+	frontend/public/trfmc_rf_microwave_engineering_v1.html
+	frontend/public/trfmc_rf_physics_theory_atlas_v1.html
+	frontend/public/trfmc_rf_physics_theory_atlas_v2.html
+	frontend/public/trfmc_rf_pro_signal_intelligence_lab_v1.html
+	frontend/public/trfmc_rf_pro_signal_intelligence_lab_v2.html
+	frontend/public/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html
+	frontend/public/trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html
+	frontend/public/trfmc_rf_pro_signal_intelligence_manifest_v1.json
+	frontend/public/trfmc_rf_pro_signal_intelligence_manifest_v2.json
+	frontend/public/trfmc_rf_pro_signal_intelligence_manifest_v3_reality.json
+	frontend/public/trfmc_rf_pro_signal_intelligence_manifest_v4_instrument.json
+	frontend/public/trfmc_rf_spectrum_lab_v1.html
+	frontend/public/trfmc_rf_tm_signal_universe_v3.html
+	frontend/public/trfmc_rf_tm_war_room_v4.html
+	frontend/public/trfmc_runtime_hook_layer_v1.html
+	frontend/public/trfmc_runtime_readiness_latest.json
+	frontend/public/trfmc_safe_runtime_action_console_v1.html
+	frontend/public/trfmc_signal_intelligence_center_v1.html
+	frontend/public/trfmc_signal_world_engine_v2.html
+	frontend/public/trfmc_soul_runtime_lab_v1.html
+	frontend/public/trfmc_soul_runtime_manifest_v1.json
+	frontend/public/trfmc_soul_tokens_v1.json
+	frontend/public/trfmc_supervisor_mission_control_v5.html
+	frontend/public/trfmc_true_portal_command_deck_v1.html
+	frontend/public/trfmc_unified_evidence_supervisor_v4.html
+	frontend/public/trfmc_unified_instrument_shell_lab_v1.html
+	frontend/public/trfmc_unified_instrument_shell_lab_v2.html
+	frontend/public/trfmc_unified_matrix_room_v3.html
+	frontend/public/trfmc_unified_navigation_shell_v1.html
+	frontend/public/trfmc_visual_asset_engine_lab_v3.html
+	frontend/public/trfmc_visual_asset_engine_manifest_v3.json
+	frontend/public/trfmc_visual_master_preview_v1.html
+	frontend/public/trfmc_visual_master_roadmap_v1.json
+	frontend/public/trfmc_wifi_5_6_7_8_qam_engine_v1.html
+	frontend/public/uav_fhss_v584.html
+	frontend/public/vendor/
+	frontend/src/app/main.tsx.bak_api8000_20260517_143049
+	frontend/src/app/main.tsx.bak_enterprise_css_20260525_115628
+	frontend/src/app/main.tsx.bak_rf_bridge_readiness_v9_20260525_143127
+	frontend/src/app/main.tsx.bak_rf_chunk_observatory_v16_20260525_151906
+	frontend/src/app/main.tsx.bak_rf_evidence_v10_20260525_143909
+	frontend/src/app/main.tsx.bak_rf_instrument_dock_v4_20260525_140914
+	frontend/src/app/main.tsx.bak_rf_instrument_lab_20260525_111803
+	frontend/src/app/main.tsx.bak_rf_instrument_suite_v5_20260525_141512
+	frontend/src/app/main.tsx.bak_rf_operational_deck_v14_auto_20260525_150553
+	frontend/src/app/main.tsx.bak_rf_operational_deck_v15_lazy_20260525_151305
+	frontend/src/app/main.tsx.bak_rf_source_bridge_v7_20260525_142149
+	frontend/src/app/main.tsx.bak_rf_source_runtime_v8_20260525_142516
+	frontend/src/app/main.tsx.bak_rf_suite_v6_turbo_20260525_141826
+	frontend/src/app/main.tsx.bak_rf_surface_v2_20260525_120055
+	frontend/src/app/main.tsx.bak_rf_surface_v3_worker_20260525_134553
+	frontend/src/app/main.tsx.bak_true_spectrum_20260525_113619
+	frontend/src/app/main.tsx.bak_zero_forbidden
+	frontend/src/command_center/
+	frontend/src/knowledge_binding/
+	frontend/src/layout_orchestrator/
+	frontend/src/navigation/
+	frontend/src/pages/
+	frontend/src/rf_instruments/
+	frontend/src/rf_scenarios/
+	frontend/src/shared/api.ts.bak_api8000_20260517_143049
+	frontend/src/shared/liveContractsV32R1.ts
+	frontend/src/styles.css.bak_enterprise_20260525_115628
+	frontend/src/styles.css.bak_rf_bridge_readiness_v9_20260525_143127
+	frontend/src/styles.css.bak_rf_chunk_observatory_v16_20260525_151906
+	frontend/src/styles.css.bak_rf_evidence_v10_20260525_143909
+	frontend/src/styles.css.bak_rf_instrument_dock_v4_20260525_140914
+	frontend/src/styles.css.bak_rf_instrument_suite_v5_20260525_141512
+	frontend/src/styles.css.bak_rf_operational_deck_v14_auto_20260525_150553
+	frontend/src/styles.css.bak_rf_operational_deck_v15_lazy_20260525_151305
+	frontend/src/styles.css.bak_rf_source_bridge_v7_20260525_142149
+	frontend/src/styles.css.bak_rf_source_runtime_v8_20260525_142516
+	frontend/src/styles.css.bak_rf_suite_v6_turbo_20260525_141826
+	frontend/src/visual_assets/
+	frontend/vite.config.js
+	integrate_rf_antenna_wall_v2_into_portal.sh
+	lock_trfmc_v6r1_flat_as_official.sh
+	patch_antenna_v14_operational_widgets.sh
+	patch_antenna_v15_instrument_center.sh
+	patch_antenna_v16_metrology_premium.sh
+	patch_antenna_v16r1_restore_visibility.sh
+	patch_antenna_v16r2_clean_dock_layout.sh
+	patch_antenna_v17_layout_lock_fullscreen.sh
+	patch_core_live_probe_v2_strict_truth.sh
+	patch_main_add_true_spectrum_analyzer.sh
+	patch_trfmc_3d_rf_asset_renderer_v1r1_proportions.sh
+	patch_trfmc_3d_rf_asset_renderer_v1r2_auto_fit.sh
+	patch_trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.sh
+	patch_trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.sh
+	patch_trfmc_global_instrument_shell_v1.sh
+	patch_trfmc_global_top_telemetry_v2.sh
+	promote_fft_gapless_lab_into_v6r3_SAFE.sh
+	promote_rf_metrology_lab_into_v6r3_SAFE.sh
+	promote_v6r2_in_portal_link_graph.sh
+	promote_v6r4_signal_intel_into_v6r3.sh
+	promote_webgl_v2r2_reality_into_v6r3_SAFE.sh
+	quarantine_v5_legacy_no_nested_iframe.sh
+	rebuild_trfmc_v6r1_flat_official_self_healing.sh
+	rebuild_v6r1_flat_minimal.sh
+	recover_trfmc_command_center_fusion_v37r2r1.py
+	recover_trfmc_main_tsx_after_v45_fail.sh
+	repair_v584_uav_router.sh
+	run_rfpro_unified.sh
+	run_v580_backend_only.sh
+	run_v580_signal_workbench.sh
+	shutdown_trfmc_portal_safe_v50.sh
+	shutdown_trfmc_safe_now.sh
+	start_portale_5173.sh
+	start_trfmc_5173_safe_absolute.sh
+	start_trfmc_frontend_only_v51r1.sh
+	start_trfmc_portal_safe_v51.sh
+	status_portale_5173.sh
+	step_v580_rf_signal_workbench.sh
+	stop_portale_5173.sh
+	stop_trfmc_5173_safe_absolute.sh
+	test_rfpro_bridges.sh
+	test_rfpro_bridges_openapi_only.sh
+	test_rfpro_openapi_routes.sh
+	test_rfpro_sdr_final_polish.sh
+	test_rfpro_sdr_style.sh
+	test_rfpro_unified.sh
+	test_trfmc_rf_microwave_smith_chart_lab_v1.sh
+	test_v580_backend_only.sh
+	test_v580_signal_workbench.sh
+	test_v581_demod_pro.sh
+	test_v582_restore_layout.sh
+	test_v583_master_integration.sh
+	test_v585_realtime_ui.sh
+	test_v586_fullband_cursor.sh
+	trfmc_apply_global_visual_experience_layer_v1.sh
+	trfmc_apply_gpu_visual_runtime_v2.sh
+	trfmc_apply_soul_runtime_v1.sh
+	trfmc_apply_visual_asset_engine_v3.sh
+	trfmc_audit_totale_portale_telco_v1.sh
+	trfmc_build_expansion_modules_v1_safe.sh
+	trfmc_collaudo_portale_5173.sh
+	trfmc_collaudo_portale_5173.sh.bak_no_self_false_positive_20260517_144708
+	trfmc_collaudo_portale_5173.sh.bak_report_placeholder_20260517_145433
+	trfmc_consolidate_portal_registry_v1.sh
+	trfmc_consolidation_audit_v2_readonly.sh
+	trfmc_control_freeze_from_register.sh
+	trfmc_create_5g_core_ran_identity_aka_engine_v1.sh
+	trfmc_create_converged_rf_5g_noc_v1.sh
+	trfmc_create_domain_registry_v1.sh
+	trfmc_create_engine_promotion_board_v1.sh
+	trfmc_create_enterprise_prime_portal_v1.sh
+	trfmc_create_instrument_design_system_v1.sh
+	trfmc_create_instrument_superb_system_v1.sh
+	trfmc_create_master_design_system_v1.sh
+	trfmc_create_master_digital_twin_console_v1.sh
+	trfmc_create_orphan_consolidation_dossier_v1.sh
+	trfmc_create_orphan_triage_board_v1.sh
+	trfmc_create_perfection_authority_v1.sh
+	trfmc_create_post_promotion_governance_v1.sh
+	trfmc_create_rf_pro_signal_intelligence_lab_v1.sh
+	trfmc_create_rf_pro_signal_intelligence_lab_v2.sh
+	trfmc_create_rf_pro_signal_intelligence_lab_v3_reality.sh
+	trfmc_create_rf_pro_signal_intelligence_lab_v4_instrument.sh
+	trfmc_create_rf_spectrum_lab_v1.sh
+	trfmc_create_rf_tm_signal_universe_v3.sh
+	trfmc_create_rf_tm_war_room_v4.sh
+	trfmc_create_runtime_hook_layer_v1.sh
+	trfmc_create_signal_world_engine_v2.sh
+	trfmc_create_unified_navigation_shell_v1.sh
+	trfmc_create_visual_master_preview_v1_safe.sh
+	trfmc_final_promotion_gate_v1_safe.sh
+	trfmc_finalize_consolidation_quality_v1.sh
+	trfmc_finalize_expansion_modules_quality_v1_scoped.sh
+	trfmc_finalize_master_design_system_quality_v1.sh
+	trfmc_fix_collaudo_report_placeholder_5173.sh
+	trfmc_fix_expansion_false_cdn_quality_v1.sh
+	trfmc_guard_integrated_portal_v1.sh
+	trfmc_guard_no_nested_iframe_v6r1.sh
+	trfmc_lock_frontend_post_crash_stable_v1.sh
+	trfmc_lock_good_state_v1.sh
+	trfmc_master_portal_register_readonly.sh
+	trfmc_patch_collaudo_no_self_false_positive_5173.sh
+	trfmc_patch_zero_rotti_zero_forbidden_5173.sh
+	trfmc_perfection_surgical_batch_a_v1.sh
+	trfmc_perfection_surgical_batch_b_leaf_only_v1.sh
+	trfmc_perfection_surgical_batch_c_weak_to_premium_v1.sh
+	trfmc_post_crash_recovery_safe_v1.sh
+	trfmc_promote_unified_shell_entrypoint_v1.sh
+	trfmc_quality_gate_light_v6.sh
+	trfmc_recover_frontend_5173_after_crash_v1.sh
+	trfmc_repair_and_lock_frontend_stable_latest_v1.sh
+	trfmc_repair_batch_b_warn_and_create_authority_v3.sh
+	trfmc_repair_batch_c_warn_and_final_promotion_gate_v1.sh
+	trfmc_repair_false_external_and_create_authority_v2.sh
+	trfmc_repair_perfection_batch_a_warn_v1.sh
+	trfmc_repair_prime_and_safe_actions_v1.sh
+	trfmc_runtime_readiness_check_v1.sh
+	trfmc_shutdown_all_safe_v1.sh
+	trfmc_upgrade_antenna_rru_ret_cpri_mapping_v2_SAFE_COMPLETE.sh
+	trfmc_upgrade_antenna_rru_ret_cpri_mapping_v3_engineered.sh
+	trfmc_upgrade_antenna_rru_ret_cpri_mapping_v4_reality.sh
+	trfmc_upgrade_antenna_rru_ret_cpri_mapping_v5_reality_asset_painter.sh
+	trfmc_upgrade_fiber_fronthaul_otdr_workbench_v2.sh
+	trfmc_upgrade_integration_control_room_v2.sh
+	trfmc_upgrade_microwave_link_operations_center_v2.sh
+	trfmc_upgrade_rf_physics_theory_atlas_v2.sh
+	trfmc_v51r2_enterprise_gap_audit.sh
+	trfmc_v51r3_engineering_completeness_matrix.sh
+	trfmc_v51r4_layout_proportions_repair.sh
+	trfmc_v51r5_emergency_layout_rescue.sh
+	trfmc_v51r6_balanced_layout_calibration.sh
+	trfmc_v51r7_unified_cockpit_shell.sh
+	trfmc_visual_style_forensic_audit_v1.sh
+	trfmc_write_visual_master_decision_v1.sh
+
+nessuna modifica aggiunta al commit (usa "git add" e/o "git commit -a")

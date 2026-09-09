@@ -1,0 +1,33 @@
+{
+  "version": "TRFMC v0.77A",
+  "name": "Component Object Integration Pack",
+  "strategy": "Integrate RF/Telco objects from v0.76A into strategic pages without global visual chaos.",
+  "target_pages": [
+    "webgl_rf_heatmap_engine_v69.html",
+    "infrastructure_digital_twin_v63.html",
+    "executive_mission_dashboard_v_next.html",
+    "rf_telco_knowledge_os_v60.html"
+  ],
+  "integrated_objects": [
+    "tower",
+    "antenna",
+    "rru",
+    "ret",
+    "microwave",
+    "fiber",
+    "shelter",
+    "power",
+    "ue",
+    "gnb",
+    "core",
+    "cloud",
+    "evidence"
+  ],
+  "rules": [
+    "no fixed overlays",
+    "no badges",
+    "no global deformation",
+    "preview mode respected",
+    "page-specific object stack only"
+  ]
+}

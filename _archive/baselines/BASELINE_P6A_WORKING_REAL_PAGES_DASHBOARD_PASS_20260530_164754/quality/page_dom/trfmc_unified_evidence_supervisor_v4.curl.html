@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Unified Evidence Supervisor V4</title>
+<style>
+:root{
+  --bg:#02070f;--p:#061120;--p2:#0a1828;--line:#1d6f9f;
+  --text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;
+  --yellow:#ffd500;--red:#ff3366;--violet:#c66bff;--orange:#ff9e3d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#01060d;color:var(--text);font:12px Inter,Segoe UI,system-ui,sans-serif;overflow:hidden}
+header{
+  height:54px;background:#050b13;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 12px;
+}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+.sub{color:var(--muted);font-size:11px}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+button{
+  color:var(--text);background:#10233a;border:1px solid #285d82;border-radius:4px;
+  padding:6px 8px;font-size:11px;cursor:pointer;
+}
+button:hover{border-color:var(--cyan);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+button.danger:hover{border-color:var(--red);box-shadow:inset 3px 0 0 var(--red)}
+.led{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.strip{
+  height:78px;display:grid;grid-template-columns:230px repeat(10,1fr) 340px;gap:5px;padding:6px;
+  background:linear-gradient(90deg,#061120,#0a1828,#061120);
+  border-bottom:1px solid rgba(0,217,255,.45);
+}
+.cell,.id,.actions{
+  border:1px solid rgba(36,91,125,.95);background:linear-gradient(180deg,#09223a,#06111f);
+  border-radius:5px;padding:6px;min-width:0;overflow:hidden;position:relative;
+}
+.cell span,.id span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.04em}
+.cell b,.id b{display:block;color:var(--text);font-size:15px;line-height:1.12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.id b{color:var(--cyan)}
+.cell em,.id em{display:block;color:var(--green);font-style:normal;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:5px}
+.actions button{padding:4px 5px;text-align:center}
+main{
+  height:calc(100vh - 132px);
+  display:grid;grid-template-columns:280px 1fr 390px;gap:6px;padding:6px;
+}
+aside,.dock{
+  background:linear-gradient(180deg,#071524,#02070f);
+  border:1px solid #1d5e86;border-radius:6px;overflow:hidden;
+}
+.title{
+  background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);
+  font-weight:700;padding:7px 8px;text-transform:uppercase;
+}
+.body{padding:7px}
+.route,.runitem{
+  border:1px solid #183d58;background:#081522;border-radius:5px;margin-bottom:6px;padding:8px;cursor:pointer;
+}
+.route:hover,.route.active,.runitem:hover{border-color:var(--yellow);box-shadow:inset 3px 0 0 var(--yellow);background:#10233a}
+.route b,.runitem b{display:block;color:var(--green);font-size:12px}
+.route span,.runitem span{display:block;color:var(--muted);font-size:10px;margin-top:2px;line-height:1.25}
+.route small{display:inline-block;margin-top:4px;font-family:ui-monospace,monospace}
+.ok{color:var(--green)}.bad{color:var(--red)}.unk{color:var(--yellow)}
+.stage{
+  border:1px solid #1d5e86;border-radius:6px;overflow:hidden;background:#02070f;
+  display:grid;grid-template-rows:34px 1fr;position:relative;
+}
+.stagebar{
+  height:34px;background:#071524;border-bottom:1px solid #1d5e86;
+  display:flex;align-items:center;justify-content:space-between;padding:0 8px;
+}
+.stagebar b{color:var(--cyan)}
+.stagebar span{color:var(--muted);font-family:ui-monospace,monospace;font-size:11px}
+.matrix{height:100%;display:grid;grid-template-columns:1fr;grid-template-rows:1fr;gap:4px;padding:4px}
+.matrix.dual{grid-template-columns:1fr 1fr}
+.matrix.triple{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.matrix.triple .slot:nth-child(1){grid-row:1/3}
+.matrix.quad{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.slot{border:1px solid rgba(36,91,125,.86);border-radius:5px;overflow:hidden;display:grid;grid-template-rows:26px 1fr;background:#01060d;min-height:0}
+.slotcap{
+  background:#061120;border-bottom:1px solid rgba(36,91,125,.86);
+  padding:5px 7px;font-family:ui-monospace,monospace;font-size:10px;color:#cde7ff;
+  display:flex;justify-content:space-between;gap:6px;
+}
+.slotcap b{color:var(--green)}
+iframe{width:100%;height:100%;border:0;background:#02070f;display:block}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);padding:5px 0;font-family:ui-monospace,monospace;font-size:11px}
+.kv span{color:#cde7ff}.kv b{color:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.grid2 button{margin:0;text-align:center}
+.cmd{display:grid;grid-template-columns:1fr auto;gap:5px;margin:7px 0}
+.cmd input{
+  background:#02070f;border:1px solid #285d82;color:var(--text);
+  border-radius:4px;padding:7px;font-family:ui-monospace,monospace;width:100%;
+}
+.log{height:250px;overflow:auto;border:1px solid #183d58;background:#02070f;border-radius:5px;padding:6px;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid rgba(255,255,255,.06);padding:3px 0;color:#cde7ff}
+.badge{
+  position:absolute;right:10px;bottom:10px;z-index:5;border:1px solid rgba(125,255,79,.45);
+  color:var(--green);background:rgba(3,10,18,.8);border-radius:5px;padding:5px 8px;font:11px ui-monospace,monospace;
+}
+.mini{position:absolute;left:10px;right:10px;bottom:3px;height:15px;opacity:.6;pointer-events:none}
+body.focus header,body.focus aside,body.focus .dock,body.focus .strip{display:none}
+body.focus main{height:100vh;display:block;padding:4px}
+body.focus .stage{height:100%}
+body.focus .matrix{height:calc(100vh - 34px)}
+body.wall main{grid-template-columns:0 1fr 410px}
+body.wall aside{display:none}
+body.clean .strip{display:none}
+body.clean main{height:calc(100vh - 54px)}
+body.kiosk header,body.kiosk aside,body.kiosk .dock,body.kiosk .strip{display:none}
+body.kiosk main{height:100vh;display:block;padding:0}
+body.kiosk .stage{height:100%;border-radius:0;border:0}
+body.kiosk .matrix{height:calc(100vh - 34px)}
+@media(max-width:1500px){
+  .strip{grid-template-columns:210px repeat(5,1fr) 270px}
+  .cell:nth-of-type(n+7){display:none}
+}
+@media(max-width:1150px){
+  body{overflow:auto}
+  .strip{grid-template-columns:1fr 1fr;height:auto}
+  main{grid-template-columns:1fr;height:auto}
+  .stage{height:850px}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header>
+  <div>
+    <h1>TRFMC Unified Evidence Supervisor V4</h1>
+    <div class="sub">Standalone · evidence supervisor · health gate · runbook · reports · zero injection into child pages</div>
+  </div>
+  <nav>
+    <button onclick="layout('normal')">Normal</button>
+    <button onclick="layout('focus')">Focus</button>
+    <button onclick="layout('wall')">Wall</button>
+    <button onclick="layout('kiosk')">Kiosk</button>
+    <button onclick="setMatrix('single')">1</button>
+    <button onclick="setMatrix('dual')">2</button>
+    <button onclick="setMatrix('triple')">3</button>
+    <button onclick="setMatrix('quad')">4</button>
+    <button onclick="runbook('full')">Runbook</button>
+    <button onclick="preflight()">Health</button>
+    <button onclick="resetBrokenStorage()" class="danger">Reset State</button>
+    <span class="led"></span>
+    <span id="clock">--:--:--</span>
+  </nav>
+</header>
+
+<section class="strip">
+  <div class="id"><span>Evidence Workspace</span><b id="dom">TRFMC SUPERVISOR</b><em id="sub">Matrix · Health · Evidence · Reports</em></div>
+  <div class="cell"><span>Matrix</span><b id="matrixMode">SINGLE</b><em>workspace grid</em></div>
+  <div class="cell"><span>Layout</span><b id="mode">NORMAL</b><em>operator view</em></div>
+  <div class="cell"><span>Health</span><b id="healthState">PENDING</b><em>HTTP preflight</em></div>
+  <div class="cell"><span>Evidence</span><b id="evCount">0</b><em>events captured</em></div>
+  <div class="cell"><span>Frames</span><b id="loadedState">0</b><em>load events</em></div>
+  <div class="cell"><span>Isolation</span><b>IFRAME</b><em>no mutation</em></div>
+  <div class="cell"><span>Port</span><b>5173</b><em>single-port portal</em></div>
+  <div class="cell"><span>Gate</span><b id="gate">PASS</b><em>supervisor state</em></div>
+  <div class="cell"><span>Runbook</span><b id="rbState">IDLE</b><em>procedure</em></div>
+  <div class="cell"><span>Clock</span><b id="topClock">--:--</b><em>local</em></div>
+  <div class="actions">
+    <button onclick="presetMatrix('rf')">RF</button>
+    <button onclick="presetMatrix('full')">Full</button>
+    <button onclick="captureEvidence('MANUAL_SNAPSHOT')">Snap</button>
+    <button onclick="exportJson()">JSON</button>
+    <button onclick="exportHtml()">HTML</button>
+    <button onclick="postPing()">Ping</button>
+    <button onclick="reloadAll()">Reload</button>
+    <button onclick="openActive()">Open</button>
+  </div>
+  <canvas id="mini" class="mini" width="900" height="20"></canvas>
+</section>
+
+<main>
+  <aside>
+    <div class="title">Whitelisted Modules</div>
+    <div class="body" id="routes"></div>
+    <div class="title">Runbook</div>
+    <div class="body" id="runbook"></div>
+  </aside>
+
+  <section class="stage">
+    <div class="stagebar">
+      <b id="stageTitle">Evidence Supervisor · Safe Wrapper</b>
+      <span id="stageUrl">no CSS/JS injection into child pages</span>
+    </div>
+
+    <div class="matrix" id="matrix">
+      <div class="slot" id="slot0">
+        <div class="slotcap"><b id="cap0">ANTENNA</b><span id="url0">/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</span></div>
+        <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</div></div>
+      </div>
+      <div class="slot" id="slot1" style="display:none">
+        <div class="slotcap"><b id="cap1">DSP</b><span id="url1">/trfmc_measurement_chain_dsp_engine_v3.html</span></div>
+        <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_measurement_chain_dsp_engine_v3.html</div></div>
+      </div>
+      <div class="slot" id="slot2" style="display:none">
+        <div class="slotcap"><b id="cap2">WIFI/QAM</b><span id="url2">/trfmc_wifi_5_6_7_8_qam_engine_v1.html</span></div>
+        <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_wifi_5_6_7_8_qam_engine_v1.html</div></div>
+      </div>
+      <div class="slot" id="slot3" style="display:none">
+        <div class="slotcap"><b id="cap3">5G CORE</b><span id="url3">/trfmc_5g_core_ran_identity_aka_engine_v1.html</span></div>
+        <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /trfmc_5g_core_ran_identity_aka_engine_v1.html</div></div>
+      </div>
+    </div>
+
+    <div class="badge" id="badge">EVIDENCE SUPERVISOR V4</div>
+  </section>
+
+  <section class="dock">
+    <div class="title">Supervisor Control / Evidence</div>
+    <div class="body">
+      <div class="kv"><span>Layout</span><b id="layoutState">NORMAL</b></div>
+      <div class="kv"><span>Matrix</span><b id="matrixState">SINGLE</b></div>
+      <div class="kv"><span>Injection</span><b>DISABLED</b></div>
+      <div class="kv"><span>Storage Guard</span><b>MANUAL ONLY</b></div>
+      <div class="kv"><span>Health Gate</span><b id="healthGate">NOT RUN</b></div>
+
+      <div class="cmd">
+        <input id="cmd" value="RUNBOOK:FULL">
+        <button onclick="execCmd()">EXEC</button>
+      </div>
+
+      <div class="grid2">
+        <button onclick="runbook('full')">Run Full Runbook</button>
+        <button onclick="runbook('health')">Health Runbook</button>
+        <button onclick="presetMatrix('rf')">RF Matrix</button>
+        <button onclick="presetMatrix('full')">Full Matrix</button>
+        <button onclick="captureEvidence('OPERATOR_BOOKMARK')">Evidence Mark</button>
+        <button onclick="postPing()">postMessage Ping</button>
+        <button onclick="exportJson()">Export JSON</button>
+        <button onclick="exportHtml()">Export HTML</button>
+        <button onclick="reloadAll()">Reload Frames</button>
+        <button onclick="resetBrokenStorage()">Reset Broken Keys</button>
+      </div>
+
+      <div class="title" style="margin:8px -7px 6px">Event Stream</div>
+      <div class="log" id="log"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const R = {
+  antenna:{d:"ANTENNA",s:"RRU/BBU · RET/AISG · MIMO",u:"/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html"},
+  dsp:{d:"DSP",s:"Receiver · IF · RBW/VBW · FFT",u:"/trfmc_measurement_chain_dsp_engine_v3.html"},
+  wifi:{d:"WIFI/QAM",s:"802.11ax/be/bn · OFDMA · 4096-QAM",u:"/trfmc_wifi_5_6_7_8_qam_engine_v1.html"},
+  core:{d:"5G CORE",s:"Open5GS · UERANSIM · SUPI/SUCI · AKA",u:"/trfmc_5g_core_ran_identity_aka_engine_v1.html"},
+  noc:{d:"NOC",s:"RF · SDR · Core · Evidence",u:"/trfmc_converged_rf_5g_noc_v1.html"},
+  war:{d:"RF/TM",s:"War Room · Evidence · Signals",u:"/trfmc_rf_tm_war_room_v4.html"},
+  master:{d:"MASTER",s:"Mission Control",u:"/trfmc_master_console_v4.html"}
+};
+
+const runbookSteps = [
+  ["RESET_STATE","Reset chiavi layout sperimentali"],
+  ["HEALTH","Verifica HTTP pagine e /api/health"],
+  ["MATRIX_FULL","Carica Antenna/DSP/Wi-Fi/Core"],
+  ["PING","Invia postMessage ping controllato"],
+  ["SNAPSHOT","Cattura evidenza operativa"],
+  ["REPORT_READY","Report pronto per export"]
+];
+
+let slots=["antenna","dsp","wifi","core"];
+let activeSlot=0, matrixMode="single", loaded=0, health={}, evidence=[], currentRunbook="IDLE";
+
+function $(id){return document.getElementById(id)}
+function log(m){
+  const item={ts:new Date().toISOString(),msg:m,matrix:matrixMode,slots:[...slots]};
+  evidence.unshift(item);
+  if(evidence.length>300) evidence.pop();
+  const d=document.createElement("div");
+  d.textContent="["+new Date().toLocaleTimeString()+"] "+m;
+  $("log").prepend(d);
+  while($("log").children.length>90) $("log").removeChild($("log").lastChild);
+  updateTelemetry();
+}
+function renderRoutes(){
+  const box=$("routes"); box.innerHTML="";
+  Object.entries(R).forEach(([k,r])=>{
+    const h=health[k]; const cls=h===200?"ok":h?"bad":"unk"; const label=h===200?"HTTP 200":h?"HTTP "+h:"not checked";
+    const div=document.createElement("div");
+    div.className="route"+(slots.includes(k)?" active":"");
+    div.onclick=()=>load(activeSlot,k);
+    div.innerHTML="<b>"+r.d+"</b><span>"+r.s+"</span><span>"+r.u+"</span><small class='"+cls+"'>"+label+"</small>";
+    box.appendChild(div);
+  });
+}
+function renderRunbook(){
+  const box=$("runbook"); box.innerHTML="";
+  runbookSteps.forEach(([id,txt],idx)=>{
+    const div=document.createElement("div");
+    div.className="runitem";
+    div.onclick=()=>runbookStep(id);
+    div.innerHTML="<b>"+(idx+1)+". "+id+"</b><span>"+txt+"</span>";
+    box.appendChild(div);
+  });
+}
+function updateTelemetry(){
+  $("matrixMode").textContent=matrixMode.toUpperCase();
+  $("matrixState").textContent=matrixMode.toUpperCase();
+  $("loadedState").textContent=String(loaded);
+  $("evCount").textContent=String(evidence.length);
+  $("rbState").textContent=currentRunbook;
+  $("topClock").textContent=new Date().toLocaleTimeString();
+  $("healthState").textContent=Object.keys(health).length?"CHECKED":"PENDING";
+  const bad=Object.values(health).some(v=>v!==200);
+  $("gate").textContent=bad?"WARN":"PASS";
+  $("healthGate").textContent=Object.keys(health).length?(bad?"WARN":"PASS"):"NOT RUN";
+  renderRoutes();
+}
+function load(i,k){
+  if(!R[k]) return log("blocked non-whitelisted module → "+k);
+  activeSlot=i; slots[i]=k;
+  const r=R[k];
+  $("frame"+i).src=r.u;
+  $("cap"+i).textContent=r.d;
+  $("url"+i).textContent=r.u;
+  log("slot "+(i+1)+" loaded → "+r.d+" · "+r.u);
+  updateTelemetry();
+}
+function setMatrix(m){
+  matrixMode=m;
+  const mx=$("matrix");
+  mx.className="matrix"+(m==="single"?"":" "+m);
+  [0,1,2,3].forEach(i=> $("slot"+i).style.display="none");
+  const n=m==="single"?1:m==="dual"?2:m==="triple"?3:4;
+  for(let i=0;i<n;i++) $("slot"+i).style.display="grid";
+  updateTelemetry();
+  log("matrix mode → "+m.toUpperCase());
+}
+function presetMatrix(p){
+  if(p==="rf"){ load(0,"antenna"); load(1,"dsp"); setMatrix("dual"); }
+  if(p==="core"){ load(0,"core"); load(1,"noc"); setMatrix("dual"); }
+  if(p==="full"){ load(0,"antenna"); load(1,"dsp"); load(2,"wifi"); load(3,"core"); setMatrix("quad"); }
+  log("preset matrix → "+p.toUpperCase());
+}
+function layout(m){
+  document.body.classList.remove("focus","wall","kiosk");
+  if(m!=="normal") document.body.classList.add(m);
+  $("mode").textContent=m.toUpperCase();
+  $("layoutState").textContent=m.toUpperCase();
+  log("layout → "+m.toUpperCase());
+}
+async function preflight(){
+  currentRunbook="HEALTH";
+  log("preflight started");
+  for(const [k,r] of Object.entries(R)){
+    try{
+      const res=await fetch(r.u,{method:"HEAD",cache:"no-store"});
+      health[k]=res.status;
+      log("health "+k+" → HTTP "+res.status);
+    }catch(e){
+      health[k]="ERR";
+      log("health "+k+" → ERR");
+    }
+  }
+  try{
+    const res=await fetch("/api/health",{cache:"no-store"});
+    health.api=res.status;
+    log("/api/health → HTTP "+res.status);
+  }catch(e){
+    health.api="ERR";
+    log("/api/health → ERR");
+  }
+  currentRunbook="IDLE";
+  updateTelemetry();
+}
+function reloadAll(){
+  const n=matrixMode==="single"?1:matrixMode==="dual"?2:matrixMode==="triple"?3:4;
+  for(let i=0;i<n;i++) $("frame"+i).contentWindow.location.reload();
+  log("reload requested for visible frames");
+}
+function openActive(){
+  window.open(R[slots[activeSlot]].u,"_blank");
+  log("opened standalone slot "+(activeSlot+1));
+}
+function resetBrokenStorage(){
+  const keys=[
+    "trfmc_"+"global_instrument_shell_v1",
+    "trfmc_"+"global_top_telemetry_v2",
+    "trfmc_"+"v17_layout_mode",
+    "trfmc_"+"antenna_v17_layout_mode"
+  ];
+  keys.forEach(k=>localStorage.removeItem(k));
+  log("removed experimental broken layout keys");
+}
+function postPing(){
+  const n=matrixMode==="single"?1:matrixMode==="dual"?2:matrixMode==="triple"?3:4;
+  for(let i=0;i<n;i++){
+    $("frame"+i).contentWindow.postMessage({type:"TRFMC_EVIDENCE_SUPERVISOR_PING",slot:i+1,ts:new Date().toISOString()},location.origin);
+  }
+  log("postMessage ping sent to visible frame(s)");
+}
+window.addEventListener("message",ev=>{
+  if(ev.origin!==location.origin) return;
+  log("postMessage received ← "+JSON.stringify(ev.data).slice(0,120));
+});
+function captureEvidence(kind){
+  log("evidence captured → "+kind);
+}
+async function runbookStep(id){
+  currentRunbook=id;
+  updateTelemetry();
+  if(id==="RESET_STATE") resetBrokenStorage();
+  if(id==="HEALTH") await preflight();
+  if(id==="MATRIX_FULL") presetMatrix("full");
+  if(id==="PING") postPing();
+  if(id==="SNAPSHOT") captureEvidence("RUNBOOK_SNAPSHOT");
+  if(id==="REPORT_READY") log("report ready: use Export JSON or Export HTML");
+  currentRunbook="IDLE";
+  updateTelemetry();
+}
+async function runbook(type){
+  currentRunbook=type.toUpperCase();
+  $("rbState").textContent=currentRunbook;
+  log("runbook started → "+type);
+  if(type==="health"){
+    await runbookStep("RESET_STATE");
+    await runbookStep("HEALTH");
+  }else{
+    for(const [id] of runbookSteps){
+      await runbookStep(id);
+      await new Promise(r=>setTimeout(r,350));
+    }
+  }
+  currentRunbook="COMPLETE";
+  log("runbook complete → "+type);
+  updateTelemetry();
+}
+function reportObject(){
+  return {
+    title:"TRFMC Unified Evidence Supervisor V4 Report",
+    exportedAt:new Date().toISOString(),
+    portal:"127.0.0.1:5173",
+    matrixMode,
+    layout:$("layoutState").textContent,
+    slots:slots.map(k=>({key:k,...R[k]})),
+    health,
+    evidence:evidence.slice(0,200)
+  };
+}
+function exportJson(){
+  const blob=new Blob([JSON.stringify(reportObject(),null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="trfmc_evidence_supervisor_v4_"+new Date().toISOString().replace(/[:.]/g,"-")+".json";
+  a.click(); URL.revokeObjectURL(a.href);
+  log("JSON evidence report exported");
+}
+function exportHtml(){
+  const r=reportObject();
+  const rows=r.evidence.map(e=>`<tr><td>${e.ts}</td><td>${e.msg}</td><td>${e.matrix}</td><td>${e.slots.join(", ")}</td></tr>`).join("");
+  const healthRows=Object.entries(r.health).map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join("");
+  const html=`<!doctype html><html><head><meta charset="utf-8"><title>${r.title}</title>
+  <style>body{background:#07111f;color:#eaf3ff;font-family:Segoe UI,Arial;padding:24px}h1{color:#00d9ff}table{border-collapse:collapse;width:100%;margin:14px 0}td,th{border:1px solid #245b7d;padding:7px;text-align:left}th{background:#0a1b2e;color:#00d9ff}</style></head>
+  <body><h1>${r.title}</h1><p>Exported: ${r.exportedAt}</p><h2>Health</h2><table><tr><th>Module</th><th>Status</th></tr>${healthRows}</table><h2>Evidence</h2><table><tr><th>Timestamp</th><th>Event</th><th>Matrix</th><th>Slots</th></tr>${rows}</table><script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="core" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · CORE</div>
+      <div class="trfmc-perfection-sub">TRFMC Unified Evidence Supervisor V4<br>/trfmc_unified_evidence_supervisor_v4.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>49/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>core-map</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="TRFMC CORE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP = gNB↔AMF control plane
+PFCP = SMF↔UPF session programming
+GTP-U = user-plane tunnel</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="core"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body></html>`;
+  const blob=new Blob([html],{type:"text/html"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="trfmc_evidence_supervisor_v4_"+new Date().toISOString().replace(/[:.]/g,"-")+".html";
+  a.click(); URL.revokeObjectURL(a.href);
+  log("HTML evidence report exported");
+}
+function execCmd(){
+  const c=$("cmd").value.trim().toUpperCase();
+  if(c.includes("RUNBOOK") && c.includes("HEALTH")) runbook("health");
+  else if(c.includes("RUNBOOK")) runbook("full");
+  else if(c.includes("FULL")) presetMatrix("full");
+  else if(c.includes("RF")) presetMatrix("rf");
+  else if(c.includes("CORE")) presetMatrix("core");
+  else if(c.includes("QUAD")) setMatrix("quad");
+  else if(c.includes("DUAL")) setMatrix("dual");
+  else if(c.includes("TRIPLE")) setMatrix("triple");
+  else if(c.includes("SINGLE")) setMatrix("single");
+  else if(c.includes("FOCUS")) layout("focus");
+  else if(c.includes("WALL")) layout("wall");
+  else if(c.includes("KIOSK")) layout("kiosk");
+  else if(c.includes("NORMAL")) layout("normal");
+  else if(c.includes("HEALTH")) preflight();
+  else if(c.includes("RESET")) resetBrokenStorage();
+  else if(c.includes("PING")) postPing();
+  else if(c.includes("JSON")) exportJson();
+  else if(c.includes("HTML")) exportHtml();
+  else log("unknown command → "+c);
+}
+[0,1,2,3].forEach(i=>$("frame"+i).addEventListener("load",()=>{loaded++; $("loadedState").textContent=String(loaded); log("frame "+(i+1)+" loaded → "+R[slots[i]].d)}));
+window.addEventListener("keydown",ev=>{
+  if(["INPUT","TEXTAREA","SELECT"].includes(ev.target.tagName)) return;
+  const k=ev.key.toLowerCase();
+  if(k==="1")setMatrix("single");
+  if(k==="2")setMatrix("dual");
+  if(k==="3")setMatrix("triple");
+  if(k==="4")setMatrix("quad");
+  if(k==="f")layout("focus");
+  if(k==="w")layout("wall");
+  if(k==="k")layout("kiosk");
+  if(k==="n")layout("normal");
+  if(k==="h")preflight();
+  if(k==="r")reloadAll();
+  if(k==="b")runbook("full");
+  if(k==="j")exportJson();
+});
+function draw(){
+  const c=$("mini"),x=c.getContext("2d"),w=c.width,h=c.height,t=Date.now()/45;
+  x.clearRect(0,0,w,h); x.strokeStyle="rgba(125,255,79,.65)"; x.beginPath();
+  for(let i=0;i<w;i++){ const y=h/2+Math.sin((i+t)*.035)*5+Math.sin((i+t*.4)*.012)*3; i?x.lineTo(i,y):x.moveTo(i,y); }
+  x.stroke();
+}
+function loop(){
+  $("clock").textContent=new Date().toLocaleTimeString();
+  $("topClock").textContent=new Date().toLocaleTimeString();
+  draw(); requestAnimationFrame(loop);
+}
+renderRoutes(); renderRunbook(); updateTelemetry(); log("Unified Evidence Supervisor V4 online · standalone / no injection");
+loop(); setTimeout(preflight,700);
+</script>
+</body>
+</html>

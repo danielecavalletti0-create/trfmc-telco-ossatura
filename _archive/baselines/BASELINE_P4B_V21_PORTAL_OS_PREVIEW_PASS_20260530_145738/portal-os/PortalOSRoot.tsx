@@ -1,0 +1,222 @@
+import React from 'react'
+import {
+  candidatePortalOSModules,
+  portalOSModules,
+  promotedPortalOSModules,
+  referencePortalOSModules,
+  type PortalOSModule,
+} from './portalManifest'
+import './portal-os.css'
+
+type EndpointState = {
+  id: string
+  label: string
+  url: string
+  state: 'pending' | 'online' | 'offline'
+  detail: string
+}
+
+const initialEndpoints: EndpointState[] = [
+  { id: 'frontend', label: 'Vite frontend', url: '/', state: 'pending', detail: 'SPA shell' },
+  { id: 'backend', label: 'Backend 8000', url: 'http://127.0.0.1:8000/api/health', state: 'pending', detail: 'health API' },
+  { id: 'bridge', label: 'Bridge 4181', url: 'http://127.0.0.1:4181/api/health', state: 'pending', detail: 'RF bridge' },
+]
+
+function statusLabel(value: string) {
+  return value.toUpperCase()
+}
+
+export function PortalOSRoot() {
+  const [activeModuleId, setActiveModuleId] = React.useState('home')
+  const [endpoints, setEndpoints] = React.useState<EndpointState[]>(initialEndpoints)
+  const [tick, setTick] = React.useState(0)
+
+  React.useEffect(() => {
+    let alive = true
+
+    async function probe() {
+      const next = await Promise.all(
+        initialEndpoints.map(async (endpoint) => {
+          try {
+            const response = await fetch(endpoint.url, { cache: 'no-store' })
+            return {
+              ...endpoint,
+              state: response.ok ? 'online' : 'offline',
+              detail: `${response.status} ${response.statusText}`.trim(),
+            } satisfies EndpointState
+          } catch (error) {
+            return {
+              ...endpoint,
+              state: endpoint.id === 'frontend' ? 'online' : 'offline',
+              detail: error instanceof Error ? error.message.slice(0, 90) : 'probe failed',
+            } satisfies EndpointState
+          }
+        })
+      )
+
+      if (alive) {
+        setEndpoints(next)
+        setTick((value) => value + 1)
+      }
+    }
+
+    probe()
+    const timer = window.setInterval(probe, 15000)
+
+    return () => {
+      alive = false
+      window.clearInterval(timer)
+    }
+  }, [])
+
+  const activeModule = React.useMemo<PortalOSModule>(() => {
+    return portalOSModules.find((module) => module.id === activeModuleId) ?? portalOSModules[0]
+  }, [activeModuleId])
+
+  const onlineCount = endpoints.filter((endpoint) => endpoint.state === 'online').length
+
+  return (
+    <section className="trfmc-pos-root-v2" data-trfmc-portal-os-preview="mounted">
+      <header className="trfmc-pos-v2-status">
+        <div>
+          <strong>TRFMC Unified Portal OS</strong>
+          <span>Preview V2.1 · existing React root · no overlay · no secondary root</span>
+        </div>
+        <div>
+          <span>{onlineCount}/{endpoints.length} endpoints online</span>
+          <span>{activeModule.title}</span>
+        </div>
+      </header>
+
+      <div className="trfmc-pos-v2-layout">
+        <aside className="trfmc-pos-v2-launcher">
+          <div className="trfmc-pos-v2-panel-title">
+            <span>Operational Modules</span>
+            <strong>{portalOSModules.length}</strong>
+          </div>
+          <div className="trfmc-pos-v2-module-list">
+            {portalOSModules.map((module) => (
+              <button
+                key={module.id}
+                type="button"
+                className={activeModule.id === module.id ? 'is-active' : ''}
+                onClick={() => setActiveModuleId(module.id)}
+              >
+                <span>{statusLabel(module.status)}</span>
+                <strong>{module.title}</strong>
+                <em>{module.category}</em>
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        <main className="trfmc-pos-v2-viewport" data-trfmc-portal-os-viewport="mounted">
+          {activeModule.id === 'home' ? (
+            <section className="trfmc-pos-v2-home" data-trfmc-portal-os-home="mounted">
+              <div className="trfmc-pos-v2-hero">
+                <p>Unified Home · Command Center</p>
+                <h1>Una sola shell. Un solo manifest. Un solo viewport.</h1>
+                <span>
+                  Questa preview non sostituisce ancora il portale attuale: dimostra la nuova radice
+                  architetturale che governerà V63, domini React, sorgenti legacy, API, evidenze e QA.
+                </span>
+              </div>
+
+              <div className="trfmc-pos-v2-metrics">
+                <article>
+                  <span>Promoted React</span>
+                  <strong>{promotedPortalOSModules.length}</strong>
+                  <em>RF Physics · Signal Analyzer · Antenna</em>
+                </article>
+                <article>
+                  <span>V63 references</span>
+                  <strong>{referencePortalOSModules.length}</strong>
+                  <em>Command Center model</em>
+                </article>
+                <article>
+                  <span>Candidate domains</span>
+                  <strong>{candidatePortalOSModules.length}</strong>
+                  <em>Core/RAN · War Room · Knowledge</em>
+                </article>
+              </div>
+
+              <div className="trfmc-pos-v2-domain-grid">
+                {portalOSModules.slice(1).map((module) => (
+                  <button key={module.id} type="button" onClick={() => setActiveModuleId(module.id)}>
+                    <span>{statusLabel(module.status)}</span>
+                    <strong>{module.title}</strong>
+                    <em>{module.description}</em>
+                  </button>
+                ))}
+              </div>
+            </section>
+          ) : (
+            <section className="trfmc-pos-v2-module">
+              <div className="trfmc-pos-v2-hero">
+                <p>{activeModule.category} · {activeModule.status}</p>
+                <h1>{activeModule.title}</h1>
+                <span>{activeModule.description}</span>
+              </div>
+
+              <div className="trfmc-pos-v2-module-grid">
+                <article>
+                  <span>Source</span>
+                  <strong>{activeModule.source}</strong>
+                  <em>reference/promoted origin</em>
+                </article>
+                <article>
+                  <span>Route</span>
+                  <strong>{activeModule.route}</strong>
+                  <em>future module route</em>
+                </article>
+                <article>
+                  <span>Mode</span>
+                  <strong>{activeModule.status}</strong>
+                  <em>governance state</em>
+                </article>
+              </div>
+
+              <section className="trfmc-pos-v2-contract">
+                <span>Viewport contract</span>
+                <strong>
+                  Il modulo viene trattato come leaf governato dal Portal OS: non come home parallela,
+                  non come iframe strutturale, non come shell duplicata.
+                </strong>
+              </section>
+            </section>
+          )}
+        </main>
+
+        <aside className="trfmc-pos-v2-evidence">
+          <div className="trfmc-pos-v2-panel-title">
+            <span>Command / Evidence</span>
+            <strong>P4B V2</strong>
+          </div>
+
+          <section>
+            <h3>Active module</h3>
+            <p>{activeModule.title}</p>
+            <code>{activeModule.source}</code>
+          </section>
+
+          <section>
+            <h3>Runtime endpoints</h3>
+            {endpoints.map((endpoint) => (
+              <div key={endpoint.id} className={`trfmc-pos-v2-endpoint is-${endpoint.state}`}>
+                <span>{endpoint.label}</span>
+                <strong>{endpoint.state}</strong>
+                <em>{endpoint.detail}</em>
+              </div>
+            ))}
+          </section>
+
+          <section>
+            <h3>Event stream</h3>
+            <p>tick #{tick}</p>
+            <p>Preview mounted inside existing App root.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+  )
+}

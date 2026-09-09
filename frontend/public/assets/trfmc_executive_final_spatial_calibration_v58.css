@@ -1,0 +1,291 @@
+/* TRFMC v0.58A - Executive Dashboard Next / Final Spatial Calibration */
+
+body.trfmc-next-shell.v58-final-calibrated {
+  --v58-cyan: #8ff0ff;
+  --v58-green: #42f56f;
+  --v58-panel-edge: rgba(143,240,255,.36);
+}
+
+/* Shell: meno ingombrante, più premium */
+.v58-final-calibrated .top-shell {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  padding: 10px 12px !important;
+  border-radius: 22px !important;
+}
+
+.v58-final-calibrated .brand span {
+  color: rgba(237,248,255,.62) !important;
+}
+
+.v58-final-calibrated .main-nav a,
+.v58-final-calibrated .status-pills span {
+  padding: 6px 10px !important;
+  font-size: 9px !important;
+}
+
+/* Hero finale: più compatta, meno verticale, più leggibile */
+.v58-final-calibrated .hero-next {
+  min-height: 292px !important;
+  padding: 24px !important;
+  grid-template-columns: 1fr 330px !important;
+}
+
+.v58-final-calibrated .hero-copy h1 {
+  font-size: clamp(38px, 3.25vw, 62px) !important;
+  line-height: .98 !important;
+  letter-spacing: 2.1px !important;
+  max-width: 1040px !important;
+}
+
+.v58-final-calibrated .hero-copy p {
+  max-width: 1040px !important;
+  margin-top: 14px !important;
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+}
+
+.v58-final-calibrated .eyebrow {
+  margin-bottom: 12px !important;
+  padding: 6px 11px !important;
+  font-size: 9px !important;
+}
+
+.v58-final-calibrated .hero-actions {
+  margin-top: 16px !important;
+}
+
+.v58-final-calibrated .hero-actions a {
+  padding: 7px 11px !important;
+  font-size: 9px !important;
+}
+
+.v58-final-calibrated .v56-hero-badge-row {
+  margin-top: 11px !important;
+}
+
+.v58-final-calibrated .v56-hero-badge-row span {
+  padding: 5px 9px !important;
+  font-size: 8px !important;
+}
+
+/* Globo e readiness: composizione più bilanciata */
+.v58-final-calibrated .v57-holo-globe {
+  right: 260px !important;
+  top: 20px !important;
+  width: 350px !important;
+  height: 238px !important;
+  opacity: .78 !important;
+}
+
+.v58-final-calibrated .v57-holo-sphere {
+  width: 220px !important;
+  height: 220px !important;
+}
+
+.v58-final-calibrated .readiness-ring {
+  width: 200px !important;
+  height: 200px !important;
+}
+
+.v58-final-calibrated .readiness-ring b {
+  font-size: 36px !important;
+}
+
+.v58-final-calibrated .readiness-note {
+  padding: 10px !important;
+}
+
+.v58-final-calibrated .hero-next::after {
+  font-size: 26px !important;
+  letter-spacing: 6px !important;
+}
+
+/* KPI top più asciutti */
+.v58-final-calibrated .quick-kpis {
+  gap: 8px !important;
+  padding: 9px !important;
+}
+
+.v58-final-calibrated .kpi-card {
+  padding: 9px 10px !important;
+  min-height: 72px !important;
+}
+
+/* Command strip e ribbon: meno spazio morto */
+.v58-final-calibrated .control-strip {
+  padding: 10px 12px !important;
+}
+
+.v58-final-calibrated .v55-command-ribbon {
+  margin-top: 8px !important;
+  gap: 7px !important;
+}
+
+.v58-final-calibrated .v55-command-ribbon div {
+  padding: 7px 9px !important;
+}
+
+/* Primary section: deve sembrare il vero cuore operativo */
+.v58-final-calibrated .primary-grid {
+  grid-template-columns: 1.18fr .82fr !important;
+  gap: 11px !important;
+}
+
+.v58-final-calibrated .panel {
+  padding: 12px !important;
+}
+
+.v58-final-calibrated .panel-head {
+  padding-bottom: 10px !important;
+}
+
+.v58-final-calibrated .panel-head h2 {
+  font-size: 15px !important;
+}
+
+.v58-final-calibrated .panel-head p {
+  font-size: 9.5px !important;
+}
+
+/* RF panel: più compatta, spectrum dominante */
+.v58-final-calibrated .rf-layout {
+  grid-template-columns: 300px 1fr !important;
+  gap: 10px !important;
+  margin-top: 10px !important;
+}
+
+.v58-final-calibrated .rf-semi {
+  width: 220px !important;
+  height: 120px !important;
+}
+
+.v58-final-calibrated .rf-semi b {
+  font-size: 29px !important;
+}
+
+.v58-final-calibrated .rf-note {
+  padding: 9px !important;
+}
+
+.v58-final-calibrated .rf-mini-grid {
+  gap: 7px !important;
+}
+
+.v58-final-calibrated .rf-mini-grid div,
+.v58-final-calibrated .scenario-status-grid div {
+  padding: 9px !important;
+}
+
+.v58-final-calibrated .spectrum-window {
+  height: 235px !important;
+}
+
+/* Scenario: più denso ma leggibile */
+.v58-final-calibrated .scenario-layout {
+  grid-template-columns: .86fr 1.14fr !important;
+  gap: 10px !important;
+  margin-top: 10px !important;
+}
+
+.v58-final-calibrated .scenario-selector {
+  gap: 7px !important;
+}
+
+.v58-final-calibrated .scenario-selector button {
+  padding: 10px !important;
+  border-radius: 14px !important;
+}
+
+.v58-final-calibrated .chain {
+  gap: 6px !important;
+}
+
+.v58-final-calibrated .chain span {
+  padding: 13px 6px !important;
+  font-size: 8.5px !important;
+}
+
+.v58-final-calibrated .launch-actions {
+  gap: 6px !important;
+}
+
+.v58-final-calibrated .launch-actions a {
+  padding: 6px 9px !important;
+  font-size: 8.5px !important;
+}
+
+/* Secondary: compatta senza perdere chiarezza */
+.v58-final-calibrated .secondary-grid {
+  gap: 10px !important;
+}
+
+.v58-final-calibrated .kpi-wall-grid {
+  gap: 8px !important;
+  padding-top: 10px !important;
+}
+
+.v58-final-calibrated .kpi-wall-grid div {
+  min-height: 76px !important;
+}
+
+.v58-final-calibrated .mission-map {
+  gap: 8px !important;
+  margin-top: 10px !important;
+}
+
+.v58-final-calibrated .mission-map a {
+  padding: 11px 12px !important;
+}
+
+/* Support cards final look */
+.v58-final-calibrated .support-grid {
+  gap: 10px !important;
+}
+
+.v58-final-calibrated .support-card {
+  padding: 13px !important;
+}
+
+.v58-final-calibrated .support-card b {
+  font-size: 20px !important;
+}
+
+/* Footer */
+.v58-final-calibrated .next-footer {
+  margin-bottom: 12px !important;
+  padding: 10px !important;
+  font-size: 9px !important;
+}
+
+/* Engineering: sempre nascosta se non attiva */
+.v58-final-calibrated:not(.show-engineering) .engineering-detail {
+  display: none !important;
+}
+
+/* Responsive */
+@media(max-width:1450px) {
+  .v58-final-calibrated .hero-next,
+  .v58-final-calibrated .primary-grid,
+  .v58-final-calibrated .secondary-grid,
+  .v58-final-calibrated .rf-layout,
+  .v58-final-calibrated .scenario-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .v58-final-calibrated .v57-holo-globe {
+    right: 32px !important;
+    opacity: .24 !important;
+  }
+}
+
+@media(max-width:820px) {
+  .v58-final-calibrated .hero-copy h1 {
+    font-size: 31px !important;
+  }
+
+  .v58-final-calibrated .readiness-ring {
+    width: 170px !important;
+    height: 170px !important;
+  }
+}

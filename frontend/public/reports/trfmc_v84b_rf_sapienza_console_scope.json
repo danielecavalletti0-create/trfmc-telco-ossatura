@@ -1,0 +1,26 @@
+{
+  "version": "TRFMC v0.84B",
+  "page": "rf_sapienza_console_v84b.html",
+  "mission": "Transform RF visualisation into didactic engineering knowledge, not a war/toy aesthetic.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "teaching_focus": [
+    "RSRP vs SINR distinction",
+    "delay spread and coherence bandwidth",
+    "TDL multipath",
+    "IQ constellation degradation",
+    "EVM and channel quality",
+    "link budget traceability",
+    "teacher interpretation note"
+  ],
+  "visual_doctrine": [
+    "dark calibrated RF palette",
+    "no white overexposure",
+    "no random red/war UI",
+    "objects and measurements remain readable",
+    "map is subordinate to measurement instruments"
+  ]
+}

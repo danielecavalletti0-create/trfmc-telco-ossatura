@@ -1,0 +1,7 @@
+check	result	count
+iframe_absent	PASS	0
+dangerous_dom_absent	PASS	0
+no_extra_createroot_call_in_portal_os	PASS	0
+v42_not_touched_by_p4b_v21	PASS	0
+main_conditional_preview_present	PASS	4
+preview_marker_source_present	PASS	1

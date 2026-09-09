@@ -1,0 +1,621 @@
+path	line	endpoint
+backend/app/main.py.bak_20260517_142708	50	@app.get("/api/health", tags=["health"])
+backend/app/main.py.bak_portal5173_20260517_143049	50	@app.get("/api/health", tags=["health"])
+backend/app/main.py	50	@app.get("/api/health", tags=["health"])
+backend/app/main.py	116	@app.get("/api/trfmc-backend-ready")
+backend/app/persistence/api.py	1	from fastapi import APIRouter
+backend/app/persistence/api.py	18	router = APIRouter(prefix="/api/persistence", tags=["persistence"])
+backend/app/persistence/api.py	21	@router.get("/status")
+backend/app/persistence/api.py	26	@router.get("/missions")
+backend/app/persistence/api.py	31	@router.get("/events")
+backend/app/persistence/api.py	36	@router.get("/assets")
+backend/app/persistence/api.py	41	@router.get("/asset-links")
+backend/app/persistence/api.py	46	@router.get("/evidence")
+backend/app/persistence/api.py	51	@router.get("/device-trust")
+backend/app/persistence/api.py	56	@router.get("/network-paths")
+backend/app/persistence/api.py	61	@router.get("/incidents")
+backend/app/persistence/api.py	66	@router.get("/rf-runs")
+backend/app/persistence/api.py	71	@router.get("/rf-obstacles")
+backend/app/persistence/api.py	77	@router.get("/rf-field-runs")
+backend/app/domains/events/api.py	1	from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+backend/app/domains/events/api.py	6	router = APIRouter(prefix="/api/events", tags=["event-fabric"])
+backend/app/domains/events/api.py	10	@router.get("/demo")
+backend/app/domains/events/api.py	15	@router.post("/publish-demo")
+backend/app/domains/soc_noc/api.py	1	from fastapi import APIRouter
+backend/app/domains/soc_noc/api.py	3	router = APIRouter(prefix="/api/soc-noc", tags=["soc-noc"])
+backend/app/domains/soc_noc/api.py	5	@router.get("/model")
+backend/app/domains/soc_noc/api.py	7	@router.get("/correlation/demo")
+backend/app/domains/docs_portal/services.py	19	            {"id": "operator-handbook", "title": "Operator Handbook", "path": "TRFMC_OPERATOR_HANDBOOK.md", "endpoint": "/api/docs/operator-handbook", "description": "Procedure operative principali."},
+backend/app/domains/docs_portal/services.py	20	            {"id": "architecture", "title": "Architecture Current State", "path": "TRFMC_ARCHITECTURE_CURRENT_STATE.md", "endpoint": "/api/docs/architecture", "description": "Architettura corrente."},
+backend/app/domains/docs_portal/services.py	21	            {"id": "backup-restore", "title": "Backup and Restore", "path": "TRFMC_BACKUP_AND_RESTORE.md", "endpoint": "/api/docs/backup-restore", "description": "Backup, restore readiness e drill."},
+backend/app/domains/docs_portal/services.py	22	            {"id": "release-chain", "title": "Release Chain", "path": "TRFMC_RELEASE_CHAIN.md", "endpoint": "/api/docs/release-chain", "description": "Catena release."},
+backend/app/domains/docs_portal/services.py	23	            {"id": "security", "title": "Security Baseline", "path": "TRFMC_SECURITY_BASELINE.md", "endpoint": "/api/docs/security", "description": "Postura sicurezza."},
+backend/app/domains/docs_portal/services.py	24	            {"id": "commands", "title": "Command Reference", "path": "TRFMC_COMMAND_REFERENCE.md", "endpoint": "/api/docs/commands", "description": "Comandi ufficiali."},
+backend/app/domains/docs_portal/api.py	1	from fastapi import APIRouter
+backend/app/domains/docs_portal/api.py	4	router = APIRouter(prefix="/api/docs", tags=["docs"])
+backend/app/domains/docs_portal/api.py	8	@router.get("/index")
+backend/app/domains/docs_portal/api.py	13	@router.get("/operator-handbook")
+backend/app/domains/docs_portal/api.py	18	@router.get("/architecture")
+backend/app/domains/docs_portal/api.py	23	@router.get("/backup-restore")
+backend/app/domains/docs_portal/api.py	28	@router.get("/release-chain")
+backend/app/domains/docs_portal/api.py	33	@router.get("/security")
+backend/app/domains/docs_portal/api.py	38	@router.get("/commands")
+backend/app/domains/correlation/api.py	1	from fastapi import APIRouter
+backend/app/domains/correlation/api.py	5	router = APIRouter(prefix="/api/correlation", tags=["correlation"])
+backend/app/domains/correlation/api.py	9	@router.get("/graph")
+backend/app/domains/correlation/api.py	14	@router.get("/assets/{asset_id}")
+backend/app/domains/correlation/api.py	19	@router.get("/incidents")
+backend/app/domains/reports/api.py	1	from fastapi import APIRouter, HTTPException
+backend/app/domains/reports/api.py	6	router = APIRouter(prefix="/api/reports", tags=["reports"])
+backend/app/domains/reports/api.py	10	@router.get("/latest")
+backend/app/domains/reports/api.py	15	@router.get("/scenario/{run_id}")
+backend/app/domains/reports/api.py	23	@router.get("/export/html/{run_id}", response_class=HTMLResponse)
+backend/app/domains/observability/api.py	1	from fastapi import APIRouter
+backend/app/domains/observability/api.py	4	router = APIRouter(prefix="/api/observability", tags=["observability"])
+backend/app/domains/observability/api.py	8	@router.get("/health-matrix")
+backend/app/domains/observability/api.py	13	@router.get("/evidence-console")
+backend/app/domains/observability/api.py	18	@router.get("/runtime")
+backend/app/domains/evidence/api.py	1	from fastapi import APIRouter
+backend/app/domains/evidence/api.py	3	router = APIRouter(prefix="/api/evidence", tags=["evidence"])
+backend/app/domains/evidence/api.py	5	@router.get("/demo")
+backend/app/domains/network_fabric/api.py	1	from fastapi import APIRouter
+backend/app/domains/network_fabric/api.py	4	router = APIRouter(prefix="/api/network-fabric", tags=["global-network-fabric"])
+backend/app/domains/network_fabric/api.py	8	@router.get("/destinations")
+backend/app/domains/network_fabric/api.py	13	@router.get("/path")
+backend/app/domains/network_fabric/api.py	18	@router.get("/overview")
+backend/app/domains/network_fabric/api.py	23	@router.get("/paths")
+backend/app/domains/network_fabric/api.py	28	@router.post("/path/persist")
+backend/app/domains/network_fabric/api.py	33	@router.post("/paths/persist-all")
+backend/app/domains/security_baseline/services.py	152	            "/api/health",
+backend/app/domains/security_baseline/services.py	153	            "/api/persistence/status",
+backend/app/domains/security_baseline/services.py	154	            "/api/observability/health-matrix",
+backend/app/domains/security_baseline/services.py	155	            "/api/timeline/evidence",
+backend/app/domains/security_baseline/services.py	156	            "/api/correlation/graph",
+backend/app/domains/security_baseline/services.py	157	            "/api/scenarios/catalog",
+backend/app/domains/security_baseline/services.py	158	            "/api/reports/latest",
+backend/app/domains/security_baseline/services.py	159	            "/api/security/posture",
+backend/app/domains/security_baseline/services.py	160	            "/api/security/access-policy",
+backend/app/domains/security_baseline/services.py	161	            "/api/security/runtime-checks",
+backend/app/domains/security_baseline/services.py	162	            "/api/security/audit-log",
+backend/app/domains/security_baseline/services.py	163	            "/api/security/readiness",
+backend/app/domains/security_baseline/api.py	1	from fastapi import APIRouter
+backend/app/domains/security_baseline/api.py	5	router = APIRouter(prefix="/api/security", tags=["security"])
+backend/app/domains/security_baseline/api.py	9	@router.get("/posture")
+backend/app/domains/security_baseline/api.py	14	@router.get("/access-policy")
+backend/app/domains/security_baseline/api.py	19	@router.get("/runtime-checks")
+backend/app/domains/security_baseline/api.py	24	@router.get("/audit-log")
+backend/app/domains/security_baseline/api.py	29	@router.get("/readiness")
+backend/app/domains/assets/api.py	1	from fastapi import APIRouter, HTTPException
+backend/app/domains/assets/api.py	5	router = APIRouter(prefix="/api/assets", tags=["asset-digital-twin"])
+backend/app/domains/assets/api.py	9	@router.get("/demo")
+backend/app/domains/assets/api.py	14	@router.get("/list")
+backend/app/domains/assets/api.py	19	@router.get("/graph")
+backend/app/domains/assets/api.py	24	@router.get("/mission-map")
+backend/app/domains/assets/api.py	29	@router.get("/{asset_id}")
+backend/app/domains/assets/api.py	37	@router.get("/{asset_id}/links")
+backend/app/domains/assets/api.py	42	@router.get("/{asset_id}/events")
+backend/app/domains/rf_coverage/api.py	1	from fastapi import APIRouter
+backend/app/domains/rf_coverage/api.py	5	router = APIRouter(prefix="/api/rf-coverage", tags=["rf-coverage"])
+backend/app/domains/rf_coverage/api.py	9	@router.get("/obstacles")
+backend/app/domains/rf_coverage/api.py	14	@router.get("/demo")
+backend/app/domains/rf_coverage/api.py	19	@router.post("/run")
+backend/app/domains/rf_coverage/api.py	24	@router.get("/runs")
+backend/app/domains/telco_mns/api.py	1	from fastapi import APIRouter
+backend/app/domains/telco_mns/api.py	3	router = APIRouter(prefix="/api/telco-mns", tags=["telco-mns"])
+backend/app/domains/telco_mns/api.py	5	@router.get("/status")
+backend/app/domains/mission/api.py	1	from fastapi import APIRouter
+backend/app/domains/mission/api.py	3	router = APIRouter(prefix="/api/mission", tags=["mission"])
+backend/app/domains/mission/api.py	5	@router.get("/status")
+backend/app/domains/evidence_vault/services.py	133	            "html_url": f"/api/vault/reports/{run_id}/html",
+backend/app/domains/evidence_vault/api.py	1	from fastapi import APIRouter, HTTPException
+backend/app/domains/evidence_vault/api.py	6	router = APIRouter(prefix="/api/vault", tags=["vault"])
+backend/app/domains/evidence_vault/api.py	10	@router.get("/status")
+backend/app/domains/evidence_vault/api.py	15	@router.post("/archive/latest")
+backend/app/domains/evidence_vault/api.py	20	@router.get("/reports")
+backend/app/domains/evidence_vault/api.py	25	@router.get("/reports/{run_id}")
+backend/app/domains/evidence_vault/api.py	33	@router.get("/reports/{run_id}/html", response_class=HTMLResponse)
+backend/app/domains/evidence_vault/api.py	41	@router.get("/snapshot/latest")
+backend/app/domains/restore_readiness/services.py	119	            "next_safe_action": "Run /api/restore/drill for a non-destructive restore simulation.",
+backend/app/domains/restore_readiness/services.py	191	                        "curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool",
+backend/app/domains/restore_readiness/services.py	258	            "restore_plan_ref": "/api/restore/plan",
+backend/app/domains/restore_readiness/api.py	2	from fastapi import APIRouter
+backend/app/domains/restore_readiness/api.py	6	router = APIRouter(prefix="/api/restore", tags=["restore-readiness"])
+backend/app/domains/restore_readiness/api.py	10	@router.get("/readiness")
+backend/app/domains/restore_readiness/api.py	15	@router.get("/plan")
+backend/app/domains/restore_readiness/api.py	20	@router.get("/verify-backup")
+backend/app/domains/restore_readiness/api.py	25	@router.get("/drill")
+backend/app/domains/ops_backup/api.py	1	from fastapi import APIRouter
+backend/app/domains/ops_backup/api.py	5	router = APIRouter(prefix="/api/ops/backup", tags=["ops-backup"])
+backend/app/domains/ops_backup/api.py	9	@router.get("/status")
+backend/app/domains/ops_backup/api.py	14	@router.post("/create-runtime")
+backend/app/domains/ops_backup/api.py	19	@router.get("/list")
+backend/app/domains/ops_backup/api.py	24	@router.get("/latest-manifest")
+backend/app/domains/timeline/api.py	2	from fastapi import APIRouter
+backend/app/domains/timeline/api.py	6	router = APIRouter(prefix="/api/timeline", tags=["timeline"])
+backend/app/domains/timeline/api.py	10	@router.get("/evidence")
+backend/app/domains/timeline/api.py	15	@router.get("/replay")
+backend/app/domains/timeline/api.py	20	@router.get("/correlation/{correlation_id}")
+backend/app/domains/time_cursor/api.py	1	from fastapi import APIRouter
+backend/app/domains/time_cursor/api.py	5	router = APIRouter(prefix="/api/time-cursor", tags=["global-time-cursor"])
+backend/app/domains/time_cursor/api.py	9	@router.get("/status")
+backend/app/domains/time_cursor/api.py	14	@router.post("/set")
+backend/app/domains/time_cursor/api.py	23	@router.get("/timeline")
+backend/app/domains/rf_field/api.py	1	from fastapi import APIRouter
+backend/app/domains/rf_field/api.py	6	router = APIRouter(prefix="/api/rf-field", tags=["rf-field"])
+backend/app/domains/rf_field/api.py	10	@router.get("/demo")
+backend/app/domains/rf_field/api.py	15	@router.post("/run")
+backend/app/domains/rf_field/api.py	20	@router.get("/runs")
+backend/app/domains/rf_field/api.py	25	@router.get("/antenna-pattern")
+backend/app/domains/scientific_core/api.py	1	from fastapi import APIRouter
+backend/app/domains/scientific_core/api.py	4	router = APIRouter(prefix="/api/scientific", tags=["scientific-core"])
+backend/app/domains/scientific_core/api.py	14	@router.post("/plane-wave")
+backend/app/domains/scientific_core/api.py	16	@router.get("/plane-wave/demo")
+backend/app/domains/scientific_core/api.py	18	@router.post("/near-far")
+backend/app/domains/scientific_core/api.py	20	@router.get("/near-far/demo")
+backend/app/domains/scientific_core/api.py	22	@router.get("/qpsk-awgn/demo")
+backend/app/domains/portal_index/services.py	183	            {"method": "GET", "path": "/api/health", "domain": "core"},
+backend/app/domains/portal_index/services.py	184	            {"method": "GET", "path": "/api/persistence/status", "domain": "persistence"},
+backend/app/domains/portal_index/services.py	185	            {"method": "GET", "path": "/api/observability/health-matrix", "domain": "observability"},
+backend/app/domains/portal_index/services.py	186	            {"method": "GET", "path": "/api/timeline/evidence", "domain": "timeline"},
+backend/app/domains/portal_index/services.py	187	            {"method": "GET", "path": "/api/timeline/replay", "domain": "timeline"},
+backend/app/domains/portal_index/services.py	188	            {"method": "GET", "path": "/api/correlation/graph", "domain": "correlation"},
+backend/app/domains/portal_index/services.py	189	            {"method": "GET", "path": "/api/scenarios/catalog", "domain": "scenarios"},
+backend/app/domains/portal_index/services.py	190	            {"method": "POST", "path": "/api/scenarios/run/{scenario_id}", "domain": "scenarios"},
+backend/app/domains/portal_index/services.py	191	            {"method": "GET", "path": "/api/reports/latest", "domain": "reports"},
+backend/app/domains/portal_index/services.py	192	            {"method": "GET", "path": "/api/reports/export/html/{run_id}", "domain": "reports"},
+backend/app/domains/portal_index/services.py	193	            {"method": "GET", "path": "/api/security/posture", "domain": "security"},
+backend/app/domains/portal_index/services.py	194	            {"method": "GET", "path": "/api/security/readiness", "domain": "security"},
+backend/app/domains/portal_index/services.py	195	            {"method": "GET", "path": "/api/portal/index", "domain": "portal"},
+backend/app/domains/portal_index/services.py	196	            {"method": "GET", "path": "/api/portal/pages", "domain": "portal"},
+backend/app/domains/portal_index/services.py	197	            {"method": "GET", "path": "/api/portal/health-summary", "domain": "portal"},
+backend/app/domains/portal_index/services.py	198	            {"method": "GET", "path": "/api/vault/status", "domain": "vault"},
+backend/app/domains/portal_index/services.py	199	            {"method": "POST", "path": "/api/vault/archive/latest", "domain": "vault"},
+backend/app/domains/portal_index/services.py	200	            {"method": "GET", "path": "/api/vault/reports", "domain": "vault"},
+backend/app/domains/portal_index/services.py	201	            {"method": "GET", "path": "/api/vault/reports/{run_id}", "domain": "vault"},
+backend/app/domains/portal_index/services.py	202	            {"method": "GET", "path": "/api/vault/snapshot/latest", "domain": "vault"},
+backend/app/domains/portal_index/services.py	203	            {"method": "GET", "path": "/api/ops/backup/status", "domain": "ops"},
+backend/app/domains/portal_index/services.py	204	            {"method": "POST", "path": "/api/ops/backup/create-runtime", "domain": "ops"},
+backend/app/domains/portal_index/services.py	205	            {"method": "GET", "path": "/api/ops/backup/list", "domain": "ops"},
+backend/app/domains/portal_index/services.py	206	            {"method": "GET", "path": "/api/ops/backup/latest-manifest", "domain": "ops"},
+backend/app/domains/portal_index/services.py	207	            {"method": "GET", "path": "/api/restore/readiness", "domain": "restore"},
+backend/app/domains/portal_index/services.py	208	            {"method": "GET", "path": "/api/restore/plan", "domain": "restore"},
+backend/app/domains/portal_index/services.py	209	            {"method": "GET", "path": "/api/restore/verify-backup", "domain": "restore"},
+backend/app/domains/portal_index/services.py	210	            {"method": "GET", "path": "/api/restore/drill", "domain": "restore"},
+backend/app/domains/portal_index/services.py	211	            {"method": "GET", "path": "/api/docs/index", "domain": "docs"},
+backend/app/domains/portal_index/services.py	212	            {"method": "GET", "path": "/api/docs/operator-handbook", "domain": "docs"},
+backend/app/domains/portal_index/services.py	213	            {"method": "GET", "path": "/api/docs/architecture", "domain": "docs"},
+backend/app/domains/portal_index/services.py	214	            {"method": "GET", "path": "/api/docs/backup-restore", "domain": "docs"},
+backend/app/domains/portal_index/services.py	215	            {"method": "GET", "path": "/api/docs/release-chain", "domain": "docs"},
+backend/app/domains/portal_index/services.py	216	            {"method": "GET", "path": "/api/docs/security", "domain": "docs"},
+backend/app/domains/portal_index/services.py	217	            {"method": "GET", "path": "/api/docs/commands", "domain": "docs"},
+backend/app/domains/portal_index/api.py	1	from fastapi import APIRouter
+backend/app/domains/portal_index/api.py	5	router = APIRouter(prefix="/api/portal", tags=["portal"])
+backend/app/domains/portal_index/api.py	9	@router.get("/index")
+backend/app/domains/portal_index/api.py	14	@router.get("/pages")
+backend/app/domains/portal_index/api.py	23	@router.get("/health-summary")
+backend/app/domains/core_live/api.py	1	from fastapi import APIRouter
+backend/app/domains/core_live/api.py	9	router = APIRouter(prefix="/api/core-live", tags=["TRFMC Core Live"])
+backend/app/domains/core_live/api.py	144	@router.get("/health")
+backend/app/domains/core_live/api.py	156	@router.get("/status")
+backend/app/domains/core_live/api.py	160	@router.get("/events")
+backend/app/domains/scenarios/api.py	1	from fastapi import APIRouter, HTTPException
+backend/app/domains/scenarios/api.py	5	router = APIRouter(prefix="/api/scenarios", tags=["scenarios"])
+backend/app/domains/scenarios/api.py	9	@router.get("/catalog")
+backend/app/domains/scenarios/api.py	14	@router.post("/run/{scenario_id}")
+backend/app/domains/scenarios/api.py	22	@router.get("/runs")
+backend/app/domains/access_trust/api.py	1	from fastapi import APIRouter
+backend/app/domains/access_trust/api.py	4	router = APIRouter(prefix="/api/access-trust", tags=["access-trust"])
+backend/app/domains/access_trust/api.py	17	@router.post("/rat/assess")
+backend/app/domains/access_trust/api.py	19	@router.get("/rat/demo")
+backend/app/domains/access_trust/api.py	21	@router.post("/wifi/assess")
+backend/app/domains/access_trust/api.py	23	@router.get("/wifi/demo")
+backend/app/domains/restricted/api.py	1	from fastapi import APIRouter
+backend/app/domains/restricted/api.py	3	router = APIRouter(prefix="/api/restricted", tags=["restricted"])
+backend/app/domains/restricted/api.py	4	@router.get("/status")
+backend/docs/TRFMC_SECURITY_BASELINE.md	76	curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+backend/docs/TRFMC_OPERATOR_HANDBOOK.md	62	curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+backend/docs/TRFMC_BACKUP_AND_RESTORE.md	54	curl -s http://127.0.0.1:8000/api/restore/readiness | python3 -m json.tool
+backend/docs/TRFMC_BACKUP_AND_RESTORE.md	55	curl -s http://127.0.0.1:8000/api/restore/plan | python3 -m json.tool
+backend/docs/TRFMC_BACKUP_AND_RESTORE.md	56	curl -s http://127.0.0.1:8000/api/restore/verify-backup | python3 -m json.tool
+backend/docs/TRFMC_BACKUP_AND_RESTORE.md	57	curl -s http://127.0.0.1:8000/api/restore/drill | python3 -m json.tool
+backend/docs/TRFMC_COMMAND_REFERENCE.md	14	curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+backend/docs/TRFMC_COMMAND_REFERENCE.md	31	curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+backend/docs/TRFMC_COMMAND_REFERENCE.md	32	curl -s http://127.0.0.1:8000/api/persistence/status | python3 -m json.tool
+backend/docs/TRFMC_COMMAND_REFERENCE.md	33	curl -s http://127.0.0.1:8000/api/portal/health-summary | python3 -m json.tool
+backend/docs/TRFMC_COMMAND_REFERENCE.md	34	curl -s http://127.0.0.1:8000/api/docs/index | python3 -m json.tool
+backend/docs/TRFMC_COMMAND_REFERENCE.md	52	curl -s http://127.0.0.1:8000/api/health | python3 -m json.tool
+backend/core_live_standalone_server.py	343	@app.get("/api/health")
+backend/core_live_standalone_server.py	353	@app.get("/api/trfmc-backend-ready")
+backend/core_live_standalone_server.py	363	@app.get("/api/core-live/health")
+backend/core_live_standalone_server.py	369	        "message": "lightweight health endpoint; use /api/core-live/status for bounded discovery",
+backend/core_live_standalone_server.py	373	@app.get("/api/core-live/status")
+backend/core_live_standalone_server.py	377	@app.get("/api/core-live/events")
+backend/main_v580.py	36	@app.get("/")
+backend/main_v580.py	38	    return RedirectResponse(url="/api/rfpro/console")
+backend/main_v580.py	40	@app.get("/health")
+backend/main_v580.py	46	        "entrypoint": "/api/rfpro/console"
+backend/routers/uav_v584.py	6	from fastapi import APIRouter, HTTPException
+backend/routers/uav_v584.py	10	router = APIRouter(prefix="/api/v584", tags=["RF PRO v5.8.4 UAV FHSS"])
+backend/routers/uav_v584.py	119	@router.get("/uav/page", response_class=HTMLResponse)
+backend/routers/uav_v584.py	124	@router.get("/uav/profiles")
+backend/routers/uav_v584.py	126	@router.get("/uav/selftest")
+backend/routers/uav_v584.py	128	@router.post("/uav/sweep_band")
+backend/routers/uav_v584.py	145	@router.post("/uav/hopping/analyze")
+backend/routers/uav_v584.py	165	@router.post("/uav/burst/analyze_iq")
+backend/routers/uav_v584.py	192	@router.post("/uav/link/report")
+backend/routers/uav_v584.py	199	@router.get("/uav/files")
+backend/routers/uav_v584.py	201	@router.get("/uav/file/{filename}")
+backend/routers/realtime_v585.py	14	from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException
+backend/routers/realtime_v585.py	17	router = APIRouter(prefix="/api/v585", tags=["RF PRO v5.8.5 Realtime UI"])
+backend/routers/realtime_v585.py	162	@router.get("/realtime/page", response_class=HTMLResponse)
+backend/routers/realtime_v585.py	170	@router.get("/realtime/state")
+backend/routers/realtime_v585.py	176	        "websocket": "/api/v585/ws/spectrum",
+backend/routers/realtime_v585.py	195	@router.get("/realtime/one_frame")
+backend/routers/fullband_v586.py	13	from fastapi import APIRouter, HTTPException
+backend/routers/fullband_v586.py	17	router = APIRouter(prefix="/api/v586", tags=["RF PRO v5.8.6 FullBand Cursor"])
+backend/routers/fullband_v586.py	149	@router.get("/fullband/page", response_class=HTMLResponse)
+backend/routers/fullband_v586.py	157	@router.get("/fullband/state")
+backend/routers/fullband_v586.py	182	@router.post("/fullband/sweep")
+backend/routers/fullband_v586.py	226	@router.get("/fullband/file/{filename}")
+backend/routers/rfpro_bridges.py	17	from fastapi import APIRouter, HTTPException
+backend/routers/rfpro_bridges.py	21	router = APIRouter(prefix="/api/rfpro", tags=["RF PRO External SDR Bridges"])
+backend/routers/rfpro_bridges.py	95	@router.get("/bridges/state")
+backend/routers/rfpro_bridges.py	132	@router.get("/bridges/soapy/probe")
+backend/routers/rfpro_bridges.py	157	@router.post("/bridges/gnuradio/export")
+backend/routers/rfpro_bridges.py	230	@router.get("/bridges/sdrpp/export")
+backend/routers/rfpro_bridges.py	251	@router.get("/bridges/markvii/preflight")
+backend/routers/rfpro_bridges.py	257	        "/api/recon/status",
+backend/routers/rfpro_bridges.py	258	        "/api/recon/scans",
+backend/routers/rfpro_bridges.py	259	        "/api/pineap/clients",
+backend/routers/rfpro_bridges.py	260	        "/api/pineap/previousclients",
+backend/routers/rfpro_bridges.py	261	        "/api/pineap/ssids",
+backend/routers/rfpro_bridges.py	262	        "/api/pineap/filters/client/mode",
+backend/routers/rfpro_bridges.py	263	        "/api/pineap/filters/ssid/mode",
+backend/routers/rfpro_bridges.py	284	@router.get("/bridges/blueway/state")
+backend/routers/rfpro_bridges.py	300	@router.get("/bridges/files")
+backend/routers/rfpro_bridges.py	310	@router.get("/bridges/file/{bucket}/{filename}")
+backend/routers/rfpro_final.py	14	from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect
+backend/routers/rfpro_final.py	18	router = APIRouter(prefix="/api/rfpro", tags=["RF PRO Unified Instrument Console"])
+backend/routers/rfpro_final.py	220	@router.get("/console", response_class=HTMLResponse)
+backend/routers/rfpro_final.py	228	@router.get("/state")
+backend/routers/rfpro_final.py	245	        "entrypoint": "/api/rfpro/console",
+backend/routers/rfpro_final.py	254	            "v580": "/api/v580/workbench/page",
+backend/routers/rfpro_final.py	255	            "v581": "/api/v581/demod/page",
+backend/routers/rfpro_final.py	256	            "v582": "/api/v582/workbench/page",
+backend/routers/rfpro_final.py	257	            "v583": "/api/v583/master/page",
+backend/routers/rfpro_final.py	258	            "v584": "/api/v584/uav/page",
+backend/routers/rfpro_final.py	259	            "v585": "/api/v585/realtime/page",
+backend/routers/rfpro_final.py	260	            "v586": "/api/v586/fullband/page",
+backend/routers/rfpro_final.py	266	@router.get("/runbook")
+backend/routers/rfpro_final.py	283	@router.post("/spectrum/sweep")
+backend/routers/rfpro_final.py	333	@router.get("/uav/profiles")
+backend/routers/rfpro_final.py	338	@router.post("/uav/fhss")
+backend/routers/rfpro_final.py	397	@router.get("/evidence/manifest")
+backend/routers/rfpro_final.py	409	@router.get("/file/{bucket}/{filename}")
+backend/routers/workbench_v580.py	17	from fastapi import APIRouter, HTTPException, Query
+backend/routers/workbench_v580.py	21	router = APIRouter(prefix="/api/v580", tags=["RF PRO v5.8.0 Signal Workbench"])
+backend/routers/workbench_v580.py	306	@router.get("/workbench/state")
+backend/routers/workbench_v580.py	346	@router.post("/workbench/sweep/window")
+backend/routers/workbench_v580.py	390	@router.post("/workbench/sweep/full")
+backend/routers/workbench_v580.py	409	@router.post("/workbench/iq/capture")
+backend/routers/workbench_v580.py	442	@router.post("/workbench/iq/analyze")
+backend/routers/workbench_v580.py	468	@router.post("/workbench/demod/audio")
+backend/routers/workbench_v580.py	487	        "wav_url": f"/api/v580/workbench/wav/{wav_path.name}",
+backend/routers/workbench_v580.py	493	@router.get("/workbench/wav/{filename}")
+backend/routers/workbench_v580.py	501	@router.post("/workbench/event-rule")
+backend/routers/workbench_v580.py	511	@router.post("/workbench/evidence")
+backend/routers/workbench_v580.py	537	@router.get("/workbench/files")
+backend/routers/workbench_v580.py	553	@router.get("/wifi/metadata")
+backend/routers/workbench_v580.py	588	@router.get("/markvii/recon")
+backend/routers/workbench_v580.py	593	      export MARKVII_RECON_URL='http://172.16.42.1:1471/api/...'
+backend/routers/workbench_v580.py	623	@router.get("/blueway/status")
+backend/routers/workbench_v580.py	662	@router.get("/modem/cellular")
+backend/routers/workbench_v580.py	683	@router.get("/workbench/page", response_class=HTMLResponse)
+backend/routers/rfpro_polish.py	15	from fastapi import APIRouter, HTTPException
+backend/routers/rfpro_polish.py	19	router = APIRouter(prefix="/api/rfpro", tags=["RF PRO SDR Polish"])
+backend/routers/rfpro_polish.py	86	@router.get("/device/info")
+backend/routers/rfpro_polish.py	94	@router.get("/bandplan")
+backend/routers/rfpro_polish.py	100	@router.post("/iq/capture")
+backend/routers/rfpro_polish.py	136	        "wav_url": f"/api/rfpro/file/wav/{wav.name}",
+backend/routers/rfpro_polish.py	149	@router.get("/file/wav/{filename}")
+backend/routers/demod_v581.py	6	from fastapi import APIRouter, HTTPException
+backend/routers/demod_v581.py	10	router = APIRouter(prefix="/api/v581", tags=["RF PRO v5.8.1 Demod PRO"])
+backend/routers/demod_v581.py	279	@router.get("/demod/page", response_class=HTMLResponse)
+backend/routers/demod_v581.py	286	@router.get("/demod/modes")
+backend/routers/demod_v581.py	305	@router.post("/iq/selftest_signal")
+backend/routers/demod_v581.py	333	@router.post("/iq/analyze_plus")
+backend/routers/demod_v581.py	343	@router.post("/iq/channelize_demod")
+backend/routers/demod_v581.py	365	        "wav_url": f"/api/v581/iq/file/{wav.name}",
+backend/routers/demod_v581.py	373	@router.get("/iq/files")
+backend/routers/demod_v581.py	384	@router.get("/iq/file/{filename}")
+backend/routers/demod_v581.py	392	@router.get("/iq/last_report")
+backend/routers/demod_v581.py	399	@router.get("/selftest")
+backend/routers/master_v583.py	9	from fastapi import APIRouter, HTTPException
+backend/routers/master_v583.py	12	router = APIRouter(prefix="/api/v583", tags=["RF PRO v5.8.3 Master Integration"])
+backend/routers/master_v583.py	56	@router.get("/master/page", response_class=HTMLResponse)
+backend/routers/master_v583.py	64	@router.get("/master/registry")
+backend/routers/master_v583.py	69	@router.get("/master/state")
+backend/routers/master_v583.py	82	            "master": "/api/v583/master/page",
+backend/routers/master_v583.py	83	            "restored_workbench": "/api/v582/workbench/page",
+backend/routers/master_v583.py	84	            "demod_pro": "/api/v581/demod/page",
+backend/routers/master_v583.py	85	            "workbench_engine": "/api/v580/workbench/page"
+backend/routers/master_v583.py	90	@router.get("/master/workflow")
+backend/routers/master_v583.py	98	            "sweep": "/api/v580/workbench/sweep/window",
+backend/routers/master_v583.py	99	            "capture_iq": "/api/v580/workbench/iq/capture",
+backend/routers/master_v583.py	100	            "analyze_plus": "/api/v581/iq/analyze_plus",
+backend/routers/master_v583.py	101	            "channelize_demod": "/api/v581/iq/channelize_demod",
+backend/routers/master_v583.py	102	            "evidence": "/api/v580/workbench/evidence",
+backend/routers/master_v583.py	103	            "wifi": "/api/v580/wifi/metadata",
+backend/routers/master_v583.py	104	            "markvii": "/api/v580/markvii/recon",
+backend/routers/master_v583.py	105	            "blueway": "/api/v580/blueway/status",
+backend/routers/master_v583.py	106	            "modem": "/api/v580/modem/cellular"
+backend/routers/master_v583.py	111	@router.get("/master/files")
+backend/routers/master_v583.py	122	@router.get("/master/audit")
+backend/routers/master_v583.py	154	@router.get("/master/file/{filename}")
+backend/routers/workbench_v582.py	2	from fastapi import APIRouter, HTTPException
+backend/routers/workbench_v582.py	5	router = APIRouter(prefix="/api/v582", tags=["RF PRO v5.8.2 Workbench Restored"])
+backend/routers/workbench_v582.py	8	@router.get("/workbench/page", response_class=HTMLResponse)
+backend/routers/workbench_v582.py	15	@router.get("/selftest")
+backend/routers/workbench_v582.py	17	    return {"ok": True, "version": "5.8.2", "page": "/api/v582/workbench/page"}
+backend/readonly_bridge_v28/app.py	220	@app.get("/api/health")
+backend/readonly_bridge_v28/app.py	235	@app.get("/api/mission/status")
+backend/readonly_bridge_v28/app.py	236	@app.get("/api/mission")
+backend/readonly_bridge_v28/app.py	252	@app.get("/api/runtime/services")
+backend/readonly_bridge_v28/app.py	273	@app.get("/api/core/open5gs/status")
+backend/readonly_bridge_v28/app.py	274	@app.get("/api/core-live/status")
+backend/readonly_bridge_v28/app.py	275	@app.get("/api/core-live/health")
+backend/readonly_bridge_v28/app.py	276	@app.get("/api/core-live")
+backend/readonly_bridge_v28/app.py	277	@app.get("/api/telco-mns/status")
+backend/readonly_bridge_v28/app.py	278	@app.get("/api/telco-mns")
+backend/readonly_bridge_v28/app.py	320	@app.get("/api/ran/ueransim/status")
+backend/readonly_bridge_v28/app.py	348	@app.get("/api/network-fabric/overview")
+backend/readonly_bridge_v28/app.py	349	@app.get("/api/network-fabric")
+backend/readonly_bridge_v28/app.py	363	@app.get("/api/rf-coverage/demo")
+backend/readonly_bridge_v28/app.py	364	@app.get("/api/rf-coverage")
+backend/readonly_bridge_v28/app.py	380	@app.get("/api/rf-field/demo")
+backend/readonly_bridge_v28/app.py	381	@app.get("/api/rf-field")
+backend/readonly_bridge_v28/app.py	400	@app.get("/api/rfpro/state")
+backend/readonly_bridge_v28/app.py	401	@app.get("/api/rfpro")
+backend/readonly_bridge_v28/app.py	402	@app.get("/api/rfpro/console")
+backend/readonly_bridge_v28/app.py	403	@app.get("/api/rfpro/device/info")
+backend/readonly_bridge_v28/app.py	404	@app.get("/api/rfpro/bridges/state")
+backend/readonly_bridge_v28/app.py	419	@app.get("/api/evidence/index")
+backend/readonly_bridge_v28/app.py	420	@app.get("/api/persistence/status")
+backend/readonly_bridge_v28/app.py	421	@app.get("/api/evidence")
+backend/readonly_bridge_v28/app.py	440	@app.get("/api/restricted/status")
+backend/readonly_bridge_v28/app.py	441	@app.get("/api/restricted")
+backend/readonly_bridge_v28/app.py	456	@app.get("/api/access-trust")
+backend/readonly_bridge_v28/app.py	457	@app.get("/api/soc-noc")
+backend/readonly_bridge_v28/app.py	470	@app.get("/api/core-live/events")
+backend/readonly_bridge_v28/app.py	512	@app.get("/api/rfpro/bandplan")
+backend/readonly_bridge_v28/app.py	515	        "/api/rfpro/bandplan",
+backend/readonly_bridge_v28/app.py	530	@app.get("/api/rfpro/bridges/blueway/state")
+backend/readonly_bridge_v28/app.py	533	        "/api/rfpro/bridges/blueway/state",
+backend/readonly_bridge_v28/app.py	545	@app.get("/api/rfpro/bridges/markvii/preflight")
+backend/readonly_bridge_v28/app.py	548	        "/api/rfpro/bridges/markvii/preflight",
+backend/readonly_bridge_v28/app.py	562	@app.get("/api/rfpro/bridges/soapy/probe")
+backend/readonly_bridge_v28/app.py	565	        "/api/rfpro/bridges/soapy/probe",
+backend/readonly_bridge_v28/app.py	577	@app.api_route("/api/rfpro/bridges/gnuradio/export", methods=["GET", "POST"])
+backend/readonly_bridge_v28/app.py	580	        "/api/rfpro/bridges/gnuradio/export",
+backend/readonly_bridge_v28/app.py	591	@app.api_route("/api/rfpro/bridges/sdrpp/export", methods=["GET", "POST"])
+backend/readonly_bridge_v28/app.py	594	        "/api/rfpro/bridges/sdrpp/export",
+backend/readonly_bridge_v28/app.py	605	@app.get("/api/rfpro/evidence/manifest")
+backend/readonly_bridge_v28/app.py	608	        "/api/rfpro/evidence/manifest",
+backend/readonly_bridge_v28/app.py	621	@app.get("/api/rfpro/file/wav/{filename:path}")
+backend/readonly_bridge_v28/app.py	624	        f"/api/rfpro/file/wav/{filename}",
+backend/readonly_bridge_v28/app.py	636	@app.api_route("/api/rfpro/iq/capture", methods=["GET", "POST"])
+backend/readonly_bridge_v28/app.py	639	        "/api/rfpro/iq/capture",
+backend/readonly_bridge_v28/app.py	651	@app.api_route("/api/rfpro/spectrum/sweep", methods=["GET", "POST"])
+backend/readonly_bridge_v28/app.py	654	        "/api/rfpro/spectrum/sweep",
+backend/readonly_bridge_v28/app.py	671	@app.get("/api/rfpro/uav/fhss")
+backend/readonly_bridge_v28/app.py	674	        "/api/rfpro/uav/fhss",
+backend/readonly_bridge_v28/app.py	689	@app.get("/api/rfpro/uav/profiles")
+backend/readonly_bridge_v28/app.py	692	        "/api/rfpro/uav/profiles",
+backend/readonly_bridge_v28/app.py	705	@app.get("/api/v585/ws/spectrum")
+backend/readonly_bridge_v28/app.py	708	        "/api/v585/ws/spectrum",
+backend/readonly_bridge_v28/app.py	720	@app.get("/api/access-trust/rat/demo")
+backend/readonly_bridge_v28/app.py	723	        "/api/access-trust/rat/demo",
+backend/readonly_bridge_v28/app.py	736	@app.get("/api/access-trust/wifi/demo")
+backend/readonly_bridge_v28/app.py	739	        "/api/access-trust/wifi/demo",
+backend/readonly_bridge_v28/app.py	752	@app.get("/api/soc-noc/correlation/demo")
+backend/readonly_bridge_v28/app.py	755	        "/api/soc-noc/correlation/demo",
+frontend/src/shared/liveContractsV32R1.ts	21	  mission: '/api/mission/status',
+frontend/src/shared/liveContractsV32R1.ts	22	  open5gs: '/api/core/open5gs/status',
+frontend/src/shared/liveContractsV32R1.ts	23	  ueransim: '/api/ran/ueransim/status',
+frontend/src/shared/liveContractsV32R1.ts	24	  bandplan: '/api/rfpro/bandplan',
+frontend/src/shared/liveContractsV32R1.ts	25	  spectrumSweep: '/api/rfpro/spectrum/sweep',
+frontend/src/shared/liveContractsV32R1.ts	26	  socNoc: '/api/soc-noc/correlation/demo',
+frontend/src/app/main.tsx.bak_rf_source_bridge_v7_20260525_142149	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_enterprise_css_20260525_115628	142	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_evidence_v10_20260525_143909	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_chunk_observatory_v16_20260525_151906	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_surface_v3_worker_20260525_134553	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_instrument_suite_v5_20260525_141512	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_surface_v2_20260525_120055	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_instrument_lab_20260525_111803	142	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_zero_forbidden	142	    const ws = new WebSocket('ws://127.0.0.1:8000/api/events/stream')
+frontend/src/app/main.tsx.bak_rf_instrument_dock_v4_20260525_140914	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_operational_deck_v15_lazy_20260525_151305	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_true_spectrum_20260525_113619	142	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_source_runtime_v8_20260525_142516	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_bridge_readiness_v9_20260525_143127	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_api8000_20260517_143049	142	    const ws = new WebSocket('ws://127.0.0.1:8000/api/events/stream')
+frontend/src/app/main.tsx	144	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_operational_deck_v14_auto_20260525_150553	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/app/main.tsx.bak_rf_suite_v6_turbo_20260525_141826	143	    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/src/layout_orchestrator/EngineeringContentEnrichmentV49.tsx	57	    liveContracts: ['/api/health', '/api/mission/status'],
+frontend/src/layout_orchestrator/EngineeringContentEnrichmentV49.tsx	89	    liveContracts: ['/api/rfpro/spectrum/sweep', '/api/mission/status'],
+frontend/src/layout_orchestrator/EngineeringContentEnrichmentV49.tsx	121	    liveContracts: ['/api/mission/status', '/api/core/open5gs/status', '/api/ran/ueransim/status', '/api/rfpro/spectrum/sweep'],
+frontend/src/layout_orchestrator/EngineeringContentEnrichmentV49.tsx	137	    liveContracts: ['/api/rfpro/spectrum/sweep', '/api/mission/status'],
+frontend/src/layout_orchestrator/EngineeringContentEnrichmentV49.tsx	153	    liveContracts: ['/api/health', '/api/mission/status', '/api/rfpro/spectrum/sweep'],
+frontend/src/rf_instruments/evidence/RFEvidenceFlightRecorderV10.tsx	69	    url: "http://127.0.0.1:8000/api/health",
+frontend/src/rf_instruments/evidence/RFEvidenceFlightRecorderV10.tsx	75	    url: "http://127.0.0.1:8090/api/health",
+frontend/src/rf_instruments/telemetry/RFBridgeReadinessV9Base.tsx	37	    url: "http://127.0.0.1:8000/api/health",
+frontend/src/rf_instruments/telemetry/RFBridgeReadinessV9Base.tsx	43	    url: "http://127.0.0.1:8090/api/health",
+frontend/src/rf_instruments/sources/RFSourceTypes.ts	91	    endpoint: "ws://127.0.0.1:8000/api/events/stream",
+frontend/src/command_center/commandCenterDataV37.ts	28	    liveEndpoint: '/api/mission/status',
+frontend/src/command_center/commandCenterDataV37.ts	43	    liveEndpoint: '/api/core/open5gs/status',
+frontend/src/command_center/commandCenterDataV37.ts	58	    liveEndpoint: '/api/ran/ueransim/status',
+frontend/src/command_center/commandCenterDataV37.ts	73	    liveEndpoint: '/api/rfpro/spectrum/sweep',
+frontend/src/command_center/commandCenterDataV37.ts	88	    liveEndpoint: '/api/rfpro/bandplan',
+frontend/src/command_center/commandCenterDataV37.ts	103	    liveEndpoint: '/api/soc-noc/correlation/demo',
+frontend/src/navigation/navigationDataV39.ts	26	    liveEndpoint: '/api/mission/status',
+frontend/src/navigation/navigationDataV39.ts	51	    liveEndpoint: '/api/rfpro/spectrum/sweep',
+frontend/src/navigation/navigationDataV39.ts	76	    liveEndpoint: '/api/rfpro/bandplan',
+frontend/src/navigation/navigationDataV39.ts	125	    liveEndpoint: '/api/core/open5gs/status',
+frontend/src/navigation/navigationDataV39.ts	150	    liveEndpoint: '/api/soc-noc/correlation/demo',
+frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	27	    liveEndpoint: '/api/mission/status',
+frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	63	    liveEndpoint: '/api/rfpro/spectrum/sweep',
+frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	99	    liveEndpoint: '/api/rfpro/bandplan',
+frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	153	    liveEndpoint: '/api/core/open5gs/status',
+frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	171	    liveEndpoint: '/api/core/open5gs/status',
+frontend/src/knowledge_binding/scenarioKnowledgeBindingDataV40.ts	206	    liveEndpoint: '/api/soc-noc/correlation/demo',
+frontend/public/runtime_golden_check_console_v29.html	158	  <a href="/api/health">Health API</a>
+frontend/public/runtime_golden_check_console_v29.html	159	  <a href="/api/docs/index">Docs API</a>
+frontend/public/trfmc_domain_registry_v1.html	104	    <a href="/api/health">Health</a>
+frontend/public/signal_demod_v581.html	22	async function loadFiles(){const j=await api('/api/v581/iq/files');const sel=$('iqFile');sel.innerHTML='';(j.iq||[]).forEach(f=>{const o=document.createElement('option');o.value=f.name;o.textContent=f.name;sel.appendChild(o)});const tb=$('f
+frontend/public/signal_demod_v581.html	23	async function selftestSignal(){const j=await api('/api/v581/iq/selftest_signal',{method:'POST',body:JSON.stringify({mode:$('mode').value,sample_rate:+$('sr').value,seconds:2,tone_hz:1000,carrier_offset_hz:+$('off').value})});log('Selftest 
+frontend/public/signal_demod_v581.html	24	async function analyze(){const j=await api('/api/v581/iq/analyze_plus',{method:'POST',body:JSON.stringify({filename:$('iqFile').value||null,sample_rate:+$('sr').value,fft_size:8192,max_seconds:+$('sec').value})});log('Analyze plus',j);drawS
+frontend/public/signal_demod_v581.html	25	async function demod(){const j=await api('/api/v581/iq/channelize_demod',{method:'POST',body:JSON.stringify(body())});log('Channelize + demod',j);renderMetrics(j.channel_metrics||{});$('player').src=j.wav_url;await loadFiles();}
+frontend/public/signal_demod_v581.html	26	async function modes(){const j=await api('/api/v581/demod/modes');log('Modes',j)}async function lastReport(){const j=await api('/api/v581/iq/last_report');log('Last report',j)}loadFiles().catch(e=>log('Errore files',e.message));
+frontend/public/scenario_runner_console_v16.html	197	  TRFMC v0.16 · API: /api/scenarios/catalog · /api/scenarios/run/{scenario_id} · /api/scenarios/runs
+frontend/public/rfpro_fullband_v586.html	83	  const r=await fetch('/api/v586/fullband/sweep',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+frontend/public/rfpro_fullband_v586.html	128	fetch('/api/v586/fullband/state').then(r=>r.json()).then(j=>log('State',j));
+frontend/public/signal_workbench_v582.html	239	  try{const j=await api('/api/v581/selftest');$('apiBadge').textContent='API OK';$('apiBadge').className='badge ok';log('Selftest API',j)}
+frontend/public/signal_workbench_v582.html	245	    const j=await api('/api/v580/workbench/sweep/window',{method:'POST',body:JSON.stringify(body)});
+frontend/public/signal_workbench_v582.html	254	    const j=await api('/api/v581/iq/files');const sel=$('iqFile');sel.innerHTML='';
+frontend/public/signal_workbench_v582.html	262	  try{const j=await api('/api/v581/iq/selftest_signal',{method:'POST',body:JSON.stringify({mode:$('mode').value,sample_rate:+$('sr').value,seconds:2,tone_hz:1000,carrier_offset_hz:+$('off').value})});log('Selftest IQ creato',j);await loadFi
+frontend/public/signal_workbench_v582.html	267	    const j=await api('/api/v581/iq/analyze_plus',{method:'POST',body:JSON.stringify({filename:$('iqFile').value||null,sample_rate:+$('sr').value,fft_size:8192,max_seconds:+$('sec').value})});
+frontend/public/signal_workbench_v582.html	274	    const j=await api('/api/v581/iq/channelize_demod',{method:'POST',body:JSON.stringify(body)});
+frontend/public/signal_workbench_v582.html	278	async function modes(){try{log('Modes',await api('/api/v581/demod/modes'))}catch(e){log('Errore modes',e.message)}}
+frontend/public/signal_workbench_v582.html	279	async function lastReport(){try{log('Last report',await api('/api/v581/iq/last_report'))}catch(e){log('Errore report',e.message)}}
+frontend/public/trfmc_master_digital_twin_console_v1.html	318	      <a href="/api/health">Health</a>
+frontend/public/trfmc_master_digital_twin_console_v1.html	605	      ["/api/docs/index","API Docs Index"]
+frontend/public/security_console_v18.html	193	  TRFMC v0.18 · API: /api/security/posture · /api/security/access-policy · /api/security/runtime-checks · /api/security/audit-log · /api/security/readiness
+frontend/public/timeline_console_v14.html	201	  TRFMC v0.14 · API: /api/timeline/evidence · /api/timeline/replay · /api/timeline/correlation/{id}
+frontend/public/trfmc_enterprise_prime_portal_v1.html	98	<a href="/api/health">Portal Health JSON</a>
+frontend/public/trfmc_enterprise_prime_portal_v1.html	128	async function health(){try{let r=await fetch("/api/health",{cache:"no-store"}),j=await r.json();$("healthPill").textContent=j.ok?"Health: online":"Health: degraded";$("portalStatus").textContent=j.ok?"online / 5173":"degraded"}catch(e){$("
+frontend/public/assets/trfmc_v087g_public_operational_home.js	87	  fetch("/api/health", { cache: "no-store" })
+frontend/public/assets/trfmc_v086b_r1_performance_gpu_gate.js	76	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_unified_enterprise_shell_v70.js	156	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_unified_enterprise_shell_v70.js	168	        const m = await fetch("/api/observability/health-matrix", {cache:"no-store"});
+frontend/public/assets/trfmc_v086c_portal_registry.js	16	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_ue_handover_dynamics_v69.js	535	      const r = await fetch("/api/health", { cache:"no-store" });
+frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.js	12	      endpoint: "4181/api/mission/status · 4181/api/health",
+frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.js	22	      endpoint: "4181/api/rfpro/spectrum/sweep",
+frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.js	62	      endpoint: "8000/api/health and future Open5GS/UERANSIM bridge.",
+frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.js	91	    { key: "Bridge", url: "http://127.0.0.1:4181/api/health" },
+frontend/public/assets/trfmc_engineering_completeness_matrix_v51r3.js	92	    { key: "Backend", url: "http://127.0.0.1:8000/api/health" }
+frontend/public/assets/trfmc_v086b_performance_gpu_gate.js	65	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_field_telemetry_v65.js	9	      const h=await getJson("/api/health");
+frontend/public/assets/trfmc_field_telemetry_v65.js	10	      let m=null; try{m=await getJson("/api/observability/health-matrix");}catch(e){}
+frontend/public/assets/trfmc_seasonal_vegetation_clutter_v68.js	36	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_master_shell_v75.js	80	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_v086c_r1_portal_registry.js	19	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_v086d_r1_noiframe_route_console.js	20	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/assets/trfmc_visual_qa_matrix_v71.js	31	      const r = await fetch("/api/health", {cache:"no-store"});
+frontend/public/trfmc_core_network_live_ops_bridge_v1.html	81	    /api/core-live/health<br>
+frontend/public/trfmc_core_network_live_ops_bridge_v1.html	82	    /api/core-live/status<br>
+frontend/public/trfmc_core_network_live_ops_bridge_v1.html	83	    /api/core-live/events
+frontend/public/trfmc_core_network_live_ops_bridge_v1.html	179	    last=await fetchCore("/api/core-live/status");
+frontend/public/trfmc_core_network_live_ops_bridge_v1.html	209	window.refresh=refresh; window.openApi=()=>window.open(coreApiBase()+"/api/core-live/status","_blank");
+frontend/public/trfmc_official_safe_entrypoint_v6r3_command_center.html	194	  try{const r=await fetch("/api/health",{cache:"no-store"});log("/api/health → HTTP "+r.status)}
+frontend/public/trfmc_official_safe_entrypoint_v6r3_command_center.html	195	  catch(e){log("/api/health → ERR")}
+frontend/public/portal_index_v19.html	376	    <div class="links"><a class="btn" href="/api/portal/index">Portal API</a></div>
+frontend/public/trfmc_pr200_field_monitoring_receiver_v1.html	135	async function health(){try{let r=await fetch("/api/health"),j=await r.json();$("health").textContent=j.ok?"Health online":"Health degraded"}catch(e){$("health").textContent="Health unavailable"}}
+frontend/public/trfmc_engine_promotion_board_v1.html	139	    <a href="/api/health">Health</a>
+frontend/public/scenario_report_console_v17.html	182	  TRFMC v0.17 · API: /api/reports/latest · /api/reports/scenario/{run_id} · /api/reports/export/html/{run_id}
+frontend/public/trfmc_unified_navigation_shell_v1.html	321	      <a href="/api/health">API Health</a>
+frontend/public/trfmc_unified_navigation_shell_v1.html	400	    const res = await fetch("/api/health", {cache:"no-store"});
+frontend/public/observability_console_v13.html	188	    TRFMC v0.13 · Observability & Evidence Console · API: /api/observability/*
+frontend/public/observability_console_v13.html	294	  const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+frontend/public/trfmc_unified_matrix_room_v3.html	325	  try{ const res=await fetch("/api/health",{cache:"no-store"}); log("/api/health → HTTP "+res.status); }
+frontend/public/trfmc_unified_matrix_room_v3.html	326	  catch(e){ log("/api/health → ERR"); }
+frontend/public/api/docs/index	19	<li><a href="/api/health">/api/health</a></li>
+frontend/public/trfmc_rf_spectrum_lab_v1.html	321	      <a href="/api/health">Health</a>
+frontend/public/trfmc_rf_spectrum_lab_v1.html	481	    const res = await fetch("/api/health", {cache:"no-store"});
+frontend/public/trfmc_runtime_readiness_latest.json	6	    "health_url": "http://127.0.0.1:5173/api/health",
+frontend/public/rfpro_unified_console.html	82	async function sweep(){try{$('liveBadge').textContent='SWEEP';$('liveBadge').className='badge warn';$('statusHackrf').textContent=cfg().use_hackrf;const j=await api('/api/rfpro/spectrum/sweep',{method:'POST',body:JSON.stringify(cfg())});app
+frontend/public/rfpro_unified_console.html	87	async function bandPlan(){document.querySelectorAll('.bandTag').forEach(x=>x.remove());if(!points.length)return;const minF=points[0].freq_hz,maxF=points[points.length-1].freq_hz;try{const j=await api(`/api/rfpro/bandplan?start_hz=${minF}&st
+frontend/public/rfpro_unified_console.html	97	function wsStart(){wsStop();const proto=location.protocol==='https:'?'wss':'ws';ws=new WebSocket(`${proto}://${location.host}/api/rfpro/ws/spectrum`);ws.onopen=()=>{ws.send(JSON.stringify({...cfg(),fps:2}));$('liveBadge').textContent='LIVE'
+frontend/public/rfpro_unified_console.html	99	async function deviceInfo(){try{log('device info',await api('/api/rfpro/device/info'))}catch(e){log('device info error',e.message)}}
+frontend/public/rfpro_unified_console.html	100	async function loadUavProfiles(){try{const j=await api('/api/rfpro/uav/profiles');const s=$('uavProfile');s.innerHTML='';Object.entries(j.profiles).forEach(([k,v])=>{const o=document.createElement('option');o.value=k;o.textContent=k;s.appen
+frontend/public/rfpro_unified_console.html	101	async function uavRun(){try{const j=await api('/api/rfpro/uav/fhss',{method:'POST',body:JSON.stringify({profile_id:$('uavProfile').value,iterations:+$('uavIter').value,dwell_ms:+$('uavDwell').value,use_hackrf:$('useHackrf').value==='true'})
+frontend/public/rfpro_unified_console.html	102	async function iqCapture(){try{const j=await api('/api/rfpro/iq/capture',{method:'POST',body:JSON.stringify({center_hz:+$('centerMHz').value*1e6,sample_rate:+$('sampleRate').value,seconds:2,lna_gain:+$('lna').value,vga_gain:+$('vga').value,
+frontend/public/rfpro_unified_console.html	103	async function iqSelftest(){try{const j=await api('/api/v581/iq/selftest_signal',{method:'POST',body:JSON.stringify({mode,sample_rate:+$('sampleRate').value,seconds:2,tone_hz:1000,carrier_offset_hz:0})});log('IQ selftest',j);manifest()}catc
+frontend/public/rfpro_unified_console.html	104	async function iqAnalyze(){try{const j=await api('/api/v581/iq/analyze_plus',{method:'POST',body:JSON.stringify({sample_rate:+$('sampleRate').value,fft_size:8192,max_seconds:5})});log('IQ analyze',j)}catch(e){log('IQ analyze error',e.messag
+frontend/public/rfpro_unified_console.html	105	async function iqDemod(){try{const j=await api('/api/v581/iq/channelize_demod',{method:'POST',body:JSON.stringify({sample_rate:+$('sampleRate').value,freq_offset_hz:+$('offsetHz').value,channel_bw_hz:+$('demodBw').value,mode,max_seconds:5,a
+frontend/public/rfpro_unified_console.html	106	async function manifest(){try{const j=await api('/api/rfpro/evidence/manifest');const tb=$('files');tb.innerHTML='';['iq','wav','reports','uav','realtime'].forEach(k=>(j[k]||[]).slice(0,12).forEach(f=>{const tr=document.createElement('tr');
+frontend/public/rfpro_unified_console.html	107	async function state(){try{log('state',await api('/api/rfpro/state'))}catch(e){log('state error',e.message)}}
+frontend/public/rfpro_unified_console.html	109	async function bridgesState(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/state'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+frontend/public/rfpro_unified_console.html	110	async function soapyProbe(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/soapy/probe'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+frontend/public/rfpro_unified_console.html	111	async function gnuradioExport(){try{const body={sample_rate:+$('sampleRate').value,freq_offset_hz:+$('offsetHz').value,channel_bw_hz:+$('demodBw').value,decimation:20};$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/
+frontend/public/rfpro_unified_console.html	112	async function sdrppExport(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/sdrpp/export'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+frontend/public/rfpro_unified_console.html	113	async function markviiPreflight(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/markvii/preflight'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+frontend/public/rfpro_unified_console.html	114	async function bluewayState(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/blueway/state'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+frontend/public/evidence_vault_console_v20.html	185	  TRFMC v0.20 · API: /api/vault/status · /api/vault/archive/latest · /api/vault/reports · /api/vault/snapshot/latest
+frontend/public/trfmc_signal_world_engine_v2.html	287	      <a href="/api/health">Health</a>
+frontend/public/trfmc_signal_world_engine_v2.html	917	    const res=await fetch("/api/health",{cache:"no-store"});
+frontend/public/trfmc_5g_core_ran_identity_aka_engine_v1.html	634	    const r=await fetch("/api/health",{cache:"no-store"});
+frontend/public/mission_graph_console_v15.html	240	  TRFMC v0.15 · API: /api/correlation/graph · /api/correlation/assets/{asset_id} · /api/correlation/incidents
+frontend/public/trfmc_rf_tm_signal_universe_v3.html	285	      <a href="/api/health">Health</a>
+frontend/public/trfmc_rf_tm_signal_universe_v3.html	958	    const r=await fetch("/api/health",{cache:"no-store"});
+frontend/public/rfpro_realtime_v585.html	82	function connectWS(){stopWS();const proto=location.protocol==='https:'?'wss':'ws';ws=new WebSocket(`${proto}://${location.host}/api/v585/ws/spectrum`);$('wsBadge').textContent='CONNECTING';$('wsBadge').className='badge warn';ws.onopen=()=>{
+frontend/public/rfpro_realtime_v585.html	85	async function oneFrame(){const c=cfg();const q=new URLSearchParams({start_hz:c.start_hz,stop_hz:c.stop_hz,bin_hz:c.bin_hz,use_hackrf:c.use_hackrf});const r=await fetch('/api/v585/realtime/one_frame?'+q);renderFrame(await r.json())}
+frontend/public/rfpro_realtime_v585.html	92	fetch('/api/v585/realtime/state').then(r=>r.json()).then(j=>log('Realtime state',j)).catch(e=>log('State error',e.message));
+frontend/public/runtime_golden_check_snapshot.json	98	          "endpoint": "/api/docs/operator-handbook",
+frontend/public/runtime_golden_check_snapshot.json	107	          "endpoint": "/api/docs/architecture",
+frontend/public/runtime_golden_check_snapshot.json	116	          "endpoint": "/api/docs/backup-restore",
+frontend/public/runtime_golden_check_snapshot.json	125	          "endpoint": "/api/docs/release-chain",
+frontend/public/runtime_golden_check_snapshot.json	134	          "endpoint": "/api/docs/security",
+frontend/public/runtime_golden_check_snapshot.json	143	          "endpoint": "/api/docs/commands",
+frontend/public/trfmc_rf_tm_war_room_v4.html	1110	    const r=await fetch("/api/health",{cache:"no-store"});
+frontend/public/rfpro_master_v583.html	68	      <button class="good" onclick="loadFrame('/api/v586/fullband/page')">Open v5.8.6 Full Band</button>
+frontend/public/rfpro_master_v583.html	69	      <button class="good" onclick="loadFrame('/api/v585/realtime/page')">Open v5.8.5 Realtime</button>
+frontend/public/rfpro_master_v583.html	70	      <button class="good" onclick="loadFrame('/api/v582/workbench/page')">Open v5.8.2 Restored Workbench</button>
+frontend/public/rfpro_master_v583.html	71	      <button onclick="loadFrame('/api/v581/demod/page')">Open v5.8.1 Demod PRO</button>
+frontend/public/rfpro_master_v583.html	72	      <button onclick="loadFrame('/api/v580/workbench/page')">Open v5.8.0 Original Workbench</button>
+frontend/public/rfpro_master_v583.html	113	      <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /api/v582/workbench/page</div></
+frontend/public/rfpro_master_v583.html	135	async function state(){try{const j=await api('/api/v583/master/state');$('apiBadge').textContent='API OK';$('apiBadge').className='badge ok';$('kModules').textContent=(j.modules||[]).length;log('Master state',j)}catch(e){$('apiBadge').textC
+frontend/public/rfpro_master_v583.html	136	async function registry(){try{log('Registry',await api('/api/v583/master/registry'))}catch(e){log('Registry error',e.message)}}
+frontend/public/rfpro_master_v583.html	137	async function workflow(){try{log('Workflow',await api('/api/v583/master/workflow'))}catch(e){log('Workflow error',e.message)}}
+frontend/public/rfpro_master_v583.html	138	async function audit(){try{log('Audit No-Loss',await api('/api/v583/master/audit'))}catch(e){log('Audit error',e.message)}}
+frontend/public/rfpro_master_v583.html	139	async function files(){try{const j=await api('/api/v583/master/files');$('kReports').textContent=(j.reports||[]).length;const tb=$('files');tb.innerHTML='';['iq','wav','reports'].forEach(k=>(j[k]||[]).forEach(f=>{const tr=document.createEle
+frontend/public/rfpro_master_v583.html	140	async function quickSweep(){try{const body={start_hz:hzMHz('startMHz'),stop_hz:hzMHz('stopMHz'),bin_hz:+$('binHz').value,points:800,use_hackrf:true};log('Quick Sweep request',body);log('Quick Sweep result',await api('/api/v580/workbench/swe
+frontend/public/rfpro_master_v583.html	141	async function quickSelftest(){try{const body={mode:$('mode').value,sample_rate:+$('sr').value,seconds:2,tone_hz:1000,carrier_offset_hz:+$('off').value};log('Selftest request',body);log('Selftest result',await api('/api/v581/iq/selftest_sig
+frontend/public/rfpro_master_v583.html	142	async function quickAnalyze(){try{const body={filename:$('iqFile').value||null,sample_rate:+$('sr').value,fft_size:8192,max_seconds:5};log('Analyze request',body);log('Analyze result',await api('/api/v581/iq/analyze_plus',{method:'POST',bod
+frontend/public/rfpro_master_v583.html	143	async function quickDemod(){try{const body={filename:$('iqFile').value||null,sample_rate:+$('sr').value,freq_offset_hz:+$('off').value,channel_bw_hz:+$('bw').value,mode:$('mode').value,max_seconds:5,audio_rate:48000};log('Demod request',bod
+frontend/public/trfmc_converged_rf_5g_noc_v1.html	802	    const r=await fetch("/api/health",{cache:"no-store"});
+frontend/public/trfmc_safe_runtime_action_console_v1.html	30	<div class="cmd"><b>Health portale 5173</b><p>Verifica middleware locale.</p><pre>curl -s --max-time 5 127.0.0.1:5173/api/health | python3 -m json.tool</pre><button onclick="copyCmd(this)">Copy</button></div>
+frontend/public/trfmc_safe_runtime_action_console_v1.html	40	  127.0.0.1:5173/api/health
+frontend/public/trfmc_safe_runtime_action_console_v1.html	69	async function health(){try{let r=await fetch("/api/health",{cache:"no-store"}),j=await r.json();document.getElementById("healthPill").textContent=j.ok?"Health: online":"Health: degraded"}catch(e){document.getElementById("healthPill").textC
+frontend/public/trfmc_unified_instrument_shell_lab_v2.html	381	    const res=await fetch("/api/health",{cache:"no-store"});
+frontend/public/trfmc_unified_instrument_shell_lab_v2.html	382	    log("/api/health → HTTP "+res.status);
+frontend/public/trfmc_unified_instrument_shell_lab_v2.html	384	    log("/api/health → ERR");
+frontend/public/trfmc_unified_evidence_supervisor_v4.html	264	  ["HEALTH","Verifica HTTP pagine e /api/health"],
+frontend/public/trfmc_unified_evidence_supervisor_v4.html	366	    const res=await fetch("/api/health",{cache:"no-store"});
+frontend/public/trfmc_unified_evidence_supervisor_v4.html	368	    log("/api/health → HTTP "+res.status);
+frontend/public/trfmc_unified_evidence_supervisor_v4.html	371	    log("/api/health → ERR");
+frontend/public/uav_fhss_v584.html	15	async function loadProfiles(){const j=await api('/api/v584/uav/profiles');profiles=j.profiles||{};const sel=$('profile');sel.innerHTML='';Object.keys(profiles).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=k+'
+frontend/public/uav_fhss_v584.html	18	async function sweepBand(){const j=await api('/api/v584/uav/sweep_band',{method:'POST',body:JSON.stringify(settings())});show({ok:j.ok,source_state:j.source_state,file:j.name,sha256:j.sha256,snapshots:j.snapshots.length});log('Sweep band do
+frontend/public/uav_fhss_v584.html	19	async function analyzeHopping(){const j=await api('/api/v584/uav/hopping/analyze',{method:'POST',body:'{}'});show(j);$('kLik').textContent=j.likelihood;$('kScore').textContent=j.fhss_score;$('kCh').textContent=j.unique_channels;$('kTr').tex
+frontend/public/uav_fhss_v584.html	20	async function analyzeBursts(){const body={filename:$('iqFile').value||null,sample_rate:+$('sr').value,max_seconds:+$('sec').value,threshold_sigma:+$('sigma').value,min_burst_us:+$('minBurst').value,merge_gap_us:+$('mergeGap').value};const 
+frontend/public/uav_fhss_v584.html	21	async function linkReport(){const j=await api('/api/v584/uav/link/report',{method:'POST',body:'{}'});show(j);await files()}
+frontend/public/uav_fhss_v584.html	22	async function files(){const j=await api('/api/v584/uav/files');const sel=$('iqFile');sel.innerHTML='';(j.iq||[]).forEach(f=>{const o=document.createElement('option');o.value=f.name;o.textContent=f.name;sel.appendChild(o)});const tb=$('file
+frontend/public/trfmc_runtime_hook_layer_v1.html	137	    const r = await fetch('/api/health',{cache:'no-store'});
+frontend/public/trfmc_official_safe_entrypoint_v6r2_premium_console.html	163	  try{const r=await fetch("/api/health",{cache:"no-store"});log("/api/health → HTTP "+r.status)}
+frontend/public/trfmc_official_safe_entrypoint_v6r2_premium_console.html	164	  catch(e){log("/api/health → ERR")}
+frontend/public/operator_handbook_console_v23.html	249	  <a href="/api/docs/index">Docs API</a>
+frontend/public/operator_handbook_console_v23.html	293	        <a id="raw_api_link" href="/api/docs/index">Raw API</a>
+frontend/public/signal_workbench_v580.html	301	    const j=await api('/api/v580/workbench/state');
+frontend/public/signal_workbench_v580.html	321	    const j=await api('/api/v580/workbench/sweep/window',{method:'POST',body:JSON.stringify(body)});
+frontend/public/signal_workbench_v580.html	329	    const j=await api('/api/v580/workbench/sweep/full',{method:'POST',body:'{}'});
+frontend/public/signal_workbench_v580.html	345	    const j=await api('/api/v580/workbench/iq/capture',{method:'POST',body:JSON.stringify(body)});
+frontend/public/signal_workbench_v580.html	353	    const j=await api('/api/v580/workbench/iq/analyze',{method:'POST',body:JSON.stringify(body)});
+frontend/public/signal_workbench_v580.html	378	    const j=await api('/api/v580/workbench/demod/audio',{method:'POST',body:JSON.stringify(body)});
+frontend/public/signal_workbench_v580.html	383	async function wifiMeta(){try{const j=await api('/api/v580/wifi/metadata?rescan=false'); obs("WiFi metadata", j);}catch(e){obs("Errore WiFi: "+e.message);}}
+frontend/public/signal_workbench_v580.html	384	async function markVII(){try{const j=await api('/api/v580/markvii/recon'); obs("Mark VII Recon bridge", j);}catch(e){obs("Errore Mark VII: "+e.message);}}
+frontend/public/signal_workbench_v580.html	385	async function blueway(){try{const j=await api('/api/v580/blueway/status'); obs("Blueway bridge", j);}catch(e){obs("Errore Blueway: "+e.message);}}
+frontend/public/signal_workbench_v580.html	386	async function modem(){try{const j=await api('/api/v580/modem/cellular'); obs("Modem/cellular observer", j);}catch(e){obs("Errore modem: "+e.message);}}
+frontend/public/signal_workbench_v580.html	387	async function evidence(){try{const j=await api('/api/v580/workbench/evidence',{method:'POST',body:'{}'}); log("Evidence creato", j);}catch(e){log("Errore evidence: "+e.message);}}
+frontend/public/signal_workbench_v580.html	388	async function files(){try{const j=await api('/api/v580/workbench/files'); log("Files", j);}catch(e){log("Errore files: "+e.message);}}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Expansion Hub V1</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<script defer="" src="/assets/trfmc_design_system/trfmc_leaf_webgl_v1.js"></script>
+</head>
+<body class="trfmc-leaf">
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC Expansion Hub V1</div>
+    <div class="leaf-sub">Nuove strutture leaf: teoria, RF, Microwave, Fiber, Private Networks, Data Center, Cyber RF, Knowledge Base</div>
+  </div>
+  <div class="leaf-kpis">
+    <div class="leaf-kpi"><small>Modules</small><b>8</b></div>
+    <div class="leaf-kpi"><small>Iframe</small><b>0</b></div>
+    <div class="leaf-kpi"><small>CDN</small><b>0</b></div>
+    <div class="leaf-kpi"><small>Shell</small><b>V6R3</b></div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="leaf-btn" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </div>
+</header>
+
+<div class="leaf-layout">
+  <aside class="leaf-panel">
+    <h2>Policy</h2>
+    <div class="leaf-scroll">
+      <div class="leaf-card">
+        <h3>Metodo</h3>
+        <p>Questo hub non è una nuova shell. È un indice tecnico delle nuove pagine leaf create per completare il portale.</p>
+        <span class="leaf-badge leaf-ok">NO IFRAME</span>
+        <span class="leaf-badge leaf-ok">NO CDN</span>
+        <span class="leaf-badge leaf-ok">NO DOPPIA BAR</span>
+      </div>
+      <div class="leaf-card">
+        <h3>Catena di qualità</h3>
+        <p>Snapshot, registry, HTTP test, content test, controllo iframe/CDN, freeze se PASS.</p>
+      </div>
+    </div>
+  </aside>
+
+  <main class="leaf-panel leaf-stage">
+    <canvas class="leaf-canvas" data-trfmc-webgl=""></canvas>
+    <div class="leaf-overlay">
+      <div class="leaf-stage-head">
+        <div class="leaf-stage-title">Expansion Layer</div>
+        <div class="leaf-stage-sub">Struttura controllata per completare il portale senza sporcare V6R3.</div>
+      </div>
+      <div></div>
+      <div class="leaf-stage-foot">
+        <div>Render: <span class="leaf-ok" data-gl-state="">fallback</span></div>
+        <div>Modules: 8</div>
+        <div>Mode: leaf</div>
+        <div>Registry: patched</div>
+        <div>V6R3: locked</div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="leaf-panel">
+    <h2>Nuovi moduli</h2>
+    <div class="leaf-scroll"><div class="leaf-card">
+<h3>02_RF_Physics</h3>
+<p><b>RF Physics Theory Atlas V2</b></p>
+<p>Maxwell · Fourier · propagazione · fase · rumore · coerenza</p>
+<a class="leaf-btn" href="/trfmc_rf_physics_theory_atlas_v2.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>06_Microwave_Link</h3>
+<p><b>Microwave Link Operations Center V2</b></p>
+<p>LOS · Fresnel · rain fade · RSL · BER · XPIC · adaptive modulation</p>
+<a class="leaf-btn" href="/trfmc_microwave_link_operations_center_v2.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>07_Fiber_Optic</h3>
+<p><b>Fiber / Fronthaul / OTDR Workbench V2</b></p>
+<p>ODF · LC/SC/MPO · CPRI/eCPRI · attenuazione · riflessione · OTDR</p>
+<a class="leaf-btn" href="/trfmc_fiber_fronthaul_otdr_workbench_v2.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>08_Private_Networks</h3>
+<p><b>Private Networks / Wi-Fi 7 / 5G Mesh Lab</b></p>
+<p>5G SA private · Wi-Fi 7 · MLO · TSN · MEC · industrial mesh</p>
+<a class="leaf-btn" href="/trfmc_private_networks_wifi7_5g_mesh_v1.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>05_Antenna_System</h3>
+<p><b>Antenna / RRU / RET / CPRI Port Mapping V5 Reality Asset</b></p>
+<p>sector · azimuth · tilt · AISG/RET · CPRI/eCPRI · MIMO layers</p>
+<a class="leaf-btn" href="/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>10_Data_Center_Infrastructure</h3>
+<p><b>Data Center / Power / PDU Infrastructure Lab</b></p>
+<p>rack · PDU · UPS · -48V · grounding · thermal · SNMP monitoring</p>
+<a class="leaf-btn" href="/trfmc_datacenter_power_pdu_infrastructure_v1.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>11_Cyber_RF_Intelligence</h3>
+<p><b>Cyber RF Intelligence / Evidence Lab</b></p>
+<p>spectrum anomaly · rogue RF · jamming simulation · evidence · correlation</p>
+<a class="leaf-btn" href="/trfmc_cyber_rf_intelligence_evidence_v1.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div>
+<div class="leaf-card">
+<h3>12_Knowledge_Base</h3>
+<p><b>Knowledge Base / Theory / Procedures Atlas</b></p>
+<p>glossario · formule · procedure · troubleshooting · lesson plan</p>
+<a class="leaf-btn" href="/trfmc_knowledge_base_theory_procedures_v1.html">Apri modulo</a>
+<span class="leaf-badge leaf-ok">LEAF</span>
+</div></div>
+  </aside>
+</div>
+
+
+</body></html>

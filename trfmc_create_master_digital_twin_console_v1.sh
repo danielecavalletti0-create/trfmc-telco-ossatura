@@ -1,0 +1,903 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+BASE="/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2"
+PUBLIC="$BASE/frontend/public"
+TS="$(date +%Y%m%d_%H%M%S)"
+
+echo "============================================================"
+echo "TRFMC CREATE MASTER DIGITAL TWIN CONSOLE V1"
+echo "============================================================"
+date
+echo "PUBLIC=$PUBLIC"
+
+mkdir -p "$PUBLIC/assets" "$BASE/runtime/blueprint"
+
+cat > "$PUBLIC/trfmc_master_digital_twin_console_v1.html" <<'HTML'
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Master Digital Twin Console</title>
+<style>
+:root{
+  --bg:#030711;
+  --panel:rgba(8,18,36,.86);
+  --panel2:rgba(12,28,55,.72);
+  --line:rgba(125,190,255,.28);
+  --line2:rgba(125,255,210,.24);
+  --text:#eaf3ff;
+  --muted:#94a9c5;
+  --cyan:#86d7ff;
+  --green:#9dffc7;
+  --amber:#ffd37a;
+  --red:#ff8d8d;
+  --violet:#bda7ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 8%, rgba(50,130,255,.22), transparent 28%),
+    radial-gradient(circle at 84% 20%, rgba(0,255,190,.10), transparent 26%),
+    radial-gradient(circle at 50% 100%, rgba(140,90,255,.13), transparent 30%),
+    linear-gradient(180deg,#030711,#07111f 48%,#030711);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),rgba(0,0,0,.2));
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(18px);
+  background:rgba(3,7,17,.82);
+  border-bottom:1px solid var(--line);
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px 24px;
+}
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.brand h1{
+  margin:0;
+  font-size:22px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.brand small{color:var(--muted)}
+.nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.nav a,.pill{
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  padding:8px 11px;
+  border-radius:999px;
+  font-size:12px;
+}
+.pill.ok{border-color:rgba(157,255,199,.55);color:var(--green)}
+main{
+  padding:24px;
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel),rgba(5,12,25,.86));
+  border-radius:22px;
+  box-shadow:0 18px 60px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.heroText{
+  padding:24px;
+}
+.heroText h2{
+  margin:0 0 12px;
+  font-size:42px;
+  line-height:1.02;
+  letter-spacing:-.04em;
+}
+.heroText p{
+  color:#c9d9ef;
+  max-width:900px;
+  line-height:1.55;
+}
+.kpiGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+.kpi{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.045);
+  border-radius:16px;
+  padding:14px;
+}
+.kpi b{display:block;font-size:24px}
+.kpi span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.stack{
+  padding:18px;
+  display:grid;
+  gap:10px;
+}
+.stackRow{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:12px;
+}
+.stackRow span{color:var(--muted)}
+.layout{
+  display:grid;
+  grid-template-columns:360px minmax(480px,1fr) 360px;
+  gap:18px;
+}
+.moduleList{
+  padding:14px;
+  display:grid;
+  gap:9px;
+  max-height:78vh;
+  overflow:auto;
+}
+.moduleBtn{
+  border:1px solid rgba(125,190,255,.2);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  border-radius:16px;
+  padding:12px;
+  text-align:left;
+  cursor:pointer;
+  transition:.16s ease;
+}
+.moduleBtn:hover,.moduleBtn.active{
+  border-color:rgba(134,215,255,.75);
+  background:linear-gradient(135deg,rgba(50,130,255,.18),rgba(0,255,190,.08));
+  box-shadow:0 0 24px rgba(70,150,255,.12);
+}
+.moduleBtn b{display:block;font-size:14px}
+.moduleBtn small{display:block;color:var(--muted);margin-top:4px;line-height:1.35}
+.engine{
+  padding:16px;
+}
+.engineHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:18px;
+  margin-bottom:12px;
+}
+.engineHead h3{
+  margin:0;
+  font-size:25px;
+}
+.engineHead p{
+  margin:6px 0 0;
+  color:var(--muted);
+  line-height:1.45;
+}
+canvas{
+  width:100%;
+  height:420px;
+  display:block;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(28,80,140,.16),transparent 42%),
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  border:1px solid rgba(125,190,255,.24);
+}
+.controls{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+.control{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:10px;
+}
+.control label{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:12px;
+  color:var(--muted);
+}
+input[type=range]{width:100%}
+.side{
+  padding:16px;
+  display:grid;
+  gap:14px;
+  align-content:start;
+}
+.side h3{
+  margin:0;
+  color:var(--cyan);
+}
+.objectList{
+  display:grid;
+  gap:8px;
+}
+.object{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.04);
+  border-radius:14px;
+  padding:11px;
+}
+.object b{display:block;font-size:13px}
+.object span{display:block;color:var(--muted);font-size:12px;margin-top:3px;line-height:1.35}
+.statusLine{
+  display:grid;
+  gap:8px;
+}
+.meter{
+  height:10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.meter i{
+  display:block;
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+  width:50%;
+}
+.links{
+  display:grid;
+  gap:8px;
+}
+.links a{
+  color:var(--text);
+  text-decoration:none;
+  border:1px solid rgba(125,190,255,.22);
+  background:rgba(255,255,255,.04);
+  border-radius:12px;
+  padding:10px;
+  font-size:13px;
+}
+.note{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+@media(max-width:1280px){
+  .layout{grid-template-columns:300px 1fr}
+  .side{grid-column:1/-1}
+}
+@media(max-width:900px){
+  .hero,.layout{grid-template-columns:1fr}
+  .kpiGrid,.controls{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <h1>TRFMC Master Digital Twin Console</h1>
+      <small>RF · Telco · Cyber · SDR/HackRF · 5G Core/RAN · NOC · Knowledge Base</small>
+    </div>
+    <nav class="nav">
+      <span class="pill ok">Portal 5173</span>
+      <a href="/trfmc_home_v87g.html">Home</a>
+      <a href="/trfmc_collaudo_report.html">Collaudo</a>
+      <a href="/api/health">Health</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="panel heroText">
+      <h2>Digital Twin RF/Telco/Cyber operativo</h2>
+      <p>
+        Questa è la matrice master del portale finale: non una galleria di immagini,
+        ma una console integrata dove ogni dominio tecnico diventa motore interattivo,
+        simulatore, explorer o laboratorio operativo.
+      </p>
+      <div class="kpiGrid">
+        <div class="kpi"><b>12</b><span>domini tecnici primari</span></div>
+        <div class="kpi"><b>0</b><span>asset rotti richiesti</span></div>
+        <div class="kpi"><b>5173</b><span>porta ufficiale unica</span></div>
+      </div>
+    </div>
+    <div class="panel stack">
+      <div class="stackRow"><b>Missione</b><span>NOC + laboratorio + didattica avanzata</span></div>
+      <div class="stackRow"><b>Regola visiva</b><span>oggetti tecnici interattivi, non immagini statiche</span></div>
+      <div class="stackRow"><b>Perimetro RF</b><span>0 Hz → 6 GHz HackRF, FFT, IQ, waterfall</span></div>
+      <div class="stackRow"><b>Perimetro 5G</b><span>Core/RAN, NGAP, PFCP, GTP-U, call-flow</span></div>
+      <div class="stackRow"><b>Perimetro Cyber</b><span>anomalie, jamming, rogue RF, evidence</span></div>
+    </div>
+  </section>
+
+  <section class="layout">
+    <aside class="panel moduleList" id="moduleList"></aside>
+
+    <section class="panel engine">
+      <div class="engineHead">
+        <div>
+          <h3 id="engineTitle">Engine</h3>
+          <p id="engineDesc"></p>
+        </div>
+        <span class="pill" id="engineTag">interactive</span>
+      </div>
+
+      <canvas id="engineCanvas" width="1100" height="560"></canvas>
+
+      <div class="controls">
+        <div class="control">
+          <label>Frequency / Center <b id="freqVal">3.50 GHz</b></label>
+          <input id="freq" type="range" min="1" max="100" value="58">
+        </div>
+        <div class="control">
+          <label>Bandwidth / Spread <b id="bwVal">40 MHz</b></label>
+          <input id="bw" type="range" min="1" max="100" value="44">
+        </div>
+        <div class="control">
+          <label>SNR / Quality <b id="snrVal">28 dB</b></label>
+          <input id="snr" type="range" min="1" max="100" value="72">
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel side">
+      <div>
+        <h3>Oggetti tecnici interattivi</h3>
+        <p class="note">Ogni oggetto qui deve evolvere in motore reale, simulatore, analyzer o console collegabile al laboratorio.</p>
+      </div>
+      <div class="objectList" id="objectList"></div>
+
+      <div>
+        <h3>KPI dominio</h3>
+        <div class="statusLine" id="kpiBox"></div>
+      </div>
+
+      <div>
+        <h3>Console collegate</h3>
+        <div class="links" id="linksBox"></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<script>
+const modules = [
+  {
+    id:"mission",
+    code:"01",
+    title:"Mission Control",
+    tag:"NOC · KPI · Alarms · Lab State",
+    desc:"Stato operativo laboratorio, servizi, allarmi, KPI live, SDR/HackRF, Open5GS/UERANSIM e quality gate.",
+    engine:"Mission Control Engine",
+    objects:[
+      ["Lab State Matrix","stato servizi, porte, runtime, health"],
+      ["Open5GS/UERANSIM Monitor","AMF/SMF/UPF/gNB/UE readiness"],
+      ["HackRF/SDR Control Plane","RX-only, FFT, capture, classificazione"],
+      ["Alarm Correlation Wall","eventi, severità, timeline, evidenze"]
+    ],
+    links:[
+      ["/trfmc_home_v87g.html","TRFMC Home"],
+      ["/runtime_golden_check_console_v29.html","Runtime Golden Check"],
+      ["/observability_console_v13.html","Observability Console"]
+    ]
+  },
+  {
+    id:"rfphysics",
+    code:"02",
+    title:"RF Physics",
+    tag:"Maxwell · Fourier · Phase · Dispersion",
+    desc:"Onde elettromagnetiche, propagazione, FFT, fase, group delay, rumore di fase, coerenza e dispersione.",
+    engine:"RF Physics Field Engine",
+    objects:[
+      ["EM Wave Propagation Engine","campo E/H, fase, attenuazione"],
+      ["Fourier/FFT Explorer","dominio tempo/frequenza interattivo"],
+      ["Group Delay Simulator","fase non lineare e distorsione"],
+      ["Phase Noise Lab","jitter, rumore, maschere spettrali"]
+    ],
+    links:[
+      ["/rf_physics_sapienza_console_v86a.html","RF Physics Console"],
+      ["/webgl_rf_physics_engine_v85e_viewport_discipline.html","WebGL RF Physics Engine"]
+    ]
+  },
+  {
+    id:"signal",
+    code:"03",
+    title:"Signal Analyzer",
+    tag:"Spectrum · Waterfall · IQ · Modulations",
+    desc:"Spettro, waterfall, IQ, costellazioni, AM/FM/PM/QPSK/QAM/OFDM e analisi HackRF fino a 6 GHz.",
+    engine:"RF Spectrum Lab",
+    objects:[
+      ["Spectrum Analyzer","FFT, RBW, span, peak search"],
+      ["Waterfall Engine","tempo-frequenza e persistenza"],
+      ["IQ/Constellation Lab","IQ, EVM, cluster, decision regions"],
+      ["Modulation Classifier","AM/FM/PM/QPSK/QAM/OFDM"]
+    ],
+    links:[
+      ["/trfmc.html","TRFMC Console"],
+      ["/trfmc_home.html","TRFMC Home Classic"]
+    ]
+  },
+  {
+    id:"microwave",
+    code:"04",
+    title:"RF Microwave Engineering",
+    tag:"Smith · VSWR · S11 · Microstrip",
+    desc:"Smith Chart, impedenza, VSWR, S11/return loss, coassiali, microstrip/stripline e patch antenna.",
+    engine:"Smith Chart & Matching Engine",
+    objects:[
+      ["Smith Chart Engine","impedenza normalizzata e matching"],
+      ["VSWR/Return Loss Analyzer","S11, Γ, power reflected"],
+      ["Transmission Line Simulator","coassiale, microstrip, stripline"],
+      ["Patch Antenna Designer","risonanza, feed, substrate"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"antenna",
+    code:"05",
+    title:"Antenna System",
+    tag:"RRU · BBU · RET · AISG · MIMO",
+    desc:"Antenne panel, RRU/BBU, CPRI/eCPRI, RET/AISG, 8T8R/MIMO, tilt, azimuth e port mapping.",
+    engine:"Antenna System Explorer",
+    objects:[
+      ["Panel Antenna Explorer","settori, lobi, azimuth, tilt"],
+      ["RRU/RET/CPRI Port Mapping","porte RF, fibre, AISG, mapping"],
+      ["MIMO Array Simulator","8T8R, beamforming, layer"],
+      ["Tilt/Azimuth Planner","copertura e interferenza"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"mwlink",
+    code:"06",
+    title:"Microwave Link",
+    tag:"LOS · Fresnel · Fade · XPIC",
+    desc:"LOS, Fresnel, fade margin, rain fading, RSL, BER, XPIC e adaptive modulation.",
+    engine:"Microwave Link Budget Engine",
+    objects:[
+      ["LOS/Fresnel Visualizer","zona di Fresnel e ostruzioni"],
+      ["Fade Margin Calculator","margine, disponibilità, attenuazione"],
+      ["Rain Fading Simulator","ITU-style fade stress"],
+      ["XPIC/Adaptive Modulation Lab","cross-polar e profili ACM"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"fiber",
+    code:"07",
+    title:"Fiber Optic",
+    tag:"ODF · OTDR · Fronthaul · Backhaul",
+    desc:"SC/LC/ST/MPO, ODF, attenuazione, riflessione, OTDR e trasporto fronthaul/backhaul.",
+    engine:"Fiber/OTDR Trace Engine",
+    objects:[
+      ["Connector Explorer","SC, LC, ST, MPO, pulizia e mapping"],
+      ["ODF/Fiber Route Mapper","percorso, permute, attestazioni"],
+      ["OTDR Trace Simulator","eventi, riflessioni, splice loss"],
+      ["Fronthaul/Backhaul Planner","latenza, banda, ridondanza"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"private",
+    code:"08",
+    title:"Private Networks",
+    tag:"5G SA · WiFi 7 · MEC · Slicing",
+    desc:"5G SA private, WiFi 7, MLO, industrial mesh, mining/campus/tactical network, slicing, QoS e MEC.",
+    engine:"Private Network Scenario Engine",
+    objects:[
+      ["5G SA Private Planner","slice, QoS, UPF locale"],
+      ["WiFi 7/MLO Explorer","multi-link, canali, interferenza"],
+      ["Industrial Mesh Simulator","nodi, resilienza, routing"],
+      ["MEC Placement Console","latenza, workload, edge"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"core",
+    code:"09",
+    title:"Core Network",
+    tag:"AMF · SMF · UPF · NGAP · PFCP",
+    desc:"AMF/SMF/UPF, NGAP, PFCP, GTP-U, PDU session e call-flow 3GPP.",
+    engine:"5G Core/RAN Call-Flow Engine",
+    objects:[
+      ["3GPP Call-Flow Player","registration, auth, PDU session"],
+      ["NGAP/PFCP/GTP-U Correlator","control/user plane correlation"],
+      ["Open5GS Service Map","NF status e endpoints"],
+      ["UERANSIM Attach Lab","gNB/UE attach timeline"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"dc",
+    code:"10",
+    title:"Data Center Infrastructure",
+    tag:"Rack · UPS · -48V · Grounding · SNMP",
+    desc:"Rack, PDU, UPS, alimentazione -48V, grounding, temperatura e monitoring SNMP.",
+    engine:"Infrastructure Digital Twin",
+    objects:[
+      ["Rack Layout Explorer","unità, apparati, cablaggi"],
+      ["Power Chain Monitor","PDU, UPS, -48V, breaker"],
+      ["Grounding/EMC Checklist","terra, bonding, rumore"],
+      ["SNMP Monitoring Console","trap, soglie, inventario"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"cyber",
+    code:"11",
+    title:"Cyber RF Intelligence",
+    tag:"Anomaly · Jamming · Rogue RF · Evidence",
+    desc:"Spectrum anomaly, jamming, rogue RF, intrusion detection, protocol anomaly ed evidence/report.",
+    engine:"Cyber RF Intelligence Engine",
+    objects:[
+      ["Spectrum Anomaly Detector","segnali inattesi e drift"],
+      ["Jamming Scenario Lab","barrage, sweep, tone, reactive"],
+      ["Rogue RF Hunter","beacon, emitter, fingerprint"],
+      ["Evidence Report Builder","timeline, PCAP/IQ, export"]
+    ],
+    links:[
+      ["/trfmc_master_digital_twin_console_v1.html","Master Console"]
+    ]
+  },
+  {
+    id:"kb",
+    code:"12",
+    title:"Knowledge Base",
+    tag:"Glossario · Formule · Procedure · Checklist",
+    desc:"Glossario, formule, procedure, troubleshooting, checklist e lesson plan.",
+    engine:"Knowledge & Procedure Engine",
+    objects:[
+      ["Formula Navigator","RF, TLC, DSP, link budget"],
+      ["Procedure Runbook","step da accensione a collaudo"],
+      ["Troubleshooting Tree","sintomo, diagnosi, fix"],
+      ["Lesson Plan Builder","moduli didattici e laboratorio"]
+    ],
+    links:[
+      ["/operator_handbook_console_v23.html","Operator Handbook"],
+      ["/api/docs/index","API Docs Index"]
+    ]
+  }
+];
+
+const list = document.getElementById("moduleList");
+const objectList = document.getElementById("objectList");
+const linksBox = document.getElementById("linksBox");
+const kpiBox = document.getElementById("kpiBox");
+const title = document.getElementById("engineTitle");
+const desc = document.getElementById("engineDesc");
+const tag = document.getElementById("engineTag");
+const canvas = document.getElementById("engineCanvas");
+const ctx = canvas.getContext("2d");
+const freq = document.getElementById("freq");
+const bw = document.getElementById("bw");
+const snr = document.getElementById("snr");
+const freqVal = document.getElementById("freqVal");
+const bwVal = document.getElementById("bwVal");
+const snrVal = document.getElementById("snrVal");
+
+let active = modules[0];
+let t = 0;
+
+function init(){
+  modules.forEach(m=>{
+    const b=document.createElement("button");
+    b.className="moduleBtn";
+    b.innerHTML=`<b>${m.code} · ${m.title}</b><small>${m.tag}</small>`;
+    b.onclick=()=>select(m.id);
+    b.dataset.id=m.id;
+    list.appendChild(b);
+  });
+  select("mission");
+  [freq,bw,snr].forEach(x=>x.addEventListener("input",updateLabels));
+  animate();
+}
+
+function select(id){
+  active = modules.find(m=>m.id===id) || modules[0];
+  document.querySelectorAll(".moduleBtn").forEach(b=>b.classList.toggle("active",b.dataset.id===id));
+  title.textContent = `${active.code} · ${active.engine}`;
+  desc.textContent = active.desc;
+  tag.textContent = active.tag;
+
+  objectList.innerHTML = active.objects.map(o=>`<div class="object"><b>${o[0]}</b><span>${o[1]}</span></div>`).join("");
+  linksBox.innerHTML = active.links.map(l=>`<a href="${l[0]}">${l[1]}</a>`).join("");
+
+  renderKpi();
+}
+
+function updateLabels(){
+  freqVal.textContent = `${(0.1 + freq.value/100*5.9).toFixed(2)} GHz`;
+  bwVal.textContent = `${Math.round(5 + bw.value/100*95)} MHz`;
+  snrVal.textContent = `${Math.round(4 + snr.value/100*36)} dB`;
+  renderKpi();
+}
+
+function renderKpi(){
+  const f = Number(freq.value), b = Number(bw.value), q = Number(snr.value);
+  const quality = Math.min(99, Math.round(q*.75 + (100-b)*.12 + 18));
+  const load = Math.min(98, Math.round(b*.55 + f*.18 + 12));
+  const risk = Math.max(2, Math.round((100-q)*.42 + b*.12));
+  kpiBox.innerHTML = `
+    <div class="object"><b>Signal Quality</b><span>${quality}%</span><div class="meter"><i style="width:${quality}%"></i></div></div>
+    <div class="object"><b>Processing Load</b><span>${load}%</span><div class="meter"><i style="width:${load}%"></i></div></div>
+    <div class="object"><b>Risk / Anomaly Index</b><span>${risk}%</span><div class="meter"><i style="width:${risk}%"></i></div></div>
+  `;
+}
+updateLabels();
+
+function grid(){
+  ctx.strokeStyle="rgba(125,190,255,.08)";
+  ctx.lineWidth=1;
+  for(let x=0;x<canvas.width;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();}
+  for(let y=0;y<canvas.height;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}
+}
+
+function label(txt,x,y,color="rgba(234,243,255,.85)"){
+  ctx.fillStyle=color;
+  ctx.font="15px system-ui";
+  ctx.fillText(txt,x,y);
+}
+
+function drawSpectrum(){
+  const f=Number(freq.value), b=Number(bw.value), q=Number(snr.value);
+  ctx.beginPath();
+  for(let x=0;x<canvas.width;x++){
+    const n = Math.sin(x*.015+t*.05)*8 + Math.sin(x*.047+t*.025)*4;
+    const center = canvas.width*(.18 + f/100*.64);
+    const spread = 30 + b*2.1;
+    const peak = Math.exp(-Math.pow(x-center,2)/(spread*spread))*170;
+    const y = canvas.height-70 - n - peak - q*.35;
+    if(x===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle="rgba(134,215,255,.95)";
+  ctx.lineWidth=2;
+  ctx.stroke();
+  label("Spectrum / FFT / Occupied Bandwidth",24,32);
+}
+
+function drawSmith(){
+  const cx=canvas.width/2, cy=canvas.height/2, r=190;
+  ctx.strokeStyle="rgba(134,215,255,.45)";
+  ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+  for(let k=.25;k<=1.5;k+=.25){ctx.beginPath();ctx.arc(cx-r/(1+k),cy,r*k/(1+k),0,Math.PI*2);ctx.strokeStyle="rgba(134,215,255,.13)";ctx.stroke();}
+  for(let i=0;i<9;i++){
+    const a=t*.012+i*.7+Number(freq.value)*.01;
+    const rr=40+i*15+Number(bw.value)*.6;
+    ctx.fillStyle=i%2?"rgba(157,255,199,.8)":"rgba(134,215,255,.9)";
+    ctx.beginPath();ctx.arc(cx+Math.cos(a)*rr,cy+Math.sin(a*1.3)*rr*.65,5,0,Math.PI*2);ctx.fill();
+  }
+  label("Smith Chart Engine · Γ · S11 · matching path",24,32);
+}
+
+function drawAntenna(){
+  const baseY=canvas.height-100;
+  for(let i=0;i<8;i++){
+    const x=180+i*90;
+    ctx.fillStyle="rgba(134,215,255,.9)";
+    ctx.fillRect(x-8,baseY-80,16,80);
+    ctx.strokeStyle="rgba(157,255,199,.35)";
+    for(let r=40;r<240;r+=42){
+      ctx.beginPath();
+      ctx.ellipse(x,baseY-80,r*.8,r*.28,0,Math.PI*1.08,Math.PI*1.92);
+      ctx.stroke();
+    }
+  }
+  label("Antenna System Explorer · 8T8R · RET/AISG · beam sectors",24,32);
+}
+
+function drawCore(){
+  const nodes=["UE","gNB","AMF","SMF","UPF","DN"];
+  const y=canvas.height/2;
+  nodes.forEach((n,i)=>{
+    const x=90+i*185;
+    ctx.fillStyle="rgba(12,28,55,.92)";
+    ctx.strokeStyle="rgba(134,215,255,.6)";
+    ctx.lineWidth=2;
+    ctx.beginPath();ctx.roundRect(x-45,y-35,90,70,14);ctx.fill();ctx.stroke();
+    label(n,x-18,y+5);
+    if(i<nodes.length-1){
+      ctx.strokeStyle="rgba(157,255,199,.55)";
+      ctx.beginPath();ctx.moveTo(x+45,y);ctx.lineTo(x+140,y);ctx.stroke();
+      const pulse=(t*3+i*80)%140;
+      ctx.fillStyle="rgba(255,211,122,.9)";
+      ctx.beginPath();ctx.arc(x+55+pulse,y,5,0,Math.PI*2);ctx.fill();
+    }
+  });
+  label("5G Core/RAN Call-Flow · NGAP · PFCP · GTP-U · PDU Session",24,32);
+}
+
+function drawFiber(){
+  const y=canvas.height/2;
+  ctx.strokeStyle="rgba(134,215,255,.55)";
+  ctx.lineWidth=4;
+  ctx.beginPath();
+  for(let x=50;x<canvas.width-50;x++){
+    const yy=y+Math.sin(x*.012+t*.03)*22;
+    if(x===50)ctx.moveTo(x,yy); else ctx.lineTo(x,yy);
+  }
+  ctx.stroke();
+  for(let i=0;i<9;i++){
+    const x=120+i*105;
+    const amp=40+Math.sin(t*.04+i)*25;
+    ctx.strokeStyle="rgba(157,255,199,.7)";
+    ctx.beginPath();ctx.moveTo(x,y+90);ctx.lineTo(x,y+90-amp);ctx.stroke();
+    ctx.fillStyle="rgba(255,211,122,.9)";
+    ctx.beginPath();ctx.arc(x,y+90-amp,5,0,Math.PI*2);ctx.fill();
+  }
+  label("Fiber/OTDR Trace Engine · reflection · splice loss · ODF route",24,32);
+}
+
+function drawMicrowave(){
+  const ax=120, ay=canvas.height-120, bx=canvas.width-140, by=150;
+  ctx.strokeStyle="rgba(134,215,255,.8)";
+  ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);ctx.stroke();
+  ctx.strokeStyle="rgba(157,255,199,.28)";
+  for(let r=30;r<190;r+=30){
+    ctx.beginPath();
+    ctx.ellipse((ax+bx)/2,(ay+by)/2,r*2.4,r*.55,Math.atan2(by-ay,bx-ax),0,Math.PI*2);
+    ctx.stroke();
+  }
+  ctx.fillStyle="rgba(255,211,122,.8)";
+  ctx.fillRect(ax-18,ay-90,36,90);
+  ctx.fillRect(bx-18,by-90,36,90);
+  label("Microwave Link Budget · LOS · Fresnel · rain fade · RSL",24,32);
+}
+
+function drawRack(){
+  for(let i=0;i<4;i++){
+    const x=120+i*220;
+    ctx.strokeStyle="rgba(134,215,255,.45)";
+    ctx.strokeRect(x,90,150,380);
+    for(let u=0;u<12;u++){
+      ctx.fillStyle=u%3===0?"rgba(157,255,199,.18)":"rgba(134,215,255,.12)";
+      ctx.fillRect(x+12,105+u*28,126,20);
+    }
+  }
+  label("Infrastructure Digital Twin · rack · PDU · UPS · -48V · SNMP",24,32);
+}
+
+function drawKnowledge(){
+  const cx=canvas.width/2, cy=canvas.height/2;
+  for(let i=0;i<12;i++){
+    const a=i/12*Math.PI*2+t*.003;
+    const x=cx+Math.cos(a)*260, y=cy+Math.sin(a)*170;
+    ctx.strokeStyle="rgba(134,215,255,.25)";
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.stroke();
+    ctx.fillStyle="rgba(12,28,55,.9)";
+    ctx.strokeStyle="rgba(157,255,199,.42)";
+    ctx.beginPath();ctx.arc(x,y,36,0,Math.PI*2);ctx.fill();ctx.stroke();
+    label(String(i+1).padStart(2,"0"),x-12,y+5);
+  }
+  ctx.fillStyle="rgba(134,215,255,.2)";
+  ctx.beginPath();ctx.arc(cx,cy,70,0,Math.PI*2);ctx.fill();
+  label("Knowledge Base Engine · formule · procedure · lesson plan",24,32);
+}
+
+function drawDefault(){
+  if(["microwave"].includes(active.id)) return drawSmith();
+  if(["antenna"].includes(active.id)) return drawAntenna();
+  if(["core","private"].includes(active.id)) return drawCore();
+  if(["fiber"].includes(active.id)) return drawFiber();
+  if(["mwlink"].includes(active.id)) return drawMicrowave();
+  if(["dc"].includes(active.id)) return drawRack();
+  if(["kb"].includes(active.id)) return drawKnowledge();
+  return drawSpectrum();
+}
+
+function animate(){
+  t++;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  grid();
+  drawDefault();
+  requestAnimationFrame(animate);
+}
+
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);return this;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
+HTML
+
+cat > "$PUBLIC/trfmc_master_structure_v1.json" <<'JSON'
+{
+  "portal": "TRFMC / 5G RF TELCO LAB",
+  "official_port": 5173,
+  "rule": "Every visual object must be technical and interactive. No static decorative images as primary objects.",
+  "target_identity": [
+    "Digital Twin RF/Telco/Cyber",
+    "Laboratorio SDR/HackRF",
+    "Piattaforma didattica avanzata",
+    "NOC tecnico-operativo",
+    "Simulatore fisico dei segnali",
+    "Console 5G Core/RAN"
+  ],
+  "domains": [
+    "01_Mission_Control",
+    "02_RF_Physics",
+    "03_Signal_Analyzer",
+    "04_RF_Microwave_Engineering",
+    "05_Antenna_System",
+    "06_Microwave_Link",
+    "07_Fiber_Optic",
+    "08_Private_Networks",
+    "09_Core_Network",
+    "10_Data_Center_Infrastructure",
+    "11_Cyber_RF_Intelligence",
+    "12_Knowledge_Base"
+  ]
+}
+JSON
+
+echo
+echo "=== PATCH PORTAL INDEX: AGGIUNGO MASTER CONSOLE ==="
+INDEX="$PUBLIC/api/portal/index"
+if [ -f "$INDEX" ]; then
+  cp -a "$INDEX" "$INDEX.bak_master_console_$TS"
+  if ! grep -q "trfmc_master_digital_twin_console_v1.html" "$INDEX"; then
+    sed -i '/<ul>/a <li><a href="/trfmc_master_digital_twin_console_v1.html">Master Digital Twin Console</a></li>' "$INDEX"
+  fi
+fi
+
+echo
+echo "=== TEST FILE ==="
+ls -lh "$PUBLIC/trfmc_master_digital_twin_console_v1.html" "$PUBLIC/trfmc_master_structure_v1.json"
+
+echo
+echo "PAGINA MASTER:"
+echo "http://127.0.0.1:5173/trfmc_master_digital_twin_console_v1.html"

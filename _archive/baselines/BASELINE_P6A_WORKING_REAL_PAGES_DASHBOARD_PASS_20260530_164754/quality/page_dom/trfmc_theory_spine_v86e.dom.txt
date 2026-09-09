@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>TRFMC v0.86E · Theory Spine</title>
+  <link rel="stylesheet" href="/assets/trfmc_v086e_theory_spine.css">
+  <script defer="" src="/assets/trfmc_v086e_theory_spine.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-page="theory-spine-v86e" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <main class="ts86-shell">
+    <header class="ts86-topbar">
+      <section class="ts86-brand">
+        <span class="ts86-orb"></span>
+        <div>
+          <strong>TRFMC THEORY SPINE</strong>
+          <small>v0.86E · formula governance · route discipline · promotion traceability</small>
+        </div>
+      </section>
+      <nav class="ts86-nav">
+        <a href="/trfmc_unified_shell_noiframe_v86d_r1.html">v86D-R1 Shell</a>
+        <a href="/trfmc_portal_registry_v86c.html">Registry</a>
+        <a href="/rf_physics_sapienza_console_v86a.html">RF Physics</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Stable v85E</a>
+      </nav>
+      <section class="ts86-status">
+        <b id="ts86-health">READY</b>
+        <span>theory spine</span>
+      </section>
+    </header>
+
+    <section class="ts86-hero">
+      <div>
+        <p class="ts86-kicker">TRFMC v0.86E · THEORY SPINE · FORMULA-FIRST PORTAL GOVERNANCE</p>
+        <h1>Formula Governance Spine</h1>
+        <p>
+          Questa pagina non migliora una singola schermata: collega l’intero portale a teoria,
+          formule, misure, strumenti, dominio e regole di promozione. Da qui in poi ogni pagina
+          deve spiegare perché esiste, quale fenomeno misura e quale formula la rende credibile.
+        </p>
+      </div>
+      <aside>
+        <span>SPINE READINESS</span>
+        <strong id="ts86-score">53%</strong>
+        <small id="ts86-score-text">formula traceability</small>
+      </aside>
+    </section>
+
+    <section class="ts86-kpis">
+      <article><span>Total pages</span><strong id="k-pages">66</strong></article>
+      <article><span>Domains</span><strong id="k-domains">8</strong></article>
+      <article><span>P0 / physics</span><strong id="k-p0">24</strong></article>
+      <article><span>P1 strategic</span><strong id="k-p1">9</strong></article>
+      <article><span>P4 hold</span><strong id="k-p4">27</strong></article>
+    </section>
+
+    <section class="ts86-control-grid">
+      <article class="ts86-panel">
+        <h2>Mission Director</h2>
+        <p>
+          Prima si governa la teoria, poi la grafica. Ogni rotta deve avere: dominio, formula,
+          misura, qualità, decisione, promozione.
+        </p>
+        <div class="ts86-filter-row" id="priorityFilters">
+          <button data-priority="ALL" class="active">All</button>
+          <button data-priority="P0">P0</button>
+          <button data-priority="P1">P1</button>
+          <button data-priority="P2">P2</button>
+          <button data-priority="P3">P3</button>
+          <button data-priority="P4">P4</button>
+        </div>
+      </article>
+
+      <article class="ts86-panel">
+        <h2>Search / Formula / Domain</h2>
+        <input id="searchBox" placeholder="cerca formula, pagina, dominio, misura, RSRP, SINR, FSPL, handover...">
+      </article>
+
+      <article class="ts86-panel">
+        <h2>Promotion Rule</h2>
+        <code>geometry → channel → signal → measurement → decision → teaching</code>
+        <p>Nessuna pagina passa di livello se non collega campo RF, misura e interpretazione.</p>
+      </article>
+    </section>
+
+    <section class="ts86-main-grid">
+      <article class="ts86-table-panel">
+        <div class="ts86-section-head">
+          <h2>Theory Route Registry</h2>
+          <span id="routeCount">66 routes</span>
+        </div>
+        <div class="ts86-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Page</th>
+                <th>Domain</th>
+                <th>Role</th>
+                <th>Formula anchor</th>
+                <th>Measurement</th>
+                <th>Open</th>
+              </tr>
+            </thead>
+            <tbody id="routeTable">
+        <tr data-index="0">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>evidence_vault_console_v20.html</strong><br><small>TRFMC v0.20 Evidence Vault</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/evidence_vault_console_v20.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="1">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>executive_mission_dashboard_v40.html</strong><br><small>TRFMC v0.40 Executive Mission Dashboard</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/executive_mission_dashboard_v40.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="2">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>executive_mission_dashboard_v_next.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/executive_mission_dashboard_v_next.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="3">
+          <td><span class="ts86-priority ts86-p2">P2</span></td>
+          <td><strong>field_engineering_mode_v64.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</small></td>
+          <td>Field Engineering</td>
+          <td>Antenna line, VSWR, RET/AISG, backhaul, power, live troubleshooting</td>
+          <td><code>VSWR = (1 + |Γ|) / (1 - |Γ|)</code></td>
+          <td>VSWR, RET state, AISG state</td>
+          <td><a class="ts86-open" href="/field_engineering_mode_v64.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="4">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>global_mission_scenario_launcher_v39.html</strong><br><small>TRFMC v0.39 Global Mission Scenario Launcher</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/global_mission_scenario_launcher_v39.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="5">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>infrastructure_digital_twin_v63.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade</small></td>
+          <td>Infrastructure / Digital Twin</td>
+          <td>Tower, antenna, RRU, RET/AISG, backhaul, shelter, power chain</td>
+          <td><code>Antenna electrical tilt + mechanical tilt → coverage footprint</code></td>
+          <td>RET angle, VSWR, -48V DC</td>
+          <td><a class="ts86-open" href="/infrastructure_digital_twin_v63.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="6">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>mission_graph_console_v15.html</strong><br><small>TRFMC v0.15 Correlation Engine &amp; Mission Graph</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/mission_graph_console_v15.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="7">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>network_journey_world_map_v37.html</strong><br><small>TRFMC v0.37 Network Journey World Map</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/network_journey_world_map_v37.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="8">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>observability_console_v13.html</strong><br><small>TRFMC v0.13 Observability &amp; Evidence Console</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/observability_console_v13.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="9">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>operational_backup_console_v21.html</strong><br><small>TRFMC v0.21 Operational Backup Control</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/operational_backup_console_v21.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="10">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>operator_handbook_console_v23.html</strong><br><small>TRFMC v0.27 Operator Handbook Interactive Console</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/operator_handbook_console_v23.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="11">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>portal_index_v19.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.30 Portal Index Golden Check Integration</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/portal_index_v19.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="12">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>restore_readiness_console_v22.html</strong><br><small>TRFMC v0.22 Restore Readiness</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/restore_readiness_console_v22.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="13">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>rf_instrumentation_signal_cockpit_v38.html</strong><br><small>TRFMC v0.38 RF Instrumentation &amp; Signal Analysis Cockpit</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/rf_instrumentation_signal_cockpit_v38.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="14">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_physics_sapienza_console_v86a.html</strong><br><small>TRFMC v0.86A · RF Physics Sapienza Console</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_physics_sapienza_console_v86a.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="15">
+          <td><span class="ts86-priority ts86-p2">P2</span></td>
+          <td><strong>rf_propagation_sandbox_v62.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.62B · RF Propagation Sandbox Visual Upgrade</small></td>
+          <td>RF Propagation</td>
+          <td>Reflection, diffraction, scattering, penetration, NLOS and multipath</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>path loss, delay spread, multipath</td>
+          <td><a class="ts86-open" href="/rf_propagation_sandbox_v62.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="16">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84b.html</strong><br><small>TRFMC v0.84B · RF Sapienza Console</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84b.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="17">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84c.html</strong><br><small>TRFMC v0.84C · RF Sapienza Console R2 R2</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84c.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="18">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84d.html</strong><br><small>TRFMC v0.84D · RF Sapienza Truth Palette R2</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84d.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="19">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84e.html</strong><br><small>TRFMC v0.84E · RF Sapienza Instrument Truth View</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84e.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="20">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84f.html</strong><br><small>TRFMC v0.84F · RF Instrument Dark Field Discipline</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84f.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="21">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84g.html</strong><br><small>TRFMC v0.84G · RF Topographic Instrument View</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84g.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="22">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84h.html</strong><br><small>TRFMC v0.84H · RF Atlas Instrument View</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84h.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="23">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84i.html</strong><br><small>TRFMC v0.84I · RF Vector Cartography Console</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84i.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="24">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84j.html</strong><br><small>TRFMC v0.84J · RF 4D Measurement Theater</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84j.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="25">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84k.html</strong><br><small>TRFMC v0.84K · RF Sapienza Layer Director</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84k.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="26">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84l.html</strong><br><small>TRFMC v0.84L · RF Sapienza Director Cockpit</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84l.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="27">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>rf_sapienza_console_v84m.html</strong><br><small>TRFMC v0.84M · RF Sapienza Production Baseline</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/rf_sapienza_console_v84m.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="28">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>rf_telco_component_library_v76.html</strong><br><small>TRFMC v0.76A · RF/Telco Component Object Library</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/rf_telco_component_library_v76.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="29">
+          <td><span class="ts86-priority ts86-p2">P2</span></td>
+          <td><strong>rf_telco_knowledge_modules_v61.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.61A · RF/Telco Knowledge Modules</small></td>
+          <td>Theory / Knowledge</td>
+          <td>RF/Telco theory, Maxwell, Fourier, IQ, OFDM, measurement method</td>
+          <td><code>∇×E = -∂B/∂t</code></td>
+          <td>E/H field, FFT, I/Q</td>
+          <td><a class="ts86-open" href="/rf_telco_knowledge_modules_v61.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="30">
+          <td><span class="ts86-priority ts86-p2">P2</span></td>
+          <td><strong>rf_telco_knowledge_os_v60.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.60A · RF/Telco Knowledge Operating System</small></td>
+          <td>Theory / Knowledge</td>
+          <td>RF/Telco theory, Maxwell, Fourier, IQ, OFDM, measurement method</td>
+          <td><code>∇×E = -∂B/∂t</code></td>
+          <td>E/H field, FFT, I/Q</td>
+          <td><a class="ts86-open" href="/rf_telco_knowledge_os_v60.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="31">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>rf_telco_mission_portal_v35.html</strong><br><small>TRFMC v0.35 RF/Telco Mission Portal</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/rf_telco_mission_portal_v35.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="32">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>rf_telco_visual_cockpit_v36.html</strong><br><small>TRFMC v0.36 RF/Telco Visual Scenario Cockpit</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/rf_telco_visual_cockpit_v36.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="33">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>runtime_golden_check_console_v29.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.29 Runtime Golden Check Console</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/runtime_golden_check_console_v29.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="34">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>sapienza_master_template_doctrine_v85a.html</strong><br><small>TRFMC v0.85A · Sapienza Master Template Doctrine</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/sapienza_master_template_doctrine_v85a.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="35">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>scenario_report_console_v17.html</strong><br><small>TRFMC v0.17 Scenario Evidence Report Export</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/scenario_report_console_v17.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="36">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>scenario_runner_console_v16.html</strong><br><small>TRFMC v0.16 Scenario Runner &amp; Mission Playbooks</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/scenario_runner_console_v16.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="37">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>security_console_v18.html</strong><br><small>TRFMC v0.18 Security Baseline &amp; Access Guard</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/security_console_v18.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="38">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>timeline_console_v14.html</strong><br><small>TRFMC v0.14 Evidence Timeline &amp; Mission Replay</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/timeline_console_v14.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="39">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_performance_gpu_gate_v86b.html</strong><br><small>TRFMC v0.86B · Performance GPU Binding Gate</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_performance_gpu_gate_v86b.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="40">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_performance_gpu_gate_v86b_r1.html</strong><br><small>TRFMC v0.86B-R1 · Performance GPU Binding Gate R1</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_performance_gpu_gate_v86b_r1.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="41">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_portal_registry_v86c.html</strong><br><small>TRFMC v0.86C · Portal Registry Navigation Spine</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_portal_registry_v86c.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="42">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_portal_registry_v86c_r1.html</strong><br><small>TRFMC v0.86C-R1 · Portal Registry Navigation Spine R1</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_portal_registry_v86c_r1.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="43">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_unified_shell_noiframe_v86d_r1.html</strong><br><small>TRFMC v0.86D-R1 · No-IFrame Route Console</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_unified_shell_noiframe_v86d_r1.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="44">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_unified_shell_prototype_v86d.html</strong><br><small>TRFMC v86D Quarantine · Route Locked</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_unified_shell_prototype_v86d.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="45">
+          <td><span class="ts86-priority ts86-p1">P1</span></td>
+          <td><strong>trfmc_visual_qa_matrix_v71.html</strong><br><small>TRFMC v0.71A · Page-by-Page Visual QA Matrix</small></td>
+          <td>Governance / QA</td>
+          <td>Runtime health, HTTP state, scope, promotion gate, visual governance</td>
+          <td><code>Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady</code></td>
+          <td>HTTP 200, git dirty, route status</td>
+          <td><a class="ts86-open" href="/trfmc_visual_qa_matrix_v71.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="46">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v66.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.66A · WebGL RF Heatmap Engine</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v66.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="47">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v67.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.67A · Urban Shadowing &amp; Clutter Engine</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v67.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="48">
+          <td><span class="ts86-priority ts86-p2">P2</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v68.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.68A · Seasonal Vegetation Clutter Engine</small></td>
+          <td>RF Visualization / Vegetation</td>
+          <td>Foliage attenuation, clutter, seasonal absorption, wet canopy loss</td>
+          <td><code>Weissberger MED d≤14m: L = 0.45·f^0.284·d</code></td>
+          <td>foliage loss, season factor, coverage contraction</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v68.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="49">
+          <td><span class="ts86-priority ts86-p2">P2</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v68_surgical_v81.html</strong><br><small>TRFMC v0.81C-R2 · Seasonal Vegetation Clutter Engine · Cinematic Surgical Rebuild</small></td>
+          <td>RF Visualization / Vegetation</td>
+          <td>Foliage attenuation, clutter, seasonal absorption, wet canopy loss</td>
+          <td><code>Weissberger MED d≤14m: L = 0.45·f^0.284·d</code></td>
+          <td>foliage loss, season factor, coverage contraction</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v68_surgical_v81.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="50">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v69.html</strong><br><small>TRFMC v0.70A Unified Shell · TRFMC v0.69A · UE Mobility &amp; Handover Dynamics</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v69.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="51">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v82_native_lab.html</strong><br><small>TRFMC v0.82A · Native WebGL RF Vegetation Lab</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v82_native_lab.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="52">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v82b_native_lab.html</strong><br><small>TRFMC v0.82B · Native WebGL RF Field Refinement</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v82b_native_lab.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="53">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v82c_mission_replay.html</strong><br><small>TRFMC v0.82C · Native WebGL Mission Replay</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v82c_mission_replay.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="54">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_heatmap_engine_v82c_r2_mission_replay.html</strong><br><small>TRFMC v0.82C-R2 · Native WebGL Mission Replay Layout Fix</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="55">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v83.html</strong><br><small>TRFMC v0.83A · RF Physics Calibrated 4D Engine</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v83.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="56">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v83b.html</strong><br><small>TRFMC v0.83B · RF Precision Scale + Probe Diagnostics</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v83b.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="57">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v83c.html</strong><br><small>TRFMC v0.83C · RF Sanity Calibration + SINR-Aware Coverage</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v83c.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="58">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v83d.html</strong><br><small>TRFMC v0.83D · Instrument Layout + Link Budget Inspector</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v83d.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="59">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v83e.html</strong><br><small>TRFMC v0.83E · Instrument Readability + Vector Governance</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v83e.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="60">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v83f.html</strong><br><small>TRFMC v0.83F · Dual Instrument View + RSRP/SINR Profile</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v83f.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="61">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v85b_sapienza_baseline.html</strong><br><small>TRFMC v0.85B · Sapienza Physics Baseline + RSRP/SINR Profile</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v85b_sapienza_baseline.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="62">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v85c_sapienza_identity.html</strong><br><small>TRFMC v0.85C · Sapienza Physics Baseline + RSRP/SINR Profile</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v85c_sapienza_identity.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="63">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v85d_runtime_identity_lock.html</strong><br><small>TRFMC v0.85D · Sapienza Physics Baseline + RSRP/SINR Profile</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v85d_runtime_identity_lock.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="64">
+          <td><span class="ts86-priority ts86-p0">P0</span></td>
+          <td><strong>webgl_rf_physics_engine_v85e_viewport_discipline.html</strong><br><small>TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Formula-driven RF field, RSRP/SINR, best-server, measurement discipline</td>
+          <td><code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code></td>
+          <td>RSRP, SINR, EVM</td>
+          <td><a class="ts86-open" href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Open</a></td>
+        </tr>
+      
+        <tr data-index="65">
+          <td><span class="ts86-priority ts86-p4">P4</span></td>
+          <td><strong>webgl_rf_tm_supreme_console_v84a.html</strong><br><small>TRFMC v0.84A · RF T&amp;M Supreme Console</small></td>
+          <td>General / Legacy</td>
+          <td>Unclassified candidate requiring domain assignment</td>
+          <td><code>No formula assigned yet</code></td>
+          <td>unknown, manual review required</td>
+          <td><a class="ts86-open" href="/webgl_rf_tm_supreme_console_v84a.html">Open</a></td>
+        </tr>
+      </tbody>
+          </table>
+        </div>
+      </article>
+
+      <aside class="ts86-detail-panel">
+        <h2>Selected Formula Chain</h2>
+        <div id="selectedDetail" class="ts86-detail-card">
+      <div>
+        <strong>evidence_vault_console_v20.html</strong>
+        <p>TRFMC v0.20 Evidence Vault</p>
+      </div>
+      <div>
+        <h2>Domain</h2>
+        <code>General / Legacy · P4</code>
+      </div>
+      <div>
+        <h2>Formula chain</h2>
+        <section class="ts86-formula-list">
+          <div>No formula assigned yet</div><div>Needs geometry → channel → signal → decision mapping</div>
+        </section>
+      </div>
+      <div>
+        <h2>Measurements</h2>
+        <section class="ts86-measure-list">
+          <div>unknown</div><div>manual review required</div>
+        </section>
+      </div>
+      <div>
+        <h2>Promotion rule</h2>
+        <code>Hold: classificare prima di promuovere.</code>
+      </div>
+      <a class="ts86-open" href="/evidence_vault_console_v20.html">Apri pagina sorgente</a>
+    </div>
+      </aside>
+    </section>
+
+    <section class="ts86-domain-grid" id="domainGrid">
+      <article>
+        <span>General / Legacy</span>
+        <strong>27</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>RF Physics / Sapienza</span>
+        <strong>24</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>Governance / QA</span>
+        <strong>8</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>Theory / Knowledge</span>
+        <strong>2</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>RF Visualization / Vegetation</span>
+        <strong>2</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>Field Engineering</span>
+        <strong>1</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>Infrastructure / Digital Twin</span>
+        <strong>1</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    
+      <article>
+        <span>RF Propagation</span>
+        <strong>1</strong>
+        <p>Rotte collegate a questo dominio tecnico.</p>
+      </article>
+    </section>
+
+    <section class="ts86-doctrine">
+      <article>
+        <h2>Gate 01 · Geometry</h2>
+        <code>site + UE + obstacle + vector</code>
+        <p>Ogni pagina deve dichiarare quali oggetti fisici o logici osserva.</p>
+      </article>
+      <article>
+        <h2>Gate 02 · Channel</h2>
+        <code>path loss + shadowing + fading + delay</code>
+        <p>Il canale deve essere causa della degradazione, non texture estetica.</p>
+      </article>
+      <article>
+        <h2>Gate 03 · Signal</h2>
+        <code>IQ + FFT + PDP + H(f) + EVM</code>
+        <p>Gli strumenti devono confermare quello che la scena suggerisce.</p>
+      </article>
+      <article>
+        <h2>Gate 04 · Decision</h2>
+        <code>best-server + margin + outage + handover</code>
+        <p>La pagina deve produrre una decisione operativa o didattica.</p>
+      </article>
+    </section>
+
+    <footer class="ts86-footer">
+      TRFMC v0.86E · Theory Spine · scoped · no iframe · no CDN · no backend change · no page overwrite
+    </footer>
+  </main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="knowledge">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · KNOWLEDGE</div>
+      <div class="trfmc-c3-sub">TRFMC v0.86E · Theory Spine<br>/trfmc_theory_spine_v86e.html<br>Previous Authority V3 score: 76/100 · gaps closed: design_tokens,asset_engine,kpi</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>THEORY</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>LAB</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>KPI</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>DOC</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch C KNOWLEDGE · core-map"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">Theory → procedure → simulator → evidence
+Concept = formula + visualization + KPI + operational meaning
+Knowledge object = verified source + lab action + measurable output</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="knowledge" width="601" height="158"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Knowledge Base</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> Formula Governance Spine</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> La teoria non è documento: è motore operativo che spiega ciò che il portale mostra.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Knowledge Base · La teoria non è documento: è motore operativo che spiega ciò che il portale mostra.</div></body></html>

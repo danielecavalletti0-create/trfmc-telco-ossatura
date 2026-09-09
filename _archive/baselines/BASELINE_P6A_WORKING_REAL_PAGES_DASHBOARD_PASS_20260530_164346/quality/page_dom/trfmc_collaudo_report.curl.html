@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>TRFMC Collaudo Portale 5173</title>
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #050812;
+  color: #eaf2ff;
+}
+header {
+  padding: 28px 36px;
+  background: linear-gradient(135deg, #10182f, #07101f);
+  border-bottom: 1px solid rgba(120,180,255,.25);
+}
+h1 { margin: 0 0 8px; font-size: 30px; }
+h2 { margin-top: 32px; color: #9ed0ff; }
+main { padding: 28px 36px 60px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(160px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(130,180,255,.22);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 0 28px rgba(0,120,255,.08);
+}
+.kpi {
+  font-size: 32px;
+  font-weight: 800;
+}
+.ok { color: #9cffc7; }
+.warn { color: #ffd37a; }
+.bad { color: #ff8e8e; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(130,180,255,.18);
+}
+th, td {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  text-align: left;
+  vertical-align: top;
+  font-size: 13px;
+}
+th { color: #9ed0ff; background: rgba(80,130,220,.14); }
+code {
+  background: rgba(255,255,255,.08);
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+a { color: #9ed0ff; }
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header>
+  <h1>TRFMC — Collaudo Portale 5173</h1>
+  <div>Report generato da <code>trfmc_collaudo_portale_5173.sh</code></div>
+  <div>Portale ufficiale: <a href="#trfmc-external-ref-blocked" data-trfmc-blocked-href="127.0.0.1:5173">127.0.0.1:5173</a></div>
+</header>
+<main>
+  <div class="grid">
+    <div class="card"><div>HTML</div><div class="kpi">88</div></div>
+    <div class="card"><div>Reference totali</div><div class="kpi">1153</div></div>
+    <div class="card"><div>Asset/link rotti</div><div class="kpi ok">0</div></div>
+    <div class="card"><div>Reference esterni</div><div class="kpi ok">0</div></div>
+    <div class="card"><div>Riferimenti proibiti</div><div class="kpi ok">0</div></div>
+  </div>
+
+  <h2>Pagine HTTP non OK</h2>
+  <p class="ok">Tutte le pagine censite rispondono HTTP 200.</p>
+
+  <h2>Asset/link interni rotti</h2>
+  <p class="ok">Nessun asset/link interno rotto rilevato.</p>
+
+  <h2>Riferimenti proibiti o da bonificare</h2>
+  <p class="ok">Nessun riferimento proibito rilevato.</p>
+
+  <h2>Tutte le pagine testate</h2>
+  <table><thead><tr><th>route</th><th>status</th><th>bytes</th><th>time</th><th>file</th></tr></thead><tbody><tr><td>/index.html</td><td>200</td><td>1426</td><td>0.045877</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/index.html</td></tr><tr><td>/evidence_vault_console_v20.html</td><td>200</td><td>8523</td><td>0.001533</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/evidence_vault_console_v20.html</td></tr><tr><td>/executive_mission_dashboard_v40.html</td><td>200</td><td>44968</td><td>0.003053</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/executive_mission_dashboard_v40.html</td></tr><tr><td>/executive_mission_dashboard_v_next.html</td><td>200</td><td>13225</td><td>0.001556</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/executive_mission_dashboard_v_next.html</td></tr><tr><td>/field_engineering_mode_v64.html</td><td>200</td><td>5290</td><td>0.001584</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/field_engineering_mode_v64.html</td></tr><tr><td>/global_mission_scenario_launcher_v39.html</td><td>200</td><td>15333</td><td>0.001460</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/global_mission_scenario_launcher_v39.html</td></tr><tr><td>/infrastructure_digital_twin_v63.html</td><td>200</td><td>5556</td><td>0.001529</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/infrastructure_digital_twin_v63.html</td></tr><tr><td>/mission_graph_console_v15.html</td><td>200</td><td>10656</td><td>0.001378</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/mission_graph_console_v15.html</td></tr><tr><td>/network_journey_world_map_v37.html</td><td>200</td><td>14372</td><td>0.002470</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/network_journey_world_map_v37.html</td></tr><tr><td>/observability_console_v13.html</td><td>200</td><td>8952</td><td>0.002256</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/observability_console_v13.html</td></tr><tr><td>/operational_backup_console_v21.html</td><td>200</td><td>7912</td><td>0.002074</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/operational_backup_console_v21.html</td></tr><tr><td>/operator_handbook_console_v23.html</td><td>200</td><td>11435</td><td>0.002577</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/operator_handbook_console_v23.html</td></tr><tr><td>/portal_index_v19.html</td><td>200</td><td>19263</td><td>0.002312</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/portal_index_v19.html</td></tr><tr><td>/restore_readiness_console_v22.html</td><td>200</td><td>7597</td><td>0.016649</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/restore_readiness_console_v22.html</td></tr><tr><td>/rf_instrumentation_signal_cockpit_v38.html</td><td>200</td><td>16716</td><td>0.003439</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_instrumentation_signal_cockpit_v38.html</td></tr><tr><td>/rf_physics_sapienza_console_v86a.html</td><td>200</td><td>10079</td><td>0.002851</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_physics_sapienza_console_v86a.html</td></tr><tr><td>/rf_propagation_sandbox_v62.html</td><td>200</td><td>5645</td><td>0.002232</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_propagation_sandbox_v62.html</td></tr><tr><td>/rf_sapienza_console_v84b.html</td><td>200</td><td>6923</td><td>0.001763</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84b.html</td></tr><tr><td>/rf_sapienza_console_v84c.html</td><td>200</td><td>7006</td><td>0.001814</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84c.html</td></tr><tr><td>/rf_sapienza_console_v84d.html</td><td>200</td><td>7088</td><td>0.002560</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84d.html</td></tr><tr><td>/rf_sapienza_console_v84e.html</td><td>200</td><td>7727</td><td>0.002265</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84e.html</td></tr><tr><td>/rf_sapienza_console_v84f.html</td><td>200</td><td>7800</td><td>0.001354</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84f.html</td></tr><tr><td>/rf_sapienza_console_v84g.html</td><td>200</td><td>7870</td><td>0.001354</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84g.html</td></tr><tr><td>/rf_sapienza_console_v84h.html</td><td>200</td><td>7885</td><td>0.000922</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84h.html</td></tr><tr><td>/rf_sapienza_console_v84i.html</td><td>200</td><td>7944</td><td>0.000643</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84i.html</td></tr><tr><td>/rf_sapienza_console_v84j.html</td><td>200</td><td>8147</td><td>0.000982</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84j.html</td></tr><tr><td>/rf_sapienza_console_v84k.html</td><td>200</td><td>8396</td><td>0.001357</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84k.html</td></tr><tr><td>/rf_sapienza_console_v84l.html</td><td>200</td><td>8622</td><td>0.001219</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84l.html</td></tr><tr><td>/rf_sapienza_console_v84m.html</td><td>200</td><td>8891</td><td>0.001731</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_sapienza_console_v84m.html</td></tr><tr><td>/rf_telco_component_library_v76.html</td><td>200</td><td>4619</td><td>0.001381</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_telco_component_library_v76.html</td></tr><tr><td>/rf_telco_knowledge_modules_v61.html</td><td>200</td><td>7071</td><td>0.001888</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_telco_knowledge_modules_v61.html</td></tr><tr><td>/rf_telco_knowledge_os_v60.html</td><td>200</td><td>6376</td><td>0.001449</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_telco_knowledge_os_v60.html</td></tr><tr><td>/rf_telco_mission_portal_v35.html</td><td>200</td><td>9442</td><td>0.001586</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_telco_mission_portal_v35.html</td></tr><tr><td>/rf_telco_visual_cockpit_v36.html</td><td>200</td><td>12048</td><td>0.001036</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/rf_telco_visual_cockpit_v36.html</td></tr><tr><td>/runtime_golden_check_console_v29.html</td><td>200</td><td>9372</td><td>0.001108</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/runtime_golden_check_console_v29.html</td></tr><tr><td>/sapienza_master_template_doctrine_v85a.html</td><td>200</td><td>7521</td><td>0.001356</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/sapienza_master_template_doctrine_v85a.html</td></tr><tr><td>/scenario_report_console_v17.html</td><td>200</td><td>8421</td><td>0.001114</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/scenario_report_console_v17.html</td></tr><tr><td>/scenario_runner_console_v16.html</td><td>200</td><td>8539</td><td>0.001306</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/scenario_runner_console_v16.html</td></tr><tr><td>/security_console_v18.html</td><td>200</td><td>8030</td><td>0.001120</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/security_console_v18.html</td></tr><tr><td>/timeline_console_v14.html</td><td>200</td><td>9203</td><td>0.001384</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/timeline_console_v14.html</td></tr><tr><td>/trfmc.html</td><td>200</td><td>3615</td><td>0.001101</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc.html</td></tr><tr><td>/trfmc_5g_core_ran_identity_aka_engine_v1.html</td><td>200</td><td>18971</td><td>0.001562</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_5g_core_ran_identity_aka_engine_v1.html</td></tr><tr><td>/trfmc_cinematic_command_deck_v87d.html</td><td>200</td><td>4468</td><td>0.001488</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_cinematic_command_deck_v87d.html</td></tr><tr><td>/trfmc_cinematic_mission_atlas_v87c.html</td><td>200</td><td>4421</td><td>0.000920</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_cinematic_mission_atlas_v87c.html</td></tr><tr><td>/trfmc_collaudo_report.html</td><td>200</td><td>302</td><td>0.000946</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_collaudo_report.html</td></tr><tr><td>/trfmc_design_token_audit_v86f.html</td><td>200</td><td>5513</td><td>0.000770</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_design_token_audit_v86f.html</td></tr><tr><td>/trfmc_domain_registry_v1.html</td><td>200</td><td>45717</td><td>0.002318</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_domain_registry_v1.html</td></tr><tr><td>/trfmc_engine_promotion_board_v1.html</td><td>200</td><td>33659</td><td>0.000981</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_engine_promotion_board_v1.html</td></tr><tr><td>/trfmc_first_promotion_batch_v87a.html</td><td>200</td><td>5203</td><td>0.000850</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_first_promotion_batch_v87a.html</td></tr><tr><td>/trfmc_home.html</td><td>200</td><td>3615</td><td>0.000891</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_home.html</td></tr><tr><td>/trfmc_home_v87e.html</td><td>200</td><td>4460</td><td>0.001003</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_home_v87e.html</td></tr><tr><td>/trfmc_home_v87g.html</td><td>200</td><td>3615</td><td>0.000929</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_home_v87g.html</td></tr><tr><td>/trfmc_master_digital_twin_console_v1.html</td><td>200</td><td>26659</td><td>0.001299</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_master_digital_twin_console_v1.html</td></tr><tr><td>/trfmc_mission_control_home_v87b.html</td><td>200</td><td>5889</td><td>0.000798</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_mission_control_home_v87b.html</td></tr><tr><td>/trfmc_performance_gpu_gate_v86b.html</td><td>200</td><td>7683</td><td>0.000949</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_performance_gpu_gate_v86b.html</td></tr><tr><td>/trfmc_performance_gpu_gate_v86b_r1.html</td><td>200</td><td>7910</td><td>0.000722</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_performance_gpu_gate_v86b_r1.html</td></tr><tr><td>/trfmc_portal_registry_v86c.html</td><td>200</td><td>5972</td><td>0.000645</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_portal_registry_v86c.html</td></tr><tr><td>/trfmc_portal_registry_v86c_r1.html</td><td>200</td><td>5987</td><td>0.000638</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_portal_registry_v86c_r1.html</td></tr><tr><td>/trfmc_rf_spectrum_lab_v1.html</td><td>200</td><td>20135</td><td>0.000981</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_rf_spectrum_lab_v1.html</td></tr><tr><td>/trfmc_rf_tm_signal_universe_v3.html</td><td>200</td><td>31862</td><td>0.001398</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_rf_tm_signal_universe_v3.html</td></tr><tr><td>/trfmc_rf_tm_war_room_v4.html</td><td>200</td><td>33446</td><td>0.001726</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_rf_tm_war_room_v4.html</td></tr><tr><td>/trfmc_route_normalizer_v87f.html</td><td>200</td><td>4823</td><td>0.001831</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_route_normalizer_v87f.html</td></tr><tr><td>/trfmc_signal_world_engine_v2.html</td><td>200</td><td>29727</td><td>0.001924</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_signal_world_engine_v2.html</td></tr><tr><td>/trfmc_theory_spine_v86e.html</td><td>200</td><td>5663</td><td>0.001313</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_theory_spine_v86e.html</td></tr><tr><td>/trfmc_unified_navigation_shell_v1.html</td><td>200</td><td>14917</td><td>0.001267</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_unified_navigation_shell_v1.html</td></tr><tr><td>/trfmc_unified_shell_noiframe_v86d_r1.html</td><td>200</td><td>6084</td><td>0.000877</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_unified_shell_noiframe_v86d_r1.html</td></tr><tr><td>/trfmc_unified_shell_prototype_v86d.html</td><td>200</td><td>5946</td><td>0.001057</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_unified_shell_prototype_v86d.html</td></tr><tr><td>/trfmc_visual_qa_matrix_v71.html</td><td>200</td><td>3883</td><td>0.001083</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/trfmc_visual_qa_matrix_v71.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v66.html</td><td>200</td><td>4447</td><td>0.000886</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v66.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v67.html</td><td>200</td><td>4553</td><td>0.001324</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v67.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v68.html</td><td>200</td><td>5687</td><td>0.001662</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v68.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v68_surgical_v81.html</td><td>200</td><td>8346</td><td>0.000989</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v68_surgical_v81.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v69.html</td><td>200</td><td>6194</td><td>0.000862</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v69.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v82_native_lab.html</td><td>200</td><td>6706</td><td>0.001215</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v82_native_lab.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v82b_native_lab.html</td><td>200</td><td>7835</td><td>0.000768</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v82b_native_lab.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v82c_mission_replay.html</td><td>200</td><td>8095</td><td>0.000672</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v82c_mission_replay.html</td></tr><tr><td>/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html</td><td>200</td><td>8384</td><td>0.000692</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html</td></tr><tr><td>/webgl_rf_physics_engine_v83.html</td><td>200</td><td>8677</td><td>0.000701</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v83.html</td></tr><tr><td>/webgl_rf_physics_engine_v83b.html</td><td>200</td><td>8765</td><td>0.000779</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v83b.html</td></tr><tr><td>/webgl_rf_physics_engine_v83c.html</td><td>200</td><td>8848</td><td>0.000784</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v83c.html</td></tr><tr><td>/webgl_rf_physics_engine_v83d.html</td><td>200</td><td>9067</td><td>0.000682</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v83d.html</td></tr><tr><td>/webgl_rf_physics_engine_v83e.html</td><td>200</td><td>9304</td><td>0.001813</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v83e.html</td></tr><tr><td>/webgl_rf_physics_engine_v83f.html</td><td>200</td><td>9515</td><td>0.000841</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v83f.html</td></tr><tr><td>/webgl_rf_physics_engine_v85b_sapienza_baseline.html</td><td>200</td><td>9708</td><td>0.000789</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v85b_sapienza_baseline.html</td></tr><tr><td>/webgl_rf_physics_engine_v85c_sapienza_identity.html</td><td>200</td><td>9867</td><td>0.001008</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v85c_sapienza_identity.html</td></tr><tr><td>/webgl_rf_physics_engine_v85d_runtime_identity_lock.html</td><td>200</td><td>10044</td><td>0.001020</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v85d_runtime_identity_lock.html</td></tr><tr><td>/webgl_rf_physics_engine_v85e_viewport_discipline.html</td><td>200</td><td>10040</td><td>0.000963</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_physics_engine_v85e_viewport_discipline.html</td></tr><tr><td>/webgl_rf_tm_supreme_console_v84a.html</td><td>200</td><td>5961</td><td>0.000829</td><td>/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/frontend/public/webgl_rf_tm_supreme_console_v84a.html</td></tr></tbody></table>
+</main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="microwave" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · MICROWAVE</div>
+      <div class="trfmc-perfection-sub">TRFMC Collaudo Portale 5173<br>/trfmc_collaudo_report.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>57/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>microwave-dish</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="TRFMC MICROWAVE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, fade margin, band)
+Capacity ≈ B·log2(1+SNR)·rank</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="microwave"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

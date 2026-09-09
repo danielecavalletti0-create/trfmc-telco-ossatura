@@ -1,0 +1,12 @@
+<!doctype html>
+<meta charset="utf-8">
+<body style="background:#02070f;color:#eaf3ff;font-family:Segoe UI;padding:30px">
+<h1>TRFMC Reset Browser State V6R1</h1>
+<pre id="out"></pre>
+<a style="color:#ffd500" href="/trfmc_official_safe_entrypoint_v6r1_flat.html">Apri V6R1 Flat</a>
+<script>
+const keys=["trfmc_global_instrument_shell_v1","trfmc_global_top_telemetry_v2","trfmc_v17_layout_mode","trfmc_antenna_v17_layout_mode"];
+document.getElementById("out").textContent=keys.map(k=>{localStorage.removeItem(k);return "REMOVED: "+k}).join("\n");
+setTimeout(()=>location.href="/trfmc_official_safe_entrypoint_v6r1_flat.html",1200);
+</script>
+</body>

@@ -1,0 +1,16 @@
+{
+  "version": "TRFMC v0.70B",
+  "name": "Object Definition / Organic Enterprise Surface System",
+  "purpose": "Reduce random rectangles and introduce a deterministic object grammar for RF/Telco enterprise pages.",
+  "design_rules": {
+    "geometry": "organic engineering surfaces, not random rectangular cards",
+    "navigation": "capsule controls with active-route definition",
+    "panels": "semantic surface roles with deterministic radius families",
+    "scenes": "large instrument-like viewport surfaces",
+    "labels": "defined component headers with signal underlines",
+    "modes": {
+      "ALT+D": "toggle dense object mode",
+      "ALT+C": "toggle calibrated low-motion mode"
+    }
+  }
+}

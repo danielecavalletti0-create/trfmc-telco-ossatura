@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC RF PRO Signal Intelligence Lab V4 Instrument</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_v4_instrument.css">
+<style>
+.i4-source-table{width:100%;border-collapse:collapse;font-family:ui-monospace,Consolas,monospace;font-size:9px}
+.i4-source-table th,.i4-source-table td{border-bottom:1px solid rgba(0,229,255,.16);padding:5px;text-align:left}
+.i4-source-table th{color:#00e5ff;background:rgba(0,229,255,.05)}
+</style>
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div>
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">TRFMC RF PRO Signal Intelligence Lab V4 Instrument</div>
+    <div class="leaf-sub">True WebGL RF scene · instrument skin · VSA · dense waterfall · I/Q · FHSS · synthetic/lab-only</div>
+  </div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html">V3 Reality</a>
+    <a class="leaf-btn" href="/trfmc_rf_pro_signal_intelligence_lab_v2.html">V2 Engine</a>
+    <a class="leaf-btn" href="/trfmc_post_promotion_control_center_v1.html">Governance</a>
+    <a class="leaf-btn" href="/trfmc_rf_pro_signal_intelligence_manifest_v4_instrument.json">Manifest</a>
+  </div>
+</header>
+
+<trfmc-rf-pro-instrument-v4>
+      <section class="i4-root">
+        <div class="i4-shell">
+          <aside class="i4-panel">
+            <div class="i4-title">RF PRO V4 Instrument</div>
+            <div class="i4-sub">True WebGL RF scene + DSP worker + dense measurement cockpit. Synthetic/lab-only.</div>
+            <div class="i4-kpis">
+              <div class="i4-kpi"><small>Profile</small><b data-i4-kpi="profile">FHSS</b></div>
+              <div class="i4-kpi"><small>SNR</small><b data-i4-kpi="snr">31 dB</b></div>
+              <div class="i4-kpi"><small>EVM</small><b data-i4-kpi="evm">2.3%</b></div>
+              <div class="i4-kpi"><small>OBW</small><b data-i4-kpi="obw">12.6 MHz</b></div>
+              <div class="i4-kpi"><small>ACLR</small><b data-i4-kpi="aclr">52.4 dB</b></div>
+              <div class="i4-kpi"><small>Renderer</small><b data-i4-kpi="renderer">2D</b></div>
+            </div>
+            <div class="i4-card">
+              <h3>Instrument controls</h3>
+              <label class="i4-control"><span>Profile</span><select data-i4-control="profile"><option value="fhss">FHSS emitter</option><option value="ofdm">OFDM channel</option><option value="qpsk">QPSK narrow</option><option value="burst">Agile burst</option><option value="noise">Noise floor</option></select></label>
+              <label class="i4-control"><span>SNR</span><input data-i4-control="snr" type="range" min="5" max="44" value="31"></label>
+              <label class="i4-control"><span>Span</span><input data-i4-control="spanMHz" type="range" min="10" max="160" value="80"></label>
+              <label class="i4-control"><span>RBW</span><input data-i4-control="rbwKHz" type="range" min="1" max="300" value="10"></label>
+              <label class="i4-control"><span>Detector</span><select data-i4-control="detector"><option>RMS</option><option>PEAK</option><option>AVG</option></select></label>
+            </div>
+            <div class="i4-card">
+              <h3>Reality judgement</h3>
+              <div class="i4-meter"><span data-meter="occ"></span></div>
+              <div class="i4-sub">Occupancy / anomaly / evidence indicators are synthetic but rendered as instrument telemetry.</div>
+            </div>
+            <div class="i4-card">
+              <h3>Lab-only policy</h3>
+              <div class="i4-sub">No SDR control. No interception. No third-party traffic. Measurement cockpit for synthetic/lab-owned IQ only.</div>
+            </div>
+            <div class="i4-card">
+              <h3>Layers</h3>
+              <span class="i4-pill">WebGL Scene</span><span class="i4-pill">DSP Worker</span><span class="i4-pill">VSA</span><span class="i4-pill">Waterfall</span><span class="i4-pill">I/Q</span><span class="i4-pill">Hop Map</span>
+            </div>
+          </aside>
+
+          <main class="i4-panel i4-main">
+            <div class="i4-card" style="height:100%;margin-top:0"><h3>WebGL RF Reality Chamber</h3><canvas class="i4-canvas" data-i4-scope="gl"></canvas></div>
+            <div class="i4-card" style="height:100%"><h3>Reality Vector Spectrum Analyzer</h3><canvas class="i4-canvas" data-i4-scope="vsa" width="1049" height="280"></canvas></div>
+            <div class="i4-row">
+              <div class="i4-card"><h3>Dense Persistent Waterfall</h3><canvas class="i4-canvas" data-i4-scope="waterfall" width="511" height="417"></canvas></div>
+              <div class="i4-card"><h3>FHSS Hop Intelligence</h3><canvas class="i4-canvas" data-i4-scope="hop" width="511" height="435"></canvas></div>
+            </div>
+          </main>
+
+          <aside class="i4-panel i4-right">
+            <div class="i4-side-grid">
+              <div class="i4-card"><h3>I/Q Cloud + Error Vectors</h3><canvas class="i4-canvas" data-i4-scope="iq" width="670" height="425"></canvas></div>
+              <div class="i4-card"><h3>Peak / Marker Table</h3><table class="i4-table"><thead><tr><th>M</th><th>MHz</th><th>dBm</th><th>Δ</th></tr></thead><tbody data-i4-markers=""></tbody></table></div>
+              <div class="i4-card"><h3>Formula Spine</h3><div class="i4-formula formulaLive">FFT: X[k] = Σ x[n]·e^(-j2πkn/N)
+RBW ≈ Fs/N · ENBW
+SNR = Psignal / Pnoise
+EVM = RMS(error) / RMS(ref)
+ACLR = Pch / Padj
+OBW = ∫P(f)df
+Processing gain ≈ 10log10(Bspread/Bdata)
+POI ≈ 1-exp(-Tobs/Tdwell)</div></div>
+              <div class="i4-card"><h3>Visual Evidence Binding</h3><trfmc-visual-asset kind="spectrum-scope" data-size="medium" title="V4 Instrument Spectrum"><canvas width="670" height="335" style="width: 100%; height: 100%; display: block;"></canvas><div class="trfmc-vae-caption">V4 INSTRUMENT SPECTRUM</div></trfmc-visual-asset></div>
+            </div>
+          </aside>
+        </div>
+      </section></trfmc-rf-pro-instrument-v4>
+
+<section class="i4-footer">
+<h2 style="color:#00e5ff;font-size:12px;text-transform:uppercase;letter-spacing:.10em">Read-only source evidence</h2>
+<table class="i4-source-table">
+<thead><tr><th>Source orphan</th><th>Exists</th><th>Words</th><th>RF keywords</th><th>SHA256</th></tr></thead>
+<tbody><tr><td><a href="/signal_demod_v581.html">/signal_demod_v581.html</a></td><td>True</td><td>655</td><td>FFT,IQ,demod,spectrum,SNR,OBW</td><td>b1e7e16fbd0ff8f5…</td></tr><tr><td><a href="/signal_workbench_v580.html">/signal_workbench_v580.html</a></td><td>True</td><td>1050</td><td>FFT,IQ,demod,waterfall,spectrum</td><td>61531f82b13144b6…</td></tr><tr><td><a href="/signal_workbench_v582.html">/signal_workbench_v582.html</a></td><td>True</td><td>1088</td><td>FFT,IQ,demod,waterfall,spectrum,SNR,OBW</td><td>d872c9cc8aafa69e…</td></tr><tr><td><a href="/uav_fhss_v584.html">/uav_fhss_v584.html</a></td><td>True</td><td>727</td><td>IQ,FHSS,burst,spectrum,UAV,hop</td><td>7c63eb8209174c89…</td></tr></tbody>
+</table>
+</section>
+
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_v4_instrument.js"></script>
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Cyber RF Intelligence</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC RF PRO Signal Intelligence Lab V4 Instrument</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="true">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Cyber RF Intelligence · Ogni anomalia diventa evidenza: spettro, evento, correlazione, decisione.</div></body></html>

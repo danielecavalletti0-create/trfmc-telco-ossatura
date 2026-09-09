@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade</title>
+  <link rel="stylesheet" href="/assets/trfmc_infrastructure_digital_twin_v63.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_infrastructure_visual_upgrade_v63b.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_digital_twin_redesign_v74.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css"/>
+</head>
+<body class="v63">
+<header>
+  <div class="brand">
+    <div class="orb"></div>
+    <div>
+      <b>TRFMC INFRASTRUCTURE DIGITAL TWIN</b>
+      <span>Telecom Site · Antenna · RRU · RET/AISG · Microwave · Shelter · Power · v0.63A</span>
+    </div>
+  </div>
+  <nav>
+    <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+    <a href="/rf_telco_knowledge_os_v60.html">Knowledge OS</a>
+    <a href="/rf_telco_knowledge_modules_v61.html">Modules</a>
+    <a href="/rf_propagation_sandbox_v62.html">Propagation</a>
+    <a class="active" href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <span class="eyebrow">TRFMC v0.63A · Telecom Site 3D Enterprise Twin</span>
+    <h1>Infrastructure Digital Twin</h1>
+    <p>
+      Vista esplosa e interrogabile del sito radio: torre, settori antenna, RRU, RET/AISG,
+      microwave backhaul, fibra, shelter, alimentazione, cooling e catena allarmi.
+    </p>
+    <div class="actions">
+      <button data-focus="antenna" class="active">Antenna</button>
+      <button data-focus="rru">RRU</button>
+      <button data-focus="ret">RET/AISG</button>
+      <button data-focus="microwave">Microwave</button>
+      <button data-focus="shelter">Shelter</button>
+      <button data-focus="power">Power</button>
+    </div>
+  </div>
+  <div class="site-score">
+    <b id="site_score">96%</b>
+    <span>Site Readiness</span>
+  </div>
+</section>
+
+<section class="twin-layout">
+  <article class="site-panel">
+    <div class="panel-head">
+      <h2>Exploded Telecom Site View</h2>
+      <span id="focus_state">ANTENNA SELECTED</span>
+    </div>
+
+    <div class="site-scene" id="site_scene">
+      <div class="ground-grid"></div>
+
+      <div class="tower">
+        <div class="mast"></div>
+        <div class="platform p1"></div>
+        <div class="platform p2"></div>
+
+        <button class="hotspot antenna a1" data-focus="antenna">ANT A</button>
+        <button class="hotspot antenna a2" data-focus="antenna">ANT B</button>
+        <button class="hotspot antenna a3" data-focus="antenna">ANT C</button>
+
+        <button class="hotspot rru" data-focus="rru">RRU</button>
+        <button class="hotspot ret" data-focus="ret">RET</button>
+        <button class="hotspot microwave" data-focus="microwave">MW</button>
+      </div>
+
+      <button class="hotspot shelter" data-focus="shelter">SHELTER</button>
+      <button class="hotspot power" data-focus="power">POWER</button>
+      <button class="hotspot fiber" data-focus="fiber">FIBER</button>
+
+      <div class="beam-sector sA"></div>
+      <div class="beam-sector sB"></div>
+      <div class="mw-link"></div>
+      <div class="fiber-link"></div>
+
+      <div class="label l1">Sectorized RAN</div>
+      <div class="label l2">Microwave backhaul</div>
+      <div class="label l3">Shelter / power chain</div>
+    </div>
+  </article>
+
+  <aside class="detail-panel">
+    <h2 id="detail_title">Antenna Sector</h2>
+    <p id="detail_desc">Pannello antenna settoriale: azimuth, tilt, beamwidth, banda e MIMO layer.</p>
+
+    <div class="kpi-grid">
+      <div><span>Band</span><b id="k_band">n78</b></div>
+      <div><span>Azimuth</span><b id="k_azimuth">120°</b></div>
+      <div><span>Tilt</span><b id="k_tilt">4.5°</b></div>
+      <div><span>VSWR</span><b id="k_vswr">1.18</b></div>
+      <div><span>Power</span><b id="k_power">40 W</b></div>
+      <div><span>Alarm</span><b id="k_alarm">NONE</b></div>
+    </div>
+
+    <h2>Operational Interpretation</h2>
+    <div class="interpretation" id="interpretation">
+      Il settore antenna determina copertura, overlap, interferenza, handover e qualità radio.
+    </div>
+
+    <h2>Alarm Chain</h2>
+    <div class="alarm-chain">
+      <span class="ok">RET OK</span>
+      <span class="ok">VSWR OK</span>
+      <span class="ok">RRU TEMP OK</span>
+      <span class="warn">BACKHAUL WATCH</span>
+    </div>
+  </aside>
+</section>
+
+<section class="knowledge-row">
+  <article>
+    <h2>Physical Layer</h2>
+    <p>Antenna, RRU, feeder/fiber, RET/AISG e microwave determinano direttamente copertura, qualità e disponibilità.</p>
+  </article>
+  <article>
+    <h2>Protocol Mapping</h2>
+    <p>Il sito fisico si riflette su cell identity, PCI, RRC, NGAP, GTP-U, QoS flow, handover e KPI OSS.</p>
+  </article>
+  <article>
+    <h2>Troubleshooting</h2>
+    <p>VSWR alto, RET bloccato, RRU in thermal throttling, backhaul degradato, power instability e fiber loss.</p>
+  </article>
+</section>
+</main>
+
+<footer>TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade / Telecom Site · frontend-only · localhost-only</footer>
+<script defer src="/assets/trfmc_infrastructure_digital_twin_v63.js"></script>
+<script defer src="/assets/trfmc_infrastructure_visual_upgrade_v63b.js"></script>
+<script defer src="/assets/trfmc_digital_twin_redesign_v74.js"></script>
+<script defer src="/assets/trfmc_master_shell_v75.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "version": "TRFMC v0.87E-R3",
+  "page": "trfmc_home_v87e.html",
+  "css": "assets/trfmc_v087e_home_promotion_gate.css",
+  "js": "assets/trfmc_v087e_home_promotion_gate.js",
+  "manifest": "reports/trfmc_v87e_home_promotion_manifest.json",
+  "scope_root": "[data-trfmc-page='trfmc-home-v87e']",
+  "iframe_free": true,
+  "no_cdn": true,
+  "no_backend_change": true,
+  "no_global_css": true,
+  "base_preserved": "trfmc_cinematic_command_deck_v87d.html",
+  "r2_regression_not_promoted": "trfmc_cinematic_command_deck_v87d_r2.html"
+}

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TRFMC Area Workbench · Fiber / Data Center / Power</title>
+<style>
+:root {
+  --bg:#020812; --panel:rgba(3,14,28,.82); --line:rgba(103,232,249,.18);
+  --text:#e8f7ff; --muted:#9fb8ca; --cyan:#67e8f9; --green:#86efac;
+  --amber:#fbbf24; --red:#fb7185; --violet:#c084fc;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; color:var(--text); font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 12% 5%, rgba(14,165,233,.22), transparent 28%),
+    radial-gradient(circle at 88% 0%, rgba(16,185,129,.14), transparent 30%),
+    linear-gradient(180deg,#020812,#020617);
+}
+nav {
+  position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:10px 22px;
+  border-bottom:1px solid var(--line); background:rgba(2,8,18,.94); backdrop-filter:blur(18px);
+}
+nav a, nav button {
+  border:1px solid rgba(103,232,249,.22); border-radius:999px; padding:8px 11px;
+  color:var(--text); background:rgba(0,12,24,.72); text-decoration:none; font-weight:900; cursor:pointer;
+}
+nav a:hover, nav button:hover { color:var(--green); border-color:rgba(134,239,172,.55); }
+main { max-width:1880px; margin:0 auto; padding:24px; }
+.hero {
+  border:1px solid var(--line); border-radius:30px; padding:24px;
+  background:radial-gradient(circle at 90% 5%,rgba(103,232,249,.16),transparent 32%),rgba(3,14,28,.80);
+  box-shadow:0 30px 110px rgba(0,0,0,.36);
+}
+.eyebrow { color:var(--cyan); font-size:11px; text-transform:uppercase; font-weight:950; letter-spacing:.14em; }
+h1 { margin:8px 0 0; font-size:40px; letter-spacing:-.05em; }
+.hero p { color:var(--muted); max-width:1120px; line-height:1.55; }
+.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:18px; }
+.kpi { border:1px solid rgba(103,232,249,.14); border-radius:18px; padding:13px; background:rgba(0,9,20,.65); }
+.kpi span { display:block; color:var(--muted); font-size:10px; font-weight:900; text-transform:uppercase; }
+.kpi strong { display:block; color:var(--green); font-size:28px; margin-top:5px; }
+.layout { display:grid; grid-template-columns:1.2fr .8fr; gap:14px; margin-top:16px; }
+.panel { border:1px solid var(--line); border-radius:24px; padding:16px; background:var(--panel); }
+.panel h2 { margin:0 0 10px; font-size:22px; }
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.page-card {
+  min-height:132px; display:flex; flex-direction:column; gap:7px; text-decoration:none; color:inherit;
+  border:1px solid rgba(103,232,249,.14); border-radius:18px; padding:12px; background:rgba(0,9,20,.72);
+}
+.page-card:hover { border-color:rgba(134,239,172,.55); box-shadow:0 0 34px rgba(16,185,129,.12); }
+.page-card span { color:var(--cyan); font-size:9px; text-transform:uppercase; font-weight:950; }
+.page-card strong { font-size:13px; line-height:1.16; }
+.page-card em { color:var(--muted); font-size:10px; word-break:break-word; font-style:normal; }
+.page-card small { margin-top:auto; color:var(--amber); font-size:10px; font-weight:850; }
+.workflow { display:grid; gap:8px; }
+.step { border:1px solid rgba(103,232,249,.12); border-radius:16px; padding:12px; background:rgba(0,8,18,.64); }
+.step b { color:var(--green); }
+table { width:100%; border-collapse:collapse; margin-top:8px; font-size:12px; }
+th, td { border-bottom:1px solid rgba(103,232,249,.10); padding:8px; text-align:left; vertical-align:top; }
+th { color:var(--cyan); font-size:10px; text-transform:uppercase; letter-spacing:.1em; }
+td a { color:var(--green); }
+.empty { color:var(--muted); padding:12px; }
+@media(max-width:1500px){ .layout{grid-template-columns:1fr} .grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:760px){ .grid,.kpis{grid-template-columns:1fr} h1{font-size:32px} }
+</style>
+</head>
+<body data-trfmc-area-workbench="fiber-datacenter">
+<nav>
+  <button onclick="history.back()">← Indietro</button>
+  <a href="/#portal-os-preview">Portal OS</a>
+  <a href="/trfmc_thematic_command_center_v1.html">Thematic Center</a>
+  <a href="/trfmc_page_review_cockpit_v1.html">Review Cockpit</a>
+  <a href="/trfmc_working_pages_control_room_v1.html">Working Pages</a>
+</nav>
+<main>
+  <section class="hero">
+    <div class="eyebrow">TRFMC area workbench · fiber-datacenter</div>
+    <h1>Fiber / Data Center / Power</h1>
+    <p>Infrastruttura fisica, fibra, energia, rack e PDU.</p>
+    <div class="kpis">
+      <div class="kpi"><span>Active pages</span><strong>0</strong></div>
+      <div class="kpi"><span>Top queue</span><strong>0</strong></div>
+      <div class="kpi"><span>Total canvas</span><strong>0</strong></div>
+      <div class="kpi"><span>Total scripts</span><strong>0</strong></div>
+    </div>
+  </section>
+
+  <section class="layout">
+    <div class="panel">
+      <h2>Top candidates da aprire e valutare</h2>
+      <div class="grid"><div class="empty">Nessuna pagina ACTIVE assegnata a questo sottoinsieme.</div></div>
+    </div>
+    <div class="panel">
+      <h2>Flusso corretto</h2>
+      <div class="workflow">
+        <div class="step"><b>1.</b> Apri ogni pagina candidata.</div>
+        <div class="step"><b>2.</b> Valuta: OK / migliorare / integrare / React ready / broken.</div>
+        <div class="step"><b>3.</b> Correggi link, ritorno home, contenuti incompleti.</div>
+        <div class="step"><b>4.</b> Solo dopo promuovi nel Portal OS.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:14px">
+    <h2>Backlog del sottoinsieme</h2>
+    <table>
+      <thead>
+        <tr><th>Titolo</th><th>URL</th><th>Canvas</th><th>Script</th><th>Stato</th></tr>
+      </thead>
+      <tbody><tr><td colspan="5">Nessun backlog.</td></tr></tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

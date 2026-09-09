@@ -1,0 +1,9 @@
+check	result	count
+iframe_absent	PASS	0
+dangerous_dom_absent	PASS	0
+no_extra_createroot_call_in_portal_os	PASS	0
+v42_not_touched_by_p4c	PASS	0
+manifest_module_count_gt_100	PASS	183
+home_id_present_once	PASS	1
+candidate_visual_present	PASS	61
+quarantine_review_present	PASS	10

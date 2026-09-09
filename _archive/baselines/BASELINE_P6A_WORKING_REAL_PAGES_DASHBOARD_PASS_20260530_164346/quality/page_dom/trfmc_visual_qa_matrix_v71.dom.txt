@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.75A Shell · TRFMC v0.71A · Page-by-Page Visual QA Matrix</title>
+  <link rel="stylesheet" href="/assets/trfmc_visual_qa_matrix_v71.css">
+  <script defer="" src="/assets/trfmc_visual_qa_matrix_v71.js"></script>
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+
+<body class="v71-shell trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-v75-active" data-v75-bound="true" data-v75="TRFMC_V0_75A_MASTER_VISUAL_RESET_SINGLE_SHELL" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div><header class="trfmc-v75-masterbar">
+      <div class="v75-brand">
+        <div class="v75-orb"></div>
+        <div>
+          <b>TRFMC MISSION CONTROL</b>
+          <span id="v75_identity">trfmc_visual_qa_matrix_v71.html · single clean shell</span>
+        </div>
+      </div>
+
+      <nav class="v75-nav">
+        <a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_component_library_v76.html">Components</a><a class="" href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a><a class="" href="/infrastructure_digital_twin_v63.html">Digital Twin</a><a class="" href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a><a class="" href="/webgl_rf_heatmap_engine_v67.html">Urban</a><a class="" href="/webgl_rf_heatmap_engine_v66.html">Heatmap</a><a class="" href="/field_engineering_mode_v64.html">Field</a><a class="" href="/rf_propagation_sandbox_v62.html">Propagation</a><a class="" href="/rf_telco_knowledge_os_v60.html">Knowledge</a><a class="active" href="/trfmc_visual_qa_matrix_v71.html">QA</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a>
+      </nav>
+
+      <div class="v75-status">
+        <span id="v75_backend" class="">Backend OK</span>
+        <span id="v75_runtime" class="">SIMULATION</span>
+        <span id="v75_visual" class="">Shell v75</span>
+      </div>
+    </header>
+  <div class="v71-bg-grid"></div>
+  <div class="v71-glow g1"></div>
+  <div class="v71-glow g2"></div>
+
+  <header class="v71-top">
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <b>TRFMC VISUAL GOVERNANCE LAB</b>
+        <span>v0.71A · Page-by-page Visual QA Matrix · Object System Audit</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/executive_mission_dashboard_v_next.html">Executive</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/webgl_rf_heatmap_engine_v68.html">Vegetation</a>
+      <a href="/field_engineering_mode_v64.html">Field</a>
+      <a class="active" href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+    </nav>
+
+    <div class="status">
+      <span id="backend_state" class="">Backend OK</span>
+      <span id="qa_state" class="warn">QA DONE</span>
+      <span id="qa_score" class="crit">Score 63%</span>
+    </div>
+  </header>
+
+  <main class="v71-layout">
+    <section class="hero panel">
+      <div>
+        <div class="eyebrow">TRFMC v0.71A · surgical visual governance</div>
+        <h1>Page-by-Page Visual QA Matrix</h1>
+        <p>
+          Questa console non aggiunge estetica casuale: misura la coerenza del portale.
+          Controlla tutte le pagine strategiche per shell unificata, object system, navigazione,
+          identità, scene, sharpness residua e readiness visiva.
+        </p>
+      </div>
+      <div class="score-orb">
+        <span>Portal Visual Score</span>
+        <b id="score_big">63%</b>
+        <small id="score_label">major visual governance required</small>
+      </div>
+    </section>
+
+    <section class="matrix-panel panel">
+      <div class="panel-head">
+        <h2>Visual QA Matrix</h2>
+        <div class="actions">
+          <button id="btn_run">Run QA</button>
+          <button id="btn_strict">Strict Mode</button>
+          <button id="btn_export">Export JSON</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>HTTP</th>
+              <th>Shell</th>
+              <th>Object</th>
+              <th>Nav</th>
+              <th>H1</th>
+              <th>Scene</th>
+              <th>Sharp</th>
+              <th>Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="qa_rows">
+      <tr>
+        <td><a href="/executive_mission_dashboard_v_next.html" target="qa_page">Executive Dashboard Next</a><br><small>mission-control</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">62</span></td>
+        <td><button data-preview="/executive_mission_dashboard_v_next.html" data-label="Executive Dashboard Next">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/webgl_rf_heatmap_engine_v69.html" target="qa_page">UE Mobility / Handover</a><br><small>rf-simulation</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/webgl_rf_heatmap_engine_v69.html" data-label="UE Mobility / Handover">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/webgl_rf_heatmap_engine_v68.html" target="qa_page">Seasonal Vegetation</a><br><small>rf-simulation</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/webgl_rf_heatmap_engine_v68.html" data-label="Seasonal Vegetation">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/webgl_rf_heatmap_engine_v67.html" target="qa_page">Urban Shadowing</a><br><small>rf-simulation</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/webgl_rf_heatmap_engine_v67.html" data-label="Urban Shadowing">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/webgl_rf_heatmap_engine_v66.html" target="qa_page">WebGL RF Heatmap</a><br><small>rf-simulation</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/webgl_rf_heatmap_engine_v66.html" data-label="WebGL RF Heatmap">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/field_engineering_mode_v64.html" target="qa_page">Field Engineering</a><br><small>field-ops</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill warn">MED</span></td>
+        <td><span class="pill crit">52</span></td>
+        <td><button data-preview="/field_engineering_mode_v64.html" data-label="Field Engineering">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/infrastructure_digital_twin_v63.html" target="qa_page">Infrastructure Digital Twin</a><br><small>field-ops</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill warn">MED</span></td>
+        <td><span class="pill crit">52</span></td>
+        <td><button data-preview="/infrastructure_digital_twin_v63.html" data-label="Infrastructure Digital Twin">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/rf_propagation_sandbox_v62.html" target="qa_page">RF Propagation Sandbox</a><br><small>rf-theory</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/rf_propagation_sandbox_v62.html" data-label="RF Propagation Sandbox">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/rf_telco_knowledge_os_v60.html" target="qa_page">RF/Telco Knowledge OS</a><br><small>knowledge</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/rf_telco_knowledge_os_v60.html" data-label="RF/Telco Knowledge OS">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/rf_telco_knowledge_modules_v61.html" target="qa_page">Knowledge Modules</a><br><small>knowledge</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">70</span></td>
+        <td><button data-preview="/rf_telco_knowledge_modules_v61.html" data-label="Knowledge Modules">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/portal_index_v19.html" target="qa_page">Portal Index</a><br><small>navigation</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">52</span></td>
+        <td><button data-preview="/portal_index_v19.html" data-label="Portal Index">Preview</button></td>
+      </tr>
+    
+      <tr>
+        <td><a href="/runtime_golden_check_console_v29.html" target="qa_page">Golden Runtime Check</a><br><small>governance</small></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill crit">NO</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill ok">OK</span></td>
+        <td><span class="pill crit">52</span></td>
+        <td><button data-preview="/runtime_golden_check_console_v29.html" data-label="Golden Runtime Check">Preview</button></td>
+      </tr>
+    </tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="side panel">
+      <h2>Governance Criteria</h2>
+      <div class="criteria">
+        <div><b>Shell</b><span>v70/v70B asset injection</span></div>
+        <div><b>Object</b><span>organic surface system active</span></div>
+        <div><b>Nav</b><span>menu present, route linkable</span></div>
+        <div><b>H1</b><span>strong primary identity</span></div>
+        <div><b>Scene</b><span>canvas, cockpit, tower, panel or scene</span></div>
+        <div><b>Sharp</b><span>residual hard-edge candidates</span></div>
+      </div>
+
+      <h2>Next Surgical Pass</h2>
+      <div id="next_steps" class="next-steps">
+      <div>
+        <b>Field Engineering · 52/100</b>
+        <span>manca shell v70 · manca object system v70B</span>
+      </div>
+    
+      <div>
+        <b>Infrastructure Digital Twin · 52/100</b>
+        <span>manca shell v70 · manca object system v70B</span>
+      </div>
+    
+      <div>
+        <b>Portal Index · 52/100</b>
+        <span>manca shell v70 · manca object system v70B · manca nav</span>
+      </div>
+    
+      <div>
+        <b>Golden Runtime Check · 52/100</b>
+        <span>manca shell v70 · manca object system v70B · manca nav</span>
+      </div>
+    
+      <div>
+        <b>Executive Dashboard Next · 62/100</b>
+        <span>manca shell v70 · manca object system v70B</span>
+      </div>
+    
+      <div>
+        <b>UE Mobility / Handover · 70/100</b>
+        <span>manca shell v70 · manca object system v70B</span>
+      </div>
+    
+      <div>
+        <b>Seasonal Vegetation · 70/100</b>
+        <span>manca shell v70 · manca object system v70B</span>
+      </div>
+    </div>
+    </aside>
+
+    <section class="preview panel">
+      <div class="panel-head">
+        <h2>Live Page Preview</h2>
+        <span id="preview_label">seleziona una pagina</span>
+      </div>
+      <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: unknown</div></div>
+    </section>
+  </main>
+<script defer="" src="/assets/trfmc_master_shell_v75.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="microwave" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · MICROWAVE</div>
+      <div class="trfmc-perfection-sub">TRFMC v0.71A · Page-by-Page Visual QA Matrix<br>/trfmc_visual_qa_matrix_v71.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>57/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>microwave-dish</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="TRFMC MICROWAVE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, fade margin, band)
+Capacity ≈ B·log2(1+SNR)·rank</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="microwave" width="609" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> Page-by-Page Visual QA Matrix</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RF PRO v5.8.3 · Master Console</title>
+<style>
+:root{
+  --bg:#020611;--panel:#071522;--panel2:#0a1d2c;--line:#07536b;--line2:#123c55;
+  --txt:#e7fbff;--muted:#83b4c8;--cyan:#00e5ff;--green:#36ff7d;--yellow:#ffd166;--orange:#ff9f1c;--red:#fb7185;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+    radial-gradient(circle at 8% 0%,rgba(0,229,255,.16),transparent 28%),
+    radial-gradient(circle at 92% 0%,rgba(54,255,125,.11),transparent 25%),
+    linear-gradient(180deg,#030914,#00040a 80%);
+  color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh;
+}
+.header{
+  width:min(97vw,1900px);margin:16px auto 10px;border:1px solid var(--line);border-radius:18px;
+  background:rgba(7,21,34,.90);padding:15px 18px;box-shadow:0 0 38px rgba(0,229,255,.08)
+}
+.header h1{margin:0;font-size:28px;letter-spacing:.04em}
+.sub{color:var(--muted);font-size:12px;margin-top:7px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#04101b;color:var(--muted);font-size:12px;font-weight:800}.ok{color:var(--green);border-color:rgba(54,255,125,.55)}.warn{color:var(--yellow);border-color:rgba(255,209,102,.55)}
+.main{width:min(97vw,1900px);margin:0 auto 40px;display:grid;grid-template-columns:310px 1fr 410px;gap:12px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:16px;background:rgba(7,21,34,.92);overflow:hidden}
+.panel h2{margin:0;padding:10px 12px;background:rgba(0,229,255,.07);border-bottom:1px solid var(--line);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+.body{padding:12px}
+button{background:#062b39;border:1px solid var(--cyan);color:var(--txt);border-radius:9px;padding:8px 9px;font-size:12px;font-weight:800;cursor:pointer;margin:3px 2px}
+button.good{background:#06341d;border-color:var(--green);color:var(--green)}button.warn{background:#3a2604;border-color:var(--yellow);color:var(--yellow)}button.orange{background:#3b1f04;border-color:var(--orange);color:var(--orange)}
+label{display:flex;flex-direction:column;gap:4px;color:var(--muted);font-size:10px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+input,select{width:100%;background:#020a11;color:var(--txt);border:1px solid #16627a;border-radius:9px;padding:8px 9px;font-size:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+iframe{width:100%;height:880px;border:1px solid #0f4058;border-radius:14px;background:#02040a}
+.log{background:#02070d;border:1px solid #123c55;border-radius:10px;padding:9px;white-space:pre-wrap;overflow:auto;font:12px ui-monospace,Menlo,Consolas,monospace;color:#bdfbea;height:230px}
+.small{height:150px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}.kpi{border:1px solid #16445b;border-radius:10px;background:#020a11;padding:8px}.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}.kpi b{display:block;color:var(--green);font-size:15px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid rgba(127,178,198,.18);padding:6px;text-align:left}th{color:var(--cyan);font-size:10px;text-transform:uppercase}
+.scroll{max-height:260px;overflow:auto}
+a{color:var(--cyan)}
+@media(max-width:1350px){.main{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}iframe{height:760px}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<section class="header">
+  <h1>RF PRO v5.8.3 · Master Console / No Loss Integration</h1>
+  <div class="sub">Console master: preserva v5.8.0, v5.8.1 e v5.8.2; integra sweep, IQ capture, analyze_plus, channelize/demod, evidence, Wi‑Fi, Mark VII, Blueway e modem observer.</div>
+  <div class="badges">
+    <span class="badge ok">RX ONLY</span>
+    <span class="badge ok">NO LOSS REGISTRY</span>
+    <span class="badge warn">NO TX · NO REPLAY · NO DEAUTH</span>
+    <span class="badge warn" id="apiBadge">API ERROR</span>
+  </div>
+</section>
+
+<main class="main">
+  <aside class="panel">
+    <h2>Master Navigation</h2>
+    <div class="body">
+      <button class="good" onclick="loadFrame('/api/v586/fullband/page')">Open v5.8.6 Full Band</button>
+      <button class="good" onclick="loadFrame('/api/v585/realtime/page')">Open v5.8.5 Realtime</button>
+      <button class="good" onclick="loadFrame('/api/v582/workbench/page')">Open v5.8.2 Restored Workbench</button>
+      <button onclick="loadFrame('/api/v581/demod/page')">Open v5.8.1 Demod PRO</button>
+      <button onclick="loadFrame('/api/v580/workbench/page')">Open v5.8.0 Original Workbench</button>
+      <button class="orange" onclick="audit()">Audit No-Loss</button>
+      <button onclick="registry()">Registry</button>
+      <button onclick="workflow()">Workflow</button>
+      <button onclick="files()">Files</button>
+      <button onclick="state()">State</button>
+
+      <hr style="border-color:#123c55;margin:12px 0">
+
+      <h3 style="font-size:12px;color:#00e5ff;text-transform:uppercase">Quick Operation</h3>
+      <div class="grid2">
+        <label>Start MHz<input id="startMHz" value="1"></label>
+        <label>Stop MHz<input id="stopMHz" value="5"></label>
+      </div>
+      <div class="grid2">
+        <label>Bin Hz<input id="binHz" value="100000"></label>
+        <label>Sample Rate<input id="sr" value="2000000"></label>
+      </div>
+      <div class="grid2">
+        <label>Offset Hz<input id="off" value="0"></label>
+        <label>Channel BW<input id="bw" value="25000"></label>
+      </div>
+      <label>Mode<select id="mode"><option value="nfm">NFM</option><option value="wfm">WFM</option><option value="am">AM</option><option value="usb">USB</option><option value="lsb">LSB</option><option value="cw">CW</option><option value="ook">OOK</option><option value="fsk">FSK</option></select></label>
+      <label>IQ File<select id="iqFile"></select></label>
+
+      <button onclick="quickSweep()">Quick Sweep</button>
+      <button onclick="quickSelftest()" class="orange">Selftest IQ</button>
+      <button onclick="quickAnalyze()" class="good">Analyze Plus</button>
+      <button onclick="quickDemod()" class="warn">Channelize + Demod</button>
+    </div>
+  </aside>
+
+  <section class="panel">
+    <h2>Integrated Workspace</h2>
+    <div class="body">
+      <div class="kpis">
+        <div class="kpi"><span>Current Page</span><b id="kPage">v5.8.2</b></div>
+        <div class="kpi"><span>Modules</span><b id="kModules">—</b></div>
+        <div class="kpi"><span>Reports</span><b id="kReports">—</b></div>
+        <div class="kpi"><span>Last WAV</span><b id="kWav">—</b></div>
+      </div>
+      <div class="trfmc-perfection-card" data-trfmc-iframe-removed="true"><h3>Iframe rimosso dal gate di perfezione</h3><div class="trfmc-perfection-formulas">Embedded frame quarantinato. Origine precedente: /api/v582/workbench/page</div></div>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <h2>Registry / Audit / Quick Output</h2>
+    <div class="body">
+      <div class="log" id="log">[2026-05-30T14:48:29.382Z] Files error
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+[2026-05-30T14:48:29.382Z] State error
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+ready</div>
+      <h3 style="font-size:12px;color:#00e5ff;text-transform:uppercase">Files</h3>
+      <div class="scroll">
+        <table><thead><tr><th>Type</th><th>Name</th><th>Size</th></tr></thead><tbody id="files"></tbody></table>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+function log(msg,obj){$('log').textContent=`[${new Date().toISOString()}] ${msg}\n${obj?JSON.stringify(obj,null,2).slice(0,7000):''}\n`+$('log').textContent}
+async function api(path,opt={}){const r=await fetch(path,{headers:{'Content-Type':'application/json'},...opt});if(!r.ok)throw new Error(await r.text());return await r.json()}
+function loadFrame(url){$('frame').src=url;$('kPage').textContent=url.split('/').slice(2,4).join('/');log('Frame loaded',{url})}
+function hzMHz(id){return Number($(id).value)*1e6}
+async function state(){try{const j=await api('/api/v583/master/state');$('apiBadge').textContent='API OK';$('apiBadge').className='badge ok';$('kModules').textContent=(j.modules||[]).length;log('Master state',j)}catch(e){$('apiBadge').textContent='API ERROR';$('apiBadge').className='badge warn';log('State error',e.message)}}
+async function registry(){try{log('Registry',await api('/api/v583/master/registry'))}catch(e){log('Registry error',e.message)}}
+async function workflow(){try{log('Workflow',await api('/api/v583/master/workflow'))}catch(e){log('Workflow error',e.message)}}
+async function audit(){try{log('Audit No-Loss',await api('/api/v583/master/audit'))}catch(e){log('Audit error',e.message)}}
+async function files(){try{const j=await api('/api/v583/master/files');$('kReports').textContent=(j.reports||[]).length;const tb=$('files');tb.innerHTML='';['iq','wav','reports'].forEach(k=>(j[k]||[]).forEach(f=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${k}</td><td>${f.name}</td><td>${f.size}</td>`;tb.appendChild(tr)}));const sel=$('iqFile');sel.innerHTML='';(j.iq||[]).forEach(f=>{const o=document.createElement('option');o.value=f.name;o.textContent=f.name;sel.appendChild(o)});if((j.wav||[])[0])$('kWav').textContent=j.wav[0].name.slice(0,18)+'…';log('Files', {iq:(j.iq||[]).length,wav:(j.wav||[]).length,reports:(j.reports||[]).length})}catch(e){log('Files error',e.message)}}
+async function quickSweep(){try{const body={start_hz:hzMHz('startMHz'),stop_hz:hzMHz('stopMHz'),bin_hz:+$('binHz').value,points:800,use_hackrf:true};log('Quick Sweep request',body);log('Quick Sweep result',await api('/api/v580/workbench/sweep/window',{method:'POST',body:JSON.stringify(body)}));await files()}catch(e){log('Quick Sweep error',e.message)}}
+async function quickSelftest(){try{const body={mode:$('mode').value,sample_rate:+$('sr').value,seconds:2,tone_hz:1000,carrier_offset_hz:+$('off').value};log('Selftest request',body);log('Selftest result',await api('/api/v581/iq/selftest_signal',{method:'POST',body:JSON.stringify(body)}));await files()}catch(e){log('Selftest error',e.message)}}
+async function quickAnalyze(){try{const body={filename:$('iqFile').value||null,sample_rate:+$('sr').value,fft_size:8192,max_seconds:5};log('Analyze request',body);log('Analyze result',await api('/api/v581/iq/analyze_plus',{method:'POST',body:JSON.stringify(body)}));await files()}catch(e){log('Analyze error',e.message)}}
+async function quickDemod(){try{const body={filename:$('iqFile').value||null,sample_rate:+$('sr').value,freq_offset_hz:+$('off').value,channel_bw_hz:+$('bw').value,mode:$('mode').value,max_seconds:5,audio_rate:48000};log('Demod request',body);log('Demod result',await api('/api/v581/iq/channelize_demod',{method:'POST',body:JSON.stringify(body)}));await files()}catch(e){log('Demod error',e.message)}}
+state();files();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="microwave" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · MICROWAVE</div>
+      <div class="trfmc-perfection-sub">RF PRO v5.8.3 · Master Console<br>/rfpro_master_v583.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>49/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>microwave-dish</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="TRFMC MICROWAVE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, fade margin, band)
+Capacity ≈ B·log2(1+SNR)·rank</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="microwave" width="602" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> RF PRO v5.8.3 · Master Console / No Loss Integration</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

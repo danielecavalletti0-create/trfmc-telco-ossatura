@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microwave Link Operations Center</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<script defer="" src="/assets/trfmc_design_system/trfmc_leaf_webgl_v1.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">Microwave Link Operations Center</div>
+    <div class="leaf-sub">LOS · Fresnel · rain fade · RSL · BER · XPIC · adaptive modulation</div>
+  </div>
+  <div class="leaf-kpis"><div class="leaf-kpi" data-trfmc-vxp="active"><small>KPI</small><b>LOS</b></div><div class="leaf-kpi" data-trfmc-vxp="active"><small>KPI</small><b>Fresnel</b></div><div class="leaf-kpi" data-trfmc-vxp="active"><small>KPI</small><b>RSL</b></div><div class="leaf-kpi" data-trfmc-vxp="active"><small>KPI</small><b>BER</b></div></div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="leaf-btn" href="/trfmc_expansion_hub_v1.html">Expansion Hub</a>
+    <a class="leaf-btn" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </div>
+</header>
+
+<div class="leaf-layout">
+  <aside class="leaf-panel" data-trfmc-vxp="active">
+    <h2>Teoria / Modello</h2>
+    <div class="leaf-scroll">
+      <div class="leaf-card" data-trfmc-vxp="active"><h3>Line of Sight</h3><p>Il collegamento MW richiede visibilità ottica e clearance della zona di Fresnel, non solo allineamento geometrico.</p></div>
+<div class="leaf-card" data-trfmc-vxp="active"><h3>Fade margin</h3><p>Margine tra RSL ricevuto e soglia minima di modulazione/capacità. Governa disponibilità e robustezza.</p></div>
+<div class="leaf-card" data-trfmc-vxp="active"><h3>Rain fading</h3><p>Alle frequenze alte la pioggia introduce attenuazione selettiva; E-band e mmWave richiedono calcolo probabilistico.</p></div>
+<div class="leaf-card" data-trfmc-vxp="active"><h3>XPIC</h3><p>Cross Polar Interference Cancellation permette riuso di frequenza su polarizzazioni ortogonali.</p></div>
+    </div>
+  </aside>
+
+  <main class="leaf-panel leaf-stage" data-trfmc-vxp="active">
+    <canvas class="leaf-canvas" data-trfmc-webgl=""></canvas>
+    <div class="leaf-overlay">
+      <div class="leaf-stage-head">
+        <div class="leaf-stage-title">06_Microwave_Link</div>
+        <div class="leaf-stage-sub">Leaf module operativo. Nessun iframe. Nessuna CDN. Nessuna shell parallela.</div>
+      </div>
+      <div></div>
+      <div class="leaf-stage-foot">
+        <div>Render: <span class="leaf-ok" data-gl-state="">fallback</span></div>
+        <div>Mode: leaf</div>
+        <div>Shell: V6R3 locked</div>
+        <div>Registry: active</div>
+        <div>Quality: required</div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="leaf-panel" data-trfmc-vxp="active">
+    <h2>Formule / Checklist</h2>
+    <div class="leaf-scroll">
+      <div class="leaf-card" data-trfmc-vxp="active">
+        <h3>Formula Book</h3>
+        <table class="leaf-table">
+          <thead><tr><th>ID</th><th>Formula</th></tr></thead>
+          <tbody><tr><td>F1</td><td><div class="leaf-formula">FSPL(dB)=32.44+20log10(f_MHz)+20log10(d_km)</div></td></tr>
+<tr><td>F2</td><td><div class="leaf-formula">r1 = sqrt(λ d1 d2 / (d1+d2))</div></td></tr>
+<tr><td>F3</td><td><div class="leaf-formula">RSL = EIRP + Gr - FSPL - losses</div></td></tr>
+<tr><td>F4</td><td><div class="leaf-formula">Availability = 1 - outage_probability</div></td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="leaf-card" data-trfmc-vxp="active">
+        <h3>Da implementare / collegare</h3>
+        <ul><li>Calcolatore link budget</li>
+<li>Profilo terreno e Fresnel</li>
+<li>Rain zone ITU-R</li>
+<li>Adaptive modulation table</li>
+<li>Allineamento antenna e polarizzazione</li></ul>
+      </div>
+
+      <div class="leaf-card" data-trfmc-vxp="active">
+        <h3>Regola di integrazione</h3>
+        <p>Questo modulo entra nel portale solo come leaf page registrata. Non introduce navbar globali, iframe, CDN o shell alternative.</p>
+        <span class="leaf-badge leaf-ok">NO IFRAME</span>
+        <span class="leaf-badge leaf-ok">NO CDN</span>
+        <span class="leaf-badge leaf-ok">REGISTRY</span>
+      </div>
+    </div>
+  </aside>
+</div>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Microwave Link</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> Microwave Link Operations Center</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il collegamento vive fra linea di vista, fade margin, modulazione, RSL, BER e disponibilità.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="true">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Microwave Link · Il collegamento vive fra linea di vista, fade margin, modulazione, RSL, BER e disponibilità.</div></body></html>

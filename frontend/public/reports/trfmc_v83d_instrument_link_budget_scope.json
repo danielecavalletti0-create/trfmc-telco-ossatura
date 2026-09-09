@@ -1,0 +1,21 @@
+{
+  "version": "TRFMC v0.83D",
+  "mode": "Instrument Layout + Link Budget Inspector",
+  "new_page": "webgl_rf_physics_engine_v83d.html",
+  "based_on": "webgl_rf_physics_engine_v83c.html",
+  "v83c_preserved": true,
+  "v83b_preserved": true,
+  "v83a_preserved": true,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "fixes": [
+    "hero title clipping corrected",
+    "link budget inspector added",
+    "best server vector added",
+    "SITE-A/SITE-B/SITE-C traceability added",
+    "Prx/SINR/coverage explainability improved"
+  ]
+}

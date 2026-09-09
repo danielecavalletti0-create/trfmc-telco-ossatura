@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Real-Time FFT / Gapless Receiver Lab</title>
+<style>
+:root{
+  --bg:#01060d;--p:#071827;--p2:#0a2135;--line:#0b75a8;--cyan:#00e5ff;
+  --ok:#75ff5b;--warn:#ffd84d;--bad:#ff3d7f;--txt:#e8f9ff;--muted:#84a8ba;
+  --blue:#1aa8ff;--gold:#ffd400;--violet:#b772ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:radial-gradient(circle at 50% -10%,#07365a 0,#02070d 42%,#00050a 100%);color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;overflow:hidden}
+body:before{content:"";position:fixed;inset:0;background:
+linear-gradient(rgba(0,255,255,.045) 1px,transparent 1px),
+linear-gradient(90deg,rgba(0,255,255,.035) 1px,transparent 1px);
+background-size:40px 40px;opacity:.4;pointer-events:none}
+.app{height:100vh;display:grid;grid-template-rows:64px 88px 1fr;gap:6px;padding:8px}
+.top{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid #0b5f8a;background:linear-gradient(180deg,#071827,#020811);padding:9px 12px;box-shadow:0 0 28px rgba(0,180,255,.18)}
+h1{margin:0;font-size:21px;letter-spacing:2px}
+small{color:var(--muted)}
+.actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+button,select,input{background:#0b2238;border:1px solid #1175a5;color:var(--txt);border-radius:4px;padding:7px 10px;font-size:12px}
+button:hover{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,240,255,.35);cursor:pointer}
+.led{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 12px var(--ok)}
+.kpis{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.kpi{border:1px solid #0b5f8a;background:linear-gradient(180deg,#092037,#04101b);padding:7px 8px;min-height:82px}
+.kpi .l{font-size:9px;color:#80bad0;text-transform:uppercase;letter-spacing:.8px}
+.kpi .v{font-size:18px;font-weight:800;margin-top:3px}
+.kpi .s{font-size:10px;color:var(--ok)}
+.main{display:grid;grid-template-columns:280px 1.35fr 1.05fr 320px;gap:6px;min-height:0}
+.panel{border:1px solid #0b5f8a;background:rgba(3,14,24,.94);box-shadow:inset 0 0 22px rgba(0,150,255,.06),0 0 16px rgba(0,130,255,.08);overflow:hidden;position:relative}
+.panel h2{margin:0;padding:8px 10px;border-bottom:1px solid #0b5f8a;color:#00e5ff;font-size:13px;text-transform:uppercase;letter-spacing:.8px;background:#061625}
+.body{padding:9px;height:calc(100% - 35px);overflow:auto}
+fieldset{border:1px solid #123f5d;border-radius:6px;margin:0 0 8px;padding:8px;background:#061523}
+legend{font-size:10px;color:var(--gold);padding:0 5px}
+.label{font-size:10px;color:#8fc0d2;text-transform:uppercase;margin:10px 0 4px}
+.val{float:right;color:var(--ok);font-family:monospace}
+.range{width:100%}
+.canvasBox{height:300px;border:1px solid #0d6f9e;background:#020b12;position:relative;margin-bottom:6px}
+canvas{width:100%;height:100%;display:block}
+.overlay{position:absolute;left:8px;top:8px;font-family:monospace;font-size:11px;color:var(--ok);background:rgba(0,0,0,.38);border:1px solid #154e34;padding:5px 7px}
+.footerStatus{position:absolute;right:8px;bottom:6px;color:var(--ok);font-family:monospace;font-size:10px;border:1px solid #1d7c33;padding:3px 6px;background:#04110a}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.card{border:1px solid #104e73;background:#061625;padding:8px;border-radius:4px;margin-bottom:6px}
+.card h3{margin:0 0 7px;font-size:12px;color:#00e5ff}
+.formula{font-family:Cambria,serif;font-size:17px;color:#fff;background:#061523;border:1px solid #174e73;padding:8px;margin:6px 0;border-radius:4px}
+.mini{font-family:monospace;font-size:11px;color:#b9eaff;line-height:1.45}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}.gold{color:var(--gold)}
+.table{width:100%;border-collapse:collapse;font-size:11px}
+.table th,.table td{border-bottom:1px solid #12344c;padding:5px;text-align:left}
+.table th{color:#83cfff}
+.bar{height:8px;background:#082035;border:1px solid #11496a;margin-top:4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#12e1ff,#75ff5b)}
+.log{height:250px;background:#02070d;border:1px solid #123f5d;padding:7px;overflow:auto;font-family:monospace;font-size:10px;color:#bcecff}
+.badge{display:inline-block;border:1px solid #1c7ba8;background:#092238;padding:3px 6px;border-radius:4px;margin:2px;font-size:10px}
+.modeCard{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px;border:1px solid #104e73;background:#061625;padding:8px;margin-bottom:6px;border-radius:4px}
+.modeCard b{color:#00e5ff}
+.modeCard span{font-family:monospace}
+@media(max-width:1450px){.main{grid-template-columns:250px 1.25fr 1fr 280px}.kpis{grid-template-columns:repeat(6,1fr)}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<div class="app">
+  <header class="top">
+    <div>
+      <h1>TRFMC REAL-TIME FFT / GAPLESS RECEIVER LAB</h1>
+      <small>IF bandwidth · sample rate · FFT bins · RBW · DNL · overlap · waterfall · POI · buffered vs seamless acquisition</small>
+    </div>
+    <div class="actions">
+      <button onclick="preset('rs20')">20 MHz / 4096</button>
+      <button onclick="preset('hires')">Hi-Res RBW</button>
+      <button onclick="preset('pulse')">Pulse Hunt</button>
+      <button onclick="preset('wide80')">80 MHz Wide</button>
+      <button onclick="exportReport()">Export JSON</button>
+      <button onclick="resetState()">Reset</button>
+      <span class="led"></span><span id="clock" class="mini">16:45:03</span>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><div class="l">Mode</div><div class="v" id="kMode">GAPLESS</div><div class="s">receiver model</div></div>
+    <div class="kpi"><div class="l">IF BW</div><div class="v" id="kIfbw">20.0</div><div class="s">MHz</div></div>
+    <div class="kpi"><div class="l">Sample Rate</div><div class="v" id="kFs">25.60</div><div class="s">Ms/s</div></div>
+    <div class="kpi"><div class="l">FFT</div><div class="v" id="kFft">4096</div><div class="s">points</div></div>
+    <div class="kpi"><div class="l">RBW/bin</div><div class="v" id="kRbw">6.25</div><div class="s">kHz</div></div>
+    <div class="kpi"><div class="l">Frame</div><div class="v" id="kFrame">160.0</div><div class="s">µs</div></div>
+    <div class="kpi"><div class="l">FFT/s</div><div class="v" id="kFps">12.500</div><div class="s">frames/s</div></div>
+    <div class="kpi"><div class="l">DNL</div><div class="v" id="kDnl">-129.0</div><div class="s">dBm</div></div>
+    <div class="kpi"><div class="l">Overlap</div><div class="v" id="kOverlap">50</div><div class="s">%</div></div>
+    <div class="kpi"><div class="l">Min Pulse</div><div class="v" id="kPulse">320</div><div class="s">µs level</div></div>
+    <div class="kpi"><div class="l">POI</div><div class="v" id="kPoi">LEVEL OK</div><div class="s">simulated</div></div>
+    <div class="kpi"><div class="l">Gate</div><div class="v">LEAF</div><div class="s">zero iframe</div></div>
+  </section>
+
+  <main class="main">
+    <aside class="panel">
+      <h2>Receiver Controls</h2>
+      <div class="body">
+        <fieldset>
+          <legend>REAL-TIME RECEIVER</legend>
+          <div class="label">Acquisition Mode <span class="val" id="vMode">GAPLESS</span></div>
+          <select id="mode" onchange="update()">
+            <option>GAPLESS</option>
+            <option>BUFFERED</option>
+            <option>PANORAMA</option>
+            <option>REPLAY</option>
+          </select>
+
+          <div class="label">IF Bandwidth MHz <span class="val" id="vIfbw">20.0</span></div>
+          <input id="ifbw" class="range" type="range" min="1" max="80" value="20" step="1" oninput="update()">
+
+          <div class="label">Sampling factor <span class="val" id="vFactor">1.28</span></div>
+          <input id="factor" class="range" type="range" min="1.05" max="1.60" value="1.28" step="0.01" oninput="update()">
+
+          <div class="label">Noise Figure dB <span class="val" id="vNf">7.0</span></div>
+          <input id="nf" class="range" type="range" min="1" max="20" value="7" step="0.5" oninput="update()">
+        </fieldset>
+
+        <fieldset>
+          <legend>FFT / WATERFALL</legend>
+          <div class="label">FFT Points</div>
+          <select id="fft" onchange="update()">
+            <option>1024</option>
+            <option>2048</option>
+            <option selected="">4096</option>
+            <option>8192</option>
+            <option>16384</option>
+            <option>32768</option>
+          </select>
+
+          <div class="label">Overlap % <span class="val" id="vOverlap">50%</span></div>
+          <input id="overlap" class="range" type="range" min="0" max="90" value="50" step="5" oninput="update()">
+
+          <div class="label">Window</div>
+          <select id="windowFn" onchange="update()">
+            <option>Blackman</option>
+            <option>Hann</option>
+            <option>FlatTop</option>
+            <option>Rectangular</option>
+          </select>
+
+          <div class="label">Waterfall Speed <span class="val" id="vWater">24 fps</span></div>
+          <input id="water" class="range" type="range" min="1" max="60" value="24" step="1" oninput="update()">
+        </fieldset>
+
+        <fieldset>
+          <legend>PULSE / POI</legend>
+          <div class="label">Pulse duration µs <span class="val" id="vPulse">320 µs</span></div>
+          <input id="pulse" class="range" type="range" min="5" max="2000" value="320" step="5" oninput="update()">
+
+          <div class="label">Detection threshold dB <span class="val" id="vThr">12 dB</span></div>
+          <input id="thr" class="range" type="range" min="3" max="40" value="12" step="1" oninput="update()">
+
+          <button style="width:100%;margin-top:8px" onclick="addEvent('PULSE_INJECT: synthetic short burst injected into IF stream')">Inject Pulse</button>
+          <button style="width:100%;margin-top:5px" onclick="addEvent('WATERFALL_MARKER: event marker stored with timestamp')">Mark Event</button>
+        </fieldset>
+      </div>
+    </aside>
+
+    <section class="panel">
+      <h2>IF Spectrum / Waterfall / Seamless Processing</h2>
+      <div class="body">
+        <div class="canvasBox">
+          <canvas id="spec" width="454" height="298"></canvas>
+          <div class="overlay" id="specOverlay">IF 20.0 MHz · fs 25.60 Ms/s · RBW 6.25 kHz · DNL -129.0 dBm · FFT 4096</div>
+          <div class="footerStatus">REAL-TIME IF FFT ENGINE · ACTIVE</div>
+        </div>
+        <div class="canvasBox" style="height:240px">
+          <canvas id="waterfall" width="454" height="238"></canvas>
+          <div class="overlay" id="waterOverlay">Waterfall · hop 80.0 µs · 12.500 FFT/s · overlap 50%</div>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <h3>RBW / Bin Width</h3>
+            <div class="formula">BW<sub>bin</sub> = f<sub>s</sub> / N</div>
+            <div class="mini" id="rbwOut">fs = 25.600 Ms/s<br>N = 4096<br>BWbin = 6250.0 Hz = 6.250 kHz</div>
+          </div>
+          <div class="card">
+            <h3>Displayed Noise Level</h3>
+            <div class="formula">DNL = -174 + NF + 10log<sub>10</sub>(BW<sub>bin</sub>)</div>
+            <div class="mini" id="dnlOut">NF = 7.0 dB<br>DNL = -129.04 dBm<br>Più piccola è la RBW, più bassa è la noise floor visualizzata.</div>
+          </div>
+          <div class="card">
+            <h3>Pulse Capture Rule</h3>
+            <div class="formula">T<sub>level</sub> ≈ 2 × N / f<sub>s</sub></div>
+            <div class="mini" id="pulseOut">Frame = 160.00 µs<br>2×frame = 320.00 µs<br>Pulse = 320.0 µs<br>Status = <span class="ok">LEVEL OK</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Gapless vs Buffered Receiver Model</h2>
+      <div class="body">
+        <div class="modeCard"><b>Gapless acquisition</b><span class="ok" id="gaplessScore">OK</span></div>
+        <div class="modeCard"><b>Buffered acquisition risk</b><span class="ok" id="bufferRisk">LOW</span></div>
+        <div class="modeCard"><b>Pulse level reliability</b><span id="levelReliability" class="ok">98%</span></div>
+
+        <div class="card">
+          <h3>Processing Timeline</h3>
+          <canvas id="timeline" style="height:190px;border:1px solid #0d6f9e;background:#020b12" width="341" height="190"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>FFT / POI Table</h3>
+          <table class="table" id="poiTable">
+            <thead>
+              <tr><th>Parameter</th><th>Value</th><th>Meaning</th></tr>
+            </thead>
+            <tbody>
+    <tr><td>Sampling rate</td><td>25.600 Ms/s</td><td>IF BW × oversampling factor</td></tr>
+    <tr><td>Bin width / RBW</td><td>6.250 kHz</td><td>frequency slice per FFT bin</td></tr>
+    <tr><td>FFT frame</td><td>160.00 µs</td><td>time observed by one FFT</td></tr>
+    <tr><td>Hop time</td><td>80.00 µs</td><td>time shift between adjacent FFTs</td></tr>
+    <tr><td>FFT/s</td><td>12.500</td><td>processing load estimate</td></tr>
+    <tr><td>DNL</td><td>-129.04 dBm</td><td>displayed noise level estimate</td></tr>
+    <tr><td>Pulse reliability</td><td>98%</td><td>model of capture/level confidence</td></tr>
+  </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Window Function Notes</h3>
+          <div class="mini" id="windowOut">Buon compromesso per ridurre componenti spettrali artificiali; utile su segnali impulsivi ma allarga la main lobe.</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <h2>Evidence / Export / Event Stream</h2>
+      <div class="body">
+        <div class="card">
+          <h3>Evidence Bundle</h3>
+          <div class="mini">
+            Spectrum frame: <span class="ok">enabled</span><br>
+            Waterfall segment: <span class="ok">enabled</span><br>
+            FFT settings JSON: <span class="ok">enabled</span><br>
+            Event markers: <span class="ok">enabled</span><br>
+            IQ file hook: <span class="warn">simulated</span>
+          </div>
+          <button style="width:100%;margin-top:8px" onclick="exportReport()">Export Receiver Report JSON</button>
+        </div>
+
+        <div class="card">
+          <h3>Receiver Quality Gates</h3>
+          <table class="table">
+            <tbody><tr><th>Gate</th><th>Status</th></tr>
+            <tr><td>HTTP leaf</td><td class="ok">PASS</td></tr>
+            <tr><td>Iframe</td><td class="ok">ZERO</td></tr>
+            <tr><td>External refs</td><td class="ok">ZERO</td></tr>
+            <tr><td>State persistence</td><td class="ok">LOCAL</td></tr>
+          </tbody></table>
+        </div>
+
+        <div class="card">
+          <h3>Event Stream</h3>
+          <div class="log" id="log">[16:45:03] Real-Time FFT / Gapless Receiver Lab online</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+let tick = 0;
+let logLines = [];
+let waterfallRows = [];
+
+function addEvent(msg){
+  const t = new Date().toLocaleTimeString();
+  logLines.unshift(`[${t}] ${msg}`);
+  logLines = logLines.slice(0,90);
+  $("log").textContent = logLines.join("\n");
+}
+
+function n(v,d=2){ return Number(v).toFixed(d); }
+
+function loadState(){
+  try{
+    const s = JSON.parse(localStorage.getItem("trfmc_fft_gapless_v1") || "{}");
+    for(const k of Object.keys(s)){
+      if($(k)) $(k).value = s[k];
+    }
+  }catch(e){}
+}
+
+function saveState(){
+  const ids = ["mode","ifbw","factor","nf","fft","overlap","windowFn","water","pulse","thr"];
+  const s = {};
+  for(const id of ids){ s[id] = $(id).value; }
+  localStorage.setItem("trfmc_fft_gapless_v1", JSON.stringify(s));
+}
+
+function resetState(){
+  localStorage.removeItem("trfmc_fft_gapless_v1");
+  location.reload();
+}
+
+function preset(p){
+  if(p==="rs20"){
+    $("mode").value="GAPLESS"; $("ifbw").value=20; $("factor").value=1.28; $("fft").value=4096; $("overlap").value=50; $("pulse").value=320; $("windowFn").value="Blackman";
+  }
+  if(p==="hires"){
+    $("mode").value="GAPLESS"; $("ifbw").value=10; $("factor").value=1.28; $("fft").value=16384; $("overlap").value=75; $("pulse").value=900; $("windowFn").value="Hann";
+  }
+  if(p==="pulse"){
+    $("mode").value="GAPLESS"; $("ifbw").value=40; $("factor").value=1.28; $("fft").value=2048; $("overlap").value=75; $("pulse").value=80; $("windowFn").value="Blackman";
+  }
+  if(p==="wide80"){
+    $("mode").value="PANORAMA"; $("ifbw").value=80; $("factor").value=1.28; $("fft").value=4096; $("overlap").value=50; $("pulse").value=160; $("windowFn").value="Blackman";
+  }
+  addEvent("PRESET: " + p.toUpperCase() + " loaded");
+  update();
+}
+
+function calc(){
+  const mode = $("mode").value;
+  const ifbwMHz = +$("ifbw").value;
+  const factor = +$("factor").value;
+  const nf = +$("nf").value;
+  const fft = +$("fft").value;
+  const overlap = +$("overlap").value;
+  const pulseUs = +$("pulse").value;
+  const thr = +$("thr").value;
+
+  const fs = ifbwMHz * factor * 1e6;
+  const binHz = fs / fft;
+  const rbwKHz = binHz / 1000;
+  const frameUs = fft / fs * 1e6;
+  const levelPulseUs = 2 * frameUs;
+  const hopUs = frameUs * (1 - overlap / 100);
+  const fftPerSec = 1e6 / Math.max(hopUs, 0.001);
+  const dnl = -174 + nf + 10 * Math.log10(binHz);
+  const poi = pulseUs >= levelPulseUs ? "LEVEL OK" : pulseUs >= hopUs ? "DETECT OK" : "RISK";
+  const reliability = pulseUs >= levelPulseUs ? 98 : pulseUs >= frameUs ? 82 : pulseUs >= hopUs ? 64 : 35;
+  const bufferRisk = mode === "BUFFERED" ? Math.min(95, 35 + ifbwMHz/1.4 + fft/900) : Math.max(3, 30 - overlap/3);
+
+  return {mode,ifbwMHz,factor,nf,fft,overlap,pulseUs,thr,fs,binHz,rbwKHz,frameUs,levelPulseUs,hopUs,fftPerSec,dnl,poi,reliability,bufferRisk};
+}
+
+function update(){
+  const c = calc();
+
+  $("vMode").textContent = c.mode;
+  $("vIfbw").textContent = n(c.ifbwMHz,1);
+  $("vFactor").textContent = n(c.factor,2);
+  $("vNf").textContent = n(c.nf,1);
+  $("vOverlap").textContent = c.overlap + "%";
+  $("vWater").textContent = $("water").value + " fps";
+  $("vPulse").textContent = c.pulseUs + " µs";
+  $("vThr").textContent = c.thr + " dB";
+
+  $("kMode").textContent = c.mode;
+  $("kIfbw").textContent = n(c.ifbwMHz,1);
+  $("kFs").textContent = n(c.fs/1e6,2);
+  $("kFft").textContent = c.fft;
+  $("kRbw").textContent = n(c.rbwKHz,2);
+  $("kFrame").textContent = n(c.frameUs,1);
+  $("kFps").textContent = Math.round(c.fftPerSec).toLocaleString();
+  $("kDnl").textContent = n(c.dnl,1);
+  $("kOverlap").textContent = c.overlap;
+  $("kPulse").textContent = n(c.levelPulseUs,0);
+  $("kPoi").textContent = c.poi;
+
+  $("specOverlay").textContent = `IF ${n(c.ifbwMHz,1)} MHz · fs ${n(c.fs/1e6,2)} Ms/s · RBW ${n(c.rbwKHz,2)} kHz · DNL ${n(c.dnl,1)} dBm · FFT ${c.fft}`;
+  $("waterOverlay").textContent = `Waterfall · hop ${n(c.hopUs,1)} µs · ${Math.round(c.fftPerSec).toLocaleString()} FFT/s · overlap ${c.overlap}%`;
+
+  $("rbwOut").innerHTML = `fs = ${n(c.fs/1e6,3)} Ms/s<br>N = ${c.fft}<br>BWbin = ${n(c.binHz,1)} Hz = ${n(c.rbwKHz,3)} kHz`;
+  $("dnlOut").innerHTML = `NF = ${n(c.nf,1)} dB<br>DNL = ${n(c.dnl,2)} dBm<br>Più piccola è la RBW, più bassa è la noise floor visualizzata.`;
+  $("pulseOut").innerHTML = `Frame = ${n(c.frameUs,2)} µs<br>2×frame = ${n(c.levelPulseUs,2)} µs<br>Pulse = ${n(c.pulseUs,1)} µs<br>Status = <span class="${c.poi==='RISK'?'bad':c.poi==='DETECT OK'?'warn':'ok'}">${c.poi}</span>`;
+
+  $("gaplessScore").textContent = c.mode === "GAPLESS" ? "OK" : c.mode === "BUFFERED" ? "N/A" : "PARTIAL";
+  $("bufferRisk").textContent = c.bufferRisk > 70 ? "HIGH" : c.bufferRisk > 35 ? "MED" : "LOW";
+  $("bufferRisk").className = c.bufferRisk > 70 ? "bad" : c.bufferRisk > 35 ? "warn" : "ok";
+  $("levelReliability").textContent = n(c.reliability,0) + "%";
+  $("levelReliability").className = c.reliability > 90 ? "ok" : c.reliability > 60 ? "warn" : "bad";
+
+  const tbody = $("poiTable").querySelector("tbody");
+  tbody.innerHTML = `
+    <tr><td>Sampling rate</td><td>${n(c.fs/1e6,3)} Ms/s</td><td>IF BW × oversampling factor</td></tr>
+    <tr><td>Bin width / RBW</td><td>${n(c.rbwKHz,3)} kHz</td><td>frequency slice per FFT bin</td></tr>
+    <tr><td>FFT frame</td><td>${n(c.frameUs,2)} µs</td><td>time observed by one FFT</td></tr>
+    <tr><td>Hop time</td><td>${n(c.hopUs,2)} µs</td><td>time shift between adjacent FFTs</td></tr>
+    <tr><td>FFT/s</td><td>${Math.round(c.fftPerSec).toLocaleString()}</td><td>processing load estimate</td></tr>
+    <tr><td>DNL</td><td>${n(c.dnl,2)} dBm</td><td>displayed noise level estimate</td></tr>
+    <tr><td>Pulse reliability</td><td>${n(c.reliability,0)}%</td><td>model of capture/level confidence</td></tr>
+  `;
+
+  const win = $("windowFn").value;
+  const notes = {
+    Blackman:"Buon compromesso per ridurre componenti spettrali artificiali; utile su segnali impulsivi ma allarga la main lobe.",
+    Hann:"Buona scelta generale per analisi dinamica e waterfall stabile.",
+    FlatTop:"Migliore per accuratezza di ampiezza, meno adatta alla massima risoluzione frequenziale.",
+    Rectangular:"Massima risoluzione teorica ma leakage elevato se il segnale non è coerente con il frame FFT."
+  };
+  $("windowOut").textContent = notes[win] || "";
+
+  saveState();
+  drawSpectrum();
+  drawTimeline();
+}
+
+function drawSpectrum(){
+  const c = $("spec"), r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  c.width = r.width*dpr; c.height = r.height*dpr;
+  const x = c.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0);
+  const w = r.width, h = r.height;
+  const p = calc();
+  x.fillStyle = "#020b12"; x.fillRect(0,0,w,h);
+
+  x.strokeStyle = "rgba(0,210,255,.16)";
+  for(let i=0;i<w;i+=44){x.beginPath();x.moveTo(i,0);x.lineTo(i,h);x.stroke();}
+  for(let j=0;j<h;j+=34){x.beginPath();x.moveTo(0,j);x.lineTo(w,j);x.stroke();}
+
+  x.strokeStyle = "#ffd400"; x.lineWidth = 1.4; x.beginPath();
+  for(let i=0;i<w;i++){
+    let y = h-52 + Math.sin((i+tick)/23)*4 + Math.sin((i+tick)/7)*1.2;
+    const peaks = [0.16,0.28,0.44,0.58,0.73,0.86];
+    for(const pp of peaks){
+      const dx = i - w*pp;
+      y -= Math.exp(-(dx*dx)/(2*(18+20*pp)*(18+20*pp))) * (45 + 38*Math.sin(tick/50+pp*6));
+    }
+    if(p.pulseUs < p.levelPulseUs && Math.abs(i - (w*((tick%220)/220))) < 5){
+      y -= 90;
+    }
+    if(i===0)x.moveTo(i,y); else x.lineTo(i,y);
+  }
+  x.stroke();
+
+  x.fillStyle = "rgba(0,229,255,.10)";
+  const marker = (tick % 260) / 260 * w;
+  x.fillRect(marker,0,10,h);
+  x.strokeStyle = "rgba(255,61,127,.8)";
+  x.strokeRect(marker,0,10,h);
+
+  x.fillStyle="#7fa3b7"; x.font="10px monospace";
+  for(let k=0;k<6;k++) x.fillText((-20-k*20)+" dBm",w-62,20+k*42);
+}
+
+function drawWaterfall(){
+  const c = $("waterfall"), r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  c.width = r.width*dpr; c.height = r.height*dpr;
+  const x = c.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0);
+  const w = Math.floor(r.width), h = Math.floor(r.height);
+
+  const row = [];
+  for(let i=0;i<w;i++){
+    let v = 12 + Math.sin((i+tick)/19)*7 + Math.random()*8;
+    for(const pp of [.18,.37,.53,.69,.84]){
+      const dx=i-w*pp;
+      v += Math.exp(-(dx*dx)/(2*90))*120;
+    }
+    if(Math.abs(i - (w*((tick%200)/200))) < 4) v += 180;
+    row.push(Math.min(255,Math.max(0,v)));
+  }
+  waterfallRows.unshift(row);
+  waterfallRows = waterfallRows.slice(0,h);
+
+  const img = x.createImageData(w,h);
+  for(let y=0;y<h;y++){
+    const src = waterfallRows[y] || row;
+    for(let i=0;i<w;i++){
+      const v = src[i] || 0;
+      const idx=(y*w+i)*4;
+      img.data[idx] = Math.max(0, v-80);
+      img.data[idx+1] = Math.min(255, v*1.1);
+      img.data[idx+2] = Math.min(255, 80+v*1.4);
+      img.data[idx+3] = 255;
+    }
+  }
+  x.putImageData(img,0,0);
+}
+
+function drawTimeline(){
+  const c = $("timeline"), r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  c.width = r.width*dpr; c.height = r.height*dpr;
+  const x = c.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0);
+  const w=r.width,h=r.height,p=calc();
+  x.fillStyle="#020b12"; x.fillRect(0,0,w,h);
+  x.strokeStyle="rgba(0,210,255,.16)";
+  for(let i=0;i<w;i+=32){x.beginPath();x.moveTo(i,0);x.lineTo(i,h);x.stroke();}
+
+  const lanes=[
+    ["Signal acquisition","#75ff5b",18],
+    ["FFT processing","#00e5ff",70],
+    ["Buffered gap risk","#ff3d7f",122]
+  ];
+
+  x.font="10px monospace";
+  for(const [name,col,y] of lanes){
+    x.fillStyle="#83cfff"; x.fillText(name,8,y+10);
+    for(let i=120;i<w-10;i+=58){
+      x.fillStyle=col;
+      let width = name.includes("Buffered") ? (p.mode==="BUFFERED"?38:10) : 46;
+      x.fillRect(i+(tick%58),y,width,16);
+    }
+  }
+}
+
+function exportReport(){
+  const c = calc();
+  const data = {
+    page:"TRFMC Real-Time FFT / Gapless Receiver Lab V1",
+    timestamp:new Date().toISOString(),
+    receiver:{
+      mode:c.mode,
+      if_bandwidth_mhz:c.ifbwMHz,
+      sampling_factor:c.factor,
+      sample_rate_sps:c.fs,
+      fft_points:c.fft,
+      overlap_percent:c.overlap,
+      window:$("windowFn").value,
+      bin_width_hz:c.binHz,
+      dnl_dbm:c.dnl,
+      fft_frame_us:c.frameUs,
+      hop_us:c.hopUs,
+      pulse_duration_us:c.pulseUs,
+      min_pulse_for_level_us:c.levelPulseUs,
+      poi_model:c.poi
+    },
+    gate:{standalone_leaf:true,iframe:false,external_refs:false}
+  };
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "trfmc_realtime_fft_gapless_receiver_report.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  addEvent("REPORT: receiver FFT JSON exported");
+}
+
+function loop(){
+  tick++;
+  $("clock").textContent = new Date().toLocaleTimeString();
+  if(tick % 3 === 0) drawSpectrum();
+  if(tick % Math.max(1, Math.round(60 / (+$("water").value))) === 0) drawWaterfall();
+  if(tick % 12 === 0) drawTimeline();
+  if(tick % 180 === 0) addEvent(["DETECT: short transient visible in overlap FFT","WATERFALL: spectral persistence updated","POI: frame alignment model recalculated","DNL: receiver sensitivity gate nominal"][Math.floor(Math.random()*4)]);
+  requestAnimationFrame(loop);
+}
+
+loadState();
+update();
+addEvent("Real-Time FFT / Gapless Receiver Lab online");
+loop();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="rf">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · RF</div>
+      <div class="trfmc-c3-sub">TRFMC Real-Time FFT / Gapless Receiver Lab<br>/trfmc_realtime_fft_gapless_receiver_lab_v1.html<br>Previous Authority V3 score: 71/100 · gaps closed: design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:spectrum-scope</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>FFT</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>EVM</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>SNR</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>ACLR</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="spectrum-scope" data-size="medium" title="Batch C RF · spectrum-scope"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">x(t) ⇄ X(f) via Fourier transform
+RBW controls spectral resolution
+EVM = RMS(error_vector)/RMS(reference_vector)
+SNR = signal_power/noise_power
+ACLR and OBW bind spectrum to compliance</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="rf" width="607" height="158"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC REAL-TIME FFT / GAPLESS RECEIVER LAB</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

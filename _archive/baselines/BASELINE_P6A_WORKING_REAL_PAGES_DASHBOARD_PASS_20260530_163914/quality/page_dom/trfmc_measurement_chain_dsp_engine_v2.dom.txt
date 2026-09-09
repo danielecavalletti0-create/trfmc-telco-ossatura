@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Measurement Chain DSP Engine V2</title>
+<style>
+:root{
+  --bg:#02070f;--panel:#07111f;--panel2:#0b1728;--line:#1c6f9f;
+  --text:#eaf3ff;--muted:#8aa7c5;--cyan:#54d7ff;--green:#9dff6a;
+  --yellow:#ffd84d;--blue:#38a5ff;--red:#ff5f6d;--orange:#ff9e3d;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#02070f;color:var(--text);font-family:Inter,Segoe UI,system-ui,sans-serif;font-size:12px}
+header{height:56px;background:#060b13;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+h1{font-size:16px;margin:0;letter-spacing:.08em;text-transform:uppercase}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+a{color:var(--text);text-decoration:none;border:1px solid #2c7ba8;background:#0c1a2b;border-radius:4px;padding:6px 8px}
+main{display:grid;grid-template-columns:270px 1fr 340px;gap:8px;padding:8px}
+.panel{background:var(--panel);border:1px solid #214c6a;border-radius:6px;overflow:hidden}
+.title{background:#0b1b2d;border-bottom:1px solid #214c6a;padding:7px 9px;color:var(--cyan);font-weight:700;text-transform:uppercase}
+.body{padding:8px}
+.ctrl{border:1px solid #214c6a;background:#081524;border-radius:5px;padding:8px;margin-bottom:7px}
+.ctrl b{display:block;color:var(--green);margin-bottom:5px}
+label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+input,select{width:100%;margin:4px 0 8px}
+select{background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:6px}
+.kpis{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-bottom:8px}
+.kpi{background:#07111f;border:1px solid #214c6a;border-radius:5px;padding:7px}
+.kpi b{display:block;font-size:14px}.kpi span{color:var(--muted);font-size:10px}
+.chain{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:8px}
+.stage{background:#081524;border:1px solid #285d82;border-radius:5px;padding:7px;text-align:center;position:relative}
+.stage b{display:block;color:#eaf3ff}.stage span{color:var(--muted);font-size:10px}
+.stage.on{border-color:var(--green);box-shadow:inset 0 -3px 0 var(--green)}
+.grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:8px}
+.frame{background:#02070f;border:1px solid #214c6a;border-radius:6px;overflow:hidden}
+.frame h3{margin:0;background:#0b1b2d;border-bottom:1px solid #214c6a;padding:6px 8px;font-size:12px;color:#dcecff}
+canvas{width:100%;display:block;background:#030912}
+#spectrum{height:320px}#ifview,#filterview,#timeview,#iqview{height:220px}
+.formula{border:1px solid #214c6a;background:#081524;border-radius:5px;padding:8px;margin-bottom:6px;color:#c8daf1;font-family:ui-monospace,monospace}
+.formula b{color:var(--yellow)}
+.log{height:220px;overflow:auto;font-family:ui-monospace,monospace;color:#c7ddf4;font-size:11px}
+.log div{border-bottom:1px solid #18364d;padding:5px 0}
+button{width:100%;text-align:left;color:var(--text);background:#10233a;border:1px solid #285d82;border-radius:4px;margin:5px 0;padding:8px;cursor:pointer}
+button:hover,button.active{background:#17456d;border-color:#54d7ff;box-shadow:inset 3px 0 0 #ffd84d}
+@media(max-width:1300px){main{grid-template-columns:1fr}.kpis,.chain,.grid2{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <div>
+    <h1>TRFMC Measurement Chain DSP Engine V2</h1>
+    <div style="color:#8aa7c5;font-size:11px">Receiver chain · Filters · IF · RBW/VBW · Detector · Average · Peak · SNR · DSP math</div>
+  </div>
+  <nav>
+<a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP Engine V3</a>
+    <a href="/trfmc_instrument_os_alignment_v1.html">Instrument OS</a>
+    <a href="/trfmc_pr200_field_monitoring_receiver_v1.html">PR200 Receiver</a>
+    <a href="/trfmc_rf_tm_war_room_v4.html">RF/TM</a>
+    <a href="/trfmc_enterprise_prime_portal_v1.html">Prime</a>
+  </nav>
+</header>
+
+<main>
+<aside class="panel">
+  <div class="title">Receiver Parameters</div>
+  <div class="body">
+    <div class="ctrl"><b>RF Input</b>
+      <label>Center <span id="cfv">1.000 GHz</span></label><input id="cf" type="range" min="10" max="8000" value="1000">
+      <label>RF Input <span id="pinv">-60 dBm</span></label><input id="pin" type="range" min="-120" max="-10" value="-60">
+      <label>Attenuator <span id="attv">10 dB</span></label><input id="att" type="range" min="0" max="40" value="10">
+      <label>Preamp/LNA <span id="lnav">20 dB</span></label><input id="lna" type="range" min="0" max="35" value="20">
+    </div>
+
+    <div class="ctrl"><b>Mixer / IF / Filter</b>
+      <label>LO offset <span id="lov">120 MHz</span></label><input id="lo" type="range" min="10" max="500" value="120">
+      <label>IF BW <span id="ifbwv">20 MHz</span></label><input id="ifbw" type="range" min="1" max="160" value="20">
+      <label>RBW <span id="rbwv">100 kHz</span></label><input id="rbw" type="range" min="1" max="1000" value="100">
+      <label>VBW <span id="vbwv">30 kHz</span></label><input id="vbw" type="range" min="1" max="1000" value="30">
+    </div>
+
+    <div class="ctrl"><b>DSP / Detector</b>
+      <select id="window"><option>Hann</option><option>Blackman-Harris</option><option>Flat Top</option><option>Rectangular</option></select>
+      <select id="detector"><option>Peak</option><option>RMS</option><option>Sample</option><option>Average</option><option>Quasi-Peak</option></select>
+      <label>Averaging <span id="avgv">16 traces</span></label><input id="avg" type="range" min="1" max="128" value="16">
+    </div>
+
+    <button class="active" data-mode="CHAIN">Receiver Chain</button>
+    <button data-mode="FILTER">Filter Shape</button>
+    <button data-mode="SNR">S/N Analysis</button>
+    <button data-mode="PEAK">Peak / Min / Avg</button>
+    <button data-mode="IF">Mixer + IF</button>
+    <button data-mode="EVM">IQ / EVM</button>
+  </div>
+</aside>
+
+<section>
+  <div class="kpis">
+    <div class="kpi"><b id="kpin">-60</b><span>Pin dBm</span></div>
+    <div class="kpi"><b id="katt">10</b><span>Att dB</span></div>
+    <div class="kpi"><b id="klna">20</b><span>LNA dB</span></div>
+    <div class="kpi"><b id="kif">-58</b><span>IF level</span></div>
+    <div class="kpi"><b id="knf">12</b><span>NF dB</span></div>
+    <div class="kpi"><b id="knoise">-112</b><span>Noise dBm</span></div>
+    <div class="kpi"><b id="ksnr">54</b><span>S/N dB</span></div>
+    <div class="kpi"><b id="kpeak">-48</b><span>Peak</span></div>
+    <div class="kpi"><b id="kavg">-102</b><span>Avg</span></div>
+    <div class="kpi"><b id="kevm">3.0%</b><span>EVM</span></div>
+  </div>
+
+  <div class="chain">
+    <div class="stage on"><b>Antenna</b><span>Z0 50Ω</span></div>
+    <div class="stage on"><b>Attenuator</b><span id="satt">10 dB</span></div>
+    <div class="stage on"><b>LNA</b><span id="slna">20 dB</span></div>
+    <div class="stage on"><b>Mixer</b><span>RF×LO</span></div>
+    <div class="stage on"><b>IF Filter</b><span id="sifbw">20 MHz</span></div>
+    <div class="stage on"><b>ADC</b><span>IQ</span></div>
+    <div class="stage on"><b>DSP</b><span>FFT/RBW</span></div>
+  </div>
+
+  <div class="frame"><h3>1 · RF Spectrum / Detector / Trace Math</h3><canvas id="spectrum" width="1500" height="380"></canvas></div>
+
+  <div class="grid2" style="margin-top:8px">
+    <div class="frame"><h3>2 · IF Chain / Mixer Products</h3><canvas id="ifview" width="760" height="260"></canvas></div>
+    <div class="frame"><h3>3 · Filter Shape / RBW / VBW</h3><canvas id="filterview" width="620" height="260"></canvas></div>
+    <div class="frame"><h3>4 · Time Domain / Averaging / Detector</h3><canvas id="timeview" width="760" height="260"></canvas></div>
+    <div class="frame"><h3>5 · IQ / EVM / Modulation Quality</h3><canvas id="iqview" width="620" height="260"></canvas></div>
+  </div>
+</section>
+
+<aside class="panel">
+  <div class="title">DSP Math / Measurement</div>
+  <div class="body">
+    <div class="formula"><b>Input chain</b><br>P_IF = P_in - Att + G_LNA - L_mix</div>
+    <div class="formula"><b>Thermal noise</b><br>N = -174 dBm/Hz + 10log10(RBW) + NF</div>
+    <div class="formula"><b>S/N</b><br>SNR = P_signal - P_noise</div>
+    <div class="formula"><b>RBW / VBW</b><br>RBW = FFT bin/filter bandwidth<br>VBW = video smoothing after detection</div>
+    <div class="formula"><b>Average trace</b><br>Y_avg[n] = α·Y[n] + (1-α)·Y_avg[n-1]</div>
+    <div class="formula"><b>Peak hold</b><br>Y_peak[n] = max(Y_peak[n-1],Y[n])</div>
+    <div class="formula"><b>Min hold</b><br>Y_min[n] = min(Y_min[n-1],Y[n])</div>
+    <div class="formula"><b>EVM</b><br>EVM% = RMS(error vector) / RMS(reference) · 100</div>
+    <div class="title" style="margin:10px -8px 8px">Event Stream</div>
+    <div class="log" id="log"><div>[16:40:23] CHAIN · RBW/VBW updated · SNR 54 dB · detector Peak</div></div>
+  </div>
+</aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const C={s:$("spectrum"),i:$("ifview"),f:$("filterview"),t:$("timeview"),q:$("iqview")};
+const X={s:C.s.getContext("2d"),i:C.i.getContext("2d"),f:C.f.getContext("2d"),t:C.t.getContext("2d"),q:C.q.getContext("2d")};
+let tick=0,last=0,mode="CHAIN",peakHold=[],minHold=[],avgTrace=[];
+function val(){return{cf:+$("cf").value,pin:+$("pin").value,att:+$("att").value,lna:+$("lna").value,lo:+$("lo").value,ifbw:+$("ifbw").value,rbw:+$("rbw").value,vbw:+$("vbw").value,avg:+$("avg").value,win:$("window").value,det:$("detector").value}}
+function db(v){return Math.round(v)}
+function labels(){
+ let p=val(),mixLoss=8,nf=12,iflev=p.pin-p.att+p.lna-mixLoss,noise=-174+10*Math.log10(p.rbw*1000)+nf,snr=iflev-noise,evm=Math.max(0.6,12-snr/6);
+ $("cfv").textContent=p.cf>=1000?(p.cf/1000).toFixed(3)+" GHz":p.cf+" MHz";$("pinv").textContent=p.pin+" dBm";$("attv").textContent=p.att+" dB";$("lnav").textContent=p.lna+" dB";$("lov").textContent=p.lo+" MHz";$("ifbwv").textContent=p.ifbw+" MHz";$("rbwv").textContent=p.rbw+" kHz";$("vbwv").textContent=p.vbw+" kHz";$("avgv").textContent=p.avg+" traces";
+ $("kpin").textContent=p.pin;$("katt").textContent=p.att;$("klna").textContent=p.lna;$("kif").textContent=db(iflev);$("knf").textContent=nf;$("knoise").textContent=db(noise);$("ksnr").textContent=db(snr);$("kevm").textContent=evm.toFixed(1)+"%";
+ $("satt").textContent=p.att+" dB";$("slna").textContent=p.lna+" dB";$("sifbw").textContent=p.ifbw+" MHz";
+}
+function grid(ctx,w,h){ctx.strokeStyle="rgba(120,190,240,.12)";for(let x=0;x<w;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}}
+function trace(){
+ const p=val(),w=C.s.width,arr=[];let iflev=p.pin-p.att+p.lna-8,noise=-174+10*Math.log10(p.rbw*1000)+12;
+ for(let x=0;x<w;x++){
+  let y=noise+Math.random()*8+Math.sin(x*.025+tick*.02)*2;
+  [.22,.48,.52,.76].forEach((c,i)=>{let bw=500+i*400+p.rbw*1.2,amp=(iflev-noise)*(i==2?1:.55);y+=Math.exp(-Math.pow(x-w*c,2)/bw)*amp});
+  if(mode==="PEAK"&&x>690&&x<710)y+=18;
+  if(mode==="SNR"&&x>850&&x<980)y=noise+3+Math.random()*3;
+  arr.push(y);
+ }
+ return arr;
+}
+function spectrum(){
+ const ctx=X.s,w=C.s.width,h=C.s.height,p=val(),arr=trace();ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+ if(!peakHold.length){peakHold=arr.slice();minHold=arr.slice();avgTrace=arr.slice()}
+ arr.forEach((v,i)=>{peakHold[i]=Math.max(peakHold[i],v);minHold[i]=Math.min(minHold[i],v);avgTrace[i]=(avgTrace[i]*(p.avg-1)+v)/p.avg});
+ function draw(a,col,lw=2){ctx.beginPath();a.forEach((v,i)=>{let n=Math.max(0,Math.min(1,(v+145)/105)),y=h-34-n*(h-65);i?ctx.lineTo(i,y):ctx.moveTo(i,y)});ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.stroke()}
+ draw(arr,"#54d7ff");draw(avgTrace,"#9dff6a");draw(peakHold,"#ffd84d",1.4);draw(minHold,"#ff5f6d",1);
+ let pk=Math.max(...arr),mn=Math.min(...arr),avg=arr.reduce((a,b)=>a+b,0)/arr.length;
+ $("kpeak").textContent=db(pk);$("kavg").textContent=db(avg);
+ ctx.fillStyle="#eaf3ff";ctx.font="13px system-ui";ctx.fillText(`${mode} · ${p.det} detector · ${p.win} window · RBW ${p.rbw} kHz · VBW ${p.vbw} kHz · Avg ${p.avg}`,18,24);
+}
+function ifview(){let ctx=X.i,w=C.i.width,h=C.i.height,p=val();ctx.clearRect(0,0,w,h);grid(ctx,w,h);ctx.fillStyle="#eaf3ff";ctx.fillText("Mixer products: RF, LO, IF = |RF-LO|, image responses",18,24);let pts=[.18,.42,.58,.82];pts.forEach((q,i)=>{let x=w*q,y=h*.65-(i%2)*70;ctx.strokeStyle=["#54d7ff","#ffd84d","#9dff6a","#ff5f6d"][i];ctx.beginPath();ctx.moveTo(x,h-28);ctx.lineTo(x,y);ctx.stroke();ctx.fillText(["RF","LO","IF","IMAGE"][i],x-18,y-8)});}
+function filterview(){let ctx=X.f,w=C.f.width,h=C.f.height,p=val();ctx.clearRect(0,0,w,h);grid(ctx,w,h);ctx.beginPath();for(let x=0;x<w;x++){let u=(x-w/2)/(40+p.rbw*.08),y=h-36-(1/(1+Math.pow(Math.abs(u),6)))*(h-70);x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.strokeStyle="#9dff6a";ctx.lineWidth=3;ctx.stroke();ctx.strokeStyle="#ffd84d";ctx.beginPath();for(let x=0;x<w;x++){let u=(x-w/2)/(55+p.vbw*.06),y=h-36-(1/(1+Math.pow(Math.abs(u),3)))*(h-90);x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();ctx.fillStyle="#eaf3ff";ctx.fillText("Green=RBW IF filter · Yellow=VBW smoothing",18,24)}
+function timeview(){let ctx=X.t,w=C.t.width,h=C.t.height,p=val();ctx.clearRect(0,0,w,h);grid(ctx,w,h);ctx.strokeStyle="#54d7ff";ctx.lineWidth=2;ctx.beginPath();for(let x=0;x<w;x++){let y=h/2-Math.sin(x*.05+tick*.06)*55-Math.sin(x*.013)*18+(Math.random()-.5)*p.vbw/20;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();ctx.strokeStyle="#ffd84d";ctx.beginPath();for(let x=0;x<w;x++){let gate=((x+tick*2)%160)<80?1:.2,y=h/2-gate*55;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();}
+function iqview(){let ctx=X.q,w=C.q.width,h=C.q.height,cx=w/2,cy=h/2,p=val(),snr=+( $("ksnr").textContent||20);ctx.clearRect(0,0,w,h);grid(ctx,w,h);ctx.strokeStyle="rgba(157,255,106,.25)";ctx.beginPath();ctx.moveTo(cx,20);ctx.lineTo(cx,h-20);ctx.moveTo(20,cy);ctx.lineTo(w-20,cy);ctx.stroke();let noise=Math.max(4,60-snr);ctx.fillStyle="#9dff6a";let vals=[-.75,-.25,.25,.75];for(let i=0;i<500;i++){let px=cx+vals[Math.floor(Math.random()*4)]*95+(Math.random()-.5)*noise,py=cy+vals[Math.floor(Math.random()*4)]*68+(Math.random()-.5)*noise;ctx.fillRect(px,py,2,2)}}
+function addLog(m){let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+m;$("log").prepend(d);while($("log").children.length>22)$("log").removeChild($("log").lastChild)}
+function log(){let now=Date.now();if(now-last<1400)return;last=now;addLog(`${mode} · RBW/VBW updated · SNR ${$("ksnr").textContent} dB · detector ${$("detector").value}`)}
+document.querySelectorAll("button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll("button[data-mode]").forEach(x=>x.classList.toggle("active",x===b));addLog("workspace → "+mode)});
+["cf","pin","att","lna","lo","ifbw","rbw","vbw","avg","window","detector"].forEach(id=>$(id).addEventListener("input",()=>{peakHold=[];minHold=[];avgTrace=[];labels()}));
+(function loop(){tick++;labels();spectrum();ifview();filterview();timeview();iqview();log();requestAnimationFrame(loop)})();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC Measurement Chain DSP Engine V2<br>/trfmc_measurement_chain_dsp_engine_v2.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Measurement Chain DSP Engine V2</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

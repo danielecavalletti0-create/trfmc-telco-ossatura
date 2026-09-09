@@ -1,0 +1,32 @@
+{
+  "version": "TRFMC v0.86C",
+  "page": "trfmc_portal_registry_v86c.html",
+  "mission": "Create a portal registry and navigation spine to connect, classify and promote pages without overwriting existing stable work.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.86B-R1 performance GPU gate",
+  "preserves": [
+    "trfmc_performance_gpu_gate_v86b_r1.html",
+    "rf_physics_sapienza_console_v86a.html",
+    "webgl_rf_physics_engine_v85e_viewport_discipline.html"
+  ],
+  "features": [
+    "static portal inventory generated from frontend/public",
+    "priority classification P0-P4",
+    "domain classification",
+    "runtime HTTP HEAD check",
+    "navigation links",
+    "promotion sequence",
+    "runtime export JSON"
+  ],
+  "guardrails": [
+    "all CSS scoped under [data-trfmc-page='portal-registry-v86c']",
+    "no CDN",
+    "no global CSS",
+    "no MutationObserver",
+    "no backend change",
+    "no overwrite of existing pages"
+  ]
+}

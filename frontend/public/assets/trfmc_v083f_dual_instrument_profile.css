@@ -1,0 +1,202 @@
+/* TRFMC v0.83F - Dual Instrument View + RSRP/SINR Profile */
+
+body.v83f-dual {
+  --v83f-cyan:#8ff0ff;
+  --v83f-green:#42f56f;
+  --v83f-amber:#fbbf24;
+  --v83f-red:#ff3b5c;
+  --v83f-blue:#2ea7ff;
+}
+
+/* Recupera presenza visiva senza tornare al caos */
+body.v83f-dual #rfCanvas {
+  filter:saturate(.94) contrast(1.02) brightness(.98) !important;
+}
+
+body.v83f-dual .stage {
+  min-height:710px;
+  box-shadow:
+    0 30px 105px rgba(0,0,0,.48),
+    inset 0 0 80px rgba(143,240,255,.050),
+    0 0 70px rgba(46,167,255,.045) !important;
+}
+
+body.v83f-dual .hero-kpi strong {
+  color:var(--v83f-amber);
+}
+
+body.v83f-dual h1 {
+  font-size:clamp(32px,3.35vw,54px) !important;
+}
+
+/* Main dual instrument dock */
+.v83f-dual-dock {
+  margin:16px 18px 0;
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:14px;
+}
+
+.v83f-panel {
+  border:1px solid rgba(143,240,255,.28);
+  border-radius:24px;
+  padding:16px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.10), transparent 36%),
+    linear-gradient(145deg,rgba(8,30,50,.90),rgba(3,9,22,.97));
+  box-shadow:
+    0 22px 74px rgba(0,0,0,.34),
+    inset 0 0 38px rgba(143,240,255,.030);
+}
+
+.v83f-panel h3 {
+  margin:0 0 12px;
+  color:var(--v83f-cyan);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+.v83f-profile-wrap {
+  position:relative;
+  min-height:260px;
+  border:1px solid rgba(143,240,255,.20);
+  border-radius:20px;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(143,240,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(143,240,255,.040) 1px, transparent 1px),
+    radial-gradient(circle at 20% 0%,rgba(143,240,255,.09),transparent 36%),
+    rgba(2,8,18,.70);
+  background-size:34px 34px,34px 34px,auto,auto;
+}
+
+#v83fProfileCanvas {
+  display:block;
+  width:100%;
+  height:260px;
+}
+
+.v83f-axis-note {
+  position:absolute;
+  left:12px;
+  bottom:10px;
+  border:1px solid rgba(143,240,255,.20);
+  border-radius:999px;
+  padding:6px 9px;
+  background:rgba(2,8,18,.78);
+  color:rgba(232,250,255,.62);
+  font-size:10px;
+}
+
+.v83f-quality-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.v83f-quality-grid div {
+  border:1px solid rgba(143,240,255,.19);
+  border-radius:18px;
+  padding:12px;
+  background:rgba(143,240,255,.045);
+}
+
+.v83f-quality-grid span {
+  display:block;
+  color:rgba(232,250,255,.50);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:9px;
+}
+
+.v83f-quality-grid b {
+  display:block;
+  margin-top:6px;
+  color:#eaffff;
+  font-size:18px;
+}
+
+.v83f-quality-grid b.good { color:var(--v83f-green); }
+.v83f-quality-grid b.warn { color:var(--v83f-amber); }
+.v83f-quality-grid b.bad { color:var(--v83f-red); }
+
+.v83f-status-text {
+  margin:12px 0 0;
+  color:rgba(232,250,255,.65);
+  font-size:11px;
+  line-height:1.45;
+}
+
+/* Mini spectrum / margin panel */
+.v83f-spectrum {
+  margin-top:14px;
+  min-height:120px;
+  border:1px solid rgba(143,240,255,.20);
+  border-radius:18px;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(143,240,255,.045) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(143,240,255,.040) 1px, transparent 1px),
+    rgba(2,8,18,.70);
+  background-size:24px 24px,24px 24px,auto;
+}
+
+#v83fSpectrumCanvas {
+  display:block;
+  width:100%;
+  height:120px;
+}
+
+/* Governance chips */
+.v83f-chip-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+
+.v83f-chip-row span {
+  border:1px solid rgba(143,240,255,.20);
+  border-radius:999px;
+  padding:6px 9px;
+  background:rgba(143,240,255,.045);
+  color:var(--v83f-cyan);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.v83f-chip-row span.ok {
+  color:var(--v83f-green);
+  border-color:rgba(66,245,111,.28);
+}
+
+.v83f-chip-row span.warn {
+  color:var(--v83f-amber);
+  border-color:rgba(251,191,36,.28);
+}
+
+/* Riduce etichette dentro scena: la lettura principale ora è nel dock */
+body.v83f-dual .v83b-threshold-tag {
+  opacity:.52 !important;
+}
+
+body.v83f-dual .v83e-vector-label {
+  opacity:.80;
+  transform:scale(.94);
+}
+
+/* Stabilizza layout sotto la scala */
+body.v83f-dual .v83d-budget-dock,
+body.v83f-dual .v83b-probe-dock,
+body.v83f-dual .v83c-sanity-dock,
+body.v83f-dual .v83e-readability-dock {
+  margin-top:14px;
+}
+
+@media(max-width:1350px){
+  .v83f-dual-dock {
+    grid-template-columns:1fr;
+  }
+}

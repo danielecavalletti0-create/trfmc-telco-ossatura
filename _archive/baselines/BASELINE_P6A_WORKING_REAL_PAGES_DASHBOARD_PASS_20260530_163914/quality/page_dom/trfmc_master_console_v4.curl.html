@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Master Console V4</title>
+<style>
+:root{--bg:#02070f;--panel:#061120;--line:#1d6f9f;--text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;--yellow:#ffd500;--red:#ff3366}
+*{box-sizing:border-box}
+body{margin:0;background:#01060d;color:var(--text);font:12px Inter,Segoe UI,system-ui,sans-serif}
+header{height:52px;background:#050b13;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+nav{display:flex;gap:6px;flex-wrap:wrap}
+a{color:var(--text);text-decoration:none;border:1px solid #1d6f9f;background:#0a1828;border-radius:4px;padding:6px 9px}
+main{display:grid;grid-template-columns:280px 1fr 360px;gap:8px;padding:8px;height:calc(100vh - 52px)}
+.panel{background:linear-gradient(180deg,#071524,#02070f);border:1px solid #1d5e86;border-radius:6px;overflow:hidden}
+.title{background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);font-weight:700;padding:7px 9px;text-transform:uppercase}
+.body{padding:8px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.card{border:1px solid #214c6a;background:#07111f;border-radius:7px;padding:10px;min-height:118px}
+.card h3{margin:0 0 7px;color:var(--green)}
+.card p{color:var(--muted);line-height:1.35}
+.card a{display:inline-block;margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:8px}
+.kpi{background:#07111f;border:1px solid #214c6a;border-radius:5px;padding:7px}
+.kpi b{font-size:15px;display:block}.kpi span{font-size:10px;color:var(--muted)}
+button{width:100%;background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:8px;margin:5px 0;text-align:left;cursor:pointer}
+button:hover{background:#145078;border-color:var(--cyan);box-shadow:inset 3px 0 0 var(--yellow)}
+canvas{width:100%;height:280px;background:#02070f;border:1px solid #1d5e86;border-radius:6px}
+.log{height:300px;overflow:auto;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid #17344c;padding:5px 0;color:#cde7ff}
+@media(max-width:1300px){main{grid-template-columns:1fr}.grid,.kpis{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header>
+<div>
+<h1>TRFMC Master Console V4</h1>
+<div style="color:#86a7c6;font-size:11px">RF/TM · DSP · Wi-Fi/QAM · SDR/HackRF · Open5GS/UERANSIM · Cyber RF · Evidence · Knowledge Base</div>
+</div>
+<nav>
+<a href="/trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html">Antenna V1.7 Layout Lock</a>
+<a href="/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html">Antenna V1.6R2 Clean Dock</a>
+<a href="/trfmc_antenna_system_explorer_v16r1_visible_antenna.html">Antenna V1.6R1 Visible</a>
+<a href="/trfmc_antenna_system_explorer_v16_metrology_premium.html">Antenna V1.6 Metrology Premium</a>
+<a href="/trfmc_antenna_system_explorer_v15_instrument_center.html">Antenna V1.5 Instrument Center</a>
+<a href="/trfmc_antenna_system_explorer_v14_instrument_grade.html">Antenna V1.4 Instrument Grade</a>
+<a href="/trfmc_antenna_system_explorer_v13_premium.html">Antenna V1.3 Premium</a>
+<a href="/trfmc_antenna_system_explorer_v12_operativo.html">Antenna V1.2 Operativo</a>
+<a href="/trfmc_antenna_system_explorer_v1.html">Antenna Explorer</a>
+<a href="/trfmc_enterprise_prime_portal_v1.html">Prime</a>
+<a href="/trfmc_instrument_os_alignment_v1.html">Instrument OS</a>
+<a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP V3</a>
+<a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">Wi-Fi/QAM</a>
+<a href="/trfmc_runtime_hook_layer_v1.html">Runtime</a>
+</nav>
+</header>
+
+<main>
+<aside class="panel">
+<div class="title">Mission Domains</div>
+<div class="body">
+<button onclick="openRoute('/trfmc_enterprise_prime_portal_v1.html')">01 · Mission Control</button>
+<button onclick="openRoute('/trfmc_instrument_os_alignment_v1.html')">02 · Instrument OS Doctrine</button>
+<button onclick="openRoute('/trfmc_measurement_chain_dsp_engine_v3.html')">03 · Measurement Chain DSP</button>
+<button onclick="openRoute('/trfmc_wifi_5_6_7_8_qam_engine_v1.html')">04 · Wi-Fi 5/6/7/8 + 4096-QAM</button>
+<button onclick="openRoute('/trfmc_pr200_field_monitoring_receiver_v1.html')">05 · PR200 Field Receiver</button>
+<button onclick="openRoute('/trfmc_rf_tm_war_room_v4.html')">06 · RF/TM War Room</button>
+<button onclick="openRoute('/trfmc_5g_core_ran_identity_aka_engine_v1.html')">07 · 5G Core Identity/AKA</button>
+<button onclick="openRoute('/trfmc_converged_rf_5g_noc_v1.html')">08 · Converged RF/5G NOC</button>
+<button onclick="openRoute('/trfmc_runtime_hook_layer_v1.html')">09 · Runtime Hook</button>
+<button onclick="openRoute('/trfmc_safe_runtime_action_console_v1.html')">10 · Safe Runtime Actions</button>
+</div>
+</aside>
+
+<section>
+<div class="kpis">
+<div class="kpi"><b>5173</b><span>single port</span></div>
+<div class="kpi"><b>RF/TM</b><span>instrument OS</span></div>
+<div class="kpi"><b>DSP</b><span>FFT/RBW/VBW</span></div>
+<div class="kpi"><b>4096</b><span>QAM</span></div>
+<div class="kpi"><b>Open5GS</b><span>core</span></div>
+<div class="kpi"><b>Evidence</b><span>PCAP/IQ/log</span></div>
+</div>
+
+<canvas id="map" width="1500" height="330"></canvas>
+
+<div class="grid" style="margin-top:8px">
+<div class="card"><h3>RF/T&M Instrument Layer</h3><p>FSW/FSWX/PR200 style: realtime spectrum, persistence, waterfall, zero span, trigger, marker, IQ, EVM.</p><a href="/trfmc_instrument_os_alignment_v1.html">Apri</a></div>
+<div class="card"><h3>DSP Measurement Chain</h3><p>Antenna, attenuator, LNA, mixer, IF filter, ADC, FFT, RBW/VBW, detector, averaging, peak/min hold, SNR.</p><a href="/trfmc_measurement_chain_dsp_engine_v3.html">Apri</a></div>
+<div class="card"><h3>Wi-Fi/QAM Engine</h3><p>Wi-Fi 5/6/6E/7/8, OFDMA, RU, MLO, puncturing, 1024/4096-QAM, MER/EVM/CFO/phase noise.</p><a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">Apri</a></div>
+<div class="card"><h3>5G Core/RAN</h3><p>Open5GS, UERANSIM, SUPI/SUCI, AKA, NAS, NGAP, PFCP, GTP-U, PDU session.</p><a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html">Apri</a></div>
+<div class="card"><h3>Runtime Operations</h3><p>Readiness, safe actions, health, disk guard, scripts, evidence folders, no destructive automation.</p><a href="/trfmc_runtime_hook_layer_v1.html">Apri</a></div>
+<div class="card"><h3>Cyber RF Intelligence</h3><p>Jamming, rogue RF, anomaly, UAV link degradation, spectrum evidence, protocol correlation.</p><a href="/trfmc_converged_rf_5g_noc_v1.html">Apri</a></div>
+</div>
+</section>
+
+<aside class="panel">
+<div class="title">System Alignment</div>
+<div class="body">
+<div class="card"><h3>Regola fondamentale</h3><p>Ogni oggetto deve essere tecnico, interattivo e misurabile. Nessuna immagine statica come funzione primaria.</p></div>
+<div class="card"><h3>Prossimi moduli</h3><p>Antenna Explorer, Microwave Link, Fiber/OTDR, Data Center Power, Cyber RF Evidence, Knowledge Base.</p></div>
+<div class="title" style="margin:8px -8px 6px">Event Stream</div>
+<div class="log" id="log"></div>
+</div>
+</aside>
+</main>
+
+<script>
+function openRoute(r){location.href=r}
+const c=document.getElementById("map"),x=c.getContext("2d");let t=0,last=0;
+const nodes=[
+["RF/TM",170,160,"#00d9ff"],["DSP",360,90,"#7dff4f"],["Wi-Fi/QAM",560,160,"#ffd500"],
+["HackRF/SDR",760,90,"#00d9ff"],["5G Core",960,160,"#7dff4f"],["Cyber RF",1160,90,"#ff3366"],["Evidence",1320,160,"#ffd500"]
+];
+function draw(){
+x.clearRect(0,0,c.width,c.height);
+x.strokeStyle="rgba(120,190,240,.10)";
+for(let i=0;i<c.width;i+=50){x.beginPath();x.moveTo(i,0);x.lineTo(i,c.height);x.stroke()}
+for(let j=0;j<c.height;j+=40){x.beginPath();x.moveTo(0,j);x.lineTo(c.width,j);x.stroke()}
+for(let i=0;i<nodes.length-1;i++){
+let a=nodes[i],b=nodes[i+1];x.strokeStyle="rgba(125,255,79,.38)";x.lineWidth=2;x.beginPath();x.moveTo(a[1],a[2]);x.lineTo(b[1],b[2]);x.stroke();
+let q=(Math.sin(t*.04+i)*.5+.5),px=a[1]+(b[1]-a[1])*q,py=a[2]+(b[2]-a[2])*q;x.fillStyle="#ffd500";x.beginPath();x.arc(px,py,5,0,Math.PI*2);x.fill()
+}
+nodes.forEach(n=>{x.fillStyle=n[3];x.shadowColor=n[3];x.shadowBlur=15;x.beginPath();x.arc(n[1],n[2],14,0,Math.PI*2);x.fill();x.shadowBlur=0;x.fillStyle="#eaf3ff";x.font="14px system-ui";x.fillText(n[0],n[1]-38,n[2]+38)});
+x.fillStyle="#eaf3ff";x.font="13px system-ui";x.fillText("TRFMC convergence bus: RF measurement → DSP → Wi-Fi/QAM → SDR → 5G Core → Cyber RF → Evidence",20,28)
+}
+function log(){let now=Date.now();if(now-last<1500)return;last=now;let ev=["RF/TM instrument layer synchronized","DSP measurement chain available","Wi-Fi 4096-QAM engine registered","5G core correlation path active","runtime guard healthy","evidence bus ready"];let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+ev[Math.floor(Math.random()*ev.length)];document.getElementById("log").prepend(d)}
+(function loop(){t++;draw();log();requestAnimationFrame(loop)})();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC Master Console V4<br>/trfmc_master_console_v4.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>65/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

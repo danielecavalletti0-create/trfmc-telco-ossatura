@@ -1,0 +1,87 @@
+diff --git a/frontend/src/app/main.tsx b/frontend/src/app/main.tsx
+index df1facb..6a553f9 100644
+--- a/frontend/src/app/main.tsx
++++ b/frontend/src/app/main.tsx
+@@ -23,6 +23,10 @@ import {
+ } from 'lucide-react'
+ import { API_BASE } from '../shared/api'
+ import '../styles.css'
++import { RFOperationalDeckV16ChunkObservatory } from '../rf_instruments/instruments/RFOperationalDeckV16ChunkObservatory'
++import { MissionLayoutOrchestratorV42 } from '../layout_orchestrator/MissionLayoutOrchestratorV42'
++import { EngineeringConsoleExpansionV4 } from '../layout_orchestrator/EngineeringConsoleExpansionV4'
++import { PortalOSRoot } from '../portal-os/PortalOSRoot'
+ 
+ type AnyObj = Record<string, any>
+ type SectionId = 'overview' | 'rf' | 'network' | 'assets' | 'soc' | 'events' | 'restricted'
+@@ -90,6 +94,24 @@ function SectionButton({id, active, icon, label, onClick}: {id: SectionId, activ
+ }
+ 
+ function App() {
++  const [trfmcActiveHash, setTrfmcActiveHash] = React.useState(() =>
++    typeof window !== 'undefined' ? window.location.hash || '' : ''
++  );
++
++  React.useEffect(() => {
++    if (typeof window === 'undefined') return;
++    const syncHash = () => setTrfmcActiveHash(window.location.hash || '');
++    syncHash();
++    window.addEventListener('hashchange', syncHash);
++    return () => window.removeEventListener('hashchange', syncHash);
++  }, []);
++
++  const trfmcEngineeringFocus =
++    trfmcActiveHash === '#full-engineering-stack' ||
++    trfmcActiveHash === '#full-engineering';
++
++  const trfmcPortalOsPreview = trfmcActiveHash === '#portal-os-preview';
++
+   const [active, setActive] = React.useState<SectionId>('overview')
+   const [data, setData] = React.useState<AnyObj>({})
+   const [stream, setStream] = React.useState<any[]>([])
+@@ -139,7 +161,7 @@ function App() {
+       setLoading(false)
+     })
+ 
+-    const ws = new WebSocket('ws://127.0.0.1:8000/api/events/stream')
++    const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/api/events/stream`)
+     ws.onopen = () => setWsState('CONNECTED')
+     ws.onclose = () => setWsState('CLOSED')
+     ws.onerror = () => setWsState('ERROR')
+@@ -197,9 +219,24 @@ function App() {
+   const ant = rf.antenna ?? {}
+   const fresnel = rf.fresnel ?? {}
+   const link = cov.target_link ?? {}
++  /* TRFMC P4B PORTAL OS ROOT PREVIEW V2 START */
++  if (trfmcPortalOsPreview) {
++    return <PortalOSRoot />
++  }
++  /* TRFMC P4B PORTAL OS ROOT PREVIEW V2 END */
++
++  if (trfmcEngineeringFocus) {
++    return (
++      <main className="mc-shell mc-shell-engineering-focus mc-shell-engineering-only">
++        <MissionLayoutOrchestratorV42 />
++        <EngineeringConsoleExpansionV4 />
++      </main>
++    )
++  }
++
+ 
+   return (
+-    <main className="mc-shell">
++    <main className={`mc-shell ${trfmcEngineeringFocus ? "mc-shell-engineering-focus" : ""}`}>
+       <header className="mc-header">
+         <div>
+           <h1>TELCO RF MISSION CONTROL PLATFORM</h1>
+@@ -431,7 +468,10 @@ function App() {
+       <footer className="mc-footer">
+         TRFMC v0.22 · Mission Control Layout · RF / Telco / SOC / Assets / Network / Evidence
+       </footer>
+-    </main>
++    <section style={{ marginTop: '28px' }}>
++  <MissionLayoutOrchestratorV42 />
++</section>
++</main>
+   )
+ }
+ 

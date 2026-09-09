@@ -1,0 +1,198 @@
+/* TRFMC v0.43A - Executive Navigation Refinement / Mission Entry Hub */
+
+.v43-entry-hub {
+  margin-top: 14px;
+  border: 1px solid rgba(88,214,249,.32);
+  background:
+    radial-gradient(circle at 14% 12%, rgba(88,214,249,.14), transparent 30%),
+    radial-gradient(circle at 86% 14%, rgba(163,113,247,.12), transparent 28%),
+    radial-gradient(circle at 52% 90%, rgba(63,185,80,.08), transparent 34%),
+    linear-gradient(135deg, rgba(88,214,249,.075), rgba(255,255,255,.025)),
+    rgba(3,12,24,.86);
+  border-radius: 24px;
+  box-shadow:
+    0 0 58px rgba(88,214,249,.11),
+    inset 0 0 42px rgba(88,214,249,.045);
+  overflow: hidden;
+}
+
+.v43-entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(88,214,249,.16);
+}
+
+.v43-entry-head h2 {
+  margin: 0;
+  color: #58d6f9;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.v43-entry-head p {
+  margin: 6px 0 0;
+  color: #8da4b3;
+  font-size: 11px;
+  line-height: 1.55;
+  max-width: 1040px;
+}
+
+.v43-entry-badge {
+  min-width: 190px;
+  text-align: right;
+  color: #3fb950;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.v43-entry-badge span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(237,248,255,.55);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.v43-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(170px, 1fr));
+  gap: 10px;
+  padding: 14px;
+}
+
+.v43-hub-column {
+  border: 1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(88,214,249,.10), transparent 40%),
+    rgba(255,255,255,.032);
+  border-radius: 18px;
+  padding: 12px;
+  min-height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+.v43-hub-column::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(88,214,249,.055), transparent);
+  transform: translateX(-100%);
+  animation: v43-sweep 9s ease-in-out infinite;
+}
+
+@keyframes v43-sweep {
+  0%, 70%, 100% { transform: translateX(-100%); opacity: .2; }
+  82% { transform: translateX(100%); opacity: 1; }
+}
+
+.v43-hub-column h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #58d6f9;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+.v43-hub-column p {
+  position: relative;
+  z-index: 1;
+  margin: 7px 0 11px;
+  color: #8da4b3;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.v43-hub-link {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 7px;
+  padding: 9px 10px;
+  border: 1px solid rgba(88,214,249,.22);
+  border-radius: 13px;
+  background: rgba(88,214,249,.055);
+  color: #edf8ff;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 800;
+  transition: transform .20s ease, border-color .20s ease, background .20s ease;
+}
+
+.v43-hub-link span {
+  display: block;
+  margin-top: 4px;
+  color: #8da4b3;
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.30;
+}
+
+.v43-hub-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(63,185,80,.45);
+  background: rgba(63,185,80,.085);
+  color: #3fb950;
+}
+
+.v43-hub-column.command { border-color: rgba(88,214,249,.20); }
+.v43-hub-column.rf { border-color: rgba(63,185,80,.20); }
+.v43-hub-column.global { border-color: rgba(163,113,247,.22); }
+.v43-hub-column.evidence { border-color: rgba(210,153,34,.24); }
+.v43-hub-column.docs { border-color: rgba(88,214,249,.24); }
+
+.v43-mini-status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 8px;
+  padding: 0 14px 14px;
+}
+
+.v43-mini-tile {
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.026);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.v43-mini-tile span {
+  display: block;
+  color: #8da4b3;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.v43-mini-tile b {
+  display: block;
+  margin-top: 5px;
+  color: #58d6f9;
+  font-size: 13px;
+}
+
+@media(max-width:1350px) {
+  .v43-hub-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media(max-width:900px) {
+  .v43-hub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .v43-entry-head {
+    flex-direction: column;
+  }
+
+  .v43-entry-badge {
+    text-align: left;
+  }
+}

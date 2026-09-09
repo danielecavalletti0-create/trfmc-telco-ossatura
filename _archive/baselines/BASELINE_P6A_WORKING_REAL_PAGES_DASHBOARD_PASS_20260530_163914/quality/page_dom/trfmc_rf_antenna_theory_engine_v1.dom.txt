@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC RF Antenna Theory Engine V1</title>
+<style>
+:root{
+  --bg:#01060d;--panel:#061120;--panel2:#081522;--line:#1d6f9f;
+  --text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;
+  --yellow:#ffd500;--red:#ff3366;--violet:#c66bff;--orange:#ff9e3d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font:12px Segoe UI,system-ui,sans-serif;overflow:hidden}
+header{height:54px;background:#050b13;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+.sub{color:var(--muted);font-size:11px}
+button,select,input{background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:6px 8px}
+button{cursor:pointer}
+button:hover{border-color:var(--cyan);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+main{height:calc(100vh - 54px);display:grid;grid-template-columns:300px 1fr 360px;gap:6px;padding:6px}
+aside,.work,.dock{border:1px solid #1d5e86;background:#02070f;border-radius:6px;overflow:hidden}
+.title{background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);font-weight:700;padding:7px 8px;text-transform:uppercase}
+.body{padding:7px}
+.card{border:1px solid #183d58;background:#081522;border-radius:5px;margin-bottom:6px;padding:8px;cursor:pointer}
+.card:hover,.card.active{border-color:var(--yellow);box-shadow:inset 3px 0 0 var(--yellow);background:#10233a}
+.card b{display:block;color:var(--green)}
+.card span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.work{display:grid;grid-template-rows:62px 1fr}
+.telemetry{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;padding:6px;background:#061120;border-bottom:1px solid #1d5e86}
+.cell{border:1px solid #285d82;background:#081522;border-radius:5px;padding:6px;overflow:hidden}
+.cell span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}
+.cell b{display:block;color:var(--green);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stage{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:6px;min-height:0}
+.panel{border:1px solid #1d5e86;background:#020914;border-radius:6px;overflow:hidden;position:relative}
+.panel.wide{grid-row:1/3}
+.panel h3{margin:0;padding:7px 8px;color:var(--cyan);background:#071524;border-bottom:1px solid #1d5e86;font-size:12px;text-transform:uppercase}
+canvas,svg{width:100%;height:calc(100% - 30px);display:block}
+.formula{font-family:Consolas,monospace;color:#ffd500;border:1px solid #264c69;background:#050b13;border-radius:5px;padding:7px;margin-bottom:6px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);padding:5px 0;font-family:Consolas,monospace}
+.kv b{color:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.log{height:210px;overflow:auto;border:1px solid #183d58;background:#01060d;border-radius:5px;padding:6px;font-family:Consolas,monospace;font-size:11px}
+.log div{border-bottom:1px solid rgba(255,255,255,.06);padding:3px 0;color:#cde7ff}
+.note{color:var(--muted);font-size:11px;line-height:1.35}
+.range{width:100%}
+.badge{position:absolute;right:8px;bottom:8px;color:var(--green);border:1px solid #2d7d4d;background:#04110a;border-radius:4px;padding:4px 6px;font-family:Consolas,monospace}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <div>
+    <h1>TRFMC RF / Antenna Theory Engine V1</h1>
+    <div class="sub">Thermal noise · gain/directivity · RFID · Vivaldi · spiral/metasurface · Wi-Fi/QAM · tower/site digital twin</div>
+  </div>
+  <nav>
+    <button onclick="setModule('noise')">Noise</button>
+    <button onclick="setModule('gain')">Gain</button>
+    <button onclick="setModule('wifi')">Wi-Fi</button>
+    <button onclick="setModule('rfid')">RFID</button>
+    <button onclick="setModule('vivaldi')">Vivaldi</button>
+    <button onclick="setModule('site')">Site</button>
+  </nav>
+</header>
+
+<main>
+  <aside>
+    <div class="title">Knowledge Modules</div>
+    <div class="body" id="cards"><div class="card active"><b>Thermal Noise</b><span>kTB, resistor noise, MOS channel noise, bandwidth window, SNR impact</span></div><div class="card"><b>Antenna Gain</b><span>directivity, dBi, pattern concentration, FSPL and link impact</span></div><div class="card"><b>Wi-Fi/QAM</b><span>Wi-Fi 5/6/6E/7/8 view, OFDMA, MLO, 4096-QAM, UHR roadmap</span></div><div class="card"><b>RFID Antenna</b><span>13.56 MHz square spiral, near-field H coupling, S11/VSWR</span></div><div class="card"><b>Vivaldi Antenna</b><span>wideband end-fire tapered slot, return loss and radiation</span></div><div class="card"><b>Tower/Site Twin</b><span>ODU cabinet, PSU/NIU/ODF, grounding, RET, dish, antenna mast</span></div></div>
+
+    <div class="title">Live Controls</div>
+    <div class="body">
+      <label>Frequency MHz</label>
+      <input id="freq" class="range" type="range" min="13" max="7125" value="3500" oninput="update()">
+      <div class="kv"><span>f</span><b id="freqVal">3500 MHz</b></div>
+
+      <label>Bandwidth Hz</label>
+      <input id="bw" class="range" type="range" min="1000" max="100000000" value="100000" oninput="update()">
+      <div class="kv"><span>B</span><b id="bwVal">100 kHz</b></div>
+
+      <label>Temperature K</label>
+      <input id="temp" class="range" type="range" min="77" max="400" value="300" oninput="update()">
+      <div class="kv"><span>T</span><b id="tempVal">300 K</b></div>
+
+      <label>Return Loss dB</label>
+      <input id="rl" class="range" type="range" min="3" max="40" value="16" oninput="update()">
+      <div class="kv"><span>RL</span><b id="rlVal">16 dB</b></div>
+
+      <label>Gain dBi</label>
+      <input id="gain" class="range" type="range" min="0" max="40" value="18" oninput="update()">
+      <div class="kv"><span>G</span><b id="gainVal">18 dBi</b></div>
+    </div>
+  </aside>
+
+  <section class="work">
+    <div class="telemetry">
+      <div class="cell"><span>Module</span><b id="mName">Thermal Noise</b></div>
+      <div class="cell"><span>Noise Floor</span><b id="nfloor">-124.0 dBm</b></div>
+      <div class="cell"><span>Vn RMS</span><b id="vrms">287.8 nV</b></div>
+      <div class="cell"><span>VSWR</span><b id="vswr">1.38</b></div>
+      <div class="cell"><span>λ</span><b id="lambda">85.7 mm</b></div>
+      <div class="cell"><span>QAM bits</span><b id="qam">—</b></div>
+      <div class="cell"><span>FSPL 1 km</span><b id="fspl">103.3 dB</b></div>
+      <div class="cell"><span>Status</span><b>ACTIVE</b></div>
+    </div>
+
+    <div class="stage">
+      <div class="panel wide">
+        <h3 id="p1title">Thermal Noise Physical Model</h3>
+        <canvas id="c1" width="399" height="639"></canvas>
+        <div class="badge" id="badge">kTB / antenna / QAM engine</div>
+      </div>
+      <div class="panel">
+        <h3 id="p2title">Noise Density / Bandwidth</h3>
+        <canvas id="c2" width="332" height="300"></canvas>
+      </div>
+      <div class="panel">
+        <h3 id="p3title">Receiver Noise Sources</h3>
+        <canvas id="c3" width="332" height="300"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="dock">
+    <div class="title">Mathematics / Engineering Notes</div>
+    <div class="body">
+      <div id="formulas"><div class="formula">vₙ² = 4 k T R B</div><div class="formula">N(dBm) = -174 dBm/Hz + 10log₁₀(B) + NF</div><div class="formula">SNR = Psignal - Pnoise</div></div>
+      <div class="title" style="margin:8px -7px 6px">Actions</div>
+      <div class="grid2">
+        <button onclick="setModule('noise')">Thermal Noise</button>
+        <button onclick="setModule('gain')">Antenna Gain</button>
+        <button onclick="setModule('wifi')">Wi-Fi/QAM</button>
+        <button onclick="setModule('rfid')">RFID Spiral</button>
+        <button onclick="setModule('vivaldi')">Vivaldi</button>
+        <button onclick="setModule('site')">Tower/Site</button>
+      </div>
+      <div class="title" style="margin:8px -7px 6px">Event Stream</div>
+      <div class="log" id="log"><div>[16:40:40] module loaded: Thermal Noise</div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const modules={
+ noise:{name:"Thermal Noise",desc:"kTB, resistor noise, MOS channel noise, bandwidth window, SNR impact"},
+ gain:{name:"Antenna Gain",desc:"directivity, dBi, pattern concentration, FSPL and link impact"},
+ wifi:{name:"Wi-Fi/QAM",desc:"Wi-Fi 5/6/6E/7/8 view, OFDMA, MLO, 4096-QAM, UHR roadmap"},
+ rfid:{name:"RFID Antenna",desc:"13.56 MHz square spiral, near-field H coupling, S11/VSWR"},
+ vivaldi:{name:"Vivaldi Antenna",desc:"wideband end-fire tapered slot, return loss and radiation"},
+ site:{name:"Tower/Site Twin",desc:"ODU cabinet, PSU/NIU/ODF, grounding, RET, dish, antenna mast"}
+};
+let current="noise", t=0;
+function $(id){return document.getElementById(id)}
+function log(m){const d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+m;$("log").prepend(d)}
+function fmtHz(x){return x>=1e6?(x/1e6).toFixed(1)+" MHz":x>=1e3?(x/1e3).toFixed(0)+" kHz":x+" Hz"}
+function renderCards(){
+  const box=$("cards"); box.innerHTML="";
+  Object.entries(modules).forEach(([k,m])=>{
+    const d=document.createElement("div");
+    d.className="card"+(k===current?" active":"");
+    d.onclick=()=>setModule(k);
+    d.innerHTML="<b>"+m.name+"</b><span>"+m.desc+"</span>";
+    box.appendChild(d);
+  });
+}
+function setModule(k){current=k; $("mName").textContent=modules[k].name; renderCards(); updateTitles(); update(); log("module loaded: "+modules[k].name)}
+function updateTitles(){
+  const map={
+    noise:["Thermal Noise Physical Model","Noise Density / Bandwidth","Receiver Noise Sources"],
+    gain:["Radiation Pattern / Directivity","Gain vs Angle","Link Budget Geometry"],
+    wifi:["Wi-Fi 5/6/6E/7/8 PHY Matrix","QAM Constellation","OFDMA / MLO Block"],
+    rfid:["RFID Near-Field Coupling","S11 / VSWR Around 13.56 MHz","Square Spiral Geometry"],
+    vivaldi:["Vivaldi End-Fire Aperture","Return Loss / UWB Response","Taper Geometry"],
+    site:["Tower / Cabinet / Antenna Site","Power + Fiber + Grounding","RRU / RET / Dish Mapping"]
+  };
+  $("p1title").textContent=map[current][0];$("p2title").textContent=map[current][1];$("p3title").textContent=map[current][2];
+}
+function formulas(){
+  const f={
+    noise:[
+      "vₙ² = 4 k T R B",
+      "N(dBm) = -174 dBm/Hz + 10log₁₀(B) + NF",
+      "SNR = Psignal - Pnoise"
+    ],
+    gain:[
+      "G(θ,φ) = η · D(θ,φ)",
+      "GdBi = 10log₁₀(Glinear)",
+      "FSPL = 32.44 + 20log₁₀(fMHz) + 20log₁₀(dkm)"
+    ],
+    wifi:[
+      "4096-QAM = 12 bit/symbol",
+      "OFDM Δf = BW / NFFT",
+      "MLO = multi-link operation across bands"
+    ],
+    rfid:[
+      "f₀ ≈ 1 / (2π√LC)",
+      "Near field: H-field coupling dominates",
+      "VSWR = (1+|Γ|)/(1-|Γ|)"
+    ],
+    vivaldi:[
+      "W(x)=W₀e^(Rx)",
+      "End-fire radiation from tapered slot aperture",
+      "Wideband match when |S11| < -10 dB"
+    ],
+    site:[
+      "EIRP = Ptx + Gant - Lcable",
+      "RET controls electrical tilt",
+      "Grounding + bonding reduce fault/noise risk"
+    ]
+  };
+  $("formulas").innerHTML=f[current].map(x=>"<div class='formula'>"+x+"</div>").join("");
+}
+function update(){
+  const f=+$("freq").value, B=+$("bw").value, T=+$("temp").value, RL=+$("rl").value, G=+$("gain").value;
+  $("freqVal").textContent=f+" MHz"; $("bwVal").textContent=fmtHz(B); $("tempVal").textContent=T+" K"; $("rlVal").textContent=RL+" dB"; $("gainVal").textContent=G+" dBi";
+  const N=-174+10*Math.log10(B);
+  const R=50, k=1.380649e-23, vr=Math.sqrt(4*k*T*R*B);
+  const gamma=Math.pow(10,-RL/20), vs=(1+gamma)/(1-gamma);
+  const lambda=300/f;
+  const fspl=32.44+20*Math.log10(f)+20*Math.log10(1);
+  $("nfloor").textContent=N.toFixed(1)+" dBm";
+  $("vrms").textContent=(vr*1e9).toFixed(1)+" nV";
+  $("vswr").textContent=vs.toFixed(2);
+  $("lambda").textContent=(lambda*1000).toFixed(1)+" mm";
+  $("qam").textContent=current==="wifi"?"12":"—";
+  $("fspl").textContent=fspl.toFixed(1)+" dB";
+  formulas();
+  drawAll();
+}
+function grid(ctx,w,h){ctx.strokeStyle="rgba(29,111,159,.25)";ctx.lineWidth=1;for(let x=0;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=0;y<h;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}}
+function prep(id){const c=$(id),r=c.getBoundingClientRect();c.width=Math.max(300,r.width*devicePixelRatio);c.height=Math.max(200,r.height*devicePixelRatio);const ctx=c.getContext("2d");ctx.scale(devicePixelRatio,devicePixelRatio);return [ctx,r.width,r.height]}
+function drawAll(){drawMain();drawGraph();drawGeo()}
+function drawMain(){
+  const [ctx,w,h]=prep("c1");ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  const f=+$("freq").value,G=+$("gain").value;
+  if(current==="noise"){
+    ctx.fillStyle="#7dff4f";ctx.font="14px Consolas";ctx.fillText("Random electron motion → voltage/current fluctuations",20,26);
+    ctx.strokeStyle="#00d9ff";ctx.beginPath();for(let x=0;x<w;x++){let y=h/2+Math.sin(x*.05+t)*20+(Math.random()-.5)*34; x?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();
+    ctx.fillStyle="rgba(255,213,0,.15)";ctx.fillRect(30,h-80,w-60,45);ctx.strokeStyle="#ffd500";ctx.strokeRect(30,h-80,w-60,45);
+    ctx.fillStyle="#ffd500";ctx.fillText("Bandwidth window controls how much noise enters the receiver",45,h-52);
+  }else if(current==="gain"){
+    ctx.save();ctx.translate(w/2,h/2);for(let a=0;a<360;a+=8){let rad=(60+G*4)*(0.35+Math.pow(Math.max(0,Math.cos((a-0)*Math.PI/180)),4));let x=rad*Math.cos(a*Math.PI/180),y=rad*Math.sin(a*Math.PI/180);ctx.strokeStyle="rgba(125,255,79,.55)";ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(x,y);ctx.stroke()}ctx.restore();
+    ctx.fillStyle="#eaf3ff";ctx.fillRect(w/2-8,h/2-40,16,80);ctx.fillStyle="#7dff4f";ctx.fillText("Directional energy concentration",20,30);
+  }else if(current==="wifi"){
+    const pts=64;ctx.fillStyle="#7dff4f";for(let i=0;i<pts;i++){let xi=i%8,yi=Math.floor(i/8);ctx.beginPath();ctx.arc(w/2-140+xi*40+Math.random()*4,h/2-140+yi*40+Math.random()*4,3,0,7);ctx.fill()}
+    ctx.fillStyle="#ffd500";ctx.font="15px Consolas";ctx.fillText("4096-QAM concept: denser constellation → higher SNR requirement",20,28);
+    ctx.strokeStyle="#00d9ff";for(let b=0;b<3;b++){ctx.strokeRect(30+b*160,h-90,130,45);ctx.fillText(["2.4 GHz","5 GHz","6 GHz"][b],55+b*160,h-62)}
+  }else if(current==="rfid"){
+    ctx.strokeStyle="#ff9e3d";ctx.lineWidth=5;let cx=w/2,cy=h/2,s=220;ctx.beginPath();for(let i=0;i<9;i++){ctx.rect(cx-s/2+i*14,cy-s/2+i*14,s-i*28,s-i*28)}ctx.stroke();
+    ctx.fillStyle="#00d9ff";ctx.fillText("13.56 MHz near-field magnetic coupling",20,26);
+  }else if(current==="vivaldi"){
+    ctx.fillStyle="#ff9e3d";ctx.beginPath();ctx.moveTo(80,h/2-8);for(let x=80;x<w-60;x++){let yy=20+Math.exp((x-80)/(w-140))*7;ctx.lineTo(x,h/2-yy)}ctx.lineTo(w-60,h/2+120);for(let x=w-60;x>=80;x--){let yy=20+Math.exp((x-80)/(w-140))*7;ctx.lineTo(x,h/2+yy)}ctx.closePath();ctx.fill();
+    ctx.fillStyle="#7dff4f";ctx.fillText("Tapered slot end-fire wideband aperture",20,26);
+  }else{
+    ctx.strokeStyle="#9fb5c9";ctx.lineWidth=3;ctx.strokeRect(w/2-60,70,120,260);ctx.strokeRect(w/2+130,45,70,320);ctx.beginPath();ctx.moveTo(w/2+165,70);ctx.lineTo(w/2+165,350);ctx.stroke();
+    ctx.fillStyle="#eaf3ff";ctx.fillRect(w/2-35,120,70,40);ctx.fillStyle="#7dff4f";ctx.fillText("PSU",w/2-12,145);ctx.fillText("Tower cabinet / ODU / ODF / grounding / RET",20,26);
+  }
+}
+function drawGraph(){
+  const [ctx,w,h]=prep("c2");ctx.clearRect(0,0,w,h);grid(ctx,w,h);ctx.strokeStyle="#ffd500";ctx.lineWidth=2;ctx.beginPath();
+  for(let x=0;x<w;x++){let y=h/2;
+    if(current==="noise")y=h-40-((Math.log10(+$("bw").value)-3)/5)*(h-80);
+    else if(current==="gain")y=h/2-Math.cos((x/w*360-180)*Math.PI/180)*80*Math.exp(-Math.pow((x/w-.5)*2,2));
+    else if(current==="wifi")y=h-30-(x/w)*120+Math.sin(x*.08)*8;
+    else y=h/2-80*Math.exp(-Math.pow((x/w-.5)*8,2))+Math.sin(x*.04)*10;
+    x?ctx.lineTo(x,y):ctx.moveTo(x,y)}
+  ctx.stroke();
+}
+function drawGeo(){
+  const [ctx,w,h]=prep("c3");ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  ctx.fillStyle="#7dff4f";ctx.font="13px Consolas";
+  if(current==="noise"){["Antenna","LNA","Mixer/IF","ADC","DSP"].forEach((n,i)=>{ctx.strokeStyle="#00d9ff";ctx.strokeRect(20+i*95,h/2-25,75,50);ctx.fillText(n,28+i*95,h/2+5)})}
+  else if(current==="site"){["AC/DC","PSU","NIU","ODF","RRU","RET"].forEach((n,i)=>{ctx.strokeStyle="#ffd500";ctx.strokeRect(40+i*70,60+i*20,55,35);ctx.fillText(n,48+i*70,84+i*20)})}
+  else{ctx.strokeStyle="#00d9ff";ctx.beginPath();ctx.arc(w/2,h/2,80,0,7);ctx.stroke();ctx.fillText(modules[current].name,w/2-60,h/2)}
+}
+function loop(){t+=0.03;if(current==="noise")drawMain();requestAnimationFrame(loop)}
+renderCards();updateTitles();update();loop();setModule("noise");
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="antenna">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · ANTENNA</div>
+      <div class="trfmc-c3-sub">TRFMC RF Antenna Theory Engine V1<br>/trfmc_rf_antenna_theory_engine_v1.html<br>Previous Authority V3 score: 71/100 · gaps closed: design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>EIRP</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>VSWR</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>RET</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>BEAM</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="Batch C ANTENNA · tower-site"></trfmc-visual-asset>
+<trfmc-visual-asset kind="rru-panel" data-size="small" title="Batch C ANTENNA · rru-panel"></trfmc-visual-asset>
+<trfmc-visual-asset kind="port-map" data-size="small" title="Batch C ANTENNA · port-map"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+Return Loss = -20log10|Γ|
+Tilt_total = mechanical_tilt + electrical_RET
+Coverage = EIRP - PathLoss + Pattern(az,el)</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="antenna" width="607" height="158"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Antenna / RRU / RET</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC RF / Antenna Theory Engine V1</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="true">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Antenna / RRU / RET · Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura.</div></body></html>

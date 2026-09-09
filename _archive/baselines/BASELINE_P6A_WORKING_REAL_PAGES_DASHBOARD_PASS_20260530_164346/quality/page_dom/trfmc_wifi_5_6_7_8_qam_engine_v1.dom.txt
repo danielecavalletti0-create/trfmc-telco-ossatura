@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Wi-Fi 5/6/7/8 OFDM QAM Engine V1</title>
+<style>
+body{margin:0;background:#02070f;color:#eaf3ff;font:12px Inter,Segoe UI,system-ui,sans-serif}
+header{height:48px;background:#050b13;border-bottom:1px solid #1d6f9f;display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+h1{margin:0;font-size:16px;letter-spacing:.08em;text-transform:uppercase}
+a{color:#eaf3ff;text-decoration:none;border:1px solid #1d6f9f;background:#0a1828;border-radius:4px;padding:6px 9px;margin-left:5px}
+main{display:grid;grid-template-columns:270px 1fr 340px;gap:6px;padding:6px;height:calc(100vh - 48px)}
+.panel{background:#061120;border:1px solid #1d5e86;border-radius:6px;overflow:hidden}
+.title{background:#0a1b2e;border-bottom:1px solid #1d5e86;color:#00d9ff;font-weight:700;padding:6px 8px;text-transform:uppercase}
+.body{padding:8px}
+.ctrl{border:1px solid #183d58;background:#081522;border-radius:5px;padding:8px;margin-bottom:7px}
+.ctrl b{color:#7dff4f;display:block;margin-bottom:5px}
+label{display:flex;justify-content:space-between;color:#86a7c6;font-size:11px}
+input,select{width:100%;margin:4px 0 8px}
+select{background:#10233a;color:#eaf3ff;border:1px solid #285d82;border-radius:4px;padding:6px}
+.kpis{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:6px}
+.kpi{background:#07111f;border:1px solid #214c6a;border-radius:5px;padding:6px}
+.kpi b{font-size:14px;display:block}.kpi span{font-size:9px;color:#86a7c6}
+.grid{display:grid;grid-template-columns:1.6fr 1fr;grid-template-rows:310px 220px 220px;gap:6px;height:calc(100% - 72px)}
+.frame{background:#02070f;border:1px solid #1d5e86;border-radius:6px;overflow:hidden}
+.frame h3{margin:0;background:#0a1b2e;border-bottom:1px solid #1d5e86;padding:5px 7px;color:#00d9ff;font-size:12px}
+canvas{width:100%;height:calc(100% - 26px);display:block}
+#specFrame{grid-column:1/3}
+button{width:100%;background:#10233a;color:#eaf3ff;border:1px solid #285d82;border-radius:4px;padding:7px;margin:4px 0;text-align:left;cursor:pointer}
+button.active,button:hover{background:#145078;border-color:#00d9ff;box-shadow:inset 3px 0 0 #ffd500}
+.formula{border:1px solid #183d58;background:#081522;border-radius:5px;padding:7px;margin-bottom:6px;font-family:ui-monospace,monospace;color:#d3e8ff}
+.formula b{color:#ffd500}
+.log{height:240px;overflow:auto;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid #17344c;padding:4px 0;color:#cde7ff}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+<div><h1>TRFMC Wi-Fi 5/6/6E/7/8 OFDM QAM Engine</h1><div style="color:#86a7c6;font-size:11px">OFDM/OFDMA · MCS · RU · 1024/4096-QAM · EVM · SNR · Channel width · Spectrum mask</div></div>
+<nav>
+<a href="/trfmc_master_console_v4.html">Master Console V4</a>
+<a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP V3</a>
+<a href="/trfmc_instrument_os_alignment_v1.html">Instrument OS</a>
+<a href="/trfmc_enterprise_prime_portal_v1.html">Prime</a>
+</nav>
+</header>
+
+<main>
+<aside class="panel">
+<div class="title">Wi-Fi PHY Control</div>
+<div class="body">
+<div class="ctrl"><b>Standard</b>
+<select id="std">
+<option value="ac">Wi-Fi 5 / 802.11ac / VHT</option>
+<option value="ax">Wi-Fi 6 / 802.11ax / HE</option>
+<option value="axe">Wi-Fi 6E / 6 GHz / HE</option>
+<option value="be">Wi-Fi 7 / 802.11be / EHT</option>
+<option value="bn">Wi-Fi 8 concept / 802.11bn / UHR</option>
+</select>
+<select id="mod">
+<option>256-QAM</option>
+<option>1024-QAM</option>
+<option selected="">4096-QAM</option>
+</select>
+</div>
+<div class="ctrl"><b>Channel / OFDM</b>
+<label>Center <span id="cfv">5975 MHz</span></label><input id="cf" type="range" min="2400" max="7125" value="5975">
+<label>Bandwidth <span id="bwv">320 MHz</span></label><input id="bw" type="range" min="20" max="320" step="20" value="320">
+<label>Subcarrier load <span id="loadv">78%</span></label><input id="load" type="range" min="10" max="100" value="78">
+<label>Puncturing <span id="punv">12%</span></label><input id="pun" type="range" min="0" max="50" value="12">
+</div>
+<div class="ctrl"><b>RF Quality</b>
+<label>SNR <span id="snrv">42 dB</span></label><input id="snr" type="range" min="10" max="55" value="42">
+<label>Phase noise <span id="pnv">-98 dBc/Hz</span></label><input id="pn" type="range" min="-130" max="-60" value="-98">
+<label>CFO <span id="cfov">120 Hz</span></label><input id="cfo" type="range" min="-5000" max="5000" value="120">
+<label>IQ imbalance <span id="iqiv">1.0%</span></label><input id="iqi" type="range" min="0" max="10" value="1">
+</div>
+<button class="active" data-mode="SPECTRUM">Spectrum Mask</button>
+<button data-mode="RU">OFDMA RU Map</button>
+<button data-mode="CONST">4096-QAM Constellation</button>
+<button data-mode="EVM">EVM / MER</button>
+<button data-mode="MLO">Wi-Fi 7/8 MLO Links</button>
+</div>
+</aside>
+
+<section>
+<div class="kpis">
+<div class="kpi"><b id="kstd">Wi-Fi 5</b><span>standard</span></div>
+<div class="kpi"><b id="kmod">4096</b><span>QAM</span></div>
+<div class="kpi"><b id="kbw">320M</b><span>channel</span></div>
+<div class="kpi"><b id="ksnr">42</b><span>SNR dB</span></div>
+<div class="kpi"><b id="kevm">3.1%</b><span>EVM rms</span></div>
+<div class="kpi"><b id="kmer">30.0</b><span>MER dB</span></div>
+<div class="kpi"><b id="kcfo">120</b><span>CFO Hz</span></div>
+<div class="kpi"><b id="kru">996</b><span>RU tone</span></div>
+<div class="kpi"><b id="kmlo">1</b><span>MLO links</span></div>
+<div class="kpi"><b id="kstatus">PASS</b><span>quality</span></div>
+</div>
+
+<div class="grid">
+<div class="frame" id="specFrame"><h3>1 · Wi-Fi OFDM Spectrum / Mask / Puncturing</h3><canvas id="spec" width="1500" height="330"></canvas></div>
+<div class="frame"><h3>2 · OFDMA Resource Unit / Subcarrier Map</h3><canvas id="ru" width="760" height="230"></canvas></div>
+<div class="frame"><h3>3 · 4096-QAM Constellation / EVM</h3><canvas id="const" width="760" height="230"></canvas></div>
+<div class="frame"><h3>4 · MLO Multi-Link Wi-Fi 7/8</h3><canvas id="mlo" width="760" height="230"></canvas></div>
+<div class="frame"><h3>5 · EVM / MER / CFO / Phase Noise Trend</h3><canvas id="trend" width="760" height="230"></canvas></div>
+</div>
+</section>
+
+<aside class="panel">
+<div class="title">Wi-Fi / QAM Math</div>
+<div class="body">
+<div class="formula"><b>QAM bits/symbol</b><br>bits = log2(M)<br>4096-QAM → 12 bit/symbol</div>
+<div class="formula"><b>OFDM symbol</b><br>X[k] → IFFT → x[n]</div>
+<div class="formula"><b>EVM</b><br>EVM% = RMS(Smeas−Sref)/RMS(Sref) × 100</div>
+<div class="formula"><b>MER</b><br>MER dB = −20log10(EVM_ratio)</div>
+<div class="formula"><b>Wi-Fi 6/7/8</b><br>OFDMA + MU-MIMO + BSS coloring + MLO + puncturing</div>
+<div class="formula"><b>4096-QAM requirement</b><br>Very high SNR, low phase noise, low IQ imbalance, tight EVM</div>
+<div class="title" style="margin:8px -8px 6px">Event Stream</div>
+<div class="log" id="log"><div>[16:45:23] Wi-Fi 5 4096-QAM channel 320 MHz</div></div>
+</div>
+</aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const cv=["spec","ru","const","mlo","trend"].reduce((o,id)=>(o[id]=document.getElementById(id).getContext("2d"),o),{});
+let t=0,last=0,mode="SPECTRUM";
+function p(){return{std:$("std").value,mod:$("mod").value,cf:+$("cf").value,bw:+$("bw").value,load:+$("load").value,pun:+$("pun").value,snr:+$("snr").value,pn:+$("pn").value,cfo:+$("cfo").value,iqi:+$("iqi").value}}
+function grid(c,w,h){c.strokeStyle="rgba(120,190,240,.10)";for(let x=0;x<w;x+=50){c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.stroke()}for(let y=0;y<h;y+=35){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke()}}
+function labels(){let q=p(),std={ac:"Wi-Fi 5",ax:"Wi-Fi 6",axe:"Wi-Fi 6E",be:"Wi-Fi 7",bn:"Wi-Fi 8"}[q.std],evm=Math.max(.35,8-q.snr/7+q.iqi*.15+(q.mod==="4096-QAM"?1.0:0));$("cfv").textContent=q.cf+" MHz";$("bwv").textContent=q.bw+" MHz";$("loadv").textContent=q.load+"%";$("punv").textContent=q.pun+"%";$("snrv").textContent=q.snr+" dB";$("pnv").textContent=q.pn+" dBc/Hz";$("cfov").textContent=q.cfo+" Hz";$("iqiv").textContent=q.iqi.toFixed(1)+"%";$("kstd").textContent=std;$("kmod").textContent=q.mod.replace("-QAM","");$("kbw").textContent=q.bw+"M";$("ksnr").textContent=q.snr;$("kevm").textContent=evm.toFixed(1)+"%";$("kmer").textContent=(-20*Math.log10(evm/100)).toFixed(1);$("kcfo").textContent=q.cfo;$("kru").textContent=q.bw>=160?"996":"484";$("kmlo").textContent=q.std==="be"||q.std==="bn"?"2":"1";$("kstatus").textContent=evm<3.5?"PASS":"WARN"}
+function spectrum(){let c=cv.spec,w=1500,h=330,q=p();c.clearRect(0,0,w,h);grid(c,w,h);let occ=w*(q.load/100),start=(w-occ)/2,end=start+occ,punct=occ*q.pun/100;c.fillStyle="rgba(255,51,102,.13)";c.fillRect(start+occ*.55,0,punct,h);c.strokeStyle="#ff3366";c.strokeRect(start+occ*.55,0,punct,h);c.beginPath();for(let x=0;x<w;x++){let inb=x>start&&x<end,edge=Math.min(Math.abs(x-start),Math.abs(x-end)),flat=inb?Math.min(1,edge/70):0,y=h-35-flat*(h-85)+Math.random()*8+Math.sin(x*.04+t*.04)*2;if(x>start+occ*.55&&x<start+occ*.55+punct)y+=60;x?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle="#00d9ff";c.lineWidth=2;c.stroke();c.strokeStyle="#ffd500";c.beginPath();c.moveTo(start,h-40);c.lineTo(start+60,h-160);c.lineTo(end-60,h-160);c.lineTo(end,h-40);c.stroke();c.fillStyle="#eaf3ff";c.fillText(`${$("kstd").textContent} · ${q.mod} · ${q.bw} MHz · OFDM/OFDMA · puncturing ${q.pun}% · SNR ${q.snr} dB`,18,22)}
+function rumap(){let c=cv.ru,w=760,h=230,q=p();c.clearRect(0,0,w,h);grid(c,w,h);let cols=q.bw>=320?16:q.bw>=160?8:q.bw>=80?4:2;let rows=8,gw=(w-40)/cols,gh=(h-50)/rows;for(let r=0;r<rows;r++)for(let col=0;col<cols;col++){let x=20+col*gw,y=35+r*gh,skip=Math.random()*100<q.pun;c.fillStyle=skip?"rgba(255,51,102,.35)":`rgba(${50+col*10},${180+r*7},${90+r*12},.75)`;c.fillRect(x,y,gw-3,gh-3)}c.fillStyle="#eaf3ff";c.fillText("RU allocation / subcarrier load / punctured resource blocks",18,20)}
+function constellation(){let c=cv.const,w=760,h=230,q=p(),cx=w/2,cy=h/2;c.clearRect(0,0,w,h);grid(c,w,h);c.strokeStyle="rgba(125,255,79,.20)";c.beginPath();c.moveTo(cx,15);c.lineTo(cx,h-15);c.moveTo(15,cy);c.lineTo(w-15,cy);c.stroke();let m=q.mod==="4096-QAM"?64:q.mod==="1024-QAM"?32:16,noise=Math.max(1,40-q.snr+q.iqi*3);c.fillStyle="#7dff4f";for(let i=0;i<1600;i++){let ix=Math.floor(Math.random()*m),iy=Math.floor(Math.random()*m),px=cx+(ix-(m-1)/2)*(300/m)+(Math.random()-.5)*noise,py=cy+(iy-(m-1)/2)*(160/m)+(Math.random()-.5)*noise;c.fillRect(px,py,1.2,1.2)}c.fillStyle="#eaf3ff";c.fillText(`${q.mod} constellation · ${Math.log2(parseInt(q.mod))} bit/symbol · EVM ${$("kevm").textContent}`,18,20)}
+function mlo(){let c=cv.mlo,w=760,h=230,q=p();c.clearRect(0,0,w,h);grid(c,w,h);let links=q.std==="be"||q.std==="bn"?3:1;for(let i=0;i<links;i++){let y=55+i*55;c.strokeStyle=["#00d9ff","#7dff4f","#ffd500"][i];c.lineWidth=8;c.beginPath();c.moveTo(80,y);c.lineTo(w-80,y+Math.sin(t*.04+i)*18);c.stroke();c.fillStyle="#eaf3ff";c.fillText(`Link ${i+1}: ${i?6:5} GHz · ${q.bw/(i+1)} MHz · latency group ${i+1}`,95,y-14)}}
+function trend(){let c=cv.trend,w=760,h=230,q=p();c.clearRect(0,0,w,h);grid(c,w,h);["#00d9ff","#7dff4f","#ffd500","#ff3366"].forEach((col,k)=>{c.beginPath();for(let x=0;x<w;x++){let y=h/2+Math.sin(x*.02+t*.03+k)*35+k*18+(Math.random()-.5)*8;x?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle=col;c.stroke()});c.fillStyle="#eaf3ff";c.fillText("Cyan=SNR · Green=MER · Yellow=EVM · Red=CFO/PN stress",18,20)}
+function log(){let now=Date.now();if(now-last<1400)return;last=now;let ev=[`${$("kstd").textContent} ${p().mod} channel ${p().bw} MHz`, `4096-QAM EVM ${$("kevm").textContent} MER ${$("kmer").textContent} dB`, `OFDMA RU map updated`, `MLO correlation refreshed`, `puncturing ${p().pun}% applied`, `CFO ${p().cfo} Hz phase noise ${p().pn} dBc/Hz`];let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+ev[Math.floor(Math.random()*ev.length)];$("log").prepend(d);while($("log").children.length>20)$("log").removeChild($("log").lastChild)}
+document.querySelectorAll("button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll("button[data-mode]").forEach(x=>x.classList.toggle("active",x===b))});
+["std","mod","cf","bw","load","pun","snr","pn","cfo","iqi"].forEach(id=>$(id).addEventListener("input",labels));
+(function loop(){t++;labels();spectrum();rumap();constellation();mlo();trend();log();requestAnimationFrame(loop)})();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="rf">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · RF</div>
+      <div class="trfmc-c3-sub">TRFMC Wi-Fi 5/6/7/8 OFDM QAM Engine V1<br>/trfmc_wifi_5_6_7_8_qam_engine_v1.html<br>Previous Authority V3 score: 71/100 · gaps closed: design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:spectrum-scope</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>FFT</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>EVM</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>SNR</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi" data-trfmc-vxp="active"><small>ACLR</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="spectrum-scope" data-size="medium" title="Batch C RF · spectrum-scope"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">x(t) ⇄ X(f) via Fourier transform
+RBW controls spectral resolution
+EVM = RMS(error_vector)/RMS(reference_vector)
+SNR = signal_power/noise_power
+ACLR and OBW bind spectrum to compliance</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="rf" width="601" height="158"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Wi-Fi 5/6/6E/7/8 OFDM QAM Engine</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas · kpi</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

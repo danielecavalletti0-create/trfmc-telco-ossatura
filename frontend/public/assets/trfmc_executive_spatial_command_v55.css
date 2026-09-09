@@ -1,0 +1,364 @@
+/* TRFMC v0.55A - Executive Dashboard Next / Spatial Command Layer */
+
+body.trfmc-next-shell.v55-spatial-command {
+  --space-cyan: #69e8ff;
+  --space-green: #42f56f;
+  --space-violet: #8b5cf6;
+  --space-blue: #2563eb;
+  background:
+    radial-gradient(circle at 18% 4%, rgba(105,232,255,.18), transparent 34%),
+    radial-gradient(circle at 78% 8%, rgba(139,92,246,.16), transparent 34%),
+    radial-gradient(circle at 52% 92%, rgba(66,245,111,.10), transparent 44%),
+    linear-gradient(180deg, #020712 0%, #06111f 38%, #020712 100%) !important;
+}
+
+/* Deep spatial background */
+body.v55-spatial-command::before,
+body.v55-spatial-command::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -3;
+}
+
+body.v55-spatial-command::before {
+  background:
+    radial-gradient(circle at 8% 20%, rgba(105,232,255,.20) 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 70%, rgba(255,255,255,.30) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 32%, rgba(105,232,255,.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 68% 18%, rgba(255,255,255,.26) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 76%, rgba(66,245,111,.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 92% 42%, rgba(139,92,246,.20) 0 1px, transparent 2px);
+  background-size: 280px 260px;
+  opacity: .55;
+  animation: v55-stars-drift 42s linear infinite;
+}
+
+body.v55-spatial-command::after {
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(105,232,255,.07) 42%, transparent 64%),
+    radial-gradient(ellipse at 50% 10%, rgba(88,214,249,.12), transparent 58%);
+  opacity: .70;
+  animation: v55-nebula-sweep 18s ease-in-out infinite;
+}
+
+@keyframes v55-stars-drift {
+  from { transform: translate3d(0,0,0); }
+  to { transform: translate3d(-80px,42px,0); }
+}
+
+@keyframes v55-nebula-sweep {
+  0%, 100% { opacity: .38; transform: translateX(-2%); }
+  50% { opacity: .78; transform: translateX(2%); }
+}
+
+/* Top shell: more flagship */
+.v55-spatial-command .top-shell {
+  border-color: rgba(105,232,255,.38) !important;
+  background:
+    radial-gradient(circle at 5% 50%, rgba(105,232,255,.14), transparent 30%),
+    linear-gradient(135deg, rgba(255,255,255,.070), rgba(255,255,255,.018)),
+    rgba(2,10,22,.94) !important;
+  box-shadow:
+    0 26px 90px rgba(0,0,0,.45),
+    0 0 60px rgba(105,232,255,.10),
+    inset 0 0 38px rgba(105,232,255,.045) !important;
+}
+
+.v55-spatial-command .brand-orb {
+  border-radius: 50% !important;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255,255,255,.95), rgba(105,232,255,.80) 18%, rgba(105,232,255,.10) 45%, rgba(2,9,20,.94) 72%) !important;
+  box-shadow:
+    0 0 26px rgba(105,232,255,.40),
+    inset 0 0 18px rgba(105,232,255,.22) !important;
+}
+
+/* Hero: spatial mission deck */
+.v55-spatial-command .hero-next {
+  min-height: 340px !important;
+  grid-template-columns: 1fr 350px !important;
+  border-color: rgba(105,232,255,.40) !important;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(105,232,255,.18), transparent 32%),
+    radial-gradient(circle at 75% 26%, rgba(66,245,111,.12), transparent 34%),
+    radial-gradient(circle at 88% 66%, rgba(139,92,246,.13), transparent 32%),
+    linear-gradient(135deg, rgba(255,255,255,.072), rgba(255,255,255,.018)),
+    rgba(2,9,20,.82) !important;
+  box-shadow:
+    0 36px 110px rgba(0,0,0,.44),
+    0 0 90px rgba(105,232,255,.14),
+    inset 0 0 70px rgba(105,232,255,.055) !important;
+}
+
+.v55-spatial-command .hero-next::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 22px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(105,232,255,.10) 1px, transparent 1px),
+    linear-gradient(rgba(105,232,255,.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .32;
+  mask-image: radial-gradient(circle at 78% 48%, rgba(0,0,0,1), transparent 68%);
+}
+
+.v55-spatial-command .hero-next::after {
+  content: "ORBITAL MISSION CONTROL" !important;
+  right: 32px !important;
+  bottom: 22px !important;
+  color: rgba(105,232,255,.11) !important;
+  font-size: 32px !important;
+  letter-spacing: 7px !important;
+}
+
+.v55-spatial-command .hero-copy h1 {
+  font-size: clamp(44px, 4.3vw, 78px) !important;
+  max-width: 1160px;
+  color: #8ff0ff !important;
+  text-shadow:
+    0 0 18px rgba(105,232,255,.62),
+    0 0 60px rgba(105,232,255,.22),
+    0 0 110px rgba(139,92,246,.18) !important;
+}
+
+.v55-spatial-command .eyebrow {
+  color: var(--space-green) !important;
+  border-color: rgba(66,245,111,.42) !important;
+  background:
+    linear-gradient(90deg, rgba(66,245,111,.12), rgba(105,232,255,.08)),
+    rgba(3,18,26,.70) !important;
+  box-shadow: 0 0 22px rgba(66,245,111,.16);
+}
+
+/* Spatial orbital layer inserted by JS */
+.v55-orbital-stack {
+  position: absolute;
+  right: 245px;
+  top: 36px;
+  width: 360px;
+  height: 260px;
+  pointer-events: none;
+  opacity: .88;
+}
+
+.v55-orbit {
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(105,232,255,.20);
+  border-radius: 50%;
+  transform: rotate(var(--rot, 0deg)) scale(var(--scale, 1));
+  box-shadow:
+    0 0 22px rgba(105,232,255,.08),
+    inset 0 0 24px rgba(105,232,255,.045);
+}
+
+.v55-orbit.o1 { --rot: -18deg; --scale: 1.0; animation: v55-orbit-spin 18s linear infinite; }
+.v55-orbit.o2 { --rot: 34deg; --scale: .72; animation: v55-orbit-spin 26s linear reverse infinite; }
+.v55-orbit.o3 { --rot: 72deg; --scale: .46; animation: v55-orbit-spin 16s linear infinite; }
+
+.v55-satellite {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--space-cyan);
+  box-shadow: 0 0 18px rgba(105,232,255,.85);
+}
+
+.v55-satellite.s1 { left: 78%; top: 28%; }
+.v55-satellite.s2 { left: 45%; top: 10%; background: var(--space-green); box-shadow: 0 0 18px rgba(66,245,111,.75); }
+.v55-satellite.s3 { left: 20%; top: 62%; background: #fbbf24; box-shadow: 0 0 18px rgba(251,191,36,.65); }
+
+@keyframes v55-orbit-spin {
+  from { transform: rotate(var(--rot,0deg)) scale(var(--scale,1)); }
+  to { transform: rotate(calc(var(--rot,0deg) + 360deg)) scale(var(--scale,1)); }
+}
+
+/* Readiness ring: orbital */
+.v55-spatial-command .readiness-ring {
+  width: 225px !important;
+  height: 225px !important;
+  box-shadow:
+    0 0 70px rgba(66,245,111,.24),
+    0 0 120px rgba(105,232,255,.12),
+    inset 0 0 42px rgba(105,232,255,.055) !important;
+}
+
+.v55-spatial-command .readiness-ring::after {
+  content: "";
+  position: absolute;
+  inset: -13px;
+  border: 1px dashed rgba(105,232,255,.26);
+  border-radius: 50%;
+  animation: v55-ring-rotate 12s linear infinite;
+}
+
+@keyframes v55-ring-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* KPI row */
+.v55-spatial-command .quick-kpis {
+  border-color: rgba(105,232,255,.30) !important;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(105,232,255,.10), transparent 28%),
+    rgba(2,11,22,.72) !important;
+}
+
+.v55-spatial-command .kpi-card {
+  border-color: rgba(105,232,255,.22) !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(105,232,255,.10), transparent 38%),
+    linear-gradient(135deg, rgba(255,255,255,.052), rgba(255,255,255,.014)),
+    rgba(255,255,255,.026) !important;
+}
+
+/* Primary RF and Scenario: more premium */
+.v55-spatial-command .rf-panel,
+.v55-spatial-command .scenario-panel {
+  border-color: rgba(105,232,255,.42) !important;
+  background:
+    radial-gradient(circle at 10% 8%, rgba(105,232,255,.14), transparent 34%),
+    radial-gradient(circle at 80% 12%, rgba(139,92,246,.12), transparent 36%),
+    linear-gradient(135deg, rgba(255,255,255,.060), rgba(255,255,255,.018)),
+    rgba(2,10,22,.84) !important;
+  box-shadow:
+    0 34px 96px rgba(0,0,0,.38),
+    0 0 70px rgba(105,232,255,.13),
+    inset 0 0 54px rgba(105,232,255,.050) !important;
+}
+
+.v55-spatial-command .panel-head h2 {
+  color: #8ff0ff !important;
+  text-shadow: 0 0 18px rgba(105,232,255,.42);
+}
+
+.v55-spatial-command .panel-head strong {
+  color: var(--space-green) !important;
+  text-shadow: 0 0 14px rgba(66,245,111,.36);
+}
+
+/* Spectrum gets a sci instrumentation glow */
+.v55-spatial-command .spectrum-window {
+  border-color: rgba(105,232,255,.34) !important;
+  background:
+    linear-gradient(rgba(105,232,255,.060) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(105,232,255,.052) 1px, transparent 1px),
+    radial-gradient(circle at 50% 74%, rgba(66,245,111,.13), transparent 42%),
+    radial-gradient(circle at 76% 40%, rgba(105,232,255,.08), transparent 28%),
+    rgba(0,7,16,.90) !important;
+  box-shadow:
+    0 0 42px rgba(105,232,255,.10),
+    inset 0 0 34px rgba(105,232,255,.035);
+}
+
+.v55-spatial-command .trace {
+  filter:
+    drop-shadow(0 0 18px rgba(66,245,111,.44))
+    drop-shadow(0 0 34px rgba(105,232,255,.12)) !important;
+}
+
+/* Scenario chain as mission path */
+.v55-spatial-command .chain span {
+  border-color: rgba(66,245,111,.40) !important;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(66,245,111,.14), transparent 36%),
+    rgba(66,245,111,.070) !important;
+  box-shadow:
+    0 0 18px rgba(66,245,111,.08),
+    inset 0 0 18px rgba(66,245,111,.035);
+}
+
+.v55-spatial-command .scenario-selector button.selected {
+  box-shadow:
+    0 0 28px rgba(66,245,111,.14),
+    inset 0 0 24px rgba(66,245,111,.040);
+}
+
+/* Secondary grid and support cards */
+.v55-spatial-command .secondary-grid .panel,
+.v55-spatial-command .support-card {
+  border-color: rgba(105,232,255,.30) !important;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(105,232,255,.10), transparent 34%),
+    linear-gradient(135deg, rgba(255,255,255,.050), rgba(255,255,255,.014)),
+    rgba(2,10,22,.76) !important;
+}
+
+/* Add a spatial command ribbon */
+.v55-command-ribbon {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.v55-command-ribbon div {
+  border: 1px solid rgba(105,232,255,.22);
+  background: rgba(105,232,255,.050);
+  border-radius: 14px;
+  padding: 9px;
+}
+
+.v55-command-ribbon span {
+  display: block;
+  color: rgba(237,248,255,.44);
+  font-size: 8px;
+  text-transform: uppercase;
+}
+
+.v55-command-ribbon b {
+  display: block;
+  margin-top: 5px;
+  color: var(--space-cyan);
+  font-size: 11px;
+}
+
+/* Buttons */
+.v55-spatial-command .main-nav a,
+.v55-spatial-command .hero-actions a,
+.v55-spatial-command .launch-actions a,
+.v55-spatial-command .support-card a,
+.v55-spatial-command .strip-actions button {
+  box-shadow: 0 0 18px rgba(105,232,255,.055);
+}
+
+/* Footer */
+.v55-spatial-command .next-footer {
+  border-color: rgba(105,232,255,.22) !important;
+  background:
+    linear-gradient(90deg, transparent, rgba(105,232,255,.060), transparent),
+    rgba(2,10,22,.76) !important;
+}
+
+/* Compact still works */
+body.v55-spatial-command.compact .v55-orbital-stack {
+  opacity: .45;
+}
+
+@media(max-width:1450px) {
+  .v55-spatial-command .hero-next {
+    grid-template-columns: 1fr !important;
+  }
+
+  .v55-orbital-stack {
+    right: 40px;
+    top: 28px;
+    opacity: .28;
+  }
+}
+
+@media(max-width:820px) {
+  .v55-orbital-stack {
+    display: none;
+  }
+
+  .v55-command-ribbon {
+    grid-template-columns: 1fr;
+  }
+}

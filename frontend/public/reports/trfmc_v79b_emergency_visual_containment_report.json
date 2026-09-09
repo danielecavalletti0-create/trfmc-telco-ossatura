@@ -1,0 +1,124 @@
+{
+  "version": "TRFMC v0.79B",
+  "action": "Emergency visual containment / object stack quarantine",
+  "reason": "v77/v78/v79 object stack integration created duplicated headers, large empty bands, compressed operational scenes and visual noise.",
+  "preserved": [
+    "rf_telco_component_library_v76.html",
+    "source CSS/JS assets for forensic reference",
+    "backend",
+    "Docker runtime",
+    "page-specific pre-existing layouts"
+  ],
+  "removed_from_operational_html": [
+    "trfmc_component_object_integration_v77.css/js",
+    "trfmc_full_portal_object_completion_v78.css/js",
+    "trfmc_object_stack_governance_v79.css/js"
+  ],
+  "qa_metadata_cleaned": true,
+  "pages": [
+    {
+      "file": "webgl_rf_heatmap_engine_v69.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "infrastructure_digital_twin_v63.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "executive_mission_dashboard_v_next.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "rf_telco_knowledge_os_v60.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v68.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v67.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v66.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "field_engineering_mode_v64.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "rf_propagation_sandbox_v62.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "rf_telco_knowledge_modules_v61.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "portal_index_v19.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "runtime_golden_check_console_v29.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    },
+    {
+      "file": "trfmc_visual_qa_matrix_v71.html",
+      "status": "quarantined",
+      "changed": true,
+      "remaining_v77": false,
+      "remaining_v78": false,
+      "remaining_v79": false
+    }
+  ]
+}

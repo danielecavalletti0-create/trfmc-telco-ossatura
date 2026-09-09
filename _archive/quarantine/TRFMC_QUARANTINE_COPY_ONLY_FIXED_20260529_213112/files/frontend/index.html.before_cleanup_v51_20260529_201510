@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TRFMC React Mission Control</title>
+  <link rel="stylesheet" href="/assets/trfmc_balanced_layout_calibration_v51r6.css" data-trfmc-v51r6="balanced-layout-calibration">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/app/main.tsx"></script>
+  <script type="module" src="/assets/trfmc_balanced_layout_calibration_v51r6.js" data-trfmc-v51r6="balanced-layout-calibration"></script>
+</body>
+</html>

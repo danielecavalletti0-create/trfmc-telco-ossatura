@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC RF / Antenna Academy Wall V2 Premium</title>
+<style>
+:root{
+  --bg:#020711;
+  --panel:#061321;
+  --panel2:#0a1b2e;
+  --line:#176f9f;
+  --line2:#29bdf2;
+  --text:#eaf5ff;
+  --muted:#8dafc9;
+  --cyan:#00d9ff;
+  --green:#7dff4f;
+  --yellow:#ffd500;
+  --orange:#ff9e3d;
+  --red:#ff3366;
+  --violet:#c66bff;
+  --blue:#3da8ff;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;height:100%;overflow:hidden;
+  background:
+    radial-gradient(circle at 55% 5%,rgba(0,217,255,.12),transparent 34%),
+    radial-gradient(circle at 20% 90%,rgba(125,255,79,.06),transparent 28%),
+    linear-gradient(180deg,#020711,#01040a);
+  color:var(--text);
+  font:12px "Segoe UI",Inter,system-ui,sans-serif;
+}
+button,select,input{
+  background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;
+  padding:6px 8px;font:12px "Segoe UI",system-ui,sans-serif;
+}
+button{cursor:pointer;text-transform:uppercase;font-size:10px;letter-spacing:.04em}
+button:hover{border-color:var(--cyan);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+header{
+  height:58px;background:#050b13;border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:260px 1fr 610px;align-items:center;gap:10px;padding:0 10px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{font-size:28px;font-weight:900;color:var(--cyan);letter-spacing:.05em}
+.htext b{display:block;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
+.htext span{color:var(--muted);font-size:11px}
+.topTelemetry{display:grid;grid-template-columns:repeat(8,1fr);gap:5px}
+.tcell{
+  border:1px solid #245b7d;background:linear-gradient(180deg,#09223a,#06111f);
+  border-radius:5px;padding:5px;min-width:0;
+}
+.tcell span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}
+.tcell b{display:block;color:var(--green);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actions{display:flex;gap:5px;justify-content:flex-end;align-items:center}
+main{
+  height:calc(100vh - 88px);
+  display:grid;
+  grid-template-columns:180px 1fr 310px;
+  gap:6px;
+  padding:6px;
+}
+.left,.right,.center{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(6,19,33,.98),rgba(1,6,13,.98));
+  border-radius:7px;
+  overflow:hidden;
+  box-shadow:0 0 28px rgba(0,217,255,.08);
+}
+.left{display:grid;grid-template-rows:1fr 115px}
+.nav{padding:6px;overflow:auto}
+.navItem{
+  display:grid;grid-template-columns:46px 1fr;gap:8px;align-items:center;
+  border:1px solid #214a68;background:#081522;border-radius:5px;margin-bottom:7px;padding:6px;
+  cursor:pointer;min-height:62px;
+}
+.navItem:hover,.navItem.active{
+  border-color:var(--cyan);background:#10233a;box-shadow:inset 4px 0 0 var(--yellow);
+}
+.ico{
+  height:42px;border:1px solid #285d82;border-radius:4px;
+  display:grid;place-items:center;color:var(--cyan);font-size:23px;background:#04111e;
+}
+.navItem b{display:block;color:var(--text);font-size:12px;text-transform:uppercase;line-height:1.1}
+.navItem span{display:block;color:var(--muted);font-size:9px;margin-top:3px}
+.workspace{border-top:1px solid var(--line);padding:8px;background:#061321}
+.workspace b{display:block;color:var(--muted);font-size:10px;margin-bottom:6px;text-transform:uppercase}
+.center{display:grid;grid-template-rows:52px 1fr}
+.moduleTop{
+  display:grid;grid-template-columns:repeat(9,1fr);gap:5px;padding:5px;
+  border-bottom:1px solid var(--line);background:#061321;
+}
+.mini{
+  border:1px solid #245b7d;background:#081522;border-radius:5px;padding:5px;min-width:0;
+}
+.mini span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}
+.mini b{display:block;color:var(--text);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wall{
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr;
+  grid-template-rows:1.05fr .95fr .9fr;
+  gap:6px;
+  padding:6px;
+  min-height:0;
+}
+.panel{
+  border:1px solid #1d5e86;background:#020914;border-radius:7px;overflow:hidden;position:relative;
+  box-shadow:inset 0 0 0 1px rgba(0,217,255,.04);
+}
+.panel h3{
+  margin:0;height:30px;padding:7px 9px;
+  background:linear-gradient(90deg,#071524,#0a1b2e);
+  border-bottom:1px solid #1d5e86;
+  color:var(--cyan);
+  font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+}
+.panel .inside{height:calc(100% - 30px);position:relative;padding:8px}
+.panel.big{grid-row:1/3}
+.panel.wide{grid-column:2/4}
+.panel.full{grid-column:1/4}
+canvas{width:100%;height:100%;display:block}
+.formula{
+  border:1px solid #315575;background:rgba(3,9,18,.92);border-radius:6px;
+  padding:7px;margin:5px 0;color:var(--yellow);font:15px "Cambria Math",Consolas,monospace;
+}
+.eqSmall{font:12px Consolas,monospace;color:#cde7ff;line-height:1.45}
+.tbl{width:100%;border-collapse:collapse;font-size:10px}
+.tbl th,.tbl td{border:1px solid #254a65;padding:5px;text-align:left}
+.tbl th{color:var(--cyan);background:#0a1b2e}
+.tbl td{color:#cde7ff}
+.valueBox{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:6px;
+}
+.v{
+  border:1px solid #245b7d;background:#081522;border-radius:5px;padding:6px;
+}
+.v span{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}
+.v b{display:block;color:var(--green);font-size:14px}
+.right{display:grid;grid-template-rows:auto auto 1fr auto}
+.title{
+  background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);
+  font-weight:700;padding:7px 8px;text-transform:uppercase;font-size:11px;
+}
+.rbody{padding:7px}
+.control{margin-bottom:8px}
+.control label{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-bottom:3px}
+.control input{width:100%;padding:0}
+.kv{
+  display:grid;grid-template-columns:1fr auto;gap:8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  padding:5px 0;font:11px Consolas,monospace;
+}
+.kv b{color:var(--green)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.log{
+  height:235px;overflow:auto;border:1px solid #183d58;background:#01060d;border-radius:5px;
+  padding:6px;font:11px Consolas,monospace;
+}
+.log div{border-bottom:1px solid rgba(255,255,255,.06);padding:3px 0;color:#cde7ff}
+footer{
+  height:30px;border-top:1px solid var(--line);background:#050b13;
+  display:grid;grid-template-columns:repeat(10,1fr);gap:5px;padding:4px 8px;
+}
+.foot{border-left:1px solid #17384f;padding-left:8px;font:10px Consolas,monospace;color:var(--muted)}
+.foot b{color:var(--green)}
+.badge{
+  position:absolute;right:8px;bottom:8px;border:1px solid rgba(125,255,79,.45);
+  color:var(--green);background:rgba(2,9,20,.82);border-radius:4px;padding:4px 7px;
+  font:10px Consolas,monospace;
+}
+.diagramLabel{
+  position:absolute;color:#cde7ff;font:10px Consolas,monospace;background:rgba(2,9,20,.65);
+  border:1px solid #245b7d;border-radius:3px;padding:3px 5px;
+}
+body.kiosk header,body.kiosk .left,body.kiosk .right,body.kiosk footer{display:none}
+body.kiosk main{height:100vh;grid-template-columns:1fr;padding:0}
+body.kiosk .center{border-radius:0}
+@media(max-width:1500px){
+  header{grid-template-columns:240px 1fr 450px}
+  .topTelemetry{grid-template-columns:repeat(4,1fr)}
+  .moduleTop{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf">
+<header>
+  <div class="brand">
+    <div class="logo">TRFMC</div>
+    <div class="htext">
+      <b>RF / Antenna Academy Wall V2</b>
+      <span>Premium instrument · theory + measurement + simulation</span>
+    </div>
+  </div>
+
+  <div class="topTelemetry">
+    <div class="tcell"><span>Freq</span><b id="topFreq">3.500 GHz</b></div>
+    <div class="tcell"><span>Band</span><b id="topBand">n78 / C-Band</b></div>
+    <div class="tcell"><span>Span</span><b id="topSpan">100 MHz</b></div>
+    <div class="tcell"><span>RBW</span><b id="topRbw">100 kHz</b></div>
+    <div class="tcell"><span>Temp</span><b id="topTemp">300 K</b></div>
+    <div class="tcell"><span>VSWR</span><b id="topVswr">1.38</b></div>
+    <div class="tcell"><span>Noise</span><b id="topNoise">-124 dBm</b></div>
+    <div class="tcell"><span>Status</span><b>ACTIVE</b></div>
+  </div>
+
+  <div class="actions">
+    <button onclick="setMode('measure')">Measure</button>
+    <button onclick="setMode('design')">Design</button>
+    <button onclick="setMode('simulate')">Simulate</button>
+    <button onclick="runSweep()">Run Sweep</button>
+    <button onclick="toggleKiosk()">Kiosk</button>
+  </div>
+</header>
+
+<main>
+  <aside class="left">
+    <div class="nav" id="nav"></div>
+    <div class="workspace">
+      <b>Workspace</b>
+      <select style="width:100%">
+        <option>RF/Antenna Premium Lab</option>
+        <option>Metrology / Pre-compliance</option>
+        <option>Teaching / Academy Mode</option>
+      </select>
+      <div class="kv"><span>Entry</span><b>Leaf Page</b></div>
+      <div class="kv"><span>Port</span><b>5173</b></div>
+    </div>
+  </aside>
+
+  <section class="center">
+    <div class="moduleTop">
+      <div class="mini"><span>Module</span><b id="moduleName">Thermal Noise</b></div>
+      <div class="mini"><span>λ</span><b id="lambdaVal">85.7 mm</b></div>
+      <div class="mini"><span>FSPL 1 km</span><b id="fsplVal">103.3 dB</b></div>
+      <div class="mini"><span>Vn RMS</span><b id="vnVal">0 nV</b></div>
+      <div class="mini"><span>Gain</span><b id="gainVal">18 dBi</b></div>
+      <div class="mini"><span>QAM</span><b id="qamVal">4096</b></div>
+      <div class="mini"><span>BW</span><b id="bwVal">100 kHz</b></div>
+      <div class="mini"><span>RL</span><b id="rlVal">16 dB</b></div>
+      <div class="mini"><span>Mode</span><b id="modeVal">DESIGN</b></div>
+    </div>
+
+    <div class="wall">
+      <div class="panel big">
+        <h3 id="mainTitle">1. Thermal Noise Laboratory</h3>
+        <div class="inside">
+          <canvas id="mainCanvas"></canvas>
+          <div class="badge" id="mainBadge">kTB · resistor · MOSFET · receiver noise</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3 id="mathTitle">Key Equations</h3>
+        <div class="inside" id="formulaBox"></div>
+      </div>
+
+      <div class="panel">
+        <h3 id="graphTitle">Measurement Graph</h3>
+        <div class="inside"><canvas id="graphCanvas"></canvas></div>
+      </div>
+
+      <div class="panel">
+        <h3 id="geoTitle">Geometry / Block Diagram</h3>
+        <div class="inside"><canvas id="geoCanvas"></canvas></div>
+      </div>
+
+      <div class="panel">
+        <h3 id="matrixTitle">Engineering Table</h3>
+        <div class="inside" id="tableBox"></div>
+      </div>
+
+      <div class="panel full">
+        <h3>Formula & Measurement Console</h3>
+        <div class="inside">
+          <div class="valueBox">
+            <div class="v"><span>Noise Density</span><b id="mNoiseDensity">-174.0 dBm/Hz</b></div>
+            <div class="v"><span>Noise Floor</span><b id="mNoiseFloor">-124.0 dBm</b></div>
+            <div class="v"><span>Wavelength</span><b id="mLambda">85.7 mm</b></div>
+            <div class="v"><span>FSPL 1 km</span><b id="mFspl">103.3 dB</b></div>
+            <div class="v"><span>Return Loss</span><b id="mRl">16 dB</b></div>
+            <div class="v"><span>VSWR</span><b id="mVswr">1.38</b></div>
+            <div class="v"><span>Gain Linear</span><b id="mGainLin">63.1</b></div>
+            <div class="v"><span>QAM bits/sym</span><b id="mQamBits">12</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="right">
+    <div>
+      <div class="title">Live Controls</div>
+      <div class="rbody">
+        <div class="control"><label><span>Frequency MHz</span><b id="fLabel">3500</b></label><input id="freq" type="range" min="13" max="7125" value="3500" oninput="update()"></div>
+        <div class="control"><label><span>Bandwidth Hz</span><b id="bLabel">100000</b></label><input id="bw" type="range" min="1000" max="100000000" value="100000" oninput="update()"></div>
+        <div class="control"><label><span>Temperature K</span><b id="tLabel">300</b></label><input id="temp" type="range" min="77" max="450" value="300" oninput="update()"></div>
+        <div class="control"><label><span>Return Loss dB</span><b id="rLabel">16</b></label><input id="rl" type="range" min="3" max="45" value="16" oninput="update()"></div>
+        <div class="control"><label><span>Gain dBi</span><b id="gLabel">18</b></label><input id="gain" type="range" min="0" max="45" value="18" oninput="update()"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="title">Runbook</div>
+      <div class="rbody grid2">
+        <button onclick="runSweep()">Run Sweep</button>
+        <button onclick="optimize()">Optimize</button>
+        <button onclick="setNominal()">Nominal</button>
+        <button onclick="injectFault()">Fault Case</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="title">Event Log</div>
+      <div class="rbody"><div class="log" id="log"></div></div>
+    </div>
+
+    <div>
+      <div class="title">Measurement State</div>
+      <div class="rbody">
+        <div class="kv"><span>Calibration</span><b>VALID</b></div>
+        <div class="kv"><span>Reference</span><b>50 Ω</b></div>
+        <div class="kv"><span>Trace</span><b id="traceState">LIVE</b></div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  <div class="foot">UTC <b id="utc">--</b></div>
+  <div class="foot">Instrument <b>VNA/RF</b></div>
+  <div class="foot">Ref Int <b>ON</b></div>
+  <div class="foot">Source <b>INT</b></div>
+  <div class="foot">Trigger <b>CONT</b></div>
+  <div class="foot">Avg <b>16</b></div>
+  <div class="foot">Points <b>1601</b></div>
+  <div class="foot">GPU <b>32%</b></div>
+  <div class="foot">CPU <b>18%</b></div>
+  <div class="foot">User <b>Engineer</b></div>
+</footer>
+
+<script>
+const MODS={
+ noise:{id:"01",icon:"▥",name:"Thermal Noise Lab",title:"1. Thermal Noise Laboratory",badge:"kTB · resistor · MOSFET · receiver noise"},
+ gain:{id:"02",icon:"⌁",name:"Antenna Gain",title:"2. Antenna Gain & Radiation Pattern",badge:"directivity · dBi · polar cuts · 3D pattern"},
+ rfid:{id:"03",icon:"◎",name:"RFID Spiral Designer",title:"3. RFID Spiral Designer HF 13.56 MHz",badge:"square spiral · near-field H · S11 · VSWR"},
+ vivaldi:{id:"04",icon:"◁",name:"Vivaldi Designer",title:"4. Vivaldi Wideband Designer",badge:"end-fire · tapered slot · UWB"},
+ meta:{id:"05",icon:"▦",name:"Metasurface Lab",title:"5. Metasurface / Reflectarray Lab",badge:"RHM · RIS · unit cell · optimizer"},
+ wifi:{id:"06",icon:"≋",name:"Wi-Fi PHY Matrix",title:"6. Wi-Fi 5/6/6E/7/8 PHY Matrix",badge:"OFDMA · MLO · 4096-QAM · UHR roadmap"},
+ site:{id:"07",icon:"⌂",name:"Site Twin",title:"7. Site Twin - Tower & Cabinet",badge:"ODU · PSU · NIU · ODF · RRU · RET"},
+ formula:{id:"08",icon:"ƒx",name:"Formula Console",title:"8. Formula & Measurement Console",badge:"live equations · metrology · link budget"}
+};
+let current="noise", mode="DESIGN", sweep=false, tick=0;
+
+function $(id){return document.getElementById(id)}
+function log(m){const d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+m;$("log").prepend(d);while($("log").children.length>80)$("log").removeChild($("log").lastChild)}
+function fmtHz(x){return x>=1e6?(x/1e6).toFixed(1)+" MHz":x>=1e3?(x/1e3).toFixed(0)+" kHz":x+" Hz"}
+function setMode(m){mode=m.toUpperCase();$("modeVal").textContent=mode;log("mode → "+mode)}
+function toggleKiosk(){document.body.classList.toggle("kiosk");log("kiosk toggled")}
+function renderNav(){
+  const n=$("nav");n.innerHTML="";
+  Object.entries(MODS).forEach(([k,m])=>{
+    const d=document.createElement("div");
+    d.className="navItem"+(k===current?" active":"");
+    d.onclick=()=>setModule(k);
+    d.innerHTML="<div class='ico'>"+m.icon+"</div><div><b>"+m.id+"<br>"+m.name+"</b><span>"+m.badge+"</span></div>";
+    n.appendChild(d);
+  });
+}
+function setModule(k){
+  current=k;
+  $("moduleName").textContent=MODS[k].name;
+  $("mainTitle").textContent=MODS[k].title;
+  $("mainBadge").textContent=MODS[k].badge;
+  renderNav();renderFormula();renderTable();update();log("module loaded → "+MODS[k].name);
+}
+function values(){
+  const f=+$("freq").value,B=+$("bw").value,T=+$("temp").value,RL=+$("rl").value,G=+$("gain").value;
+  const k=1.380649e-23,R=50;
+  const vn=Math.sqrt(4*k*T*R*B);
+  const nd=-174+10*Math.log10(T/300);
+  const nf=nd+10*Math.log10(B);
+  const gamma=Math.pow(10,-RL/20);
+  const vswr=(1+gamma)/(1-gamma);
+  const lambda=300/f;
+  const fspl=32.44+20*Math.log10(f)+20*Math.log10(1);
+  const glin=Math.pow(10,G/10);
+  return {f,B,T,RL,G,vn,nd,nf,gamma,vswr,lambda,fspl,glin};
+}
+function update(){
+  const v=values();
+  $("fLabel").textContent=v.f;
+  $("bLabel").textContent=v.B;
+  $("tLabel").textContent=v.T;
+  $("rLabel").textContent=v.RL;
+  $("gLabel").textContent=v.G;
+  $("topFreq").textContent=(v.f/1000).toFixed(3)+" GHz";
+  $("topBand").textContent=v.f<100?"HF/RFID":v.f<1000?"UHF":v.f<3000?"S/L Band":v.f<6000?"C/n78":"Wi-Fi 6/7";
+  $("topSpan").textContent=(v.B*1000>1e9?"100 MHz":"100 MHz");
+  $("topRbw").textContent=fmtHz(v.B);
+  $("topTemp").textContent=v.T+" K";
+  $("topVswr").textContent=v.vswr.toFixed(2);
+  $("topNoise").textContent=v.nf.toFixed(1)+" dBm";
+  $("lambdaVal").textContent=(v.lambda*1000).toFixed(1)+" mm";
+  $("fsplVal").textContent=v.fspl.toFixed(1)+" dB";
+  $("vnVal").textContent=(v.vn*1e9).toFixed(2)+" nV";
+  $("gainVal").textContent=v.G+" dBi";
+  $("qamVal").textContent=current==="wifi"?"4096":"—";
+  $("bwVal").textContent=fmtHz(v.B);
+  $("rlVal").textContent=v.RL+" dB";
+  $("mNoiseDensity").textContent=v.nd.toFixed(1)+" dBm/Hz";
+  $("mNoiseFloor").textContent=v.nf.toFixed(1)+" dBm";
+  $("mLambda").textContent=(v.lambda*1000).toFixed(1)+" mm";
+  $("mFspl").textContent=v.fspl.toFixed(1)+" dB";
+  $("mRl").textContent=v.RL.toFixed(1)+" dB";
+  $("mVswr").textContent=v.vswr.toFixed(2);
+  $("mGainLin").textContent=v.glin.toFixed(1);
+  $("mQamBits").textContent=current==="wifi"?"12":"—";
+  drawAll();
+}
+function renderFormula(){
+  const F={
+    noise:["vₙ² = 4kTRB","eₙ = √(4kTR)  V/√Hz","N = -174 dBm/Hz + 10log₁₀(B) + NF"],
+    gain:["G(θ,φ)=ηD(θ,φ)","GdBi = 10log₁₀(Glinear)","FSPL = 32.44 + 20log₁₀(fMHz) + 20log₁₀(dkm)"],
+    rfid:["f₀ ≈ 1/(2π√LC)","VSWR = (1+|Γ|)/(1-|Γ|)","Near field: magnetic H coupling dominates"],
+    vivaldi:["W(x)=W₀e^(Rx)","|S₁₁| < -10 dB defines usable impedance bandwidth","End-fire radiation from tapered slot aperture"],
+    meta:["Unit cell phase φ(x,y) steers reflected wavefront","Zs = Rs + jXs","RIS/RHM optimization minimizes far-field objective"],
+    wifi:["4096-QAM = 12 bit/symbol","OFDMA allocates subcarriers per user/RU","MLO aggregates links across 2.4/5/6 GHz"],
+    site:["EIRP = Ptx + Gant - Lcable","RET changes electrical tilt without physical re-aiming","Bonding/grounding reduces fault current and RF noise"],
+    formula:["Γ=(ZL-Z0)/(ZL+Z0)","RL=-20log₁₀|Γ|","η = Prad / Pin"]
+  };
+  $("formulaBox").innerHTML=F[current].map(x=>"<div class='formula'>"+x+"</div>").join("")+
+  "<div class='eqSmall'>All readouts are recomputed live from slider parameters. This is a leaf instrument page: no nested supervisor iframe.</div>";
+}
+function renderTable(){
+  const tables={
+    noise:[["Parameter","Meaning","Live role"],["k","Boltzmann constant","1.380649e-23 J/K"],["T","Temperature","thermal agitation"],["B","Bandwidth","noise window"],["R","Resistance","50 Ω reference"]],
+    gain:[["Antenna","Typical gain","Application"],["Isotropic","0 dBi","reference"],["Patch","5–8 dBi","compact RF"],["Panel","10–20 dBi","cellular"],["Dish","20–40 dBi","microwave/sat"]],
+    rfid:[["Parameter","Value","Role"],["f0","13.56 MHz","HF RFID"],["N turns","5","inductance"],["Track","2 mm","loss/Q"],["Z","≈50 Ω","matching"]],
+    vivaldi:[["Parameter","Value","Role"],["Range","1.2–12.5 GHz","wideband"],["Polarization","Linear","end-fire"],["Gain","6–9 dBi","directional"],["VSWR","≤2","matched band"]],
+    meta:[["Block","Role","Measurement"],["Unit cell","phase/amplitude","S11/S21"],["Reflectarray","beam steering","far field"],["RHM","metasurface","pattern control"],["FPGA","control","state matrix"]],
+    wifi:[["Feature","Wi-Fi 5","Wi-Fi 6/6E","Wi-Fi 7"],["Band","5 GHz","2.4/5/6","2.4/5/6"],["Channel","20/40/80/160","20/40/80/160","20/40/80/160/320"],["FFT","64–512","256–2048","256–2048"],["QAM","256","1024","4096"],["MIMO","MU DL","MU DL/UL","MU DL/UL + MLO"]],
+    site:[["Subsystem","Function","Risk"],["PSU","DC power","brownout"],["NIU","network interface","link loss"],["ODF","fiber patch","attenuation"],["RRU/RET","radio/tilt","coverage fault"]],
+    formula:[["Metric","Formula","Use"],["Return Loss","-20log|Γ|","matching"],["VSWR","(1+|Γ|)/(1-|Γ|)","standing wave"],["EIRP","P+G-L","coverage"],["kTB","-174+10logB","noise floor"]]
+  };
+  $("tableBox").innerHTML="<table class='tbl'>"+tables[current].map((r,i)=>"<tr>"+r.map(c=>i?"<td>"+c+"</td>":"<th>"+c+"</th>").join("")+"</tr>").join("")+"</table>";
+}
+function prep(id){
+  const c=$(id),r=c.getBoundingClientRect(),d=window.devicePixelRatio||1;
+  c.width=Math.max(200,Math.floor(r.width*d));c.height=Math.max(140,Math.floor(r.height*d));
+  const ctx=c.getContext("2d");ctx.setTransform(d,0,0,d,0,0);return [ctx,r.width,r.height];
+}
+function grid(ctx,w,h){
+  ctx.strokeStyle="rgba(42,111,154,.25)";ctx.lineWidth=1;
+  for(let x=0;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+  for(let y=0;y<h;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+}
+function drawAll(){drawMain();drawGraph();drawGeo()}
+function drawMain(){
+  const [ctx,w,h]=prep("mainCanvas");ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  const v=values();
+  ctx.font="12px Consolas";ctx.lineWidth=2;
+  if(current==="noise"||current==="formula"){
+    ctx.fillStyle="#cde7ff";ctx.fillText("Thermal agitation: random electron motion creates measurable noise voltage",18,24);
+    ctx.strokeStyle="#00d9ff";ctx.beginPath();
+    for(let x=0;x<w;x++){let y=h/2+Math.sin(x*.04+tick)*22+(Math.random()-.5)*34;x?ctx.lineTo(x,y):ctx.moveTo(x,y)}
+    ctx.stroke();
+    ctx.strokeStyle="#ffd500";ctx.strokeRect(30,h-80,w-60,45);
+    ctx.fillStyle="#ffd500";ctx.fillText("Bandwidth window B controls integrated noise power",45,h-52);
+  }else if(current==="gain"){
+    ctx.save();ctx.translate(w/2,h/2);
+    for(let a=0;a<360;a+=3){
+      let r=(42+v.G*5)*(0.15+Math.pow(Math.max(0,Math.cos(a*Math.PI/180)),5));
+      let x=r*Math.cos(a*Math.PI/180),y=r*Math.sin(a*Math.PI/180);
+      ctx.strokeStyle=a%18===0?"rgba(255,213,0,.75)":"rgba(125,255,79,.25)";
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(x,y);ctx.stroke();
+    }
+    ctx.fillStyle="#eaf3ff";ctx.fillRect(-7,-55,14,110);
+    ctx.restore();
+    ctx.fillStyle="#7dff4f";ctx.fillText("Directional energy concentration / directivity",18,24);
+  }else if(current==="rfid"){
+    ctx.strokeStyle="#ff7b22";ctx.lineWidth=5;let cx=w/2,cy=h/2,s=Math.min(w,h)*.65;
+    for(let i=0;i<7;i++){ctx.strokeRect(cx-s/2+i*16,cy-s/2+i*16,s-i*32,s-i*32)}
+    ctx.fillStyle="#00d9ff";ctx.fillText("13.56 MHz square spiral near-field H-coupling",18,24);
+    ctx.fillStyle="#ffd500";ctx.fillRect(cx-18,cy-18,36,36);ctx.fillStyle="#020711";ctx.fillText("S",cx-4,cy+4);
+  }else if(current==="vivaldi"){
+    ctx.fillStyle="#ff9e3d";ctx.beginPath();ctx.moveTo(60,h/2-8);
+    for(let x=60;x<w-50;x++){let y=20+Math.exp((x-60)/(w-110))*8;ctx.lineTo(x,h/2-y)}
+    ctx.lineTo(w-50,h/2+120);
+    for(let x=w-50;x>=60;x--){let y=20+Math.exp((x-60)/(w-110))*8;ctx.lineTo(x,h/2+y)}
+    ctx.closePath();ctx.fill();
+    ctx.fillStyle="#7dff4f";ctx.fillText("Vivaldi tapered slot: wideband end-fire radiator",18,24);
+  }else if(current==="meta"){
+    let cx=w*.28,cy=h*.52;ctx.strokeStyle="#ffd500";ctx.lineWidth=3;
+    for(let r=18;r<130;r+=12){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke()}
+    ctx.strokeStyle="#00d9ff";ctx.lineWidth=1.5;
+    for(let i=0;i<12;i++){ctx.beginPath();ctx.moveTo(w*.55,50+i*14);ctx.lineTo(w*.86,35+i*20);ctx.stroke()}
+    ctx.fillStyle="#7dff4f";ctx.fillText("Metasurface / reflectarray unit-cell phase control",18,24);
+  }else if(current==="wifi"){
+    ctx.fillStyle="#7dff4f";ctx.fillText("Wi-Fi PHY comparison: OFDMA, MLO, 4096-QAM",18,24);
+    const bands=["Wi-Fi 5","Wi-Fi 6","Wi-Fi 6E","Wi-Fi 7","Wi-Fi 8/UHR"];
+    bands.forEach((b,i)=>{let x=40+i*(w-80)/5;ctx.strokeStyle="#00d9ff";ctx.strokeRect(x,70,110,75);ctx.fillStyle="#cde7ff";ctx.fillText(b,x+12,95);ctx.fillStyle="#ffd500";ctx.fillText(i<1?"256-QAM":i<3?"1024-QAM":"4096-QAM",x+12,122)});
+  }else if(current==="site"){
+    ctx.strokeStyle="#9fb5c9";ctx.lineWidth=3;ctx.strokeRect(w*.44,60,115,260);ctx.strokeRect(w*.68,35,65,320);
+    ctx.fillStyle="#7dff4f";ctx.fillText("Tower / cabinet / ODU / PSU / NIU / ODF / grounding",18,24);
+    [["PSU",w*.46,105],["NIU",w*.46,155],["ODF",w*.46,205],["RRU",w*.68,120],["RET",w*.68,175]].forEach(p=>{ctx.strokeStyle="#00d9ff";ctx.strokeRect(p[1],p[2],70,34);ctx.fillText(p[0],p[1]+20,p[2]+22)});
+  }
+}
+function drawGraph(){
+  const [ctx,w,h]=prep("graphCanvas");ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  ctx.lineWidth=2;ctx.strokeStyle="#ffd500";ctx.beginPath();
+  for(let x=0;x<w;x++){
+    let xn=x/w,y=h/2;
+    if(current==="noise")y=h-25-(Math.log10(1+xn*1e7)/7)*(h-55);
+    else if(current==="gain")y=h/2-90*Math.cos((xn*360-180)*Math.PI/180)*Math.exp(-Math.pow((xn-.5)*2,2));
+    else if(current==="rfid")y=h-35-130*Math.exp(-Math.pow((xn-.5)*20,2));
+    else if(current==="vivaldi")y=55+25*Math.sin(xn*80)+45*Math.exp(-Math.pow((xn-.14)*35,2))+45*Math.exp(-Math.pow((xn-.9)*35,2));
+    else if(current==="wifi")y=h-35-xn*130+Math.sin(xn*60)*9;
+    else y=h/2+Math.sin(x*.04+tick)*50;
+    x?ctx.lineTo(x,y):ctx.moveTo(x,y);
+  }
+  ctx.stroke();
+  ctx.fillStyle="#cde7ff";ctx.font="11px Consolas";ctx.fillText(current==="rfid"?"S11 notch / VSWR":current==="wifi"?"PHY rate / modulation density":"measurement trace",12,20);
+}
+function drawGeo(){
+  const [ctx,w,h]=prep("geoCanvas");ctx.clearRect(0,0,w,h);grid(ctx,w,h);
+  ctx.font="11px Consolas";ctx.fillStyle="#7dff4f";ctx.strokeStyle="#00d9ff";
+  if(current==="noise"||current==="formula"){
+    ["ANT","LNA","MIX","IF","ADC","DSP"].forEach((n,i)=>{let x=15+i*(w-35)/6;ctx.strokeRect(x,h/2-22,50,44);ctx.fillText(n,x+12,h/2+4);if(i<5){ctx.beginPath();ctx.moveTo(x+50,h/2);ctx.lineTo(x+70,h/2);ctx.stroke()}});
+  }else if(current==="gain"){
+    ctx.beginPath();ctx.arc(w/2,h/2,70,0,Math.PI*2);ctx.stroke();
+    for(let a=0;a<360;a+=45){ctx.beginPath();ctx.moveTo(w/2,h/2);ctx.lineTo(w/2+120*Math.cos(a*Math.PI/180),h/2+120*Math.sin(a*Math.PI/180));ctx.stroke()}
+    ctx.fillText("polar / E-plane / H-plane",20,24);
+  }else if(current==="rfid"){
+    ctx.strokeStyle="#ff9e3d";ctx.lineWidth=4;for(let i=0;i<6;i++){ctx.strokeRect(w/2-95+i*14,h/2-95+i*14,190-i*28,190-i*28)}ctx.fillText("feed",w/2+70,h/2+105);
+  }else if(current==="vivaldi"){
+    ctx.fillStyle="#ff9e3d";ctx.beginPath();ctx.moveTo(30,h/2);ctx.lineTo(w-40,45);ctx.lineTo(w-40,h-45);ctx.closePath();ctx.fill();ctx.fillStyle="#7dff4f";ctx.fillText("W(x)=W0e^(Rx)",30,25);
+  }else if(current==="wifi"){
+    ["2.4","5","6"].forEach((b,i)=>{ctx.strokeRect(40+i*95,70,70,70);ctx.fillText(b+" GHz",52+i*95,112)});
+    ctx.fillText("MLO links + OFDMA resource units",25,24);
+  }else{
+    ["AC","PSU","NIU","ODF","RRU","ANT"].forEach((n,i)=>{ctx.strokeRect(25+i*70,60+i*16,55,34);ctx.fillText(n,38+i*70,82+i*16)});
+  }
+}
+function runSweep(){sweep=!sweep;$("traceState").textContent=sweep?"SWEEP":"LIVE";log(sweep?"sweep started":"sweep stopped")}
+function optimize(){$("gain").value=Math.min(45,+$("gain").value+3);$("rl").value=Math.min(45,+$("rl").value+6);update();log("optimizer adjusted gain and matching")}
+function setNominal(){$("freq").value=3500;$("bw").value=100000;$("temp").value=300;$("rl").value=16;$("gain").value=18;update();log("nominal baseline loaded")}
+function injectFault(){$("rl").value=6;$("gain").value=8;update();log("fault case injected: poor match / low gain")}
+function animate(){
+  tick+=0.04;
+  if(sweep){$("freq").value=13+((Math.sin(tick*.4)+1)/2)*(7125-13);update()}
+  if(current==="noise"||sweep)drawAll();
+  $("utc").textContent=new Date().toISOString().slice(11,19);
+  requestAnimationFrame(animate);
+}
+renderNav();setModule("noise");animate();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="antenna">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · ANTENNA</div>
+      <div class="trfmc-c3-sub">TRFMC RF / Antenna Academy Wall V2 Premium<br>/trfmc_rf_antenna_academy_wall_v2_premium.html<br>Previous Authority V3 score: 71/100 · gaps closed: design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:tower-site,rru-panel,port-map</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi"><small>EIRP</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>VSWR</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>RET</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>BEAM</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="Batch C ANTENNA · tower-site"></trfmc-visual-asset>
+<trfmc-visual-asset kind="rru-panel" data-size="small" title="Batch C ANTENNA · rru-panel"></trfmc-visual-asset>
+<trfmc-visual-asset kind="port-map" data-size="small" title="Batch C ANTENNA · port-map"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+Return Loss = -20log10|Γ|
+Tilt_total = mechanical_tilt + electrical_RET
+Coverage = EIRP - PathLoss + Pattern(az,el)</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="antenna"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

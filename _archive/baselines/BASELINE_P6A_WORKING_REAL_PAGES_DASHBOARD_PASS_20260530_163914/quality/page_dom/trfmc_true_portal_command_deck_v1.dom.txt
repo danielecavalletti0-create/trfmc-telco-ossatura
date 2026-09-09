@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC True Portal Command Deck V1</title>
+<link rel="stylesheet" href="/assets/trfmc_instrument_design_system/trfmc_instrument_tokens_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_instrument_design_system/trfmc_instrument_layout_v1.css">
+</head>
+<body class="trfmc-instrument-body">
+<header class="trfmc-instrument-topbar">
+  <div>
+    <h1 class="trfmc-instrument-title">TRFMC True Portal Command Deck V1</h1>
+    <p class="trfmc-instrument-sub">Unified visual command deck · not a shell replacement · canonical service layer over protected V6R3</p>
+  </div>
+  <nav class="trfmc-instrument-actions">
+    <a class="trfmc-instrument-button" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="trfmc-instrument-button" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="trfmc-instrument-button" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </nav>
+</header>
+
+<main class="trfmc-command-grid">
+  <aside class="trfmc-instrument-panel trfmc-command-left">
+    <div class="trfmc-instrument-title">Mission Stack</div>
+    <p class="trfmc-instrument-sub">Da qui il portale va ricondotto a un’unica esperienza visiva: RF, Telco, Core/RAN, Cyber, Fiber, Data Center e Knowledge.</p>
+    <div class="trfmc-module-list">
+      <a class="trfmc-module-card" href="/trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html"><strong>RF PRO Instrument</strong><span>Current RF experiment. Technically PASS, visually not final.</span></a>
+      <a class="trfmc-module-card" href="/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html"><strong>Antenna / RRU / RET / CPRI</strong><span>Candidate for first real instrument-system refactor.</span></a>
+      <a class="trfmc-module-card" href="/trfmc_microwave_link_operations_center_v2.html"><strong>Microwave Link</strong><span>LOS, Fresnel, RSL, fade margin, link budget.</span></a>
+      <a class="trfmc-module-card" href="/trfmc_fiber_fronthaul_otdr_workbench_v2.html"><strong>Fiber / OTDR / Fronthaul</strong><span>OTDR traces, CPRI/eCPRI, optical budgets.</span></a>
+    </div>
+  </aside>
+
+  <section class="trfmc-instrument-panel trfmc-command-center">
+    <div class="trfmc-instrument-canvas-shell">
+      <trfmc-parametric-3d-engine style="display: block; width: 100%; height: 100%;">
+        <div class="trfmc-parametric-stage">
+          <canvas class="trfmc-parametric-gl"></canvas>
+          <canvas class="trfmc-parametric-overlay" width="1077" height="522"></canvas>
+        </div>
+      <style>
+        .trfmc-parametric-stage{position:relative;width:100%;height:100%;min-height:520px;background:#000307;overflow:hidden}
+        .trfmc-parametric-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+        .trfmc-parametric-overlay{filter:drop-shadow(0 0 10px rgba(0,229,255,.20))}
+      </style></trfmc-parametric-3d-engine>
+    </div>
+    <div class="trfmc-mini-grid">
+      <div class="trfmc-mini-panel"><h3>Rule 1</h3><p>V6R3 remains protected. This deck is a service command layer, not a replacement shell.</p></div>
+      <div class="trfmc-mini-panel"><h3>Rule 2</h3><p>Every future premium page must consume the Instrument Design System before promotion.</p></div>
+      <div class="trfmc-mini-panel"><h3>Rule 3</h3><p>Visual PASS must include scene realism, engineering density, cockpit layout and no duplicate bars.</p></div>
+    </div>
+  </section>
+
+  <aside class="trfmc-instrument-panel trfmc-command-right">
+    <div class="trfmc-system-status">
+      <div class="trfmc-instrument-kpi"><small>Protected</small><b>V6R3</b></div>
+      <div class="trfmc-instrument-kpi"><small>Mode</small><b>SERVICE</b></div>
+      <div class="trfmc-instrument-kpi"><small>Design</small><b>IDS V1</b></div>
+      <div class="trfmc-instrument-kpi"><small>Next</small><b>REFIT</b></div>
+    </div>
+    <div class="trfmc-module-list">
+      <a class="trfmc-module-card" href="/trfmc_instrument_design_system_lab_v1.html"><strong>Instrument Design Lab</strong><span>Inspect reusable parametric visual language.</span></a>
+      <a class="trfmc-module-card" href="/trfmc_final_promotion_gate_v1.html"><strong>Promotion Gate</strong><span>Current quality baseline and registry governance.</span></a>
+      <a class="trfmc-module-card" href="/trfmc_orphan_consolidation_dossier_v1.html"><strong>Orphan Dossier</strong><span>Historical debt consolidation plan.</span></a>
+    </div>
+  </aside>
+</main>
+
+<script src="/assets/trfmc_instrument_design_system/trfmc_parametric_3d_engine_v1.js"></script>
+<script src="/assets/trfmc_instrument_design_system/trfmc_instrument_panels_v1.js"></script>
+
+
+</body></html>

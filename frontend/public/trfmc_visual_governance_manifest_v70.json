@@ -1,0 +1,26 @@
+{
+  "version": "TRFMC v0.70A",
+  "name": "Unified Ultimate Enterprise Shell / Navigation & Visual Governance",
+  "purpose": "Normalize menus, navigation, runtime status, visual governance and enterprise cockpit identity across the main RF/Telco portal pages.",
+  "principles": [
+    "single authoritative navigation shell",
+    "runtime state visible on every strategic page",
+    "controlled 4.5D visual intensity",
+    "engineering-first readability",
+    "consistent RF/Telco mission-control identity"
+  ],
+  "pages": [
+    "executive_mission_dashboard_v_next.html",
+    "webgl_rf_heatmap_engine_v69.html",
+    "webgl_rf_heatmap_engine_v68.html",
+    "webgl_rf_heatmap_engine_v67.html",
+    "webgl_rf_heatmap_engine_v66.html",
+    "field_engineering_mode_v64.html",
+    "infrastructure_digital_twin_v63.html",
+    "rf_propagation_sandbox_v62.html",
+    "rf_telco_knowledge_os_v60.html",
+    "rf_telco_knowledge_modules_v61.html",
+    "runtime_golden_check_console_v29.html",
+    "portal_index_v19.html"
+  ]
+}

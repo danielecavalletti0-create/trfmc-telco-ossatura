@@ -1,0 +1,13 @@
+{
+  "version": "TRFMC v0.87A",
+  "page": "trfmc_first_promotion_batch_v87a.html",
+  "css": "assets/trfmc_v087a_first_promotion_batch.css",
+  "js": "assets/trfmc_v087a_first_promotion_batch.js",
+  "registry": "reports/trfmc_v87a_first_promotion_batch_registry.json",
+  "scope_root": "[data-trfmc-page='first-promotion-batch-v87a']",
+  "no_iframe": true,
+  "no_cdn": true,
+  "no_backend_change": true,
+  "no_global_css": true,
+  "small_batch_only": true
+}

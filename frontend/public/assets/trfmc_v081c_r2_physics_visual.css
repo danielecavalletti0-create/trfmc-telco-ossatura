@@ -1,0 +1,190 @@
+/* TRFMC v0.81C-R2 - Physics + Visual Discipline
+   Scope: only body.v81c-r2-physics on webgl_rf_heatmap_engine_v68_surgical_v81.html
+*/
+
+body.v81c-r2-physics {
+  --r2-cyan:#8ff0ff;
+  --r2-green:#42f56f;
+  --r2-amber:#fbbf24;
+  --r2-red:#ff3b5c;
+  --r2-panel:rgba(4,13,28,.92);
+  --r2-line:rgba(143,240,255,.30);
+}
+
+body.v81c-r2-physics .hero {
+  background:
+    radial-gradient(circle at 16% 0%, rgba(143,240,255,.20), transparent 35%),
+    radial-gradient(circle at 82% 12%, rgba(66,245,111,.13), transparent 34%),
+    linear-gradient(135deg, rgba(11,34,58,.96), rgba(4,10,24,.98)) !important;
+  box-shadow:
+    0 26px 92px rgba(0,0,0,.42),
+    inset 0 0 62px rgba(143,240,255,.05) !important;
+}
+
+body.v81c-r2-physics h1 {
+  text-shadow:
+    0 0 16px rgba(143,240,255,.52),
+    0 0 70px rgba(143,240,255,.18),
+    0 0 120px rgba(66,245,111,.11) !important;
+}
+
+body.v81c-r2-physics .rf-scene {
+  min-height: 660px;
+  background:
+    radial-gradient(circle at 18% 58%, rgba(66,245,111,.23), transparent 32%),
+    radial-gradient(circle at 54% 40%, rgba(251,191,36,.13), transparent 24%),
+    radial-gradient(circle at 78% 58%, rgba(20,160,255,.16), transparent 31%),
+    linear-gradient(180deg, rgba(4,18,34,.98), rgba(1,6,14,.99)) !important;
+  box-shadow:
+    0 30px 105px rgba(0,0,0,.48),
+    inset 0 0 80px rgba(143,240,255,.045) !important;
+}
+
+body.v81c-r2-physics .rf-scene::before {
+  content:"";
+  position:absolute;
+  left:-12%;
+  right:-12%;
+  bottom:-22%;
+  height:42%;
+  background:
+    linear-gradient(rgba(66,245,111,.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143,240,255,.11) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(66,245,111,.18), transparent 68%);
+  background-size:38px 26px,38px 26px,auto;
+  transform:perspective(620px) rotateX(63deg);
+  transform-origin:top center;
+  opacity:.75;
+  pointer-events:none;
+  z-index:1;
+}
+
+body.v81c-r2-physics .rf-scene::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(112deg, transparent 0%, rgba(143,240,255,.055) 42%, transparent 62%),
+    repeating-linear-gradient(180deg, transparent 0 7px, rgba(255,255,255,.018) 8px);
+  mix-blend-mode:screen;
+  animation:r2Sweep 8s ease-in-out infinite;
+  z-index:30;
+  pointer-events:none;
+}
+
+@keyframes r2Sweep {
+  0%,100% { opacity:.18; transform:translateX(-4%); }
+  50% { opacity:.48; transform:translateX(4%); }
+}
+
+body.v81c-r2-physics .building {
+  border-color:rgba(143,240,255,.28);
+  transform:skewY(-1.2deg) translateZ(0);
+  box-shadow:
+    22px 24px 38px rgba(0,0,0,.48),
+    inset 0 0 34px rgba(143,240,255,.06),
+    0 0 24px rgba(143,240,255,.06);
+}
+
+body.v81c-r2-physics .building::before {
+  content:"";
+  position:absolute;
+  top:0;
+  right:-16px;
+  width:16px;
+  height:100%;
+  background:linear-gradient(180deg, rgba(143,240,255,.15), rgba(1,5,12,.72));
+  transform:skewY(42deg);
+  transform-origin:left top;
+  border-right:1px solid rgba(143,240,255,.12);
+}
+
+body.v81c-r2-physics .building::after {
+  content:"";
+  position:absolute;
+  left:10px;
+  right:10px;
+  top:12px;
+  bottom:12px;
+  background:
+    linear-gradient(90deg, rgba(143,240,255,.16) 1px, transparent 1px),
+    linear-gradient(rgba(143,240,255,.14) 1px, transparent 1px);
+  background-size:14px 14px;
+  opacity:.42;
+}
+
+body.v81c-r2-physics .tree {
+  filter:drop-shadow(0 12px 12px rgba(0,0,0,.35));
+}
+
+body.v81c-r2-physics .tree::after {
+  background:
+    radial-gradient(circle at 32% 24%, rgba(235,255,235,.50), transparent 18%),
+    radial-gradient(circle at 48% 42%, rgba(66,245,111,.30), rgba(10,74,43,.44) 68%, rgba(1,8,10,.12));
+  box-shadow:
+    0 0 28px rgba(66,245,111,.22),
+    inset 0 0 18px rgba(255,255,255,.06);
+}
+
+body.v81c-r2-physics .coverage {
+  opacity:.70;
+  filter:blur(20px) saturate(1.16);
+}
+
+body.v81c-r2-physics[data-season="winter"] .coverage {
+  opacity:.46;
+  filter:blur(23px) saturate(.9);
+}
+
+body.v81c-r2-physics[data-season="summer"] .coverage-a,
+body.v81c-r2-physics[data-season="summer"] .coverage-b {
+  opacity:.86;
+}
+
+body.v81c-r2-physics .shadow-zone {
+  background:
+    linear-gradient(135deg, rgba(1,4,10,.72), rgba(8,14,28,.28)),
+    repeating-linear-gradient(45deg, rgba(255,59,92,.060) 0 1px, transparent 1px 10px);
+  border-color:rgba(255,59,92,.22);
+  box-shadow:inset 0 0 24px rgba(255,59,92,.045);
+}
+
+body.v81c-r2-physics .metric strong#riskVal.risk-low { color:var(--r2-green); }
+body.v81c-r2-physics .metric strong#riskVal.risk-medium { color:var(--r2-amber); }
+body.v81c-r2-physics .metric strong#riskVal.risk-high { color:#ff8a3d; }
+body.v81c-r2-physics .metric strong#riskVal.risk-critical {
+  color:var(--r2-red);
+  text-shadow:0 0 18px rgba(255,59,92,.35);
+}
+
+.v81c-r2-badge {
+  position:fixed;
+  right:18px;
+  bottom:14px;
+  z-index:90;
+  border:1px solid rgba(143,240,255,.22);
+  border-radius:999px;
+  background:rgba(2,8,18,.78);
+  color:rgba(143,240,255,.76);
+  padding:7px 11px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+
+.v81c-r2-formula {
+  margin-top:12px;
+  border:1px solid rgba(143,240,255,.18);
+  border-radius:16px;
+  background:rgba(2,8,18,.48);
+  padding:10px 12px;
+  color:rgba(232,250,255,.68);
+  font-size:10px;
+  line-height:1.45;
+}
+
+.v81c-r2-formula b {
+  color:var(--r2-cyan);
+}

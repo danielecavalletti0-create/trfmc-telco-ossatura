@@ -1,0 +1,2756 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Integration Control Room V2</title>
+<style>
+:root{
+  --bg:#030711;
+  --panel:#071423;
+  --panel2:#0a1d32;
+  --line:#0d8ec7;
+  --line2:#1de7ff;
+  --text:#e8f8ff;
+  --muted:#8db3c7;
+  --green:#50ffb1;
+  --yellow:#ffd84d;
+  --red:#ff4f7b;
+  --violet:#a78bfa;
+  --blue:#42a5ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(0,229,255,.13),transparent 28%),
+    radial-gradient(circle at 90% 12%,rgba(167,139,250,.10),transparent 30%),
+    linear-gradient(180deg,#02050b,#05101c 48%,#02050b);
+  color:var(--text);
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(29,231,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(29,231,255,.045) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent);
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:16px 22px;
+  border-bottom:1px solid rgba(29,231,255,.28);
+  background:rgba(3,7,17,.88);
+  backdrop-filter:blur(14px);
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+}
+h1{
+  margin:0;
+  color:var(--line2);
+  letter-spacing:.09em;
+  font-size:22px;
+  text-transform:uppercase;
+}
+.subtitle{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:flex-end;
+}
+a.btn,button{
+  border:1px solid rgba(29,231,255,.32);
+  color:var(--text);
+  background:rgba(29,231,255,.08);
+  border-radius:999px;
+  padding:8px 11px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:12px;
+}
+button{cursor:pointer}
+a.btn:hover,button:hover{
+  box-shadow:0 0 24px rgba(29,231,255,.18);
+  border-color:var(--line2);
+}
+main{
+  padding:18px 22px 40px;
+}
+.hero{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:14px;
+  margin-bottom:14px;
+}
+.card{
+  border:1px solid rgba(29,231,255,.24);
+  background:linear-gradient(180deg,rgba(10,29,50,.82),rgba(5,13,25,.88));
+  border-radius:16px;
+  padding:14px;
+  box-shadow:0 18px 60px rgba(0,0,0,.28), inset 0 0 30px rgba(29,231,255,.035);
+}
+.card h2,.card h3{
+  margin:0 0 10px;
+  color:#dff8ff;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.card h2{font-size:16px}
+.card h3{font-size:13px}
+.policy{
+  margin:0;
+  color:#cfeeff;
+  line-height:1.5;
+  font-size:13px;
+}
+.statusLine{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:5px 8px;
+  border-radius:999px;
+  border:1px solid rgba(29,231,255,.24);
+  background:rgba(29,231,255,.07);
+  font-size:11px;
+  color:#dff8ff;
+}
+.ok{color:var(--green);border-color:rgba(80,255,177,.32);background:rgba(80,255,177,.07)}
+.warn{color:var(--yellow);border-color:rgba(255,216,77,.32);background:rgba(255,216,77,.07)}
+.bad{color:var(--red);border-color:rgba(255,79,123,.32);background:rgba(255,79,123,.07)}
+.violet{color:var(--violet);border-color:rgba(167,139,250,.32);background:rgba(167,139,250,.08)}
+.counts{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+.count{
+  border:1px solid rgba(29,231,255,.20);
+  border-radius:14px;
+  background:rgba(3,8,18,.44);
+  padding:12px;
+}
+.count small{
+  display:block;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:10px;
+  min-height:24px;
+}
+.count b{
+  display:block;
+  font-size:26px;
+  margin-top:4px;
+}
+.controls{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  margin-bottom:14px;
+}
+input{
+  width:100%;
+  border:1px solid rgba(29,231,255,.24);
+  background:#06111f;
+  color:var(--text);
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+input:focus{
+  border-color:var(--line2);
+  box-shadow:0 0 0 3px rgba(29,231,255,.10);
+}
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.sectionTitle{
+  margin:22px 0 10px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+.sectionTitle h2{margin:0;color:var(--line2);font-size:17px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  gap:10px;
+}
+.module{
+  border:1px solid rgba(29,231,255,.22);
+  background:linear-gradient(180deg,rgba(7,20,35,.86),rgba(4,10,20,.92));
+  border-radius:14px;
+  padding:12px;
+  min-height:138px;
+  position:relative;
+  overflow:hidden;
+}
+.module:after{
+  content:"";
+  position:absolute;
+  right:-40px;
+  top:-40px;
+  width:120px;
+  height:120px;
+  background:radial-gradient(circle,rgba(29,231,255,.11),transparent 68%);
+}
+.module h3{
+  color:var(--yellow);
+  font-size:13px;
+  margin:0 0 7px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  position:relative;
+  z-index:1;
+}
+.meta{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+  position:relative;
+  z-index:1;
+}
+.moduleActions{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:1;
+}
+.moduleActions a{
+  color:var(--line2);
+  font-size:12px;
+  text-decoration:none;
+  border:1px solid rgba(29,231,255,.24);
+  padding:6px 8px;
+  border-radius:999px;
+}
+.priority{
+  border-color:rgba(80,255,177,.45);
+  box-shadow:0 0 28px rgba(80,255,177,.08);
+}
+.official{
+  border-color:rgba(29,231,255,.55);
+  box-shadow:0 0 30px rgba(29,231,255,.10);
+}
+.hidden{display:none}
+.footer{
+  margin-top:24px;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:1200px){
+  .hero{grid-template-columns:1fr}
+  .counts{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:760px){
+  main{padding:14px}
+  .top{align-items:flex-start;flex-direction:column}
+  .counts{grid-template-columns:1fr 1fr}
+  .controls{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div>
+      <h1>TRFMC Integration Control Room</h1>
+      <div class="subtitle">Registry unico · V6R3 baseline · controllo moduli · anti-frammentazione</div>
+    </div>
+    <div class="actions">
+      <a class="btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3 Official</a>
+      <a class="btn" href="/trfmc_portal_registry_unified.json">Registry JSON</a>
+      <a class="btn" href="/trfmc_home.html">Home</a>
+      <a class="btn" href="/trfmc.html">TRFMC</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="card">
+      <h2>Policy di consolidamento</h2>
+      <p class="policy">
+        La V6R3 Command Center resta la shell ufficiale. Ogni pagina o modulo deve essere governato dal registry.
+        Nessuna nuova pagina isolata deve essere promossa senza snapshot, entry registry, HTTP 200, test contenuto e quality report.
+      </p>
+      <div class="statusLine">
+        <span class="badge ok">Quality Gate: attivo</span>
+        <span class="badge ok">No CDN nella Control Room</span>
+        <span class="badge ok">No iframe nella Control Room</span>
+        <span class="badge warn">Moduli da classificare</span>
+        <span class="badge violet">V6R3 baseline</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Priorità operativa</h2>
+      <p class="policy">
+        Prima si consolidano i moduli già esistenti: V6R3, RF PRO, Signal Intelligence, WebGL RF Asset,
+        Core Network Live Ops, Antenna/RRU/RET, RF Metrology e RF Microwave/Smith Chart.
+      </p>
+      <div class="statusLine">
+        <span class="badge">Step 1: registry</span>
+        <span class="badge">Step 2: control room</span>
+        <span class="badge">Step 3: link nella V6R3</span>
+        <span class="badge">Step 4: UI unificata</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="counts" class="counts">
+    <div class="count">
+      <small>Totale HTML</small>
+      <b>178</b>
+    </div>
+  
+    <div class="count">
+      <small>Official shell</small>
+      <b>3</b>
+    </div>
+  
+    <div class="count">
+      <small>Service</small>
+      <b>19</b>
+    </div>
+  
+    <div class="count">
+      <small>Operativi</small>
+      <b>133</b>
+    </div>
+  
+    <div class="count">
+      <small>Shell legacy</small>
+      <b>0</b>
+    </div>
+  
+    <div class="count">
+      <small>Orfani/legacy</small>
+      <b>23</b>
+    </div>
+  </section>
+
+  <section class="controls">
+    <input id="search" placeholder="Cerca modulo, file, classe, RF, antenna, core, microwave, webgl...">
+    <div class="filters">
+      <button data-filter="all">Tutti</button>
+      <button data-filter="official_shell">Official</button>
+      <button data-filter="leaf_operational_candidate">Operativi</button>
+      <button data-filter="orphan_or_legacy_candidate">Orfani/Legacy</button>
+      <button data-filter="service">Service</button>
+    </div>
+  </section>
+
+  <section>
+    <div class="sectionTitle">
+      <h2>Moduli strategici da governare</h2>
+      <span class="badge warn">review manuale richiesta</span>
+    </div>
+    <div id="priority" class="grid">
+  <article class="module official priority " data-class="official_shell" data-name="trfmc_official_safe_entrypoint_v6r3_command_center.html">
+    <h3 title="trfmc_official_safe_entrypoint_v6r3_command_center.html">trfmc_official_safe_entrypoint_v6r3_command_center.html</h3>
+    <div><span class="badge">official_shell</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 12831 bytes<br>
+      refs: 3 · url: /trfmc_official_safe_entrypoint_v6r3_command_center.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_official_safe_entrypoint_v6r3_command_center.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="rfpro_unified_console.html">
+    <h3 title="rfpro_unified_console.html">rfpro_unified_console.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 24842 bytes<br>
+      refs: 0 · url: /rfpro_unified_console.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rfpro_unified_console.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_signal_intelligence_center_v1.html">
+    <h3 title="trfmc_signal_intelligence_center_v1.html">trfmc_signal_intelligence_center_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 23055 bytes<br>
+      refs: 0 · url: /trfmc_signal_intelligence_center_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_signal_intelligence_center_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html">trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 49230 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_core_network_live_ops_bridge_v1.html">
+    <h3 title="trfmc_core_network_live_ops_bridge_v1.html">trfmc_core_network_live_ops_bridge_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span><span class="badge warn">API</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 13135 bytes<br>
+      refs: 0 · url: /trfmc_core_network_live_ops_bridge_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_core_network_live_ops_bridge_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_rf_metrology_calibration_lab_v1.html">
+    <h3 title="trfmc_rf_metrology_calibration_lab_v1.html">trfmc_rf_metrology_calibration_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 26568 bytes<br>
+      refs: 0 · url: /trfmc_rf_metrology_calibration_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_metrology_calibration_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_stable_clean_recovery.html">
+    <h3 title="trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html">trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 97684 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_rf_microwave_engineering_v1.html">
+    <h3 title="trfmc_rf_microwave_engineering_v1.html">trfmc_rf_microwave_engineering_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 24695 bytes<br>
+      refs: 4 · url: /trfmc_rf_microwave_engineering_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_microwave_engineering_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module official priority " data-class="official_shell" data-name="trfmc_portal_link_graph_v1.html">
+    <h3 title="trfmc_portal_link_graph_v1.html">trfmc_portal_link_graph_v1.html</h3>
+    <div><span class="badge">official_shell</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 7284 bytes<br>
+      refs: 5 · url: /trfmc_portal_link_graph_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_portal_link_graph_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article></div>
+  </section>
+
+  <section>
+    <div class="sectionTitle">
+      <h2>Tutti i moduli registrati</h2>
+      <span id="visibleCount" class="badge">visibili: 187</span>
+    </div>
+    <div id="pages" class="grid">
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="evidence_vault_console_v20.html">
+    <h3 title="evidence_vault_console_v20.html">evidence_vault_console_v20.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8523 bytes<br>
+      refs: 3 · url: /evidence_vault_console_v20.html
+    </div>
+    <div class="moduleActions">
+      <a href="/evidence_vault_console_v20.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="executive_mission_dashboard_v40.html">
+    <h3 title="executive_mission_dashboard_v40.html">executive_mission_dashboard_v40.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 44968 bytes<br>
+      refs: 18 · url: /executive_mission_dashboard_v40.html
+    </div>
+    <div class="moduleActions">
+      <a href="/executive_mission_dashboard_v40.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="executive_mission_dashboard_v_next.html">
+    <h3 title="executive_mission_dashboard_v_next.html">executive_mission_dashboard_v_next.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 13225 bytes<br>
+      refs: 19 · url: /executive_mission_dashboard_v_next.html
+    </div>
+    <div class="moduleActions">
+      <a href="/executive_mission_dashboard_v_next.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="field_engineering_mode_v64.html">
+    <h3 title="field_engineering_mode_v64.html">field_engineering_mode_v64.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 5290 bytes<br>
+      refs: 9 · url: /field_engineering_mode_v64.html
+    </div>
+    <div class="moduleActions">
+      <a href="/field_engineering_mode_v64.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="global_mission_scenario_launcher_v39.html">
+    <h3 title="global_mission_scenario_launcher_v39.html">global_mission_scenario_launcher_v39.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 15333 bytes<br>
+      refs: 6 · url: /global_mission_scenario_launcher_v39.html
+    </div>
+    <div class="moduleActions">
+      <a href="/global_mission_scenario_launcher_v39.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="infrastructure_digital_twin_v63.html">
+    <h3 title="infrastructure_digital_twin_v63.html">infrastructure_digital_twin_v63.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 5556 bytes<br>
+      refs: 6 · url: /infrastructure_digital_twin_v63.html
+    </div>
+    <div class="moduleActions">
+      <a href="/infrastructure_digital_twin_v63.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="mission_graph_console_v15.html">
+    <h3 title="mission_graph_console_v15.html">mission_graph_console_v15.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 10656 bytes<br>
+      refs: 2 · url: /mission_graph_console_v15.html
+    </div>
+    <div class="moduleActions">
+      <a href="/mission_graph_console_v15.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="network_journey_world_map_v37.html">
+    <h3 title="network_journey_world_map_v37.html">network_journey_world_map_v37.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 14372 bytes<br>
+      refs: 7 · url: /network_journey_world_map_v37.html
+    </div>
+    <div class="moduleActions">
+      <a href="/network_journey_world_map_v37.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="observability_console_v13.html">
+    <h3 title="observability_console_v13.html">observability_console_v13.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8952 bytes<br>
+      refs: 0 · url: /observability_console_v13.html
+    </div>
+    <div class="moduleActions">
+      <a href="/observability_console_v13.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="operational_backup_console_v21.html">
+    <h3 title="operational_backup_console_v21.html">operational_backup_console_v21.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 7912 bytes<br>
+      refs: 3 · url: /operational_backup_console_v21.html
+    </div>
+    <div class="moduleActions">
+      <a href="/operational_backup_console_v21.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="operator_handbook_console_v23.html">
+    <h3 title="operator_handbook_console_v23.html">operator_handbook_console_v23.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 11435 bytes<br>
+      refs: 4 · url: /operator_handbook_console_v23.html
+    </div>
+    <div class="moduleActions">
+      <a href="/operator_handbook_console_v23.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="portal_index_v19.html">
+    <h3 title="portal_index_v19.html">portal_index_v19.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 19263 bytes<br>
+      refs: 15 · url: /portal_index_v19.html
+    </div>
+    <div class="moduleActions">
+      <a href="/portal_index_v19.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="restore_readiness_console_v22.html">
+    <h3 title="restore_readiness_console_v22.html">restore_readiness_console_v22.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 7597 bytes<br>
+      refs: 2 · url: /restore_readiness_console_v22.html
+    </div>
+    <div class="moduleActions">
+      <a href="/restore_readiness_console_v22.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_instrumentation_signal_cockpit_v38.html">
+    <h3 title="rf_instrumentation_signal_cockpit_v38.html">rf_instrumentation_signal_cockpit_v38.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 16716 bytes<br>
+      refs: 6 · url: /rf_instrumentation_signal_cockpit_v38.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_instrumentation_signal_cockpit_v38.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_physics_sapienza_console_v86a.html">
+    <h3 title="rf_physics_sapienza_console_v86a.html">rf_physics_sapienza_console_v86a.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 10079 bytes<br>
+      refs: 4 · url: /rf_physics_sapienza_console_v86a.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_physics_sapienza_console_v86a.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_propagation_sandbox_v62.html">
+    <h3 title="rf_propagation_sandbox_v62.html">rf_propagation_sandbox_v62.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5645 bytes<br>
+      refs: 6 · url: /rf_propagation_sandbox_v62.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_propagation_sandbox_v62.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84b.html">
+    <h3 title="rf_sapienza_console_v84b.html">rf_sapienza_console_v84b.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 6923 bytes<br>
+      refs: 4 · url: /rf_sapienza_console_v84b.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84b.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84c.html">
+    <h3 title="rf_sapienza_console_v84c.html">rf_sapienza_console_v84c.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7006 bytes<br>
+      refs: 5 · url: /rf_sapienza_console_v84c.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84c.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84d.html">
+    <h3 title="rf_sapienza_console_v84d.html">rf_sapienza_console_v84d.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7088 bytes<br>
+      refs: 6 · url: /rf_sapienza_console_v84d.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84d.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84e.html">
+    <h3 title="rf_sapienza_console_v84e.html">rf_sapienza_console_v84e.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7727 bytes<br>
+      refs: 6 · url: /rf_sapienza_console_v84e.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84e.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84f.html">
+    <h3 title="rf_sapienza_console_v84f.html">rf_sapienza_console_v84f.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7800 bytes<br>
+      refs: 7 · url: /rf_sapienza_console_v84f.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84f.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84g.html">
+    <h3 title="rf_sapienza_console_v84g.html">rf_sapienza_console_v84g.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7870 bytes<br>
+      refs: 8 · url: /rf_sapienza_console_v84g.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84g.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84h.html">
+    <h3 title="rf_sapienza_console_v84h.html">rf_sapienza_console_v84h.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7885 bytes<br>
+      refs: 9 · url: /rf_sapienza_console_v84h.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84h.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84i.html">
+    <h3 title="rf_sapienza_console_v84i.html">rf_sapienza_console_v84i.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7944 bytes<br>
+      refs: 10 · url: /rf_sapienza_console_v84i.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84i.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84j.html">
+    <h3 title="rf_sapienza_console_v84j.html">rf_sapienza_console_v84j.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8147 bytes<br>
+      refs: 11 · url: /rf_sapienza_console_v84j.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84j.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84k.html">
+    <h3 title="rf_sapienza_console_v84k.html">rf_sapienza_console_v84k.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8396 bytes<br>
+      refs: 12 · url: /rf_sapienza_console_v84k.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84k.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84l.html">
+    <h3 title="rf_sapienza_console_v84l.html">rf_sapienza_console_v84l.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8622 bytes<br>
+      refs: 13 · url: /rf_sapienza_console_v84l.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84l.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_sapienza_console_v84m.html">
+    <h3 title="rf_sapienza_console_v84m.html">rf_sapienza_console_v84m.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8891 bytes<br>
+      refs: 14 · url: /rf_sapienza_console_v84m.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_sapienza_console_v84m.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_telco_component_library_v76.html">
+    <h3 title="rf_telco_component_library_v76.html">rf_telco_component_library_v76.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4619 bytes<br>
+      refs: 0 · url: /rf_telco_component_library_v76.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_telco_component_library_v76.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_telco_knowledge_modules_v61.html">
+    <h3 title="rf_telco_knowledge_modules_v61.html">rf_telco_knowledge_modules_v61.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7071 bytes<br>
+      refs: 7 · url: /rf_telco_knowledge_modules_v61.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_telco_knowledge_modules_v61.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_telco_knowledge_os_v60.html">
+    <h3 title="rf_telco_knowledge_os_v60.html">rf_telco_knowledge_os_v60.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 6376 bytes<br>
+      refs: 10 · url: /rf_telco_knowledge_os_v60.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_telco_knowledge_os_v60.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_telco_mission_portal_v35.html">
+    <h3 title="rf_telco_mission_portal_v35.html">rf_telco_mission_portal_v35.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9442 bytes<br>
+      refs: 12 · url: /rf_telco_mission_portal_v35.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_telco_mission_portal_v35.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rf_telco_visual_cockpit_v36.html">
+    <h3 title="rf_telco_visual_cockpit_v36.html">rf_telco_visual_cockpit_v36.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 12048 bytes<br>
+      refs: 8 · url: /rf_telco_visual_cockpit_v36.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rf_telco_visual_cockpit_v36.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rfpro_fullband_v586.html">
+    <h3 title="rfpro_fullband_v586.html">rfpro_fullband_v586.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 14708 bytes<br>
+      refs: 0 · url: /rfpro_fullband_v586.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rfpro_fullband_v586.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rfpro_master_v583.html">
+    <h3 title="rfpro_master_v583.html">rfpro_master_v583.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 10759 bytes<br>
+      refs: 0 · url: /rfpro_master_v583.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rfpro_master_v583.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="rfpro_realtime_v585.html">
+    <h3 title="rfpro_realtime_v585.html">rfpro_realtime_v585.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 12346 bytes<br>
+      refs: 0 · url: /rfpro_realtime_v585.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rfpro_realtime_v585.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="rfpro_unified_console.html">
+    <h3 title="rfpro_unified_console.html">rfpro_unified_console.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 24842 bytes<br>
+      refs: 0 · url: /rfpro_unified_console.html
+    </div>
+    <div class="moduleActions">
+      <a href="/rfpro_unified_console.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="runtime_golden_check_console_v29.html">
+    <h3 title="runtime_golden_check_console_v29.html">runtime_golden_check_console_v29.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 9372 bytes<br>
+      refs: 4 · url: /runtime_golden_check_console_v29.html
+    </div>
+    <div class="moduleActions">
+      <a href="/runtime_golden_check_console_v29.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="sapienza_master_template_doctrine_v85a.html">
+    <h3 title="sapienza_master_template_doctrine_v85a.html">sapienza_master_template_doctrine_v85a.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span></div>
+    <div class="meta">
+      size: 7521 bytes<br>
+      refs: 6 · url: /sapienza_master_template_doctrine_v85a.html
+    </div>
+    <div class="moduleActions">
+      <a href="/sapienza_master_template_doctrine_v85a.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="scenario_report_console_v17.html">
+    <h3 title="scenario_report_console_v17.html">scenario_report_console_v17.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8421 bytes<br>
+      refs: 3 · url: /scenario_report_console_v17.html
+    </div>
+    <div class="moduleActions">
+      <a href="/scenario_report_console_v17.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="scenario_runner_console_v16.html">
+    <h3 title="scenario_runner_console_v16.html">scenario_runner_console_v16.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8539 bytes<br>
+      refs: 3 · url: /scenario_runner_console_v16.html
+    </div>
+    <div class="moduleActions">
+      <a href="/scenario_runner_console_v16.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="security_console_v18.html">
+    <h3 title="security_console_v18.html">security_console_v18.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8030 bytes<br>
+      refs: 5 · url: /security_console_v18.html
+    </div>
+    <div class="moduleActions">
+      <a href="/security_console_v18.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="signal_demod_v581.html">
+    <h3 title="signal_demod_v581.html">signal_demod_v581.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8130 bytes<br>
+      refs: 0 · url: /signal_demod_v581.html
+    </div>
+    <div class="moduleActions">
+      <a href="/signal_demod_v581.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="signal_workbench_v580.html">
+    <h3 title="signal_workbench_v580.html">signal_workbench_v580.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 17115 bytes<br>
+      refs: 0 · url: /signal_workbench_v580.html
+    </div>
+    <div class="moduleActions">
+      <a href="/signal_workbench_v580.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="signal_workbench_v582.html">
+    <h3 title="signal_workbench_v582.html">signal_workbench_v582.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 14195 bytes<br>
+      refs: 0 · url: /signal_workbench_v582.html
+    </div>
+    <div class="moduleActions">
+      <a href="/signal_workbench_v582.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="timeline_console_v14.html">
+    <h3 title="timeline_console_v14.html">timeline_console_v14.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 9203 bytes<br>
+      refs: 1 · url: /timeline_console_v14.html
+    </div>
+    <div class="moduleActions">
+      <a href="/timeline_console_v14.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc.html">
+    <h3 title="trfmc.html">trfmc.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 3615 bytes<br>
+      refs: 4 · url: /trfmc.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_lab_v1.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_lab_v1.html">trfmc_3d_rf_asset_renderer_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 22808 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html">trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 23462 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_lab_v1r1_proportions.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html">trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 27257 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_lab_v1r2_auto_fit.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_webgl_v2.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_webgl_v2.html">trfmc_3d_rf_asset_renderer_webgl_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 32965 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_webgl_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_webgl_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html">trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 40118 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_webgl_v2r1_detail_boost.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html">
+    <h3 title="trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html">trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 49230 bytes<br>
+      refs: 0 · url: /trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_5g_core_ran_identity_aka_engine_v1.html">
+    <h3 title="trfmc_5g_core_ran_identity_aka_engine_v1.html">trfmc_5g_core_ran_identity_aka_engine_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 18971 bytes<br>
+      refs: 4 · url: /trfmc_5g_core_ran_identity_aka_engine_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_5g_core_ran_identity_aka_engine_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_stable_clean_recovery.html">
+    <h3 title="trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html">trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 97684 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v1.html">
+    <h3 title="trfmc_antenna_system_explorer_v1.html">trfmc_antenna_system_explorer_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 11505 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v12_operativo.html">
+    <h3 title="trfmc_antenna_system_explorer_v12_operativo.html">trfmc_antenna_system_explorer_v12_operativo.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 20969 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_v12_operativo.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v12_operativo.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v13_premium.html">
+    <h3 title="trfmc_antenna_system_explorer_v13_premium.html">trfmc_antenna_system_explorer_v13_premium.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 22463 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_v13_premium.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v13_premium.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v14_instrument_grade.html">
+    <h3 title="trfmc_antenna_system_explorer_v14_instrument_grade.html">trfmc_antenna_system_explorer_v14_instrument_grade.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 38972 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_v14_instrument_grade.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v14_instrument_grade.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v15_instrument_center.html">
+    <h3 title="trfmc_antenna_system_explorer_v15_instrument_center.html">trfmc_antenna_system_explorer_v15_instrument_center.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 61504 bytes<br>
+      refs: 7 · url: /trfmc_antenna_system_explorer_v15_instrument_center.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v15_instrument_center.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v16_metrology_premium.html">
+    <h3 title="trfmc_antenna_system_explorer_v16_metrology_premium.html">trfmc_antenna_system_explorer_v16_metrology_premium.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 81534 bytes<br>
+      refs: 7 · url: /trfmc_antenna_system_explorer_v16_metrology_premium.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v16_metrology_premium.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v16r1_visible_antenna.html">
+    <h3 title="trfmc_antenna_system_explorer_v16r1_visible_antenna.html">trfmc_antenna_system_explorer_v16r1_visible_antenna.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 83719 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_v16r1_visible_antenna.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v16r1_visible_antenna.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html">
+    <h3 title="trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html">trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 97693 bytes<br>
+      refs: 6 · url: /trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v16r2_clean_dock_layout.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html">
+    <h3 title="trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html">trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 120978 bytes<br>
+      refs: 5 · url: /trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_system_explorer_v17_layout_lock_fullscreen.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_cinematic_command_deck_v87d.html">
+    <h3 title="trfmc_cinematic_command_deck_v87d.html">trfmc_cinematic_command_deck_v87d.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4468 bytes<br>
+      refs: 5 · url: /trfmc_cinematic_command_deck_v87d.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_cinematic_command_deck_v87d.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_cinematic_mission_atlas_v87c.html">
+    <h3 title="trfmc_cinematic_mission_atlas_v87c.html">trfmc_cinematic_mission_atlas_v87c.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4421 bytes<br>
+      refs: 6 · url: /trfmc_cinematic_mission_atlas_v87c.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_cinematic_mission_atlas_v87c.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_collaudo_report.html">
+    <h3 title="trfmc_collaudo_report.html">trfmc_collaudo_report.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 20992 bytes<br>
+      refs: 0 · url: /trfmc_collaudo_report.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_collaudo_report.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_converged_rf_5g_noc_v1.html">
+    <h3 title="trfmc_converged_rf_5g_noc_v1.html">trfmc_converged_rf_5g_noc_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 24348 bytes<br>
+      refs: 6 · url: /trfmc_converged_rf_5g_noc_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_converged_rf_5g_noc_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_core_network_live_ops_bridge_v1.html">
+    <h3 title="trfmc_core_network_live_ops_bridge_v1.html">trfmc_core_network_live_ops_bridge_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span><span class="badge warn">API</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 13135 bytes<br>
+      refs: 0 · url: /trfmc_core_network_live_ops_bridge_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_core_network_live_ops_bridge_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_design_token_audit_v86f.html">
+    <h3 title="trfmc_design_token_audit_v86f.html">trfmc_design_token_audit_v86f.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5513 bytes<br>
+      refs: 4 · url: /trfmc_design_token_audit_v86f.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_design_token_audit_v86f.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_domain_registry_v1.html">
+    <h3 title="trfmc_domain_registry_v1.html">trfmc_domain_registry_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 46098 bytes<br>
+      refs: 89 · url: /trfmc_domain_registry_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_domain_registry_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_emergency_reset_layout_state.html">
+    <h3 title="trfmc_emergency_reset_layout_state.html">trfmc_emergency_reset_layout_state.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 1326 bytes<br>
+      refs: 1 · url: /trfmc_emergency_reset_layout_state.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_emergency_reset_layout_state.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_engine_promotion_board_v1.html">
+    <h3 title="trfmc_engine_promotion_board_v1.html">trfmc_engine_promotion_board_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 33908 bytes<br>
+      refs: 52 · url: /trfmc_engine_promotion_board_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_engine_promotion_board_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_enterprise_prime_portal_v1.html">
+    <h3 title="trfmc_enterprise_prime_portal_v1.html">trfmc_enterprise_prime_portal_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 14178 bytes<br>
+      refs: 24 · url: /trfmc_enterprise_prime_portal_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_enterprise_prime_portal_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_first_promotion_batch_v87a.html">
+    <h3 title="trfmc_first_promotion_batch_v87a.html">trfmc_first_promotion_batch_v87a.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5203 bytes<br>
+      refs: 5 · url: /trfmc_first_promotion_batch_v87a.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_first_promotion_batch_v87a.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_home.html">
+    <h3 title="trfmc_home.html">trfmc_home.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 3615 bytes<br>
+      refs: 4 · url: /trfmc_home.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_home.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_home_v87e.html">
+    <h3 title="trfmc_home_v87e.html">trfmc_home_v87e.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4460 bytes<br>
+      refs: 5 · url: /trfmc_home_v87e.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_home_v87e.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_home_v87g.html">
+    <h3 title="trfmc_home_v87g.html">trfmc_home_v87g.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 3615 bytes<br>
+      refs: 4 · url: /trfmc_home_v87g.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_home_v87g.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_instrument_os_alignment_v1.html">
+    <h3 title="trfmc_instrument_os_alignment_v1.html">trfmc_instrument_os_alignment_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 13647 bytes<br>
+      refs: 14 · url: /trfmc_instrument_os_alignment_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_instrument_os_alignment_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_integration_control_room.html">
+    <h3 title="trfmc_integration_control_room.html">trfmc_integration_control_room.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 12908 bytes<br>
+      refs: 0 · url: /trfmc_integration_control_room.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_integration_control_room.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_master_console_v4.html">
+    <h3 title="trfmc_master_console_v4.html">trfmc_master_console_v4.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9066 bytes<br>
+      refs: 16 · url: /trfmc_master_console_v4.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_master_console_v4.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_master_digital_twin_console_v1.html">
+    <h3 title="trfmc_master_digital_twin_console_v1.html">trfmc_master_digital_twin_console_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 26807 bytes<br>
+      refs: 12 · url: /trfmc_master_digital_twin_console_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_master_digital_twin_console_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_measurement_chain_dsp_engine_v2.html">
+    <h3 title="trfmc_measurement_chain_dsp_engine_v2.html">trfmc_measurement_chain_dsp_engine_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 14964 bytes<br>
+      refs: 5 · url: /trfmc_measurement_chain_dsp_engine_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_measurement_chain_dsp_engine_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_measurement_chain_dsp_engine_v3.html">
+    <h3 title="trfmc_measurement_chain_dsp_engine_v3.html">trfmc_measurement_chain_dsp_engine_v3.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 17571 bytes<br>
+      refs: 6 · url: /trfmc_measurement_chain_dsp_engine_v3.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_measurement_chain_dsp_engine_v3.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_mission_control_home_v87b.html">
+    <h3 title="trfmc_mission_control_home_v87b.html">trfmc_mission_control_home_v87b.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5889 bytes<br>
+      refs: 5 · url: /trfmc_mission_control_home_v87b.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_mission_control_home_v87b.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module official " data-class="official_shell" data-name="trfmc_official_safe_entrypoint_v6.html">
+    <h3 title="trfmc_official_safe_entrypoint_v6.html">trfmc_official_safe_entrypoint_v6.html</h3>
+    <div><span class="badge">official_shell</span></div>
+    <div class="meta">
+      size: 3030 bytes<br>
+      refs: 1 · url: /trfmc_official_safe_entrypoint_v6.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_official_safe_entrypoint_v6.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_official_safe_entrypoint_v6r1_flat.html">
+    <h3 title="trfmc_official_safe_entrypoint_v6r1_flat.html">trfmc_official_safe_entrypoint_v6r1_flat.html</h3>
+    <div><span class="badge">service</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 6813 bytes<br>
+      refs: 1 · url: /trfmc_official_safe_entrypoint_v6r1_flat.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_official_safe_entrypoint_v6r1_flat.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_official_safe_entrypoint_v6r2_premium_console.html">
+    <h3 title="trfmc_official_safe_entrypoint_v6r2_premium_console.html">trfmc_official_safe_entrypoint_v6r2_premium_console.html</h3>
+    <div><span class="badge">service</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 9627 bytes<br>
+      refs: 3 · url: /trfmc_official_safe_entrypoint_v6r2_premium_console.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_official_safe_entrypoint_v6r2_premium_console.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module official priority " data-class="official_shell" data-name="trfmc_official_safe_entrypoint_v6r3_command_center.html">
+    <h3 title="trfmc_official_safe_entrypoint_v6r3_command_center.html">trfmc_official_safe_entrypoint_v6r3_command_center.html</h3>
+    <div><span class="badge">official_shell</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 12831 bytes<br>
+      refs: 3 · url: /trfmc_official_safe_entrypoint_v6r3_command_center.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_official_safe_entrypoint_v6r3_command_center.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_performance_gpu_gate_v86b.html">
+    <h3 title="trfmc_performance_gpu_gate_v86b.html">trfmc_performance_gpu_gate_v86b.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7683 bytes<br>
+      refs: 4 · url: /trfmc_performance_gpu_gate_v86b.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_performance_gpu_gate_v86b.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_performance_gpu_gate_v86b_r1.html">
+    <h3 title="trfmc_performance_gpu_gate_v86b_r1.html">trfmc_performance_gpu_gate_v86b_r1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7910 bytes<br>
+      refs: 4 · url: /trfmc_performance_gpu_gate_v86b_r1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_performance_gpu_gate_v86b_r1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module official priority " data-class="official_shell" data-name="trfmc_portal_link_graph_v1.html">
+    <h3 title="trfmc_portal_link_graph_v1.html">trfmc_portal_link_graph_v1.html</h3>
+    <div><span class="badge">official_shell</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 7284 bytes<br>
+      refs: 5 · url: /trfmc_portal_link_graph_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_portal_link_graph_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_portal_registry_v86c.html">
+    <h3 title="trfmc_portal_registry_v86c.html">trfmc_portal_registry_v86c.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5972 bytes<br>
+      refs: 4 · url: /trfmc_portal_registry_v86c.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_portal_registry_v86c.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_portal_registry_v86c_r1.html">
+    <h3 title="trfmc_portal_registry_v86c_r1.html">trfmc_portal_registry_v86c_r1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5987 bytes<br>
+      refs: 4 · url: /trfmc_portal_registry_v86c_r1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_portal_registry_v86c_r1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_pr200_field_monitoring_receiver_v1.html">
+    <h3 title="trfmc_pr200_field_monitoring_receiver_v1.html">trfmc_pr200_field_monitoring_receiver_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 13569 bytes<br>
+      refs: 7 · url: /trfmc_pr200_field_monitoring_receiver_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_pr200_field_monitoring_receiver_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_realtime_fft_gapless_receiver_lab_v1.html">
+    <h3 title="trfmc_realtime_fft_gapless_receiver_lab_v1.html">trfmc_realtime_fft_gapless_receiver_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 24978 bytes<br>
+      refs: 0 · url: /trfmc_realtime_fft_gapless_receiver_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_realtime_fft_gapless_receiver_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_reset_browser_state_v6r1.html">
+    <h3 title="trfmc_reset_browser_state_v6r1.html">trfmc_reset_browser_state_v6r1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 647 bytes<br>
+      refs: 1 · url: /trfmc_reset_browser_state_v6r1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_reset_browser_state_v6r1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_antenna_academy_wall_v2_premium.html">
+    <h3 title="trfmc_rf_antenna_academy_wall_v2_premium.html">trfmc_rf_antenna_academy_wall_v2_premium.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 28331 bytes<br>
+      refs: 0 · url: /trfmc_rf_antenna_academy_wall_v2_premium.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_antenna_academy_wall_v2_premium.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_antenna_theory_engine_v1.html">
+    <h3 title="trfmc_rf_antenna_theory_engine_v1.html">trfmc_rf_antenna_theory_engine_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 15937 bytes<br>
+      refs: 0 · url: /trfmc_rf_antenna_theory_engine_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_antenna_theory_engine_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_rf_metrology_calibration_lab_v1.html">
+    <h3 title="trfmc_rf_metrology_calibration_lab_v1.html">trfmc_rf_metrology_calibration_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 26568 bytes<br>
+      refs: 0 · url: /trfmc_rf_metrology_calibration_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_metrology_calibration_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_microwave_engineering.html">
+    <h3 title="trfmc_rf_microwave_engineering.html">trfmc_rf_microwave_engineering.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 321 bytes<br>
+      refs: 1 · url: /trfmc_rf_microwave_engineering.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_microwave_engineering.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_rf_microwave_engineering_v1.html">
+    <h3 title="trfmc_rf_microwave_engineering_v1.html">trfmc_rf_microwave_engineering_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 24695 bytes<br>
+      refs: 4 · url: /trfmc_rf_microwave_engineering_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_microwave_engineering_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_spectrum_lab_v1.html">
+    <h3 title="trfmc_rf_spectrum_lab_v1.html">trfmc_rf_spectrum_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 20135 bytes<br>
+      refs: 4 · url: /trfmc_rf_spectrum_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_spectrum_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_tm_signal_universe_v3.html">
+    <h3 title="trfmc_rf_tm_signal_universe_v3.html">trfmc_rf_tm_signal_universe_v3.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 31862 bytes<br>
+      refs: 4 · url: /trfmc_rf_tm_signal_universe_v3.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_tm_signal_universe_v3.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_tm_war_room_v4.html">
+    <h3 title="trfmc_rf_tm_war_room_v4.html">trfmc_rf_tm_war_room_v4.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 33892 bytes<br>
+      refs: 11 · url: /trfmc_rf_tm_war_room_v4.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_tm_war_room_v4.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_route_normalizer_v87f.html">
+    <h3 title="trfmc_route_normalizer_v87f.html">trfmc_route_normalizer_v87f.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4823 bytes<br>
+      refs: 6 · url: /trfmc_route_normalizer_v87f.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_route_normalizer_v87f.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_runtime_hook_layer_v1.html">
+    <h3 title="trfmc_runtime_hook_layer_v1.html">trfmc_runtime_hook_layer_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8593 bytes<br>
+      refs: 5 · url: /trfmc_runtime_hook_layer_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_runtime_hook_layer_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_safe_runtime_action_console_v1.html">
+    <h3 title="trfmc_safe_runtime_action_console_v1.html">trfmc_safe_runtime_action_console_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 7824 bytes<br>
+      refs: 7 · url: /trfmc_safe_runtime_action_console_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_safe_runtime_action_console_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module priority " data-class="leaf_operational_candidate" data-name="trfmc_signal_intelligence_center_v1.html">
+    <h3 title="trfmc_signal_intelligence_center_v1.html">trfmc_signal_intelligence_center_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge violet">PRIORITY</span></div>
+    <div class="meta">
+      size: 23055 bytes<br>
+      refs: 0 · url: /trfmc_signal_intelligence_center_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_signal_intelligence_center_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_signal_world_engine_v2.html">
+    <h3 title="trfmc_signal_world_engine_v2.html">trfmc_signal_world_engine_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 29727 bytes<br>
+      refs: 6 · url: /trfmc_signal_world_engine_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_signal_world_engine_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_supervisor_mission_control_v5.html">
+    <h3 title="trfmc_supervisor_mission_control_v5.html">trfmc_supervisor_mission_control_v5.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 3717 bytes<br>
+      refs: 6 · url: /trfmc_supervisor_mission_control_v5.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_supervisor_mission_control_v5.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_theory_spine_v86e.html">
+    <h3 title="trfmc_theory_spine_v86e.html">trfmc_theory_spine_v86e.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5663 bytes<br>
+      refs: 4 · url: /trfmc_theory_spine_v86e.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_theory_spine_v86e.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_evidence_supervisor_v4.html">
+    <h3 title="trfmc_unified_evidence_supervisor_v4.html">trfmc_unified_evidence_supervisor_v4.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 23484 bytes<br>
+      refs: 4 · url: /trfmc_unified_evidence_supervisor_v4.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_evidence_supervisor_v4.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_instrument_shell_lab_v1.html">
+    <h3 title="trfmc_unified_instrument_shell_lab_v1.html">trfmc_unified_instrument_shell_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 14679 bytes<br>
+      refs: 1 · url: /trfmc_unified_instrument_shell_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_instrument_shell_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_instrument_shell_lab_v2.html">
+    <h3 title="trfmc_unified_instrument_shell_lab_v2.html">trfmc_unified_instrument_shell_lab_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 20420 bytes<br>
+      refs: 2 · url: /trfmc_unified_instrument_shell_lab_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_instrument_shell_lab_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_matrix_room_v3.html">
+    <h3 title="trfmc_unified_matrix_room_v3.html">trfmc_unified_matrix_room_v3.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 19145 bytes<br>
+      refs: 4 · url: /trfmc_unified_matrix_room_v3.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_matrix_room_v3.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_navigation_shell_v1.html">
+    <h3 title="trfmc_unified_navigation_shell_v1.html">trfmc_unified_navigation_shell_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">API</span><span class="badge bad">EXT</span></div>
+    <div class="meta">
+      size: 15065 bytes<br>
+      refs: 11 · url: /trfmc_unified_navigation_shell_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_navigation_shell_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_shell_noiframe_v86d_r1.html">
+    <h3 title="trfmc_unified_shell_noiframe_v86d_r1.html">trfmc_unified_shell_noiframe_v86d_r1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 6084 bytes<br>
+      refs: 4 · url: /trfmc_unified_shell_noiframe_v86d_r1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_shell_noiframe_v86d_r1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_unified_shell_prototype_v86d.html">
+    <h3 title="trfmc_unified_shell_prototype_v86d.html">trfmc_unified_shell_prototype_v86d.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5946 bytes<br>
+      refs: 4 · url: /trfmc_unified_shell_prototype_v86d.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_unified_shell_prototype_v86d.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_visual_qa_matrix_v71.html">
+    <h3 title="trfmc_visual_qa_matrix_v71.html">trfmc_visual_qa_matrix_v71.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge warn">IFRAME</span></div>
+    <div class="meta">
+      size: 3883 bytes<br>
+      refs: 5 · url: /trfmc_visual_qa_matrix_v71.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_visual_qa_matrix_v71.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_wifi_5_6_7_8_qam_engine_v1.html">
+    <h3 title="trfmc_wifi_5_6_7_8_qam_engine_v1.html">trfmc_wifi_5_6_7_8_qam_engine_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 12460 bytes<br>
+      refs: 4 · url: /trfmc_wifi_5_6_7_8_qam_engine_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="orphan_or_legacy_candidate" data-name="uav_fhss_v584.html">
+    <h3 title="uav_fhss_v584.html">uav_fhss_v584.html</h3>
+    <div><span class="badge">orphan_or_legacy_candidate</span><span class="badge warn">API</span></div>
+    <div class="meta">
+      size: 8533 bytes<br>
+      refs: 0 · url: /uav_fhss_v584.html
+    </div>
+    <div class="moduleActions">
+      <a href="/uav_fhss_v584.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v66.html">
+    <h3 title="webgl_rf_heatmap_engine_v66.html">webgl_rf_heatmap_engine_v66.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4447 bytes<br>
+      refs: 7 · url: /webgl_rf_heatmap_engine_v66.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v66.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v67.html">
+    <h3 title="webgl_rf_heatmap_engine_v67.html">webgl_rf_heatmap_engine_v67.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4553 bytes<br>
+      refs: 7 · url: /webgl_rf_heatmap_engine_v67.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v67.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v68.html">
+    <h3 title="webgl_rf_heatmap_engine_v68.html">webgl_rf_heatmap_engine_v68.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5687 bytes<br>
+      refs: 8 · url: /webgl_rf_heatmap_engine_v68.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v68.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v68_surgical_v81.html">
+    <h3 title="webgl_rf_heatmap_engine_v68_surgical_v81.html">webgl_rf_heatmap_engine_v68_surgical_v81.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8346 bytes<br>
+      refs: 6 · url: /webgl_rf_heatmap_engine_v68_surgical_v81.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v69.html">
+    <h3 title="webgl_rf_heatmap_engine_v69.html">webgl_rf_heatmap_engine_v69.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 6194 bytes<br>
+      refs: 8 · url: /webgl_rf_heatmap_engine_v69.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v69.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v82_native_lab.html">
+    <h3 title="webgl_rf_heatmap_engine_v82_native_lab.html">webgl_rf_heatmap_engine_v82_native_lab.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 6706 bytes<br>
+      refs: 5 · url: /webgl_rf_heatmap_engine_v82_native_lab.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v82_native_lab.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v82b_native_lab.html">
+    <h3 title="webgl_rf_heatmap_engine_v82b_native_lab.html">webgl_rf_heatmap_engine_v82b_native_lab.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 7835 bytes<br>
+      refs: 6 · url: /webgl_rf_heatmap_engine_v82b_native_lab.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v82b_native_lab.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v82c_mission_replay.html">
+    <h3 title="webgl_rf_heatmap_engine_v82c_mission_replay.html">webgl_rf_heatmap_engine_v82c_mission_replay.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8095 bytes<br>
+      refs: 7 · url: /webgl_rf_heatmap_engine_v82c_mission_replay.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v82c_mission_replay.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">
+    <h3 title="webgl_rf_heatmap_engine_v82c_r2_mission_replay.html">webgl_rf_heatmap_engine_v82c_r2_mission_replay.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8384 bytes<br>
+      refs: 8 · url: /webgl_rf_heatmap_engine_v82c_r2_mission_replay.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_heatmap_engine_v82c_r2_mission_replay.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v83.html">
+    <h3 title="webgl_rf_physics_engine_v83.html">webgl_rf_physics_engine_v83.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8677 bytes<br>
+      refs: 7 · url: /webgl_rf_physics_engine_v83.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v83.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v83b.html">
+    <h3 title="webgl_rf_physics_engine_v83b.html">webgl_rf_physics_engine_v83b.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8765 bytes<br>
+      refs: 8 · url: /webgl_rf_physics_engine_v83b.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v83b.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v83c.html">
+    <h3 title="webgl_rf_physics_engine_v83c.html">webgl_rf_physics_engine_v83c.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 8848 bytes<br>
+      refs: 9 · url: /webgl_rf_physics_engine_v83c.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v83c.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v83d.html">
+    <h3 title="webgl_rf_physics_engine_v83d.html">webgl_rf_physics_engine_v83d.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9067 bytes<br>
+      refs: 10 · url: /webgl_rf_physics_engine_v83d.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v83d.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v83e.html">
+    <h3 title="webgl_rf_physics_engine_v83e.html">webgl_rf_physics_engine_v83e.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9304 bytes<br>
+      refs: 11 · url: /webgl_rf_physics_engine_v83e.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v83e.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v83f.html">
+    <h3 title="webgl_rf_physics_engine_v83f.html">webgl_rf_physics_engine_v83f.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9515 bytes<br>
+      refs: 12 · url: /webgl_rf_physics_engine_v83f.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v83f.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v85b_sapienza_baseline.html">
+    <h3 title="webgl_rf_physics_engine_v85b_sapienza_baseline.html">webgl_rf_physics_engine_v85b_sapienza_baseline.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9708 bytes<br>
+      refs: 12 · url: /webgl_rf_physics_engine_v85b_sapienza_baseline.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v85b_sapienza_baseline.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v85c_sapienza_identity.html">
+    <h3 title="webgl_rf_physics_engine_v85c_sapienza_identity.html">webgl_rf_physics_engine_v85c_sapienza_identity.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 9867 bytes<br>
+      refs: 12 · url: /webgl_rf_physics_engine_v85c_sapienza_identity.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v85c_sapienza_identity.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v85d_runtime_identity_lock.html">
+    <h3 title="webgl_rf_physics_engine_v85d_runtime_identity_lock.html">webgl_rf_physics_engine_v85d_runtime_identity_lock.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 10044 bytes<br>
+      refs: 12 · url: /webgl_rf_physics_engine_v85d_runtime_identity_lock.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v85d_runtime_identity_lock.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_physics_engine_v85e_viewport_discipline.html">
+    <h3 title="webgl_rf_physics_engine_v85e_viewport_discipline.html">webgl_rf_physics_engine_v85e_viewport_discipline.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 10040 bytes<br>
+      refs: 12 · url: /webgl_rf_physics_engine_v85e_viewport_discipline.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="webgl_rf_tm_supreme_console_v84a.html">
+    <h3 title="webgl_rf_tm_supreme_console_v84a.html">webgl_rf_tm_supreme_console_v84a.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 5961 bytes<br>
+      refs: 5 · url: /webgl_rf_tm_supreme_console_v84a.html
+    </div>
+    <div class="moduleActions">
+      <a href="/webgl_rf_tm_supreme_console_v84a.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_expansion_hub_v1.html">
+    <h3 title="trfmc_expansion_hub_v1.html">trfmc_expansion_hub_v1.html</h3>
+    <div><span class="badge">service</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 5231 bytes<br>
+      refs: 13 · url: /trfmc_expansion_hub_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_expansion_hub_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_physics_theory_atlas_v1.html">
+    <h3 title="trfmc_rf_physics_theory_atlas_v1.html">trfmc_rf_physics_theory_atlas_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4045 bytes<br>
+      refs: 6 · url: /trfmc_rf_physics_theory_atlas_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_physics_theory_atlas_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_microwave_link_operations_center_v1.html">
+    <h3 title="trfmc_microwave_link_operations_center_v1.html">trfmc_microwave_link_operations_center_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4114 bytes<br>
+      refs: 6 · url: /trfmc_microwave_link_operations_center_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_microwave_link_operations_center_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_fiber_fronthaul_otdr_workbench_v1.html">
+    <h3 title="trfmc_fiber_fronthaul_otdr_workbench_v1.html">trfmc_fiber_fronthaul_otdr_workbench_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4103 bytes<br>
+      refs: 6 · url: /trfmc_fiber_fronthaul_otdr_workbench_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_fiber_fronthaul_otdr_workbench_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_private_networks_wifi7_5g_mesh_v1.html">
+    <h3 title="trfmc_private_networks_wifi7_5g_mesh_v1.html">trfmc_private_networks_wifi7_5g_mesh_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4059 bytes<br>
+      refs: 6 · url: /trfmc_private_networks_wifi7_5g_mesh_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_private_networks_wifi7_5g_mesh_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_rru_ret_cpri_port_mapping_v1.html">
+    <h3 title="trfmc_antenna_rru_ret_cpri_port_mapping_v1.html">trfmc_antenna_rru_ret_cpri_port_mapping_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4114 bytes<br>
+      refs: 6 · url: /trfmc_antenna_rru_ret_cpri_port_mapping_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_datacenter_power_pdu_infrastructure_v1.html">
+    <h3 title="trfmc_datacenter_power_pdu_infrastructure_v1.html">trfmc_datacenter_power_pdu_infrastructure_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4027 bytes<br>
+      refs: 6 · url: /trfmc_datacenter_power_pdu_infrastructure_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_datacenter_power_pdu_infrastructure_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_cyber_rf_intelligence_evidence_v1.html">
+    <h3 title="trfmc_cyber_rf_intelligence_evidence_v1.html">trfmc_cyber_rf_intelligence_evidence_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4174 bytes<br>
+      refs: 6 · url: /trfmc_cyber_rf_intelligence_evidence_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_cyber_rf_intelligence_evidence_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_knowledge_base_theory_procedures_v1.html">
+    <h3 title="trfmc_knowledge_base_theory_procedures_v1.html">trfmc_knowledge_base_theory_procedures_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 3992 bytes<br>
+      refs: 6 · url: /trfmc_knowledge_base_theory_procedures_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_knowledge_base_theory_procedures_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_physics_theory_atlas_v2.html">
+    <h3 title="trfmc_rf_physics_theory_atlas_v2.html">trfmc_rf_physics_theory_atlas_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 11707 bytes<br>
+      refs: 5 · url: /trfmc_rf_physics_theory_atlas_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_physics_theory_atlas_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_microwave_link_operations_center_v2.html">
+    <h3 title="trfmc_microwave_link_operations_center_v2.html">trfmc_microwave_link_operations_center_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 14937 bytes<br>
+      refs: 5 · url: /trfmc_microwave_link_operations_center_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_microwave_link_operations_center_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_fiber_fronthaul_otdr_workbench_v2.html">
+    <h3 title="trfmc_fiber_fronthaul_otdr_workbench_v2.html">trfmc_fiber_fronthaul_otdr_workbench_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 15629 bytes<br>
+      refs: 5 · url: /trfmc_fiber_fronthaul_otdr_workbench_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_fiber_fronthaul_otdr_workbench_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_rru_ret_cpri_port_mapping_v2.html">
+    <h3 title="trfmc_antenna_rru_ret_cpri_port_mapping_v2.html">trfmc_antenna_rru_ret_cpri_port_mapping_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 13857 bytes<br>
+      refs: 5 · url: /trfmc_antenna_rru_ret_cpri_port_mapping_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_rru_ret_cpri_port_mapping_v3.html">
+    <h3 title="trfmc_antenna_rru_ret_cpri_port_mapping_v3.html">trfmc_antenna_rru_ret_cpri_port_mapping_v3.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 17427 bytes<br>
+      refs: 5 · url: /trfmc_antenna_rru_ret_cpri_port_mapping_v3.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v3.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html">
+    <h3 title="trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html">trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 20248 bytes<br>
+      refs: 5 · url: /trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v4_reality.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html">
+    <h3 title="trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html">trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 25267 bytes<br>
+      refs: 5 · url: /trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_gpu_visual_runtime_lab_v2.html">
+    <h3 title="trfmc_gpu_visual_runtime_lab_v2.html">trfmc_gpu_visual_runtime_lab_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4363 bytes<br>
+      refs: 8 · url: /trfmc_gpu_visual_runtime_lab_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_gpu_visual_runtime_lab_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_visual_asset_engine_lab_v3.html">
+    <h3 title="trfmc_visual_asset_engine_lab_v3.html">trfmc_visual_asset_engine_lab_v3.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 4214 bytes<br>
+      refs: 11 · url: /trfmc_visual_asset_engine_lab_v3.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_visual_asset_engine_lab_v3.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_soul_runtime_lab_v1.html">
+    <h3 title="trfmc_soul_runtime_lab_v1.html">trfmc_soul_runtime_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 6035 bytes<br>
+      refs: 13 · url: /trfmc_soul_runtime_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_soul_runtime_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_perfection_authority_v1.html">
+    <h3 title="trfmc_perfection_authority_v1.html">trfmc_perfection_authority_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 43304 bytes<br>
+      refs: 151 · url: /trfmc_perfection_authority_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_perfection_authority_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_perfection_authority_v2_scoped.html">
+    <h3 title="trfmc_perfection_authority_v2_scoped.html">trfmc_perfection_authority_v2_scoped.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 34453 bytes<br>
+      refs: 132 · url: /trfmc_perfection_authority_v2_scoped.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_perfection_authority_v2_scoped.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_integration_control_room_v2.html">
+    <h3 title="trfmc_integration_control_room_v2.html">trfmc_integration_control_room_v2.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 3860 bytes<br>
+      refs:  · url: /trfmc_integration_control_room_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_integration_control_room_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_perfection_authority_v3_scoped.html">
+    <h3 title="trfmc_perfection_authority_v3_scoped.html">trfmc_perfection_authority_v3_scoped.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 32463 bytes<br>
+      refs: 132 · url: /trfmc_perfection_authority_v3_scoped.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_perfection_authority_v3_scoped.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_final_promotion_gate_v1.html">
+    <h3 title="trfmc_final_promotion_gate_v1.html">trfmc_final_promotion_gate_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 13595 bytes<br>
+      refs: 51 · url: /trfmc_final_promotion_gate_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_final_promotion_gate_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_post_promotion_control_center_v1.html">
+    <h3 title="trfmc_post_promotion_control_center_v1.html">trfmc_post_promotion_control_center_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 3936 bytes<br>
+      refs: 13 · url: /trfmc_post_promotion_control_center_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_post_promotion_control_center_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_canonical_navigation_map_v1.html">
+    <h3 title="trfmc_canonical_navigation_map_v1.html">trfmc_canonical_navigation_map_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 29644 bytes<br>
+      refs: 142 · url: /trfmc_canonical_navigation_map_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_canonical_navigation_map_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_orphan_quarantine_room_v1.html">
+    <h3 title="trfmc_orphan_quarantine_room_v1.html">trfmc_orphan_quarantine_room_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 7145 bytes<br>
+      refs: 36 · url: /trfmc_orphan_quarantine_room_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_orphan_quarantine_room_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_change_control_policy_v1.html">
+    <h3 title="trfmc_change_control_policy_v1.html">trfmc_change_control_policy_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 3496 bytes<br>
+      refs: 13 · url: /trfmc_change_control_policy_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_change_control_policy_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_orphan_triage_board_v1.html">
+    <h3 title="trfmc_orphan_triage_board_v1.html">trfmc_orphan_triage_board_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 12211 bytes<br>
+      refs: 56 · url: /trfmc_orphan_triage_board_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_orphan_triage_board_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_orphan_consolidation_dossier_v1.html">
+    <h3 title="trfmc_orphan_consolidation_dossier_v1.html">trfmc_orphan_consolidation_dossier_v1.html</h3>
+    <div><span class="badge">service</span></div>
+    <div class="meta">
+      size: 12411 bytes<br>
+      refs: 41 · url: /trfmc_orphan_consolidation_dossier_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_orphan_consolidation_dossier_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_pro_signal_intelligence_lab_v1.html">
+    <h3 title="trfmc_rf_pro_signal_intelligence_lab_v1.html">trfmc_rf_pro_signal_intelligence_lab_v1.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 3374 bytes<br>
+      refs: 18 · url: /trfmc_rf_pro_signal_intelligence_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_pro_signal_intelligence_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_pro_signal_intelligence_lab_v2.html">
+    <h3 title="trfmc_rf_pro_signal_intelligence_lab_v2.html">trfmc_rf_pro_signal_intelligence_lab_v2.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 3334 bytes<br>
+      refs: 18 · url: /trfmc_rf_pro_signal_intelligence_lab_v2.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_pro_signal_intelligence_lab_v2.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_pro_signal_intelligence_lab_v3_reality.html">
+    <h3 title="trfmc_rf_pro_signal_intelligence_lab_v3_reality.html">trfmc_rf_pro_signal_intelligence_lab_v3_reality.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 3432 bytes<br>
+      refs: 19 · url: /trfmc_rf_pro_signal_intelligence_lab_v3_reality.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="leaf_operational_candidate" data-name="trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html">
+    <h3 title="trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html">trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html</h3>
+    <div><span class="badge">leaf_operational_candidate</span></div>
+    <div class="meta">
+      size: 3311 bytes<br>
+      refs: 18 · url: /trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_instrument_design_system_lab_v1.html">
+    <h3 title="trfmc_instrument_design_system_lab_v1.html">trfmc_instrument_design_system_lab_v1.html</h3>
+    <div><span class="badge">service</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 3217 bytes<br>
+      refs: 7 · url: /trfmc_instrument_design_system_lab_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_instrument_design_system_lab_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>
+  <article class="module " data-class="service" data-name="trfmc_true_portal_command_deck_v1.html">
+    <h3 title="trfmc_true_portal_command_deck_v1.html">trfmc_true_portal_command_deck_v1.html</h3>
+    <div><span class="badge">service</span><span class="badge ok">WEBGL</span></div>
+    <div class="meta">
+      size: 4195 bytes<br>
+      refs: 14 · url: /trfmc_true_portal_command_deck_v1.html
+    </div>
+    <div class="moduleActions">
+      <a href="/trfmc_true_portal_command_deck_v1.html" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article></div>
+  </section>
+
+  <div class="footer">
+    TRFMC consolidation layer. Questa pagina non sostituisce la V6R3: la protegge e governa l'integrazione.
+  </div>
+</main>
+
+<script>
+let registry=null;
+let currentFilter='all';
+
+const priorityNames = [
+  'trfmc_official_safe_entrypoint_v6r3_command_center.html',
+  'rfpro_unified_console.html',
+  'trfmc_signal_intelligence_center_v1.html',
+  'trfmc_3d_rf_asset_renderer_webgl_v2r2_reality.html',
+  'trfmc_core_network_live_ops_bridge_v1.html',
+  'trfmc_rf_metrology_calibration_lab_v1.html',
+  'trfmc_antenna_system_explorer_STABLE_CLEAN_RECOVERY.html',
+  'trfmc_rf_microwave_engineering_v1.html',
+  'trfmc_portal_link_graph_v1.html'
+];
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+function badgeFor(x){
+  let arr=[];
+  arr.push(`<span class="badge">${esc(x.class)}</span>`);
+  if(x.webgl) arr.push('<span class="badge ok">WEBGL</span>');
+  if(x.core_api) arr.push('<span class="badge warn">API</span>');
+  if(x.has_iframe) arr.push('<span class="badge warn">IFRAME</span>');
+  if(x.external_refs) arr.push('<span class="badge bad">EXT</span>');
+  if(priorityNames.includes(x.name)) arr.push('<span class="badge violet">PRIORITY</span>');
+  return arr.join('');
+}
+
+function moduleCard(x, extra=''){
+  const official = x.class === 'official_shell' ? ' official' : '';
+  const priority = priorityNames.includes(x.name) ? ' priority' : '';
+  return `
+  <article class="module${official}${priority} ${extra}" data-class="${esc(x.class)}" data-name="${esc(x.name).toLowerCase()}">
+    <h3 title="${esc(x.name)}">${esc(x.name)}</h3>
+    <div>${badgeFor(x)}</div>
+    <div class="meta">
+      size: ${esc(x.size)} bytes<br>
+      refs: ${esc(x.refs_count)} · url: ${esc(x.url)}
+    </div>
+    <div class="moduleActions">
+      <a href="${esc(x.url)}" target="_blank">Apri</a>
+      <a href="/trfmc_portal_registry_unified.json" target="_blank">Registry</a>
+    </div>
+  </article>`;
+}
+
+function renderCounts(){
+  const c=registry.counts || {};
+  const labels=[
+    ['total_html','Totale HTML'],
+    ['official_shell','Official shell'],
+    ['service','Service'],
+    ['leaf_operational_candidate','Operativi'],
+    ['shell_or_legacy_container','Shell legacy'],
+    ['orphan_or_legacy_candidate','Orfani/legacy']
+  ];
+  document.getElementById('counts').innerHTML=labels.map(([k,label])=>`
+    <div class="count">
+      <small>${label}</small>
+      <b>${c[k] ?? 0}</b>
+    </div>
+  `).join('');
+}
+
+function applyFilters(){
+  const q=document.getElementById('search').value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll('.module')];
+  let visible=0;
+  cards.forEach(el=>{
+    const cls=el.dataset.class;
+    const name=el.dataset.name;
+    const okFilter=currentFilter==='all' || cls===currentFilter;
+    const okSearch=!q || name.includes(q) || cls.toLowerCase().includes(q);
+    const show=okFilter && okSearch;
+    el.classList.toggle('hidden',!show);
+    if(show) visible++;
+  });
+  document.getElementById('visibleCount').textContent=`visibili: ${visible}`;
+}
+
+function render(){
+  renderCounts();
+  const pages=registry.pages || [];
+  const priority=priorityNames
+    .map(n=>pages.find(p=>p.name===n))
+    .filter(Boolean);
+
+  document.getElementById('priority').innerHTML = priority.length
+    ? priority.map(x=>moduleCard(x)).join('')
+    : '<div class="card">Nessun modulo prioritario trovato nel registry.</div>';
+
+  document.getElementById('pages').innerHTML = pages.map(x=>moduleCard(x)).join('');
+  applyFilters();
+}
+
+async function boot(){
+  const r=await fetch('/trfmc_portal_registry_unified.json',{cache:'no-store'});
+  registry=await r.json();
+  render();
+
+  document.getElementById('search').addEventListener('input',applyFilters);
+  document.querySelectorAll('[data-filter]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      currentFilter=btn.dataset.filter;
+      applyFilters();
+    });
+  });
+}
+
+boot().catch(e=>{
+  document.body.innerHTML += '<pre style="color:#ff4f7b;padding:20px">'+esc(e.stack || e)+'</pre>';
+});
+</script>
+
+
+</body></html>

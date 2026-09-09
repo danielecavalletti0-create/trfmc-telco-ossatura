@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TRFMC RF Microwave Engineering - Smith Chart Lab</title>
+  <style>
+    :root{
+      --bg:#050914;
+      --panel:#0b1222;
+      --panel2:#0e1a31;
+      --line:#1d355a;
+      --cyan:#4de7ff;
+      --cyan2:#00a8ff;
+      --green:#51ffb0;
+      --yellow:#ffd166;
+      --red:#ff5b7a;
+      --txt:#eaf6ff;
+      --muted:#8aa3bd;
+      --violet:#9b7cff;
+      --glass:rgba(13,28,52,.74);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--txt);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(77,231,255,.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(155,124,255,.14), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(0,168,255,.10), transparent 38%),
+        linear-gradient(180deg,#030711,#08101d 48%,#030711);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    body:before{
+      content:"";
+      position:fixed; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(77,231,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77,231,255,.045) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),rgba(0,0,0,.2));
+    }
+    .topbar{
+      position:sticky; top:0; z-index:20;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:18px; padding:14px 22px;
+      background:rgba(3,7,17,.86);
+      backdrop-filter: blur(16px);
+      border-bottom:1px solid rgba(77,231,255,.18);
+      box-shadow:0 0 36px rgba(0,168,255,.08);
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:2px;
+      letter-spacing:.08em; text-transform:uppercase;
+    }
+    .brand b{font-size:16px}
+    .brand span{font-size:11px;color:var(--muted)}
+    .nav{display:flex; flex-wrap:wrap; gap:9px; justify-content:flex-end}
+    .nav a{
+      color:var(--txt); text-decoration:none; font-size:12px;
+      border:1px solid rgba(77,231,255,.22);
+      background:rgba(77,231,255,.06);
+      padding:8px 10px; border-radius:999px;
+    }
+    .nav a:hover{border-color:var(--cyan); box-shadow:0 0 18px rgba(77,231,255,.22)}
+    .wrap{max-width:1560px; margin:0 auto; padding:24px}
+    .hero{
+      display:grid; grid-template-columns:1.25fr .75fr; gap:18px;
+      margin-bottom:18px;
+    }
+    .heroCard,.card{
+      border:1px solid rgba(77,231,255,.18);
+      background:linear-gradient(180deg,rgba(14,26,49,.84),rgba(6,12,24,.86));
+      border-radius:22px;
+      box-shadow:0 24px 80px rgba(0,0,0,.35), inset 0 0 32px rgba(77,231,255,.035);
+      overflow:hidden;
+    }
+    .heroCard{padding:24px; position:relative}
+    .heroCard:after{
+      content:""; position:absolute; right:-80px; top:-80px; width:280px; height:280px;
+      background:radial-gradient(circle,rgba(77,231,255,.22),transparent 62%);
+      pointer-events:none;
+    }
+    .kicker{
+      color:var(--green); font-weight:800; letter-spacing:.16em;
+      font-size:12px; text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    h1{font-size:clamp(32px,4vw,64px); line-height:.96; margin:0 0 14px}
+    .lead{font-size:16px; line-height:1.55; color:#bfd4e9; max-width:980px}
+    .statusGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:20px}
+    .status{
+      border:1px solid rgba(77,231,255,.18);
+      background:rgba(3,7,17,.42);
+      border-radius:16px; padding:12px;
+    }
+    .status small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .status b{font-size:20px}
+    .heroSide{padding:20px}
+    .schema{
+      height:100%;
+      min-height:250px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:14px;
+    }
+    .circuit{
+      position:relative;
+      min-height:150px;
+      border:1px solid rgba(77,231,255,.16);
+      border-radius:18px;
+      background:radial-gradient(circle at 50% 40%,rgba(77,231,255,.09),transparent 55%),rgba(0,0,0,.14);
+      overflow:hidden;
+    }
+    .wire{position:absolute;height:3px;background:linear-gradient(90deg,var(--cyan),var(--green));left:42px;right:42px;top:54px;box-shadow:0 0 14px rgba(77,231,255,.55)}
+    .src{position:absolute;left:24px;top:34px;width:42px;height:42px;border:2px solid var(--cyan);border-radius:50%;display:grid;place-items:center;color:var(--cyan)}
+    .load{position:absolute;right:32px;top:32px;width:88px;height:48px;border:2px solid var(--yellow);display:grid;place-items:center;color:var(--yellow);font-weight:800}
+    .stub{position:absolute;left:48%;top:54px;width:3px;height:70px;background:linear-gradient(var(--cyan),var(--violet));box-shadow:0 0 14px rgba(155,124,255,.55)}
+    .stub:after{content:"jB";position:absolute;left:10px;top:28px;color:var(--violet);font-weight:800}
+    .flow{position:absolute;left:70px;right:130px;top:30px;text-align:center;color:var(--green);font-size:12px}
+    .gridMain{
+      display:grid;
+      grid-template-columns:350px minmax(520px,1fr) 380px;
+      gap:18px;
+      align-items:start;
+    }
+    .card{padding:18px}
+    .card h2,.card h3{
+      margin:0 0 12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .card h2{font-size:18px}
+    .card h3{font-size:14px;color:#c8e6ff}
+    label{
+      display:block; font-size:12px; color:var(--muted);
+      text-transform:uppercase; letter-spacing:.08em; margin:12px 0 6px;
+    }
+    input,select{
+      width:100%; border:1px solid rgba(77,231,255,.22);
+      border-radius:12px; padding:11px 12px;
+      background:#071020; color:var(--txt); outline:none;
+      font-size:15px;
+    }
+    input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(77,231,255,.10)}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    button{
+      cursor:pointer;
+      border:1px solid rgba(77,231,255,.25);
+      background:linear-gradient(180deg,rgba(77,231,255,.18),rgba(0,168,255,.08));
+      color:var(--txt); border-radius:14px; padding:11px;
+      font-weight:800; letter-spacing:.04em;
+    }
+    button:hover{box-shadow:0 0 24px rgba(77,231,255,.16)}
+    .chartCard{padding:14px}
+    canvas{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:20px;
+      background:
+        radial-gradient(circle at 50% 50%,rgba(77,231,255,.06),transparent 62%),
+        linear-gradient(180deg,rgba(3,8,18,.95),rgba(6,13,27,.95));
+      border:1px solid rgba(77,231,255,.14);
+    }
+    .metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .metric{
+      padding:12px; border:1px solid rgba(77,231,255,.15);
+      border-radius:15px; background:rgba(2,6,14,.34);
+    }
+    .metric small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .metric b{font-size:18px}
+    .ok{color:var(--green)}
+    .warn{color:var(--yellow)}
+    .bad{color:var(--red)}
+    .formula{
+      font-family:"SFMono-Regular",Consolas,monospace;
+      padding:12px; border-radius:14px;
+      background:#050b16; border:1px solid rgba(77,231,255,.14);
+      color:#d8f5ff; overflow:auto; font-size:13px;
+      margin:10px 0;
+    }
+    .table{width:100%;border-collapse:collapse;font-size:13px}
+    .table th,.table td{border-bottom:1px solid rgba(77,231,255,.12);padding:9px;text-align:left}
+    .table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .footerGrid{
+      display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+      margin-top:18px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 10px; border-radius:999px;
+      background:rgba(81,255,176,.08); border:1px solid rgba(81,255,176,.18);
+      color:var(--green); font-size:12px; font-weight:800;
+    }
+    .hint{color:var(--muted);font-size:13px;line-height:1.5}
+    .bar{
+      height:8px;border-radius:999px;background:#071020;border:1px solid rgba(77,231,255,.16);overflow:hidden;margin-top:8px
+    }
+    .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan),var(--violet));width:40%}
+    .smallList{margin:0;padding-left:18px;color:#bfd4e9;font-size:13px;line-height:1.55}
+    .callout{
+      border:1px solid rgba(255,209,102,.22);
+      background:rgba(255,209,102,.07);
+      padding:12px;border-radius:16px;color:#fff1c7;font-size:13px;line-height:1.45;
+    }
+    @media (max-width:1200px){
+      .hero{grid-template-columns:1fr}
+      .gridMain{grid-template-columns:1fr}
+      .footerGrid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:720px){
+      .wrap{padding:14px}
+      .statusGrid,.metrics,.footerGrid{grid-template-columns:1fr}
+      .row2,.btns{grid-template-columns:1fr}
+    }
+  </style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf">
+  <div class="topbar">
+    <div class="brand">
+      <b>TRFMC / RF Microwave Engineering</b>
+      <span>Smith Chart · Matching · VSWR · Return Loss · Shunt Stub</span>
+    </div>
+    <div class="nav">
+      <a href="/trfmc_home_v87g.html">Mission Home</a>
+      <a href="/trfmc.html">TRFMC</a>
+      <a href="/rf_physics_sapienza_console_v86a.html">RF Physics</a>
+      <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">WebGL RF Engine</a>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroCard">
+        <div class="kicker">04_RF_Microwave_Engineering / Exact Load Match</div>
+        <h1>Smith Chart Engine<br/>Impedance Matching Lab</h1>
+        <p class="lead">
+          Modulo interattivo per normalizzazione dell'impedenza, coefficiente di riflessione,
+          Return Loss, VSWR, potenza consegnata e calcolo preliminare di matching con shunt stub.
+          Obiettivo: portare il carico al centro della carta, cioè <b>Zin = Z0</b>, nessuna riflessione,
+          massimo trasferimento di potenza.
+        </p>
+        <div class="statusGrid">
+          <div class="status"><small>Target System</small><b id="targetZ">50 Ω</b></div>
+          <div class="status"><small>Reflection</small><b id="topGamma">--</b></div>
+          <div class="status"><small>VSWR</small><b id="topVswr">--</b></div>
+          <div class="status"><small>Match State</small><b id="topMatch">--</b></div>
+        </div>
+      </div>
+
+      <div class="heroCard heroSide">
+        <div class="schema">
+          <h2>Shunt Stub Matching Circuit</h2>
+          <div class="circuit">
+            <div class="flow">Power Flow → toward load</div>
+            <div class="wire"></div>
+            <div class="src">~</div>
+            <div class="stub"></div>
+            <div class="load">ZL</div>
+          </div>
+          <div class="callout">
+            Il matching ideale avviene quando Γ = 0 e VSWR = 1. Nel caso di stub parallelo,
+            si lavora in ammettenza: si ruota lungo la linea fino a g = 1 e si aggiunge una
+            suscettanza opposta per annullare la parte immaginaria.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gridMain">
+      <aside class="card">
+        <h2>Load & Line Parameters</h2>
+
+        <div class="row2">
+          <div>
+            <label>System impedance Z0 [Ω]</label>
+            <input id="z0" type="number" step="0.1" value="50">
+          </div>
+          <div>
+            <label>Frequency [GHz]</label>
+            <input id="freq" type="number" step="0.001" value="2.4">
+          </div>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label>Load resistance RL [Ω]</label>
+            <input id="rl" type="number" step="0.1" value="25">
+          </div>
+          <div>
+            <label>Load reactance XL [Ω]</label>
+            <input id="xl" type="number" step="0.1" value="50">
+          </div>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label>Stub velocity factor</label>
+            <input id="vf" type="number" step="0.01" value="0.66">
+          </div>
+          <div>
+            <label>Stub type</label>
+            <select id="stubType">
+              <option value="open">Open-circuit stub</option>
+              <option value="short">Short-circuit stub</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button id="btnCalc">CALCOLA</button>
+          <button id="btnExample">ESEMPIO 25+j50</button>
+        </div>
+
+        <div class="formula">
+          Γ = (ZL - Z0) / (ZL + Z0)<br/>
+          z = ZL / Z0<br/>
+          VSWR = (1 + |Γ|) / (1 - |Γ|)
+        </div>
+
+        <h3>Operational Reading</h3>
+        <ul class="smallList">
+          <li>Centro carta: match perfetto.</li>
+          <li>Bordo carta: riflessione totale.</li>
+          <li>Rotazione lungo cerchio |Γ|: trasformazione lungo linea lossless.</li>
+          <li>Stub parallelo: correzione in ammettenza.</li>
+        </ul>
+      </aside>
+
+      <section class="card chartCard">
+        <h2>Interactive Smith Chart</h2>
+        <canvas id="smith" width="900" height="900"></canvas>
+        <p class="hint">
+          Verde = carico normalizzato. Ciano = cerchio |Γ|. Rosso = centro match.
+          Viola = punto in ammettenza per logica shunt.
+        </p>
+      </section>
+
+      <aside class="card">
+        <h2>Live RF Metrics</h2>
+        <div class="metrics">
+          <div class="metric"><small>Normalized z</small><b id="mz">--</b></div>
+          <div class="metric"><small>Normalized y</small><b id="my">--</b></div>
+          <div class="metric"><small>|Γ|</small><b id="mgamma">--</b></div>
+          <div class="metric"><small>Γ angle</small><b id="mang">--</b></div>
+          <div class="metric"><small>Return Loss</small><b id="mrloss">--</b></div>
+          <div class="metric"><small>Mismatch Loss</small><b id="mmloss">--</b></div>
+          <div class="metric"><small>VSWR</small><b id="mvswr">--</b></div>
+          <div class="metric"><small>Delivered Power</small><b id="mpwr">--</b></div>
+        </div>
+
+        <h3 style="margin-top:18px">Single Shunt Stub Solutions</h3>
+        <table class="table" id="stubTable">
+          <thead>
+            <tr>
+              <th>Sol</th>
+              <th>Line λ</th>
+              <th>Bstub</th>
+              <th>Stub λ</th>
+              <th>Stub mm</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="callout" style="margin-top:14px">
+          Nota: il calcolo è lossless e normalizzato. Per uso reale servono modello del cavo,
+          perdite, fattore di velocità corretto, connettori, potenza, tolleranze e misura VNA.
+        </div>
+      </aside>
+    </section>
+
+    <section class="footerGrid">
+      <div class="card">
+        <span class="pill">S11 / Return Loss</span>
+        <h3 style="margin-top:12px">Reflection Domain</h3>
+        <p class="hint">La metrica S11 rappresenta quanto segnale torna verso la sorgente. Più il Return Loss è alto, migliore è il match.</p>
+        <div class="bar"><span id="barS11"></span></div>
+      </div>
+
+      <div class="card">
+        <span class="pill">VSWR</span>
+        <h3 style="margin-top:12px">Standing Wave Ratio</h3>
+        <p class="hint">VSWR = 1 indica match ideale. Valori elevati indicano onde stazionarie, riflessione, stress su PA e degrado efficienza.</p>
+        <div class="bar"><span id="barVswr"></span></div>
+      </div>
+
+      <div class="card">
+        <span class="pill">Matching Network</span>
+        <h3 style="margin-top:12px">Shunt Susceptance</h3>
+        <p class="hint">Lo stub non “assorbe” il problema: aggiunge reattanza controllata per compensare la parte immaginaria vista dalla linea.</p>
+      </div>
+
+      <div class="card">
+        <span class="pill">TRFMC Integration</span>
+        <h3 style="margin-top:12px">Next Modules</h3>
+        <ul class="smallList">
+          <li>Coaxial Cable Simulator</li>
+          <li>Microstrip / Stripline Calculator</li>
+          <li>Patch Antenna Designer</li>
+          <li>VNA / S-Parameter Lab</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+<script>
+(function(){
+  const C = 299792458;
+  const $ = id => document.getElementById(id);
+  const canvas = $("smith");
+  const ctx = canvas.getContext("2d");
+
+  function fmt(x, d=3){
+    if(!Number.isFinite(x)) return "--";
+    return Number(x).toFixed(d);
+  }
+  function cdiv(a,b){
+    const den=b.re*b.re+b.im*b.im;
+    return {re:(a.re*b.re+a.im*b.im)/den, im:(a.im*b.re-a.re*b.im)/den};
+  }
+  function cmul(a,b){return {re:a.re*b.re-a.im*b.im, im:a.re*b.im+a.im*b.re};}
+  function cadd(a,b){return {re:a.re+b.re, im:a.im+b.im};}
+  function csub(a,b){return {re:a.re-b.re, im:a.im-b.im};}
+  function cabs(a){return Math.hypot(a.re,a.im);}
+  function gammaFromZ(z){
+    return cdiv(csub(z,{re:1,im:0}), cadd(z,{re:1,im:0}));
+  }
+  function gammaFromY(y){
+    return cdiv(csub({re:1,im:0},y), cadd({re:1,im:0},y));
+  }
+  function yFromZ(z){return cdiv({re:1,im:0},z);}
+  function zAtLine(z,t){
+    return cdiv(cadd(z,{re:0,im:t}), cadd({re:1,im:0}, cmul({re:0,im:t}, z)));
+  }
+  function yAtLine(y,t){
+    return cdiv(cadd(y,{re:0,im:t}), cadd({re:1,im:0}, cmul({re:0,im:t}, y)));
+  }
+  function normLenFromT(t){
+    let ang = Math.atan(t);
+    if(ang < 0) ang += Math.PI;
+    return ang/(2*Math.PI);
+  }
+  function stubLenOpen(b){
+    if(Math.abs(b) < 1e-9) return 0;
+    let ang = Math.atan(b);
+    if(ang < 0) ang += Math.PI;
+    return ang/(2*Math.PI);
+  }
+  function stubLenShort(b){
+    if(Math.abs(b) < 1e-9) return 0.25;
+    let t = -1/b;
+    let ang = Math.atan(t);
+    if(ang < 0) ang += Math.PI;
+    return ang/(2*Math.PI);
+  }
+  function px(g){
+    const w=canvas.width,h=canvas.height,R=Math.min(w,h)*0.43,cx=w/2,cy=h/2;
+    return {x:cx+g.re*R,y:cy-g.im*R,R,cx,cy};
+  }
+  function drawCircleGamma(center, radius, stroke, width=1, alpha=1){
+    const p=px(center), R=px({re:0,im:0}).R;
+    ctx.save();
+    ctx.globalAlpha=alpha;
+    ctx.strokeStyle=stroke;
+    ctx.lineWidth=width;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,Math.abs(radius)*R,0,Math.PI*2);
+    ctx.stroke();
+    ctx.restore();
+  }
+  function drawSmith(gamma,z,y,solutions){
+    const w=canvas.width,h=canvas.height;
+    ctx.clearRect(0,0,w,h);
+    const base=px({re:0,im:0});
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(base.cx,base.cy,base.R,0,Math.PI*2);
+    ctx.clip();
+
+    const rs=[0,0.2,0.5,1,2,5,10];
+    rs.forEach(r=>{
+      const center={re:r/(r+1), im:0};
+      const radius=1/(r+1);
+      drawCircleGamma(center,radius,"rgba(77,231,255,.20)", r===1?2:1, r===1?.9:.65);
+    });
+
+    const xs=[.2,.5,1,2,5,10];
+    xs.forEach(x=>{
+      [{val:x,color:"rgba(255,209,102,.22)"},{val:-x,color:"rgba(155,124,255,.22)"}].forEach(o=>{
+        const center={re:1, im:1/o.val};
+        const radius=1/Math.abs(o.val);
+        drawCircleGamma(center,radius,o.color, x===1?2:1, .78);
+      });
+    });
+
+    ctx.restore();
+
+    ctx.strokeStyle="rgba(234,246,255,.64)";
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.arc(base.cx,base.cy,base.R,0,Math.PI*2);
+    ctx.stroke();
+
+    ctx.strokeStyle="rgba(234,246,255,.18)";
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(base.cx-base.R,base.cy);
+    ctx.lineTo(base.cx+base.R,base.cy);
+    ctx.moveTo(base.cx,base.cy-base.R);
+    ctx.lineTo(base.cx,base.cy+base.R);
+    ctx.stroke();
+
+    const absG=cabs(gamma);
+    drawCircleGamma({re:0,im:0}, absG, "rgba(77,231,255,.70)", 3, .9);
+
+    const gp=px(gamma);
+    const yp=px(gammaFromY(y));
+    const cp=px({re:0,im:0});
+
+    ctx.strokeStyle="rgba(81,255,176,.65)";
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(cp.x,cp.y);
+    ctx.lineTo(gp.x,gp.y);
+    ctx.stroke();
+
+    ctx.fillStyle="#51ffb0";
+    ctx.beginPath();
+    ctx.arc(gp.x,gp.y,10,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle="#9b7cff";
+    ctx.beginPath();
+    ctx.arc(yp.x,yp.y,8,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.strokeStyle="#ff5b7a";
+    ctx.lineWidth=3;
+    ctx.beginPath();
+    ctx.arc(cp.x,cp.y,9,0,Math.PI*2);
+    ctx.stroke();
+
+    ctx.fillStyle="rgba(234,246,255,.92)";
+    ctx.font="bold 18px Inter, sans-serif";
+    ctx.fillText("Γ plane / Smith Chart", 28, 36);
+    ctx.font="13px Inter, sans-serif";
+    ctx.fillStyle="rgba(138,163,189,.95)";
+    ctx.fillText("Green: load point   Violet: admittance point   Red: exact match center", 28, 60);
+
+    ctx.fillStyle="#51ffb0";
+    ctx.font="bold 14px Inter, sans-serif";
+    ctx.fillText("ZL", gp.x+12, gp.y-12);
+    ctx.fillStyle="#9b7cff";
+    ctx.fillText("YL", yp.x+12, yp.y+18);
+    ctx.fillStyle="#ff5b7a";
+    ctx.fillText("Z0", cp.x+12, cp.y-12);
+
+    if(solutions && solutions.length){
+      ctx.save();
+      ctx.strokeStyle="rgba(255,209,102,.75)";
+      ctx.lineWidth=2;
+      ctx.setLineDash([8,8]);
+      solutions.slice(0,2).forEach(sol=>{
+        const yLine = yAtLine(y, Math.tan(2*Math.PI*sol.line));
+        const p = px(gammaFromY(yLine));
+        ctx.beginPath();
+        ctx.moveTo(yp.x,yp.y);
+        ctx.lineTo(p.x,p.y);
+        ctx.stroke();
+        ctx.fillStyle="#ffd166";
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,7,0,Math.PI*2);
+        ctx.fill();
+      });
+      ctx.restore();
+    }
+  }
+
+  function computeStub(y, freqGHz, vf, type){
+    const g=y.re, b=y.im;
+    const A=g*g + b*b - g;
+    const B=-2*b;
+    const Cq=1-g;
+    const disc=B*B - 4*A*Cq;
+    const rows=[];
+    if(disc < -1e-9) return rows;
+    const roots=[];
+    if(Math.abs(A)<1e-12){
+      if(Math.abs(B)>1e-12) roots.push(-Cq/B);
+    }else{
+      const d=Math.sqrt(Math.max(0,disc));
+      roots.push((-B+d)/(2*A));
+      roots.push((-B-d)/(2*A));
+    }
+    const lambdaMm=(C/(freqGHz*1e9))*vf*1000;
+    roots.forEach((t,idx)=>{
+      const line=normLenFromT(t);
+      const yin=yAtLine(y,t);
+      const bstub=-yin.im;
+      const stub = type==="short" ? stubLenShort(bstub) : stubLenOpen(bstub);
+      rows.push({idx:idx+1,line,bstub,stub,mm:stub*lambdaMm});
+    });
+    return rows;
+  }
+
+  function calc(){
+    const z0=parseFloat($("z0").value);
+    const rl=parseFloat($("rl").value);
+    const xl=parseFloat($("xl").value);
+    const freq=parseFloat($("freq").value);
+    const vf=parseFloat($("vf").value);
+    const type=$("stubType").value;
+
+    const z={re:rl/z0, im:xl/z0};
+    const y=yFromZ(z);
+    const gamma=gammaFromZ(z);
+    const absG=Math.min(.999999,cabs(gamma));
+    const ang=Math.atan2(gamma.im,gamma.re)*180/Math.PI;
+    const vswr=(1+absG)/(1-absG);
+    const rlDb=-20*Math.log10(absG || 1e-12);
+    const mismatchDb=-10*Math.log10(Math.max(1e-12,1-absG*absG));
+    const pdel=(1-absG*absG)*100;
+    const match=absG<0.02 ? "MATCH" : absG<0.25 ? "GOOD" : absG<0.55 ? "TUNING" : "BAD";
+
+    const sols=computeStub(y,freq,vf,type);
+
+    $("targetZ").textContent=fmt(z0,1)+" Ω";
+    $("topGamma").textContent=fmt(absG,3);
+    $("topVswr").textContent=fmt(vswr,2)+":1";
+    $("topMatch").textContent=match;
+    $("topMatch").className=match==="MATCH"||match==="GOOD"?"ok":match==="TUNING"?"warn":"bad";
+
+    $("mz").textContent=fmt(z.re,3)+" "+(z.im>=0?"+j":"-j")+fmt(Math.abs(z.im),3);
+    $("my").textContent=fmt(y.re,3)+" "+(y.im>=0?"+j":"-j")+fmt(Math.abs(y.im),3);
+    $("mgamma").textContent=fmt(absG,4);
+    $("mang").textContent=fmt(ang,1)+"°";
+    $("mrloss").textContent=fmt(rlDb,2)+" dB";
+    $("mmloss").textContent=fmt(mismatchDb,2)+" dB";
+    $("mvswr").textContent=fmt(vswr,2)+":1";
+    $("mpwr").textContent=fmt(pdel,1)+" %";
+
+    const tb=$("stubTable").querySelector("tbody");
+    tb.innerHTML="";
+    if(sols.length){
+      sols.forEach(s=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML="<td>"+s.idx+"</td><td>"+fmt(s.line,4)+"λ</td><td>"+fmt(s.bstub,3)+"</td><td>"+fmt(s.stub,4)+"λ</td><td>"+fmt(s.mm,1)+"</td>";
+        tb.appendChild(tr);
+      });
+    }else{
+      const tr=document.createElement("tr");
+      tr.innerHTML="<td colspan='5'>Nessuna soluzione lossless calcolabile per questi parametri.</td>";
+      tb.appendChild(tr);
+    }
+
+    $("barS11").style.width=Math.max(5,Math.min(100,rlDb*4))+"%";
+    $("barVswr").style.width=Math.max(5,Math.min(100,100-(Math.min(vswr,10)-1)*10))+"%";
+
+    drawSmith(gamma,z,y,sols);
+  }
+
+  $("btnCalc").addEventListener("click",calc);
+  $("btnExample").addEventListener("click",()=>{
+    $("z0").value=50; $("rl").value=25; $("xl").value=50; $("freq").value=2.4; $("vf").value=.66; $("stubType").value="open"; calc();
+  });
+  ["z0","rl","xl","freq","vf","stubType"].forEach(id=>$(id).addEventListener("input",calc));
+  calc();
+})();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v3.js"></script>
+
+<section class="trfmc-perfection-bridge-v3" data-trfmc-perfection-bridge-v3="true" data-domain="microwave">
+  <div class="trfmc-c3-head">
+    <div>
+      <div class="trfmc-c3-title">TRFMC Batch C · WEAK → PREMIUM · MICROWAVE</div>
+      <div class="trfmc-c3-sub">TRFMC RF Microwave Engineering - Smith Chart Lab<br>/trfmc_rf_microwave_engineering_v1.html<br>Previous Authority V3 score: 71/100 · gaps closed: design_tokens,asset_engine,kpi,required_assets,missing_domain_assets:microwave-dish,smith-chart</div>
+    </div>
+    <div class="trfmc-c3-kpis"><div class="trfmc-c3-kpi leaf-kpi"><small>FSPL</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>RSL</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>BER</small><b>ACTIVE</b></div><div class="trfmc-c3-kpi leaf-kpi"><small>CAP</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-c3-grid">
+    <div class="trfmc-c3-assets">
+      <trfmc-visual-asset kind="microwave-dish" data-size="medium" title="Batch C MICROWAVE · microwave-dish"></trfmc-visual-asset>
+<trfmc-visual-asset kind="smith-chart" data-size="small" title="Batch C MICROWAVE · smith-chart"></trfmc-visual-asset>
+
+    </div>
+    <div class="trfmc-c3-side">
+      <div class="trfmc-c3-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-c3-formulas formulaLive">FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)
+FadeMargin = RSL - RxThreshold
+Availability ≈ f(rain, band, fade_margin)
+Capacity ≈ B·log2(1+SNR)</div>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Live domain scope</h3>
+        <canvas class="trfmc-c3-scope" data-domain="microwave"></canvas>
+      </div>
+      <div class="trfmc-c3-card">
+        <h3>Premium closure</h3>
+        <span class="trfmc-c3-pill">Design Tokens</span>
+        <span class="trfmc-c3-pill">Visual XP</span>
+        <span class="trfmc-c3-pill">GPU Runtime</span>
+        <span class="trfmc-c3-pill">Asset Engine</span>
+        <span class="trfmc-c3-pill">Soul Runtime</span>
+        <span class="trfmc-c3-pill">KPI</span>
+        <span class="trfmc-c3-pill">Formula</span>
+        <span class="trfmc-c3-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

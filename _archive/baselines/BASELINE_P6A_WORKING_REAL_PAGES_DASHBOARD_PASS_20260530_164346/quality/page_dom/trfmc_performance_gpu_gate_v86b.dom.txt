@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.86B · Performance GPU Binding Gate</title>
+  <link rel="stylesheet" href="/assets/trfmc_v086b_performance_gpu_gate.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-page="performance-gpu-gate-v86b" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <div id="pg86-root" class="pg86-root">
+    <header class="pg86-shellbar">
+      <div class="pg86-brand">
+        <span class="pg86-orb"></span>
+        <div>
+          <strong>TRFMC PERFORMANCE / GPU BINDING GATE</strong>
+          <small>v0.86B · misura prima di espandere · nessun overwrite</small>
+        </div>
+      </div>
+
+      <nav class="pg86-nav">
+        <a href="/rf_physics_sapienza_console_v86a.html">v86A RF Console</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">v85E Stable</a>
+        <a href="/sapienza_master_template_doctrine_v85a.html">Doctrine</a>
+        <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+      </nav>
+
+      <div class="pg86-status">
+        <span id="pg86Backend">Backend OK</span>
+        <span id="pg86Frontend">Frontend OK</span>
+        <span>No CDN</span>
+      </div>
+    </header>
+
+    <main class="pg86-main">
+      <section class="pg86-hero">
+        <div>
+          <p class="pg86-kicker">TRFMC v0.86B · FRAME BUDGET · GPU ROUTING · PORTAL PROMOTION GATE</p>
+          <h1>Performance GPU Binding Gate</h1>
+          <p>
+            Questo è il banco di misura prima di collegare tutto il portale: identifica renderer WebGL,
+            adapter WebGPU, FPS, frame-time, DPR, canvas backing size e qualità operativa.
+          </p>
+        </div>
+        <aside class="pg86-verdict">
+          <span>Runtime verdict</span>
+          <strong id="pg86Verdict">MEASURING</strong>
+          <small id="pg86VerdictDetail">attendi stabilizzazione frame</small>
+        </aside>
+      </section>
+
+      <section class="pg86-grid">
+        <article class="pg86-card pg86-card-wide">
+          <div class="pg86-card-head">
+            <h2>GPU Binding</h2>
+            <button type="button" id="pg86RefreshGpu">Refresh probe</button>
+          </div>
+          <div class="pg86-table">
+            <div><span>WebGL Vendor</span><strong id="pg86WebglVendor">—</strong></div>
+            <div><span>WebGL Renderer</span><strong id="pg86WebglRenderer">WebGL unavailable</strong></div>
+            <div><span>Unmasked Vendor</span><strong id="pg86UnmaskedVendor">—</strong></div>
+            <div><span>Unmasked Renderer</span><strong id="pg86UnmaskedRenderer">—</strong></div>
+            <div><span>WebGPU</span><strong id="pg86WebgpuStatus">No adapter</strong></div>
+            <div><span>WebGPU Adapter</span><strong id="pg86WebgpuAdapter">—</strong></div>
+          </div>
+        </article>
+
+        <article class="pg86-card">
+          <h2>Frame Budget</h2>
+          <div class="pg86-big"><span>FPS</span><strong id="pg86Fps">—</strong></div>
+          <div class="pg86-table compact">
+            <div><span>Frame avg</span><strong id="pg86FrameAvg">—</strong></div>
+            <div><span>Frame max</span><strong id="pg86FrameMax">—</strong></div>
+            <div><span>Frame min</span><strong id="pg86FrameMin">—</strong></div>
+            <div><span>Dropped frames</span><strong id="pg86Dropped">—</strong></div>
+          </div>
+        </article>
+
+        <article class="pg86-card">
+          <h2>Canvas Discipline</h2>
+          <div class="pg86-table compact">
+            <div><span>DPR</span><strong id="pg86Dpr">1.00 / cap 1.00</strong></div>
+            <div><span>CSS size</span><strong id="pg86CssSize">1373 × 460</strong></div>
+            <div><span>Backing size</span><strong id="pg86BackingSize">1373 × 460</strong></div>
+            <div><span>Quality</span><strong id="pg86QualityReadout">BALANCED</strong></div>
+          </div>
+          <div class="pg86-modebar">
+            <button type="button" data-quality="safe">Safe</button>
+            <button type="button" data-quality="balanced" class="is-active">Balanced</button>
+            <button type="button" data-quality="supreme">Supreme</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="pg86-bench">
+        <div class="pg86-bench-head">
+          <div>
+            <h2>Instrumented Canvas Load</h2>
+            <p>Carico sintetico controllato: non rappresenta tutta la piattaforma, ma misura stabilità frame e scalabilità canvas.</p>
+          </div>
+          <div class="pg86-bench-actions">
+            <button type="button" id="pg86Pause">Pause</button>
+            <button type="button" id="pg86Reset">Reset stats</button>
+            <button type="button" id="pg86Export">Export JSON</button>
+          </div>
+        </div>
+        <div class="pg86-canvas-wrap">
+          <canvas id="pg86Canvas" width="1373" height="460"></canvas>
+          <div class="pg86-overlay">
+            <span id="pg86OverlayRenderer">WebGL unavailable</span>
+            <span id="pg86OverlayBudget">canvas 1373×460 · balanced</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="pg86-portal-gate">
+        <article>
+          <h2>Gate 01 · Stabilità</h2>
+          <p>La pagina può essere promossa solo se resta sopra 50 FPS in Balanced e non produce jank evidente.</p>
+        </article>
+        <article>
+          <h2>Gate 02 · GPU routing</h2>
+          <p>Se WebGL resta Intel, nessun problema immediato; ma per WebGPU/4D Supreme va preferita NVIDIA.</p>
+        </article>
+        <article>
+          <h2>Gate 03 · Design system</h2>
+          <p>Ogni pagina dovrà usare shell, token, griglia e scoping; niente patch globali.</p>
+        </article>
+        <article>
+          <h2>Gate 04 · Teoria</h2>
+          <p>Ogni modulo deve avere catena: fenomeno fisico, formula, strumento, evidenza, diagnosi.</p>
+        </article>
+      </section>
+
+      <section class="pg86-roadmap">
+        <h2>Portal Integration Sequence</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Fase</th>
+              <th>Oggetto</th>
+              <th>Output</th>
+              <th>Rischio</th>
+              <th>Stato</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>v86B</td>
+              <td>Performance / GPU gate</td>
+              <td>Metriche runtime e renderer</td>
+              <td>Basso</td>
+              <td>In corso</td>
+            </tr>
+            <tr>
+              <td>v86C</td>
+              <td>Portal registry</td>
+              <td>Mappa pagine, ruoli, priorità, stato</td>
+              <td>Basso</td>
+              <td>Prossimo</td>
+            </tr>
+            <tr>
+              <td>v86D</td>
+              <td>Master shell</td>
+              <td>Navigazione unica, footer unico, design tokens</td>
+              <td>Medio</td>
+              <td>Staged</td>
+            </tr>
+            <tr>
+              <td>v86E</td>
+              <td>Theory knowledge spine</td>
+              <td>Indice teoria RF/TLC/5G con formule e strumenti</td>
+              <td>Medio</td>
+              <td>Staged</td>
+            </tr>
+            <tr>
+              <td>v87A</td>
+              <td>Promotion batch</td>
+              <td>Applicazione template a 3 pagine candidate</td>
+              <td>Alto</td>
+              <td>Solo dopo gate</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="pg86-footer">
+      TRFMC v0.86B · Performance GPU Binding Gate · scoped · v86A/v85E preserved · no backend change
+    </footer>
+  </div>
+
+  <script defer="" src="/assets/trfmc_v086b_performance_gpu_gate.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC v0.86B · Performance GPU Binding Gate<br>/trfmc_performance_gpu_gate_v86b.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> Performance GPU Binding Gate</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>TRFMC v0.86F · Design Token Audit</title>
+  <link rel="stylesheet" href="/assets/trfmc_v086f_design_token_audit.css">
+  <script defer="" src="/assets/trfmc_v086f_design_token_audit.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-page="design-token-audit-v86f" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <main class="dt86-shell">
+    <header class="dt86-topbar">
+      <section class="dt86-brand">
+        <span class="dt86-orb"></span>
+        <div>
+          <strong>TRFMC DESIGN TOKEN AUDIT</strong>
+          <small>v0.86F · shell cohesion · style risk · promotion readiness</small>
+        </div>
+      </section>
+      <nav class="dt86-nav">
+        <a href="/trfmc_unified_shell_noiframe_v86d_r1.html">Shell v86D-R1</a>
+        <a href="/trfmc_theory_spine_v86e.html">Theory v86E</a>
+        <a href="/rf_physics_sapienza_console_v86a.html">RF v86A</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Stable v85E</a>
+      </nav>
+      <section class="dt86-status">
+        <b id="dt86-health">READY</b>
+        <span>token audit</span>
+      </section>
+    </header>
+
+    <section class="dt86-hero">
+      <div>
+        <p class="dt86-kicker">TRFMC v0.86F · DESIGN TOKEN GOVERNANCE · NO MORE BLIND RESTYLE</p>
+        <h1>Design Token Audit</h1>
+        <p>
+          Questa pagina misura la disciplina visiva del portale: palette, font, radius, shadow,
+          selettori globali, pagine legacy, iframe, CDN e rischio di contaminazione. Da qui in poi
+          il design non si corregge più a sentimento: si promuove per evidenza.
+        </p>
+      </div>
+      <aside>
+        <span>DESIGN READINESS</span>
+        <strong id="dt86-score">36%</strong>
+        <small id="dt86-score-text">token discipline</small>
+      </aside>
+    </section>
+
+    <section class="dt86-kpis">
+      <article><span>HTML pages</span><strong id="k-html">67</strong></article>
+      <article><span>CSS files</span><strong id="k-css">83</strong></article>
+      <article><span>Unique colors</span><strong id="k-colors">940</strong></article>
+      <article><span>CSS high risk</span><strong id="k-css-risk">77</strong></article>
+      <article><span>HTML high risk</span><strong id="k-html-risk">19</strong></article>
+    </section>
+
+    <section class="dt86-grid">
+      <article class="dt86-panel">
+        <h2>Master Palette</h2>
+        <div id="colorGrid" class="dt86-token-grid">
+      <div class="dt86-color" style="background:#42f56f">
+        <b>#42f56f · 146</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#8ff0ff">
+        <b>#8ff0ff · 144</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.18)">
+        <b>rgba(143,240,255,.18) · 113</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#fbbf24">
+        <b>#fbbf24 · 88</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.045)">
+        <b>rgba(143,240,255,.045) · 80</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#ff3b5c">
+        <b>#ff3b5c · 64</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.10)">
+        <b>rgba(143,240,255,.10) · 63</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.22)">
+        <b>rgba(143,240,255,.22) · 62</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.20)">
+        <b>rgba(143,240,255,.20) · 59</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#020713">
+        <b>#020713 · 54</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.035)">
+        <b>rgba(143,240,255,.035) · 53</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.28)">
+        <b>rgba(143,240,255,.28) · 50</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.16)">
+        <b>rgba(143,240,255,.16) · 49</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#01040b">
+        <b>#01040b · 49</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#58d6f9">
+        <b>#58d6f9 · 45</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.12)">
+        <b>rgba(143,240,255,.12) · 41</b>
+      </div>
+    
+      <div class="dt86-color" style="background:rgba(143,240,255,.30)">
+        <b>rgba(143,240,255,.30) · 39</b>
+      </div>
+    
+      <div class="dt86-color" style="background:#3fb950">
+        <b>#3fb950 · 39</b>
+      </div>
+    </div>
+      </article>
+      <article class="dt86-panel">
+        <h2>Font Families</h2>
+        <div id="fontGrid" class="dt86-list">
+      <div>inherit · 13</div>
+    
+      <div>ui-monospace,SFMono-Regular,Menlo,Consolas,monospace · 7</div>
+    
+      <div>ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace · 6</div>
+    
+      <div>ui-monospace,SFMono-Regular,Menlo,Consolas,monospace} body{ background: radial-gradient(circle at 10% 0%,rgba(143,240,255,.14),transparent 30%), radial-gradient(circle at 86% 8%,rgba(66,245,111,.08),transparent 34%), linear-gradient(180deg,#020713,#01030a 84%) · 5</div>
+    
+      <div>ui-monospace,SFMono-Regular,Menlo,Consolas,monospace} body{ background: radial-gradient(circle at 10% 0%,rgba(143,240,255,.17),transparent 28%), radial-gradient(circle at 84% 8%,rgba(66,245,111,.12),transparent 32%), radial-gradient(circle at 50% 110%,rgba(46,167,255,.12),transparent 45%), linear-gradient(180deg,#020713,#01030a 82%) · 3</div>
+    
+      <div>ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace · 2</div>
+    
+      <div>Consolas,monospace · 2</div>
+    
+      <div>Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif · 2</div>
+    </div>
+      </article>
+      <article class="dt86-panel">
+        <h2>Radius / Depth</h2>
+        <div id="radiusGrid" class="dt86-list">
+      <div>999px · 200</div>
+    
+      <div>50% · 98</div>
+    
+      <div>18px · 75</div>
+    
+      <div>14px · 54</div>
+    
+      <div>16px · 52</div>
+    
+      <div>22px · 49</div>
+    
+      <div>24px · 42</div>
+    
+      <div>26px · 29</div>
+    </div>
+      </article>
+    </section>
+
+    <section class="dt86-control">
+      <article>
+        <h2>Search</h2>
+        <input id="searchBox" placeholder="cerca file, rischio, CSS, HTML, v85, v86, iframe, global...">
+      </article>
+      <article>
+        <h2>Risk Filter</h2>
+        <div class="dt86-buttons" id="riskButtons">
+          <button class="active" data-risk="ALL">All</button>
+          <button data-risk="HIGH">High</button>
+          <button data-risk="LOW">Low</button>
+        </div>
+      </article>
+      <article>
+        <h2>Doctrine</h2>
+        <code>inventory → token audit → scoped shell → theory spine → small promotion batch</code>
+      </article>
+    </section>
+
+    <section class="dt86-main">
+      <article class="dt86-table-panel">
+        <div class="dt86-section-head">
+          <h2>CSS Token Registry</h2>
+          <span id="cssCount">83 files</span>
+        </div>
+        <div class="dt86-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Risk</th>
+                <th>CSS file</th>
+                <th>Colors</th>
+                <th>Fonts</th>
+                <th>Radius</th>
+                <th>Scoped</th>
+                <th>Global hits</th>
+                <th>External</th>
+              </tr>
+            </thead>
+            <tbody id="cssTable">
+      <tr data-i="0">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_component_object_integration_v77.css</strong><br><small>8.6 KB</small></td>
+        <td>57/74</td>
+        <td>0</td>
+        <td>15</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="1">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_digital_twin_redesign_v74.css</strong><br><small>3.2 KB</small></td>
+        <td>22/24</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>19</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="2">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_enterprise_shell_v34.css</strong><br><small>3.7 KB</small></td>
+        <td>33/42</td>
+        <td>0</td>
+        <td>6</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="3">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_enterprise_theme_v32.css</strong><br><small>5.7 KB</small></td>
+        <td>49/60</td>
+        <td>1</td>
+        <td>7</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="4">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_content_consolidation_v44.css</strong><br><small>4.2 KB</small></td>
+        <td>29/37</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="5">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_enterprise_ops_v59.css</strong><br><small>6.3 KB</small></td>
+        <td>50/58</td>
+        <td>1</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="6">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_evidence_overlay_v42.css</strong><br><small>4.1 KB</small></td>
+        <td>27/38</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="7">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_final_alignment_v53.css</strong><br><small>5.5 KB</small></td>
+        <td>21/22</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="8">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_final_spatial_calibration_v58.css</strong><br><small>6.2 KB</small></td>
+        <td>4/4</td>
+        <td>0</td>
+        <td>2</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="9">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_holographic_globe_v57.css</strong><br><small>6.9 KB</small></td>
+        <td>34/39</td>
+        <td>0</td>
+        <td>7</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="10">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_instrument_cluster_v46.css</strong><br><small>6.9 KB</small></td>
+        <td>48/66</td>
+        <td>0</td>
+        <td>8</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="11">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_layout_stability_v47.css</strong><br><small>3.8 KB</small></td>
+        <td>18/19</td>
+        <td>1</td>
+        <td>3</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="12">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_navigation_hub_v43.css</strong><br><small>4.1 KB</small></td>
+        <td>28/36</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="13">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_next_v54.css</strong><br><small>16.1 KB</small></td>
+        <td>78/107</td>
+        <td>3</td>
+        <td>21</td>
+        <td>0</td>
+        <td>22</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="14">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_release_milestone_v50.css</strong><br><small>7.5 KB</small></td>
+        <td>51/70</td>
+        <td>0</td>
+        <td>9</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="15">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_rf_signal_intel_v49.css</strong><br><small>7.9 KB</small></td>
+        <td>53/75</td>
+        <td>0</td>
+        <td>8</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="16">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_scenario_command_v48.css</strong><br><small>7 KB</small></td>
+        <td>39/63</td>
+        <td>2</td>
+        <td>7</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="17">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_spatial_command_v55.css</strong><br><small>10.8 KB</small></td>
+        <td>80/115</td>
+        <td>0</td>
+        <td>6</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="18">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_spatial_micro_polish_v56.css</strong><br><small>8.1 KB</small></td>
+        <td>47/52</td>
+        <td>0</td>
+        <td>10</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="19">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_visual_correction_v52.css</strong><br><small>6.7 KB</small></td>
+        <td>6/6</td>
+        <td>0</td>
+        <td>2</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="20">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_visual_depth_v45.css</strong><br><small>7.6 KB</small></td>
+        <td>55/66</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="21">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_visual_polish_v41.css</strong><br><small>7.9 KB</small></td>
+        <td>51/65</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="22">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_executive_visual_refinement_v51.css</strong><br><small>6.2 KB</small></td>
+        <td>29/32</td>
+        <td>1</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="23">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_field_engineering_v64.css</strong><br><small>7.1 KB</small></td>
+        <td>35/70</td>
+        <td>1</td>
+        <td>17</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="24">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_field_telemetry_v65.css</strong><br><small>2 KB</small></td>
+        <td>20/28</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>13</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="25">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_full_portal_object_completion_v78.css</strong><br><small>9.2 KB</small></td>
+        <td>62/85</td>
+        <td>0</td>
+        <td>17</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="26">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_infrastructure_digital_twin_v63.css</strong><br><small>7 KB</small></td>
+        <td>60/85</td>
+        <td>3</td>
+        <td>15</td>
+        <td>0</td>
+        <td>17</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="27">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_infrastructure_visual_upgrade_v63b.css</strong><br><small>9.5 KB</small></td>
+        <td>66/101</td>
+        <td>0</td>
+        <td>7</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="28">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_knowledge_modules_v61.css</strong><br><small>4.4 KB</small></td>
+        <td>40/58</td>
+        <td>1</td>
+        <td>15</td>
+        <td>0</td>
+        <td>4</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="29">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_knowledge_os_v60.css</strong><br><small>4.4 KB</small></td>
+        <td>40/53</td>
+        <td>1</td>
+        <td>14</td>
+        <td>0</td>
+        <td>13</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="30">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_master_shell_v75.css</strong><br><small>5.6 KB</small></td>
+        <td>29/32</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="31">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_object_definition_surfaces_v70b.css</strong><br><small>10 KB</small></td>
+        <td>54/57</td>
+        <td>0</td>
+        <td>13</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="32">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_object_stack_governance_v79.css</strong><br><small>5.4 KB</small></td>
+        <td>12/13</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="33">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_rf_propagation_sandbox_v62.css</strong><br><small>7.1 KB</small></td>
+        <td>55/83</td>
+        <td>2</td>
+        <td>18</td>
+        <td>0</td>
+        <td>14</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="34">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_rf_propagation_visual_upgrade_v62b.css</strong><br><small>6.5 KB</small></td>
+        <td>55/74</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="35">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_rf_telco_component_library_v76.css</strong><br><small>11.7 KB</small></td>
+        <td>62/100</td>
+        <td>1</td>
+        <td>18</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="36">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_seasonal_vegetation_clutter_v68.css</strong><br><small>9.5 KB</small></td>
+        <td>72/88</td>
+        <td>1</td>
+        <td>14</td>
+        <td>0</td>
+        <td>22</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="37">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_surgical_visual_remediation_v72.css</strong><br><small>8.4 KB</small></td>
+        <td>47/55</td>
+        <td>0</td>
+        <td>14</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="38">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_ue_handover_dynamics_v69.css</strong><br><small>7.3 KB</small></td>
+        <td>52/63</td>
+        <td>1</td>
+        <td>10</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="39">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_ue_handover_redesign_v74.css</strong><br><small>3.9 KB</small></td>
+        <td>22/26</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="40">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_unified_enterprise_shell_v70.css</strong><br><small>9.6 KB</small></td>
+        <td>69/77</td>
+        <td>0</td>
+        <td>10</td>
+        <td>0</td>
+        <td>21</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="41">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_urban_shadowing_v67.css</strong><br><small>0.6 KB</small></td>
+        <td>5/6</td>
+        <td>0</td>
+        <td>2</td>
+        <td>0</td>
+        <td>4</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="42">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v081a_vegetation_surgical.css</strong><br><small>12.5 KB</small></td>
+        <td>89/114</td>
+        <td>1</td>
+        <td>21</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="43">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v081b_vegetation_cinematic_refinement.css</strong><br><small>6.4 KB</small></td>
+        <td>50/59</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="44">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v081c_r2_physics_visual.css</strong><br><small>5.2 KB</small></td>
+        <td>53/56</td>
+        <td>0</td>
+        <td>2</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="45">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v082a_native_webgl_rf_lab.css</strong><br><small>10.4 KB</small></td>
+        <td>84/101</td>
+        <td>1</td>
+        <td>19</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="46">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v082b_native_webgl_rf_refinement.css</strong><br><small>11.7 KB</small></td>
+        <td>90/111</td>
+        <td>1</td>
+        <td>20</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="47">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v082c_mission_replay_sector_diagnostics.css</strong><br><small>6.3 KB</small></td>
+        <td>39/47</td>
+        <td>0</td>
+        <td>9</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="48">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v082c_r2_mission_replay_layout_fix.css</strong><br><small>4.7 KB</small></td>
+        <td>26/29</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="49">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v083a_rf_physics_calibrated_4d.css</strong><br><small>12.7 KB</small></td>
+        <td>95/121</td>
+        <td>1</td>
+        <td>21</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="50">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v083b_rf_precision_scale_probe.css</strong><br><small>18.3 KB</small></td>
+        <td>111/172</td>
+        <td>1</td>
+        <td>28</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="51">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v083c_rf_sanity_sinr_calibration.css</strong><br><small>20.3 KB</small></td>
+        <td>114/189</td>
+        <td>1</td>
+        <td>30</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="52">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v083d_instrument_link_budget.css</strong><br><small>5 KB</small></td>
+        <td>37/41</td>
+        <td>0</td>
+        <td>9</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="53">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v083e_instrument_readability_vector.css</strong><br><small>4 KB</small></td>
+        <td>34/38</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="54">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v083f_dual_instrument_profile.css</strong><br><small>4.2 KB</small></td>
+        <td>27/35</td>
+        <td>0</td>
+        <td>6</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="55">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084a_rf_tm_supreme_console.css</strong><br><small>7.4 KB</small></td>
+        <td>58/68</td>
+        <td>1</td>
+        <td>17</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="56">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084b_rf_sapienza_console.css</strong><br><small>8.4 KB</small></td>
+        <td>65/73</td>
+        <td>1</td>
+        <td>16</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="57">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084c_rf_sapienza_console_r2.css</strong><br><small>12.6 KB</small></td>
+        <td>91/112</td>
+        <td>1</td>
+        <td>19</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="58">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084d_rf_truth_palette_masterclass.css</strong><br><small>16.5 KB</small></td>
+        <td>109/150</td>
+        <td>1</td>
+        <td>22</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="59">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084e_rf_instrument_truth_view.css</strong><br><small>8.6 KB</small></td>
+        <td>65/75</td>
+        <td>1</td>
+        <td>17</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="60">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084f_rf_dark_field_discipline.css</strong><br><small>11.3 KB</small></td>
+        <td>80/101</td>
+        <td>1</td>
+        <td>17</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="61">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084g_rf_topographic_instrument_view.css</strong><br><small>13.7 KB</small></td>
+        <td>92/123</td>
+        <td>1</td>
+        <td>17</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="62">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084h_rf_atlas_instrument_view.css</strong><br><small>16.8 KB</small></td>
+        <td>107/149</td>
+        <td>1</td>
+        <td>18</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="63">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084i_rf_vector_cartography.css</strong><br><small>19.1 KB</small></td>
+        <td>118/173</td>
+        <td>1</td>
+        <td>18</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="64">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084j_rf_4d_measurement_theater.css</strong><br><small>4.1 KB</small></td>
+        <td>37/37</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="65">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084k_rf_sapienza_layer_director.css</strong><br><small>3.6 KB</small></td>
+        <td>28/32</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="66">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084l_rf_sapienza_director_cockpit.css</strong><br><small>4.6 KB</small></td>
+        <td>33/34</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="67">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v084m_rf_sapienza_production_baseline.css</strong><br><small>5.3 KB</small></td>
+        <td>38/40</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="68">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v085a_sapienza_master_template_doctrine.css</strong><br><small>5.3 KB</small></td>
+        <td>44/50</td>
+        <td>1</td>
+        <td>8</td>
+        <td>0</td>
+        <td>24</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="69">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v085b_rf_physics_sapienza_baseline.css</strong><br><small>5.8 KB</small></td>
+        <td>50/56</td>
+        <td>0</td>
+        <td>6</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="70">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v085c_rf_physics_identity_fix.css</strong><br><small>3.4 KB</small></td>
+        <td>27/28</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0</td>
+        <td>16</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="71">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v085d_rf_physics_runtime_identity_lock.css</strong><br><small>3 KB</small></td>
+        <td>21/22</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0</td>
+        <td>14</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="72">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_v085e_rf_physics_viewport_discipline.css</strong><br><small>5.3 KB</small></td>
+        <td>24/25</td>
+        <td>0</td>
+        <td>4</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="73">
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>assets/trfmc_v086a_scoped_rf_physics_sapienza.css</strong><br><small>16.2 KB</small></td>
+        <td>57/71</td>
+        <td>1</td>
+        <td>16</td>
+        <td>122</td>
+        <td>0</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="74">
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>assets/trfmc_v086b_performance_gpu_gate.css</strong><br><small>9.2 KB</small></td>
+        <td>37/43</td>
+        <td>1</td>
+        <td>8</td>
+        <td>67</td>
+        <td>0</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="75">
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>assets/trfmc_v086c_portal_registry.css</strong><br><small>9 KB</small></td>
+        <td>34/41</td>
+        <td>1</td>
+        <td>7</td>
+        <td>71</td>
+        <td>0</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="76">
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>assets/trfmc_v086c_r1_portal_registry.css</strong><br><small>9.1 KB</small></td>
+        <td>34/41</td>
+        <td>1</td>
+        <td>7</td>
+        <td>72</td>
+        <td>0</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="77">
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>assets/trfmc_v086d_r1_noiframe_route_console.css</strong><br><small>11.5 KB</small></td>
+        <td>41/48</td>
+        <td>1</td>
+        <td>11</td>
+        <td>85</td>
+        <td>0</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="78">
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>assets/trfmc_v086e_theory_spine.css</strong><br><small>10.7 KB</small></td>
+        <td>46/74</td>
+        <td>2</td>
+        <td>18</td>
+        <td>91</td>
+        <td>0</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="79">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_visual_chaos_containment_v72b.css</strong><br><small>6.4 KB</small></td>
+        <td>18/20</td>
+        <td>0</td>
+        <td>5</td>
+        <td>0</td>
+        <td>20</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="80">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_visual_dependency_hygiene_v73a.css</strong><br><small>2.5 KB</small></td>
+        <td>8/8</td>
+        <td>0</td>
+        <td>3</td>
+        <td>0</td>
+        <td>11</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="81">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_visual_qa_matrix_v71.css</strong><br><small>7.3 KB</small></td>
+        <td>56/70</td>
+        <td>1</td>
+        <td>14</td>
+        <td>0</td>
+        <td>23</td>
+        <td>NO</td>
+      </tr>
+    
+      <tr data-i="82">
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>assets/trfmc_webgl_rf_heatmap_v66.css</strong><br><small>4.9 KB</small></td>
+        <td>37/59</td>
+        <td>3</td>
+        <td>13</td>
+        <td>0</td>
+        <td>13</td>
+        <td>NO</td>
+      </tr>
+    </tbody>
+          </table>
+        </div>
+      </article>
+
+      <aside class="dt86-detail">
+        <h2>Selected Evidence</h2>
+        <div id="detailBox" class="dt86-detail-card">
+      <div>
+        <strong>assets/trfmc_component_object_integration_v77.css</strong>
+        <p>Risk: HIGH · size 8.6 KB · scoped selectors 0</p>
+      </div>
+      <div>
+        <h2>Evidence</h2>
+        <code>{
+  "unique_colors": 57,
+  "colors_count": 74,
+  "fonts": 0,
+  "radius": 15,
+  "shadows": 10,
+  "external_refs": false
+}</code>
+      </div>
+      <div>
+        <h2>Selector findings</h2>
+        <code>L12: body.v77-object-integrated {
+L26: body.trfmc-preview-embedded .v77-system-map {
+L31: .v77-object-stack {
+L47: .v77-stack-head {
+L55: .v77-stack-head h2 {
+L63: .v77-stack-head p {
+L71: .v77-stack-head a {
+L83: .v77-object-row {
+L89: .v77-object-card {
+L104: .v77-object-card[data-critical="true"] {
+L108: .v77-object-visual {
+L122: .v77-object-card h3 {
+L128: .v77-object-card p {
+L135: .v77-object-card small {
+L149: .v77-system-map {
+L162: .v77-map-title {
+L171: .v77-map-flow {
+L177: .v77-map-node {
+L189: .v77-map-node::after {
+L199: .v77-map-node:last-child::after {</code>
+      </div>
+      <div>
+        <h2>Correction doctrine</h2>
+        <code>Convertire progressivamente a [data-trfmc-page='...'] .classe; vietati patch globali e restyle a strascico.</code>
+      </div>
+    </div>
+      </aside>
+    </section>
+
+    <section class="dt86-main">
+      <article class="dt86-table-panel dt86-wide">
+        <div class="dt86-section-head">
+          <h2>HTML Route Risk Registry</h2>
+          <span id="htmlCount">67 pages</span>
+        </div>
+        <div class="dt86-table-wrap dt86-table-short">
+          <table>
+            <thead>
+              <tr>
+                <th>Risk</th>
+                <th>HTML page</th>
+                <th>Generation</th>
+                <th>Iframe/API</th>
+                <th>External</th>
+                <th>Inline style</th>
+                <th>Scripts</th>
+                <th>CSS links</th>
+              </tr>
+            </thead>
+            <tbody id="htmlTable">
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>evidence_vault_console_v20.html</strong><br><small>8.3 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>executive_mission_dashboard_v40.html</strong><br><small>43.9 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>1</td>
+        <td>15</td>
+        <td>15</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>executive_mission_dashboard_v_next.html</strong><br><small>12.9 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>7</td>
+        <td>7</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>field_engineering_mode_v64.html</strong><br><small>5.2 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>global_mission_scenario_launcher_v39.html</strong><br><small>15 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>infrastructure_digital_twin_v63.html</strong><br><small>5.4 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>mission_graph_console_v15.html</strong><br><small>10.4 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>network_journey_world_map_v37.html</strong><br><small>14.1 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>observability_console_v13.html</strong><br><small>8.7 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>operational_backup_console_v21.html</strong><br><small>7.7 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>operator_handbook_console_v23.html</strong><br><small>11.2 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>portal_index_v19.html</strong><br><small>18.9 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>2</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>restore_readiness_console_v22.html</strong><br><small>7.4 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>rf_instrumentation_signal_cockpit_v38.html</strong><br><small>16.3 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_physics_sapienza_console_v86a.html</strong><br><small>9.8 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_propagation_sandbox_v62.html</strong><br><small>5.5 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84b.html</strong><br><small>6.8 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84c.html</strong><br><small>6.8 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84d.html</strong><br><small>6.9 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84e.html</strong><br><small>7.5 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84f.html</strong><br><small>7.6 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84g.html</strong><br><small>7.7 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84h.html</strong><br><small>7.7 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84i.html</strong><br><small>7.8 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84j.html</strong><br><small>8 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84k.html</strong><br><small>8.2 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84l.html</strong><br><small>8.4 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_sapienza_console_v84m.html</strong><br><small>8.7 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>5</td>
+        <td>5</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_telco_component_library_v76.html</strong><br><small>4.5 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_telco_knowledge_modules_v61.html</strong><br><small>6.9 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>rf_telco_knowledge_os_v60.html</strong><br><small>6.2 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>rf_telco_mission_portal_v35.html</strong><br><small>9.2 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>rf_telco_visual_cockpit_v36.html</strong><br><small>11.8 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>runtime_golden_check_console_v29.html</strong><br><small>9.2 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>sapienza_master_template_doctrine_v85a.html</strong><br><small>7.3 KB</small></td>
+        <td>v85 stable</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>scenario_report_console_v17.html</strong><br><small>8.2 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>scenario_runner_console_v16.html</strong><br><small>8.4 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>1</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>security_console_v18.html</strong><br><small>7.9 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>timeline_console_v14.html</strong><br><small>9 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>YES</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_performance_gpu_gate_v86b.html</strong><br><small>7.5 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_performance_gpu_gate_v86b_r1.html</strong><br><small>7.7 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>1</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_portal_registry_v86c.html</strong><br><small>5.8 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_portal_registry_v86c_r1.html</strong><br><small>5.8 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_theory_spine_v86e.html</strong><br><small>5.5 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_unified_shell_noiframe_v86d_r1.html</strong><br><small>5.9 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>trfmc_unified_shell_prototype_v86d.html</strong><br><small>5.8 KB</small></td>
+        <td>v86 current</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-high">HIGH</span></td>
+        <td><strong>trfmc_visual_qa_matrix_v71.html</strong><br><small>3.8 KB</small></td>
+        <td>legacy</td>
+        <td>YES</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v66.html</strong><br><small>4.3 KB</small></td>
+        <td>legacy</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v67.html</strong><br><small>4.4 KB</small></td>
+        <td>legacy RF</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v68.html</strong><br><small>5.6 KB</small></td>
+        <td>legacy RF</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v68_surgical_v81.html</strong><br><small>8.2 KB</small></td>
+        <td>legacy RF</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v69.html</strong><br><small>6 KB</small></td>
+        <td>legacy RF</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v82_native_lab.html</strong><br><small>6.5 KB</small></td>
+        <td>v82 staged</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v82b_native_lab.html</strong><br><small>7.7 KB</small></td>
+        <td>v82 staged</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v82c_mission_replay.html</strong><br><small>7.9 KB</small></td>
+        <td>v82 staged</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_heatmap_engine_v82c_r2_mission_replay.html</strong><br><small>8.2 KB</small></td>
+        <td>v82 staged</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v83.html</strong><br><small>8.5 KB</small></td>
+        <td>v83 physics</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v83b.html</strong><br><small>8.6 KB</small></td>
+        <td>v83 physics</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v83c.html</strong><br><small>8.6 KB</small></td>
+        <td>v83 physics</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v83d.html</strong><br><small>8.9 KB</small></td>
+        <td>v83 physics</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v83e.html</strong><br><small>9.1 KB</small></td>
+        <td>v83 physics</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>3</td>
+        <td>3</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v83f.html</strong><br><small>9.3 KB</small></td>
+        <td>v83 physics</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>4</td>
+        <td>4</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v85b_sapienza_baseline.html</strong><br><small>9.5 KB</small></td>
+        <td>v85 stable</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>5</td>
+        <td>5</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v85c_sapienza_identity.html</strong><br><small>9.6 KB</small></td>
+        <td>v85 stable</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>6</td>
+        <td>6</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v85d_runtime_identity_lock.html</strong><br><small>9.8 KB</small></td>
+        <td>v85 stable</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>7</td>
+        <td>7</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_physics_engine_v85e_viewport_discipline.html</strong><br><small>9.8 KB</small></td>
+        <td>v85 stable</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>7</td>
+        <td>7</td>
+      </tr>
+    
+      <tr>
+        <td><span class="dt86-risk dt86-low">LOW</span></td>
+        <td><strong>webgl_rf_tm_supreme_console_v84a.html</strong><br><small>5.8 KB</small></td>
+        <td>v84 sapienza</td>
+        <td>NO</td>
+        <td>NO</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="dt86-doctrine" id="doctrineGrid">
+      <article>
+        <h2>Gate 01</h2>
+        <code>Nessun restyle globale prima di normalizzare shell, token e registry.</code>
+      </article>
+    
+      <article>
+        <h2>Gate 02</h2>
+        <code>Ogni nuova pagina deve essere scoped con data-trfmc-page.</code>
+      </article>
+    
+      <article>
+        <h2>Gate 03</h2>
+        <code>Nessun iframe nella shell di governo.</code>
+      </article>
+    
+      <article>
+        <h2>Gate 04</h2>
+        <code>Nessun CDN o riferimento esterno nel portale T&amp;M offline.</code>
+      </article>
+    
+      <article>
+        <h2>Gate 05</h2>
+        <code>Prima inventory, poi teoria, poi design, poi promozione a piccoli batch.</code>
+      </article>
+    </section>
+
+    <footer class="dt86-footer">
+      TRFMC v0.86F · Design Token Audit · scoped · no iframe · no CDN · no backend change · no overwrite
+    </footer>
+  </main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC v0.86F · Design Token Audit<br>/trfmc_design_token_audit_v86f.html<br>Previous Authority V2 score: 65/100 · CRITICAL</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> Design Token Audit</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

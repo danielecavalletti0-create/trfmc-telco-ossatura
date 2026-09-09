@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Antenna / RRU / RET / CPRI Port Mapping Simulator</title>
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<script defer src="/assets/trfmc_design_system/trfmc_leaf_webgl_v1.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+</head>
+<body class="trfmc-leaf trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1">
+<header class="leaf-top">
+  <div>
+    <div class="leaf-title">Antenna / RRU / RET / CPRI Port Mapping Simulator</div>
+    <div class="leaf-sub">sector · azimuth · tilt · AISG/RET · CPRI/eCPRI · MIMO layers</div>
+  </div>
+  <div class="leaf-kpis"><div class='leaf-kpi'><small>KPI</small><b>RRU</b></div><div class='leaf-kpi'><small>KPI</small><b>RET</b></div><div class='leaf-kpi'><small>KPI</small><b>CPRI</b></div><div class='leaf-kpi'><small>KPI</small><b>MIMO</b></div></div>
+  <div class="leaf-actions">
+    <a class="leaf-btn" href="/trfmc_official_safe_entrypoint_v6r3_command_center.html">V6R3</a>
+    <a class="leaf-btn" href="/trfmc_integration_control_room.html">Control Room</a>
+    <a class="leaf-btn" href="/trfmc_expansion_hub_v1.html">Expansion Hub</a>
+    <a class="leaf-btn" href="/trfmc_portal_registry_unified.json">Registry</a>
+  </div>
+</header>
+
+<div class="leaf-layout">
+  <aside class="leaf-panel">
+    <h2>Teoria / Modello</h2>
+    <div class="leaf-scroll">
+      <div class='leaf-card'><h3>Antenna sector</h3><p>Ogni settore ha azimuth, mechanical/electrical tilt, beamwidth, gain, polarization e downtilt strategy.</p></div>
+<div class='leaf-card'><h3>RRU/RU mapping</h3><p>Le porte RF e fronthaul devono essere coerenti con banda, MIMO, polarizzazione e carrier configuration.</p></div>
+<div class='leaf-card'><h3>RET/AISG</h3><p>Remote Electrical Tilt abilita ottimizzazione copertura/interferenza senza intervento fisico in quota.</p></div>
+<div class='leaf-card'><h3>MIMO/Beamforming</h3><p>Fase e ampiezza sui rami antenna determinano pattern, null steering e spatial multiplexing.</p></div>
+    </div>
+  </aside>
+
+  <main class="leaf-panel leaf-stage">
+    <canvas class="leaf-canvas" data-trfmc-webgl></canvas>
+    <div class="leaf-overlay">
+      <div class="leaf-stage-head">
+        <div class="leaf-stage-title">05_Antenna_System</div>
+        <div class="leaf-stage-sub">Leaf module operativo. Nessun iframe. Nessuna CDN. Nessuna shell parallela.</div>
+      </div>
+      <div></div>
+      <div class="leaf-stage-foot">
+        <div>Render: <span class="leaf-ok" data-gl-state>init</span></div>
+        <div>Mode: leaf</div>
+        <div>Shell: V6R3 locked</div>
+        <div>Registry: active</div>
+        <div>Quality: required</div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="leaf-panel">
+    <h2>Formule / Checklist</h2>
+    <div class="leaf-scroll">
+      <div class="leaf-card">
+        <h3>Formula Book</h3>
+        <table class="leaf-table">
+          <thead><tr><th>ID</th><th>Formula</th></tr></thead>
+          <tbody><tr><td>F1</td><td><div class='leaf-formula'>EIRP = Ptx + Gant - losses</div></td></tr>
+<tr><td>F2</td><td><div class='leaf-formula'>ArrayFactor(θ)=Σ wn·e^(j n k d sinθ)</div></td></tr>
+<tr><td>F3</td><td><div class='leaf-formula'>Tilt_total = mechanical + electrical</div></td></tr>
+<tr><td>F4</td><td><div class='leaf-formula'>CPRI_rate ∝ IQ_width · sample_rate · antenna_ports</div></td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="leaf-card">
+        <h3>Da implementare / collegare</h3>
+        <ul><li>Port mapping RRU/antenna</li>
+<li>AISG/RET chain</li>
+<li>Azimuth/tilt planner</li>
+<li>MIMO layer view</li>
+<li>PIM/VSWR alarm integration</li></ul>
+      </div>
+
+      <div class="leaf-card">
+        <h3>Regola di integrazione</h3>
+        <p>Questo modulo entra nel portale solo come leaf page registrata. Non introduce navbar globali, iframe, CDN o shell alternative.</p>
+        <span class="leaf-badge leaf-ok">NO IFRAME</span>
+        <span class="leaf-badge leaf-ok">NO CDN</span>
+        <span class="leaf-badge leaf-ok">REGISTRY</span>
+      </div>
+    </div>
+  </aside>
+</div>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+</body>
+</html>

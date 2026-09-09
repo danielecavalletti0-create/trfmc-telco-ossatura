@@ -1,0 +1,449 @@
+[data-trfmc-page="theory-spine-v86e"]{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.11), transparent 32%),
+    radial-gradient(circle at 88% 4%, rgba(66,245,111,.08), transparent 34%),
+    linear-gradient(135deg,#020711,#031323 56%,#01050d);
+  color:#e8faff;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  overflow-x:hidden;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-shell{
+  padding:10px;
+  min-height:100vh;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-topbar,
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero,
+[data-trfmc-page="theory-spine-v86e"] .ts86-kpis article,
+[data-trfmc-page="theory-spine-v86e"] .ts86-panel,
+[data-trfmc-page="theory-spine-v86e"] .ts86-table-panel,
+[data-trfmc-page="theory-spine-v86e"] .ts86-detail-panel,
+[data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid article,
+[data-trfmc-page="theory-spine-v86e"] .ts86-doctrine article,
+[data-trfmc-page="theory-spine-v86e"] .ts86-footer{
+  border:1px solid rgba(143,240,255,.30);
+  background:linear-gradient(145deg,rgba(8,31,51,.84),rgba(1,8,17,.92));
+  box-shadow:0 18px 60px rgba(0,0,0,.28);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-topbar{
+  min-height:58px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:10px 14px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(12px);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-brand strong{
+  display:block;
+  letter-spacing:.18em;
+  font-size:13px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-brand small{
+  color:rgba(232,250,255,.62);
+  font-size:10px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-orb{
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:radial-gradient(circle at 35% 28%, #ffffff 0 7%, #8ff0ff 8% 32%, #116980 64%, #020711 100%);
+  box-shadow:0 0 22px rgba(143,240,255,.58);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-nav a,
+[data-trfmc-page="theory-spine-v86e"] .ts86-filter-row button,
+[data-trfmc-page="theory-spine-v86e"] .ts86-open{
+  border:1px solid rgba(143,240,255,.35);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(143,240,255,.05);
+  color:#8ff0ff;
+  font-weight:900;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:11px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-nav a:hover,
+[data-trfmc-page="theory-spine-v86e"] .ts86-open:hover,
+[data-trfmc-page="theory-spine-v86e"] .ts86-filter-row button.active{
+  color:#021006;
+  background:linear-gradient(135deg,#8ff0ff,#42f56f);
+  border-color:rgba(66,245,111,.75);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-status{
+  min-width:150px;
+  border:1px solid rgba(66,245,111,.45);
+  border-radius:16px;
+  padding:8px 12px;
+  text-align:center;
+  background:rgba(66,245,111,.06);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-status b{
+  display:block;
+  color:#42f56f;
+  font-size:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-status span{
+  display:block;
+  color:rgba(232,250,255,.62);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero{
+  margin-top:10px;
+  border-radius:24px;
+  padding:26px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 190px;
+  gap:20px;
+  align-items:center;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-kicker{
+  color:#42f56f;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.18em;
+  margin:0 0 10px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] h1{
+  margin:0;
+  font-size:clamp(42px,5.8vw,88px);
+  line-height:.95;
+  letter-spacing:.045em;
+  text-shadow:0 0 16px rgba(143,240,255,.58),0 0 48px rgba(143,240,255,.18);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero p{
+  max-width:1180px;
+  color:rgba(232,250,255,.72);
+  line-height:1.55;
+  font-size:13px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero aside{
+  border:1px solid rgba(66,245,111,.45);
+  border-radius:22px;
+  padding:20px;
+  text-align:center;
+  background:rgba(66,245,111,.06);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero aside span{
+  display:block;
+  color:rgba(232,250,255,.62);
+  letter-spacing:.18em;
+  font-size:11px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero aside strong{
+  display:block;
+  color:#42f56f;
+  font-size:42px;
+  margin:8px 0;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-hero aside small{
+  color:rgba(232,250,255,.65);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-kpis,
+[data-trfmc-page="theory-spine-v86e"] .ts86-control-grid,
+[data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid,
+[data-trfmc-page="theory-spine-v86e"] .ts86-doctrine{
+  display:grid;
+  gap:10px;
+  margin-top:10px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-kpis{
+  grid-template-columns:repeat(5,1fr);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-kpis article{
+  border-radius:16px;
+  padding:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-kpis span{
+  display:block;
+  color:rgba(232,250,255,.54);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-size:10px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-kpis strong{
+  display:block;
+  color:#42f56f;
+  font-size:26px;
+  margin-top:6px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-control-grid{
+  grid-template-columns:1.1fr 1fr 1.1fr;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-panel{
+  border-radius:18px;
+  padding:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] h2{
+  margin:0 0 8px;
+  color:#8ff0ff;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:13px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] p{
+  color:rgba(232,250,255,.66);
+  line-height:1.5;
+  font-size:12px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] code{
+  display:block;
+  border:1px solid rgba(66,245,111,.35);
+  border-radius:10px;
+  background:rgba(66,245,111,.06);
+  color:#42f56f;
+  padding:9px;
+  font-size:11px;
+  white-space:pre-wrap;
+}
+
+[data-trfmc-page="theory-spine-v86e"] input{
+  width:100%;
+  min-height:46px;
+  border:1px solid rgba(143,240,255,.32);
+  border-radius:12px;
+  background:#020913;
+  color:#e8faff;
+  padding:0 14px;
+  outline:none;
+  font-family:inherit;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-filter-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-main-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 360px;
+  gap:10px;
+  margin-top:10px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-table-panel,
+[data-trfmc-page="theory-spine-v86e"] .ts86-detail-panel{
+  border-radius:18px;
+  overflow:hidden;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 14px;
+  border-bottom:1px solid rgba(143,240,255,.20);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-section-head span{
+  border:1px solid rgba(66,245,111,.40);
+  border-radius:999px;
+  padding:6px 10px;
+  color:#42f56f;
+  font-size:11px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-table-wrap{
+  max-height:500px;
+  overflow:auto;
+}
+
+[data-trfmc-page="theory-spine-v86e"] table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:11px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#03101c;
+  color:#8ff0ff;
+  text-align:left;
+  padding:10px;
+  border-bottom:1px solid rgba(143,240,255,.24);
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+[data-trfmc-page="theory-spine-v86e"] td{
+  padding:10px;
+  border-bottom:1px solid rgba(143,240,255,.14);
+  color:rgba(232,250,255,.78);
+  vertical-align:top;
+}
+
+[data-trfmc-page="theory-spine-v86e"] tr:hover td{
+  background:rgba(143,240,255,.04);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-priority{
+  display:inline-flex;
+  min-width:36px;
+  justify-content:center;
+  border-radius:999px;
+  padding:4px 8px;
+  font-weight:900;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-p0{color:#021006;background:#42f56f}
+[data-trfmc-page="theory-spine-v86e"] .ts86-p1{color:#8ff0ff;border:1px solid #8ff0ff}
+[data-trfmc-page="theory-spine-v86e"] .ts86-p2{color:#fbbf24;border:1px solid #fbbf24}
+[data-trfmc-page="theory-spine-v86e"] .ts86-p3{color:#ff8a3d;border:1px solid #ff8a3d}
+[data-trfmc-page="theory-spine-v86e"] .ts86-p4{color:#ff3b5c;border:1px solid #ff3b5c}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-detail-panel{
+  padding:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-detail-card{
+  display:grid;
+  gap:10px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-detail-card strong{
+  color:#42f56f;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-detail-empty{
+  color:rgba(232,250,255,.60);
+  line-height:1.55;
+  font-size:12px;
+  border:1px dashed rgba(143,240,255,.26);
+  border-radius:14px;
+  padding:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-formula-list,
+[data-trfmc-page="theory-spine-v86e"] .ts86-measure-list{
+  display:grid;
+  gap:7px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-formula-list div,
+[data-trfmc-page="theory-spine-v86e"] .ts86-measure-list div{
+  border:1px solid rgba(66,245,111,.25);
+  background:rgba(66,245,111,.05);
+  border-radius:10px;
+  padding:8px;
+  color:#dfffea;
+  font-size:11px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid{
+  grid-template-columns:repeat(3,1fr);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid article{
+  border-radius:16px;
+  padding:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid strong{
+  display:block;
+  font-size:24px;
+  color:#42f56f;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid span{
+  color:#8ff0ff;
+  font-weight:900;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-doctrine{
+  grid-template-columns:repeat(4,1fr);
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-doctrine article{
+  border-radius:16px;
+  padding:14px;
+}
+
+[data-trfmc-page="theory-spine-v86e"] .ts86-footer{
+  margin-top:10px;
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  color:rgba(232,250,255,.56);
+  font-size:11px;
+}
+
+@media(max-width:1300px){
+  [data-trfmc-page="theory-spine-v86e"] .ts86-hero,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-main-grid{
+    grid-template-columns:1fr;
+  }
+
+  [data-trfmc-page="theory-spine-v86e"] .ts86-kpis,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-control-grid,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-doctrine{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:800px){
+  [data-trfmc-page="theory-spine-v86e"] .ts86-topbar{
+    position:relative;
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  [data-trfmc-page="theory-spine-v86e"] .ts86-kpis,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-control-grid,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-domain-grid,
+  [data-trfmc-page="theory-spine-v86e"] .ts86-doctrine{
+    grid-template-columns:1fr;
+  }
+}

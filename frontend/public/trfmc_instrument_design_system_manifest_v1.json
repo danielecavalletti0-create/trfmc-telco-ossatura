@@ -1,0 +1,28 @@
+{
+  "id": "TRFMC_INSTRUMENT_DESIGN_SYSTEM_V1",
+  "timestamp": "2026-05-23T23:17:37+02:00",
+  "assets": [
+    "/assets/trfmc_instrument_design_system/trfmc_instrument_tokens_v1.css",
+    "/assets/trfmc_instrument_design_system/trfmc_instrument_layout_v1.css",
+    "/assets/trfmc_instrument_design_system/trfmc_parametric_3d_engine_v1.js",
+    "/assets/trfmc_instrument_design_system/trfmc_instrument_panels_v1.js"
+  ],
+  "pages": [
+    "/trfmc_instrument_design_system_lab_v1.html",
+    "/trfmc_true_portal_command_deck_v1.html"
+  ],
+  "visual_gate": {
+    "goal": "replace page-by-page cosmetic patches with a global instrument-grade visual language",
+    "status": "PREVIEW_STANDARD_READY",
+    "criteria": [
+      "parametric RF/Telco digital twin",
+      "hybrid WebGL + Canvas rendering",
+      "shared cockpit layout",
+      "reusable HUD panels",
+      "no iframe",
+      "no CDN",
+      "V6R3 and Control Room protected"
+    ]
+  },
+  "policy": "Design system only. No mutation of V6R3, Control Room, orphan files or previous RF PRO variants."
+}

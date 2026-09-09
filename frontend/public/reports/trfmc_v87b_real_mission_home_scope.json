@@ -1,0 +1,13 @@
+{
+  "version": "TRFMC v0.87B",
+  "page": "trfmc_mission_control_home_v87b.html",
+  "css": "assets/trfmc_v087b_real_mission_home.css",
+  "js": "assets/trfmc_v087b_real_mission_home.js",
+  "manifest": "reports/trfmc_v87b_real_mission_home_manifest.json",
+  "scope_root": "[data-trfmc-page='real-mission-home-v87b']",
+  "no_iframe": true,
+  "no_cdn": true,
+  "no_backend_change": true,
+  "no_global_css": true,
+  "service_pages_hidden": true
+}

@@ -1,0 +1,21 @@
+{
+  "version": "TRFMC v0.76A",
+  "name": "RF/Telco Component Object Library",
+  "strategy": "Replace generic cards and random geometry with reusable RF/Telco domain objects.",
+  "objects": [
+    "Telecom Lattice Tower",
+    "Sector Antenna Panel",
+    "Remote Radio Unit",
+    "RET / AISG Controller",
+    "Microwave Backhaul Dish",
+    "Fiber Transport Link",
+    "Shelter / Edge Cabinet",
+    "-48 VDC Power Chain",
+    "UE / V2X Device",
+    "gNB Logical Node",
+    "5GC Service Core",
+    "Cloud / Edge Compute",
+    "Evidence Recorder"
+  ],
+  "next_step": "v0.77A integrates these objects into Executive, UE Handover, Digital Twin and Knowledge pages."
+}

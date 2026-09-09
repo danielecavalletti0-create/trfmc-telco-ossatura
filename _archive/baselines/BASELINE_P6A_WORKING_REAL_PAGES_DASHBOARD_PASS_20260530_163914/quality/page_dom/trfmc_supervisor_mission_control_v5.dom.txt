@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC V5 Legacy Supervisor - Service Only</title>
+<style>
+:root{
+  --bg:#01060d;--p:#061120;--p2:#081522;--line:#1d6f9f;
+  --text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;
+  --yellow:#ffd500;--red:#ff3366;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0,rgba(0,217,255,.14),transparent 36%),#01060d;color:var(--text);font:12px Segoe UI,system-ui,sans-serif}
+header{height:62px;background:#050b13;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+h1{margin:0;font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan)}
+.sub{color:var(--muted);font-size:11px}
+main{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{border:1px solid #245b7d;background:linear-gradient(180deg,#061321,#02070f);border-radius:9px;padding:16px}
+.card h2{margin:0 0 10px;color:var(--green);text-transform:uppercase;font-size:16px}
+.card p{color:#cde7ff;line-height:1.45}
+.badge{display:inline-block;border:1px solid rgba(125,255,79,.45);color:var(--green);padding:4px 7px;border-radius:5px;font:11px Consolas,monospace;margin:3px}
+a.btn{display:inline-block;background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:5px;padding:9px 12px;text-decoration:none;margin:5px 5px 5px 0}
+a.btn:hover{border-color:var(--cyan);background:#145078;box-shadow:inset 3px 0 0 var(--yellow)}
+.warn{border-color:#7a5b13;background:#181204}
+.warn h2{color:var(--yellow)}
+.ok h2{color:var(--green)}
+code{color:var(--yellow)}
+@media(max-width:900px){main{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+  <div>
+    <h1>TRFMC V5 Legacy Supervisor</h1>
+    <div class="sub">Pagina storica di servizio. Nessun iframe annidato. Le console si aprono in nuova scheda.</div>
+  </div>
+  <div>
+    <span class="badge">LEGACY</span>
+    <span class="badge">SERVICE ONLY</span>
+    <span class="badge">NO NESTED IFRAME</span>
+  </div>
+</header>
+
+<main>
+  <section class="card warn">
+    <h2>V5 messa in modalità legacy</h2>
+    <p>
+      Questa pagina non è più un ingresso operativo principale. In precedenza caricava
+      <code>trfmc_unified_evidence_supervisor_v4.html</code> dentro iframe, creando una catena shell→shell.
+    </p>
+    <p>
+      Da ora V5 resta solo come pagina storica/servizio. Le console collegate si aprono in nuova scheda.
+    </p>
+  </section>
+
+  <section class="card ok">
+    <h2>Ingressi consigliati</h2>
+    <a class="btn" href="/trfmc_official_safe_entrypoint_v6r2_premium_console.html">Apri V6R2 Premium Console</a>
+    <a class="btn" href="/trfmc_portal_link_graph_v1.html">Apri Portal Link Graph</a>
+    <a class="btn" href="/trfmc_official_safe_entrypoint_v6r1_flat.html">Apri V6R1 Fallback</a>
+  </section>
+
+  <section class="card">
+    <h2>Console legacy apribili</h2>
+    <a class="btn" href="/trfmc_unified_evidence_supervisor_v4.html" target="_blank">Apri V4 Evidence Supervisor</a>
+    <a class="btn" href="/trfmc_unified_matrix_room_v3.html" target="_blank">Apri V3 Matrix Room</a>
+    <a class="btn" href="/trfmc_unified_instrument_shell_lab_v2.html" target="_blank">Apri V2 Instrument Shell</a>
+  </section>
+
+  <section class="card">
+    <h2>Regola architetturale</h2>
+    <p>
+      Consentito: V6R2/V6R1 caricano moduli foglia.
+      Non consentito come entrypoint: shell dentro shell dentro iframe.
+    </p>
+    <p>
+      Moduli foglia: RF/Antenna Wall, Antenna Explorer, DSP Chain, Wi-Fi/QAM, 5G Core/RAN, NOC, War Room, Master.
+    </p>
+  </section>
+</main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC V5 Legacy Supervisor - Service Only<br>/trfmc_supervisor_mission_control_v5.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>57/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna" width="602" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC V5 Legacy Supervisor</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

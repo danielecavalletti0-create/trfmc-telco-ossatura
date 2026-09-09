@@ -1,0 +1,18 @@
+{
+  "version": "TRFMC v0.87G",
+  "page_scope": "data-trfmc-page=\"v87g-public-home\"",
+  "css_file": "/assets/trfmc_v087g_public_operational_home.css",
+  "js_file": "/assets/trfmc_v087g_public_operational_home.js",
+  "allowed_public_entrypoints": [
+    "/trfmc_home_v87g.html",
+    "/trfmc_home.html",
+    "/trfmc.html"
+  ],
+  "visual_layer": [
+    "animated RF grid background",
+    "animated spectrum panel",
+    "mission route cards",
+    "backend health badge",
+    "same-origin route availability badges"
+  ]
+}

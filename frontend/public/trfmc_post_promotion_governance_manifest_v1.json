@@ -1,0 +1,12 @@
+{
+  "id": "TRFMC_POST_PROMOTION_GOVERNANCE_V1",
+  "timestamp": "2026-05-23T20:45:55.383593+00:00",
+  "pages": {
+    "control_center": "/trfmc_post_promotion_control_center_v1.html",
+    "canonical_navigation": "/trfmc_canonical_navigation_map_v1.html",
+    "orphan_quarantine": "/trfmc_orphan_quarantine_room_v1.html",
+    "change_control": "/trfmc_change_control_policy_v1.html"
+  },
+  "source": "/trfmc_final_promotion_gate_v1.html",
+  "policy": "Post-promotion governance. No mass patch. Service pages only."
+}

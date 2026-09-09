@@ -1,0 +1,243 @@
+/* ============================================================
+   TRFMC v0.85B - RF Physics Sapienza Baseline Candidate
+   Applica la dottrina v85A alla pagina matematica v83F.
+   ============================================================ */
+
+body.v85b-physics {
+  --sap-bg:#01040b;
+  --sap-panel:#061426;
+  --sap-panel2:#071d33;
+  --sap-cyan:#8ff0ff;
+  --sap-green:#42f56f;
+  --sap-amber:#fbbf24;
+  --sap-red:#ff3b5c;
+  --sap-blue:#2ea7ff;
+  --sap-text:#e8faff;
+  background:
+    radial-gradient(circle at 12% 5%, rgba(143,240,255,.10), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(66,245,111,.07), transparent 32%),
+    linear-gradient(180deg,#01040b,#00030a) !important;
+}
+
+/* shell più compatta e più vicina alla v84M */
+body.v85b-physics header,
+body.v85b-physics .topbar,
+body.v85b-physics .shellbar {
+  min-height:44px !important;
+  border-bottom:1px solid rgba(143,240,255,.28) !important;
+  background:linear-gradient(180deg,rgba(4,19,34,.98),rgba(1,5,13,.98)) !important;
+}
+
+body.v85b-physics nav a,
+body.v85b-physics header a,
+body.v85b-physics .topbar a {
+  font-size:9px !important;
+  padding:5px 8px !important;
+  border-radius:999px !important;
+}
+
+/* hero più serio */
+body.v85b-physics .hero,
+body.v85b-physics .intro,
+body.v85b-physics section:first-of-type {
+  border-color:rgba(143,240,255,.34) !important;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(143,240,255,.16),transparent 34%),
+    radial-gradient(circle at 82% 18%,rgba(66,245,111,.09),transparent 34%),
+    linear-gradient(135deg,rgba(5,26,45,.96),rgba(1,6,14,.98)) !important;
+}
+
+body.v85b-physics h1 {
+  font-size:clamp(38px,4.9vw,76px) !important;
+  line-height:.98 !important;
+  letter-spacing:.045em !important;
+  text-shadow:
+    0 0 15px rgba(143,240,255,.58),
+    0 0 52px rgba(143,240,255,.16) !important;
+}
+
+/* canvas più da misura e meno saturazione pittorica */
+body.v85b-physics canvas {
+  filter:saturate(.98) brightness(1.04) contrast(1.16);
+}
+
+body.v85b-physics .stage,
+body.v85b-physics .canvas-wrap,
+body.v85b-physics .field,
+body.v85b-physics .rf-canvas {
+  border-color:rgba(143,240,255,.42) !important;
+  box-shadow:
+    0 24px 82px rgba(0,0,0,.42),
+    inset 0 0 36px rgba(143,240,255,.030) !important;
+}
+
+/* pannelli strumenti più leggibili */
+body.v85b-physics article,
+body.v85b-physics .panel,
+body.v85b-physics .card,
+body.v85b-physics aside {
+  border-color:rgba(143,240,255,.30) !important;
+}
+
+body.v85b-physics h2,
+body.v85b-physics h3 {
+  color:var(--sap-cyan) !important;
+  letter-spacing:.12em !important;
+}
+
+/* Sapienza director compatto */
+.sapienza-v85b-director {
+  margin:8px;
+  border:1px solid rgba(143,240,255,.30);
+  border-radius:20px;
+  padding:8px;
+  display:grid;
+  grid-template-columns:210px 1fr 300px;
+  gap:8px;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(143,240,255,.07),transparent 32%),
+    linear-gradient(145deg,rgba(5,22,38,.92),rgba(1,6,14,.98));
+  box-shadow:0 18px 58px rgba(0,0,0,.36), inset 0 0 26px rgba(143,240,255,.026);
+}
+
+.sapienza-v85b-director h2 {
+  margin:0 0 5px;
+  color:var(--sap-cyan);
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.sapienza-v85b-director p {
+  margin:0;
+  color:rgba(232,250,255,.66);
+  font-size:10px;
+  line-height:1.4;
+}
+
+.sapienza-v85b-modes {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.sapienza-v85b-modes button {
+  border:1px solid rgba(143,240,255,.34);
+  border-radius:13px;
+  background:linear-gradient(180deg,rgba(143,240,255,.08),rgba(2,8,18,.86));
+  color:rgba(232,250,255,.78);
+  font-size:9px;
+  letter-spacing:.10em;
+  height:42px;
+  cursor:pointer;
+}
+
+.sapienza-v85b-modes button.active {
+  background:linear-gradient(135deg,rgba(143,240,255,.82),rgba(66,245,111,.88));
+  color:#021006;
+  box-shadow:0 0 18px rgba(66,245,111,.18);
+}
+
+.sapienza-v85b-readout {
+  border:1px solid rgba(66,245,111,.26);
+  border-radius:15px;
+  padding:8px;
+  background:rgba(66,245,111,.055);
+}
+
+.sapienza-v85b-readout b {
+  display:block;
+  color:var(--sap-green);
+  font-size:10px;
+  letter-spacing:.14em;
+  margin-bottom:4px;
+}
+
+/* Evidence chain v85 */
+.sapienza-v85b-chain {
+  margin:8px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.sapienza-v85b-chain article {
+  border:1px solid rgba(143,240,255,.26);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(143,240,255,.065),transparent 34%),
+    linear-gradient(145deg,rgba(6,24,42,.82),rgba(1,6,14,.96));
+  padding:10px;
+  min-height:68px;
+}
+
+.sapienza-v85b-chain b {
+  display:block;
+  color:var(--sap-cyan);
+  font-size:10px;
+  letter-spacing:.14em;
+  margin-bottom:6px;
+}
+
+.sapienza-v85b-chain span {
+  display:block;
+  color:rgba(232,250,255,.66);
+  font-size:10px;
+  line-height:1.38;
+}
+
+.sapienza-v85b-chain article:nth-child(3) {
+  border-color:rgba(251,191,36,.34);
+}
+
+.sapienza-v85b-chain article:nth-child(5) {
+  border-color:rgba(255,59,92,.30);
+}
+
+/* modalità */
+body.v85b-mode-measure .sapienza-v85b-chain {
+  opacity:.95;
+}
+
+body.v85b-mode-4d canvas {
+  filter:saturate(1.08) brightness(1.06) contrast(1.18);
+}
+
+body.v85b-mode-teach .sapienza-v85b-chain article {
+  box-shadow:0 0 0 1px rgba(66,245,111,.10), inset 0 0 24px rgba(66,245,111,.030);
+}
+
+body.v85b-mode-clean .sapienza-v85b-chain,
+body.v85b-mode-clean .sapienza-v85b-director {
+  display:none !important;
+}
+
+body.v85b-mode-clean header,
+body.v85b-mode-clean .topbar {
+  opacity:.70;
+}
+
+/* badge informativo */
+.sapienza-v85b-badge {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  border:1px solid rgba(66,245,111,.32);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(1,6,14,.84);
+  color:var(--sap-green);
+  font-size:10px;
+  letter-spacing:.12em;
+  box-shadow:0 0 24px rgba(66,245,111,.12);
+}
+
+@media(max-width:1500px){
+  .sapienza-v85b-director {
+    grid-template-columns:1fr;
+  }
+  .sapienza-v85b-chain {
+    grid-template-columns:1fr;
+  }
+}

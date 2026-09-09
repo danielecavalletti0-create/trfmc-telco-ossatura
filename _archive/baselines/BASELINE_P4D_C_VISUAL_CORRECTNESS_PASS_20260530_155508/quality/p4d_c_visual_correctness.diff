@@ -1,0 +1,1232 @@
+diff --git a/frontend/src/portal-os/PortalOSRoot.tsx b/frontend/src/portal-os/PortalOSRoot.tsx
+index 806cef0..3140cb6 100644
+--- a/frontend/src/portal-os/PortalOSRoot.tsx
++++ b/frontend/src/portal-os/PortalOSRoot.tsx
+@@ -1,9 +1,13 @@
+ import React from 'react'
+ import {
+   candidatePortalOSModules,
++  portalOSCategories,
+   portalOSModules,
+   promotedPortalOSModules,
+   referencePortalOSModules,
++  reviewPortalOSModules,
++  riskyPortalOSModules,
++  visualPortalOSModules,
+   type PortalOSModule,
+ } from './portalManifest'
+ import './portal-os.css'
+@@ -16,18 +20,160 @@ type EndpointState = {
+   detail: string
+ }
+ 
++type Lane = {
++  id: string
++  title: string
++  category: string
++  region: string
++  meaning: string
++}
++
+ const initialEndpoints: EndpointState[] = [
+   { id: 'frontend', label: 'Vite frontend', url: '/', state: 'pending', detail: 'SPA shell' },
+   { id: 'backend', label: 'Backend 8000', url: 'http://127.0.0.1:8000/api/health', state: 'pending', detail: 'health API' },
+   { id: 'bridge', label: 'Bridge 4181', url: 'http://127.0.0.1:4181/api/health', state: 'pending', detail: 'RF bridge' },
+ ]
+ 
+-function statusLabel(value: string) {
+-  return value.toUpperCase()
++const lanes: Lane[] = [
++  {
++    id: 'digital-twin',
++    title: '3D RF Visual Twin',
++    category: '3d-rf-visual-twin',
++    region: 'center viewport',
++    meaning: '3D renderer, asset twin, RF spatial context',
++  },
++  {
++    id: 'antenna',
++    title: 'RF / Antenna System',
++    category: 'antenna-system',
++    region: 'left module + viewport',
++    meaning: 'Antenna explorer, RRU/RET/CPRI/AISG, pattern/downtilt',
++  },
++  {
++    id: 'dsp',
++    title: 'FFT / DSP / Signal',
++    category: 'fft-dsp-signal',
++    region: 'left module + viewport',
++    meaning: 'Spectrum, waterfall, IQ, VSA, DSP chain',
++  },
++  {
++    id: 'core-ran',
++    title: '5G Core / RAN',
++    category: '5g-core-ran',
++    region: 'left module + evidence',
++    meaning: 'Open5GS, UERANSIM, NAS, NGAP, PFCP, GTP-U',
++  },
++  {
++    id: 'war-room',
++    title: 'War Room / Evidence',
++    category: 'war-room',
++    region: 'right evidence',
++    meaning: 'Event stream, QA, scenario evidence, controlled operations',
++  },
++  {
++    id: 'knowledge',
++    title: 'Knowledge / Academy',
++    category: 'knowledge-academy',
++    region: 'bottom knowledge',
++    meaning: 'Theory, formulas, procedures, glossary',
++  },
++  {
++    id: 'fiber',
++    title: 'Fiber / Fronthaul',
++    category: 'fiber-optic',
++    region: 'module leaf',
++    meaning: 'OTDR, ODF, attenuation, splice/loss budget',
++  },
++  {
++    id: 'microwave',
++    title: 'Microwave Link',
++    category: 'microwave-link',
++    region: 'module leaf',
++    meaning: 'Smith chart, link budget, Fresnel, fade margin',
++  },
++  {
++    id: 'metrology',
++    title: 'RF Metrology',
++    category: 'rf-metrology',
++    region: 'module leaf',
++    meaning: 'Calibration, uncertainty, RBW/VBW, attenuation, power',
++  },
++  {
++    id: 'wifi-qam',
++    title: 'Wi-Fi / QAM / OFDM',
++    category: 'wifi-qam',
++    region: 'module leaf',
++    meaning: 'Wi-Fi 6/7/8, OFDM/QAM analysis',
++  },
++  {
++    id: 'noc',
++    title: 'NOC / Operations',
++    category: 'noc-operations',
++    region: 'right evidence',
++    meaning: 'Health, status, uptime, alarms',
++  },
++  {
++    id: 'sigint',
++    title: 'Signal Intelligence',
++    category: 'signal-intelligence',
++    region: 'right evidence',
++    meaning: 'Classification, evidence, restricted workflows',
++  },
++]
++
++function statusLabel(value: string | undefined) {
++  return String(value || 'unknown').toUpperCase()
++}
++
++function moduleScore(module: PortalOSModule) {
++  return Number(module.promotionScore || 0)
++}
++
++function statusClass(module: PortalOSModule) {
++  const status = String(module.status || '')
++  if (status === 'promoted') return 'is-promoted'
++  if (status.startsWith('candidate')) return 'is-candidate'
++  if (status.includes('risk') || status.includes('review') || status.includes('quarantine')) return 'is-risk'
++  return 'is-reference'
++}
++
++function modulesByCategory(category: string) {
++  return portalOSModules.filter((module) => module.category === category)
+ }
+ 
++function bestModuleIdForLane(laneId: string) {
++  const lane = lanes.find((item) => item.id === laneId) ?? lanes[0]
++  const first = modulesByCategory(lane.category).sort((a, b) => moduleScore(b) - moduleScore(a))[0]
++  return first?.id ?? 'home'
++}
++
++function getLaneStats(category: string) {
++  const modules = modulesByCategory(category)
++  return {
++    total: modules.length,
++    promoted: modules.filter((module) => module.status === 'promoted').length,
++    candidate: modules.filter((module) => String(module.status).startsWith('candidate')).length,
++    review: modules.filter((module) => String(module.status).includes('review')).length,
++    visual: modules.filter((module) => Number(module.canvas || 0) > 0).length,
++    topScore: Math.max(0, ...modules.map(moduleScore)),
++  }
++}
++
++const topOperationalModules = [...portalOSModules]
++  .filter((module) => module.status === 'promoted' || String(module.status).startsWith('candidate'))
++  .sort((a, b) => moduleScore(b) - moduleScore(a))
++  .slice(0, 16)
++
++const highRiskSummary = [
++  { id: 'html_runtime_link', label: 'HTML runtime links', policy: 'manifest governed, not primary navigation' },
++  { id: 'dangerous_dom', label: 'Dangerous DOM', policy: 'React rewrite before promotion' },
++  { id: 'cdn', label: 'CDN assets', policy: 'localize before enterprise/offline packaging' },
++  { id: 'iframe', label: 'Iframe', policy: 'not architecture, only controlled leaf if unavoidable' },
++]
++
+ export function PortalOSRoot() {
+-  const [activeModuleId, setActiveModuleId] = React.useState('home')
++  const [selectedLaneId, setSelectedLaneId] = React.useState('core-ran')
++  const [activeModuleId, setActiveModuleId] = React.useState(() => bestModuleIdForLane('core-ran'))
+   const [endpoints, setEndpoints] = React.useState<EndpointState[]>(initialEndpoints)
+   const [tick, setTick] = React.useState(0)
+ 
+@@ -48,7 +194,12 @@ export function PortalOSRoot() {
+             return {
+               ...endpoint,
+               state: endpoint.id === 'frontend' ? 'online' : 'offline',
+-              detail: error instanceof Error ? error.message.slice(0, 90) : 'probe failed',
++              detail:
++                endpoint.id === 'bridge'
++                  ? 'browser fetch blocked/offline; CORS/proxy pending'
++                  : error instanceof Error
++                    ? error.message.slice(0, 90)
++                    : 'browser probe blocked/offline',
+             } satisfies EndpointState
+           }
+         })
+@@ -73,136 +224,177 @@ export function PortalOSRoot() {
+     return portalOSModules.find((module) => module.id === activeModuleId) ?? portalOSModules[0]
+   }, [activeModuleId])
+ 
++  const selectedLane = React.useMemo(() => {
++    return lanes.find((lane) => lane.id === selectedLaneId) ?? lanes[0]
++  }, [selectedLaneId])
++
++  const selectedLaneModules = React.useMemo(() => {
++    return modulesByCategory(selectedLane.category)
++      .sort((a, b) => moduleScore(b) - moduleScore(a))
++      .slice(0, 10)
++  }, [selectedLane])
++
+   const onlineCount = endpoints.filter((endpoint) => endpoint.state === 'online').length
++  const riskModuleIds = new Set([...riskyPortalOSModules, ...reviewPortalOSModules].map((module) => module.id))
++  const totalRisks = riskModuleIds.size
+ 
+   return (
+-    <section className="trfmc-pos-root-v2" data-trfmc-portal-os-preview="mounted">
+-      <header className="trfmc-pos-v2-status">
+-        <div>
+-          <strong>TRFMC Unified Portal OS</strong>
+-          <span>Preview V2.1 · existing React root · no overlay · no secondary root</span>
++    <section
++      className="trfmc-pos-root-v2 trfmc-command-center-v63"
++      data-trfmc-portal-os-preview="mounted"
++      data-trfmc-p4d-command-center-home="mounted"
++      data-trfmc-p4dc-visual-correction="mounted"
++    >
++      <header className="trfmc-command-topbar">
++        <div className="trfmc-command-brand">
++          <span>TRFMC Portal OS</span>
++          <strong>Command Center Home</strong>
++          <em>V63-style · React governed · manifest source of truth</em>
+         </div>
+-        <div>
+-          <span>{onlineCount}/{endpoints.length} endpoints online</span>
+-          <span>{activeModule.title}</span>
++
++        <div className="trfmc-command-top-metrics">
++          <article>
++            <span>Modules</span>
++            <strong>{portalOSModules.length}</strong>
++          </article>
++          <article>
++            <span>Categories</span>
++            <strong>{portalOSCategories.length}</strong>
++          </article>
++          <article>
++            <span>Promoted</span>
++            <strong>{promotedPortalOSModules.length}</strong>
++          </article>
++          <article>
++            <span>Endpoints</span>
++            <strong>{onlineCount}/{endpoints.length}</strong>
++          </article>
+         </div>
+       </header>
+ 
+-      <div className="trfmc-pos-v2-layout">
+-        <aside className="trfmc-pos-v2-launcher">
+-          <div className="trfmc-pos-v2-panel-title">
+-            <span>Operational Modules</span>
+-            <strong>{portalOSModules.length}</strong>
++      <div className="trfmc-command-layout">
++        <aside className="trfmc-command-left">
++          <div className="trfmc-command-panel-title">
++            <span>Operational Lanes</span>
++            <strong>{lanes.length}</strong>
+           </div>
+-          <div className="trfmc-pos-v2-module-list">
+-            {portalOSModules.map((module) => (
+-              <button
+-                key={module.id}
+-                type="button"
+-                className={activeModule.id === module.id ? 'is-active' : ''}
+-                onClick={() => setActiveModuleId(module.id)}
+-              >
+-                <span>{statusLabel(module.status)}</span>
+-                <strong>{module.title}</strong>
+-                <em>{module.category}</em>
+-              </button>
+-            ))}
++
++          <div className="trfmc-command-lanes">
++            {lanes.map((lane) => {
++              const stats = getLaneStats(lane.category)
++              return (
++                <button
++                  key={lane.id}
++                  type="button"
++                  className={lane.id === selectedLane.id ? 'is-active' : ''}
++                  onClick={() => {
++                    setSelectedLaneId(lane.id)
++                    const first = modulesByCategory(lane.category).sort((a, b) => moduleScore(b) - moduleScore(a))[0]
++                    if (first) setActiveModuleId(first.id)
++                  }}
++                >
++                  <span>{lane.region}</span>
++                  <strong>{lane.title}</strong>
++                  <em>{stats.total} modules · {stats.candidate} candidate · {stats.visual} visual</em>
++                </button>
++              )
++            })}
+           </div>
+         </aside>
+ 
+-        <main className="trfmc-pos-v2-viewport" data-trfmc-portal-os-viewport="mounted">
+-          {activeModule.id === 'home' ? (
+-            <section className="trfmc-pos-v2-home" data-trfmc-portal-os-home="mounted">
+-              <div className="trfmc-pos-v2-hero">
+-                <p>Unified Home · Command Center</p>
+-                <h1>Una sola shell. Un solo manifest. Un solo viewport.</h1>
+-                <span>
+-                  Questa preview non sostituisce ancora il portale attuale: dimostra la nuova radice
+-                  architetturale che governerà V63, domini React, sorgenti legacy, API, evidenze e QA.
+-                </span>
+-              </div>
++        <main className="trfmc-command-center" data-trfmc-portal-os-viewport="mounted">
++          <section className="trfmc-command-hero" data-trfmc-portal-os-home="mounted">
++            <div>
++              <p>Active Mission Viewport</p>
++              <h1>{selectedLane.title}</h1>
++              <span>{selectedLane.meaning}</span>
++            </div>
++            <article>
++              <span>Selected module</span>
++              <strong>{activeModule.title}</strong>
++              <em>{activeModule.category} · {statusLabel(activeModule.status)}</em>
++            </article>
++          </section>
+ 
+-              <div className="trfmc-pos-v2-metrics">
+-                <article>
+-                  <span>Promoted React</span>
+-                  <strong>{promotedPortalOSModules.length}</strong>
+-                  <em>RF Physics · Signal Analyzer · Antenna</em>
+-                </article>
+-                <article>
+-                  <span>V63 references</span>
+-                  <strong>{referencePortalOSModules.length}</strong>
+-                  <em>Command Center model</em>
+-                </article>
+-                <article>
+-                  <span>Candidate domains</span>
+-                  <strong>{candidatePortalOSModules.length}</strong>
+-                  <em>Core/RAN · War Room · Knowledge</em>
+-                </article>
+-              </div>
++          <section className="trfmc-command-radar">
++            <div className="trfmc-command-radar-core">
++              <span>Manifest</span>
++              <strong>{portalOSModules.length}</strong>
++              <em>governed assets</em>
++            </div>
++            {lanes.slice(0, 8).map((lane, index) => {
++              const stats = getLaneStats(lane.category)
++              return (
++                <div
++                  key={lane.id}
++                  className={`trfmc-command-radar-node node-${index + 1} ${lane.id === selectedLane.id ? 'is-active' : ''}`}
++                >
++                  <span>{lane.title}</span>
++                  <strong>{stats.total}</strong>
++                </div>
++              )
++            })}
++          </section>
++
++          <section className="trfmc-command-module-strip">
++            <div className="trfmc-command-strip-head">
++              <span>Lane modules</span>
++              <strong>{selectedLane.category}</strong>
++            </div>
++
++            <div className="trfmc-command-module-grid">
++              {selectedLaneModules.map((module) => (
++                <button
++                  key={module.id}
++                  type="button"
++                  className={activeModule.id === module.id ? `is-active ${statusClass(module)}` : statusClass(module)}
++                  onClick={() => setActiveModuleId(module.id)}
++                >
++                  <span>{statusLabel(module.status)}</span>
++                  <strong>{module.title}</strong>
++                  <em>{moduleScore(module)} · canvas {module.canvas || 0} · {module.target || module.mode}</em>
++                </button>
++              ))}
++            </div>
++          </section>
+ 
+-              <div className="trfmc-pos-v2-domain-grid">
+-                {portalOSModules.slice(1).map((module) => (
+-                  <button key={module.id} type="button" onClick={() => setActiveModuleId(module.id)}>
+-                    <span>{statusLabel(module.status)}</span>
+-                    <strong>{module.title}</strong>
+-                    <em>{module.description}</em>
+-                  </button>
+-                ))}
++          <section className="trfmc-command-active-card">
++            <div>
++              <span>Active module contract</span>
++              <strong>{activeModule.title}</strong>
++              <p>{activeModule.description || activeModule.mode || 'Manifest-governed module'}</p>
++            </div>
++            <dl>
++              <div>
++                <dt>Source</dt>
++                <dd>{activeModule.source}</dd>
+               </div>
+-            </section>
+-          ) : (
+-            <section className="trfmc-pos-v2-module">
+-              <div className="trfmc-pos-v2-hero">
+-                <p>{activeModule.category} · {activeModule.status}</p>
+-                <h1>{activeModule.title}</h1>
+-                <span>{activeModule.description}</span>
++              <div>
++                <dt>Route</dt>
++                <dd>{activeModule.route}</dd>
+               </div>
+-
+-              <div className="trfmc-pos-v2-module-grid">
+-                <article>
+-                  <span>Source</span>
+-                  <strong>{activeModule.source}</strong>
+-                  <em>reference/promoted origin</em>
+-                </article>
+-                <article>
+-                  <span>Route</span>
+-                  <strong>{activeModule.route}</strong>
+-                  <em>future module route</em>
+-                </article>
+-                <article>
+-                  <span>Mode</span>
+-                  <strong>{activeModule.status}</strong>
+-                  <em>governance state</em>
+-                </article>
++              <div>
++                <dt>Status</dt>
++                <dd>{statusLabel(activeModule.status)}</dd>
+               </div>
+-
+-              <section className="trfmc-pos-v2-contract">
+-                <span>Viewport contract</span>
+-                <strong>
+-                  Il modulo viene trattato come leaf governato dal Portal OS: non come home parallela,
+-                  non come iframe strutturale, non come shell duplicata.
+-                </strong>
+-              </section>
+-            </section>
+-          )}
++              <div>
++                <dt>Risk</dt>
++                <dd>{activeModule.risks && activeModule.risks.length ? activeModule.risks.join(', ') : 'clean / governed'}</dd>
++              </div>
++            </dl>
++          </section>
+         </main>
+ 
+-        <aside className="trfmc-pos-v2-evidence">
+-          <div className="trfmc-pos-v2-panel-title">
++        <aside className="trfmc-command-right">
++          <div className="trfmc-command-panel-title">
+             <span>Command / Evidence</span>
+-            <strong>P4B V2</strong>
++            <strong>P4D-B</strong>
+           </div>
+ 
+-          <section>
+-            <h3>Active module</h3>
+-            <p>{activeModule.title}</p>
+-            <code>{activeModule.source}</code>
+-          </section>
+-
+-          <section>
+-            <h3>Runtime endpoints</h3>
++          <section className="trfmc-command-evidence-block">
++            <h3>Runtime health</h3>
+             {endpoints.map((endpoint) => (
+-              <div key={endpoint.id} className={`trfmc-pos-v2-endpoint is-${endpoint.state}`}>
++              <div key={endpoint.id} className={`trfmc-command-endpoint is-${endpoint.state}`}>
+                 <span>{endpoint.label}</span>
+                 <strong>{endpoint.state}</strong>
+                 <em>{endpoint.detail}</em>
+@@ -210,13 +402,30 @@ export function PortalOSRoot() {
+             ))}
+           </section>
+ 
+-          <section>
++          <section className="trfmc-command-evidence-block">
++            <h3>QA / Risk policy</h3>
++            {highRiskSummary.map((risk) => (
++              <article key={risk.id}>
++                <span>{risk.label}</span>
++                <strong>{risk.policy}</strong>
++              </article>
++            ))}
++          </section>
++
++          <section className="trfmc-command-evidence-block">
+             <h3>Event stream</h3>
+             <p>tick #{tick}</p>
+-            <p>Preview mounted inside existing App root.</p>
++            <p>Portal OS home is now manifest-governed. Legacy HTML remains source/reference, not primary runtime.</p>
++            <p>Risk queue: {totalRisks} modules · visual candidates: {visualPortalOSModules.length}</p>
+           </section>
+         </aside>
+       </div>
++
++      <footer className="trfmc-command-footer">
++        <span>Baseline: P4C-B manifest commit PASS</span>
++        <span>Next: promote V63-grade home to default only after visual approval</span>
++        <span>No V42 mutation · no iframe · no unsafe DOM</span>
++      </footer>
+     </section>
+   )
+ }
+diff --git a/frontend/src/portal-os/portal-os.css b/frontend/src/portal-os/portal-os.css
+index 5e7b89a..1cc3fb6 100644
+--- a/frontend/src/portal-os/portal-os.css
++++ b/frontend/src/portal-os/portal-os.css
+@@ -1,250 +1,433 @@
+-.trfmc-pos-root-v2 {
++.trfmc-pos-root-v2.trfmc-command-center-v63 {
+   min-height: 100vh;
++  overflow: hidden;
+   background:
+-    radial-gradient(circle at 18% 0%, rgba(103, 232, 249, .11), transparent 30%),
+-    radial-gradient(circle at 88% 16%, rgba(134, 239, 172, .09), transparent 30%),
+-    linear-gradient(135deg, #020814 0%, #04101f 55%, #01040b 100%);
++    radial-gradient(circle at 16% 0%, rgba(34, 211, 238, .14), transparent 28%),
++    radial-gradient(circle at 84% 16%, rgba(16, 185, 129, .11), transparent 30%),
++    radial-gradient(circle at 52% 86%, rgba(59, 130, 246, .09), transparent 34%),
++    linear-gradient(135deg, #020712 0%, #031020 48%, #01040a 100%);
+   color: #e8f7ff;
+   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ }
+ 
+-.trfmc-pos-v2-status {
+-  min-height: 56px;
+-  display: flex;
+-  justify-content: space-between;
++.trfmc-command-topbar {
++  height: 70px;
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) auto;
+   align-items: center;
+-  gap: 18px;
+-  padding: 0 18px;
++  gap: 16px;
++  padding: 0 16px;
+   border-bottom: 1px solid rgba(103, 232, 249, .18);
+   background: rgba(0, 6, 16, .90);
++  box-shadow: 0 18px 70px rgba(0, 0, 0, .36);
++}
++
++.trfmc-command-brand span,
++.trfmc-command-panel-title span,
++.trfmc-command-strip-head span,
++.trfmc-command-active-card span,
++.trfmc-command-evidence-block h3 {
++  display: block;
++  color: #67e8f9;
++  font-size: 10px;
++  font-weight: 950;
++  letter-spacing: .16em;
++  text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-status strong {
++.trfmc-command-brand strong {
+   display: block;
++  margin-top: 3px;
+   color: #e8f7ff;
+-  font-size: 13px;
+-  letter-spacing: .08em;
++  font-size: 20px;
++  line-height: 1;
++  letter-spacing: .04em;
+   text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-status span {
++.trfmc-command-brand em {
++  display: block;
++  margin-top: 5px;
+   color: #9fb8ca;
+-  font-size: 11px;
++  font-size: 10px;
++  font-style: normal;
+ }
+ 
+-.trfmc-pos-v2-status > div:last-child {
+-  display: flex;
+-  gap: 10px;
+-  align-items: center;
++.trfmc-command-top-metrics {
++  display: grid;
++  grid-template-columns: repeat(4, minmax(92px, 1fr));
++  gap: 8px;
+ }
+ 
+-.trfmc-pos-v2-status > div:last-child span {
+-  border: 1px solid rgba(103, 232, 249, .18);
+-  border-radius: 999px;
+-  padding: 6px 10px;
+-  background: rgba(103, 232, 249, .06);
+-  color: #67e8f9;
++.trfmc-command-top-metrics article {
++  border: 1px solid rgba(103, 232, 249, .15);
++  border-radius: 12px;
++  background: rgba(2, 12, 24, .58);
++  padding: 8px 10px;
++  text-align: center;
+ }
+ 
+-.trfmc-pos-v2-layout {
+-  height: calc(100vh - 56px);
++.trfmc-command-top-metrics span {
++  display: block;
++  color: #9fb8ca;
++  font-size: 8.5px;
++  font-weight: 900;
++  letter-spacing: .11em;
++  text-transform: uppercase;
++}
++
++.trfmc-command-top-metrics strong {
++  display: block;
++  margin-top: 4px;
++  color: #86efac;
++  font-size: 18px;
++  line-height: 1;
++}
++
++.trfmc-command-layout {
++  height: calc(100vh - 112px);
++  min-height: 0;
+   display: grid;
+-  grid-template-columns: 310px minmax(0, 1fr) 340px;
++  grid-template-columns: 300px minmax(0, 1fr) 342px;
+   gap: 10px;
+   padding: 10px;
+ }
+ 
+-.trfmc-pos-v2-launcher,
+-.trfmc-pos-v2-viewport,
+-.trfmc-pos-v2-evidence {
++.trfmc-command-left,
++.trfmc-command-center,
++.trfmc-command-right {
+   min-height: 0;
+-  border: 1px solid rgba(103, 232, 249, .16);
++  border: 1px solid rgba(103, 232, 249, .15);
+   border-radius: 18px;
+   background: rgba(2, 12, 24, .72);
+-  box-shadow: 0 24px 90px rgba(0, 0, 0, .32);
++  box-shadow: 0 24px 90px rgba(0, 0, 0, .34);
+ }
+ 
+-.trfmc-pos-v2-launcher,
+-.trfmc-pos-v2-evidence {
++.trfmc-command-left,
++.trfmc-command-right {
+   overflow: hidden;
+   display: grid;
+   grid-template-rows: auto minmax(0, 1fr);
+ }
+ 
+-.trfmc-pos-v2-panel-title {
++.trfmc-command-center {
++  overflow: auto;
++  padding: 10px;
++}
++
++.trfmc-command-panel-title {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+-  padding: 14px;
+-  border-bottom: 1px solid rgba(103, 232, 249, .14);
++  gap: 12px;
++  padding: 12px;
++  border-bottom: 1px solid rgba(103, 232, 249, .13);
+ }
+ 
+-.trfmc-pos-v2-panel-title span {
+-  color: #67e8f9;
+-  font-size: 10px;
+-  font-weight: 900;
+-  letter-spacing: .16em;
+-  text-transform: uppercase;
+-}
+-
+-.trfmc-pos-v2-panel-title strong {
++.trfmc-command-panel-title strong,
++.trfmc-command-strip-head strong {
+   color: #86efac;
+-  font-size: 14px;
++  font-size: 13px;
++  text-transform: uppercase;
++  letter-spacing: .08em;
+ }
+ 
+-.trfmc-pos-v2-module-list {
++.trfmc-command-lanes {
+   overflow: auto;
+   padding: 10px;
+   display: grid;
+   gap: 8px;
+ }
+ 
+-.trfmc-pos-v2-module-list button,
+-.trfmc-pos-v2-domain-grid button {
++.trfmc-command-lanes button,
++.trfmc-command-module-grid button {
+   text-align: left;
+   border: 1px solid rgba(103, 232, 249, .13);
+   border-radius: 14px;
+-  background: rgba(0, 6, 16, .45);
++  background:
++    linear-gradient(180deg, rgba(0, 10, 22, .62), rgba(0, 5, 12, .48));
+   color: inherit;
+   padding: 10px;
+   cursor: pointer;
+ }
+ 
+-.trfmc-pos-v2-module-list button.is-active,
+-.trfmc-pos-v2-module-list button:hover,
+-.trfmc-pos-v2-domain-grid button:hover {
++.trfmc-command-lanes button.is-active,
++.trfmc-command-lanes button:hover,
++.trfmc-command-module-grid button.is-active,
++.trfmc-command-module-grid button:hover {
+   border-color: rgba(134, 239, 172, .42);
+-  background: rgba(8, 47, 38, .22);
++  background: rgba(8, 47, 38, .24);
+ }
+ 
+-.trfmc-pos-v2-module-list span,
+-.trfmc-pos-v2-domain-grid span,
+-.trfmc-pos-v2-metrics span,
+-.trfmc-pos-v2-module-grid span,
+-.trfmc-pos-v2-contract span {
++.trfmc-command-lanes span,
++.trfmc-command-module-grid span {
+   display: block;
+   color: #67e8f9;
+-  font-size: 9px;
+-  font-weight: 900;
+-  letter-spacing: .12em;
++  font-size: 8.5px;
++  font-weight: 950;
++  letter-spacing: .11em;
+   text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-module-list strong,
+-.trfmc-pos-v2-domain-grid strong {
++.trfmc-command-lanes strong,
++.trfmc-command-module-grid strong {
+   display: block;
+   margin-top: 5px;
+   color: #e8f7ff;
+   font-size: 12px;
++  line-height: 1.12;
+ }
+ 
+-.trfmc-pos-v2-module-list em,
+-.trfmc-pos-v2-domain-grid em {
++.trfmc-command-lanes em,
++.trfmc-command-module-grid em {
+   display: block;
+   margin-top: 5px;
+   color: #9fb8ca;
+-  font-size: 10px;
++  font-size: 9.5px;
+   font-style: normal;
+   line-height: 1.25;
+ }
+ 
+-.trfmc-pos-v2-viewport {
+-  overflow: auto;
+-  padding: 14px;
+-}
+-
+-.trfmc-pos-v2-hero {
++.trfmc-command-hero {
++  display: grid;
++  grid-template-columns: minmax(0, 1fr) minmax(230px, .35fr);
++  gap: 10px;
+   border: 1px solid rgba(103, 232, 249, .14);
+   border-radius: 18px;
+-  padding: 18px;
++  padding: 14px;
+   background:
+     radial-gradient(circle at 15% 0%, rgba(103, 232, 249, .12), transparent 35%),
+-    linear-gradient(180deg, rgba(2, 18, 34, .75), rgba(0, 6, 16, .52));
++    linear-gradient(180deg, rgba(2, 18, 34, .80), rgba(0, 6, 16, .52));
+ }
+ 
+-.trfmc-pos-v2-hero p {
++.trfmc-command-hero p {
+   margin: 0 0 8px;
+   color: #67e8f9;
+-  font-size: 11px;
+-  font-weight: 900;
++  font-size: 10px;
++  font-weight: 950;
+   letter-spacing: .16em;
+   text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-hero h1 {
++.trfmc-command-hero h1 {
+   margin: 0 0 8px;
+   color: #e8f7ff;
+-  font-size: 32px;
+-  line-height: .98;
++  font-size: clamp(28px, 3.1vw, 44px);
++  line-height: .96;
+ }
+ 
+-.trfmc-pos-v2-hero span {
++.trfmc-command-hero span {
+   color: #9fb8ca;
+   font-size: 13px;
+-  line-height: 1.45;
++  line-height: 1.42;
+ }
+ 
+-.trfmc-pos-v2-metrics,
+-.trfmc-pos-v2-module-grid {
+-  margin-top: 10px;
++.trfmc-command-hero article {
+   display: grid;
+-  grid-template-columns: repeat(3, minmax(0, 1fr));
+-  gap: 10px;
++  align-content: center;
++  border: 1px solid rgba(134, 239, 172, .18);
++  border-radius: 16px;
++  padding: 12px;
++  background: rgba(8, 47, 38, .20);
+ }
+ 
+-.trfmc-pos-v2-metrics article,
+-.trfmc-pos-v2-module-grid article,
+-.trfmc-pos-v2-contract {
+-  border: 1px solid rgba(103, 232, 249, .13);
+-  border-radius: 16px;
+-  padding: 14px;
+-  background: rgba(0, 6, 16, .34);
++.trfmc-command-hero article span,
++.trfmc-command-active-card dt {
++  color: #67e8f9;
++  font-size: 8.5px;
++  font-weight: 950;
++  letter-spacing: .11em;
++  text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-metrics strong,
+-.trfmc-pos-v2-module-grid strong {
+-  display: block;
+-  margin-top: 8px;
++.trfmc-command-hero article strong {
++  margin-top: 6px;
++  color: #e8f7ff;
++  font-size: 16px;
++  line-height: 1.08;
++}
++
++.trfmc-command-hero article em {
++  margin-top: 7px;
+   color: #86efac;
+-  font-size: 23px;
+-  line-height: 1;
+-  word-break: break-word;
++  font-size: 10px;
++  font-style: normal;
+ }
+ 
+-.trfmc-pos-v2-module-grid strong {
+-  color: #e8f7ff;
+-  font-size: 13px;
++.trfmc-command-radar {
++  position: relative;
++  min-height: 300px;
++  margin-top: 10px;
++  border: 1px solid rgba(103, 232, 249, .13);
++  border-radius: 18px;
++  overflow: hidden;
++  background:
++    radial-gradient(circle at 50% 50%, rgba(103, 232, 249, .08), transparent 12%),
++    radial-gradient(circle at 50% 50%, rgba(103, 232, 249, .05), transparent 32%),
++    linear-gradient(180deg, rgba(0, 6, 16, .55), rgba(0, 3, 8, .40));
+ }
+ 
+-.trfmc-pos-v2-metrics em,
+-.trfmc-pos-v2-module-grid em {
++.trfmc-command-radar::before,
++.trfmc-command-radar::after {
++  content: "";
++  position: absolute;
++  inset: 28px;
++  border: 1px solid rgba(103, 232, 249, .14);
++  border-radius: 999px;
++}
++
++.trfmc-command-radar::after {
++  inset: 72px;
++  border-color: rgba(134, 239, 172, .12);
++}
++
++.trfmc-command-radar-core {
++  position: absolute;
++  left: 50%;
++  top: 50%;
++  width: 154px;
++  height: 154px;
++  transform: translate(-50%, -50%);
++  display: grid;
++  place-items: center;
++  text-align: center;
++  border: 1px solid rgba(134, 239, 172, .32);
++  border-radius: 999px;
++  background: rgba(0, 12, 24, .86);
++  z-index: 3;
++}
++
++.trfmc-command-radar-core span,
++.trfmc-command-radar-node span {
+   display: block;
+-  margin-top: 8px;
++  color: #67e8f9;
++  font-size: 9px;
++  font-weight: 950;
++  letter-spacing: .12em;
++  text-transform: uppercase;
++}
++
++.trfmc-command-radar-core strong {
++  display: block;
++  color: #86efac;
++  font-size: 34px;
++  line-height: 1;
++}
++
++.trfmc-command-radar-core em {
+   color: #9fb8ca;
+   font-size: 10px;
+   font-style: normal;
+ }
+ 
+-.trfmc-pos-v2-domain-grid {
++.trfmc-command-radar-node {
++  position: absolute;
++  min-width: 118px;
++  max-width: 168px;
++  border: 1px solid rgba(103, 232, 249, .18);
++  border-radius: 14px;
++  padding: 8px;
++  background: rgba(0, 8, 18, .82);
++  z-index: 4;
++}
++
++.trfmc-command-radar-node.is-active {
++  border-color: rgba(134, 239, 172, .55);
++  box-shadow: 0 0 0 1px rgba(134, 239, 172, .10), 0 0 34px rgba(16, 185, 129, .13);
++}
++
++.trfmc-command-radar-node strong {
++  display: block;
++  margin-top: 3px;
++  color: #e8f7ff;
++  font-size: 18px;
++}
++
++.trfmc-command-radar-node.node-1 { left: 8%; top: 18%; }
++.trfmc-command-radar-node.node-2 { right: 9%; top: 15%; }
++.trfmc-command-radar-node.node-3 { left: 13%; bottom: 17%; }
++.trfmc-command-radar-node.node-4 { right: 12%; bottom: 18%; }
++.trfmc-command-radar-node.node-5 { left: 42%; top: 8%; }
++.trfmc-command-radar-node.node-6 { left: 42%; bottom: 8%; }
++.trfmc-command-radar-node.node-7 { left: 5%; top: 48%; }
++.trfmc-command-radar-node.node-8 { right: 5%; top: 48%; }
++
++.trfmc-command-module-strip,
++.trfmc-command-active-card {
+   margin-top: 10px;
++  border: 1px solid rgba(103, 232, 249, .13);
++  border-radius: 18px;
++  background: rgba(0, 6, 16, .36);
++  padding: 10px;
++}
++
++.trfmc-command-strip-head {
++  display: flex;
++  justify-content: space-between;
++  align-items: center;
++  padding-bottom: 8px;
++  border-bottom: 1px solid rgba(103, 232, 249, .11);
++}
++
++.trfmc-command-module-grid {
++  margin-top: 8px;
+   display: grid;
+-  grid-template-columns: repeat(3, minmax(0, 1fr));
+-  gap: 10px;
++  grid-template-columns: repeat(5, minmax(0, 1fr));
++  gap: 8px;
+ }
+ 
+-.trfmc-pos-v2-contract {
+-  margin-top: 10px;
++.trfmc-command-module-grid button.is-promoted {
++  border-color: rgba(134, 239, 172, .24);
++}
++
++.trfmc-command-module-grid button.is-risk {
++  border-color: rgba(248, 113, 113, .28);
++}
++
++.trfmc-command-active-card {
++  display: grid;
++  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
++  gap: 12px;
+ }
+ 
+-.trfmc-pos-v2-contract strong {
++.trfmc-command-active-card strong {
+   display: block;
+-  margin-top: 8px;
++  margin-top: 6px;
+   color: #e8f7ff;
+-  font-size: 13px;
+-  line-height: 1.45;
++  font-size: 18px;
++}
++
++.trfmc-command-active-card p {
++  margin: 8px 0 0;
++  color: #9fb8ca;
++  font-size: 12px;
++  line-height: 1.4;
++}
++
++.trfmc-command-active-card dl {
++  display: grid;
++  grid-template-columns: repeat(2, minmax(0, 1fr));
++  gap: 8px;
++  margin: 0;
++}
++
++.trfmc-command-active-card div {
++  min-width: 0;
++}
++
++.trfmc-command-active-card dd {
++  margin: 4px 0 0;
++  color: #e8f7ff;
++  font-size: 10.5px;
++  line-height: 1.28;
++  word-break: break-word;
++}
++
++.trfmc-command-right {
++  overflow: auto;
+ }
+ 
+-.trfmc-pos-v2-evidence section {
++.trfmc-command-evidence-block {
+   margin: 10px;
+   border: 1px solid rgba(103, 232, 249, .13);
+   border-radius: 14px;
+@@ -252,66 +435,135 @@
+   background: rgba(0, 6, 16, .34);
+ }
+ 
+-.trfmc-pos-v2-evidence h3 {
++.trfmc-command-evidence-block h3 {
+   margin: 0 0 8px;
+-  color: #67e8f9;
+-  font-size: 10px;
+-  letter-spacing: .14em;
+-  text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-evidence p,
+-.trfmc-pos-v2-evidence code {
++.trfmc-command-evidence-block p {
++  margin: 6px 0;
+   color: #9fb8ca;
+   font-size: 11px;
+-  line-height: 1.35;
+-  word-break: break-word;
++  line-height: 1.38;
+ }
+ 
+-.trfmc-pos-v2-endpoint {
++.trfmc-command-evidence-block article {
++  padding: 8px 0;
++  border-top: 1px solid rgba(103, 232, 249, .10);
++}
++
++.trfmc-command-evidence-block article span {
++  display: block;
++  color: #67e8f9;
++  font-size: 9px;
++  font-weight: 950;
++  letter-spacing: .11em;
++  text-transform: uppercase;
++}
++
++.trfmc-command-evidence-block article strong {
++  display: block;
++  margin-top: 4px;
++  color: #e8f7ff;
++  font-size: 10.5px;
++  line-height: 1.3;
++}
++
++.trfmc-command-endpoint {
+   display: grid;
+   gap: 3px;
+   padding: 8px 0;
+   border-top: 1px solid rgba(103, 232, 249, .10);
+ }
+ 
+-.trfmc-pos-v2-endpoint span {
++.trfmc-command-endpoint span {
+   color: #e8f7ff;
+   font-size: 11px;
+ }
+ 
+-.trfmc-pos-v2-endpoint strong {
++.trfmc-command-endpoint strong {
+   color: #fbbf24;
+   font-size: 10px;
+   text-transform: uppercase;
+ }
+ 
+-.trfmc-pos-v2-endpoint.is-online strong {
++.trfmc-command-endpoint.is-online strong {
+   color: #86efac;
+ }
+ 
+-.trfmc-pos-v2-endpoint.is-offline strong {
++.trfmc-command-endpoint.is-offline strong {
+   color: #f87171;
+ }
+ 
+-.trfmc-pos-v2-endpoint em {
++.trfmc-command-endpoint em {
+   color: #9fb8ca;
+   font-size: 9px;
+   font-style: normal;
+ }
+ 
+-@media (max-width: 1280px) {
+-  .trfmc-pos-v2-layout {
+-    grid-template-columns: 260px minmax(0, 1fr);
++.trfmc-command-footer {
++  height: 42px;
++  display: grid;
++  grid-template-columns: repeat(3, minmax(0, 1fr));
++  gap: 8px;
++  align-items: center;
++  padding: 0 14px;
++  border-top: 1px solid rgba(103, 232, 249, .16);
++  background: rgba(0, 6, 16, .88);
++}
++
++.trfmc-command-footer span {
++  color: #9fb8ca;
++  font-size: 10px;
++  text-align: center;
++}
++
++@media (max-width: 1440px) {
++  .trfmc-command-layout {
++    grid-template-columns: 270px minmax(0, 1fr) 310px;
++  }
++
++  .trfmc-command-module-grid {
++    grid-template-columns: repeat(3, minmax(0, 1fr));
++  }
++}
++
++@media (max-width: 1180px) {
++  .trfmc-command-layout {
++    grid-template-columns: 250px minmax(0, 1fr);
+   }
+ 
+-  .trfmc-pos-v2-evidence {
++  .trfmc-command-right {
+     display: none;
+   }
+ 
+-  .trfmc-pos-v2-domain-grid,
+-  .trfmc-pos-v2-metrics,
+-  .trfmc-pos-v2-module-grid {
+-    grid-template-columns: repeat(2, minmax(0, 1fr));
++  .trfmc-command-top-metrics {
++    grid-template-columns: repeat(2, minmax(92px, 1fr));
+   }
+ }
++
++/* TRFMC P4D-C VISUAL CORRECTNESS START */
++.trfmc-command-lanes,
++.trfmc-command-center,
++.trfmc-command-right {
++  scrollbar-width: thin;
++  scrollbar-color: rgba(103, 232, 249, .38) rgba(2, 12, 24, .22);
++}
++
++.trfmc-command-module-grid button.is-active {
++  box-shadow: inset 0 0 0 1px rgba(134, 239, 172, .32), 0 0 28px rgba(16, 185, 129, .14);
++}
++
++.trfmc-command-active-card dd {
++  max-height: 48px;
++  overflow: hidden;
++}
++
++.trfmc-command-endpoint.is-offline em {
++  color: #fbbf24;
++}
++
++.trfmc-command-evidence-block article strong,
++.trfmc-command-evidence-block p {
++  word-break: normal;
++}
++/* TRFMC P4D-C VISUAL CORRECTNESS END */

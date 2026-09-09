@@ -1,0 +1,3 @@
+class TelcoMnSService:
+    def status(self):
+        return {"platform_role":"MnS Consumer / OAM abstraction layer", "open5gs_integration_policy":"API/SBA/WebUI-backend only. Direct MongoDB subscriber manipulation is prohibited.", "services":[{"name":"Fault Supervision","role":"consume alarms","status":"SKELETON","notes":"CloudEvents-ready"},{"name":"Performance Assurance","role":"consume KPI/PM","status":"SKELETON","notes":"Prometheus/OpenTelemetry adapter planned"},{"name":"Provisioning","role":"controlled subscriber/slice workflow","status":"SKELETON","notes":"No direct DB writes"},{"name":"NRM Inventory","role":"model NG-RAN/5GC resources","status":"SKELETON","notes":"3GPP TS 28.541 alignment planned"}]}

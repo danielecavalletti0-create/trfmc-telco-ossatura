@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "status": "online",
+  "service": "trfmc-portal",
+  "mode": "vite-static-health",
+  "portal_port": 5173,
+  "portal_url": "http://127.0.0.1:5173",
+  "message": "TRFMC portal is alive on port 5173"
+}

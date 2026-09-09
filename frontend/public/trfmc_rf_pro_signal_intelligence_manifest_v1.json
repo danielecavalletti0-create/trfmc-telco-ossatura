@@ -1,0 +1,31 @@
+{
+  "id": "TRFMC_RF_PRO_SIGNAL_INTELLIGENCE_LAB_V1",
+  "timestamp": "2026-05-23T20:56:02.523257+00:00",
+  "page": "/trfmc_rf_pro_signal_intelligence_lab_v1.html",
+  "source_orphans": [
+    "/signal_demod_v581.html",
+    "/signal_workbench_v580.html",
+    "/signal_workbench_v582.html",
+    "/uav_fhss_v584.html"
+  ],
+  "source_summary": {
+    "timestamp": "2026-05-23T20:56:02.490272+00:00",
+    "operation": "TRFMC_RF_PRO_REBUILD_SOURCE_SCAN_V1",
+    "source_orphans": 4,
+    "expected_source_orphans": 4,
+    "all_sources_exist": true,
+    "total_size": 47973,
+    "total_word_estimate": 3520,
+    "policy": "Read-only source scan. No orphan file changed."
+  },
+  "mode": "synthetic_lab_only",
+  "capabilities": [
+    "spectrum_analyzer",
+    "waterfall_occupancy",
+    "iq_constellation",
+    "fhss_burst_timeline",
+    "formula_cockpit",
+    "visual_asset_engine_binding"
+  ],
+  "policy": "New premium leaf. Orphan pages are not modified. V6R3 and Control Room are protected."
+}

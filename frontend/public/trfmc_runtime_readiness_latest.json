@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-05-18T13:27:23+02:00",
+  "base": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2",
+  "portal": {
+    "official_port": 5173,
+    "health_url": "http://127.0.0.1:5173/api/health",
+    "root_url": "http://127.0.0.1:5173/"
+  },
+  "project_scripts": {
+    "start_portale_5173": true,
+    "stop_portale_5173": true,
+    "status_portale_5173": true,
+    "collaudo_portale_5173": true,
+    "domain_registry": true,
+    "engine_board": true
+  },
+  "fiveg_scripts": {
+    "bin_5g_start": false,
+    "bin_5g_stop": false,
+    "bin_5g_health": false,
+    "home_5g_start": false,
+    "home_5g_stop": false,
+    "home_5g_health": false
+  },
+  "open5gs": {
+    "detected_root": "/usr/bin",
+    "amfd": false,
+    "smfd": false,
+    "upfd": false,
+    "ausfd": false,
+    "udmd": false,
+    "logs_var_log_open5gs": false,
+    "config_etc_open5gs": false
+  },
+  "ueransim": {
+    "detected_root": "",
+    "nr_gnb_in_path": false,
+    "nr_ue_in_path": false,
+    "nr_cli_in_path": false,
+    "config_open5gs_gnb": false,
+    "config_open5gs_ue": false
+  },
+  "hackrf": {
+    "hackrf_info": true,
+    "hackrf_transfer": true,
+    "hackrf_sweep": true,
+    "soapy_sdr_util": true
+  },
+  "evidence_storage": {
+    "runtime_evidence": true,
+    "pcap": true,
+    "iq": true,
+    "reports": true,
+    "logs": true,
+    "backups": true
+  },
+  "quality": {
+    "runtime_size": "8.0M",
+    "disk_free": "55G",
+    "latest_collaudo_dir": "",
+    "latest_freeze": ""
+  }
+}

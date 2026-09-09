@@ -1,0 +1,26 @@
+{
+  "version": "TRFMC v0.84G",
+  "page": "rf_sapienza_console_v84g.html",
+  "mission": "Topographic RF instrument view: remove both red curtain and black curtain, keep continuous readable RF surface and localized diagnostic contours.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "based_on": "v0.84F RF Dark Field Discipline",
+  "critical_fixes": [
+    "critical fill no longer black",
+    "critical class remains local",
+    "weak/edge/good/excellent are continuous topographic layers",
+    "diagnostic contour labels added",
+    "canvas restored to readable dark-instrument brightness"
+  ],
+  "acceptance": [
+    "no red curtain",
+    "no black curtain",
+    "field continuous and readable",
+    "objects readable",
+    "diagnostic contours explain thresholds",
+    "instruments remain source of truth"
+  ]
+}

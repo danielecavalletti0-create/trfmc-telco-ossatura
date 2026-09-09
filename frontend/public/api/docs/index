@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>TRFMC API Docs Index</title>
+<style>
+body{margin:0;background:#050812;color:#eaf2ff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:32px}
+.card{max-width:980px;background:rgba(255,255,255,.06);border:1px solid rgba(130,180,255,.24);border-radius:18px;padding:24px;box-shadow:0 0 32px rgba(0,120,255,.10)}
+h1{margin-top:0;color:#9ed0ff}
+code{background:rgba(255,255,255,.09);padding:3px 6px;border-radius:6px}
+a{color:#9ed0ff}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>TRFMC — API Docs Index</h1>
+<p>Indice locale di servizio del portale TRFMC. Porta ufficiale: <code>5173</code>.</p>
+<ul>
+<li><a href="/api/health">/api/health</a></li>
+<li><a href="/trfmc_collaudo_report.html">Report collaudo portale</a></li>
+<li><a href="/trfmc_home_v87g.html">TRFMC Home</a></li>
+<li><a href="/rf_physics_sapienza_console_v86a.html">RF Physics Console</a></li>
+<li><a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">WebGL RF Physics Engine</a></li>
+</ul>
+</div>
+</body>
+</html>

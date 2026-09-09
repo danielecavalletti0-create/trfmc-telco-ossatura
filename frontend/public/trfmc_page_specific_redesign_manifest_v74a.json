@@ -1,0 +1,22 @@
+{
+  "version": "TRFMC v0.74A",
+  "name": "Page-Specific Object Redesign Pack",
+  "strategy": "No more aggressive global visual layers. Only scoped, page-specific redesign assets.",
+  "targets": [
+    {
+      "page": "webgl_rf_heatmap_engine_v69.html",
+      "domain": "UE mobility, handover, RF degradation, serving/candidate cell logic"
+    },
+    {
+      "page": "infrastructure_digital_twin_v63.html",
+      "domain": "Telecom site, antenna, RRU, RET/AISG, microwave, fiber, shelter, power"
+    }
+  ],
+  "rules": [
+    "no backend changes",
+    "no docker restart",
+    "no global overlay injection",
+    "no v0.72A aggressive remediation references",
+    "preview mode respected through ?preview=1"
+  ]
+}

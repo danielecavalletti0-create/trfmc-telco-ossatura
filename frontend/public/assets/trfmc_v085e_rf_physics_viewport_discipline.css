@@ -1,0 +1,207 @@
+/* ============================================================
+   TRFMC v0.85E - RF Physics Viewport Discipline
+   Obiettivo: togliere caos verticale, titolo su una riga,
+   una sola doctrine ribbon, canvas più vicino alla parte alta.
+   ============================================================ */
+
+body.v85e-polish {
+  --e-bg:#01040b;
+  --e-panel:#061426;
+  --e-cyan:#8ff0ff;
+  --e-green:#42f56f;
+  --e-amber:#fbbf24;
+  --e-red:#ff3b5c;
+  --e-text:#e8faff;
+}
+
+/* Nasconde le strip duplicate ereditate da v85B/v85C/v85D */
+body.v85e-polish .sapienza-v85b-chain,
+body.v85e-polish .sapienza-v85c-identity-strip,
+body.v85e-polish .v85d-lock-strip,
+body.v85e-polish .sapienza-v85c-badge,
+body.v85e-polish .v85d-badge {
+  display:none !important;
+}
+
+/* Topbar compatta */
+body.v85e-polish header,
+body.v85e-polish .topbar,
+body.v85e-polish .shellbar {
+  min-height:42px !important;
+  padding-top:5px !important;
+  padding-bottom:5px !important;
+}
+
+/* Hero compatta: il titolo non deve divorare il viewport */
+body.v85e-polish .hero,
+body.v85e-polish .intro,
+body.v85e-polish section:first-of-type {
+  min-height:148px !important;
+  padding:20px 24px !important;
+  border-radius:26px !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 210px !important;
+  align-items:center !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(143,240,255,.16), transparent 32%),
+    radial-gradient(circle at 86% 18%, rgba(66,245,111,.08), transparent 34%),
+    linear-gradient(135deg, rgba(5,27,47,.98), rgba(1,6,14,.99)) !important;
+}
+
+/* Titolo single-line su workstation larga */
+body.v85e-polish h1,
+body.v85e-polish .trfmc-runtime-title-lock {
+  font-size:clamp(38px,3.25vw,64px) !important;
+  line-height:1.02 !important;
+  letter-spacing:.040em !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  max-width:100% !important;
+  color:var(--e-text) !important;
+  text-shadow:
+    0 0 14px rgba(143,240,255,.58),
+    0 0 42px rgba(143,240,255,.16) !important;
+}
+
+/* Sottotitolo meno alto */
+body.v85e-polish .hero p,
+body.v85e-polish .intro p,
+body.v85e-polish section:first-of-type p {
+  max-width:1180px !important;
+  line-height:1.42 !important;
+  font-size:12px !important;
+}
+
+/* Director ultra-compatto */
+body.v85e-polish .sapienza-v85b-director {
+  margin:6px 8px !important;
+  padding:6px !important;
+  border-radius:16px !important;
+  grid-template-columns:190px 1fr 260px !important;
+  gap:6px !important;
+}
+
+body.v85e-polish .sapienza-v85b-director article {
+  min-height:42px !important;
+  padding:6px 8px !important;
+}
+
+body.v85e-polish .sapienza-v85b-director h2 {
+  font-size:9px !important;
+  margin-bottom:3px !important;
+}
+
+body.v85e-polish .sapienza-v85b-director p {
+  font-size:9px !important;
+  line-height:1.28 !important;
+}
+
+body.v85e-polish .sapienza-v85b-modes button {
+  height:34px !important;
+  min-height:34px !important;
+  font-size:8.5px !important;
+}
+
+/* Unica ribbon dottrinale v85E */
+.v85e-proof-ribbon {
+  margin:6px 8px 8px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+}
+
+.v85e-proof-ribbon article {
+  min-height:46px !important;
+  border:1px solid rgba(143,240,255,.24) !important;
+  border-radius:14px !important;
+  padding:7px 9px !important;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(143,240,255,.055), transparent 32%),
+    linear-gradient(145deg, rgba(6,24,42,.76), rgba(1,6,14,.96)) !important;
+}
+
+.v85e-proof-ribbon b {
+  display:block;
+  color:var(--e-cyan);
+  font-size:9px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+}
+
+.v85e-proof-ribbon span {
+  display:block;
+  color:rgba(232,250,255,.62);
+  font-size:9px;
+  line-height:1.25;
+}
+
+.v85e-proof-ribbon article:nth-child(3) {
+  border-color:rgba(251,191,36,.32) !important;
+}
+
+.v85e-proof-ribbon article:nth-child(5) {
+  border-color:rgba(255,59,92,.28) !important;
+}
+
+/* Canvas: più spazio operativo, meno pittorico */
+body.v85e-polish canvas {
+  filter:saturate(.92) brightness(1.05) contrast(1.19) !important;
+}
+
+body.v85e-polish .stage,
+body.v85e-polish .canvas-wrap,
+body.v85e-polish .field,
+body.v85e-polish .rf-canvas {
+  margin-top:6px !important;
+  border-color:rgba(143,240,255,.42) !important;
+}
+
+/* Pannelli: riduzione aria morta */
+body.v85e-polish .panel,
+body.v85e-polish .card,
+body.v85e-polish article,
+body.v85e-polish aside {
+  border-color:rgba(143,240,255,.28) !important;
+}
+
+/* Badge finale */
+.v85e-badge {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  border:1px solid rgba(66,245,111,.34);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(1,6,14,.88);
+  color:var(--e-green);
+  font-size:10px;
+  letter-spacing:.12em;
+  box-shadow:0 0 24px rgba(66,245,111,.14);
+}
+
+/* Clean mode davvero pulito */
+body.v85e-mode-clean .v85e-proof-ribbon,
+body.v85e-mode-clean .sapienza-v85b-director,
+body.v85e-mode-clean .v85e-badge {
+  display:none !important;
+}
+
+/* Su schermi piccoli accetto wrap controllato */
+@media(max-width:1500px){
+  body.v85e-polish h1,
+  body.v85e-polish .trfmc-runtime-title-lock {
+    white-space:normal !important;
+    font-size:clamp(34px,6vw,58px) !important;
+  }
+
+  body.v85e-polish .hero,
+  body.v85e-polish .intro,
+  body.v85e-polish section:first-of-type,
+  body.v85e-polish .sapienza-v85b-director,
+  .v85e-proof-ribbon {
+    grid-template-columns:1fr !important;
+  }
+}

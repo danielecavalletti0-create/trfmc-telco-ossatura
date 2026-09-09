@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+  <meta charset="utf-8">
+  <title>TRFMC v0.17 Scenario Evidence Report Export</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --panel:rgba(5,18,31,.82);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(88,214,249,.14), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(210,153,34,.10), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:18px;
+      padding:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 34px rgba(88,214,249,.08);
+    }
+    h1 { margin:0; font-size:24px; letter-spacing:1px; }
+    header p { margin:6px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button, input {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      font-family:inherit;
+    }
+    button { cursor:pointer; }
+    button:hover { background:rgba(88,214,249,.16); }
+    input { min-width:340px; color:var(--text); background:rgba(0,0,0,.25); }
+    .kpi {
+      flex:1 1 170px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:16px; overflow:hidden; text-overflow:ellipsis; }
+    .layout {
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .summary {
+      display:grid;
+      gap:10px;
+    }
+    .card {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.025);
+      border-radius:13px;
+      padding:12px;
+    }
+    .card b { color:var(--cyan); display:block; font-size:12px; }
+    .card span { color:var(--text); display:block; margin-top:5px; font-size:11px; }
+    .card em { color:var(--muted); display:block; margin-top:5px; font-size:10px; font-style:normal; }
+    pre {
+      margin:0;
+      max-height:760px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css">
+</head>
+<body class="trfmc-enterprise-shell"><section id="trfmc-shell-topbar" class="trfmc-shell-topbar">
+      <div class="trfmc-shell-row">
+        <div class="trfmc-shell-brand">
+          <div class="trfmc-shell-mark" aria-hidden="true"></div>
+          <div class="trfmc-shell-title">
+            <b>TRFMC Mission Control</b>
+            <span>Scenario Report · Enterprise Navigation Shell v0.34</span>
+          </div>
+        </div>
+
+        <nav class="trfmc-shell-nav" aria-label="TRFMC enterprise navigation">
+          <a class="" href="/portal_index_v19.html">Portal</a><a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_mission_portal_v35.html">RF/Telco</a><a class="" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a><a class="" href="/network_journey_world_map_v37.html">World Journey</a><a class="" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a><a class="" href="/operator_handbook_console_v23.html">Handbook</a><a class="" href="/security_console_v18.html">Security</a><a class="" href="/scenario_runner_console_v16.html">Scenarios</a><a class="trfmc-shell-active" href="/scenario_report_console_v17.html">Reports</a><a class="" href="/observability_console_v13.html">Observability</a><a class="" href="/operational_backup_console_v21.html">Backup</a><a class="" href="/restore_readiness_console_v22.html">Restore</a>
+        </nav>
+
+        <div class="trfmc-shell-status">
+          <span id="trfmc-shell-backend" class="trfmc-shell-pill warn">Backend <strong>UNKNOWN</strong></span>
+          <span id="trfmc-shell-snapshot" class="trfmc-shell-pill ok">Golden <strong>OK</strong></span>
+          <span id="trfmc-shell-mode" class="trfmc-shell-pill warn">Mode <strong>UNKNOWN</strong></span>
+        </div>
+      </div>
+
+      <div class="trfmc-shell-subbar">
+        <span>localhost-only · simulation-only · controlled lab posture</span>
+        <span>
+          API <code>127.0.0.1:5173</code>
+          Frontend <code>127.0.0.1:5173</code>
+        </span>
+      </div>
+    </section>
+<header>
+  <div>
+    <h1>TRFMC SCENARIO EVIDENCE DASHBOARD &amp; REPORT EXPORT</h1>
+    <p>v0.17 · scenario report · RF evidence · coverage · timeline · correlation graph · HTML export</p>
+  </div>
+  <div class="badge" id="badge">ERROR</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadLatest()">Latest Report</button>
+  <input id="runInput" placeholder="SCN-RUN-XXXXXXXXXXXX">
+  <button onclick="loadByRun()">Load Run ID</button>
+  <button onclick="exportHtml()">Open HTML Export</button>
+  <button onclick="location.href='/'">Main</button>
+  <button onclick="location.href='/scenario_runner_console_v16.html'">Scenario Runner</button>
+  <button onclick="location.href='/timeline_console_v14.html'">Timeline</button>
+  <button onclick="location.href='/mission_graph_console_v15.html'">Graph</button>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Scenario</span><b id="k_scenario">—</b></div>
+  <div class="kpi"><span>Run ID</span><b id="k_run">—</b></div>
+  <div class="kpi"><span>Correlation</span><b id="k_corr">—</b></div>
+  <div class="kpi"><span>Coverage</span><b id="k_cov">—</b></div>
+  <div class="kpi"><span>Timeline Entries</span><b id="k_timeline">—</b></div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Executive Summary</h2>
+    <div class="body">
+      <div class="summary" id="summary">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Full Report JSON</h2>
+    <div class="body">
+      <pre id="report">{
+  "error": "SyntaxError: Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+}</pre>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.17 · API: /api/reports/latest · /api/reports/scenario/{run_id} · /api/reports/export/html/{run_id}
+</footer>
+
+<script>
+const API = '/api'
+let currentReport = null
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function render(report) {
+  currentReport = report
+  const s = report.executive_summary || {}
+  document.getElementById('runInput').value = report.run_id || ''
+
+  k('k_scenario', report.scenario_id)
+  k('k_run', report.run_id)
+  k('k_corr', report.correlation_id)
+  k('k_cov', s.coverage_classification)
+  k('k_timeline', s.related_timeline_entries)
+
+  const el = document.getElementById('summary')
+  el.innerHTML = `
+    <div class="card"><b>Scenario</b><span>${report.scenario_id || '—'}</span><em>${report.title || ''}</em></div>
+    <div class="card"><b>Run / Correlation</b><span>${report.run_id || '—'}</span><em>${report.correlation_id || '—'}</em></div>
+    <div class="card"><b>RF Field</b><span>${s.rf_field_region || '—'}</span><em>Gain: ${s.antenna_gain_to_target_dbi ?? '—'} dBi</em></div>
+    <div class="card"><b>Coverage</b><span>${s.coverage_classification || '—'} · ${s.los_state || '—'}</span><em>SNR: ${s.snr_db ?? '—'} dB</em></div>
+    <div class="card"><b>Evidence</b><span>CloudEvents: ${s.related_cloud_events ?? '—'} · Timeline: ${s.related_timeline_entries ?? '—'}</span><em>Graph nodes: ${s.mission_graph_nodes ?? '—'} · edges: ${s.mission_graph_edges ?? '—'}</em></div>
+    <div class="card"><b>Assessment</b><span>${s.assessment || '—'}</span></div>
+  `
+  j('report', report)
+}
+
+async function loadLatest() {
+  const health = await get('/health')
+  k('k_backend', health.version)
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+
+  const report = await get('/reports/latest')
+  render(report)
+}
+
+async function loadByRun() {
+  const run = document.getElementById('runInput').value.trim()
+  if (!run) return loadLatest()
+  const report = await get('/reports/scenario/' + encodeURIComponent(run))
+  render(report)
+}
+
+function exportHtml() {
+  const run = (currentReport && currentReport.run_id) || document.getElementById('runInput').value.trim()
+  if (!run) {
+    alert('Run ID non disponibile')
+    return
+  }
+  window.open(API + '/reports/export/html/' + encodeURIComponent(run), '_blank')
+}
+
+loadLatest().catch(e => {
+  document.getElementById('badge').textContent = 'ERROR'
+  j('report', {error:String(e)})
+})
+setInterval(loadLatest, 30000)
+</script>
+<script defer="" src="/assets/trfmc_enterprise_shell_v34.js"></script>
+
+
+<section id="trfmc-shell-footer" class="trfmc-shell-footer">
+      <b>TRFMC v0.34 Enterprise Navigation Shell</b>
+      · unified console navigation · runtime status · golden check · operational lab mode
+    </section></body></html>

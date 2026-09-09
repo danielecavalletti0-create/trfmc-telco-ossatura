@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TRFMC Area Workbench · RF Physics / Microwave</title>
+<style>
+:root {
+  --bg:#020812; --panel:rgba(3,14,28,.82); --line:rgba(103,232,249,.18);
+  --text:#e8f7ff; --muted:#9fb8ca; --cyan:#67e8f9; --green:#86efac;
+  --amber:#fbbf24; --red:#fb7185; --violet:#c084fc;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; color:var(--text); font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(circle at 12% 5%, rgba(14,165,233,.22), transparent 28%),
+    radial-gradient(circle at 88% 0%, rgba(16,185,129,.14), transparent 30%),
+    linear-gradient(180deg,#020812,#020617);
+}
+nav {
+  position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; gap:8px; padding:10px 22px;
+  border-bottom:1px solid var(--line); background:rgba(2,8,18,.94); backdrop-filter:blur(18px);
+}
+nav a, nav button {
+  border:1px solid rgba(103,232,249,.22); border-radius:999px; padding:8px 11px;
+  color:var(--text); background:rgba(0,12,24,.72); text-decoration:none; font-weight:900; cursor:pointer;
+}
+nav a:hover, nav button:hover { color:var(--green); border-color:rgba(134,239,172,.55); }
+main { max-width:1880px; margin:0 auto; padding:24px; }
+.hero {
+  border:1px solid var(--line); border-radius:30px; padding:24px;
+  background:radial-gradient(circle at 90% 5%,rgba(103,232,249,.16),transparent 32%),rgba(3,14,28,.80);
+  box-shadow:0 30px 110px rgba(0,0,0,.36);
+}
+.eyebrow { color:var(--cyan); font-size:11px; text-transform:uppercase; font-weight:950; letter-spacing:.14em; }
+h1 { margin:8px 0 0; font-size:40px; letter-spacing:-.05em; }
+.hero p { color:var(--muted); max-width:1120px; line-height:1.55; }
+.kpis { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:18px; }
+.kpi { border:1px solid rgba(103,232,249,.14); border-radius:18px; padding:13px; background:rgba(0,9,20,.65); }
+.kpi span { display:block; color:var(--muted); font-size:10px; font-weight:900; text-transform:uppercase; }
+.kpi strong { display:block; color:var(--green); font-size:28px; margin-top:5px; }
+.layout { display:grid; grid-template-columns:1.2fr .8fr; gap:14px; margin-top:16px; }
+.panel { border:1px solid var(--line); border-radius:24px; padding:16px; background:var(--panel); }
+.panel h2 { margin:0 0 10px; font-size:22px; }
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.page-card {
+  min-height:132px; display:flex; flex-direction:column; gap:7px; text-decoration:none; color:inherit;
+  border:1px solid rgba(103,232,249,.14); border-radius:18px; padding:12px; background:rgba(0,9,20,.72);
+}
+.page-card:hover { border-color:rgba(134,239,172,.55); box-shadow:0 0 34px rgba(16,185,129,.12); }
+.page-card span { color:var(--cyan); font-size:9px; text-transform:uppercase; font-weight:950; }
+.page-card strong { font-size:13px; line-height:1.16; }
+.page-card em { color:var(--muted); font-size:10px; word-break:break-word; font-style:normal; }
+.page-card small { margin-top:auto; color:var(--amber); font-size:10px; font-weight:850; }
+.workflow { display:grid; gap:8px; }
+.step { border:1px solid rgba(103,232,249,.12); border-radius:16px; padding:12px; background:rgba(0,8,18,.64); }
+.step b { color:var(--green); }
+table { width:100%; border-collapse:collapse; margin-top:8px; font-size:12px; }
+th, td { border-bottom:1px solid rgba(103,232,249,.10); padding:8px; text-align:left; vertical-align:top; }
+th { color:var(--cyan); font-size:10px; text-transform:uppercase; letter-spacing:.1em; }
+td a { color:var(--green); }
+.empty { color:var(--muted); padding:12px; }
+@media(max-width:1500px){ .layout{grid-template-columns:1fr} .grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:760px){ .grid,.kpis{grid-template-columns:1fr} h1{font-size:32px} }
+</style>
+</head>
+<body data-trfmc-area-workbench="rf-physics">
+<nav>
+  <button onclick="history.back()">← Indietro</button>
+  <a href="/#portal-os-preview">Portal OS</a>
+  <a href="/trfmc_thematic_command_center_v1.html">Thematic Center</a>
+  <a href="/trfmc_page_review_cockpit_v1.html">Review Cockpit</a>
+  <a href="/trfmc_working_pages_control_room_v1.html">Working Pages</a>
+</nav>
+<main>
+  <section class="hero">
+    <div class="eyebrow">TRFMC area workbench · rf-physics</div>
+    <h1>RF Physics / Microwave</h1>
+    <p>Fisica RF, formule, simulatori, link budget, microonde.</p>
+    <div class="kpis">
+      <div class="kpi"><span>Active pages</span><strong>95</strong></div>
+      <div class="kpi"><span>Top queue</span><strong>12</strong></div>
+      <div class="kpi"><span>Total canvas</span><strong>220</strong></div>
+      <div class="kpi"><span>Total scripts</span><strong>532</strong></div>
+    </div>
+  </section>
+
+  <section class="layout">
+    <div class="panel">
+      <h2>Top candidates da aprire e valutare</h2>
+      <div class="grid">
+              <a class="page-card" href="/trfmc_rf_tm_war_room_v4.html" target="_blank" rel="noreferrer">
+                <span>war-room</span>
+                <strong>TRFMC RF/TM War Room V4</strong>
+                <em>/trfmc_rf_tm_war_room_v4.html</em>
+                <small>canvas 8 · script 6 · score 58</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_rf_tm_signal_universe_v3.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC RF/TM Signal Universe V3</strong>
+                <em>/trfmc_rf_tm_signal_universe_v3.html</em>
+                <small>canvas 8 · script 6 · score 55</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_measurement_chain_dsp_engine_v2.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC Measurement Chain DSP Engine V2</strong>
+                <em>/trfmc_measurement_chain_dsp_engine_v2.html</em>
+                <small>canvas 6 · script 6 · score 51</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_antenna_system_explorer_v1.html" target="_blank" rel="noreferrer">
+                <span>antenna</span>
+                <strong>TRFMC Antenna System Explorer V1</strong>
+                <em>/trfmc_antenna_system_explorer_v1.html</em>
+                <small>canvas 6 · script 6 · score 48</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_antenna_system_explorer_v12_operativo.html" target="_blank" rel="noreferrer">
+                <span>antenna</span>
+                <strong>TRFMC Antenna System Explorer V1.2 Operativo</strong>
+                <em>/trfmc_antenna_system_explorer_v12_operativo.html</em>
+                <small>canvas 6 · script 6 · score 48</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_antenna_system_explorer_v13_premium.html" target="_blank" rel="noreferrer">
+                <span>antenna</span>
+                <strong>TRFMC Antenna System Explorer V1.3 Premium</strong>
+                <em>/trfmc_antenna_system_explorer_v13_premium.html</em>
+                <small>canvas 6 · script 6 · score 48</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_signal_world_engine_v2.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC Signal World Engine V2</strong>
+                <em>/trfmc_signal_world_engine_v2.html</em>
+                <small>canvas 6 · script 6 · score 48</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html" target="_blank" rel="noreferrer">
+                <span>3d</span>
+                <strong>TRFMC Wi-Fi 5/6/7/8 OFDM QAM Engine V1</strong>
+                <em>/trfmc_wifi_5_6_7_8_qam_engine_v1.html</em>
+                <small>canvas 6 · script 6 · score 48</small>
+              </a>
+            
+              <a class="page-card" href="/rf_sapienza_console_v84m.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC v0.84M · RF Sapienza Production Baseline</strong>
+                <em>/rf_sapienza_console_v84m.html</em>
+                <small>canvas 5 · script 10 · score 48</small>
+              </a>
+            
+              <a class="page-card" href="/rf_sapienza_console_v84l.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC v0.84L · RF Sapienza Director Cockpit</strong>
+                <em>/rf_sapienza_console_v84l.html</em>
+                <small>canvas 5 · script 9 · score 46</small>
+              </a>
+            
+              <a class="page-card" href="/trfmc_pr200_field_monitoring_receiver_v1.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC PR200 Style Field Monitoring Receiver V1</strong>
+                <em>/trfmc_pr200_field_monitoring_receiver_v1.html</em>
+                <small>canvas 6 · script 6 · score 45</small>
+              </a>
+            
+              <a class="page-card" href="/webgl_rf_tm_supreme_console_v84a.html" target="_blank" rel="noreferrer">
+                <span>signal-dsp</span>
+                <strong>TRFMC v0.84A · RF T&amp;M Supreme Console</strong>
+                <em>/webgl_rf_tm_supreme_console_v84a.html</em>
+                <small>canvas 6 · script 6 · score 45</small>
+              </a>
+            </div>
+    </div>
+    <div class="panel">
+      <h2>Flusso corretto</h2>
+      <div class="workflow">
+        <div class="step"><b>1.</b> Apri ogni pagina candidata.</div>
+        <div class="step"><b>2.</b> Valuta: OK / migliorare / integrare / React ready / broken.</div>
+        <div class="step"><b>3.</b> Correggi link, ritorno home, contenuti incompleti.</div>
+        <div class="step"><b>4.</b> Solo dopo promuovi nel Portal OS.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:14px">
+    <h2>Backlog del sottoinsieme</h2>
+    <table>
+      <thead>
+        <tr><th>Titolo</th><th>URL</th><th>Canvas</th><th>Script</th><th>Stato</th></tr>
+      </thead>
+      <tbody>
+              <tr>
+                <td>TRFMC v0.84K · RF Sapienza Layer Director</td>
+                <td><a href="/rf_sapienza_console_v84k.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84k.html</a></td>
+                <td>5</td>
+                <td>8</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84J · RF 4D Measurement Theater</td>
+                <td><a href="/rf_sapienza_console_v84j.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84j.html</a></td>
+                <td>5</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Instrument OS Alignment V1</td>
+                <td><a href="/trfmc_instrument_os_alignment_v1.html" target="_blank" rel="noreferrer">/trfmc_instrument_os_alignment_v1.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF Spectrum Lab V1</td>
+                <td><a href="/trfmc_rf_spectrum_lab_v1.html" target="_blank" rel="noreferrer">/trfmc_rf_spectrum_lab_v1.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84B · RF Sapienza Console</td>
+                <td><a href="/rf_sapienza_console_v84b.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84b.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84C · RF Sapienza Console R2 R2</td>
+                <td><a href="/rf_sapienza_console_v84c.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84c.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84D · RF Sapienza Truth Palette R2</td>
+                <td><a href="/rf_sapienza_console_v84d.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84d.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84E · RF Sapienza Instrument Truth View</td>
+                <td><a href="/rf_sapienza_console_v84e.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84e.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84F · RF Instrument Dark Field Discipline</td>
+                <td><a href="/rf_sapienza_console_v84f.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84f.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84G · RF Topographic Instrument View</td>
+                <td><a href="/rf_sapienza_console_v84g.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84g.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84H · RF Atlas Instrument View</td>
+                <td><a href="/rf_sapienza_console_v84h.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84h.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.84I · RF Vector Cartography Console</td>
+                <td><a href="/rf_sapienza_console_v84i.html" target="_blank" rel="noreferrer">/rf_sapienza_console_v84i.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.86A · RF Physics Sapienza Console</td>
+                <td><a href="/rf_physics_sapienza_console_v86a.html" target="_blank" rel="noreferrer">/rf_physics_sapienza_console_v86a.html</a></td>
+                <td>5</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.85D · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+                <td><a href="/webgl_rf_physics_engine_v85d_runtime_identity_lock.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v85d_runtime_identity_lock.html</a></td>
+                <td>2</td>
+                <td>12</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+                <td><a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v85e_viewport_discipline.html</a></td>
+                <td>2</td>
+                <td>12</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.85C · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+                <td><a href="/webgl_rf_physics_engine_v85c_sapienza_identity.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v85c_sapienza_identity.html</a></td>
+                <td>2</td>
+                <td>11</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.85B · Sapienza Physics Baseline + RSRP/SINR Profile</td>
+                <td><a href="/webgl_rf_physics_engine_v85b_sapienza_baseline.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v85b_sapienza_baseline.html</a></td>
+                <td>2</td>
+                <td>10</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.83F · Dual Instrument View + RSRP/SINR Profile</td>
+                <td><a href="/webgl_rf_physics_engine_v83f.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v83f.html</a></td>
+                <td>2</td>
+                <td>9</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.69A · UE Mobility &amp; Handover Dynamics</td>
+                <td><a href="/webgl_rf_heatmap_engine_v69.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v69.html</a></td>
+                <td>2</td>
+                <td>8</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.83E · Instrument Readability + Vector Governance</td>
+                <td><a href="/webgl_rf_physics_engine_v83e.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v83e.html</a></td>
+                <td>2</td>
+                <td>8</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.83C · RF Sanity Calibration + SINR-Aware Coverage</td>
+                <td><a href="/webgl_rf_physics_engine_v83c.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v83c.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.86B-R1 · Performance GPU Binding Gate R1</td>
+                <td><a href="/trfmc_performance_gpu_gate_v86b_r1.html" target="_blank" rel="noreferrer">/trfmc_performance_gpu_gate_v86b_r1.html</a></td>
+                <td>3</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87G · Public Operational Home</td>
+                <td><a href="/trfmc.html" target="_blank" rel="noreferrer">/trfmc.html</a></td>
+                <td>3</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87G · Public Operational Home</td>
+                <td><a href="/trfmc_home.html" target="_blank" rel="noreferrer">/trfmc_home.html</a></td>
+                <td>3</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87G · Public Operational Home</td>
+                <td><a href="/trfmc_home_v87g.html" target="_blank" rel="noreferrer">/trfmc_home_v87g.html</a></td>
+                <td>3</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.66A · WebGL RF Heatmap Engine</td>
+                <td><a href="/webgl_rf_heatmap_engine_v66.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v66.html</a></td>
+                <td>2</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.67A · Urban Shadowing &amp; Clutter Engine</td>
+                <td><a href="/webgl_rf_heatmap_engine_v67.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v67.html</a></td>
+                <td>2</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.68A · Seasonal Vegetation Clutter Engine</td>
+                <td><a href="/webgl_rf_heatmap_engine_v68.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v68.html</a></td>
+                <td>2</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.83D · Instrument Layout + Link Budget Inspector</td>
+                <td><a href="/webgl_rf_physics_engine_v83d.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v83d.html</a></td>
+                <td>2</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.82A · Native WebGL RF Vegetation Lab</td>
+                <td><a href="/webgl_rf_heatmap_engine_v82_native_lab.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v82_native_lab.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.82B · Native WebGL RF Field Refinement</td>
+                <td><a href="/webgl_rf_heatmap_engine_v82b_native_lab.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v82b_native_lab.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.83A · RF Physics Calibrated 4D Engine</td>
+                <td><a href="/webgl_rf_physics_engine_v83.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v83.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.83B · RF Precision Scale + Probe Diagnostics</td>
+                <td><a href="/webgl_rf_physics_engine_v83b.html" target="_blank" rel="noreferrer">/webgl_rf_physics_engine_v83b.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.81C-R2 · Seasonal Vegetation Clutter Engine · Cinematic Surgical Rebuild</td>
+                <td><a href="/webgl_rf_heatmap_engine_v68_surgical_v81.html" target="_blank" rel="noreferrer">/webgl_rf_heatmap_engine_v68_surgical_v81.html</a></td>
+                <td>1</td>
+                <td>8</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF Physics Theory Atlas V2</td>
+                <td><a href="/trfmc_rf_physics_theory_atlas_v2.html" target="_blank" rel="noreferrer">/trfmc_rf_physics_theory_atlas_v2.html</a></td>
+                <td>3</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Master Console V4</td>
+                <td><a href="/trfmc_master_console_v4.html" target="_blank" rel="noreferrer">/trfmc_master_console_v4.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.86B · Performance GPU Binding Gate</td>
+                <td><a href="/trfmc_performance_gpu_gate_v86b.html" target="_blank" rel="noreferrer">/trfmc_performance_gpu_gate_v86b.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87D · Cinematic Command Deck</td>
+                <td><a href="/trfmc_cinematic_command_deck_v87d.html" target="_blank" rel="noreferrer">/trfmc_cinematic_command_deck_v87d.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87E-R3 · Home Promotion Gate</td>
+                <td><a href="/trfmc_home_v87e.html" target="_blank" rel="noreferrer">/trfmc_home_v87e.html</a></td>
+                <td>2</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.62B · RF Propagation Sandbox Visual Upgrade</td>
+                <td><a href="/rf_propagation_sandbox_v62.html" target="_blank" rel="noreferrer">/rf_propagation_sandbox_v62.html</a></td>
+                <td>1</td>
+                <td>8</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Antenna / RRU / RET / CPRI Port Mapping Simulator</td>
+                <td><a href="/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html" target="_blank" rel="noreferrer">/trfmc_antenna_rru_ret_cpri_port_mapping_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.60A · RF/Telco Knowledge Operating System</td>
+                <td><a href="/rf_telco_knowledge_os_v60.html" target="_blank" rel="noreferrer">/rf_telco_knowledge_os_v60.html</a></td>
+                <td>1</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.71A · Page-by-Page Visual QA Matrix</td>
+                <td><a href="/trfmc_visual_qa_matrix_v71.html" target="_blank" rel="noreferrer">/trfmc_visual_qa_matrix_v71.html</a></td>
+                <td>1</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.76A · RF/Telco Component Object Library</td>
+                <td><a href="/rf_telco_component_library_v76.html" target="_blank" rel="noreferrer">/rf_telco_component_library_v76.html</a></td>
+                <td>1</td>
+                <td>7</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Engine Promotion Board V1</td>
+                <td><a href="/trfmc_engine_promotion_board_v1.html" target="_blank" rel="noreferrer">/trfmc_engine_promotion_board_v1.html</a></td>
+                <td>1</td>
+                <td>5</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF Microwave Engineering</td>
+                <td><a href="/trfmc_rf_microwave_engineering.html" target="_blank" rel="noreferrer">/trfmc_rf_microwave_engineering.html</a></td>
+                <td>1</td>
+                <td>5</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Safe Runtime Action Console V1</td>
+                <td><a href="/trfmc_safe_runtime_action_console_v1.html" target="_blank" rel="noreferrer">/trfmc_safe_runtime_action_console_v1.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.61A · RF/Telco Knowledge Modules</td>
+                <td><a href="/rf_telco_knowledge_modules_v61.html" target="_blank" rel="noreferrer">/rf_telco_knowledge_modules_v61.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.86D-R1 · No-IFrame Route Console</td>
+                <td><a href="/trfmc_unified_shell_noiframe_v86d_r1.html" target="_blank" rel="noreferrer">/trfmc_unified_shell_noiframe_v86d_r1.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.86E · Theory Spine</td>
+                <td><a href="/trfmc_theory_spine_v86e.html" target="_blank" rel="noreferrer">/trfmc_theory_spine_v86e.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.86F · Design Token Audit</td>
+                <td><a href="/trfmc_design_token_audit_v86f.html" target="_blank" rel="noreferrer">/trfmc_design_token_audit_v86f.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87A · First Promotion Batch</td>
+                <td><a href="/trfmc_first_promotion_batch_v87a.html" target="_blank" rel="noreferrer">/trfmc_first_promotion_batch_v87a.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.87F · Route Normalizer</td>
+                <td><a href="/trfmc_route_normalizer_v87f.html" target="_blank" rel="noreferrer">/trfmc_route_normalizer_v87f.html</a></td>
+                <td>1</td>
+                <td>6</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v86D Quarantine · Route Locked</td>
+                <td><a href="/trfmc_unified_shell_prototype_v86d.html" target="_blank" rel="noreferrer">/trfmc_unified_shell_prototype_v86d.html</a></td>
+                <td>1</td>
+                <td>5</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Cyber RF Intelligence / Evidence Lab</td>
+                <td><a href="/trfmc_cyber_rf_intelligence_evidence_v1.html" target="_blank" rel="noreferrer">/trfmc_cyber_rf_intelligence_evidence_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Data Center / Power / PDU Infrastructure Lab</td>
+                <td><a href="/trfmc_datacenter_power_pdu_infrastructure_v1.html" target="_blank" rel="noreferrer">/trfmc_datacenter_power_pdu_infrastructure_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Fiber / Fronthaul / OTDR Workbench</td>
+                <td><a href="/trfmc_fiber_fronthaul_otdr_workbench_v1.html" target="_blank" rel="noreferrer">/trfmc_fiber_fronthaul_otdr_workbench_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Knowledge Base / Theory / Procedures Atlas</td>
+                <td><a href="/trfmc_knowledge_base_theory_procedures_v1.html" target="_blank" rel="noreferrer">/trfmc_knowledge_base_theory_procedures_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Microwave Link Operations Center</td>
+                <td><a href="/trfmc_microwave_link_operations_center_v1.html" target="_blank" rel="noreferrer">/trfmc_microwave_link_operations_center_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>Private Networks / Wi-Fi 7 / 5G Mesh Lab</td>
+                <td><a href="/trfmc_private_networks_wifi7_5g_mesh_v1.html" target="_blank" rel="noreferrer">/trfmc_private_networks_wifi7_5g_mesh_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>RF Physics Theory Atlas</td>
+                <td><a href="/trfmc_rf_physics_theory_atlas_v1.html" target="_blank" rel="noreferrer">/trfmc_rf_physics_theory_atlas_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>trfmc official safe entrypoint v6</td>
+                <td><a href="/trfmc_official_safe_entrypoint_v6.html" target="_blank" rel="noreferrer">/trfmc_official_safe_entrypoint_v6.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Soul Runtime Lab V1</td>
+                <td><a href="/trfmc_soul_runtime_lab_v1.html" target="_blank" rel="noreferrer">/trfmc_soul_runtime_lab_v1.html</a></td>
+                <td>1</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Visual Asset Engine Lab V3</td>
+                <td><a href="/trfmc_visual_asset_engine_lab_v3.html" target="_blank" rel="noreferrer">/trfmc_visual_asset_engine_lab_v3.html</a></td>
+                <td>0</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF PRO Signal Intelligence Lab V3 Reality</td>
+                <td><a href="/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html" target="_blank" rel="noreferrer">/trfmc_rf_pro_signal_intelligence_lab_v3_reality.html</a></td>
+                <td>0</td>
+                <td>5</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</td>
+                <td><a href="/field_engineering_mode_v64.html" target="_blank" rel="noreferrer">/field_engineering_mode_v64.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF PRO Signal Intelligence Lab V1</td>
+                <td><a href="/trfmc_rf_pro_signal_intelligence_lab_v1.html" target="_blank" rel="noreferrer">/trfmc_rf_pro_signal_intelligence_lab_v1.html</a></td>
+                <td>0</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF PRO Signal Intelligence Lab V2</td>
+                <td><a href="/trfmc_rf_pro_signal_intelligence_lab_v2.html" target="_blank" rel="noreferrer">/trfmc_rf_pro_signal_intelligence_lab_v2.html</a></td>
+                <td>0</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC RF PRO Signal Intelligence Lab V4 Instrument</td>
+                <td><a href="/trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html" target="_blank" rel="noreferrer">/trfmc_rf_pro_signal_intelligence_lab_v4_instrument.html</a></td>
+                <td>0</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade</td>
+                <td><a href="/infrastructure_digital_twin_v63.html" target="_blank" rel="noreferrer">/infrastructure_digital_twin_v63.html</a></td>
+                <td>0</td>
+                <td>4</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Expansion Hub V1</td>
+                <td><a href="/trfmc_expansion_hub_v1.html" target="_blank" rel="noreferrer">/trfmc_expansion_hub_v1.html</a></td>
+                <td>1</td>
+                <td>1</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Canonical Navigation Map V1</td>
+                <td><a href="/trfmc_canonical_navigation_map_v1.html" target="_blank" rel="noreferrer">/trfmc_canonical_navigation_map_v1.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Final Promotion Gate V1</td>
+                <td><a href="/trfmc_final_promotion_gate_v1.html" target="_blank" rel="noreferrer">/trfmc_final_promotion_gate_v1.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Orphan Consolidation Dossier V1</td>
+                <td><a href="/trfmc_orphan_consolidation_dossier_v1.html" target="_blank" rel="noreferrer">/trfmc_orphan_consolidation_dossier_v1.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Orphan Quarantine Room V1</td>
+                <td><a href="/trfmc_orphan_quarantine_room_v1.html" target="_blank" rel="noreferrer">/trfmc_orphan_quarantine_room_v1.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Orphan Triage Board V1</td>
+                <td><a href="/trfmc_orphan_triage_board_v1.html" target="_blank" rel="noreferrer">/trfmc_orphan_triage_board_v1.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Perfection Authority V1</td>
+                <td><a href="/trfmc_perfection_authority_v1.html" target="_blank" rel="noreferrer">/trfmc_perfection_authority_v1.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Perfection Authority V2 Scoped</td>
+                <td><a href="/trfmc_perfection_authority_v2_scoped.html" target="_blank" rel="noreferrer">/trfmc_perfection_authority_v2_scoped.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Perfection Authority V3 Scoped</td>
+                <td><a href="/trfmc_perfection_authority_v3_scoped.html" target="_blank" rel="noreferrer">/trfmc_perfection_authority_v3_scoped.html</a></td>
+                <td>0</td>
+                <td>3</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Instrument Design System Lab V1</td>
+                <td><a href="/trfmc_instrument_design_system_lab_v1.html" target="_blank" rel="noreferrer">/trfmc_instrument_design_system_lab_v1.html</a></td>
+                <td>0</td>
+                <td>2</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Emergency Reset Layout State</td>
+                <td><a href="/trfmc_emergency_reset_layout_state.html" target="_blank" rel="noreferrer">/trfmc_emergency_reset_layout_state.html</a></td>
+                <td>0</td>
+                <td>1</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC Reset Browser State V6R1</td>
+                <td><a href="/trfmc_reset_browser_state_v6r1.html" target="_blank" rel="noreferrer">/trfmc_reset_browser_state_v6r1.html</a></td>
+                <td>0</td>
+                <td>1</td>
+                <td>REVIEW</td>
+              </tr>
+            
+              <tr>
+                <td>TRFMC v0.85A · Sapienza Master Template Doctrine</td>
+                <td><a href="/sapienza_master_template_doctrine_v85a.html" target="_blank" rel="noreferrer">/sapienza_master_template_doctrine_v85a.html</a></td>
+                <td>0</td>
+                <td>1</td>
+                <td>REVIEW</td>
+              </tr>
+            </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

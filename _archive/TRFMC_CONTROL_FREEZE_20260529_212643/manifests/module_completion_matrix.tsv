@@ -1,0 +1,16 @@
+module	status	reason	next_action
+01_Mission_Control	REVIEW	core present, layout/source governance required	consolidate React shell and official status panels
+02_RF_Physics	REVIEW	many public pages/assets exist, not fully promoted into React	promote best RF physics engine into React module
+03_Signal_Analyzer	REVIEW	RF instrument components exist, public workbench variants exist	select one official analyzer path
+04_RF_Microwave_Engineering	REVIEW	smith/microwave labs exist, likely public-first	migrate to official React route/module
+05_Antenna_System	REVIEW	many antenna explorer versions exist	select best version, archive older variants
+06_Microwave_Link	REVIEW	public v1/v2 modules exist	verify completeness and promote
+07_Fiber_Optic	REVIEW	public workbench v1/v2 exists	verify OTDR workflow and promote
+08_Private_Networks	REVIEW	public WiFi/5G mesh page exists	complete theory/simulator/API/QA mapping
+09_Core_Network	REVIEW	backend/core/open5gs bridge traces exist	complete Open5GS/UERANSIM console contract
+10_Data_Center_Infrastructure	REVIEW	public page exists but likely incomplete	complete power/PDU/infrastructure simulator
+11_Cyber_RF_Intelligence	REVIEW	public evidence module exists, restricted areas must stay locked	complete safe readonly evidence workflow
+12_Knowledge_Base	REVIEW	theory/procedure pages exist	turn into indexed knowledge module
+Design_System	UNSTABLE	many CSS/assets variants exist	define one official design system
+Navigation	UNSTABLE	many public pages/hash routes exist	define one navigation registry
+Quality_Gates	PARTIAL	build passes but visual/source gates missing	add screenshot/navigation/placeholder gates

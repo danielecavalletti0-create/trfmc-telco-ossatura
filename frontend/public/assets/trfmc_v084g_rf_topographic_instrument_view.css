@@ -1,0 +1,442 @@
+:root{
+  --bg:#01040b;
+  --panel:#061425d8;
+  --panel2:#082034cc;
+  --cyan:#8ff0ff;
+  --green:#42f56f;
+  --amber:#fbbf24;
+  --red:#ff3b5c;
+  --blue:#2ea7ff;
+  --text:#eafcff;
+  --muted:rgba(232,250,255,.66);
+  --line:rgba(143,240,255,.28);
+  --line2:rgba(66,245,111,.28);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{
+  background:
+    radial-gradient(circle at 10% 0%,rgba(143,240,255,.14),transparent 30%),
+    radial-gradient(circle at 86% 8%,rgba(66,245,111,.08),transparent 34%),
+    linear-gradient(180deg,#020713,#01030a 84%);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(143,240,255,.030) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(143,240,255,.024) 1px,transparent 1px),
+    repeating-linear-gradient(180deg,transparent 0 8px,rgba(255,255,255,.015) 9px);
+  background-size:36px 36px,36px 36px,auto;
+  opacity:.72;
+}
+
+.shell{
+  position:sticky;
+  top:8px;
+  z-index:50;
+  margin:8px 12px 0;
+  padding:12px 16px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  background:linear-gradient(135deg,rgba(5,20,36,.97),rgba(1,5,13,.99));
+  box-shadow:0 18px 76px rgba(0,0,0,.46),inset 0 0 36px rgba(143,240,255,.040);
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:450px}
+.orb{
+  width:36px;height:36px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,#fff,var(--cyan) 32%,#13445a 64%,#01050b);
+  box-shadow:0 0 28px rgba(143,240,255,.65);
+}
+.brand strong{display:block;font-size:13px;letter-spacing:.19em}
+.brand span{display:block;margin-top:4px;color:var(--muted);font-size:10px}
+nav,.status{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+nav a,.status span{
+  color:var(--cyan);
+  text-decoration:none;
+  font-size:10px;
+  font-weight:900;
+  padding:7px 10px;
+  border:1px solid rgba(143,240,255,.30);
+  border-radius:999px;
+  background:rgba(143,240,255,.055);
+}
+nav a.active{
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+  border-color:transparent;
+  color:#02120d;
+}
+.status span{color:var(--green);border-color:rgba(66,245,111,.34)}
+
+main{position:relative;z-index:1;padding:14px 12px}
+.hero{
+  min-height:220px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  border:1px solid var(--line);
+  border-radius:34px;
+  padding:30px 34px;
+  background:
+    radial-gradient(circle at 14% 10%,rgba(143,240,255,.12),transparent 34%),
+    radial-gradient(circle at 86% 22%,rgba(66,245,111,.08),transparent 34%),
+    linear-gradient(135deg,rgba(6,26,44,.92),rgba(1,5,13,.99));
+  box-shadow:0 30px 110px rgba(0,0,0,.42),inset 0 0 70px rgba(143,240,255,.04);
+}
+.eyebrow{margin:0 0 12px;color:var(--green);font-weight:900;font-size:12px;letter-spacing:.20em}
+h1{margin:0;font-size:clamp(42px,4.9vw,74px);line-height:.96;letter-spacing:.035em;text-shadow:0 0 22px rgba(143,240,255,.45)}
+.hero p:last-child{max-width:1200px;color:rgba(232,250,255,.76);font-size:15px;line-height:1.55}
+.score{
+  min-width:230px;
+  border:1px solid rgba(66,245,111,.34);
+  border-radius:28px;
+  padding:22px;
+  text-align:center;
+  background:rgba(3,38,25,.38);
+}
+.score span,.score em{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-style:normal}
+.score strong{display:block;margin:8px 0;color:var(--green);font-size:44px;text-shadow:0 0 20px rgba(66,245,111,.28)}
+
+.workbench{
+  display:grid;
+  grid-template-columns:290px minmax(900px,1fr) 330px;
+  gap:14px;
+  margin-top:14px;
+}
+.panel,.stage,.truth-row article,.instruments article,.doctrine article{
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(7,28,48,.84),rgba(2,8,18,.96));
+  box-shadow:0 24px 82px rgba(0,0,0,.35),inset 0 0 38px rgba(143,240,255,.032);
+}
+.panel{border-radius:30px;padding:16px}
+.panel h2,.stage-head h2,.truth-row h2,.instruments h2,.doctrine h2{
+  margin:0 0 14px;
+  color:var(--cyan);
+  font-size:13px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.controls label{
+  display:block;
+  margin:0 0 13px;
+  color:rgba(232,250,255,.58);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.controls label b{display:block;margin:6px 0;color:var(--green);font-size:12px;text-transform:none;letter-spacing:.04em}
+input[type=range]{width:100%;accent-color:#0ff}
+.buttons{display:grid;grid-template-columns:1fr;gap:8px;margin:14px 0}
+button{
+  border:1px solid rgba(143,240,255,.35);
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(143,240,255,.10),rgba(2,8,18,.72));
+  color:var(--cyan);
+  padding:9px 12px;
+  font-weight:900;
+  cursor:pointer;
+}
+button:hover{box-shadow:0 0 22px rgba(143,240,255,.18)}
+.legend{margin-top:16px;display:grid;gap:8px;color:var(--muted);font-size:11px}
+.legend h3{margin:4px 0;color:var(--cyan);font-size:11px;text-transform:uppercase;letter-spacing:.16em}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend i{width:15px;height:8px;border-radius:999px;display:inline-block}
+.excellent{background:#b9fff0}.good{background:var(--green)}.edge{background:var(--amber)}.weak{background:var(--blue)}.critical{background:var(--red)}
+
+.stage{position:relative;border-radius:32px;overflow:hidden;min-height:760px}
+.stage-head{
+  display:grid;
+  grid-template-columns:1fr 145px 145px 145px 145px;
+  gap:10px;
+  padding:16px;
+  border-bottom:1px solid rgba(143,240,255,.18);
+  background:linear-gradient(90deg,rgba(1,6,14,.86),rgba(6,25,42,.68));
+}
+.stage-head p{margin:0;color:var(--muted);font-size:12px}
+.kpi{
+  border:1px solid rgba(143,240,255,.22);
+  border-radius:18px;
+  padding:10px;
+  background:rgba(143,240,255,.045);
+}
+.kpi span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.12em}
+.kpi b{display:block;margin-top:6px;font-size:16px;color:#eaffff}
+.kpi.good b,.metric.good b{color:var(--green)}
+.kpi.warn b,.metric.warn b{color:var(--amber)}
+.kpi.critical b,.metric.critical b{color:var(--red)}
+#fieldCanvas{display:block;width:100%;height:650px;background:#01050d}
+.caption{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  max-width:620px;
+  padding:12px 14px;
+  border:1px solid rgba(143,240,255,.24);
+  border-radius:20px;
+  background:rgba(1,6,14,.86);
+  backdrop-filter:blur(10px);
+}
+.caption b{display:block;color:var(--green);font-size:11px;letter-spacing:.14em}
+.caption span{display:block;margin-top:5px;color:var(--muted);font-size:10px}
+
+.metric{
+  padding:12px;
+  margin-bottom:10px;
+  border:1px solid rgba(143,240,255,.20);
+  border-radius:18px;
+  background:rgba(143,240,255,.045);
+}
+.metric span{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.12em}
+.metric b{display:block;margin-top:7px;font-size:19px}
+.teacher{
+  margin-top:14px;
+  padding:12px;
+  border-left:4px solid var(--amber);
+  border-radius:16px;
+  background:linear-gradient(90deg,rgba(251,191,36,.070),rgba(1,6,14,.48));
+}
+.teacher b{color:var(--amber)}
+.teacher p{margin:8px 0 0;color:rgba(232,250,255,.74);font-size:12px;line-height:1.48}
+
+.truth-row,.instruments,.doctrine{
+  display:grid;
+  gap:14px;
+  margin-top:14px;
+}
+.truth-row{grid-template-columns:1fr 1fr 1fr}
+.instruments{grid-template-columns:1.05fr 1fr 1fr 1.25fr}
+.doctrine{grid-template-columns:repeat(4,1fr)}
+.truth-row article,.instruments article,.doctrine article{border-radius:26px;padding:16px}
+.truth-row p,.doctrine p{margin:0;color:rgba(232,250,255,.70);font-size:12px;line-height:1.55}
+.truth-row code{
+  display:block;
+  margin-top:10px;
+  padding:10px;
+  border:1px solid rgba(66,245,111,.24);
+  border-radius:14px;
+  background:rgba(66,245,111,.050);
+  color:var(--green);
+  font-size:11px;
+  white-space:normal;
+}
+.instruments article{min-height:335px}
+.instruments canvas{
+  display:block;
+  width:100%;
+  height:260px;
+  border:1px solid rgba(143,240,255,.18);
+  border-radius:18px;
+  background:rgba(1,5,12,.76);
+}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:10px 8px;border-bottom:1px solid rgba(143,240,255,.12);text-align:left}
+th{color:var(--cyan);font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+td:nth-child(2){color:var(--green);font-weight:900}
+footer{
+  margin-top:14px;
+  padding:10px;
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  border:1px solid rgba(143,240,255,.22);
+  border-radius:999px;
+  background:rgba(1,6,14,.70);
+}
+
+@media(max-width:1500px){
+  .workbench{grid-template-columns:1fr}
+  .stage-head{grid-template-columns:1fr 1fr}
+  .truth-row,.instruments,.doctrine{grid-template-columns:1fr}
+  .shell{position:relative;flex-direction:column;align-items:stretch}
+}
+
+/* ============================================================
+   TRFMC v0.84F - RF Instrument Dark Field Discipline
+   Red is not a filled surface. Red is a local diagnostic contour.
+   ============================================================ */
+
+body.v84f-dark-field {
+  --df-bg:#01030a;
+  --df-panel:#061425;
+  --df-cyan:#8ff0ff;
+  --df-green:#42f56f;
+  --df-amber:#fbbf24;
+  --df-red:#ff3b5c;
+  --df-blue:#2ea7ff;
+}
+
+body.v84f-dark-field .hero {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(143,240,255,.10), transparent 34%),
+    radial-gradient(circle at 86% 22%, rgba(66,245,111,.06), transparent 34%),
+    linear-gradient(135deg, rgba(4,20,36,.94), rgba(1,4,11,.99)) !important;
+}
+
+body.v84f-dark-field h1 {
+  text-shadow:
+    0 0 18px rgba(143,240,255,.40),
+    0 0 54px rgba(143,240,255,.12) !important;
+}
+
+body.v84f-dark-field .stage {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(143,240,255,.055), transparent 36%),
+    linear-gradient(180deg, rgba(2,10,21,.98), rgba(1,4,10,.99)) !important;
+}
+
+body.v84f-dark-field #fieldCanvas {
+  background:#01040b !important;
+  filter:saturate(.72) brightness(.78) contrast(1.10);
+}
+
+/* nuova semantica visiva */
+body.v84f-dark-field .caption b::after {
+  content:" · dark field discipline";
+  color:var(--df-cyan);
+}
+
+body.v84f-dark-field .truth-row article:first-child h2::after {
+  content:" · red contour only";
+  color:var(--df-red);
+}
+
+/* La legenda deve dire chiaramente che il rosso non è una superficie piena */
+body.v84f-dark-field .legend h3::after {
+  content:" · no red curtain";
+  color:var(--df-amber);
+}
+
+/* pannello più severo, meno gaming */
+body.v84f-dark-field .panel,
+body.v84f-dark-field .stage,
+body.v84f-dark-field .truth-row article,
+body.v84f-dark-field .instruments article,
+body.v84f-dark-field .doctrine article {
+  box-shadow:
+    0 22px 72px rgba(0,0,0,.42),
+    inset 0 0 34px rgba(143,240,255,.026) !important;
+}
+
+/* contrasto maggiore per oggetti e strumenti */
+body.v84f-dark-field .stage-head {
+  background:
+    linear-gradient(90deg, rgba(1,5,13,.92), rgba(4,20,35,.72)) !important;
+}
+
+body.v84f-dark-field .teacher {
+  border-left-color:var(--df-cyan);
+  background:
+    linear-gradient(90deg, rgba(143,240,255,.065), rgba(1,6,14,.50)) !important;
+}
+
+body.v84f-dark-field .teacher b {
+  color:var(--df-cyan);
+}
+
+/* quality marker più leggibili */
+body.v84f-dark-field .kpi.critical b,
+body.v84f-dark-field .metric.critical b {
+  color:var(--df-red);
+  text-shadow:0 0 14px rgba(255,59,92,.28);
+}
+
+body.v84f-dark-field .kpi.warn b,
+body.v84f-dark-field .metric.warn b {
+  color:var(--df-amber);
+  text-shadow:0 0 14px rgba(251,191,36,.22);
+}
+
+body.v84f-dark-field .kpi.good b,
+body.v84f-dark-field .metric.good b {
+  color:var(--df-green);
+  text-shadow:0 0 14px rgba(66,245,111,.18);
+}
+
+/* ============================================================
+   TRFMC v0.84G - RF Topographic Instrument View
+   No red curtain. No black curtain. Continuous RF measurement surface.
+   ============================================================ */
+
+body.v84g-topographic {
+  --tg-bg:#01040b;
+  --tg-cyan:#8ff0ff;
+  --tg-green:#42f56f;
+  --tg-amber:#fbbf24;
+  --tg-red:#ff3b5c;
+  --tg-blue:#2ea7ff;
+  --tg-violet:#8b5cf6;
+}
+
+/* meno cupa della v84F, più “strumento” */
+body.v84g-topographic .hero {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(143,240,255,.13), transparent 34%),
+    radial-gradient(circle at 86% 22%, rgba(66,245,111,.075), transparent 34%),
+    linear-gradient(135deg, rgba(5,24,42,.95), rgba(1,5,13,.99)) !important;
+}
+
+body.v84g-topographic .stage {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(143,240,255,.070), transparent 36%),
+    linear-gradient(180deg, rgba(3,13,27,.98), rgba(1,5,12,.99)) !important;
+}
+
+/* il canvas deve diventare superficie RF topografica, non macchia scura */
+body.v84g-topographic #fieldCanvas {
+  filter:saturate(.82) brightness(.90) contrast(1.08) !important;
+}
+
+/* KPI e pannelli più leggibili */
+body.v84g-topographic .caption b::after {
+  content:" · topographic RF surface";
+  color:var(--tg-green);
+}
+
+body.v84g-topographic .truth-row article:first-child h2::after {
+  content:" · no black curtain";
+  color:var(--tg-cyan);
+}
+
+body.v84g-topographic .legend h3::after {
+  content:" · contour-driven";
+  color:var(--tg-green);
+}
+
+body.v84g-topographic .teacher {
+  border-left-color:var(--tg-green);
+  background:
+    linear-gradient(90deg, rgba(66,245,111,.060), rgba(1,6,14,.50)) !important;
+}
+
+body.v84g-topographic .teacher b {
+  color:var(--tg-green);
+}
+
+/* più separazione tra campo e strumenti */
+body.v84g-topographic .instruments article {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.075), transparent 34%),
+    linear-gradient(145deg, rgba(7,28,48,.88), rgba(1,6,14,.98)) !important;
+}
+
+body.v84g-topographic .stage-head {
+  background:
+    linear-gradient(90deg, rgba(1,5,13,.92), rgba(5,25,42,.76)) !important;
+}
+
+/* i bordi devono essere vivi ma non rumorosi */
+body.v84g-topographic .panel,
+body.v84g-topographic .stage,
+body.v84g-topographic .truth-row article,
+body.v84g-topographic .instruments article,
+body.v84g-topographic .doctrine article {
+  border-color:rgba(143,240,255,.30) !important;
+}

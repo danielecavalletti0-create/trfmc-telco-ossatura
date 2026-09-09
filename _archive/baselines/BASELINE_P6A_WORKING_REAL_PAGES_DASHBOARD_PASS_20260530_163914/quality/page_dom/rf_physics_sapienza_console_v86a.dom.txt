@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRFMC v0.86A · RF Physics Sapienza Console</title>
+  <link rel="stylesheet" href="/assets/trfmc_v086a_scoped_rf_physics_sapienza.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-page="rf-physics-sapienza-v86" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <div id="rf86-root" class="rf86-root" data-mode="measure">
+    <header class="rf86-shellbar" aria-label="TRFMC RF Physics Sapienza shell">
+      <div class="rf86-brand">
+        <span class="rf86-orb"></span>
+        <div>
+          <strong>TRFMC RF PHYSICS SAPIENZA ENGINE</strong>
+          <small>v0.86A · isolated scoped console · no production overwrite</small>
+        </div>
+      </div>
+      <nav class="rf86-nav" aria-label="Version navigation">
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">v85E Stable</a>
+        <a href="/sapienza_master_template_doctrine_v85a.html">Doctrine</a>
+        <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+        <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+      </nav>
+      <div class="rf86-status">
+        <span>Backend OK</span>
+        <span>No CDN</span>
+        <span>Scoped</span>
+      </div>
+    </header>
+
+    <main class="rf86-main">
+      <section class="rf86-hero">
+        <div class="rf86-hero-copy">
+          <p class="rf86-kicker">TRFMC v0.86A · RF PHYSICS SAPIENZA · MEASURE FIRST · FORMULA GOVERNED</p>
+          <h1>RF Physics Sapienza Console</h1>
+          <p>
+            Console isolata per leggere campo RF, canale, link budget, SINR, fading, PDP/H(f), EVM e decisione best-server
+            senza contaminare le pagine operative precedenti.
+          </p>
+        </div>
+        <aside class="rf86-integrity" aria-label="Physics integrity">
+          <span>Physics Integrity</span>
+          <strong id="rf86Integrity">96%</strong>
+          <small>formula-driven RF field</small>
+        </aside>
+      </section>
+
+      <section class="rf86-director" aria-label="Operating mode director">
+        <div class="rf86-director-note">
+          <strong>Director</strong>
+          <span id="rf86ModeText">Measure: osserva geometria, campo, soglie e strumenti prima di decidere.</span>
+        </div>
+        <div class="rf86-modebar" role="group" aria-label="Operating modes">
+          <button type="button" data-rf86-mode="measure" class="is-active" aria-pressed="true">01 · Measure</button>
+          <button type="button" data-rf86-mode="channel" aria-pressed="false">02 · Channel</button>
+          <button type="button" data-rf86-mode="signal" aria-pressed="false">03 · Signal</button>
+          <button type="button" data-rf86-mode="teach" aria-pressed="false">04 · Teach</button>
+          <button type="button" data-rf86-mode="clean" aria-pressed="false">05 · Clean</button>
+        </div>
+      </section>
+
+      <section class="rf86-proofline" aria-label="Evidence chain">
+        <div><b>01 · Geometry</b><span>siti, UE, ostacoli, vettori</span></div>
+        <div><b>02 · Propagation</b><span>FSPL, log-distance, shadowing</span></div>
+        <div><b>03 · Channel</b><span>fading, delay spread, PDP</span></div>
+        <div><b>04 · Signal</b><span>IQ, EVM, H(f), SINR</span></div>
+        <div><b>05 · Decision</b><span>best-server e margine</span></div>
+      </section>
+
+      <section class="rf86-workbench" aria-label="RF measurement workbench">
+        <aside class="rf86-panel rf86-controls">
+          <h2>RF Model Controls</h2>
+
+          <label>
+            <span>Carrier frequency</span>
+            <input id="rf86Freq" type="range" min="700" max="28000" value="3500">
+            <output id="rf86FreqOut">3500 MHz</output>
+          </label>
+
+          <label>
+            <span>EIRP / sector</span>
+            <input id="rf86Eirp" type="range" min="20" max="60" value="46">
+            <output id="rf86EirpOut">46 dBm</output>
+          </label>
+
+          <label>
+            <span>Path-loss exponent n</span>
+            <input id="rf86N" type="range" min="20" max="45" value="32">
+            <output id="rf86NOut">3.2</output>
+          </label>
+
+          <label>
+            <span>Vegetation / clutter depth</span>
+            <input id="rf86Veg" type="range" min="0" max="90" value="28">
+            <output id="rf86VegOut">28 m</output>
+          </label>
+
+          <label>
+            <span>Urban shadowing</span>
+            <input id="rf86Shadow" type="range" min="0" max="32" value="11">
+            <output id="rf86ShadowOut">11 dB</output>
+          </label>
+
+          <label>
+            <span>Delay spread</span>
+            <input id="rf86Delay" type="range" min="20" max="900" value="130">
+            <output id="rf86DelayOut">130 ns</output>
+          </label>
+
+          <div class="rf86-buttonstack">
+            <button type="button" id="rf86ScenarioBalanced">Balanced lab</button>
+            <button type="button" id="rf86ScenarioNlos">NLOS lesson</button>
+            <button type="button" id="rf86ScenarioRecover">Beam recovery</button>
+          </div>
+
+          <div class="rf86-legend">
+            <span><i class="c-strong"></i>Strong</span>
+            <span><i class="c-good"></i>Good</span>
+            <span><i class="c-edge"></i>Cell edge</span>
+            <span><i class="c-weak"></i>Weak/NLOS</span>
+            <span><i class="c-out"></i>Outage</span>
+          </div>
+        </aside>
+
+        <section class="rf86-stage-card">
+          <div class="rf86-stage-head">
+            <div>
+              <h2>Formula-driven RF Measurement Surface</h2>
+              <p>Il colore non è decorazione: rappresenta classi operative RSRP/SINR e qualità di servizio.</p>
+            </div>
+            <div class="rf86-mini-kpi">
+              <span>Best server</span>
+              <strong id="rf86Best">SITE-B</strong>
+            </div>
+            <div class="rf86-mini-kpi">
+              <span>RSRP</span>
+              <strong id="rf86Rsrp">-61.3 dBm</strong>
+            </div>
+            <div class="rf86-mini-kpi">
+              <span>SINR</span>
+              <strong id="rf86Sinr">20.7 dB</strong>
+            </div>
+          </div>
+
+          <div class="rf86-canvas-wrap">
+            <canvas id="rf86Canvas" width="1399" height="520" aria-label="RF field canvas"></canvas>
+            <div class="rf86-canvas-label rf86-label-left">Formula chain · FSPL → PL(n) → clutter → shadow → SINR</div>
+            <div class="rf86-probe" id="rf86Probe">UE-42 probe</div>
+          </div>
+        </section>
+
+        <aside class="rf86-panel rf86-telemetry">
+          <h2>RF Telemetry</h2>
+          <div><span>Renderer</span><strong>Canvas 2D</strong><small>scoped runtime</small></div>
+          <div><span>Total loss</span><strong id="rf86Loss">113.7 dB</strong><small>path + clutter + fading</small></div>
+          <div><span>Coverage integrity</span><strong id="rf86Coverage">96%</strong><small>RSRP/SINR score</small></div>
+          <div><span>Dominant cell</span><strong id="rf86Cell">SITE-B</strong><small>best-server decision</small></div>
+          <div class="rf86-copilot">
+            <b>AI RF Copilot</b>
+            <p id="rf86Copilot">Campo coerente: best-server stabile, SINR sufficiente, link budget leggibile.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="rf86-scale">
+        <h2>Operational RSRP / SINR Scale</h2>
+        <div class="rf86-scale-bar"></div>
+        <div class="rf86-scale-grid">
+          <span>Outage<br>&lt; -110 dBm</span>
+          <span>Weak / NLOS<br>-110 / -100 dBm</span>
+          <span>Cell edge<br>-100 / -90 dBm</span>
+          <span>Good<br>-90 / -75 dBm</span>
+          <span>Excellent<br>&gt; -75 dBm</span>
+        </div>
+      </section>
+
+      <section class="rf86-instruments">
+        <article class="rf86-instrument">
+          <h2>Vector Signal Analyzer · 16-QAM IQ</h2>
+          <canvas id="rf86Iq" width="520" height="220"></canvas>
+        </article>
+
+        <article class="rf86-instrument">
+          <h2>Power Delay Profile · PDP</h2>
+          <canvas id="rf86Pdp" width="520" height="220"></canvas>
+        </article>
+
+        <article class="rf86-instrument">
+          <h2>Frequency Response · |H(f)|</h2>
+          <canvas id="rf86Hf" width="520" height="220"></canvas>
+        </article>
+      </section>
+
+      <section class="rf86-doctrine">
+        <article>
+          <h2>1 · Free Space Path Loss</h2>
+          <code>FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)</code>
+          <p id="rf86FsplText">d=185 m, f=3500 MHz → FSPL≈88.7 dB.</p>
+        </article>
+        <article>
+          <h2>2 · Log-distance Model</h2>
+          <code>PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ</code>
+          <p>n controlla la severità ambientale. Non è un effetto grafico.</p>
+        </article>
+        <article>
+          <h2>3 · Vegetation / Clutter</h2>
+          <code>Lveg[dB] = K · fGHz^0.3 · depth^0.6 · ρ</code>
+          <p id="rf86VegText">Lveg≈2.7 dB, depth=28 m, clutter controllato.</p>
+        </article>
+        <article>
+          <h2>4 · Received Power</h2>
+          <code>Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade</code>
+          <p id="rf86PrxText">Prx≈-61.3 dBm, SINR≈20.7 dB, best-server=SITE-B.</p>
+        </article>
+      </section>
+
+      <section class="rf86-teaching">
+        <article><b>Osservazione</b><span>Prima geometria e oggetti: sito, UE, ostacoli e corridoi NLOS.</span></article>
+        <article><b>Misura</b><span>RSRP da solo non basta: SINR, delay spread e H(f) spiegano il canale.</span></article>
+        <article><b>Interpretazione</b><span>Il colore deve confermare una soglia, non sostituire la diagnosi.</span></article>
+        <article><b>Trasmissione</b><span>La pagina deve insegnare metodo, non solo mostrare una mappa.</span></article>
+      </section>
+    </main>
+
+    <footer class="rf86-footer">
+      TRFMC v0.86A · RF Physics Sapienza Console · scoped page · v85E preserved · no backend change
+    </footer>
+  </div>
+
+  <script defer="" src="/assets/trfmc_v086a_scoped_rf_physics_sapienza.js"></script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC v0.86A · RF Physics Sapienza Console<br>/rf_physics_sapienza_console_v86a.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Knowledge Base</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> RF Physics Sapienza Console</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> La teoria non è documento: è motore operativo che spiega ciò che il portale mostra.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Knowledge Base · La teoria non è documento: è motore operativo che spiega ciò che il portale mostra.</div></body></html>

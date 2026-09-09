@@ -1,0 +1,30 @@
+/* TRFMC v0.67A - Urban Shadowing & Clutter Engine */
+.v67-clutter-panel{
+  margin-top:14px;
+  border:1px solid rgba(251,191,36,.28);
+  border-radius:18px;
+  padding:13px;
+  background:rgba(251,191,36,.055);
+}
+.v67-clutter-panel h3{
+  margin:0 0 10px;
+  color:#fbbf24;
+  font-size:13px;
+}
+.v67-clutter-panel p{
+  font-size:11px;
+  margin:0 0 10px;
+}
+.v67-obstacle-legend{
+  position:absolute;
+  left:20px;
+  bottom:20px;
+  z-index:5;
+  border:1px solid rgba(251,191,36,.32);
+  background:rgba(2,8,18,.74);
+  color:#fbbf24;
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:10px;
+  backdrop-filter:blur(10px);
+}

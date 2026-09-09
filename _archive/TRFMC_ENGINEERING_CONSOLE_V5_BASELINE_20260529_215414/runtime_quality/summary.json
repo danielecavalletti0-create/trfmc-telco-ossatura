@@ -1,0 +1,19 @@
+{
+  "timestamp": "20260529_215414",
+  "operation": "TRFMC_ENGINEERING_CONSOLE_V5_BASELINE",
+  "mutation": false,
+  "base": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2",
+  "out": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414",
+  "freeze": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/_archive/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414",
+  "status": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414/git_status_engineering_v5_baseline.txt",
+  "diff": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414/git_diff_engineering_v5_baseline.diff",
+  "http_tsv": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414/http.tsv",
+  "screenshot": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414/full_engineering_stack_v5_1920x1080.png",
+  "notes": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414/ENGINEERING_CONSOLE_V5_BASELINE_NOTES.md",
+  "build_log": "/home/sentinel/Scaricati/trfmc_full_telco_ossatura_v0_2/runtime/quality/TRFMC_ENGINEERING_CONSOLE_V5_BASELINE_20260529_215414/npm_build_v5_baseline.log",
+  "build_result": "PASS",
+  "http_non_200": 0,
+  "http_zero_bytes": 0,
+  "screenshot_result": "PASS",
+  "result": "BASELINE_READY"
+}

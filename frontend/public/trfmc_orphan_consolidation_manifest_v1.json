@@ -1,0 +1,14 @@
+{
+  "id": "TRFMC_ORPHAN_CONSOLIDATION_DOSSIER_V1",
+  "timestamp": "2026-05-23T20:50:46.988127+00:00",
+  "page": "/trfmc_orphan_consolidation_dossier_v1.html",
+  "summary": {
+    "timestamp": "2026-05-23T20:50:46.967678+00:00",
+    "operation": "TRFMC_ORPHAN_CONSOLIDATION_DOSSIER_V1",
+    "target_groups": 7,
+    "orphan_pages": 23,
+    "read_only": true,
+    "policy": "Dossier only. No orphan file changed. No target file changed."
+  },
+  "policy": "Read-only dossier. No orphan and no target mutation."
+}

@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>TRFMC v0.70A Unified Shell · TRFMC v0.30 Portal Index Golden Check Integration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    :root {
+      --panel:rgba(5,18,31,.84);
+      --line:rgba(88,214,249,.20);
+      --cyan:#58d6f9;
+      --amber:#d29922;
+      --red:#ff4d6d;
+      --green:#3fb950;
+      --text:#edf8ff;
+      --muted:#8da4b3;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 8%, rgba(88,214,249,.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(210,153,34,.11), transparent 25%),
+        linear-gradient(135deg,#020711,#06111d 50%,#02040a);
+      font-family:Consolas, ui-monospace, monospace;
+      padding:18px;
+    }
+    header {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:20px;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:center;
+      box-shadow:0 0 40px rgba(88,214,249,.10);
+    }
+    h1 { margin:0; font-size:26px; letter-spacing:1px; }
+    header p { margin:7px 0 0; color:var(--muted); font-size:12px; }
+    .badge {
+      border:1px solid rgba(88,214,249,.35);
+      color:var(--cyan);
+      padding:9px 13px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .toolbar, .kpis {
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+    button, a.btn {
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(88,214,249,.08);
+      color:var(--cyan);
+      border-radius:10px;
+      padding:9px 11px;
+      font-weight:900;
+      cursor:pointer;
+      font-family:inherit;
+      text-decoration:none;
+      display:inline-block;
+    }
+    button:hover, a.btn:hover { background:rgba(88,214,249,.16); }
+    .kpi {
+      flex:1 1 165px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; }
+    .kpi b { display:block; margin-top:6px; color:var(--text); font-size:17px; overflow:hidden; text-overflow:ellipsis; }
+    .layout {
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:12px;
+    }
+    .panel {
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .panel h2 {
+      margin:0;
+      padding:12px 14px;
+      color:var(--cyan);
+      font-size:13px;
+      text-transform:uppercase;
+      border-bottom:1px solid rgba(88,214,249,.14);
+    }
+    .body { padding:12px; }
+    .pages {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:10px;
+    }
+    .card {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.028);
+      border-radius:14px;
+      padding:12px;
+      min-height:150px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .card:hover {
+      border-color:rgba(88,214,249,.38);
+      background:rgba(88,214,249,.055);
+    }
+    .card b { color:var(--cyan); display:block; font-size:12px; }
+    .card span { color:var(--text); display:block; margin-top:6px; font-size:11px; }
+    .card em { color:var(--muted); display:block; margin-top:6px; font-size:10px; font-style:normal; }
+    .links { margin-top:10px; display:flex; gap:6px; flex-wrap:wrap; }
+    pre {
+      margin:0;
+      max-height:660px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.24);
+      border-radius:12px;
+      padding:10px;
+      color:#e8f6ff;
+      font-size:10px;
+      line-height:1.35;
+    }
+    .mission-strip {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:10px;
+      margin:14px 0;
+    }
+    .mission-tile {
+      border:1px solid rgba(88,214,249,.22);
+      background:
+        linear-gradient(135deg,rgba(88,214,249,.09),rgba(255,255,255,.025)),
+        rgba(5,18,31,.72);
+      border-radius:16px;
+      padding:14px;
+      min-height:118px;
+      box-shadow:0 0 32px rgba(88,214,249,.06);
+    }
+    .mission-tile b {
+      display:block;
+      color:var(--cyan);
+      font-size:13px;
+      margin-bottom:7px;
+      text-transform:uppercase;
+    }
+    .mission-tile span {
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.45;
+    }
+    .mission-tile .links {
+      margin-top:12px;
+    }
+    .card.priority {
+      border-color:rgba(63,185,80,.45);
+      background:
+        linear-gradient(135deg,rgba(63,185,80,.10),rgba(88,214,249,.045)),
+        rgba(255,255,255,.028);
+      box-shadow:0 0 30px rgba(63,185,80,.08);
+    }
+    .docgrid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:8px;
+      max-height:660px;
+      overflow:auto;
+    }
+    .docitem {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.17);
+      border-radius:12px;
+      padding:10px;
+      font-size:10px;
+    }
+    .docitem b { color:var(--cyan); display:block; margin-bottom:5px; }
+    .docitem span { color:var(--text); display:block; line-height:1.35; }
+    .docitem em { color:var(--muted); display:block; font-style:normal; margin-top:5px; }
+    .control-deck {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin:14px 0;
+    }
+    .control-panel {
+      border:1px solid rgba(88,214,249,.20);
+      background:rgba(5,18,31,.74);
+      border-radius:16px;
+      padding:12px;
+      box-shadow:0 0 28px rgba(88,214,249,.055);
+    }
+    .control-panel b {
+      display:block;
+      color:var(--cyan);
+      margin-bottom:8px;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    input.control-input {
+      width:100%;
+      border:1px solid rgba(88,214,249,.28);
+      background:rgba(0,0,0,.30);
+      color:var(--text);
+      border-radius:10px;
+      padding:10px 11px;
+      font-family:inherit;
+      outline:none;
+      margin-bottom:9px;
+    }
+    input.control-input:focus {
+      border-color:rgba(88,214,249,.70);
+      box-shadow:0 0 0 2px rgba(88,214,249,.10);
+    }
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .chip {
+      border:1px solid rgba(88,214,249,.22);
+      background:rgba(88,214,249,.06);
+      color:var(--muted);
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:10px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip.active {
+      color:var(--cyan);
+      border-color:rgba(88,214,249,.58);
+      background:rgba(88,214,249,.14);
+      font-weight:900;
+    }
+    .category-badge {
+      display:inline-block;
+      margin-top:7px;
+      border:1px solid rgba(88,214,249,.22);
+      border-radius:999px;
+      padding:4px 7px;
+      color:var(--cyan);
+      font-size:9px;
+      text-transform:uppercase;
+    }
+    .api-list {
+      display:grid;
+      gap:7px;
+      max-height:660px;
+      overflow:auto;
+    }
+    .apiitem {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.17);
+      border-radius:12px;
+      padding:9px;
+      font-size:10px;
+    }
+    .apiitem b {
+      color:var(--green);
+      display:inline-block;
+      min-width:42px;
+    }
+    .apiitem span {
+      color:var(--text);
+      overflow-wrap:anywhere;
+    }
+    .apiitem em {
+      color:var(--muted);
+      display:block;
+      font-style:normal;
+      margin-top:4px;
+      text-transform:uppercase;
+    }
+    .empty-state {
+      color:var(--muted);
+      border:1px dashed rgba(88,214,249,.20);
+      border-radius:12px;
+      padding:12px;
+      font-size:11px;
+      text-align:center;
+    }
+    @media(max-width:1050px) {
+      .control-deck { grid-template-columns:1fr; }
+    }
+    .release {
+      display:grid;
+      gap:7px;
+      max-height:660px;
+      overflow:auto;
+    }
+    .rel {
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.15);
+      border-radius:10px;
+      padding:8px;
+      font-size:10px;
+    }
+    .rel b { color:var(--cyan); }
+    .rel span { color:var(--text); }
+    footer {
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:11px;
+    }
+    @media(max-width:1050px) {
+      .layout { grid-template-columns:1fr; }
+      header { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css"/>
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css"/>
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css"/>
+</head>
+<body class="trfmc-enterprise-shell">
+<header>
+  <div>
+    <h1>TRFMC MISSION CONTROL PORTAL INDEX</h1>
+    <p>v0.30 · interactive mission navigation · Golden Check · searchable consoles · API filters · docs catalog · release chain</p>
+  </div>
+  <div class="badge" id="badge">BOOT</div>
+</header>
+
+<section class="toolbar">
+  <button onclick="loadAll()">Refresh</button>
+    <a class="primary" href="/executive_mission_dashboard_v_next.html">Executive Next</a>
+    <a class="primary" href="/executive_mission_dashboard_v40.html">Executive Legacy</a>
+  <a class="btn" href="/">Main Dashboard</a>
+  <a class="btn" href="/security_console_v18.html">Security</a>
+  <a class="btn" href="/scenario_runner_console_v16.html">Run Scenario</a>
+  <a class="btn" href="/scenario_report_console_v17.html">Reports</a>
+  <a class="btn" href="/operator_handbook_console_v23.html">Operator Handbook</a>
+  <a class="btn" href="/runtime_golden_check_console_v29.html">Golden Check</a>
+  <a class="btn" href="/rf_telco_mission_portal_v35.html">RF/Telco</a>
+  <a class="btn" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a>
+  <a class="btn" href="/network_journey_world_map_v37.html">World Journey</a>
+  <a class="btn" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+  <a class="btn" href="/restore_readiness_console_v22.html">Restore</a>
+  <a class="btn" href="/operational_backup_console_v21.html">Backup</a>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+  <div class="kpi"><span>Overall</span><b id="k_overall">—</b></div>
+  <div class="kpi"><span>Pages</span><b id="k_pages">—</b></div>
+  <div class="kpi"><span>API Endpoints</span><b id="k_api">—</b></div>
+  <div class="kpi"><span>Docs</span><b id="k_docs">—</b></div>
+  <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+  <div class="kpi"><span>Assets</span><b id="k_assets">—</b></div>
+</section>
+
+<section class="mission-strip">
+  <div class="mission-tile">
+    <b>Operator Knowledge Base</b>
+    <span>Accesso rapido a manuale operativo, architettura, comandi, release chain e baseline sicurezza.</span>
+    <div class="links"><a class="btn" href="/operator_handbook_console_v23.html">Open Handbook</a></div>
+  </div>
+  <div class="mission-tile">
+    <b>Recovery & Continuity</b>
+    <span>Restore readiness, backup runtime/progetto, drill non distruttivo e catena di recuperabilità.</span>
+    <div class="links"><a class="btn" href="/restore_readiness_console_v22.html">Restore Console</a></div>
+  </div>
+  <div class="mission-tile">
+    <b>API Surface</b>
+    <span>Indice operativo degli endpoint core, portal, docs, security, vault, backup e restore.</span>
+    <div class="links"><a class="btn" href="/api/portal/index">Portal API</a></div>
+  </div>
+</section>
+
+<section class="control-deck">
+  <div class="control-panel">
+    <b>Console Search / Category Filter</b>
+    <input id="page_search" class="control-input" placeholder="Cerca console, categoria, versione, descrizione..."/>
+    <div id="page_filters" class="chips">loading...</div>
+  </div>
+  <div class="control-panel">
+    <b>API Search / Domain Filter</b>
+    <input id="api_search" class="control-input" placeholder="Cerca endpoint, dominio, metodo..."/>
+    <div id="api_filters" class="chips">loading...</div>
+  </div>
+</section>
+
+<section class="layout">
+  <div class="panel">
+    <h2>Console Index</h2>
+    <div class="body">
+      <div id="pages" class="pages">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Health Summary / API Index</h2>
+    <div class="body">
+      <pre id="summary">loading...</pre>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Release Chain</h2>
+    <div class="body">
+      <div id="releases" class="release">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Operator Commands</h2>
+    <div class="body">
+      <pre id="commands">loading...</pre>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Documentation Catalog</h2>
+    <div class="body">
+      <div id="docs" class="docgrid">loading...</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Interactive API Catalog</h2>
+    <div class="body">
+      <div id="api_catalog" class="api-list">loading...</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  TRFMC v0.30 · Portal Index Golden Check Integration · searchable consoles · filterable API surface · docs catalog
+</footer>
+
+<script>
+const API = '/api'
+const state = {
+  pages: [],
+  endpoints: [],
+  docs: null,
+  pageQuery: '',
+  pageCategory: 'all',
+  apiQuery: '',
+  apiDomain: 'all'
+}
+
+function norm(v) {
+  return String(v ?? '').toLowerCase()
+}
+
+function unique(values) {
+  return [...new Set(values.filter(Boolean))].sort()
+}
+
+async function get(path) {
+  const r = await fetch(API + path)
+  if (!r.ok) throw new Error(path + ' ' + r.status)
+  return await r.json()
+}
+
+function k(id, v) { document.getElementById(id).textContent = v ?? '—' }
+function j(id, data) { document.getElementById(id).textContent = JSON.stringify(data, null, 2) }
+
+function renderPageFilters(pages) {
+  const el = document.getElementById('page_filters')
+  if (!el) return
+  const cats = ['all', ...unique(pages.map(p => p.category))]
+  el.innerHTML = ''
+  for (const c of cats) {
+    const chip = document.createElement('span')
+    chip.className = 'chip' + (state.pageCategory === c ? ' active' : '')
+    chip.textContent = c === 'all' ? 'all categories' : c
+    chip.onclick = () => {
+      state.pageCategory = c
+      renderPageFilters(state.pages)
+      renderPages(state.pages)
+    }
+    el.appendChild(chip)
+  }
+}
+
+function renderPages(pages) {
+  const el = document.getElementById('pages')
+  el.innerHTML = ''
+  const q = norm(state.pageQuery)
+  const filtered = pages.filter(p => {
+    const hay = norm(`${p.version} ${p.title} ${p.description} ${p.category} ${p.status}`)
+    const matchQuery = !q || hay.includes(q)
+    const matchCategory = state.pageCategory === 'all' || p.category === state.pageCategory
+    return matchQuery && matchCategory
+  })
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty-state">Nessuna console trovata con i filtri correnti.</div>'
+    return
+  }
+  for (const p of filtered) {
+    const div = document.createElement('div')
+    div.className = 'card' + (['documentation','recovery','security'].includes(p.category) ? ' priority' : '')
+    div.innerHTML = `
+      <div>
+        <b>${p.version} · ${p.title}</b>
+        <span>${p.description}</span>
+        <em>${p.category} · ${p.status}</em>
+        <i class="category-badge">${p.category}</i>
+      </div>
+      <div class="links">
+        <a class="btn" href="${p.path}">Open</a>
+      </div>
+    `
+    el.appendChild(div)
+  }
+}
+}
+
+function renderReleases(releases) {
+  const el = document.getElementById('releases')
+  el.innerHTML = ''
+  for (const r of releases) {
+    const div = document.createElement('div')
+    div.className = 'rel'
+    div.innerHTML = `<b>${r.version}</b> · <span>${r.title}</span>`
+    el.appendChild(div)
+  }
+}
+
+function renderApiFilters(endpoints) {
+  const el = document.getElementById('api_filters')
+  if (!el) return
+  const domains = ['all', ...unique(endpoints.map(e => e.domain))]
+  el.innerHTML = ''
+  for (const d of domains) {
+    const chip = document.createElement('span')
+    chip.className = 'chip' + (state.apiDomain === d ? ' active' : '')
+    chip.textContent = d === 'all' ? 'all domains' : d
+    chip.onclick = () => {
+      state.apiDomain = d
+      renderApiFilters(state.endpoints)
+      renderApiCatalog(state.endpoints)
+    }
+    el.appendChild(chip)
+  }
+}
+
+function renderApiCatalog(endpoints) {
+  const el = document.getElementById('api_catalog')
+  if (!el) return
+  const q = norm(state.apiQuery)
+  const filtered = endpoints.filter(e => {
+    const hay = norm(`${e.method} ${e.path} ${e.domain}`)
+    const matchQuery = !q || hay.includes(q)
+    const matchDomain = state.apiDomain === 'all' || e.domain === state.apiDomain
+    return matchQuery && matchDomain
+  })
+  el.innerHTML = ''
+  if (!filtered.length) {
+    el.innerHTML = '<div class="empty-state">Nessun endpoint trovato con i filtri correnti.</div>'
+    return
+  }
+  for (const e of filtered) {
+    const div = document.createElement('div')
+    div.className = 'apiitem'
+    div.innerHTML = `<b>${e.method}</b> <span>${e.path}</span><em>${e.domain}</em>`
+    el.appendChild(div)
+  }
+}
+
+function renderDocs(docs) {
+  const el = document.getElementById('docs')
+  if (!el) return
+  el.innerHTML = ''
+  for (const d of docs.documents || []) {
+    const div = document.createElement('div')
+    div.className = 'docitem'
+    div.innerHTML = `
+      <b>${d.title}</b>
+      <span>${d.description}</span>
+      <em>${d.endpoint} · ${d.exists ? 'OK' : 'MISSING'} · ${d.size_bytes} bytes</em>
+    `
+    el.appendChild(div)
+  }
+}
+
+async function loadAll() {
+  const health = await get('/health')
+  const index = await get('/portal/index')
+  const summary = await get('/portal/health-summary')
+  const docs = await get('/docs/index')
+
+  state.pages = index.pages || []
+  state.endpoints = index.api_endpoints || []
+  state.docs = docs
+
+  document.getElementById('badge').textContent = health.version + ' · ' + health.operational_mode
+
+  k('k_backend', health.version)
+  k('k_overall', summary.overall_status)
+  k('k_pages', summary.pages_active)
+  k('k_api', summary.api_endpoints_indexed)
+  k('k_docs', docs.count)
+  k('k_events', summary.high_value_counts.cloud_events)
+  k('k_assets', summary.high_value_counts.assets)
+
+  renderPages(index.pages)
+  renderReleases(index.release_chain)
+  j('summary', {health, summary, api_endpoints:index.api_endpoints})
+  j('commands', index.operator_commands)
+}
+
+document.getElementById('page_search')?.addEventListener('input', e => {
+  state.pageQuery = e.target.value
+  renderPages(state.pages)
+})
+
+document.getElementById('api_search')?.addEventListener('input', e => {
+  state.apiQuery = e.target.value
+  renderApiCatalog(state.endpoints)
+})
+
+loadAll().catch(e => {
+  document.getElementById('badge').textContent = 'ERROR'
+  j('summary', {error:String(e)})
+})
+setInterval(loadAll, 30000)
+</script>
+<script defer src="/assets/trfmc_enterprise_shell_v34.js"></script>
+<div style="display:none"><a href="/rf_telco_knowledge_os_v60.html">Knowledge OS</a></div>
+<div style="display:none"><a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a></div>
+<script defer src="/assets/trfmc_master_shell_v75.js"></script>
+</body>
+</html>

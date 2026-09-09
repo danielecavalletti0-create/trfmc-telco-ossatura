@@ -1,0 +1,23 @@
+{
+  "version": "TRFMC v0.83B",
+  "mode": "RF Precision Scale + Probe Diagnostics",
+  "new_page": "webgl_rf_physics_engine_v83b.html",
+  "based_on": "webgl_rf_physics_engine_v83.html",
+  "v83a_preserved": true,
+  "v82c_r2_preserved": true,
+  "v82c_preserved": true,
+  "v82b_preserved": true,
+  "v82a_preserved": true,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "fixes": [
+    "explicit RSRP operational scale",
+    "UE probe diagnostics dock",
+    "softer shadow visualization",
+    "less ambiguous red/black meaning",
+    "formula-to-visual traceability"
+  ]
+}

@@ -1,0 +1,237 @@
+/* TRFMC v0.81B - Cinematic refinement
+   Scope: ONLY webgl_rf_heatmap_engine_v68_surgical_v81.html
+*/
+
+body.v81b-cinematic {
+  --v81b-glass: rgba(143,240,255,.10);
+  --v81b-edge: rgba(143,240,255,.36);
+  --v81b-depth: rgba(0,0,0,.48);
+}
+
+/* Hero più compatta e più “console” */
+body.v81b-cinematic .hero {
+  min-height: 210px;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(143,240,255,.18), transparent 35%),
+    radial-gradient(circle at 83% 12%, rgba(66,245,111,.14), transparent 32%),
+    linear-gradient(135deg, rgba(14,46,68,.94), rgba(4,10,24,.98)) !important;
+}
+
+body.v81b-cinematic h1 {
+  text-shadow:
+    0 0 16px rgba(143,240,255,.46),
+    0 0 52px rgba(143,240,255,.16),
+    0 0 96px rgba(66,245,111,.10) !important;
+}
+
+/* Scena centrale: più profondità e meno “pannello piatto” */
+body.v81b-cinematic .rf-scene {
+  min-height: 650px;
+  isolation: isolate;
+  perspective: 1200px;
+  background:
+    radial-gradient(circle at 27% 57%, rgba(66,245,111,.22), transparent 33%),
+    radial-gradient(circle at 55% 37%, rgba(251,191,36,.12), transparent 26%),
+    radial-gradient(circle at 78% 58%, rgba(20,160,255,.15), transparent 31%),
+    linear-gradient(180deg, rgba(5,18,34,.98), rgba(1,6,14,.99)) !important;
+}
+
+/* Piano terreno pseudo-3D */
+body.v81b-cinematic .rf-scene::before {
+  content: "";
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -22%;
+  height: 42%;
+  background:
+    linear-gradient(rgba(66,245,111,.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143,240,255,.11) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% 0%, rgba(66,245,111,.18), transparent 68%);
+  background-size: 38px 26px, 38px 26px, auto;
+  transform: perspective(620px) rotateX(63deg);
+  transform-origin: top center;
+  opacity: .78;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Sweep RF morbido, non invasivo */
+body.v81b-cinematic .rf-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(112deg, transparent 0%, rgba(143,240,255,.055) 42%, transparent 62%),
+    radial-gradient(circle at 48% 38%, rgba(255,255,255,.035), transparent 28%);
+  mix-blend-mode: screen;
+  animation: v81bSweep 8s ease-in-out infinite;
+  z-index: 30;
+  pointer-events: none;
+}
+
+@keyframes v81bSweep {
+  0%,100% { opacity: .22; transform: translateX(-5%); }
+  50% { opacity: .54; transform: translateX(5%); }
+}
+
+/* Terrain e coverage più controllati */
+body.v81b-cinematic .terrain {
+  opacity: .92;
+  filter: saturate(1.18) contrast(1.08);
+}
+
+body.v81b-cinematic .coverage {
+  opacity: .62;
+  filter: blur(22px) saturate(1.12);
+}
+
+body[data-season="summer"].v81b-cinematic .coverage-a,
+body[data-season="summer"].v81b-cinematic .coverage-b {
+  opacity: .82;
+}
+
+body[data-season="winter"].v81b-cinematic .coverage {
+  opacity: .46;
+  filter: blur(24px) saturate(.92);
+}
+
+/* Edifici più definiti: facciata + lato + ombra */
+body.v81b-cinematic .building {
+  border-color: rgba(143,240,255,.26);
+  transform: skewY(-1.2deg) translateZ(0);
+  box-shadow:
+    22px 24px 38px rgba(0,0,0,.46),
+    inset 0 0 34px rgba(143,240,255,.06),
+    0 0 24px rgba(143,240,255,.06);
+}
+
+body.v81b-cinematic .building::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -16px;
+  width: 16px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(143,240,255,.14), rgba(1,5,12,.70));
+  transform: skewY(42deg);
+  transform-origin: left top;
+  border-right: 1px solid rgba(143,240,255,.12);
+}
+
+body.v81b-cinematic .building::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 12px;
+  bottom: 12px;
+  background:
+    linear-gradient(90deg, rgba(143,240,255,.16) 1px, transparent 1px),
+    linear-gradient(rgba(143,240,255,.14) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: .42;
+}
+
+/* Alberi più “oggetto” e non puntini */
+body.v81b-cinematic .tree {
+  filter: drop-shadow(0 12px 12px rgba(0,0,0,.35));
+}
+
+body.v81b-cinematic .tree::after {
+  background:
+    radial-gradient(circle at 32% 24%, rgba(235,255,235,.50), transparent 18%),
+    radial-gradient(circle at 48% 42%, rgba(66,245,111,.28), rgba(10,74,43,.42) 68%, rgba(1,8,10,.1));
+  box-shadow:
+    0 0 28px rgba(66,245,111,.22),
+    inset 0 0 18px rgba(255,255,255,.06);
+}
+
+/* Zone di shadow con bordo tecnico, meno cartoon */
+body.v81b-cinematic .shadow-zone {
+  background:
+    linear-gradient(135deg, rgba(1,4,10,.72), rgba(8,14,28,.26)),
+    repeating-linear-gradient(45deg, rgba(255,59,92,.055) 0 1px, transparent 1px 10px);
+  border-color: rgba(255,59,92,.22);
+  box-shadow: inset 0 0 24px rgba(255,59,92,.045);
+}
+
+/* Siti macro più professionali */
+body.v81b-cinematic .site {
+  border-color: rgba(143,240,255,.52);
+  background: radial-gradient(circle, rgba(143,240,255,.12), rgba(2,8,18,.48));
+  box-shadow:
+    0 0 36px rgba(143,240,255,.18),
+    inset 0 0 22px rgba(143,240,255,.08);
+}
+
+body.v81b-cinematic .site span {
+  width: 16px;
+  height: 16px;
+}
+
+/* Fasci RF più stratificati */
+body.v81b-cinematic .beam {
+  height: 2px;
+  opacity: .82;
+}
+
+body.v81b-cinematic .beam::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -18px;
+  width: 100%;
+  height: 38px;
+  background: linear-gradient(90deg, rgba(143,240,255,.12), transparent);
+  filter: blur(10px);
+  opacity: .58;
+}
+
+/* Probe UE: più leggibili */
+body.v81b-cinematic .probe {
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow:
+    0 0 22px rgba(143,240,255,.32),
+    inset 0 0 12px rgba(255,255,255,.12);
+}
+
+/* Pannelli più raffinati */
+body.v81b-cinematic .control-panel,
+body.v81b-cinematic .telemetry,
+body.v81b-cinematic .bottom-kpi article,
+body.v81b-cinematic .engineering-notes article {
+  background:
+    radial-gradient(circle at 14% 0%, rgba(143,240,255,.10), transparent 34%),
+    linear-gradient(145deg, rgba(8,30,50,.90), rgba(3,9,22,.96)) !important;
+  border-color: rgba(143,240,255,.27);
+}
+
+body.v81b-cinematic .metric {
+  background:
+    linear-gradient(145deg, rgba(143,240,255,.085), rgba(2,8,18,.78));
+}
+
+/* Micro badge di sandbox, discreto */
+.v81b-sandbox-mark {
+  position: fixed;
+  right: 18px;
+  bottom: 14px;
+  z-index: 80;
+  border: 1px solid rgba(143,240,255,.18);
+  border-radius: 999px;
+  background: rgba(2,8,18,.72);
+  color: rgba(143,240,255,.72);
+  padding: 6px 10px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+@media(max-width:1300px){
+  body.v81b-cinematic .rf-scene { min-height: 570px; }
+}

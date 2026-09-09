@@ -1,0 +1,216 @@
+{
+  "timestamp": "20260528_174014",
+  "operation": "TRFMC_VISUAL_ASSET_SCAFFOLD_V41B",
+  "asset_root": "/trfmc_assets/visual_knowledge",
+  "assets_count": 8,
+  "fallback_format": "svg",
+  "real_render_expected_format": "jpg_or_webp",
+  "assets": [
+    {
+      "id": "electronics_symbols_basic_concepts",
+      "title": "Electronics Fundamentals",
+      "description": "Fallback tecnico per symbol library elettronica: componenti, segnali, logica e strumenti.",
+      "category": "01_electronics_symbols",
+      "public_path": "/trfmc_assets/visual_knowledge/01_electronics_symbols/electronics_symbols_basic_concepts.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/01_electronics_symbols/electronics_symbols_basic_concepts.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/01_electronics_symbols/electronics_symbols_basic_concepts.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "R",
+        "C",
+        "L",
+        "GND",
+        "DIODE",
+        "BJT",
+        "FET",
+        "LOGIC",
+        "RF"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "microstrip_patch_antenna_5g",
+      "title": "Microstrip Patch Antenna",
+      "description": "Fallback tecnico per patch, substrate, feed line, ground plane e pattern.",
+      "category": "02_antennas_microstrip",
+      "public_path": "/trfmc_assets/visual_knowledge/02_antennas_microstrip/microstrip_patch_antenna_5g.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/02_antennas_microstrip/microstrip_patch_antenna_5g.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/02_antennas_microstrip/microstrip_patch_antenna_5g.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "PATCH",
+        "SUBSTRATE",
+        "FEED",
+        "GROUND",
+        "S11",
+        "PATTERN"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "types_of_telecom_antennas",
+      "title": "Types of Telecom Antennas",
+      "description": "Fallback tecnico per sector, dish, MIMO, small cell, GPS, Yagi e horn.",
+      "category": "03_antennas_types",
+      "public_path": "/trfmc_assets/visual_knowledge/03_antennas_types/types_of_telecom_antennas.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/03_antennas_types/types_of_telecom_antennas.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/03_antennas_types/types_of_telecom_antennas.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "SECTOR",
+        "DISH",
+        "MIMO",
+        "SMALL CELL",
+        "YAGI",
+        "GPS"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "beamwidth_narrow_wide",
+      "title": "Beamwidth and Coverage",
+      "description": "Fallback tecnico per confronto narrow/wide beam, HPBW, gain e coverage.",
+      "category": "03_antennas_types",
+      "public_path": "/trfmc_assets/visual_knowledge/03_antennas_types/beamwidth_narrow_wide.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/03_antennas_types/beamwidth_narrow_wide.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/03_antennas_types/beamwidth_narrow_wide.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "NARROW BEAM",
+        "WIDE BEAM",
+        "-3 dB",
+        "GAIN",
+        "COVERAGE"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "telecom_towers_arabic_overview",
+      "title": "Telecom Towers Overview",
+      "description": "Fallback tecnico per torri, macro site, radome, backhaul e smart pole.",
+      "category": "04_telco_infrastructure",
+      "public_path": "/trfmc_assets/visual_knowledge/04_telco_infrastructure/telecom_towers_arabic_overview.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/04_telco_infrastructure/telecom_towers_arabic_overview.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/04_telco_infrastructure/telecom_towers_arabic_overview.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "MACRO",
+        "BACKHAUL",
+        "RADOME",
+        "CABINET",
+        "SMART POLE"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "cellular_satellite_site_photo",
+      "title": "Cellular and Satellite Site",
+      "description": "Fallback tecnico per sito cellulare/satellitare e apparati outdoor.",
+      "category": "04_telco_infrastructure",
+      "public_path": "/trfmc_assets/visual_knowledge/04_telco_infrastructure/cellular_satellite_site_photo.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/04_telco_infrastructure/cellular_satellite_site_photo.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/04_telco_infrastructure/cellular_satellite_site_photo.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "CELL SITE",
+        "SATCOM",
+        "DISH",
+        "RRU",
+        "POWER"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "rf_microwave_engineering_lab",
+      "title": "RF & Microwave Engineering Lab",
+      "description": "Fallback tecnico per VNA, VSA, Smith chart, S-parameters e banco RF.",
+      "category": "05_rf_lab_visuals",
+      "public_path": "/trfmc_assets/visual_knowledge/05_rf_lab_visuals/rf_microwave_engineering_lab.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/05_rf_lab_visuals/rf_microwave_engineering_lab.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/05_rf_lab_visuals/rf_microwave_engineering_lab.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "VNA",
+        "VSA",
+        "SMITH",
+        "S11/S21",
+        "DUT",
+        "CAL"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    },
+    {
+      "id": "falco_xplorer_vs_bayraktar_tb2",
+      "title": "UAV Platforms and ISR Systems",
+      "description": "Fallback tecnico per UAV ISR, payload, datalink, telemetry e GCS.",
+      "category": "06_uav_rf_links",
+      "public_path": "/trfmc_assets/visual_knowledge/06_uav_rf_links/falco_xplorer_vs_bayraktar_tb2.svg",
+      "expected_real_render_path": "/trfmc_assets/visual_knowledge/06_uav_rf_links/falco_xplorer_vs_bayraktar_tb2.jpg",
+      "fallback_path": "/trfmc_assets/visual_knowledge/06_uav_rf_links/falco_xplorer_vs_bayraktar_tb2.svg",
+      "source_mode": "fallback",
+      "replaceable": true,
+      "tags": [
+        "UAV ISR",
+        "PAYLOAD",
+        "C2 LINK",
+        "TELEMETRY",
+        "GCS"
+      ],
+      "usage": [
+        "scenario_visual_runtime",
+        "knowledge_binding",
+        "render_placeholder",
+        "future_real_asset_replacement"
+      ]
+    }
+  ],
+  "safety": {
+    "react_mutation": false,
+    "backend_mutation": false,
+    "nginx_mutation": false,
+    "systemd_mutation": false,
+    "static_assets_only": true
+  }
+}

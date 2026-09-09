@@ -1,0 +1,23 @@
+{
+  "version": "TRFMC v0.78A",
+  "name": "Full Portal Object Integration Completion Pack",
+  "strategy": "Extend the object-first method to remaining strategic portal pages without reintroducing global visual chaos.",
+  "target_pages": [
+    "webgl_rf_heatmap_engine_v68.html",
+    "webgl_rf_heatmap_engine_v67.html",
+    "webgl_rf_heatmap_engine_v66.html",
+    "field_engineering_mode_v64.html",
+    "rf_propagation_sandbox_v62.html",
+    "rf_telco_knowledge_modules_v61.html",
+    "portal_index_v19.html",
+    "runtime_golden_check_console_v29.html",
+    "trfmc_visual_qa_matrix_v71.html"
+  ],
+  "rules": [
+    "no fixed overlays",
+    "no badges",
+    "no old global visual layers",
+    "preview mode respected",
+    "object stack inserted only inside page flow"
+  ]
+}

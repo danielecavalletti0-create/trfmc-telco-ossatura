@@ -1,0 +1,7 @@
+url	status	bytes	classification
+http://127.0.0.1:5173/#mission-overview	200	387	OK
+http://127.0.0.1:5173/#portal-os-preview	200	387	OK
+http://127.0.0.1:5173/#rf-physics	200	387	OK
+http://127.0.0.1:5173/#signal-analyzer	200	387	OK
+http://127.0.0.1:8000/api/health	200	4653	OK
+http://127.0.0.1:4181/api/health	200	215	OK

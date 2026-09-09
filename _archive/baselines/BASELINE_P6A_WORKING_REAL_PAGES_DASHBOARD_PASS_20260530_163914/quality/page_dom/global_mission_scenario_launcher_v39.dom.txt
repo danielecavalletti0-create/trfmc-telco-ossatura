@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<title>TRFMC v0.39 Global Mission Scenario Launcher</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_theme_v32.css">
+<link rel="stylesheet" href="/assets/trfmc_enterprise_shell_v34.css">
+<style>
+:root{--panel:rgba(5,18,31,.90);--line:rgba(88,214,249,.25);--cyan:#58d6f9;--green:#3fb950;--amber:#d29922;--red:#ff4d6d;--violet:#a371f7;--text:#edf8ff;--muted:#8da4b3}
+*{box-sizing:border-box}
+body{margin:0;color:var(--text);font-family:Consolas,ui-monospace,monospace;padding:18px}
+.hero{border:1px solid var(--line);background:radial-gradient(circle at 12% 10%,rgba(88,214,249,.18),transparent 32%),radial-gradient(circle at 84% 12%,rgba(163,113,247,.16),transparent 28%),linear-gradient(135deg,rgba(88,214,249,.10),rgba(255,255,255,.025)),var(--panel);border-radius:24px;padding:22px;box-shadow:0 0 58px rgba(88,214,249,.12)}
+.hero h1{margin:0;color:var(--cyan);font-size:30px;letter-spacing:1.4px}.hero p{color:var(--muted);line-height:1.55;max-width:1240px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.toolbar a,.toolbar button{border:1px solid rgba(88,214,249,.34);background:rgba(88,214,249,.08);color:var(--cyan);border-radius:999px;padding:8px 11px;font-weight:900;text-decoration:none;font-family:inherit;cursor:pointer}
+.toolbar a.primary{border-color:rgba(63,185,80,.48);color:var(--green);background:rgba(63,185,80,.10)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.kpi{border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:16px;padding:12px}.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}.kpi b{display:block;color:var(--cyan);font-size:17px;margin-top:5px;overflow:hidden;text-overflow:ellipsis}
+.launch-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-top:14px}
+.world{min-height:610px;border:1px solid var(--line);background:linear-gradient(rgba(88,214,249,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(88,214,249,.055) 1px,transparent 1px),radial-gradient(circle at 50% 44%,rgba(88,214,249,.14),transparent 42%),rgba(0,0,0,.22);background-size:44px 44px,44px 44px,100% 100%,100% 100%;border-radius:24px;position:relative;overflow:hidden;box-shadow:0 0 54px rgba(88,214,249,.08) inset}
+.world:before{content:"";position:absolute;inset:38px;border:1px solid rgba(88,214,249,.14);border-radius:50%;box-shadow:0 0 100px rgba(88,214,249,.10) inset}
+.region{position:absolute;border:1px solid rgba(88,214,249,.42);background:rgba(5,18,31,.76);border-radius:16px;padding:11px;min-width:150px;box-shadow:0 0 34px rgba(88,214,249,.13);z-index:3;cursor:pointer}
+.region:hover,.region.active{border-color:rgba(63,185,80,.65);box-shadow:0 0 42px rgba(63,185,80,.20);background:rgba(20,45,34,.72)}
+.region b{display:block;color:var(--cyan);font-size:12px;text-transform:uppercase}.region span{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.35}
+.home{left:6%;top:46%}.ran{left:23%;top:34%}.core{left:42%;top:43%}.gwan{left:58%;top:33%}.usa{right:8%;top:18%}.japan{right:5%;top:48%}.india{right:25%;top:66%}.africa{left:55%;bottom:11%}.australia{right:8%;bottom:8%}.ntn{left:41%;top:8%;border-color:rgba(163,113,247,.52);box-shadow:0 0 38px rgba(163,113,247,.17)}.soc{left:26%;bottom:9%;border-color:rgba(63,185,80,.45);box-shadow:0 0 34px rgba(63,185,80,.14)}
+.route{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(88,214,249,.90),rgba(63,185,80,.76),transparent);transform-origin:left center;z-index:2;animation:routePulse 2.4s infinite linear}
+.r1{left:17%;top:51%;width:180px;transform:rotate(-28deg)}.r2{left:34%;top:41%;width:185px;transform:rotate(20deg)}.r3{left:48%;top:41%;width:160px;transform:rotate(-26deg)}.r4{left:62%;top:36%;width:180px;transform:rotate(-24deg)}.r5{left:68%;top:44%;width:190px;transform:rotate(18deg)}.r6{left:65%;top:48%;width:160px;transform:rotate(55deg)}.r7{left:62%;top:55%;width:150px;transform:rotate(93deg)}.r8{left:50%;top:20%;width:170px;transform:rotate(75deg);background:linear-gradient(90deg,transparent,rgba(163,113,247,.90),transparent)}.r9{left:41%;top:66%;width:175px;transform:rotate(-30deg);background:linear-gradient(90deg,transparent,rgba(63,185,80,.90),transparent)}
+@keyframes routePulse{0%{opacity:.35;filter:brightness(.8)}50%{opacity:1;filter:brightness(1.45)}100%{opacity:.35;filter:brightness(.8)}}
+.side{display:grid;gap:12px}.panel{border:1px solid var(--line);background:var(--panel);border-radius:18px;overflow:hidden;box-shadow:0 0 34px rgba(88,214,249,.07)}
+.panel h2{margin:0;padding:12px 14px;border-bottom:1px solid rgba(88,214,249,.16);color:var(--cyan);font-size:13px;text-transform:uppercase}.panel .body{padding:12px}
+.scenario{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.028);border-radius:14px;padding:11px;margin-bottom:8px;cursor:pointer}.scenario:hover,.scenario.active{border-color:rgba(88,214,249,.45);background:rgba(88,214,249,.075)}
+.scenario b{display:block;color:var(--cyan);font-size:12px}.scenario span{display:block;color:var(--muted);font-size:10px;margin-top:5px;line-height:1.35}
+.launch-button{width:100%;margin-top:10px;border:1px solid rgba(63,185,80,.45);background:rgba(63,185,80,.10);color:var(--green);border-radius:14px;padding:12px;font-weight:900;font-family:inherit;cursor:pointer}
+.timeline-step{border-left:2px solid rgba(88,214,249,.40);padding:0 0 12px 12px;margin-left:6px;color:var(--text);font-size:11px}.timeline-step b{color:var(--cyan)}.timeline-step span{display:block;color:var(--muted);margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}.card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px}.card h2{margin:0 0 8px;color:var(--cyan);font-size:13px;text-transform:uppercase}.card p{color:var(--muted);font-size:11px;line-height:1.5}.card ul{font-size:11px;line-height:1.6;margin:8px 0 0;padding-left:18px}
+pre{margin:0;max-height:360px;overflow:auto;background:rgba(0,0,0,.25);padding:12px;color:#e8f6ff;font-size:10px;line-height:1.4}footer{margin-top:16px;text-align:center;color:var(--muted);font-size:11px}
+@media(max-width:1180px){.launch-layout{grid-template-columns:1fr}.world{min-height:650px}.hero h1{font-size:24px}}@media(max-width:760px){.region{min-width:120px;font-size:10px}.world{min-height:760px}}
+</style>
+</head>
+<body class="trfmc-enterprise-shell"><section id="trfmc-shell-topbar" class="trfmc-shell-topbar">
+      <div class="trfmc-shell-row">
+        <div class="trfmc-shell-brand">
+          <div class="trfmc-shell-mark" aria-hidden="true"></div>
+          <div class="trfmc-shell-title">
+            <b>TRFMC Mission Control</b>
+            <span>Mission Control · Enterprise Navigation Shell v0.34</span>
+          </div>
+        </div>
+
+        <nav class="trfmc-shell-nav" aria-label="TRFMC enterprise navigation">
+          <a class="" href="/portal_index_v19.html">Portal</a><a class="" href="/executive_mission_dashboard_v_next.html">Executive</a><a class="" href="/rf_telco_mission_portal_v35.html">RF/Telco</a><a class="" href="/rf_telco_visual_cockpit_v36.html">RF Cockpit</a><a class="" href="/network_journey_world_map_v37.html">World Journey</a><a class="" href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a><a class="" href="/runtime_golden_check_console_v29.html">Golden</a><a class="" href="/operator_handbook_console_v23.html">Handbook</a><a class="" href="/security_console_v18.html">Security</a><a class="" href="/scenario_runner_console_v16.html">Scenarios</a><a class="" href="/scenario_report_console_v17.html">Reports</a><a class="" href="/observability_console_v13.html">Observability</a><a class="" href="/operational_backup_console_v21.html">Backup</a><a class="" href="/restore_readiness_console_v22.html">Restore</a>
+        </nav>
+
+        <div class="trfmc-shell-status">
+          <span id="trfmc-shell-backend" class="trfmc-shell-pill warn">Backend <strong>UNKNOWN</strong></span>
+          <span id="trfmc-shell-snapshot" class="trfmc-shell-pill ok">Golden <strong>OK</strong></span>
+          <span id="trfmc-shell-mode" class="trfmc-shell-pill warn">Mode <strong>UNKNOWN</strong></span>
+        </div>
+      </div>
+
+      <div class="trfmc-shell-subbar">
+        <span>localhost-only · simulation-only · controlled lab posture</span>
+        <span>
+          API <code>127.0.0.1:5173</code>
+          Frontend <code>127.0.0.1:5173</code>
+        </span>
+      </div>
+    </section>
+<section class="hero">
+  <h1>TRFMC GLOBAL MISSION SCENARIO LAUNCHER</h1>
+  <p>v0.39A · selettore missione globale per scenari RF/Telco: Giappone, USA, Africa, India, Australia, NTN/satellite, degradazione RF/NLOS e catena SOC/evidence/recovery.</p>
+  <div class="toolbar">
+    <button onclick="loadAll()">Refresh</button>
+    <a class="primary" href="/executive_mission_dashboard_v40.html">Executive Dashboard</a>
+    <a href="/rf_telco_mission_portal_v35.html">RF/Telco Portal</a>
+    <a href="/rf_telco_visual_cockpit_v36.html">Visual Cockpit</a>
+    <a href="/network_journey_world_map_v37.html">World Journey</a>
+    <a href="/rf_instrumentation_signal_cockpit_v38.html">RF Instruments</a>
+    <a href="/portal_index_v19.html">Portal Index</a>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><span>Backend</span><b id="k_backend">—</b></div>
+    <div class="kpi"><span>Selected Mission</span><b id="k_mission">—</b></div>
+    <div class="kpi"><span>Risk Class</span><b id="k_risk">—</b></div>
+    <div class="kpi"><span>Golden</span><b id="k_golden">—</b></div>
+    <div class="kpi"><span>CloudEvents</span><b id="k_events">—</b></div>
+  </div>
+</section>
+
+<section class="launch-layout">
+  <div class="world">
+    <div class="route r1"></div><div class="route r2"></div><div class="route r3"></div><div class="route r4"></div><div class="route r5"></div><div class="route r6"></div><div class="route r7"></div><div class="route r8"></div><div class="route r9"></div>
+    <div class="region home"><b>Local Village</b><span>UE, edge, local access</span></div>
+    <div class="region ran"><b>RAN / RF</b><span>gNB, n78, field, coverage</span></div>
+    <div class="region core"><b>National Core</b><span>5GC, policy, transport</span></div>
+    <div class="region gwan"><b>GWAN</b><span>global transit backbone</span></div>
+    <div class="region usa" data-target="local-to-usa"><b>USA</b><span>mission region</span></div>
+    <div class="region japan active" data-target="local-to-japan"><b>Japan</b><span>mission region</span></div>
+    <div class="region india" data-target="local-to-india"><b>India</b><span>mission region</span></div>
+    <div class="region africa" data-target="local-to-africa"><b>Africa</b><span>remote mission</span></div>
+    <div class="region australia" data-target="local-to-australia"><b>Australia</b><span>long-haul path</span></div>
+    <div class="region ntn" data-target="ntn-satellite"><b>NTN / Satellite</b><span>LEO/MEO/GEO overlay</span></div>
+    <div class="region soc" data-target="soc-evidence"><b>SOC / Evidence</b><span>timeline, vault, recovery</span></div>
+  </div>
+  <div class="side">
+    <div class="panel"><h2>Mission Playbooks</h2><div class="body" id="scenarios"><div class="scenario active"><b>Local Village → Japan Region</b><span>Percorso locale/RAN/core/GWAN verso regione Giappone.</span><span>risk: MEDIUM</span></div><div class="scenario"><b>Local Village → USA Region</b><span>Scenario intercontinentale verso USA.</span><span>risk: MEDIUM</span></div><div class="scenario"><b>Remote Local Site → Africa Mission</b><span>Scenario resilienza e reachability verso area remota.</span><span>risk: HIGH</span></div><div class="scenario"><b>Local Village → India Region</b><span>Profilo Asia routing con attraversamento globale.</span><span>risk: MEDIUM</span></div><div class="scenario"><b>Local Village → Australia Long-Haul</b><span>Percorso globale estremo verso Australia.</span><span>risk: HIGH</span></div><div class="scenario"><b>NTN / Satellite Overlay</b><span>Overlay LEO/MEO/GEO per path non-terrestrial.</span><span>risk: HIGH</span></div><div class="scenario"><b>RF Degradation / NLOS / Obstruction</b><span>Degradazione radio, ostacoli, NLOS, path loss e misure RF.</span><span>risk: HIGH</span></div><div class="scenario"><b>SOC Evidence / Recovery Chain</b><span>Raccolta evidenze, timeline, report, backup e restore readiness.</span><span>risk: CONTROL</span></div><button class="launch-button">SIMULATE LAUNCH SEQUENCE</button></div></div>
+    <div class="panel"><h2>Launch Sequence</h2><div class="body" id="timeline"><div class="timeline-step"><b>01 · Local UE</b><span>reachability</span></div><div class="timeline-step"><b>02 · RAN n78</b><span>global routing profile</span></div><div class="timeline-step"><b>03 · National Core</b><span>service continuity</span></div><div class="timeline-step"><b>04 · GWAN Transit</b><span>mission evidence</span></div><div class="timeline-step"><b>05 · Japan Region</b><span>reachability</span></div><div class="timeline-step"><b>06 · Evidence Timeline</b><span>global routing profile</span></div></div></div>
+  </div>
+</section>
+
+<section class="grid">
+  <div class="card"><h2>Mission Scope</h2><p>Ogni playbook descrive percorso, obiettivo, rischio tecnico, layer RF/Telco coinvolti e catena di evidenza.</p><ul><li>local access</li><li>national core</li><li>global route</li><li>evidence trail</li></ul></div>
+  <div class="card"><h2>RF/Telco Integration</h2><p>Collega i cockpit precedenti: world map, RF instrumentation, visual cockpit e portal index.</p><ul><li>RF measurements</li><li>network journey</li><li>global transport</li></ul></div>
+  <div class="card"><h2>Future Execution</h2><p>Prepara l’evoluzione verso scenario launcher API-backed con run controllati e report automatici.</p><ul><li>dry-run</li><li>scenario execution</li><li>report export</li></ul></div>
+</section>
+
+<section class="panel" style="margin-top:14px"><h2>Selected Mission Runtime Snapshot</h2><pre id="runtime">{
+  "error": "SyntaxError: Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+}</pre></section>
+<footer>TRFMC v0.39A · Global Mission Scenario Launcher · frontend-only · localhost-only</footer>
+
+<script>
+const API="/api";
+const scenarios=[
+{id:"local-to-japan",title:"Local Village → Japan Region",risk:"MEDIUM",description:"Percorso locale/RAN/core/GWAN verso regione Giappone.",path:["Local UE","RAN n78","National Core","GWAN Transit","Japan Region","Evidence Timeline"],objectives:["reachability","global routing profile","service continuity","mission evidence"]},
+{id:"local-to-usa",title:"Local Village → USA Region",risk:"MEDIUM",description:"Scenario intercontinentale verso USA.",path:["Local UE","gNB/RAN","5GC","GWAN","USA Region","Report"],objectives:["intercontinental path","policy observation","timeline correlation","report export"]},
+{id:"local-to-africa",title:"Remote Local Site → Africa Mission",risk:"HIGH",description:"Scenario resilienza e reachability verso area remota.",path:["Remote UE","RAN","Core","GWAN","Africa Region","SOC/Evidence Vault"],objectives:["resilience","remote route","evidence integrity","restore readiness"]},
+{id:"local-to-india",title:"Local Village → India Region",risk:"MEDIUM",description:"Profilo Asia routing con attraversamento globale.",path:["UE","RAN","Central Office","Core","India Region","Mission Graph"],objectives:["routing stages","CloudEvents","mission graph","regional correlation"]},
+{id:"local-to-australia",title:"Local Village → Australia Long-Haul",risk:"HIGH",description:"Percorso globale estremo verso Australia.",path:["UE","RAN","Core","GWAN","Australia Region","Report"],objectives:["long-haul path","delay awareness","continuity","global service view"]},
+{id:"ntn-satellite",title:"NTN / Satellite Overlay",risk:"HIGH",description:"Overlay LEO/MEO/GEO per path non-terrestrial.",path:["UE/Terminal","NTN Segment","Satellite Gateway","Core","Remote Region"],objectives:["coverage footprint","delay","resilience","future NTN integration"]},
+{id:"rf-degradation",title:"RF Degradation / NLOS / Obstruction",risk:"HIGH",description:"Degradazione radio, ostacoli, NLOS, path loss e misure RF.",path:["UE","Obstacle/NLOS","RAN","RF Field","Coverage Analysis","Instrumentation"],objectives:["path loss","RSRP","noise floor","SNR","EVM/BLER placeholder"]},
+{id:"soc-evidence",title:"SOC Evidence / Recovery Chain",risk:"CONTROL",description:"Raccolta evidenze, timeline, report, backup e restore readiness.",path:["Event Stream","Timeline","Correlation","Report","Evidence Vault","Backup/Restore"],objectives:["auditability","evidence chain","backup","restore readiness","golden check"]}
+];
+let selected=scenarios[0];let launchCounter=0;
+async function getJson(url){const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw new Error(url+" HTTP "+r.status);return await r.json();}
+function set(id,v){document.getElementById(id).textContent=v??"—";}
+function selectScenario(id){const s=scenarios.find(x=>x.id===id);if(s){selected=s;renderScenarios();renderTimeline();loadAll();}}
+function renderScenarios(){const box=document.getElementById("scenarios");box.innerHTML="";for(const s of scenarios){const div=document.createElement("div");div.className="scenario"+(s.id===selected.id?" active":"");div.innerHTML=`<b>${s.title}</b><span>${s.description}</span><span>risk: ${s.risk}</span>`;div.onclick=()=>selectScenario(s.id);box.appendChild(div);}const btn=document.createElement("button");btn.className="launch-button";btn.textContent="SIMULATE LAUNCH SEQUENCE";btn.onclick=()=>{launchCounter++;renderTimeline();loadAll();};box.appendChild(btn);document.querySelectorAll("[data-target]").forEach(el=>{el.classList.toggle("active",el.dataset.target===selected.id);el.onclick=()=>selectScenario(el.dataset.target);});}
+function renderTimeline(){const box=document.getElementById("timeline");box.innerHTML="";selected.path.forEach((step,i)=>{const d=document.createElement("div");d.className="timeline-step";d.innerHTML=`<b>${String(i+1).padStart(2,"0")} · ${step}</b><span>${selected.objectives[i%selected.objectives.length]}</span>`;box.appendChild(d);});}
+async function loadAll(){renderScenarios();renderTimeline();const health=await getJson(API+"/health");const portal=await getJson(API+"/portal/health-summary");const docs=await getJson(API+"/docs/index");const snap=await getJson("/runtime_golden_check_snapshot.json?nocache="+Date.now());set("k_backend",health.version+" · "+health.operational_mode);set("k_mission",selected.title);set("k_risk",selected.risk);set("k_golden",snap.overall_status+" · "+(snap.checks||[]).length+" checks");set("k_events",portal.high_value_counts?.cloud_events);document.getElementById("runtime").textContent=JSON.stringify({selected_mission:selected,simulated_launch_counter:launchCounter,health,portal,docs,golden_snapshot:snap},null,2);}
+loadAll().catch(e=>{document.getElementById("runtime").textContent=JSON.stringify({error:String(e)},null,2);});setInterval(loadAll,30000);
+</script>
+<script defer="" src="/assets/trfmc_enterprise_shell_v34.js"></script>
+
+
+<section id="trfmc-shell-footer" class="trfmc-shell-footer">
+      <b>TRFMC v0.34 Enterprise Navigation Shell</b>
+      · unified console navigation · runtime status · golden check · operational lab mode
+    </section></body></html>

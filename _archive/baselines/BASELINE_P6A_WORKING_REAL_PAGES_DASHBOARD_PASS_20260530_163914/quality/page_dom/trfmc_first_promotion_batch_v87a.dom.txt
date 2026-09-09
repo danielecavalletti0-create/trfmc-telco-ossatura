@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>TRFMC v0.87A · First Promotion Batch</title>
+  <link rel="stylesheet" href="/assets/trfmc_v087a_first_promotion_batch.css">
+  <script defer="" src="/assets/trfmc_v087a_first_promotion_batch.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-page="first-promotion-batch-v87a" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <main class="pb87-shell">
+    <header class="pb87-topbar">
+      <section class="pb87-brand">
+        <span class="pb87-orb"></span>
+        <div>
+          <strong>TRFMC FIRST PROMOTION BATCH</strong>
+          <small>v0.87A · controlled promotion · no overwrite · rollback ready</small>
+        </div>
+      </section>
+      <nav class="pb87-nav">
+        <a href="/rf_physics_sapienza_console_v86a.html">RF v86A</a>
+        <a href="/trfmc_theory_spine_v86e.html">Theory v86E</a>
+        <a href="/trfmc_design_token_audit_v86f.html">Audit v86F</a>
+        <a href="/trfmc_unified_shell_noiframe_v86d_r1.html">Shell v86D-R1</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Stable v85E</a>
+      </nav>
+      <section class="pb87-status">
+        <b id="pb87-health">READY</b>
+        <span>promotion gate</span>
+      </section>
+    </header>
+
+    <section class="pb87-hero">
+      <div>
+        <p class="pb87-kicker">TRFMC v0.87A · SMALL BATCH PROMOTION · GOVERNED PORTAL EVOLUTION</p>
+        <h1>First Promotion Batch</h1>
+        <p>
+          Questa pagina non riscrive il portale: elegge il primo nucleo stabile dopo registry,
+          no-iframe shell, theory spine e design token audit. Solo tre rotte candidate, rollback
+          immediato, nessun patch globale.
+        </p>
+      </div>
+      <aside>
+        <span>PROMOTION READINESS</span>
+        <strong id="pb87-score">100%</strong>
+        <small>small batch gate</small>
+      </aside>
+    </section>
+
+    <section class="pb87-kpis">
+      <article><span>Batch routes</span><strong id="k-routes">3</strong></article>
+      <article><span>P0 routes</span><strong id="k-p0">2</strong></article>
+      <article><span>P1 routes</span><strong id="k-p1">1</strong></article>
+      <article><span>Hold routes</span><strong id="k-hold">2</strong></article>
+      <article><span>Backend</span><strong id="k-backend">OK</strong></article>
+    </section>
+
+    <section class="pb87-doctrine">
+      <article>
+        <h2>Gate 01 · Preserve</h2>
+        <code>v85E stable remains untouched</code>
+        <p>La baseline sana resta raggiungibile e non viene riscritta.</p>
+      </article>
+      <article>
+        <h2>Gate 02 · Promote</h2>
+        <code>only 3 pages in this batch</code>
+        <p>Si promuovono solo rotte con identità, teoria e audit.</p>
+      </article>
+      <article>
+        <h2>Gate 03 · Govern</h2>
+        <code>formula → measure → decision</code>
+        <p>Ogni pagina deve dimostrare valore tecnico, non solo grafico.</p>
+      </article>
+      <article>
+        <h2>Gate 04 · Rollback</h2>
+        <code>old route locked, failed route quarantined</code>
+        <p>Ogni errore resta isolato e reversibile.</p>
+      </article>
+    </section>
+
+    <section class="pb87-main">
+      <article class="pb87-panel">
+        <div class="pb87-section-head">
+          <h2>Promoted Candidate Routes</h2>
+          <span id="routeCount">3 candidate routes</span>
+        </div>
+        <div id="promotionCards" class="pb87-cards">
+        <article class="pb87-card">
+          <span class="pb87-priority pb87-p0">P0</span>
+          <strong>RF Physics Sapienza Console</strong>
+          <p>Pagina scoped, formula-driven, separata dalle baseline precedenti, candidata a nucleo RF operativo.</p>
+          <code>Promote as RF measurement console candidate</code>
+          <p><a class="pb87-open" href="/rf_physics_sapienza_console_v86a.html">Open candidate</a></p>
+        </article>
+      
+        <article class="pb87-card">
+          <span class="pb87-priority pb87-p0">P0</span>
+          <strong>Theory Spine / Formula Governance</strong>
+          <p>Dorsale dottrinale: collega pagine a formule, misure, dominio e regole di promozione.</p>
+          <code>Promote as theory and formula spine</code>
+          <p><a class="pb87-open" href="/trfmc_theory_spine_v86e.html">Open candidate</a></p>
+        </article>
+      
+        <article class="pb87-card">
+          <span class="pb87-priority pb87-p1">P1</span>
+          <strong>Design Token Audit</strong>
+          <p>Misura rischio CSS/HTML, token, CDN, iframe, global selectors e pagine legacy.</p>
+          <code>Promote as design governance and QA console</code>
+          <p><a class="pb87-open" href="/trfmc_design_token_audit_v86f.html">Open candidate</a></p>
+        </article>
+      </div>
+      </article>
+
+      <aside class="pb87-panel">
+        <div class="pb87-section-head">
+          <h2>Hold / Quarantine</h2>
+          <span>protected</span>
+        </div>
+        <div id="holdCards" class="pb87-hold">
+        <article class="pb87-card">
+          <span class="pb87-priority pb87-hold-badge">HOLD</span>
+          <strong>trfmc_unified_shell_prototype_v86d.html</strong>
+          <p>Old iframe shell route locked</p>
+          <code>quarantine</code>
+        </article>
+      
+        <article class="pb87-card">
+          <span class="pb87-priority pb87-hold-badge">HOLD</span>
+          <strong>webgl_rf_physics_engine_v85f_instrument_discipline.html</strong>
+          <p>Viewport/layout regression</p>
+          <code>failed / do not use</code>
+        </article>
+      </div>
+      </aside>
+    </section>
+
+    <section class="pb87-table-panel">
+      <div class="pb87-section-head">
+        <h2>Promotion Matrix</h2>
+        <span>route · reason · gate · rollback</span>
+      </div>
+      <div class="pb87-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Priority</th>
+              <th>Route</th>
+              <th>Domain</th>
+              <th>Reason</th>
+              <th>Gate</th>
+              <th>Rollback</th>
+              <th>Open</th>
+            </tr>
+          </thead>
+          <tbody id="matrixTable">
+        <tr>
+          <td><span class="pb87-priority pb87-p0">P0</span></td>
+          <td><strong>rf_physics_sapienza_console_v86a.html</strong><br><small>RF Physics Sapienza Console</small></td>
+          <td>RF Physics / Sapienza</td>
+          <td>Pagina scoped, formula-driven, separata dalle baseline precedenti, candidata a nucleo RF operativo.</td>
+          <td><code>Promote as RF measurement console candidate</code></td>
+          <td>Return to webgl_rf_physics_engine_v85e_viewport_discipline.html</td>
+          <td><a class="pb87-open" href="/rf_physics_sapienza_console_v86a.html">Open</a></td>
+        </tr>
+      
+        <tr>
+          <td><span class="pb87-priority pb87-p0">P0</span></td>
+          <td><strong>trfmc_theory_spine_v86e.html</strong><br><small>Theory Spine / Formula Governance</small></td>
+          <td>Theory / Governance</td>
+          <td>Dorsale dottrinale: collega pagine a formule, misure, dominio e regole di promozione.</td>
+          <td><code>Promote as theory and formula spine</code></td>
+          <td>Return to trfmc_unified_shell_noiframe_v86d_r1.html</td>
+          <td><a class="pb87-open" href="/trfmc_theory_spine_v86e.html">Open</a></td>
+        </tr>
+      
+        <tr>
+          <td><span class="pb87-priority pb87-p1">P1</span></td>
+          <td><strong>trfmc_design_token_audit_v86f.html</strong><br><small>Design Token Audit</small></td>
+          <td>Design / QA</td>
+          <td>Misura rischio CSS/HTML, token, CDN, iframe, global selectors e pagine legacy.</td>
+          <td><code>Promote as design governance and QA console</code></td>
+          <td>Return to trfmc_theory_spine_v86e.html</td>
+          <td><a class="pb87-open" href="/trfmc_design_token_audit_v86f.html">Open</a></td>
+        </tr>
+      </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="pb87-next">
+      <article>
+        <h2>Next v87B</h2>
+        <code>production navigation manifest</code>
+        <p>La prossima fase non cambia il design: costruisce il manifest di navigazione produzione.</p>
+      </article>
+      <article>
+        <h2>Next v87C</h2>
+        <code>shared shell tokens</code>
+        <p>Solo dopo il manifest si normalizzano token condivisi e shell visiva.</p>
+      </article>
+      <article>
+        <h2>Next v87D</h2>
+        <code>RF physics page normalization</code>
+        <p>Si normalizza una sola famiglia, non tutto il portale.</p>
+      </article>
+    </section>
+
+    <footer class="pb87-footer">
+      TRFMC v0.87A · First Promotion Batch · scoped · no iframe · no CDN · no backend change · no overwrite
+    </footer>
+  </main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC v0.87A · First Promotion Batch<br>/trfmc_first_promotion_batch_v87a.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> First Promotion Batch</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

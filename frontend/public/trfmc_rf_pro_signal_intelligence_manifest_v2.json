@@ -1,0 +1,35 @@
+{
+  "id": "TRFMC_RF_PRO_SIGNAL_INTELLIGENCE_LAB_V2",
+  "timestamp": "2026-05-23T20:59:55.290201+00:00",
+  "page": "/trfmc_rf_pro_signal_intelligence_lab_v2.html",
+  "source_policy": {
+    "timestamp": "2026-05-23T20:56:02.490272+00:00",
+    "operation": "TRFMC_RF_PRO_REBUILD_SOURCE_SCAN_V1",
+    "source_orphans": 4,
+    "expected_source_orphans": 4,
+    "all_sources_exist": true,
+    "total_size": 47973,
+    "total_word_estimate": 3520,
+    "policy": "Read-only source scan. No orphan file changed.",
+    "v2_policy": "V2 consumes read-only source evidence from V1. Orphans remain unchanged."
+  },
+  "mode": "synthetic_lab_only",
+  "architecture": {
+    "web_component": "trfmc-rf-pro-lab-v2",
+    "worker": "/assets/trfmc_rf_pro_signal_intelligence/trfmc_rf_pro_signal_intelligence_worker_v2.js",
+    "renderer": "canvas_2d_request_animation_frame",
+    "gpu": "webgpu_readiness_detection_with_canvas_fallback"
+  },
+  "capabilities": [
+    "dsp_worker",
+    "scenario_controls",
+    "spectrum_analyzer",
+    "persistent_waterfall",
+    "iq_constellation",
+    "spectral_mask",
+    "fhss_burst_timeline",
+    "formula_matrix",
+    "visual_asset_engine_binding"
+  ],
+  "policy": "New V2 leaf. Orphans unchanged. V6R3 and Control Room protected."
+}

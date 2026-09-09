@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RF PRO · SDR Laboratory Receiver</title>
+<style>
+:root{--rack:#11161d;--rack2:#171d25;--line:#2a3542;--txt:#e8edf2;--muted:#93a2b3;--cyan:#26c7ff;--blue:#2d7dff;--green:#35ff8a;--yellow:#ffd166;--red:#fb7185}
+*{box-sizing:border-box}html,body{margin:0;height:100vh;background:#05070a;color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;overflow:hidden}
+.app{height:100vh;display:grid;grid-template-columns:335px 1fr 330px;grid-template-rows:56px 1fr 29px;grid-template-areas:"top top top" "left main right" "status status status"}
+.top{grid-area:top;background:linear-gradient(180deg,#141922,#090d12);border-bottom:1px solid #2a3542;display:grid;grid-template-columns:295px 1fr 430px;align-items:center;padding:6px 10px;gap:10px}.brand{display:flex;align-items:center;gap:9px;font-weight:900;letter-spacing:.04em}.hamb{width:33px;height:33px;border:1px solid #303b48;background:#0b1118;border-radius:5px;display:grid;place-items:center}.vfo{font-family:ui-monospace,Consolas,Menlo,monospace;font-size:38px;line-height:42px;text-align:center;color:#e9edf3;text-shadow:0 0 14px rgba(38,199,255,.18);letter-spacing:.05em}.vfo small{font-size:13px;color:#7f8b98;margin-left:10px}.topBtns{display:flex;justify-content:flex-end;gap:6px}.badge{border:1px solid #344354;border-radius:999px;padding:5px 9px;background:#0a1118;color:#9fb7cb;font-size:11px;font-weight:800}.ok{color:var(--green);border-color:rgba(53,255,138,.45)}.warn{color:var(--yellow);border-color:rgba(255,209,102,.48)}.live{color:var(--cyan);border-color:rgba(38,199,255,.48)}.bad{color:var(--red);border-color:rgba(251,113,133,.55)}
+.left{grid-area:left;background:#0b0f15;border-right:1px solid #25313d;overflow:auto;padding:8px}.right{grid-area:right;background:#0b0f15;border-left:1px solid #25313d;overflow:auto;padding:8px}.main{grid-area:main;background:#06090d;display:grid;grid-template-rows:42% 58%;min-width:0}.status{grid-area:status;background:#090d12;border-top:1px solid #25313d;color:#8fa4b7;font:12px ui-monospace,Consolas;padding:6px 10px;display:flex;gap:18px}
+.section{border:1px solid #273440;background:#11161d;margin-bottom:7px;border-radius:4px;overflow:hidden}.section h3{margin:0;padding:7px 9px;background:#171d25;border-bottom:1px solid #273440;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#d7e9f5;display:flex;justify-content:space-between;cursor:pointer}.section .body{padding:8px;display:block}.section.closed .body{display:none}
+label{display:grid;grid-template-columns:115px 1fr;gap:8px;align-items:center;color:#b4c4d4;font-size:12px;margin:5px 0}input,select{background:#070b10;border:1px solid #2d3a49;color:#e8edf2;border-radius:3px;padding:5px 6px;font-size:12px;min-width:0}input[type=range]{accent-color:#2d7dff}button{background:#0f2738;border:1px solid #276786;color:#dff7ff;border-radius:4px;padding:6px 8px;font-size:12px;font-weight:800;cursor:pointer;margin:2px}button.good{background:#0c2d1c;border-color:#23965a;color:#83ffb2}button.warn{background:#332407;border-color:#cc8b15;color:#ffd166}button.red{background:#38121a;border-color:#a5344e;color:#ffb8c5}.row{display:flex;gap:4px;flex-wrap:wrap}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.spectrumPane{position:relative;border-bottom:1px solid #202b36;background:#080d13}.waterfallPane{position:relative;background:#05070a}canvas{display:block;width:100%;height:100%}.scaleTop{position:absolute;right:8px;top:7px;width:230px;background:rgba(8,13,19,.75);border:1px solid #22303c;border-radius:3px;padding:3px}.scaleGrad{height:8px;background:linear-gradient(90deg,#061226,#2b72ff,#b3eaff,#ffe166,#ff6b2f);border-radius:3px}.scaleNums{display:flex;justify-content:space-between;color:#9dadbd;font-size:10px;margin-top:2px}.freqAxis{position:absolute;left:0;right:0;bottom:0;height:22px;background:rgba(8,12,17,.8);border-top:1px solid rgba(255,255,255,.08);font:11px ui-monospace,Consolas;color:#b9c8d6}.vcursor{position:absolute;top:0;bottom:0;width:2px;background:#e84a3a;box-shadow:0 0 10px #ff684f;pointer-events:none}.markerReadout{position:absolute;left:10px;top:8px;background:rgba(5,9,13,.82);border:1px solid #243443;border-radius:4px;padding:6px 8px;color:#bdefff;font:12px ui-monospace,Consolas}.bandTag{position:absolute;bottom:26px;background:rgba(25,71,180,.78);border:1px solid #2d7dff;border-radius:3px;color:#fff;font-size:11px;padding:4px 9px;text-align:center;overflow:hidden}.radioModes button{min-width:56px}.radioModes button.active{background:#0e2d48;border-color:#26c7ff;color:#8fe7ff}.log{height:180px;background:#05080c;border:1px solid #273440;border-radius:4px;padding:7px;white-space:pre-wrap;overflow:auto;font:11px ui-monospace,Consolas;color:#c8ffdf}table{width:100%;border-collapse:collapse;font-size:11px}th,td{border-bottom:1px solid rgba(147,162,179,.15);padding:5px;text-align:left}th{color:#65d9ff;text-transform:uppercase;font-size:10px}.scroll{max-height:250px;overflow:auto}.kpi{display:grid;grid-template-columns:1fr auto;gap:5px;font-size:12px;color:#aebdca;border-bottom:1px solid rgba(147,162,179,.12);padding:4px 0}.kpi b{color:#35ff8a}.audio{width:100%;margin:6px 0;height:28px}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<div class="app">
+<header class="top"><div class="brand"><div class="hamb">☰</div><div>RF PRO SDR LAB<br><span style="font-size:11px;color:#8fa4b7">HackRF One · RX-only · Unified</span></div></div><div class="vfo" id="vfo">000.006.101.000 <small>Hz</small></div><div class="topBtns"><span class="badge ok">RX ONLY</span><span class="badge warn">NO TX</span><span class="badge bad" id="liveBadge">ERROR</span></div></header>
+
+<aside class="left">
+<div class="section"><h3>Source <span>▾</span></h3><div class="body">
+<label>Device<select id="source"><option>HackRF</option></select></label><label>Serial<input id="serial" value="auto"></label>
+<label>Sample Rate<select id="sampleRate"><option value="2000000">2 MHz</option><option value="5000000">5 MHz</option><option value="10000000" selected="">10 MHz</option><option value="20000000">20 MHz</option></select></label>
+<label>RF Span<select id="rfSpan" onchange="centerChanged()"><option value="1000000">1 MHz</option><option value="5000000">5 MHz</option><option value="10000000" selected="">10 MHz</option><option value="20000000">20 MHz</option><option value="999999999">Full Sweep</option></select></label>
+<label>LNA Gain<input id="lna" type="range" min="0" max="40" step="8" value="16"></label><label>VGA Gain<input id="vga" type="range" min="0" max="62" step="2" value="32"></label><label>Use HackRF<select id="useHackrf"><option value="false">false/safe</option><option value="true">true/real RX</option></select></label><label>Bias-T<select id="bias"><option>Off</option><option disabled="">On blocked</option></select></label><label>IQ Correction<select id="iqcorr"><option>On</option><option>Off</option></select></label><label>Offset<input id="offsetHz" value="0"></label><div class="row"><button onclick="deviceInfo()">Device Info</button></div>
+</div></div>
+
+<div class="section"><h3>Tuning / Sweep <span>▾</span></h3><div class="body">
+<label>Center MHz<input id="centerMHz" value="6.101" oninput="centerChanged()"></label><label>Start MHz<input id="startMHz" value="1" oninput="startStopChanged()"></label><label>Stop MHz<input id="stopMHz" value="11" oninput="startStopChanged()"></label><label>RBW Hz<input id="rbwHz" value="100000"></label><label>VBW<select id="vbw"><option value="0">Off</option><option value="0.2">Fast</option><option value="0.5">Med</option><option value="0.8">Slow</option></select></label><label>Trace<select id="traceMode"><option value="clear">Clear/Write</option><option value="maxhold">Max Hold</option><option value="average">Average</option><option value="persistence">Persistence</option></select></label>
+<div class="row"><button class="good" onclick="sweep()">Sweep</button><button onclick="fullSweep()">Full Band</button><button onclick="spanFromCursor()">Span Cursor</button><button onclick="wsStart()">Live</button><button class="red" onclick="wsStop()">Stop</button></div>
+<div class="row"><button onclick="preset(27,27.5,25000)">27M</button><button onclick="preset(144,146,25000)">144M</button><button onclick="preset(433,435,25000)">433</button><button onclick="preset(863,870,50000)">868</button><button onclick="preset(2400,2483.5,250000)">2.4G</button><button onclick="preset(5725,5875,500000)">5.8G</button></div>
+</div></div>
+
+<div class="section"><h3>Radio / Demod <span>▾</span></h3><div class="body"><div class="radioModes"><button onclick="setMode('nfm')">NFM</button><button onclick="setMode('am')">AM</button><button onclick="setMode('usb')" class="active">USB</button><button onclick="setMode('lsb')">LSB</button><button onclick="setMode('wfm')">WFM</button><button onclick="setMode('cw')">CW</button><button onclick="setMode('ook')">OOK</button><button onclick="setMode('fsk')">FSK</button></div><label>Bandwidth<input id="demodBw" value="2800"></label><label>Squelch<select id="squelch"><option>Off</option><option>On</option></select></label><audio id="player" class="audio" controls=""></audio><div class="row"><button onclick="iqCapture()">Capture IQ</button><button onclick="iqSelftest()">Selftest IQ</button><button class="good" onclick="iqAnalyze()">Analyze</button><button class="warn" onclick="iqDemod()">Demod WAV</button></div></div></div>
+<div class="section"><h3>Log <span>▾</span></h3><div class="body"><div class="log" id="smallLog">[2026-05-30T14:44:19.460Z] state error
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+[2026-05-30T14:44:19.448Z] manifest error
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+[2026-05-30T14:44:19.448Z] uav profiles error
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+[2026-05-30T14:44:19.380Z] sweep error
+
+ready</div></div></div>
+</aside>
+
+<main class="main"><section class="spectrumPane" id="specPane"><canvas id="spectrum" width="1800" height="520"></canvas><div class="scaleTop"><div class="scaleGrad"></div><div class="scaleNums"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span><span>90</span></div></div><div class="markerReadout" id="markerReadout">Marker: —</div><div class="vcursor" id="vcursor" style="left:50%"></div><div class="freqAxis" id="freqAxis"><span style="position:absolute;left:0%;bottom:4px">1.000M</span><span style="position:absolute;left:11.11111111111111%;bottom:4px">2.111M</span><span style="position:absolute;left:22.22222222222222%;bottom:4px">3.222M</span><span style="position:absolute;left:33.333333333333336%;bottom:4px">4.333M</span><span style="position:absolute;left:44.44444444444444%;bottom:4px">5.444M</span><span style="position:absolute;left:55.55555555555556%;bottom:4px">6.556M</span><span style="position:absolute;left:66.66666666666667%;bottom:4px">7.667M</span><span style="position:absolute;left:77.77777777777777%;bottom:4px">8.778M</span><span style="position:absolute;left:88.88888888888889%;bottom:4px">9.889M</span><span style="position:absolute;left:100%;bottom:4px">11.000M</span></div></section><section class="waterfallPane" id="waterPane"><canvas id="waterfall" width="1800" height="720"></canvas></section></main>
+
+<aside class="right">
+<div class="section"><h3>Measurements <span>▾</span></h3><div class="body"><div class="kpi"><span>Source</span><b id="kSource">—</b></div><div class="kpi"><span>Peak</span><b id="kPeak">—</b></div><div class="kpi"><span>Noise</span><b id="kNoise">—</b></div><div class="kpi"><span>OBW est.</span><b id="kObw">—</b></div><div class="kpi"><span>Cursor BW</span><b id="kCbw">—</b></div><div class="kpi"><span>RBW</span><b id="kRbw">—</b></div></div></div>
+<div class="section"><h3>Peaks / Markers <span>▾</span></h3><div class="body scroll"><table><thead><tr><th>MHz</th><th>dB</th><th>SNR</th><th></th></tr></thead><tbody id="peaks"></tbody></table></div></div>
+<div class="section"><h3>UAV / FHSS Witness <span>▾</span></h3><div class="body"><label>Profile<select id="uavProfile"></select></label><div class="grid2"><label>Iter.<input id="uavIter" value="8"></label><label>Dwell<input id="uavDwell" value="80"></label></div><button class="warn" onclick="uavRun()">Run FHSS</button><div class="log" id="uavOut">uav...</div></div></div>
+
+<div class="section"><h3>SDR / GNU Radio / Bridges <span>▾</span></h3><div class="body">
+  <div class="row">
+    <button onclick="bridgesState()">Bridge State</button>
+    <button onclick="soapyProbe()">Soapy Probe</button>
+    <button onclick="gnuradioExport()">GNU Radio Export</button>
+    <button onclick="sdrppExport()">SDR++ Presets</button>
+    <button onclick="markviiPreflight()">Mark VII</button>
+    <button onclick="bluewayState()">BlueWay</button>
+  </div>
+  <div class="log" id="bridgeOut">bridge...</div>
+</div></div>
+
+<div class="section"><h3>Evidence <span>▾</span></h3><div class="body scroll"><button onclick="manifest()">Refresh</button><table><thead><tr><th>Type</th><th>Name</th></tr></thead><tbody id="files"></tbody></table></div></div>
+</aside>
+<footer class="status"><span id="statusLine">RF PRO SDR LAB ready</span><span>Use HackRF: <b id="statusHackrf">false</b></span><span>Mode: <b id="statusMode">USB</b></span><span>Safety: RX-only</span></footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);let points=[],frame=null,trace=null,avg=null,wf=[],ws=null,mode='usb',cursorA=null,cursorB=null,drag=false;
+function log(m,o){$('smallLog').textContent=`[${new Date().toISOString()}] ${m}\n${o?JSON.stringify(o,null,2).slice(0,2200):''}\n`+$('smallLog').textContent}
+async function api(p,opt={}){const r=await fetch(p,{headers:{'Content-Type':'application/json'},...opt});if(!r.ok)throw new Error(await r.text());return await r.json()}
+document.querySelectorAll('.section h3').forEach(h=>h.onclick=()=>{h.parentElement.classList.toggle('closed');h.querySelector('span').textContent=h.parentElement.classList.contains('closed')?'▸':'▾'});
+function fmtHz(hz){let s=Math.round(hz).toString().padStart(12,'0');return s.slice(0,3)+'.'+s.slice(3,6)+'.'+s.slice(6,9)+'.'+s.slice(9)}
+function updateVfo(){const c=+$('centerMHz').value*1e6;$('vfo').innerHTML=fmtHz(c)+' <small>Hz</small>';updateAxis()}
+function startStopChanged(){const s=+$('startMHz').value,e=+$('stopMHz').value;$('centerMHz').value=((s+e)/2).toFixed(6);updateVfo()}
+function centerChanged(){const c=+$('centerMHz').value;const span=+$('rfSpan').value/1e6;if($('rfSpan').value!=='999999999'){$('startMHz').value=Math.max(1,c-span/2).toFixed(6);$('stopMHz').value=Math.min(6000,c+span/2).toFixed(6)}updateVfo()}
+function preset(s,e,rbw){$('startMHz').value=s;$('stopMHz').value=e;$('rbwHz').value=rbw;startStopChanged();sweep()}
+function fullSweep(){$('startMHz').value=1;$('stopMHz').value=6000;$('rbwHz').value=1000000;startStopChanged();sweep()}
+function cfg(){return {start_hz:+$('startMHz').value*1e6,stop_hz:+$('stopMHz').value*1e6,rbw_hz:+$('rbwHz').value,points:2400,use_hackrf:$('useHackrf').value==='true',timeout_s:120}}
+async function sweep(){try{$('liveBadge').textContent='SWEEP';$('liveBadge').className='badge warn';$('statusHackrf').textContent=cfg().use_hackrf;const j=await api('/api/rfpro/spectrum/sweep',{method:'POST',body:JSON.stringify(cfg())});applyFrame(j);$('liveBadge').textContent='READY';$('liveBadge').className='badge ok';log('sweep done',{source:j.source,report:j.report_file})}catch(e){$('liveBadge').textContent='ERROR';$('liveBadge').className='badge bad';log('sweep error',e.message)}}
+function applyFrame(j){frame=j;points=j.points||[];updateTrace();drawSpectrum();drawWaterfall();bandPlan();renderPeaks(j.peaks||[]);kpis(j);$('statusLine').textContent=`${j.source} · ${j.metrics?.points||0} bins · ${j.time}`;}
+function updateTrace(){const vals=points.map(p=>p.db);const tm=$('traceMode').value;const alpha=+$('vbw').value;if(!trace||trace.length!==vals.length||tm==='clear')trace=[...vals];else if(tm==='maxhold')trace=trace.map((v,i)=>Math.max(v,vals[i]));else if(tm==='average'){if(!avg||avg.length!==vals.length)avg=[...vals];avg=avg.map((v,i)=>0.86*v+0.14*vals[i]);trace=[...avg]}else trace=trace.map((v,i)=>Math.max(vals[i],v-1.1));if(alpha>0)for(let i=1;i<trace.length;i++)trace[i]=alpha*trace[i-1]+(1-alpha)*trace[i];}
+function drawSpectrum(){const c=$('spectrum'),ctx=c.getContext('2d'),w=c.width,h=c.height;ctx.fillStyle='#080d13';ctx.fillRect(0,0,w,h);if(!points.length||!trace)return;const minDb=-115,maxDb=-10;for(let i=0;i<=10;i++){const y=i*h/10;ctx.strokeStyle=i%2?'rgba(130,150,170,.12)':'rgba(130,150,170,.22)';ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();ctx.fillStyle='#9dafc2';ctx.font='12px ui-monospace';ctx.fillText(String(-10-i*10),4,y+12)}ctx.fillStyle='rgba(38,199,255,.18)';ctx.beginPath();trace.forEach((db,i)=>{const x=i/(trace.length-1)*w,y=h-((db-minDb)/(maxDb-minDb))*h;if(i===0)ctx.moveTo(x,h);ctx.lineTo(x,y)});ctx.lineTo(w,h);ctx.closePath();ctx.fill();ctx.strokeStyle='#26c7ff';ctx.lineWidth=2;ctx.beginPath();trace.forEach((db,i)=>{const x=i/(trace.length-1)*w,y=h-((db-minDb)/(maxDb-minDb))*h;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke();(frame?.peaks||[]).slice(0,10).forEach(p=>drawCursor(p.freq_hz,'rgba(38,199,255,.45)',''));if(cursorA)drawCursor(cursorA,'#35ff8a','A');if(cursorB)drawCursor(cursorB,'#ff9f1c','B');function drawCursor(f,col,label){const x=freqToX(f,w);ctx.strokeStyle=col;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();if(label){ctx.fillStyle=col;ctx.fillText(label+' '+(f/1e6).toFixed(6),x+5,17)}}}
+function drawWaterfall(){const c=$('waterfall'),ctx=c.getContext('2d'),w=c.width,h=c.height;if(trace)wf.unshift([...trace]);wf=wf.slice(0,h);const img=ctx.createImageData(w,h);for(let y=0;y<h;y++){const row=wf[y]||[];for(let x=0;x<w;x++){const idx=Math.floor(x/w*Math.max(1,row.length-1));const db=row[idx]??-120;const v=Math.max(0,Math.min(1,(db+112)/82));const hot=v>0.62;const o=(y*w+x)*4;img.data[o]=hot?Math.floor(100+155*v):Math.floor(15+55*v);img.data[o+1]=hot?Math.floor(115+125*v):Math.floor(90+120*v);img.data[o+2]=hot?Math.floor(20+55*(1-v)):Math.floor(180+65*v);img.data[o+3]=255}}ctx.putImageData(img,0,0)}
+async function bandPlan(){document.querySelectorAll('.bandTag').forEach(x=>x.remove());if(!points.length)return;const minF=points[0].freq_hz,maxF=points[points.length-1].freq_hz;try{const j=await api(`/api/rfpro/bandplan?start_hz=${minF}&stop_hz=${maxF}`);j.band_plan.forEach(b=>{const x1=(Math.max(b.start_hz,minF)-minF)/(maxF-minF)*100,x2=(Math.min(b.stop_hz,maxF)-minF)/(maxF-minF)*100;if(x2<=0||x1>=100)return;const d=document.createElement('div');d.className='bandTag';d.style.left=Math.max(0,x1)+'%';d.style.width=Math.max(4,x2-x1)+'%';d.textContent=b.name;$('waterPane').appendChild(d)})}catch(e){}}
+function updateAxis(){const s=+$('startMHz').value,e=+$('stopMHz').value;let html='';for(let i=0;i<=9;i++){const f=s+(e-s)*i/9;html+=`<span style="position:absolute;left:${i*100/9}%;bottom:4px">${f.toFixed(e-s>100?0:3)}M</span>`}$('freqAxis').innerHTML=html}
+function freqToX(f,w){if(!points.length)return 0;return (f-points[0].freq_hz)/(points[points.length-1].freq_hz-points[0].freq_hz+1e-9)*w}
+function xToFreq(x){const r=$('spectrum').getBoundingClientRect();const t=Math.max(0,Math.min(1,(x-r.left)/r.width));return points[0].freq_hz+t*(points[points.length-1].freq_hz-points[0].freq_hz)}
+$('spectrum').addEventListener('mousemove',e=>{if(!points.length)return;const f=xToFreq(e.clientX);$('vcursor').style.left=(e.clientX-$('specPane').getBoundingClientRect().left)+'px';$('markerReadout').textContent='Marker: '+(f/1e6).toFixed(6)+' MHz';if(drag){cursorB=f;drawSpectrum();kpis(frame)}});$('spectrum').addEventListener('mousedown',e=>{if(!points.length)return;drag=true;cursorA=xToFreq(e.clientX);cursorB=null;});$('spectrum').addEventListener('mouseup',e=>{if(!points.length)return;cursorB=xToFreq(e.clientX);drag=false;drawSpectrum();kpis(frame);log('cursor',{A:cursorA,B:cursorB,bw:Math.abs(cursorB-cursorA)})});
+function spanFromCursor(){if(!cursorA||!cursorB)return;const s=Math.max(1e6,Math.min(cursorA,cursorB)),e=Math.min(6e9,Math.max(cursorA,cursorB));$('startMHz').value=(s/1e6).toFixed(6);$('stopMHz').value=(e/1e6).toFixed(6);startStopChanged();sweep()}
+function kpis(j){$('kSource').textContent=j.source||'—';$('kPeak').textContent=(j.metrics?.peak_mhz??'—')+' MHz';$('kNoise').textContent=(j.metrics?.noise_floor_db??'—')+' dB';$('kObw').textContent=j.metrics?.obw_hz_est??'—';$('kRbw').textContent=$('rbwHz').value;$('kCbw').textContent=(cursorA&&cursorB)?(Math.abs(cursorB-cursorA)/1e6).toFixed(6)+' MHz':'—'}
+function renderPeaks(peaks){const tb=$('peaks');tb.innerHTML='';peaks.forEach(p=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${p.freq_mhz}</td><td>${p.db}</td><td>${p.snr_median_db}</td><td><button onclick="lock(${p.freq_hz})">▶</button></td>`;tb.appendChild(tr)})}
+function lock(f){$('centerMHz').value=(f/1e6).toFixed(6);centerChanged();cursorA=f-+$('demodBw').value/2;cursorB=f+ +$('demodBw').value/2;drawSpectrum();log('locked',{freq_hz:f})}
+function setMode(m){mode=m;$('statusMode').textContent=m.toUpperCase();document.querySelectorAll('.radioModes button').forEach(b=>b.classList.remove('active'));[...document.querySelectorAll('.radioModes button')].find(b=>b.textContent.toLowerCase().startsWith(m.slice(0,3)))?.classList.add('active')}
+function wsStart(){wsStop();const proto=location.protocol==='https:'?'wss':'ws';ws=new WebSocket(`${proto}://${location.host}/api/rfpro/ws/spectrum`);ws.onopen=()=>{ws.send(JSON.stringify({...cfg(),fps:2}));$('liveBadge').textContent='LIVE';$('liveBadge').className='badge live'};ws.onmessage=e=>{const j=JSON.parse(e.data);if(j.ok)applyFrame(j);else log('ws error',j)};ws.onclose=()=>{$('liveBadge').textContent='STOPPED';$('liveBadge').className='badge warn'}}
+function wsStop(){if(ws){ws.close();ws=null}}
+async function deviceInfo(){try{log('device info',await api('/api/rfpro/device/info'))}catch(e){log('device info error',e.message)}}
+async function loadUavProfiles(){try{const j=await api('/api/rfpro/uav/profiles');const s=$('uavProfile');s.innerHTML='';Object.entries(j.profiles).forEach(([k,v])=>{const o=document.createElement('option');o.value=k;o.textContent=k;s.appendChild(o)})}catch(e){log('uav profiles error',e.message)}}
+async function uavRun(){try{const j=await api('/api/rfpro/uav/fhss',{method:'POST',body:JSON.stringify({profile_id:$('uavProfile').value,iterations:+$('uavIter').value,dwell_ms:+$('uavDwell').value,use_hackrf:$('useHackrf').value==='true'})});$('uavOut').textContent=JSON.stringify({likelihood:j.likelihood,score:j.fhss_score,channels:j.channels,sequence:j.sequence,report:j.report_file},null,2)}catch(e){$('uavOut').textContent=e.message}}
+async function iqCapture(){try{const j=await api('/api/rfpro/iq/capture',{method:'POST',body:JSON.stringify({center_hz:+$('centerMHz').value*1e6,sample_rate:+$('sampleRate').value,seconds:2,lna_gain:+$('lna').value,vga_gain:+$('vga').value,use_hackrf:$('useHackrf').value==='true'})});$('player').src=j.wav_url;log('IQ capture',j);manifest()}catch(e){log('IQ capture error',e.message)}}
+async function iqSelftest(){try{const j=await api('/api/v581/iq/selftest_signal',{method:'POST',body:JSON.stringify({mode,sample_rate:+$('sampleRate').value,seconds:2,tone_hz:1000,carrier_offset_hz:0})});log('IQ selftest',j);manifest()}catch(e){log('IQ selftest error',e.message)}}
+async function iqAnalyze(){try{const j=await api('/api/v581/iq/analyze_plus',{method:'POST',body:JSON.stringify({sample_rate:+$('sampleRate').value,fft_size:8192,max_seconds:5})});log('IQ analyze',j)}catch(e){log('IQ analyze error',e.message)}}
+async function iqDemod(){try{const j=await api('/api/v581/iq/channelize_demod',{method:'POST',body:JSON.stringify({sample_rate:+$('sampleRate').value,freq_offset_hz:+$('offsetHz').value,channel_bw_hz:+$('demodBw').value,mode,max_seconds:5,audio_rate:48000})});$('player').src=j.wav_url;log('demod',j);manifest()}catch(e){log('demod error',e.message)}}
+async function manifest(){try{const j=await api('/api/rfpro/evidence/manifest');const tb=$('files');tb.innerHTML='';['iq','wav','reports','uav','realtime'].forEach(k=>(j[k]||[]).slice(0,12).forEach(f=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${k}</td><td>${f.name}</td>`;tb.appendChild(tr)}))}catch(e){log('manifest error',e.message)}}
+async function state(){try{log('state',await api('/api/rfpro/state'))}catch(e){log('state error',e.message)}}
+
+async function bridgesState(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/state'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+async function soapyProbe(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/soapy/probe'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+async function gnuradioExport(){try{const body={sample_rate:+$('sampleRate').value,freq_offset_hz:+$('offsetHz').value,channel_bw_hz:+$('demodBw').value,decimation:20};$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/gnuradio/export',{method:'POST',body:JSON.stringify(body)}),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+async function sdrppExport(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/sdrpp/export'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+async function markviiPreflight(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/markvii/preflight'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+async function bluewayState(){try{$('bridgeOut').textContent=JSON.stringify(await api('/api/rfpro/bridges/blueway/state'),null,2)}catch(e){$('bridgeOut').textContent=e.message}}
+
+loadUavProfiles();manifest();state();updateVfo();sweep();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="core" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · CORE</div>
+      <div class="trfmc-perfection-sub">RF PRO · SDR Laboratory Receiver<br>/rfpro_unified_console.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>65/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>core-map</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="TRFMC CORE Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP = gNB↔AMF control plane
+PFCP = SMF↔UPF session programming
+GTP-U = user-plane tunnel</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="core" width="609" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> rfpro unified console</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RF PRO v5.8.2 · Signal Workbench Restored</title>
+<style>
+:root{
+  --bg:#020713;--panel:#071522;--panel2:#0b1d2c;--line:#07536b;--line2:#123c55;
+  --txt:#e4fbff;--muted:#7fb2c6;--cyan:#00e5ff;--green:#36ff7d;--yellow:#ffd166;--orange:#ff9f1c;--red:#fb7185;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+    radial-gradient(circle at 8% 0%,rgba(0,229,255,.16),transparent 30%),
+    radial-gradient(circle at 85% 4%,rgba(54,255,125,.10),transparent 26%),
+    linear-gradient(180deg,#030914,#00040a 78%);
+  color:var(--txt);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh;
+}
+.header{
+  width:min(96vw,1820px);margin:18px auto 10px auto;border:1px solid var(--line);
+  border-radius:18px;background:rgba(7,21,34,.86);box-shadow:0 0 36px rgba(0,229,255,.08);
+  padding:15px 18px;
+}
+.header h1{margin:0;font-size:28px;letter-spacing:.04em}
+.header .sub{font-size:12px;color:var(--muted);margin-top:7px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.badge{border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#04101b;color:var(--muted);font-size:12px;font-weight:700}
+.badge.ok{color:var(--green);border-color:rgba(54,255,125,.55)}
+.badge.warn{color:var(--yellow);border-color:rgba(255,209,102,.55)}
+.main{
+  width:min(96vw,1820px);margin:0 auto 40px auto;
+  display:grid;grid-template-columns:360px 1fr 430px;gap:12px;align-items:start;
+}
+.panel{
+  border:1px solid var(--line);border-radius:16px;background:rgba(7,21,34,.92);
+  overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.025);
+}
+.panel h2{
+  margin:0;padding:10px 12px;background:rgba(0,229,255,.07);border-bottom:1px solid var(--line);
+  color:#c9fbff;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+}
+.body{padding:12px}
+label{display:flex;flex-direction:column;gap:4px;color:var(--muted);font-size:10px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px}
+input,select{
+  width:100%;background:#020a11;color:var(--txt);border:1px solid #16627a;border-radius:9px;padding:8px 9px;font-size:13px;
+}
+button{
+  background:#062b39;border:1px solid var(--cyan);color:var(--txt);border-radius:9px;padding:8px 9px;
+  font-size:12px;font-weight:800;cursor:pointer;margin:3px 2px;
+}
+button.good{background:#06341d;border-color:var(--green);color:var(--green)}
+button.warn{background:#3a2604;border-color:var(--yellow);color:var(--yellow)}
+button.orange{background:#3b1f04;border-color:var(--orange);color:var(--orange)}
+button.red{background:#3b0714;border-color:var(--red);color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:10px}
+.kpi{border:1px solid #16445b;border-radius:10px;background:#020a11;padding:8px;min-height:52px}
+.kpi span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}
+.kpi b{display:block;color:var(--green);font-size:15px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+canvas{display:block;width:100%;background:#02040a;border:1px solid #0f4058;border-radius:12px}
+#spectrum{height:430px}
+#waterfall{height:170px;margin-top:8px}
+#constellation{height:260px}
+.log{
+  background:#02070d;border:1px solid #123c55;border-radius:10px;padding:9px;white-space:pre-wrap;overflow:auto;
+  font:12px ui-monospace,Menlo,Consolas,monospace;color:#bdfbea;height:260px;
+}
+.smallLog{height:170px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{border-bottom:1px solid rgba(127,178,198,.18);padding:6px;text-align:left}
+th{color:var(--cyan);font-size:10px;text-transform:uppercase;letter-spacing:.07em}
+.scroll{max-height:290px;overflow:auto}
+.audio{width:100%;margin:8px 0}
+.centercol{display:grid;grid-template-rows:auto auto auto;gap:12px}
+.footergrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:1300px){
+  .main{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .footergrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<section class="header">
+  <h1>RF PRO v5.8.2 · Signal Workbench</h1>
+  <div class="sub">Layout ripristinato: sweep manuale, spectrum zoom, peak lock, IQ analysis, channelize + demod audio in una sola console. Backend DSP v5.8.1 conservato.</div>
+  <div class="badges">
+    <span class="badge ok">RX ONLY</span>
+    <span class="badge ok">DSP v5.8.1 ACTIVE</span>
+    <span class="badge warn">NO TX · NO REPLAY · NO DEAUTH</span>
+    <span class="badge warn" id="apiBadge">API ERROR</span>
+  </div>
+</section>
+
+<main class="main">
+  <aside class="panel">
+    <h2>Controls</h2>
+    <div class="body">
+      <div class="grid2">
+        <label>Start MHz<input id="startMHz" value="1"></label>
+        <label>Stop MHz<input id="stopMHz" value="5"></label>
+      </div>
+      <div class="grid2">
+        <label>Center MHz<input id="centerMHz" value="1.6"></label>
+        <label>Bin Hz<input id="binHz" value="100000"></label>
+      </div>
+      <div class="grid2">
+        <label>Sample rate<input id="sr" value="2000000"></label>
+        <label>Max seconds<input id="sec" value="5"></label>
+      </div>
+      <div class="grid2">
+        <label>Freq offset Hz<input id="off" value="0"></label>
+        <label>Channel BW Hz<input id="bw" value="25000"></label>
+      </div>
+      <label>IQ File<select id="iqFile"></select></label>
+      <label>Mode<select id="mode">
+        <option value="nfm">NFM</option><option value="wfm">WFM</option><option value="am">AM</option>
+        <option value="usb">USB</option><option value="lsb">LSB</option><option value="cw">CW</option>
+        <option value="ook">OOK/ASK</option><option value="fsk">FSK</option>
+      </select></label>
+
+      <div>
+        <button onclick="sweepWindow()">SWEEP WINDOW</button>
+        <button onclick="fineFromPeak()" class="good">LOCK PEAK</button>
+        <button onclick="selftestSignal()" class="orange">SELFTEST IQ</button>
+        <button onclick="analyzePlus()" class="good">ANALYZE PLUS</button>
+        <button onclick="demod()" class="warn">CHANNELIZE + DEMOD</button>
+        <button onclick="loadFiles()">FILES</button>
+        <button onclick="modes()">MODES</button>
+        <button onclick="lastReport()">LAST REPORT</button>
+      </div>
+
+      <audio id="player" class="audio" controls=""></audio>
+      <div class="log smallLog" id="log">[2026-05-30T14:44:22.586Z] Errore files
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+[2026-05-30T14:44:22.585Z] API error
+"Unexpected token '&lt;', \"&lt;!doctype \"... is not valid JSON"
+ready</div>
+    </div>
+  </aside>
+
+  <section class="centercol">
+    <section class="panel">
+      <h2>Spectrum / Manual Window / Channel Zoom</h2>
+      <div class="body">
+        <div class="kpis">
+          <div class="kpi"><span>Peak MHz</span><b id="kPeakMHz">—</b></div>
+          <div class="kpi"><span>Peak Offset</span><b id="kPeak">—</b></div>
+          <div class="kpi"><span>OBW Hz</span><b id="kObw">—</b></div>
+          <div class="kpi"><span>Class</span><b id="kClass">—</b></div>
+          <div class="kpi"><span>Clip %</span><b id="kClip">—</b></div>
+          <div class="kpi"><span>WAV</span><b id="kWav">—</b></div>
+        </div>
+        <canvas id="spectrum" width="1600" height="430"></canvas>
+        <canvas id="waterfall" width="1600" height="170"></canvas>
+      </div>
+    </section>
+
+    <section class="footergrid">
+      <section class="panel">
+        <h2>Peaks / Markers</h2>
+        <div class="body scroll">
+          <table><thead><tr><th>Offset Hz</th><th>dB</th><th>SNR</th><th>Action</th></tr></thead><tbody id="peaks"></tbody></table>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Files / Reports</h2>
+        <div class="body scroll">
+          <table><thead><tr><th>Type</th><th>Name</th><th>Size</th></tr></thead><tbody id="files"></tbody></table>
+        </div>
+      </section>
+    </section>
+  </section>
+
+  <aside class="panel">
+    <h2>Metrics / IQ Vector</h2>
+    <div class="body">
+      <canvas id="constellation" width="520" height="260"></canvas>
+      <div class="log" id="metrics">metrics...</div>
+    </div>
+  </aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let lastSpectrum=[], lastPeaks=[], wfRows=[], selectedPeak=null;
+
+function log(msg,obj){
+  $('log').textContent=`[${new Date().toISOString()}] ${msg}\n${obj?JSON.stringify(obj,null,2).slice(0,5000):''}\n`+$('log').textContent;
+}
+async function api(path,opt={}){
+  const r=await fetch(path,{headers:{'Content-Type':'application/json'},...opt});
+  if(!r.ok) throw new Error(await r.text());
+  return await r.json();
+}
+function hzMHz(id){return Number($(id).value)*1e6}
+function drawSpectrum(points, mode='db'){
+  const c=$('spectrum'),ctx=c.getContext('2d'),w=c.width,h=c.height;
+  ctx.fillStyle='#02040a';ctx.fillRect(0,0,w,h);
+  for(let i=0;i<=10;i++){ctx.strokeStyle=i%5?'rgba(127,178,198,.08)':'rgba(0,229,255,.18)';ctx.beginPath();ctx.moveTo(0,i*h/10);ctx.lineTo(w,i*h/10);ctx.stroke()}
+  if(!points||!points.length)return;
+  lastSpectrum=points;
+  const vals=points.map(p=>p.db??p.dbm??-120), minDb=Math.min(...vals), maxDb=Math.max(...vals);
+  const minF=points[0].freq_hz, maxF=points[points.length-1].freq_hz;
+  ctx.strokeStyle='#00e5ff';ctx.lineWidth=2;ctx.beginPath();
+  points.forEach((p,i)=>{const db=p.db??p.dbm??-120;const x=(p.freq_hz-minF)/(maxF-minF+1e-9)*w;const y=h-((db-minDb)/(maxDb-minDb+1e-9))*h;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});
+  ctx.stroke();
+  const pk=[...points].sort((a,b)=>(b.db??b.dbm)-(a.db??a.dbm))[0];
+  if(pk){const f=pk.freq_hz||0; $('kPeakMHz').textContent=(f/1e6).toFixed(6);}
+  addWaterfall(points);
+}
+function addWaterfall(points){
+  const c=$('waterfall'),ctx=c.getContext('2d'),w=c.width,h=c.height;
+  const row=points.map(p=>p.db??p.dbm??-120);wfRows.unshift(row);wfRows=wfRows.slice(0,h);
+  const img=ctx.createImageData(w,h);
+  for(let y=0;y<h;y++){const src=wfRows[y]||[];for(let x=0;x<w;x++){const idx=Math.floor(x/w*Math.max(1,src.length-1));const db=src[idx]??-120;const v=Math.max(0,Math.min(1,(db+110)/75));const o=(y*w+x)*4;img.data[o]=Math.floor(10+30*v);img.data[o+1]=Math.floor(30+220*v);img.data[o+2]=Math.floor(70+160*(1-v));img.data[o+3]=255;}}
+  ctx.putImageData(img,0,0);
+}
+function renderMetrics(m){
+  $('kClass').textContent=m.classification_hint||'—';
+  $('kObw').textContent=m.occupied_bw_hz??'—';
+  $('kPeak').textContent=m.peak_offset_hz??'—';
+  $('kClip').textContent=m.clip_percent??'—';
+  $('metrics').textContent=JSON.stringify(m,null,2);
+}
+function renderPeaks(peaks){
+  lastPeaks=peaks||[];const tb=$('peaks');tb.innerHTML='';
+  lastPeaks.forEach((p,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${p.offset_hz??p.freq_hz??''}</td><td>${p.db??p.dbm??''}</td><td>${p.snr_over_median_db??''}</td><td><button onclick="usePeak(${i})">USE</button></td>`;tb.appendChild(tr)});
+}
+function usePeak(i){
+  selectedPeak=lastPeaks[i];
+  const off=selectedPeak.offset_hz??0;
+  $('off').value=off;
+  log('Marker selezionato',selectedPeak);
+}
+function fineFromPeak(){
+  if(lastPeaks.length){usePeak(0);}
+  else log('Nessun peak: esegui prima ANALYZE PLUS o SWEEP WINDOW');
+}
+async function state(){
+  try{const j=await api('/api/v581/selftest');$('apiBadge').textContent='API OK';$('apiBadge').className='badge ok';log('Selftest API',j)}
+  catch(e){$('apiBadge').textContent='API ERROR';$('apiBadge').className='badge warn';log('API error',e.message)}
+}
+async function sweepWindow(){
+  try{
+    const body={start_hz:hzMHz('startMHz'),stop_hz:hzMHz('stopMHz'),bin_hz:+$('binHz').value,points:1200,use_hackrf:true};
+    const j=await api('/api/v580/workbench/sweep/window',{method:'POST',body:JSON.stringify(body)});
+    drawSpectrum(j.points||[]);
+    const peaks=(j.peaks||[]).map(p=>({offset_hz:p.freq_hz,db:p.dbm,snr_over_median_db:''}));
+    renderPeaks(peaks);
+    log('Sweep window', {real_hackrf:j.real_hackrf, peaks:j.peaks, saved:j.saved});
+  }catch(e){log('Errore sweep',e.message)}
+}
+async function loadFiles(){
+  try{
+    const j=await api('/api/v581/iq/files');const sel=$('iqFile');sel.innerHTML='';
+    (j.iq||[]).forEach(f=>{const o=document.createElement('option');o.value=f.name;o.textContent=f.name;sel.appendChild(o)});
+    const tb=$('files');tb.innerHTML='';
+    ['iq','wav','reports'].forEach(k=>(j[k]||[]).forEach(f=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${k}</td><td>${f.name}</td><td>${f.size}</td>`;tb.appendChild(tr)}));
+    log('Files caricati',{iq:(j.iq||[]).length,wav:(j.wav||[]).length,reports:(j.reports||[]).length});
+  }catch(e){log('Errore files',e.message)}
+}
+async function selftestSignal(){
+  try{const j=await api('/api/v581/iq/selftest_signal',{method:'POST',body:JSON.stringify({mode:$('mode').value,sample_rate:+$('sr').value,seconds:2,tone_hz:1000,carrier_offset_hz:+$('off').value})});log('Selftest IQ creato',j);await loadFiles();}
+  catch(e){log('Errore selftest',e.message)}
+}
+async function analyzePlus(){
+  try{
+    const j=await api('/api/v581/iq/analyze_plus',{method:'POST',body:JSON.stringify({filename:$('iqFile').value||null,sample_rate:+$('sr').value,fft_size:8192,max_seconds:+$('sec').value})});
+    drawSpectrum(j.spectrum||[]);renderMetrics(j.metrics||{});renderPeaks(j.peaks||[]);log('Analyze Plus', {file:j.file, metrics:j.metrics, peaks:j.peaks});
+  }catch(e){log('Errore analyze',e.message)}
+}
+async function demod(){
+  try{
+    const body={filename:$('iqFile').value||null,sample_rate:+$('sr').value,freq_offset_hz:+$('off').value,channel_bw_hz:+$('bw').value,mode:$('mode').value,max_seconds:+$('sec').value,audio_rate:48000};
+    const j=await api('/api/v581/iq/channelize_demod',{method:'POST',body:JSON.stringify(body)});
+    $('player').src=j.wav_url;$('kWav').textContent=j.wav_file||'OK';renderMetrics(j.channel_metrics||{});log('Channelize + Demod',j);await loadFiles();
+  }catch(e){log('Errore demod',e.message)}
+}
+async function modes(){try{log('Modes',await api('/api/v581/demod/modes'))}catch(e){log('Errore modes',e.message)}}
+async function lastReport(){try{log('Last report',await api('/api/v581/iq/last_report'))}catch(e){log('Errore report',e.message)}}
+state();loadFiles();
+</script>
+
+
+</body></html>

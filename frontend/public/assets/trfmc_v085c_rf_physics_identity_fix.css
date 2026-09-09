@@ -1,0 +1,131 @@
+/* ============================================================
+   TRFMC v0.85C - RF Physics Sapienza Identity Fix
+   Obiettivo: correggere identità, titolo e coerenza semantica
+   della pagina v85B senza introdurre caos visivo.
+   ============================================================ */
+
+body.v85c-identity {
+  --id-bg:#01040b;
+  --id-panel:#061426;
+  --id-cyan:#8ff0ff;
+  --id-green:#42f56f;
+  --id-amber:#fbbf24;
+  --id-red:#ff3b5c;
+  --id-text:#e8faff;
+}
+
+/* Hero: identità chiara, non ereditata */
+body.v85c-identity h1 {
+  font-size:clamp(42px,5.2vw,82px) !important;
+  letter-spacing:.045em !important;
+  text-shadow:
+    0 0 16px rgba(143,240,255,.62),
+    0 0 54px rgba(143,240,255,.18) !important;
+}
+
+body.v85c-identity .hero,
+body.v85c-identity .intro,
+body.v85c-identity section:first-of-type {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(143,240,255,.18), transparent 32%),
+    radial-gradient(circle at 84% 18%, rgba(66,245,111,.09), transparent 34%),
+    linear-gradient(135deg, rgba(5,27,47,.98), rgba(1,6,14,.99)) !important;
+  border-color:rgba(143,240,255,.38) !important;
+}
+
+/* Striscia identitaria sopra il campo */
+.sapienza-v85c-identity-strip {
+  margin:8px;
+  border:1px solid rgba(143,240,255,.30);
+  border-radius:18px;
+  padding:10px 12px;
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr 1fr;
+  gap:8px;
+  background:
+    linear-gradient(145deg, rgba(5,22,38,.88), rgba(1,6,14,.98));
+  box-shadow:0 18px 58px rgba(0,0,0,.34), inset 0 0 26px rgba(143,240,255,.024);
+}
+
+.sapienza-v85c-identity-strip article {
+  border:1px solid rgba(143,240,255,.22) !important;
+  border-radius:14px !important;
+  padding:8px 10px !important;
+  background:rgba(143,240,255,.035) !important;
+  min-height:58px;
+}
+
+.sapienza-v85c-identity-strip b {
+  display:block;
+  color:var(--id-cyan);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+.sapienza-v85c-identity-strip span {
+  display:block;
+  color:rgba(232,250,255,.66);
+  font-size:10px;
+  line-height:1.35;
+}
+
+/* Evidenzio la formula governance */
+.sapienza-v85c-identity-strip article:nth-child(2) {
+  border-color:rgba(66,245,111,.30) !important;
+}
+
+.sapienza-v85c-identity-strip article:nth-child(3) {
+  border-color:rgba(251,191,36,.30) !important;
+}
+
+/* Director più coerente con pagina physics */
+body.v85c-identity .sapienza-v85b-director h2::after {
+  content:" · identity fixed";
+  color:var(--id-green);
+}
+
+body.v85c-identity .sapienza-v85b-readout b {
+  color:var(--id-green) !important;
+}
+
+/* Badge corretto */
+.sapienza-v85c-badge {
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  border:1px solid rgba(66,245,111,.34);
+  border-radius:999px;
+  padding:8px 12px;
+  background:rgba(1,6,14,.86);
+  color:var(--id-green);
+  font-size:10px;
+  letter-spacing:.12em;
+  box-shadow:0 0 24px rgba(66,245,111,.14);
+}
+
+/* Canvas: leggermente meno pittorico, più strumentale */
+body.v85c-identity canvas {
+  filter:saturate(.96) brightness(1.04) contrast(1.18) !important;
+}
+
+/* Header/nav: evito sensazione di versione vecchia */
+body.v85c-identity header,
+body.v85c-identity .topbar,
+body.v85c-identity .shellbar {
+  border-bottom-color:rgba(143,240,255,.34) !important;
+}
+
+/* Clean mode: spariscono anche strip e badge didattico */
+body.v85c-mode-clean .sapienza-v85c-identity-strip,
+body.v85c-mode-clean .sapienza-v85c-badge {
+  display:none !important;
+}
+
+@media(max-width:1500px){
+  .sapienza-v85c-identity-strip {
+    grid-template-columns:1fr;
+  }
+}

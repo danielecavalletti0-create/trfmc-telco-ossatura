@@ -1,0 +1,291 @@
+/* TRFMC v0.51A - Executive Visual Audit & Refinement Pass */
+
+body.trfmc-enterprise-shell.v51-refined {
+  --v51-cyan: #58d6f9;
+  --v51-green: #3fb950;
+  --v51-amber: #d29922;
+  --v51-red: #ff4d6d;
+  --v51-panel: rgba(3,12,24,.88);
+  --v51-line: rgba(88,214,249,.24);
+}
+
+/* Review control band */
+.v51-review-band {
+  margin-top: 12px;
+  border: 1px solid rgba(88,214,249,.34);
+  background:
+    radial-gradient(circle at 8% 20%, rgba(88,214,249,.16), transparent 32%),
+    radial-gradient(circle at 88% 16%, rgba(63,185,80,.10), transparent 30%),
+    linear-gradient(135deg, rgba(255,255,255,.060), rgba(255,255,255,.018)),
+    rgba(2,9,20,.90);
+  border-radius: 22px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.30),
+    0 0 42px rgba(88,214,249,.10),
+    inset 0 0 28px rgba(88,214,249,.035);
+}
+
+.v51-review-band h2 {
+  margin: 0;
+  color: var(--v51-cyan);
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.v51-review-band p {
+  margin: 6px 0 0;
+  color: rgba(237,248,255,.58);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.v51-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: flex-end;
+}
+
+.v51-review-actions button,
+.v51-review-actions a {
+  border: 1px solid rgba(88,214,249,.30);
+  background: rgba(88,214,249,.075);
+  color: var(--v51-cyan);
+  border-radius: 999px;
+  padding: 8px 11px;
+  font-size: 10px;
+  font-weight: 900;
+  text-decoration: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.v51-review-actions button:hover,
+.v51-review-actions a:hover,
+.v51-review-actions button.active {
+  border-color: rgba(63,185,80,.48);
+  color: var(--v51-green);
+  background: rgba(63,185,80,.10);
+}
+
+/* Hero normalization */
+.v51-refined .hero h1 {
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 18px rgba(88,214,249,.42),
+    0 0 42px rgba(88,214,249,.15);
+}
+
+.v51-refined .hero p {
+  max-width: 1120px;
+}
+
+/* Section headers: replace small floating badge feeling */
+.v51-refined .v47-section-label {
+  display: block;
+  width: fit-content;
+  min-width: 280px;
+  margin: 22px auto 10px;
+  border: 1px solid rgba(88,214,249,.28);
+  background:
+    linear-gradient(90deg, transparent, rgba(88,214,249,.10), transparent),
+    rgba(2,9,20,.72);
+  color: rgba(237,248,255,.66);
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: 9px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  box-shadow: 0 0 22px rgba(88,214,249,.07);
+}
+
+/* Master Index compact refinement */
+.v51-refined .v50-release-milestone {
+  margin-top: 12px;
+}
+
+.v51-refined .v50-master-head {
+  padding: 14px 18px;
+}
+
+.v51-refined .v50-master-grid {
+  grid-template-columns: .78fr 1.35fr .92fr;
+  gap: 10px;
+  padding: 12px;
+}
+
+.v51-refined .v50-score-orb {
+  width: 145px;
+  height: 145px;
+  margin: 14px auto 10px;
+}
+
+.v51-refined .v50-score-inner b {
+  font-size: 30px;
+}
+
+.v51-refined .v50-status-note {
+  padding: 9px;
+}
+
+.v51-refined .v50-index-grid {
+  grid-template-columns: repeat(3, minmax(135px, 1fr));
+  gap: 8px;
+}
+
+.v51-refined .v50-index-link {
+  min-height: 68px;
+  padding: 10px;
+}
+
+.v51-refined .v50-chain-list {
+  max-height: 330px;
+  overflow: auto;
+  padding-right: 3px;
+}
+
+.v51-refined .v50-chain-item {
+  grid-template-columns: 58px 1fr auto;
+  padding: 7px 8px;
+}
+
+.v51-refined .v50-master-kpis {
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+}
+
+.v51-refined .v50-master-actions {
+  padding-bottom: 14px;
+}
+
+/* Section density and hierarchy */
+.v51-refined .v49-rf-intel-strip,
+.v51-refined .v48-scenario-command,
+.v51-refined .v46-instrument-cluster,
+.v51-refined .v45-glass-command-band,
+.v51-refined .v44-priority-rail,
+.v51-refined .v43-entry-hub,
+.v51-refined .v42-evidence-overlay {
+  margin-top: 12px;
+}
+
+.v51-refined .v49-rf-head,
+.v51-refined .v48-command-head,
+.v51-refined .v46-cluster-head,
+.v51-refined .v45-band-head,
+.v51-refined .v44-priority-head,
+.v51-refined .v43-entry-head,
+.v51-refined .v42-evidence-head {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+.v51-refined .v49-rf-head p,
+.v51-refined .v48-command-head p,
+.v51-refined .v46-cluster-head p,
+.v51-refined .v45-band-head p,
+.v51-refined .v44-priority-head p,
+.v51-refined .v43-entry-head p,
+.v51-refined .v42-evidence-head p,
+.v51-refined .v50-master-head p {
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+/* Runtime JSON becomes engineering detail */
+.v51-advanced-runtime {
+  border-color: rgba(210,153,34,.28) !important;
+}
+
+.v51-exec-view .v51-advanced-runtime {
+  display: none !important;
+}
+
+.v51-engineering-view .v51-advanced-runtime {
+  display: block !important;
+}
+
+.v51-runtime-placeholder {
+  margin-top: 12px;
+  border: 1px solid rgba(210,153,34,.28);
+  background: rgba(210,153,34,.055);
+  color: rgba(237,248,255,.62);
+  border-radius: 18px;
+  padding: 12px 14px;
+  font-size: 11px;
+}
+
+.v51-exec-view .v51-runtime-placeholder {
+  display: block;
+}
+
+.v51-engineering-view .v51-runtime-placeholder {
+  display: none;
+}
+
+/* Remove legacy ghost feeling */
+.v51-refined [data-v51-legacy-watermark="true"] {
+  opacity: .42 !important;
+  color: rgba(88,214,249,.36) !important;
+}
+
+.v51-refined .v41-command-strip::after,
+.v51-refined .v45-glass-command-band::after,
+.v51-refined .v46-instrument-cluster::after,
+.v51-refined .v49-rf-intel-strip::after,
+.v51-refined .v50-release-milestone::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Smooth but less heavy */
+.v51-refined.v51-exec-view .v45-glass-command-band::before,
+.v51-refined.v51-exec-view .v48-scenario-command::before,
+.v51-refined.v51-exec-view .v49-rf-intel-strip::before,
+.v51-refined.v51-exec-view .v50-release-milestone::before {
+  animation-duration: 14s;
+  opacity: .58;
+}
+
+.v51-refined .v47-section-nav {
+  top: 6px;
+  padding: 9px;
+}
+
+.v51-refined .v47-section-links a,
+.v51-refined .v47-section-links button {
+  padding: 6px 9px;
+  font-size: 9px;
+}
+
+@media(max-width:1350px) {
+  .v51-refined .v50-master-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .v51-refined .v50-index-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:760px) {
+  .v51-review-band {
+    grid-template-columns: 1fr;
+  }
+
+  .v51-review-actions {
+    justify-content: flex-start;
+  }
+
+  .v51-refined .v50-index-grid {
+    grid-template-columns: 1fr;
+  }
+}

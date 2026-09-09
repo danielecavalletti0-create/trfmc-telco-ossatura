@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-store">
+  <title>TRFMC v0.87C · Cinematic Mission Atlas</title>
+  <link rel="stylesheet" href="/assets/trfmc_v087c_cinematic_mission_atlas.css">
+  <script defer="" src="/assets/trfmc_v087c_cinematic_mission_atlas.js"></script>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1" data-trfmc-page="cinematic-mission-atlas-v87c" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+  <main class="ca87-shell">
+    <canvas id="ca87Canvas" class="ca87-canvas" width="1440" height="813"></canvas>
+
+    <header class="ca87-topbar">
+      <section class="ca87-brand">
+        <span class="ca87-orb"></span>
+        <div>
+          <strong>TRFMC RF/TELCO MISSION ATLAS</strong>
+          <small>v0.87C · cinematic home · no iframe · no service clutter</small>
+        </div>
+      </section>
+      <nav class="ca87-nav">
+        <a href="/rf_physics_sapienza_console_v86a.html">RF Console</a>
+        <a href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Stable RF</a>
+        <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+        <a href="/webgl_rf_heatmap_engine_v69.html">Handover</a>
+        <a href="/trfmc_theory_spine_v86e.html">Academy</a>
+      </nav>
+      <section class="ca87-status">
+        <b id="ca87Status">READY</b>
+        <span>mission atlas</span>
+      </section>
+    </header>
+
+    <section class="ca87-hero">
+      <div class="ca87-hero-copy">
+        <p class="ca87-kicker">TRFMC v0.87C · IL PORTALE ENTRA IN SCENA</p>
+        <h1>RF Mission Atlas</h1>
+        <p>
+          Plancia principale per entrare nel laboratorio: campo RF, fisica, infrastruttura,
+          mobilità, teoria e strumenti. Le pagine di servizio restano dietro; qui si vede
+          solo la missione reale.
+        </p>
+        <div class="ca87-actions">
+          <a class="ca87-action primary" href="/rf_physics_sapienza_console_v86a.html">Launch RF Physics</a>
+          <a class="ca87-action" href="/infrastructure_digital_twin_v63.html">Open Digital Twin</a>
+          <a class="ca87-action" href="/trfmc_mission_control_home_v87b.html">Classic Home v87B</a>
+        </div>
+      </div>
+
+      <aside class="ca87-command">
+        <span>ATLAS INTEGRITY</span>
+        <strong id="ca87Score">100%</strong>
+        <small id="ca87ScoreText">5/5 mission routes HTTP 200</small>
+        <div class="ca87-meters">
+          <div><b id="ca87MissionCount">5</b><em>mission</em></div>
+          <div><b id="ca87EngCount">5</b><em>service</em></div>
+          <div><b id="ca87OkCount">5</b><em>HTTP 200</em></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="ca87-theater">
+      <article class="ca87-atlas">
+        <div class="ca87-section-head">
+          <h2>Operational Mission Map</h2>
+          <span>click a node</span>
+        </div>
+        <div id="ca87Map" class="ca87-map"><div class="ca87-link" style="left:50%;top:50%;width:30.463092423455635%;transform:rotate(156.80140948635182deg);"></div><div class="ca87-link" style="left:50%;top:50%;width:12.165525060596439%;transform:rotate(-99.46232220802563deg);"></div><div class="ca87-link" style="left:50%;top:50%;width:24.515301344262525%;transform:rotate(11.768288932020647deg);"></div><div class="ca87-link" style="left:50%;top:50%;width:27.784887978899608%;transform:rotate(59.74356283647074deg);"></div><div class="ca87-link" style="left:50%;top:50%;width:34.539832078341085%;transform:rotate(112.10944834375168deg);"></div>
+      <button class="ca87-node active" data-id="rf" style="left:22%;top:62%;">
+        <b>RF Physics Console</b>
+        <small>Formula-driven RF measurement</small>
+        <i>HTTP 200</i>
+      </button>
+    
+      <button class="ca87-node " data-id="field" style="left:48%;top:38%;">
+        <b>Stable RF Field</b>
+        <small>Safe stable RF baseline</small>
+        <i>HTTP 200</i>
+      </button>
+    
+      <button class="ca87-node " data-id="twin" style="left:74%;top:55%;">
+        <b>Digital Twin</b>
+        <small>Site, shelter, tower, physical assets</small>
+        <i>HTTP 200</i>
+      </button>
+    
+      <button class="ca87-node " data-id="handover" style="left:64%;top:74%;">
+        <b>Handover Dynamics</b>
+        <small>UE mobility and serving decision</small>
+        <i>HTTP 200</i>
+      </button>
+    
+      <button class="ca87-node " data-id="academy" style="left:37%;top:82%;">
+        <b>Theory Spine</b>
+        <small>Formula, method, evidence chain</small>
+        <i>HTTP 200</i>
+      </button>
+    </div>
+      </article>
+
+      <aside class="ca87-selected">
+        <div class="ca87-section-head">
+          <h2>Selected Layer</h2>
+          <span id="ca87SelectedStatus">HTTP 200</span>
+        </div>
+        <div id="ca87SelectedBox" class="ca87-selected-box">
+      <b>RF Physics Console</b>
+      <p>Formula-driven RF measurement</p>
+      <code>domain: RF Physics
+file: rf_physics_sapienza_console_v86a.html
+state: reachable
+role: primary</code>
+      <p>Strato principale: qui si misura, si interpreta e si decide.</p>
+      <a class="ca87-open" href="/rf_physics_sapienza_console_v86a.html">Open selected mission layer</a>
+    </div>
+      </aside>
+    </section>
+
+    <section class="ca87-flow">
+      <article><span>01</span><b>Observe</b><p>Geometria, sito, UE, ostacoli, clutter.</p></article>
+      <article><span>02</span><b>Measure</b><p>RSRP, SINR, EVM, PDP, H(f), link budget.</p></article>
+      <article><span>03</span><b>Correlate</b><p>Path loss, fading, NLOS, delay spread.</p></article>
+      <article><span>04</span><b>Decide</b><p>Serving cell, handover, outage, margin.</p></article>
+      <article><span>05</span><b>Teach</b><p>Formula, evidenza, diagnosi, metodo.</p></article>
+    </section>
+
+    <section class="ca87-panel">
+      <div class="ca87-section-head">
+        <h2>Mission Launch Deck</h2>
+        <span id="ca87DeckCount">5 mission routes</span>
+      </div>
+      <div id="ca87Deck" class="ca87-deck">
+      <article class="ca87-card">
+        <b>RF Physics Console</b>
+        <small>RF Physics</small>
+        <p>Formula-driven RF measurement</p>
+        <a class="ca87-open" href="/rf_physics_sapienza_console_v86a.html">Open</a>
+      </article>
+    
+      <article class="ca87-card">
+        <b>Stable RF Field</b>
+        <small>RF Baseline</small>
+        <p>Safe stable RF baseline</p>
+        <a class="ca87-open" href="/webgl_rf_physics_engine_v85e_viewport_discipline.html">Open</a>
+      </article>
+    
+      <article class="ca87-card">
+        <b>Digital Twin</b>
+        <small>Infrastructure</small>
+        <p>Site, shelter, tower, physical assets</p>
+        <a class="ca87-open" href="/infrastructure_digital_twin_v63.html">Open</a>
+      </article>
+    
+      <article class="ca87-card">
+        <b>Handover Dynamics</b>
+        <small>Mobility</small>
+        <p>UE mobility and serving decision</p>
+        <a class="ca87-open" href="/webgl_rf_heatmap_engine_v69.html">Open</a>
+      </article>
+    
+      <article class="ca87-card">
+        <b>Theory Spine</b>
+        <small>Academy</small>
+        <p>Formula, method, evidence chain</p>
+        <a class="ca87-open" href="/trfmc_theory_spine_v86e.html">Open</a>
+      </article>
+    </div>
+    </section>
+
+    <details class="ca87-engineering">
+      <summary>Engineering Bay · pagine di servizio</summary>
+      <div id="ca87EngineeringDeck" class="ca87-engineering-deck">
+      <article class="ca87-eng-card">
+        <b>Mission Home v87B</b>
+        <small>service / engineering</small>
+        <p>Disponibile dietro la baia tecnica, non come facciata operativa.</p>
+        <a class="ca87-open" href="/trfmc_mission_control_home_v87b.html">Open service</a>
+      </article>
+    
+      <article class="ca87-eng-card">
+        <b>No-Iframe Route Console</b>
+        <small>service / engineering</small>
+        <p>Disponibile dietro la baia tecnica, non come facciata operativa.</p>
+        <a class="ca87-open" href="/trfmc_unified_shell_noiframe_v86d_r1.html">Open service</a>
+      </article>
+    
+      <article class="ca87-eng-card">
+        <b>Design Token Audit</b>
+        <small>service / engineering</small>
+        <p>Disponibile dietro la baia tecnica, non come facciata operativa.</p>
+        <a class="ca87-open" href="/trfmc_design_token_audit_v86f.html">Open service</a>
+      </article>
+    
+      <article class="ca87-eng-card">
+        <b>Portal Registry</b>
+        <small>service / engineering</small>
+        <p>Disponibile dietro la baia tecnica, non come facciata operativa.</p>
+        <a class="ca87-open" href="/trfmc_portal_registry_v86c.html">Open service</a>
+      </article>
+    
+      <article class="ca87-eng-card">
+        <b>Performance GPU Gate</b>
+        <small>service / engineering</small>
+        <p>Disponibile dietro la baia tecnica, non come facciata operativa.</p>
+        <a class="ca87-open" href="/trfmc_performance_gpu_gate_v86b_r1.html">Open service</a>
+      </article>
+    </div>
+    </details>
+
+    <footer class="ca87-footer">
+      TRFMC v0.87C · Cinematic Mission Atlas · real pages first · service pages hidden · scoped · no iframe · no CDN
+    </footer>
+  </main>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v1.js"></script>
+
+<section class="trfmc-perfection-bridge" data-domain="antenna" data-trfmc-perfection-bridge="v1">
+  <div class="trfmc-perfection-head">
+    <div>
+      <div class="trfmc-perfection-title">TRFMC Perfection Bridge · ANTENNA</div>
+      <div class="trfmc-perfection-sub">TRFMC v0.87C · Cinematic Mission Atlas<br>/trfmc_cinematic_mission_atlas_v87c.html</div>
+    </div>
+    <div class="trfmc-perfection-kpis">
+      <div class="trfmc-perfection-kpi"><small>Previous score</small><b>65/100</b></div>
+      <div class="trfmc-perfection-kpi"><small>Severity</small><b>CRITICAL</b></div>
+      <div class="trfmc-perfection-kpi"><small>Asset</small><b>tower-site</b></div>
+      <div class="trfmc-perfection-kpi"><small>Bridge</small><b>ACTIVE</b></div>
+    </div>
+  </div>
+  <div class="trfmc-perfection-grid">
+    <div class="trfmc-perfection-asset">
+      <trfmc-visual-asset kind="tower-site" data-size="medium" title="TRFMC ANTENNA Perfection Asset"></trfmc-visual-asset>
+    </div>
+    <div>
+      <div class="trfmc-perfection-card">
+        <h3>Engineering formulas</h3>
+        <div class="trfmc-perfection-formulas formulaLive">EIRP = Ptx + Gant - Lfeeder
+Γ = (VSWR-1)/(VSWR+1)
+RL = -20log10|Γ|
+Pdelivered = (1-|Γ|²)·100
+Tilt_total = mechanical + electrical_RET</div>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Live scope</h3>
+        <canvas class="trfmc-bridge-scope" data-domain="antenna" width="602" height="128"></canvas>
+      </div>
+      <div class="trfmc-perfection-card">
+        <h3>Operational closure</h3>
+        <div class="trfmc-perfection-formulas">Design tokens: OK
+Visual XP: OK
+GPU Runtime: OK
+Visual Asset Engine: OK
+Soul Runtime: OK
+KPI/Formulas/Canvas: OK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · RF Physics</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> RF Mission Atlas</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="true">CAMPO</div><div class="trfmc-soul-node" data-active="false">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">RF Physics · Il campo è il linguaggio primario: ampiezza, fase, spettro, energia e propagazione.</div></body></html>

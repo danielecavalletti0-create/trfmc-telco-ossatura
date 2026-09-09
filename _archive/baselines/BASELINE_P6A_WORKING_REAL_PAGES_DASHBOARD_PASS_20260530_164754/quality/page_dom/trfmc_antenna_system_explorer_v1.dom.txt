@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it" style="--trfmc-vxp-x: 50.00%; --trfmc-vxp-y: 35.00%;"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRFMC Antenna System Explorer V1</title>
+<style>
+:root{--bg:#02070f;--panel:#061120;--line:#1d6f9f;--text:#eaf3ff;--muted:#86a7c6;--cyan:#00d9ff;--green:#7dff4f;--yellow:#ffd500;--red:#ff3366}
+*{box-sizing:border-box}
+body{margin:0;background:#01060d;color:var(--text);font:12px Inter,Segoe UI,system-ui,sans-serif}
+header{height:52px;background:#050b13;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 12px}
+h1{margin:0;font-size:17px;letter-spacing:.08em;text-transform:uppercase}
+a{color:var(--text);text-decoration:none;border:1px solid #1d6f9f;background:#0a1828;border-radius:4px;padding:6px 9px;margin-left:5px}
+main{display:grid;grid-template-columns:270px 1fr 340px;gap:6px;padding:6px;height:calc(100vh - 52px)}
+.panel{background:linear-gradient(180deg,#071524,#02070f);border:1px solid #1d5e86;border-radius:6px;overflow:hidden}
+.title{background:#0a1b2e;border-bottom:1px solid #1d5e86;color:var(--cyan);font-weight:700;padding:7px 9px;text-transform:uppercase}
+.body{padding:8px}
+.ctrl{border:1px solid #183d58;background:#081522;border-radius:5px;padding:8px;margin-bottom:7px}
+.ctrl b{color:var(--green);display:block;margin-bottom:5px}
+label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px}
+input,select{width:100%;margin:4px 0 8px}
+select{background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:6px}
+.kpis{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin-bottom:6px}
+.kpi{background:#07111f;border:1px solid #214c6a;border-radius:5px;padding:6px}
+.kpi b{font-size:14px;display:block}.kpi span{font-size:9px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.5fr 1fr;grid-template-rows:360px 230px 230px;gap:6px;height:calc(100% - 66px)}
+.frame{background:#02070f;border:1px solid #1d5e86;border-radius:6px;overflow:hidden}
+.frame h3{margin:0;background:#0a1b2e;border-bottom:1px solid #1d5e86;padding:5px 7px;color:var(--cyan);font-size:12px}
+canvas{width:100%;height:calc(100% - 26px);display:block}
+#siteFrame{grid-column:1/3}
+button{width:100%;background:#10233a;color:var(--text);border:1px solid #285d82;border-radius:4px;padding:7px;margin:4px 0;text-align:left;cursor:pointer}
+button.active,button:hover{background:#145078;border-color:var(--cyan);box-shadow:inset 3px 0 0 var(--yellow)}
+.formula{border:1px solid #183d58;background:#081522;border-radius:5px;padding:7px;margin-bottom:6px;font-family:ui-monospace,monospace;color:#d3e8ff}
+.formula b{color:var(--yellow)}
+.log{height:250px;overflow:auto;font-family:ui-monospace,monospace;font-size:11px}
+.log div{border-bottom:1px solid #17344c;padding:4px 0;color:#cde7ff}
+</style>
+<link rel="stylesheet" href="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.css">
+<link rel="stylesheet" href="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_design_system/trfmc_leaf_master_v1.css">
+<link rel="stylesheet" href="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.css">
+<link rel="stylesheet" href="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.css">
+</head>
+<body class="trfmc-vxp trfmc-gpu-v2 trfmc-soul-v1 trfmc-leaf" data-trfmc-gpu-runtime="css-fallback"><div class="trfmc-gpu-fallback" aria-hidden="true"></div><div class="trfmc-vxp-depth"></div><div class="trfmc-vxp-aurora"></div>
+<header>
+<div><h1>TRFMC Antenna System Explorer V1</h1><div style="color:#86a7c6;font-size:11px">Panel antenna · RRU/BBU · RET/AISG · MIMO · Port mapping · VSWR · Gain · Tilt/Azimuth</div></div>
+<nav>
+<a href="/trfmc_antenna_system_explorer_v13_premium.html">Antenna V1.3 Premium</a>
+<a href="/trfmc_antenna_system_explorer_v12_operativo.html">Antenna V1.2 Operativo</a>
+<a href="/trfmc_master_console_v4.html">Master</a>
+<a href="/trfmc_measurement_chain_dsp_engine_v3.html">DSP</a>
+<a href="/trfmc_wifi_5_6_7_8_qam_engine_v1.html">Wi-Fi/QAM</a>
+<a href="/trfmc_enterprise_prime_portal_v1.html">Prime</a>
+</nav>
+</header>
+
+<main>
+<aside class="panel">
+<div class="title">Antenna Controls</div>
+<div class="body">
+<div class="ctrl"><b>System</b>
+<select id="type"><option>Triple-band panel</option><option>Massive MIMO 8T8R</option><option>Massive MIMO 32T32R</option><option>Patch array</option><option>Parabolic dish</option><option>Yagi directional</option></select>
+<label>Band <span id="bandv">3.50 GHz</span></label><input id="band" type="range" min="700" max="3800" value="3500">
+<label>Gain <span id="gainv">18 dBi</span></label><input id="gain" type="range" min="0" max="30" value="18">
+<label>Azimuth <span id="azv">0°</span></label><input id="az" type="range" min="-180" max="180" value="0">
+<label>Electrical tilt <span id="tiltv">4°</span></label><input id="tilt" type="range" min="-10" max="20" value="4">
+</div>
+<div class="ctrl"><b>RF Ports</b>
+<label>VSWR <span id="vswrv">1.35</span></label><input id="vswr" type="range" min="100" max="300" value="135">
+<label>Return loss <span id="rlv">16 dB</span></label><input id="rl" type="range" min="5" max="35" value="16">
+<label>Isolation <span id="isov">28 dB</span></label><input id="iso" type="range" min="10" max="50" value="28">
+</div>
+<button class="active" data-mode="SITE">Site / Sector</button>
+<button data-mode="PATTERN">Radiation Pattern</button>
+<button data-mode="PORTS">RRU Port Mapping</button>
+<button data-mode="RET">RET / AISG Tilt</button>
+<button data-mode="MIMO">MIMO Beam Grid</button>
+</div>
+</aside>
+
+<section>
+<div class="kpis">
+<div class="kpi"><b id="kfreq">3.5G</b><span>frequency</span></div>
+<div class="kpi"><b id="kgain">18</b><span>gain dBi</span></div>
+<div class="kpi"><b id="kaz">0°</b><span>azimuth</span></div>
+<div class="kpi"><b id="ktilt">4°</b><span>tilt</span></div>
+<div class="kpi"><b id="kvswr">1.35</b><span>VSWR</span></div>
+<div class="kpi"><b id="krl">16</b><span>RL dB</span></div>
+<div class="kpi"><b id="kiso">28</b><span>isolation</span></div>
+<div class="kpi"><b id="kmimo">sector</b><span>MIMO</span></div>
+</div>
+
+<div class="grid">
+<div class="frame" id="siteFrame"><h3>1 · Antenna Site / Sector / Coverage Explorer</h3><canvas id="site" width="1500" height="380"></canvas></div>
+<div class="frame"><h3>2 · Radiation Pattern / Polar</h3><canvas id="polar" width="720" height="260"></canvas></div>
+<div class="frame"><h3>3 · Port / Band Mapping</h3><canvas id="ports" width="720" height="260"></canvas></div>
+<div class="frame"><h3>4 · RET / AISG / Tilt Effect</h3><canvas id="ret" width="720" height="260"></canvas></div>
+<div class="frame"><h3>5 · MIMO Beam / Array Grid</h3><canvas id="mimo" width="720" height="260"></canvas></div>
+</div>
+</section>
+
+<aside class="panel">
+<div class="title">Antenna Math</div>
+<div class="body">
+<div class="formula"><b>Wavelength</b><br>λ = c / f</div>
+<div class="formula"><b>Free-space path loss</b><br>FSPL = 32.44 + 20log10(fMHz) + 20log10(dkm)</div>
+<div class="formula"><b>VSWR</b><br>VSWR = (1+|Γ|)/(1−|Γ|)</div>
+<div class="formula"><b>Return loss</b><br>RL = −20log10(|Γ|)</div>
+<div class="formula"><b>EIRP</b><br>EIRP = Ptx + Gant − Lcable</div>
+<div class="formula"><b>MIMO</b><br>capacity ∝ min(Ntx,Nrx) · log2(1+SNR)</div>
+<div class="title" style="margin:8px -8px 6px">Event Stream</div>
+<div class="log" id="log"><div>[16:48:40] SITE · Triple-band panel · VSWR 1.35 · RL 16 dB · tilt 4°</div></div>
+</div>
+</aside>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const ctx={site:$("site").getContext("2d"),polar:$("polar").getContext("2d"),ports:$("ports").getContext("2d"),ret:$("ret").getContext("2d"),mimo:$("mimo").getContext("2d")};
+let t=0,last=0,mode="SITE";
+function p(){return{type:$("type").value,band:+$("band").value,gain:+$("gain").value,az:+$("az").value,tilt:+$("tilt").value,vswr:+$("vswr").value/100,rl:+$("rl").value,iso:+$("iso").value}}
+function grid(c,w,h){c.strokeStyle="rgba(120,190,240,.10)";for(let x=0;x<w;x+=50){c.beginPath();c.moveTo(x,0);c.lineTo(x,h);c.stroke()}for(let y=0;y<h;y+=40){c.beginPath();c.moveTo(0,y);c.lineTo(w,y);c.stroke()}}
+function labels(){let q=p();$("bandv").textContent=q.band>=1000?(q.band/1000).toFixed(2)+" GHz":q.band+" MHz";$("gainv").textContent=q.gain+" dBi";$("azv").textContent=q.az+"°";$("tiltv").textContent=q.tilt+"°";$("vswrv").textContent=q.vswr.toFixed(2);$("rlv").textContent=q.rl+" dB";$("isov").textContent=q.iso+" dB";$("kfreq").textContent=q.band>=1000?(q.band/1000).toFixed(1)+"G":q.band+"M";$("kgain").textContent=q.gain;$("kaz").textContent=q.az+"°";$("ktilt").textContent=q.tilt+"°";$("kvswr").textContent=q.vswr.toFixed(2);$("krl").textContent=q.rl;$("kiso").textContent=q.iso;$("kmimo").textContent=q.type.includes("32")?"32T32R":q.type.includes("8")?"8T8R":"sector"}
+function site(){let c=ctx.site,w=1500,h=380,q=p();c.clearRect(0,0,w,h);grid(c,w,h);let cx=w/2,cy=h*.64;c.strokeStyle="#86a7c6";c.lineWidth=5;c.beginPath();c.moveTo(cx,cy);c.lineTo(cx,80);c.stroke();c.fillStyle="#eaf3ff";c.fillRect(cx-18,80,36,160);for(let i=0;i<3;i++){let a=(-30+i*30+q.az)*Math.PI/180,rad=250+q.gain*8;c.fillStyle=`rgba(${i==0?0:125},${i==1?217:255},${i==2?79:80},.13)`;c.beginPath();c.moveTo(cx,140);c.arc(cx,140,rad,a-.25,a+.25);c.closePath();c.fill();c.strokeStyle="rgba(125,255,79,.45)";c.stroke()}c.fillStyle="#ffd500";c.fillText(`${q.type} · ${$("kfreq").textContent} · Gain ${q.gain} dBi · Az ${q.az}° · Tilt ${q.tilt}°`,20,28)}
+function polar(){let c=ctx.polar,w=720,h=260,q=p(),cx=w/2,cy=h/2;c.clearRect(0,0,w,h);grid(c,w,h);c.strokeStyle="rgba(255,255,255,.18)";for(let r=30;r<110;r+=25){c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);c.stroke()}c.beginPath();for(let i=0;i<=360;i++){let a=i*Math.PI/180,main=Math.exp(-Math.pow(Math.sin((a-q.az*Math.PI/180)/2),2)*8),side=.25*Math.abs(Math.sin(3*a)),r=20+(main+side)*85,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle="#7dff4f";c.lineWidth=2;c.stroke()}
+function ports(){let c=ctx.ports,w=720,h=260;c.clearRect(0,0,w,h);grid(c,w,h);let labels=["R1 900 MHz Low","Y1 2100 MHz High","Y2 1800 MHz Mid","n78 3500 MHz 5G"];labels.forEach((l,i)=>{let y=45+i*48;c.fillStyle=["#ff3366","#ffd500","#00d9ff","#7dff4f"][i];c.fillRect(60,y,90,28);c.fillStyle="#eaf3ff";c.fillText(l,180,y+19);c.strokeStyle="#86a7c6";c.beginPath();c.moveTo(150,y+14);c.lineTo(520,y+14);c.stroke();c.fillRect(520,y+5,26,18)})}
+function ret(){let c=ctx.ret,w=720,h=260,q=p();c.clearRect(0,0,w,h);grid(c,w,h);let base=170,cx=90;c.strokeStyle="#7dff4f";c.lineWidth=3;c.beginPath();c.moveTo(cx,base);for(let x=0;x<w;x++){let y=base-Math.exp(-Math.pow((x-300)/190,2))*90+q.tilt*3;x?c.lineTo(x,y):c.moveTo(x,y)}c.stroke();c.fillStyle="#ffd500";c.fillText(`RET electrical tilt ${q.tilt}° · AISG control simulated`,20,25)}
+function mimo(){let c=ctx.mimo,w=720,h=260,q=p();c.clearRect(0,0,w,h);grid(c,w,h);let n=q.type.includes("32")?8:q.type.includes("8")?4:2;for(let r=0;r<n;r++)for(let col=0;col<n;col++){let x=120+col*45,y=45+r*28;c.fillStyle=`rgba(125,255,79,${.35+(r+col)/(2*n)})`;c.fillRect(x,y,28,18)}for(let i=0;i<5;i++){c.strokeStyle=["#00d9ff","#7dff4f","#ffd500","#ff3366","#c66bff"][i];c.beginPath();c.moveTo(420,130);c.lineTo(650,70+i*30);c.stroke()}c.fillStyle="#eaf3ff";c.fillText("Array elements + beam steering vectors",20,25)}
+function addLog(m){let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+m;$("log").prepend(d);while($("log").children.length>20)$("log").removeChild($("log").lastChild)}
+function log(){let now=Date.now();if(now-last<1500)return;last=now;let q=p();addLog(`${mode} · ${q.type} · VSWR ${q.vswr.toFixed(2)} · RL ${q.rl} dB · tilt ${q.tilt}°`)}
+document.querySelectorAll("button[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll("button[data-mode]").forEach(x=>x.classList.toggle("active",x===b));addLog("workspace → "+mode)});
+["type","band","gain","az","tilt","vswr","rl","iso"].forEach(id=>$(id).addEventListener("input",labels));
+(function loop(){t++;labels();site();polar();ports();ret();mimo();log();requestAnimationFrame(loop)})();
+</script>
+<script src="/assets/trfmc_visual_xp/trfmc_visual_xp_v1.js"></script>
+<script src="/assets/trfmc_gpu_visual_runtime/trfmc_gpu_visual_runtime_v2.js"></script>
+<script src="/assets/trfmc_soul_runtime/trfmc_soul_runtime_v1.js"></script>
+<script src="/assets/trfmc_visual_asset_engine/trfmc_visual_asset_engine_v3.js"></script>
+<script src="/assets/trfmc_perfection_bridge/trfmc_perfection_bridge_v2.js"></script>
+
+<section class="trfmc-perfection-bridge-v2" data-trfmc-perfection-bridge-v2="true" data-domain="core">
+  <div class="trfmc-b2-head">
+    <div>
+      <div class="trfmc-b2-title">TRFMC Batch B Leaf Perfection · CORE</div>
+      <div class="trfmc-b2-sub">TRFMC Antenna System Explorer V1<br>/trfmc_antenna_system_explorer_v1.html<br>Previous Authority V2 score: 71/100 · WEAK</div>
+    </div>
+    <div class="trfmc-b2-kpis"><div class="trfmc-b2-kpi"><small>AKA</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>NGAP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>PFCP</small><b>ACTIVE</b></div><div class="trfmc-b2-kpi"><small>GTP-U</small><b>ACTIVE</b></div></div>
+  </div>
+  <div class="trfmc-b2-grid">
+    <div class="trfmc-b2-asset">
+      <trfmc-visual-asset kind="core-map" data-size="medium" title="Batch B CORE Visual Asset"></trfmc-visual-asset>
+    </div>
+    <div class="trfmc-b2-side">
+      <div class="trfmc-b2-card">
+        <h3>Engineering closure</h3>
+        <div class="trfmc-b2-formulas formulaLive">SUPI/SUCI → AUSF/UDM/ARPF → 5G-AKA
+NGAP: gNB ↔ AMF control plane
+PFCP: SMF ↔ UPF session programming
+GTP-U: PDU Session user-plane tunnel
+Decision = identity + policy + tunnel + evidence</div>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Live diagnostic scope</h3>
+        <canvas class="trfmc-b2-scope" data-domain="core" width="642" height="148"></canvas>
+      </div>
+      <div class="trfmc-b2-card">
+        <h3>Perfection signals</h3>
+        <span class="trfmc-b2-pill">Design Tokens</span>
+        <span class="trfmc-b2-pill">Visual XP</span>
+        <span class="trfmc-b2-pill">GPU Runtime</span>
+        <span class="trfmc-b2-pill">Asset Engine</span>
+        <span class="trfmc-b2-pill">Soul Runtime</span>
+        <span class="trfmc-b2-pill">KPI</span>
+        <span class="trfmc-b2-pill">Formula</span>
+        <span class="trfmc-b2-pill">Canvas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<div class="trfmc-gpu-hud"><b>GPU RUNTIME</b> css-fallback<br>WebGPU: <b>available</b><br>Plugins: <b>6</b></div><div class="trfmc-soul-orb">SOUL</div><div class="trfmc-soul-panel" data-open="false"><div class="trfmc-soul-title">MISSION CORTEX · Antenna / RRU / RET</div><div class="trfmc-soul-sub">Dal campo elettromagnetico al core 5G, dal segnale alla decisione.</div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Modulo:</b> TRFMC Antenna System Explorer V1</div><div class="trfmc-soul-line"><b>Anima tecnica:</b> Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura.</div><div class="trfmc-soul-line"><b>Segnali vivi:</b> canvas · gpu-runtime · asset-engine · visual-assets · live-formulas</div></div><div class="trfmc-soul-section"><div class="trfmc-soul-line"><b>Stato portale:</b> 178 HTML · 133 leaf operative</div><div class="trfmc-soul-line"><b>Runtime:</b> GPU · Visual Asset Engine · Soul Layer</div></div><div class="trfmc-soul-path"><div class="trfmc-soul-node" data-active="false">CAMPO</div><div class="trfmc-soul-node" data-active="true">ANTENNA</div><div class="trfmc-soul-node" data-active="false">LINK</div><div class="trfmc-soul-node" data-active="false">FIBER</div><div class="trfmc-soul-node" data-active="false">CORE</div><div class="trfmc-soul-node" data-active="false">EVIDENCE</div></div><div class="trfmc-soul-actions"><button class="trfmc-soul-button">ARM SOUND</button><button class="trfmc-soul-button">PULSE</button><button class="trfmc-soul-button">HIDE SOUL</button></div></div><div class="trfmc-soul-ribbon">Antenna / RRU / RET · Il segnale diventa infrastruttura fisica: porte, polarizzazione, beam, tilt, EIRP e copertura.</div></body></html>
