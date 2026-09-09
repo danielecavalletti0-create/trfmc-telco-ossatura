@@ -1,0 +1,160 @@
+{
+  "version": "TRFMC v0.87F",
+  "generated_at": "20260516_225744",
+  "purpose": "Normalize visible mission routes and hide engineering/service pages behind the Engineering Bay.",
+  "policy": {
+    "canonical_home": "trfmc_home_v87e.html",
+    "mission_routes_first": true,
+    "service_pages_hidden": true,
+    "no_backend_change": true,
+    "no_iframe": true,
+    "no_cdn": true,
+    "no_global_css": true,
+    "base_preserved": "v0.87e-home-promotion-gate"
+  },
+  "visible_navigation": [
+    {
+      "order": 1,
+      "label": "HOME",
+      "title": "TRFMC Mission Home",
+      "file": "trfmc_home_v87e.html",
+      "domain": "Mission Home",
+      "tier": "P0",
+      "visibility": "visible",
+      "role": "canonical entry point",
+      "reason": "Home canonica promossa da v87D cinematic command deck."
+    },
+    {
+      "order": 2,
+      "label": "RF PHYSICS",
+      "title": "RF Physics Sapienza Console",
+      "file": "rf_physics_sapienza_console_v86a.html",
+      "domain": "RF Physics / Measurement",
+      "tier": "P0",
+      "visibility": "visible",
+      "role": "RF measurement console",
+      "reason": "Console principale per misura, formula, RSRP/SINR, link budget e decisione."
+    },
+    {
+      "order": 3,
+      "label": "RF FIELD",
+      "title": "Stable RF Field",
+      "file": "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+      "domain": "RF Field / Stable Baseline",
+      "tier": "P0",
+      "visibility": "visible",
+      "role": "stable RF fallback",
+      "reason": "Baseline stabile e punto di rientro sicuro."
+    },
+    {
+      "order": 4,
+      "label": "DIGITAL TWIN",
+      "title": "Infrastructure Digital Twin",
+      "file": "infrastructure_digital_twin_v63.html",
+      "domain": "Infrastructure / Site / Shelter",
+      "tier": "P1",
+      "visibility": "visible",
+      "role": "infrastructure map",
+      "reason": "Vista operativa per sito, torre, shelter, asset fisici, energia e trasporto."
+    },
+    {
+      "order": 5,
+      "label": "HANDOVER",
+      "title": "Handover Dynamics",
+      "file": "webgl_rf_heatmap_engine_v69.html",
+      "domain": "Mobility / Handover",
+      "tier": "P1",
+      "visibility": "visible",
+      "role": "mobility and serving decision",
+      "reason": "Scenario mobilità UE, serving cell, soglie, margine e continuità."
+    },
+    {
+      "order": 6,
+      "label": "RF CLUTTER",
+      "title": "Vegetation / Clutter Lab",
+      "file": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+      "domain": "RF Visualization / Clutter",
+      "tier": "P2",
+      "visibility": "visible",
+      "role": "environmental attenuation sandbox",
+      "reason": "Laboratorio ambientale per attenuazione, clutter e visualizzazione RF."
+    },
+    {
+      "order": 7,
+      "label": "THEORY",
+      "title": "Theory Spine",
+      "file": "trfmc_theory_spine_v86e.html",
+      "domain": "Theory / Academy",
+      "tier": "P0",
+      "visibility": "visible",
+      "role": "formula and teaching spine",
+      "reason": "Dorsale teorica: formula, misura, metodo ed evidenza."
+    }
+  ],
+  "engineering_bay": [
+    {
+      "label": "Route Normalizer",
+      "title": "Route Normalizer v87F",
+      "file": "trfmc_route_normalizer_v87f.html",
+      "domain": "Governance",
+      "visibility": "engineering",
+      "role": "route governance"
+    },
+    {
+      "label": "Design Token Audit",
+      "title": "Design Token Audit v86F",
+      "file": "trfmc_design_token_audit_v86f.html",
+      "domain": "Design QA",
+      "visibility": "engineering",
+      "role": "design/token audit"
+    },
+    {
+      "label": "No-Iframe Route Console",
+      "title": "No-Iframe Route Console v86D-R1",
+      "file": "trfmc_unified_shell_noiframe_v86d_r1.html",
+      "domain": "Navigation Governance",
+      "visibility": "engineering",
+      "role": "route console"
+    },
+    {
+      "label": "Performance GPU Gate",
+      "title": "Performance GPU Gate v86B-R1",
+      "file": "trfmc_performance_gpu_gate_v86b_r1.html",
+      "domain": "Performance QA",
+      "visibility": "engineering",
+      "role": "GPU / browser runtime diagnostics"
+    },
+    {
+      "label": "Portal Registry",
+      "title": "Portal Registry v86C",
+      "file": "trfmc_portal_registry_v86c.html",
+      "domain": "Inventory",
+      "visibility": "engineering",
+      "role": "route inventory"
+    },
+    {
+      "label": "Visual QA Legacy",
+      "title": "Visual QA Matrix v71",
+      "file": "trfmc_visual_qa_matrix_v71.html",
+      "domain": "Legacy QA",
+      "visibility": "engineering",
+      "role": "legacy visual QA; not promoted"
+    },
+    {
+      "label": "v87D Cinematic Source",
+      "title": "Cinematic Command Deck v87D",
+      "file": "trfmc_cinematic_command_deck_v87d.html",
+      "domain": "Home Source",
+      "visibility": "engineering",
+      "role": "approved cinematic source for v87E"
+    },
+    {
+      "label": "v87D-R2 Rejected",
+      "title": "Command Deck v87D-R2",
+      "file": "trfmc_cinematic_command_deck_v87d_r2.html",
+      "domain": "Rejected Candidate",
+      "visibility": "quarantine",
+      "role": "not promoted; service-console regression"
+    }
+  ]
+}

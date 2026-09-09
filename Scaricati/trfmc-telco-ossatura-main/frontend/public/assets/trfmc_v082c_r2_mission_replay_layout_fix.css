@@ -1,0 +1,222 @@
+/* TRFMC v0.82C-R2 - Mission Replay Layout Fix
+   Goal: remove bad overlap of RF Mission Replay timeline from the WebGL canvas.
+   Additive layer only. No production overwrite.
+*/
+
+body.v82c-r2-layout {
+  --r2-cyan:#8ff0ff;
+  --r2-green:#42f56f;
+  --r2-amber:#fbbf24;
+  --r2-red:#ff3b5c;
+}
+
+body.v82c-r2-layout .hero {
+  margin-bottom:14px;
+}
+
+body.v82c-r2-layout .webgl-stage {
+  min-height:680px;
+}
+
+/* Keep scene clean: no timeline overlay inside canvas */
+body.v82c-r2-layout .webgl-stage > .v82c-timeline {
+  display:none !important;
+}
+
+/* Dedicated dock under the main lab grid */
+.v82c-r2-replay-dock {
+  position:relative;
+  z-index:5;
+  margin:16px 18px 0;
+  display:grid;
+  grid-template-columns:320px 1fr 350px;
+  gap:16px;
+  align-items:stretch;
+}
+
+.v82c-r2-dock-card,
+.v82c-r2-dock-main,
+.v82c-r2-dock-status {
+  border:1px solid rgba(143,240,255,.27);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.10), transparent 36%),
+    linear-gradient(145deg,rgba(8,30,50,.90),rgba(3,9,22,.96));
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.34),
+    inset 0 0 38px rgba(143,240,255,.035);
+  padding:16px;
+}
+
+.v82c-r2-dock-card h3,
+.v82c-r2-dock-status h3 {
+  margin:0 0 10px;
+  color:var(--r2-cyan);
+  letter-spacing:.16em;
+  font-size:12px;
+  text-transform:uppercase;
+}
+
+.v82c-r2-dock-card strong {
+  display:block;
+  color:var(--r2-green);
+  font-size:20px;
+  margin:8px 0 6px;
+}
+
+.v82c-r2-dock-card p,
+.v82c-r2-dock-status p {
+  margin:0;
+  color:rgba(232,250,255,.63);
+  line-height:1.45;
+  font-size:11px;
+}
+
+/* Timeline transformed into a proper horizontal command dock */
+.v82c-r2-dock-main .v82c-timeline {
+  position:static !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+  width:100% !important;
+  margin:0 !important;
+  pointer-events:auto !important;
+  border-radius:22px;
+  padding:14px 16px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(143,240,255,.10), transparent 40%),
+    rgba(2,8,18,.68);
+  border:1px solid rgba(143,240,255,.26);
+  box-shadow:
+    inset 0 0 30px rgba(143,240,255,.035),
+    0 16px 44px rgba(0,0,0,.28);
+}
+
+.v82c-r2-dock-main .v82c-timeline-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:var(--r2-cyan);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+.v82c-r2-dock-main .v82c-timeline-title::after {
+  content:"DOCKED · NO OVERLAP";
+  color:var(--r2-green);
+  border:1px solid rgba(66,245,111,.28);
+  border-radius:999px;
+  padding:5px 8px;
+  background:rgba(66,245,111,.08);
+  font-size:9px;
+  letter-spacing:.12em;
+}
+
+.v82c-r2-dock-main .v82c-timeline-track {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+
+.v82c-r2-dock-main .v82c-timeline-step {
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(143,240,255,.20);
+  border-radius:999px;
+  padding:8px 10px;
+  color:rgba(232,250,255,.62);
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+  background:
+    linear-gradient(180deg,rgba(143,240,255,.065),rgba(2,8,18,.54));
+}
+
+.v82c-r2-dock-main .v82c-timeline-step.active {
+  color:#031018;
+  background:linear-gradient(90deg,var(--r2-cyan),var(--r2-green));
+  box-shadow:
+    0 0 24px rgba(143,240,255,.24),
+    inset 0 0 18px rgba(255,255,255,.14);
+}
+
+/* Clean caption inside scene: keep it compact and not colliding */
+body.v82c-r2-layout .caption {
+  max-width:460px;
+  bottom:18px;
+  left:18px;
+  z-index:12;
+}
+
+/* Give sector diagnostics more room and less aggression */
+body.v82c-r2-layout .v82c-sector-diag {
+  width:300px;
+}
+
+body.v82c-r2-layout .v82c-sector-card {
+  background:rgba(2,8,18,.68);
+}
+
+/* Status chip in dock */
+.v82c-r2-status-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.v82c-r2-status-grid div {
+  border:1px solid rgba(143,240,255,.18);
+  border-radius:16px;
+  background:rgba(143,240,255,.045);
+  padding:10px;
+}
+
+.v82c-r2-status-grid span {
+  display:block;
+  color:rgba(232,250,255,.48);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:9px;
+}
+
+.v82c-r2-status-grid b {
+  display:block;
+  color:var(--r2-green);
+  font-size:14px;
+  margin-top:5px;
+}
+
+/* The old left Mission Replay panel remains as control summary, but less tall */
+body.v82c-r2-layout .v82c-mission-panel {
+  margin:12px 0 14px;
+  padding:11px;
+}
+
+body.v82c-r2-layout .v82c-mission-panel h3 {
+  margin-bottom:7px;
+}
+
+body.v82c-r2-layout .v82c-step-desc {
+  max-height:54px;
+  overflow:auto;
+}
+
+@media(max-width:1300px){
+  .v82c-r2-replay-dock {
+    grid-template-columns:1fr;
+  }
+
+  .v82c-r2-dock-main .v82c-timeline-track {
+    grid-template-columns:1fr;
+  }
+
+  body.v82c-r2-layout .webgl-stage {
+    min-height:620px;
+  }
+}

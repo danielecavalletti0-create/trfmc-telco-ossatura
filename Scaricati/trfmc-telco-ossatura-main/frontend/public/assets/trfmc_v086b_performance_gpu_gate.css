@@ -1,0 +1,377 @@
+[data-trfmc-page="performance-gpu-gate-v86b"] {
+  margin:0;
+  background:#01040b;
+  color:#e8faff;
+  overflow-x:hidden;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] :where(*) {
+  box-sizing:border-box;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-root {
+  --bg:#01040b;
+  --panel:#061426;
+  --line:rgba(143,240,255,.30);
+  --line2:rgba(143,240,255,.16);
+  --cyan:#8ff0ff;
+  --green:#42f56f;
+  --amber:#fbbf24;
+  --red:#ff3b5c;
+  --text:#e8faff;
+  --muted:rgba(232,250,255,.66);
+  min-height:100vh;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.08), transparent 30%),
+    radial-gradient(circle at 88% 12%, rgba(66,245,111,.07), transparent 32%),
+    linear-gradient(135deg,#01040b,#04111f 48%,#01040b);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-shellbar {
+  min-height:52px;
+  display:grid;
+  grid-template-columns:390px 1fr auto;
+  gap:14px;
+  align-items:center;
+  padding:8px 14px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(4,19,34,.98),rgba(1,5,13,.98));
+  position:sticky;
+  top:0;
+  z-index:20;
+  contain:layout paint;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-orb {
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:radial-gradient(circle at 35% 28%, #e8ffff 0 8%, #8ff0ff 9% 34%, #0c5870 65%, #020811 100%);
+  box-shadow:0 0 22px rgba(143,240,255,.5);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-brand strong {
+  display:block;
+  font-size:12px;
+  letter-spacing:.17em;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-brand small {
+  display:block;
+  margin-top:2px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-nav,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-status,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-modebar,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-bench-actions {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-nav a,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-status span,
+[data-trfmc-page="performance-gpu-gate-v86b"] button {
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--cyan);
+  background:rgba(143,240,255,.045);
+  text-decoration:none;
+  padding:7px 11px;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-status span {
+  color:var(--green);
+  border-color:rgba(66,245,111,.35);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-main {
+  padding:12px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-hero,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-card,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-bench,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-portal-gate article,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-roadmap {
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(143,240,255,.055), transparent 32%),
+    linear-gradient(145deg,rgba(6,24,42,.84),rgba(1,6,14,.97));
+  box-shadow:0 20px 70px rgba(0,0,0,.34), inset 0 0 28px rgba(143,240,255,.022);
+  contain:layout paint;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-hero {
+  min-height:150px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 230px;
+  gap:18px;
+  align-items:center;
+  padding:22px 24px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-kicker {
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-hero h1 {
+  margin:0;
+  font-size:clamp(42px,4.2vw,78px);
+  line-height:.98;
+  letter-spacing:.04em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-shadow:0 0 14px rgba(143,240,255,.55),0 0 44px rgba(143,240,255,.16);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-hero p {
+  max-width:1180px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-verdict {
+  border:1px solid rgba(66,245,111,.36);
+  border-radius:22px;
+  padding:18px;
+  text-align:center;
+  background:rgba(0,35,18,.34);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-verdict span,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-verdict small {
+  display:block;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:10px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-verdict strong {
+  display:block;
+  margin:8px 0;
+  color:var(--green);
+  font-size:28px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-grid {
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:1.4fr .8fr .8fr;
+  gap:10px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-card {
+  padding:14px;
+  min-width:0;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-card-head,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-bench-head {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] h2 {
+  margin:0;
+  color:var(--cyan);
+  font-size:14px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-table {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-table.compact {
+  grid-template-columns:1fr;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-table div,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-big {
+  border:1px solid var(--line2);
+  border-radius:14px;
+  padding:10px;
+  background:rgba(1,6,14,.42);
+  min-width:0;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-table span,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-big span {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-table strong,
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-big strong {
+  display:block;
+  margin-top:5px;
+  color:var(--text);
+  font-size:14px;
+  overflow-wrap:anywhere;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-big strong {
+  color:var(--green);
+  font-size:42px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-modebar {
+  margin-top:12px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-modebar button.is-active {
+  color:#021006;
+  background:linear-gradient(135deg,rgba(143,240,255,.78),rgba(66,245,111,.88));
+  border-color:rgba(66,245,111,.72);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-bench {
+  margin-top:10px;
+  padding:12px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-bench-head p {
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-canvas-wrap {
+  margin-top:10px;
+  position:relative;
+  min-height:460px;
+  border:1px solid var(--line2);
+  border-radius:18px;
+  overflow:hidden;
+  background:#020813;
+  contain:layout paint;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] #pg86Canvas {
+  display:block;
+  width:100%;
+  height:460px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-overlay {
+  position:absolute;
+  left:16px;
+  bottom:16px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-overlay span {
+  border:1px solid rgba(143,240,255,.25);
+  border-radius:12px;
+  padding:8px 10px;
+  background:rgba(1,6,14,.72);
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-portal-gate {
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-portal-gate article {
+  padding:14px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-portal-gate p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-roadmap {
+  margin-top:10px;
+  padding:14px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] table {
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+  font-size:11px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] th,
+[data-trfmc-page="performance-gpu-gate-v86b"] td {
+  border-bottom:1px solid var(--line2);
+  padding:10px;
+  text-align:left;
+  color:var(--muted);
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] th {
+  color:var(--cyan);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:10px;
+}
+
+[data-trfmc-page="performance-gpu-gate-v86b"] .pg86-footer {
+  margin:10px 12px 16px;
+  padding:8px;
+  border:1px solid var(--line2);
+  border-radius:999px;
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+}
+
+@media(max-width:1500px){
+  [data-trfmc-page="performance-gpu-gate-v86b"] .pg86-shellbar,
+  [data-trfmc-page="performance-gpu-gate-v86b"] .pg86-hero,
+  [data-trfmc-page="performance-gpu-gate-v86b"] .pg86-grid,
+  [data-trfmc-page="performance-gpu-gate-v86b"] .pg86-portal-gate {
+    grid-template-columns:1fr;
+  }
+
+  [data-trfmc-page="performance-gpu-gate-v86b"] .pg86-hero h1 {
+    white-space:normal;
+    font-size:clamp(36px,7vw,62px);
+  }
+
+  [data-trfmc-page="performance-gpu-gate-v86b"] .pg86-table {
+    grid-template-columns:1fr;
+  }
+}

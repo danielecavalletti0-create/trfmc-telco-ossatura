@@ -1,0 +1,26 @@
+{
+  "version": "TRFMC v0.84C",
+  "page": "rf_sapienza_console_v84c.html",
+  "mission": "Dark calibrated RF Sapienza Console R2: reduce white wash, strengthen didactic interpretation, preserve instrument truth.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "based_on": "v0.84B RF Sapienza Console",
+  "corrections": [
+    "dark calibrated palette",
+    "white dominance removed",
+    "field contrast improved",
+    "instrument panels enlarged",
+    "didactic masterclass section added",
+    "quality score made more severe",
+    "teacher mode visual state added"
+  ],
+  "teaching_doctrine": [
+    "La mappa suggerisce; lo strumento dimostra",
+    "RSRP non equivale a qualità",
+    "PDP/IQ/SINR/EVM spiegano il canale",
+    "Il docente trasforma il dato in metodo"
+  ]
+}

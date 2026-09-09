@@ -1,0 +1,176 @@
+/* TRFMC v0.74A - UE Mobility / Handover page-specific redesign */
+
+body.v74-ue-redesign {
+  --v74-cyan: #8ff0ff;
+  --v74-green: #42f56f;
+  --v74-amber: #fbbf24;
+  --v74-red: #ff3b5c;
+  --v74-violet: #a78bfa;
+  --v74-bg: #020713;
+  --v74-panel: rgba(3,12,26,.88);
+}
+
+/* Page-local containment only */
+body.v74-ue-redesign main,
+body.v74-ue-redesign .v69-app,
+body.v74-ue-redesign .v66-layout,
+body.v74-ue-redesign .dashboard {
+  isolation: isolate;
+}
+
+/* A cleaner mission summary inserted only on v69 */
+.v74-ue-mission-strip {
+  position: relative;
+  z-index: 4;
+  margin: 86px 14px 12px;
+  border: 1px solid rgba(143,240,255,.30);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.13), transparent 34%),
+    radial-gradient(circle at 90% 0%, rgba(66,245,111,.08), transparent 34%),
+    linear-gradient(135deg, rgba(8,28,52,.86), rgba(3,9,22,.94));
+  box-shadow:
+    0 22px 72px rgba(0,0,0,.34),
+    inset 0 0 34px rgba(143,240,255,.035);
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 12px;
+}
+
+.v74-ue-mission-strip h2 {
+  margin: 0;
+  color: var(--v74-cyan);
+  font-size: 14px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.v74-ue-mission-strip p {
+  margin: 7px 0 0;
+  color: rgba(235,250,255,.66);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.v74-ue-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.v74-ue-step {
+  position: relative;
+  border: 1px solid rgba(143,240,255,.22);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(255,255,255,.10), transparent 34%),
+    rgba(143,240,255,.045);
+  padding: 9px;
+  min-height: 64px;
+}
+
+.v74-ue-step b {
+  display: block;
+  color: var(--v74-green);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.v74-ue-step span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(235,250,255,.56);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.v74-ue-step::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  width: 8px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--v74-cyan), transparent);
+}
+
+.v74-ue-step:last-child::after {
+  display: none;
+}
+
+/* UE/Cell objects: more defined, less rectangular */
+body.v74-ue-redesign canvas,
+body.v74-ue-redesign .v66-canvas-wrap,
+body.v74-ue-redesign .heatmap-stage,
+body.v74-ue-redesign .viewport,
+body.v74-ue-redesign .scene,
+body.v74-ue-redesign .map,
+body.v74-ue-redesign .rf-map {
+  border-radius: 30px !important;
+  border: 1px solid rgba(143,240,255,.38) !important;
+  box-shadow:
+    0 24px 78px rgba(0,0,0,.38),
+    0 0 48px rgba(143,240,255,.10),
+    inset 0 0 42px rgba(143,240,255,.035) !important;
+}
+
+/* panels are still engineering objects, not bubbles */
+body.v74-ue-redesign .panel,
+body.v74-ue-redesign section,
+body.v74-ue-redesign article,
+body.v74-ue-redesign aside,
+body.v74-ue-redesign .card,
+body.v74-ue-redesign .tile,
+body.v74-ue-redesign .metric,
+body.v74-ue-redesign .kpi {
+  border-radius: 24px !important;
+}
+
+/* specific RF/handover visual affordances */
+.v74-handover-legend {
+  margin: 10px 14px 12px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.v74-handover-legend div {
+  border: 1px solid rgba(143,240,255,.22);
+  border-radius: 18px;
+  background: rgba(143,240,255,.045);
+  padding: 10px;
+}
+
+.v74-handover-legend b {
+  display: block;
+  color: var(--v74-cyan);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.v74-handover-legend span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(235,250,255,.56);
+  font-size: 10px;
+}
+
+.v74-handover-legend .ok b { color: var(--v74-green); }
+.v74-handover-legend .warn b { color: var(--v74-amber); }
+.v74-handover-legend .crit b { color: var(--v74-red); }
+
+@media(max-width: 1150px) {
+  .v74-ue-mission-strip {
+    grid-template-columns: 1fr;
+    margin-top: 92px;
+  }
+
+  .v74-ue-flow,
+  .v74-handover-legend {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -1,0 +1,63 @@
+/*
+ TRFMC Visual Asset Engine V3
+ Reusable premium visual components.
+ No CDN. No iframe. No navbar.
+*/
+
+trfmc-visual-asset{
+  display:block;
+  width:100%;
+  min-height:280px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(0,229,255,.34);
+  border-radius:10px;
+  background:
+    radial-gradient(circle at 70% 15%, rgba(0,229,255,.10), transparent 30%),
+    linear-gradient(145deg, rgba(2,18,30,.92), rgba(1,7,13,.94));
+  box-shadow:
+    0 0 34px rgba(0,229,255,.14),
+    inset 0 0 24px rgba(0,229,255,.055),
+    0 18px 44px rgba(0,0,0,.38);
+}
+
+trfmc-visual-asset[data-size="large"]{min-height:520px;}
+trfmc-visual-asset[data-size="medium"]{min-height:360px;}
+trfmc-visual-asset[data-size="small"]{min-height:220px;}
+
+.trfmc-vae-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(260px,1fr));
+  gap:8px;
+}
+
+.trfmc-vae-stage{
+  min-height:560px;
+}
+
+.trfmc-vae-caption{
+  position:absolute;
+  left:12px;
+  top:10px;
+  z-index:3;
+  font-family:ui-monospace,Consolas,monospace;
+  color:#00e5ff;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-shadow:0 0 14px rgba(0,229,255,.45);
+  pointer-events:none;
+}
+
+.trfmc-vae-chip{
+  display:inline-block;
+  border:1px solid rgba(117,255,91,.36);
+  background:rgba(117,255,91,.075);
+  color:#75ff5b;
+  border-radius:6px;
+  padding:2px 6px;
+  margin-left:6px;
+}
+
+@media(max-width:1400px){
+  .trfmc-vae-grid{grid-template-columns:1fr;}
+}

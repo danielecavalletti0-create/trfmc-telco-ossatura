@@ -1,0 +1,184 @@
+/* ============================================================
+   TRFMC v0.84J - RF 4D Measurement Theater
+   Overlay disciplinato sopra v84I: profondità, reticolo 4D,
+   Fresnel/LOS/NLOS, timeline e didattica.
+   ============================================================ */
+
+body.v84j-theater {
+  --j-cyan:#8ff0ff;
+  --j-green:#42f56f;
+  --j-amber:#fbbf24;
+  --j-red:#ff3b5c;
+  --j-blue:#2ea7ff;
+  --j-bg:#01040b;
+}
+
+body.v84j-theater .hero {
+  background:
+    radial-gradient(circle at 13% 8%, rgba(143,240,255,.19), transparent 32%),
+    radial-gradient(circle at 82% 18%, rgba(66,245,111,.10), transparent 32%),
+    linear-gradient(135deg, rgba(4,27,48,.98), rgba(1,5,13,.99)) !important;
+}
+
+body.v84j-theater h1 {
+  text-shadow:
+    0 0 16px rgba(143,240,255,.60),
+    0 0 56px rgba(143,240,255,.20),
+    0 0 100px rgba(66,245,111,.08) !important;
+}
+
+body.v84j-theater .stage {
+  overflow:hidden;
+  transform-style:preserve-3d;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(143,240,255,.09), transparent 34%),
+    linear-gradient(180deg, rgba(2,12,26,.99), rgba(1,4,10,.99)) !important;
+}
+
+body.v84j-theater .stage::before {
+  content:"";
+  position:absolute;
+  inset:80px 0 0;
+  pointer-events:none;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(143,240,255,.055) 46%, transparent 60%),
+    repeating-linear-gradient(180deg, rgba(143,240,255,.018) 0 1px, transparent 1px 9px);
+  mix-blend-mode:screen;
+  opacity:.44;
+  z-index:5;
+}
+
+body.v84j-theater #fieldCanvas {
+  filter:saturate(.96) brightness(1.06) contrast(1.20) !important;
+}
+
+#rf4dOverlayCanvas {
+  position:absolute;
+  pointer-events:none;
+  z-index:18;
+  mix-blend-mode:screen;
+}
+
+.rf4d-dock {
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr;
+  gap:14px;
+}
+
+.rf4d-dock article {
+  border:1px solid rgba(143,240,255,.34);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.080), transparent 34%),
+    linear-gradient(145deg, rgba(7,28,48,.88), rgba(1,6,14,.98));
+  padding:14px;
+  min-height:118px;
+  box-shadow:0 20px 72px rgba(0,0,0,.36), inset 0 0 30px rgba(143,240,255,.032);
+}
+
+.rf4d-dock h2 {
+  margin:0 0 10px;
+  color:var(--j-cyan);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+}
+
+.rf4d-dock p {
+  margin:0;
+  color:rgba(232,250,255,.72);
+  font-size:12px;
+  line-height:1.55;
+}
+
+.rf4d-dock code {
+  display:block;
+  margin-top:10px;
+  padding:8px 10px;
+  border:1px solid rgba(66,245,111,.24);
+  border-radius:12px;
+  background:rgba(66,245,111,.052);
+  color:var(--j-green);
+  font-size:10px;
+  white-space:normal;
+}
+
+.rf4d-timeline {
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:88px;
+  z-index:22;
+  border:1px solid rgba(143,240,255,.28);
+  border-radius:22px;
+  padding:10px 14px;
+  background:rgba(1,6,14,.78);
+  backdrop-filter:blur(8px);
+  display:grid;
+  grid-template-columns:120px 1fr 120px;
+  gap:12px;
+  align-items:center;
+  pointer-events:none;
+}
+
+.rf4d-timeline strong {
+  color:var(--j-green);
+  font-size:11px;
+  letter-spacing:.14em;
+}
+
+.rf4d-track {
+  height:10px;
+  border-radius:999px;
+  background:
+    linear-gradient(90deg,
+      rgba(143,240,255,.85),
+      rgba(66,245,111,.85),
+      rgba(251,191,36,.82),
+      rgba(46,167,255,.82));
+  box-shadow:0 0 18px rgba(143,240,255,.22);
+  position:relative;
+  overflow:hidden;
+}
+
+.rf4d-track::after {
+  content:"";
+  position:absolute;
+  top:-5px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 20px rgba(143,240,255,.88);
+  animation:rf4dSweep 6s linear infinite;
+}
+
+.rf4d-timeline span {
+  color:rgba(232,250,255,.68);
+  font-size:10px;
+  text-align:right;
+}
+
+@keyframes rf4dSweep {
+  from { left:-22px; }
+  to { left:100%; }
+}
+
+body.v84j-theater .caption b::after {
+  content:" · 4D measurement theater";
+  color:var(--j-green);
+}
+
+body.v84j-theater .stage:after {
+  content:"RF 4D THEATER · FRESNEL · LOS/NLOS · SERVING VECTOR · TEMPORAL PROBE";
+}
+
+body.v84j-theater .score strong {
+  color:var(--j-green);
+}
+
+@media(max-width:1500px){
+  .rf4d-dock{grid-template-columns:1fr}
+  .rf4d-timeline{position:static;margin:12px 18px 18px}
+}

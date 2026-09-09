@@ -1,0 +1,20 @@
+{
+  "version": "TRFMC v0.82B",
+  "mode": "native WebGL RF field refinement",
+  "new_page": "webgl_rf_heatmap_engine_v82b_native_lab.html",
+  "v82a_preserved": true,
+  "v81c_r2_preserved": true,
+  "original_v68_overwritten": false,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_webgl": true,
+  "visual_fix": [
+    "reduced red saturation",
+    "calibrated RF palette",
+    "sector beam overlays",
+    "contour lines",
+    "dominance-aware telemetry"
+  ]
+}

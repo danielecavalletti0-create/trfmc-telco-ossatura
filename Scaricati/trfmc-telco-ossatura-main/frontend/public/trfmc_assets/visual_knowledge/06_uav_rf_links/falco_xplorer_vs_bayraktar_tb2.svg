@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <radialGradient id="g1" cx="20%" cy="10%" r="70%">
+      <stop offset="0%" stop-color="#75eaff" stop-opacity=".26"/>
+      <stop offset="42%" stop-color="#06111f" stop-opacity=".95"/>
+      <stop offset="100%" stop-color="#020812" stop-opacity="1"/>
+    </radialGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b2741"/>
+      <stop offset="100%" stop-color="#04101d"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#g1)"/>
+  <g opacity=".22">
+    <path d="M0 670 H1600 M0 730 H1600 M0 790 H1600 M0 850 H1600" stroke="#75eaff" stroke-width="1"/>
+    <path d="M120 0 V900 M260 0 V900 M400 0 V900 M540 0 V900 M680 0 V900 M820 0 V900 M960 0 V900 M1100 0 V900 M1240 0 V900 M1380 0 V900" stroke="#75eaff" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(90,72)">
+    <text x="0" y="0" font-size="28" font-family="Inter,Segoe UI,Arial" font-weight="800" fill="#75eaff" letter-spacing="6">TRFMC VISUAL FALLBACK ASSET</text>
+    <text x="0" y="58" font-size="58" font-family="Inter,Segoe UI,Arial" font-weight="900" fill="#f1fbff">UAV Platforms and ISR Systems</text>
+    <text x="0" y="104" font-size="24" font-family="Inter,Segoe UI,Arial" fill="#9ab5c9">Fallback tecnico per UAV ISR, payload, datalink, telemetry e GCS.</text>
+  </g>
+
+  <g transform="translate(820,390)" filter="url(#glow)">
+    <ellipse cx="0" cy="0" rx="260" ry="92" fill="#75eaff" opacity=".18"/>
+    <ellipse cx="0" cy="0" rx="170" ry="58" fill="#ffd37b" opacity=".16"/>
+    <path d="M-340 80 L-120 -60 L120 -60 L340 80 Z" fill="url(#panel)" stroke="#75eaff" stroke-opacity=".6" stroke-width="3"/>
+    <path d="M-200 25 L-60 -35 L80 -20 L210 48" fill="none" stroke="#ffd37b" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="-220" cy="50" r="22" fill="#75eaff" opacity=".75"/>
+    <circle cx="220" cy="50" r="22" fill="#ffd37b" opacity=".75"/>
+    <path d="M-80 -105 C-30 -170 80 -170 140 -110" fill="none" stroke="#75eaff" stroke-width="5" opacity=".75"/>
+    <path d="M-140 -155 C-60 -255 110 -255 210 -155" fill="none" stroke="#ffd37b" stroke-width="3" opacity=".52"/>
+  </g>
+
+  <g transform="translate(90,760)"><rect x="-70" y="-24" width="140" height="48" rx="18" fill="rgba(5,17,31,.88)" stroke="#75eaff" stroke-opacity=".45"/><text x="0" y="6" text-anchor="middle" font-size="22" font-weight="800" fill="#f1fbff">UAV ISR</text></g><g transform="translate(260,840)"><rect x="-70" y="-24" width="140" height="48" rx="18" fill="rgba(5,17,31,.88)" stroke="#75eaff" stroke-opacity=".45"/><text x="0" y="6" text-anchor="middle" font-size="22" font-weight="800" fill="#f1fbff">PAYLOAD</text></g><g transform="translate(430,760)"><rect x="-70" y="-24" width="140" height="48" rx="18" fill="rgba(5,17,31,.88)" stroke="#75eaff" stroke-opacity=".45"/><text x="0" y="6" text-anchor="middle" font-size="22" font-weight="800" fill="#f1fbff">C2 LINK</text></g><g transform="translate(600,840)"><rect x="-70" y="-24" width="140" height="48" rx="18" fill="rgba(5,17,31,.88)" stroke="#75eaff" stroke-opacity=".45"/><text x="0" y="6" text-anchor="middle" font-size="22" font-weight="800" fill="#f1fbff">TELEMETRY</text></g><g transform="translate(770,760)"><rect x="-70" y="-24" width="140" height="48" rx="18" fill="rgba(5,17,31,.88)" stroke="#75eaff" stroke-opacity=".45"/><text x="0" y="6" text-anchor="middle" font-size="22" font-weight="800" fill="#f1fbff">GCS</text></g>
+
+  <g transform="translate(90,820)">
+    <rect x="0" y="-46" width="520" height="74" rx="22" fill="rgba(5,17,31,.82)" stroke="#ffd37b" stroke-opacity=".35"/>
+    <text x="24" y="-6" font-size="24" font-family="Inter,Segoe UI,Arial" fill="#ffd37b" font-weight="800">source_mode: fallback · replaceable with real render</text>
+  </g>
+</svg>

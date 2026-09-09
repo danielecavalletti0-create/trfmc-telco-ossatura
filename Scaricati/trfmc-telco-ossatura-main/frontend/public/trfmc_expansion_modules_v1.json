@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-05-23T19:28:42.494705+00:00",
+  "policy": "Expansion modules are leaf pages. V6R3 remains official shell. No iframe. No CDN.",
+  "hub": "/trfmc_expansion_hub_v1.html",
+  "modules": [
+    {
+      "id": "rf_physics_theory",
+      "area": "02_RF_Physics",
+      "title": "RF Physics Theory Atlas V2",
+      "url": "/trfmc_rf_physics_theory_atlas_v2.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false,
+      "version": "v2",
+      "description": "Interactive EM/RF/DSP physics atlas: wave equation, Fourier, phase, thermal noise and time/frequency correlation."
+    },
+    {
+      "id": "microwave_link",
+      "area": "06_Microwave_Link",
+      "title": "Microwave Link Operations Center V2",
+      "url": "/trfmc_microwave_link_operations_center_v2.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false,
+      "version": "v2",
+      "description": "Interactive microwave link budget engine: FSPL, Fresnel, rain fade, RSL, margin and adaptive modulation."
+    },
+    {
+      "id": "fiber_fronthaul",
+      "area": "07_Fiber_Optic",
+      "title": "Fiber / Fronthaul / OTDR Workbench V2",
+      "url": "/trfmc_fiber_fronthaul_otdr_workbench_v2.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false,
+      "version": "v2",
+      "description": "Interactive optical budget and OTDR workbench with CPRI/eCPRI fronthaul latency."
+    },
+    {
+      "id": "private_networks",
+      "area": "08_Private_Networks",
+      "title": "Private Networks / Wi-Fi 7 / 5G Mesh Lab",
+      "url": "/trfmc_private_networks_wifi7_5g_mesh_v1.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false
+    },
+    {
+      "id": "antenna_rru_ret",
+      "area": "05_Antenna_System",
+      "title": "Antenna / RRU / RET / CPRI Port Mapping V5 Reality Asset",
+      "url": "/trfmc_antenna_rru_ret_cpri_port_mapping_v5_reality_asset.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false,
+      "version": "v5-reality-asset",
+      "description": "Canvas-based pseudo-real RF/RAN asset painter with mast, antenna panel, RRU, heatsink, jumper cables, connector block, volumetric beam and live formulas."
+    },
+    {
+      "id": "datacenter_power",
+      "area": "10_Data_Center_Infrastructure",
+      "title": "Data Center / Power / PDU Infrastructure Lab",
+      "url": "/trfmc_datacenter_power_pdu_infrastructure_v1.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false
+    },
+    {
+      "id": "cyber_rf_intelligence",
+      "area": "11_Cyber_RF_Intelligence",
+      "title": "Cyber RF Intelligence / Evidence Lab",
+      "url": "/trfmc_cyber_rf_intelligence_evidence_v1.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false
+    },
+    {
+      "id": "knowledge_base",
+      "area": "12_Knowledge_Base",
+      "title": "Knowledge Base / Theory / Procedures Atlas",
+      "url": "/trfmc_knowledge_base_theory_procedures_v1.html",
+      "class": "leaf_operational_candidate",
+      "webgl": true,
+      "core_api": false
+    }
+  ],
+  "last_rf_physics_v2_update": "2026-05-23T19:35:57.486976+00:00",
+  "last_microwave_link_v2_update": "2026-05-23T19:38:36.254039+00:00",
+  "last_fiber_fronthaul_otdr_v2_update": "2026-05-23T19:41:27.059573+00:00",
+  "last_antenna_rru_ret_cpri_v2_update": "2026-05-23T19:47:05.497808+00:00",
+  "last_antenna_rru_ret_cpri_v3_update": "2026-05-23T19:50:01.082167+00:00",
+  "last_antenna_rru_ret_cpri_v4_reality_update": "2026-05-23T19:54:43.919286+00:00",
+  "last_antenna_rru_ret_cpri_v5_reality_asset_update": "2026-05-23T19:59:05.199979+00:00"
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <rect width="1672" height="941" fill="#020812"/>
+  <text x="70" y="90" fill="#75eaff" font-family="Arial" font-size="42" font-weight="700">TRFMC RF &amp; MICROWAVE ENGINEERING LAB</text>
+  <text x="70" y="145" fill="#f1fbff" font-family="Arial" font-size="24">VNA · Spectrum Analyzer · RF Signal Generator · DUT · S-Parameters · Smith Chart · Power Sensor</text>
+  <rect x="70" y="210" width="1532" height="520" rx="28" fill="#06111f" stroke="#75eaff"/>
+  <text x="110" y="300" fill="#8dffbd" font-family="Arial" font-size="30">Generated coherent PNG render available:</text>
+  <text x="110" y="350" fill="#f1fbff" font-family="Arial" font-size="24">/trfmc_assets/visual_knowledge/05_rf_lab_visuals/rf_microwave_engineering_lab.png</text>
+</svg>

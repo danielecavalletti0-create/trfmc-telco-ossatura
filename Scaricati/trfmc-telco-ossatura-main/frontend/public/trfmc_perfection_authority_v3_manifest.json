@@ -1,0 +1,11 @@
+{
+  "id": "TRFMC_PERFECTION_AUTHORITY_V3_SCOPED",
+  "generated": "2026-05-23T20:35:33.170018+00:00",
+  "purpose": "Clean leaf-only score after Batch B; protected pages excluded; URL/title-first domain classification.",
+  "reports": {
+    "summary": "runtime/quality/latest_repair_batch_b_warn_authority_v3/authority_v3_summary.json",
+    "leaf_scorecard": "runtime/quality/latest_repair_batch_b_warn_authority_v3/authority_v3_leaf_scorecard.tsv",
+    "leaf_domain_summary": "runtime/quality/latest_repair_batch_b_warn_authority_v3/authority_v3_leaf_domain_summary.tsv",
+    "scope_summary": "runtime/quality/latest_repair_batch_b_warn_authority_v3/authority_v3_scope_summary.tsv"
+  }
+}

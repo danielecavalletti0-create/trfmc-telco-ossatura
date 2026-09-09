@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime</title>
+
+<link rel="stylesheet" href="/assets/trfmc_field_engineering_v64.css"/>
+<link rel="stylesheet" href="/assets/trfmc_field_telemetry_v65.css"/>
+<script defer src="/assets/trfmc_field_engineering_v64.js"></script>
+<script defer src="/assets/trfmc_field_telemetry_v65.js"></script>
+  <link rel="stylesheet" href="/assets/trfmc_master_shell_v75.css"/>
+</head>
+
+<body class="v64-shell">
+
+<div class="bg-grid"></div>
+<div class="bg-glow glow-a"></div>
+<div class="bg-glow glow-b"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="orb"></div>
+    <div>
+      <b>TRFMC FIELD ENGINEERING MODE</b>
+      <span>RET · AISG · RRU · VSWR · Microwave · Power · Fiber</span>
+    </div>
+  </div>
+
+  <nav>
+    <a href="/portal_index_v19.html">Portal</a>
+    <a href="/rf_telco_knowledge_os_v60.html">Knowledge OS</a>
+    <a href="/rf_propagation_sandbox_v62.html">Propagation</a>
+    <a href="/infrastructure_digital_twin_v63.html">Digital Twin</a>
+    <a class="active" href="/field_engineering_mode_v64.html">Field Mode</a>
+      <a href="/webgl_rf_heatmap_engine_v66.html">WebGL Heatmap</a>
+      <a href="/webgl_rf_heatmap_engine_v67.html">Urban Shadowing</a>
+      <a href="/webgl_rf_heatmap_engine_v69.html">UE Handover</a>
+      <a href="/trfmc_visual_qa_matrix_v71.html">Visual QA</a>
+  </nav>
+
+  <div class="state-pill">
+    LIVE SITE
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow">
+      TRFMC v0.64A · Telecom RF Field Engineering
+    </div>
+
+    <h1>Field Engineering Mission Console</h1>
+
+    <p>
+      Ambiente operativo avanzato per troubleshooting radio, validazione
+      antenna line system, RET/AISG, VSWR, microwave backhaul,
+      power chain e telemetria RF.
+    </p>
+
+    <div class="hero-actions">
+      <button>RF Survey</button>
+      <button>Open RET Layer</button>
+      <button>Analyze VSWR</button>
+      <button>Inspect Alarms</button>
+    </div>
+  </div>
+
+  <div class="hero-kpi">
+    <div>
+      <span>SECTOR HEALTH</span>
+      <b>97%</b>
+    </div>
+
+    <div>
+      <span>BACKHAUL</span>
+      <b>OK</b>
+    </div>
+
+    <div>
+      <span>POWER</span>
+      <b>-48V</b>
+    </div>
+
+    <div>
+      <span>VSWR</span>
+      <b>1.18</b>
+    </div>
+  </div>
+</section>
+
+<main class="layout">
+
+<section class="tower-panel">
+
+<h2>Live Telecom Tower</h2>
+
+<div class="tower-scene" id="tower_scene">
+
+<div class="ground"></div>
+
+<div class="tower">
+  <div class="mast"></div>
+  <div class="truss"></div>
+
+  <div class="platform p1"></div>
+  <div class="platform p2"></div>
+  <div class="platform p3"></div>
+
+  <div class="antenna a1">ANT A</div>
+  <div class="antenna a2">ANT B</div>
+  <div class="antenna a3">ANT C</div>
+
+  <div class="rru">RRU</div>
+  <div class="ret">RET</div>
+  <div class="aisg">AISG</div>
+
+  <div class="microwave"></div>
+</div>
+
+<div class="beam beam-a"></div>
+<div class="beam beam-b"></div>
+
+<div class="mw-link"></div>
+<div class="fiber-link"></div>
+
+<div class="packet p1"></div>
+<div class="packet p2"></div>
+
+<div class="shelter">SHELTER</div>
+<div class="power-box">POWER</div>
+
+<div class="label l1">
+  <b>RET ACTIVE</b><br/>
+  Tilt 4.5°
+</div>
+
+<div class="label l2">
+  <b>VSWR NORMAL</b><br/>
+  1.18
+</div>
+
+<div class="label l3">
+  <b>MW BACKHAUL</b><br/>
+  -42 dBm
+</div>
+
+</div>
+
+</section>
+
+<section class="detail-panel">
+
+<h2>Field Diagnostics</h2>
+
+<div class="diag-grid">
+
+<div>
+<span>Band</span>
+<b>n78</b>
+</div>
+
+<div>
+<span>Azimuth</span>
+<b>120°</b>
+</div>
+
+<div>
+<span>Tilt</span>
+<b>4.5°</b>
+</div>
+
+<div>
+<span>MIMO</span>
+<b>64T64R</b>
+</div>
+
+<div>
+<span>RET State</span>
+<b>ONLINE</b>
+</div>
+
+<div>
+<span>AISG Bus</span>
+<b>OK</b>
+</div>
+
+<div>
+<span>RRU Temp</span>
+<b>44°C</b>
+</div>
+
+<div>
+<span>Optical RX</span>
+<b>-5.2 dBm</b>
+</div>
+
+</div>
+
+<div class="alarm-box">
+FIELD INTERPRETATION:
+il layer fisico influenza copertura, throughput, handover,
+interferenza, SINR, availability e stabilità radio.
+</div>
+
+<div class="alarm-list">
+<div class="ok">RET OK</div>
+<div class="ok">AISG OK</div>
+<div class="ok">FIBER OK</div>
+<div class="warn">BACKHAUL WATCH</div>
+<div class="ok">VSWR OK</div>
+</div>
+
+</section>
+
+</main>
+
+<section class="knowledge">
+
+<article>
+<h3>RET / AISG</h3>
+<p>
+Il Remote Electrical Tilt modifica dinamicamente
+l’inclinazione del fascio antenna per controllare
+copertura, overlap e interferenza inter-settore.
+</p>
+</article>
+
+<article>
+<h3>VSWR</h3>
+<p>
+Mismatch elevati generano riflessioni RF,
+riduzione di potenza irradiata e possibili fault
+sulla linea antenna/feed.
+</p>
+</article>
+
+<article>
+<h3>MICROWAVE BACKHAUL</h3>
+<p>
+Bridge radio ad alta capacità usati come trasporto
+tra siti remoti e aggregation/core network.
+</p>
+</article>
+
+<article>
+<h3>POWER CHAIN</h3>
+<p>
+La catena -48VDC comprende rettificatori,
+battery bank, protezioni, grounding e monitoring.
+</p>
+</article>
+
+</section>
+
+<footer class="footer">
+TRFMC v0.65B · Field Telemetry on GPU Runtime · frontend-only · localhost-only
+</footer>
+<script defer src="/assets/trfmc_master_shell_v75.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "version": "TRFMC v0.87F",
+  "canonical_home": "trfmc_home_v87e.html",
+  "aliases": [
+    "trfmc_home.html",
+    "trfmc.html"
+  ],
+  "visible_menu_order": [
+    "HOME",
+    "RF PHYSICS",
+    "RF FIELD",
+    "DIGITAL TWIN",
+    "HANDOVER",
+    "RF CLUTTER",
+    "THEORY"
+  ],
+  "hidden_service_area": "ENGINEERING BAY",
+  "not_promoted": [
+    "trfmc_visual_qa_matrix_v71.html",
+    "trfmc_design_token_audit_v86f.html",
+    "trfmc_performance_gpu_gate_v86b_r1.html",
+    "trfmc_unified_shell_noiframe_v86d_r1.html",
+    "trfmc_cinematic_command_deck_v87d_r2.html"
+  ]
+}

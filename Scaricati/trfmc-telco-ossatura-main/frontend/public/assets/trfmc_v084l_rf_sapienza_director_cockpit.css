@@ -1,0 +1,172 @@
+/* ============================================================
+   TRFMC v0.84L - RF Sapienza Director Cockpit Refinement
+   Obiettivo: il Director non deve più sembrare un blocco enorme.
+   Deve diventare una striscia professionale da strumento T&M.
+   ============================================================ */
+
+body.v84l-cockpit {
+  --l-cyan:#8ff0ff;
+  --l-green:#42f56f;
+  --l-amber:#fbbf24;
+  --l-red:#ff3b5c;
+  --l-panel:#061426;
+  --l-bg:#01040b;
+}
+
+/* Hero più asciutta */
+body.v84l-cockpit .hero {
+  min-height:150px !important;
+  padding-top:26px !important;
+  padding-bottom:22px !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(143,240,255,.18), transparent 30%),
+    radial-gradient(circle at 86% 20%, rgba(66,245,111,.09), transparent 30%),
+    linear-gradient(135deg, rgba(4,27,47,.98), rgba(1,5,13,.99)) !important;
+}
+
+body.v84l-cockpit h1 {
+  font-size:clamp(38px,4.8vw,72px) !important;
+  line-height:.98 !important;
+  text-shadow:
+    0 0 14px rgba(143,240,255,.58),
+    0 0 44px rgba(143,240,255,.16) !important;
+}
+
+/* Director compatto */
+body.v84l-cockpit .sapienza-director {
+  margin:8px 8px 10px !important;
+  padding:9px !important;
+  border-radius:20px !important;
+  grid-template-columns:210px minmax(420px,1fr) 270px !important;
+  gap:9px !important;
+  align-items:stretch !important;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(143,240,255,.070), transparent 34%),
+    linear-gradient(145deg, rgba(5,22,38,.92), rgba(1,6,14,.98)) !important;
+  box-shadow:
+    0 18px 58px rgba(0,0,0,.36),
+    inset 0 0 26px rgba(143,240,255,.026) !important;
+}
+
+body.v84l-cockpit .sapienza-director article {
+  min-height:0 !important;
+}
+
+body.v84l-cockpit .sapienza-director h2 {
+  font-size:10px !important;
+  margin:0 0 5px !important;
+  letter-spacing:.18em !important;
+}
+
+body.v84l-cockpit .sapienza-director p {
+  font-size:10px !important;
+  line-height:1.35 !important;
+  color:rgba(232,250,255,.62) !important;
+}
+
+/* Pulsanti come segmenti strumentali, non mattonelle giganti */
+body.v84l-cockpit .director-modes {
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:7px !important;
+  align-items:center !important;
+}
+
+body.v84l-cockpit .director-modes button {
+  min-height:54px !important;
+  height:54px !important;
+  border-radius:15px !important;
+  padding:7px 8px !important;
+  font-size:10px !important;
+  letter-spacing:.10em !important;
+  text-transform:uppercase !important;
+  background:
+    linear-gradient(180deg,rgba(143,240,255,.090),rgba(2,8,18,.86)) !important;
+  color:rgba(232,250,255,.74) !important;
+  box-shadow:inset 0 0 18px rgba(143,240,255,.028) !important;
+}
+
+body.v84l-cockpit .director-modes button.active {
+  background:
+    linear-gradient(135deg,rgba(143,240,255,.82),rgba(66,245,111,.88)) !important;
+  color:#021006 !important;
+  box-shadow:
+    0 0 18px rgba(66,245,111,.18),
+    inset 0 0 12px rgba(255,255,255,.20) !important;
+}
+
+/* Readout compatto */
+body.v84l-cockpit .director-readout {
+  padding:10px !important;
+  border-radius:16px !important;
+  background:
+    linear-gradient(145deg,rgba(66,245,111,.055),rgba(1,6,14,.82)) !important;
+}
+
+body.v84l-cockpit .director-readout b {
+  font-size:10px !important;
+  margin-bottom:4px !important;
+}
+
+body.v84l-cockpit .director-readout p {
+  font-size:10px !important;
+  line-height:1.35 !important;
+}
+
+/* Key legend più piccola */
+body.v84l-cockpit .sapienza-keys {
+  gap:5px !important;
+  margin-top:6px !important;
+}
+
+body.v84l-cockpit .sapienza-keys span {
+  padding:4px 7px !important;
+  font-size:9px !important;
+}
+
+/* Stage più centrale: recupera spazio verticale */
+body.v84l-cockpit .stage {
+  margin-top:0 !important;
+  border-color:rgba(143,240,255,.42) !important;
+}
+
+body.v84l-cockpit .stage-head {
+  min-height:42px !important;
+}
+
+/* Badge meno invadente */
+body.v84l-cockpit .stage:after {
+  font-size:9px !important;
+  padding:6px 10px !important;
+  opacity:.82 !important;
+}
+
+/* Strumenti: un filo più solidi */
+body.v84l-cockpit .instruments article,
+body.v84l-cockpit .truth-row article,
+body.v84l-cockpit .doctrine article {
+  border-color:rgba(143,240,255,.34) !important;
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.34),
+    inset 0 0 24px rgba(143,240,255,.026) !important;
+}
+
+/* Modalità Clean ancora più pulita */
+body.v84l-cockpit.mode-clean .sapienza-director {
+  opacity:.80;
+}
+
+body.v84l-cockpit.mode-clean .director-readout {
+  border-color:rgba(143,240,255,.22) !important;
+}
+
+/* Responsive */
+@media(max-width:1500px){
+  body.v84l-cockpit .sapienza-director {
+    grid-template-columns:1fr !important;
+  }
+
+  body.v84l-cockpit .director-modes {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}

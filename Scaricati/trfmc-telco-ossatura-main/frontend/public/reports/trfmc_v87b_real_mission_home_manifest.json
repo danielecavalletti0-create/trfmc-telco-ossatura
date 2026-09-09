@@ -1,0 +1,94 @@
+{
+  "version": "TRFMC v0.87B",
+  "generated_at": "20260516_214418",
+  "purpose": "Real Mission Control Home / WOW Entry Gate",
+  "policy": {
+    "new_parallel_page_only": true,
+    "no_backend_change": true,
+    "no_iframe": true,
+    "no_cdn": true,
+    "no_global_css": true,
+    "service_pages_hidden": true,
+    "real_pages_first": true
+  },
+  "frontline_routes": [
+    {
+      "label": "RF Physics Console",
+      "file": "rf_physics_sapienza_console_v86a.html",
+      "domain": "RF Physics / Measurement",
+      "status": "candidate",
+      "description": "Console RF formula-driven per leggere campo, canale, RSRP/SINR, link budget e decisione best-server.",
+      "class": "primary"
+    },
+    {
+      "label": "Stable RF Field",
+      "file": "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+      "domain": "RF Physics / Stable Baseline",
+      "status": "stable",
+      "description": "Baseline stabile preservata per rientro sicuro e confronto visivo/funzionale.",
+      "class": "stable"
+    },
+    {
+      "label": "Digital Twin",
+      "file": "infrastructure_digital_twin_v63.html",
+      "domain": "Infrastructure / Site / Shelter",
+      "status": "candidate",
+      "description": "Vista infrastrutturale per torri, shelter, radio, alimentazione, backhaul e oggetti fisici.",
+      "class": "infra"
+    },
+    {
+      "label": "Handover Dynamics",
+      "file": "webgl_rf_heatmap_engine_v69.html",
+      "domain": "Mobility / Handover",
+      "status": "candidate",
+      "description": "Scenario mobilità UE, serving cell, soglie, margine e handover.",
+      "class": "mobility"
+    },
+    {
+      "label": "RF Vegetation Lab",
+      "file": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+      "domain": "RF Visualization / Vegetation",
+      "status": "sandbox",
+      "description": "Campo RF con clutter vegetativo e attenuazione ambientale controllata.",
+      "class": "rf"
+    },
+    {
+      "label": "Theory Spine",
+      "file": "trfmc_theory_spine_v86e.html",
+      "domain": "Theory / Formula Governance",
+      "status": "engineering",
+      "description": "Dorsale teorica: formule, misure, domini e regole di promozione.",
+      "class": "theory"
+    }
+  ],
+  "engineering_routes": [
+    {
+      "label": "No-Iframe Route Console",
+      "file": "trfmc_unified_shell_noiframe_v86d_r1.html",
+      "role": "route governance"
+    },
+    {
+      "label": "Design Token Audit",
+      "file": "trfmc_design_token_audit_v86f.html",
+      "role": "design QA"
+    },
+    {
+      "label": "Portal Registry",
+      "file": "trfmc_portal_registry_v86c.html",
+      "role": "route inventory"
+    },
+    {
+      "label": "Performance GPU Gate",
+      "file": "trfmc_performance_gpu_gate_v86b_r1.html",
+      "role": "runtime performance"
+    }
+  ],
+  "mission_flow": [
+    "Observe RF field",
+    "Measure signal quality",
+    "Correlate channel effects",
+    "Inspect link budget",
+    "Decide serving layer",
+    "Teach the reasoning"
+  ]
+}

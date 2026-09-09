@@ -1,0 +1,24 @@
+{
+  "version": "TRFMC v0.84A",
+  "page": "webgl_rf_tm_supreme_console_v84a.html",
+  "purpose": "RF T&M Supreme Console: calibrated field + IQ/PDP/frequency response/link budget",
+  "new_page_only": true,
+  "previous_pages_preserved": true,
+  "backend_change": false,
+  "docker_restart": false,
+  "cdn_used": false,
+  "threejs_used": false,
+  "native_canvas": true,
+  "model_layers": [
+    "FSPL",
+    "log-distance path loss",
+    "shadowing",
+    "TDL multipath",
+    "Rician/Rayleigh factor",
+    "SINR-aware scoring",
+    "16-QAM constellation",
+    "PDP",
+    "frequency response",
+    "link budget trace"
+  ]
+}

@@ -1,0 +1,634 @@
+/* ============================================================
+   TRFMC v0.86A - Scoped RF Physics Sapienza Console
+   Regola: nessun selettore globale. Tutto sotto data-trfmc-page.
+   ============================================================ */
+
+[data-trfmc-page="rf-physics-sapienza-v86"] {
+  margin:0;
+  background:#01040b;
+  color:#e8faff;
+  overflow-x:hidden;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] :where(*) {
+  box-sizing:border-box;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] :where(button,input,a) {
+  font:inherit;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-root {
+  --bg:#01040b;
+  --panel:#061426;
+  --panel2:#071d33;
+  --line:rgba(143,240,255,.30);
+  --line2:rgba(143,240,255,.18);
+  --cyan:#8ff0ff;
+  --green:#42f56f;
+  --amber:#fbbf24;
+  --red:#ff3b5c;
+  --blue:#2ea7ff;
+  --text:#e8faff;
+  --muted:rgba(232,250,255,.66);
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(143,240,255,.08), transparent 28%),
+    radial-gradient(circle at 86% 12%, rgba(66,245,111,.07), transparent 32%),
+    linear-gradient(135deg,#01040b 0%,#04111f 48%,#01040b 100%);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  letter-spacing:.02em;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-shellbar {
+  min-height:52px;
+  display:grid;
+  grid-template-columns:360px 1fr auto;
+  align-items:center;
+  gap:14px;
+  padding:8px 14px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(4,19,34,.98),rgba(1,5,13,.98));
+  position:sticky;
+  top:0;
+  z-index:20;
+  contain:layout paint;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-orb {
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 35% 28%, #e8ffff 0 8%, #8ff0ff 9% 34%, #0c5870 65%, #020811 100%);
+  box-shadow:0 0 22px rgba(143,240,255,.5);
+  flex:0 0 auto;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-brand strong {
+  display:block;
+  font-size:12px;
+  letter-spacing:.17em;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-brand small {
+  display:block;
+  margin-top:2px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-nav,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-status {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-nav a,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-status span,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-modebar button,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-buttonstack button {
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:var(--cyan);
+  background:rgba(143,240,255,.045);
+  text-decoration:none;
+  padding:7px 12px;
+  font-size:10px;
+  font-weight:800;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-status span {
+  border-color:rgba(66,245,111,.35);
+  color:var(--green);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-main {
+  padding:12px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-hero {
+  min-height:150px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 210px;
+  gap:18px;
+  align-items:center;
+  padding:22px 24px;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(143,240,255,.16), transparent 34%),
+    radial-gradient(circle at 88% 14%, rgba(66,245,111,.08), transparent 34%),
+    linear-gradient(135deg,rgba(5,27,47,.96),rgba(1,6,14,.98));
+  box-shadow:0 26px 80px rgba(0,0,0,.38), inset 0 0 40px rgba(143,240,255,.025);
+  contain:layout paint;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-kicker {
+  margin:0 0 8px;
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-hero h1 {
+  margin:0;
+  font-size:clamp(42px,4.4vw,78px);
+  line-height:.98;
+  letter-spacing:.045em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-shadow:
+    0 0 14px rgba(143,240,255,.55),
+    0 0 44px rgba(143,240,255,.16);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-hero p {
+  max-width:1180px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-integrity {
+  border:1px solid rgba(66,245,111,.36);
+  border-radius:24px;
+  padding:18px;
+  text-align:center;
+  background:rgba(0,35,18,.38);
+  box-shadow:inset 0 0 28px rgba(66,245,111,.05);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-integrity span,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-integrity small {
+  display:block;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:11px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-integrity strong {
+  display:block;
+  margin:8px 0;
+  color:var(--green);
+  font-size:42px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instruments,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching {
+  margin-top:10px;
+  contain:layout paint;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director {
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:8px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director-note,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline div,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-panel,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-stage-card,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instrument,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine article,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching article {
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(143,240,255,.045), transparent 32%),
+    linear-gradient(145deg,rgba(6,24,42,.84),rgba(1,6,14,.97));
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director-note {
+  padding:8px 10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director-note strong {
+  display:block;
+  color:var(--cyan);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director-note span {
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.3;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-modebar {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-modebar button {
+  border-radius:14px;
+  cursor:pointer;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-modebar button.is-active {
+  background:linear-gradient(135deg,rgba(143,240,255,.78),rgba(66,245,111,.88));
+  color:#021006;
+  border-color:rgba(66,245,111,.72);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline div {
+  padding:8px 10px;
+  min-height:52px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline b {
+  display:block;
+  color:var(--cyan);
+  font-size:10px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline span {
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline div:nth-child(3) {
+  border-color:rgba(251,191,36,.32);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-workbench {
+  margin-top:10px;
+  display:grid;
+  grid-template-columns:250px minmax(0,1fr) 270px;
+  gap:12px;
+  align-items:stretch;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-panel {
+  padding:14px;
+  min-width:0;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-panel h2,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-stage-head h2,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale h2,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instrument h2,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine h2 {
+  margin:0;
+  color:var(--cyan);
+  font-size:14px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-controls label {
+  display:block;
+  margin-top:14px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-controls label span {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-controls input {
+  width:100%;
+  accent-color:#13e6f0;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-controls output {
+  display:block;
+  margin-top:4px;
+  color:var(--green);
+  font-size:11px;
+  font-weight:900;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-buttonstack {
+  display:grid;
+  gap:8px;
+  margin-top:16px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-buttonstack button {
+  border-radius:12px;
+  cursor:pointer;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-legend {
+  display:grid;
+  gap:7px;
+  margin-top:18px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-legend i {
+  display:inline-block;
+  width:15px;
+  height:7px;
+  border-radius:999px;
+  margin-right:7px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .c-strong { background:#e8ffff; }
+[data-trfmc-page="rf-physics-sapienza-v86"] .c-good { background:#42f56f; }
+[data-trfmc-page="rf-physics-sapienza-v86"] .c-edge { background:#fbbf24; }
+[data-trfmc-page="rf-physics-sapienza-v86"] .c-weak { background:#2ea7ff; }
+[data-trfmc-page="rf-physics-sapienza-v86"] .c-out { background:#020611; border:1px solid rgba(255,59,92,.35); }
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-stage-card {
+  padding:0;
+  overflow:hidden;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-stage-head {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) repeat(3,130px);
+  gap:8px;
+  align-items:center;
+  padding:10px 12px;
+  border-bottom:1px solid var(--line2);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-stage-head p {
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-mini-kpi {
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:8px 10px;
+  background:rgba(1,6,14,.55);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-mini-kpi span {
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  text-transform:uppercase;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-mini-kpi strong {
+  display:block;
+  margin-top:3px;
+  color:var(--green);
+  font-size:14px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-canvas-wrap {
+  position:relative;
+  min-height:520px;
+  background:#020813;
+  overflow:hidden;
+  contain:layout paint;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] #rf86Canvas {
+  display:block;
+  width:100%;
+  height:520px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-canvas-label,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-probe {
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  border:1px solid rgba(143,240,255,.28);
+  border-radius:12px;
+  padding:8px 10px;
+  background:rgba(1,6,14,.72);
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+  box-shadow:0 0 22px rgba(0,0,0,.34);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-probe {
+  left:auto;
+  right:24px;
+  bottom:24px;
+  color:var(--cyan);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-telemetry {
+  display:grid;
+  gap:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-telemetry div:not(.rf86-copilot) {
+  border:1px solid var(--line2);
+  border-radius:14px;
+  padding:10px;
+  background:rgba(1,6,14,.42);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-telemetry span,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-telemetry small {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-telemetry strong {
+  display:block;
+  margin:5px 0;
+  font-size:22px;
+  color:var(--text);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-copilot {
+  border-left:3px solid var(--amber);
+  padding:10px;
+  background:rgba(251,191,36,.035);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-copilot b {
+  color:var(--amber);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-copilot p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale {
+  padding:12px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale-bar {
+  margin-top:10px;
+  height:12px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#020611 0%,#0b2f75 18%,#0aa0d0 38%,#35df75 58%,#e5c945 76%,#d64b45 100%);
+  border:1px solid var(--line);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin-top:8px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale-grid span {
+  border:1px solid var(--line2);
+  border-radius:10px;
+  padding:7px;
+  color:var(--muted);
+  font-size:10px;
+  background:rgba(143,240,255,.025);
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instruments {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instrument {
+  padding:12px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instrument canvas {
+  width:100%;
+  height:190px;
+  margin-top:10px;
+  display:block;
+  border-radius:12px;
+  border:1px solid var(--line2);
+  background:#020813;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine article {
+  padding:12px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine code {
+  display:block;
+  margin-top:10px;
+  padding:9px;
+  border:1px solid rgba(66,245,111,.28);
+  border-radius:12px;
+  color:var(--green);
+  background:rgba(66,245,111,.035);
+  font-size:11px;
+  white-space:normal;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine p {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.45;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching article {
+  padding:12px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching b {
+  display:block;
+  color:var(--cyan);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching span {
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.4;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-footer {
+  margin:10px 12px 16px;
+  padding:8px;
+  border:1px solid var(--line2);
+  border-radius:999px;
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-root[data-mode="clean"] .rf86-director,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-root[data-mode="clean"] .rf86-proofline,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-root[data-mode="clean"] .rf86-scale,
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-root[data-mode="clean"] .rf86-teaching {
+  display:none;
+}
+
+[data-trfmc-page="rf-physics-sapienza-v86"] .rf86-root[data-mode="clean"] .rf86-workbench {
+  grid-template-columns:220px minmax(0,1fr) 240px;
+}
+
+@media (max-width:1500px) {
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-shellbar,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-hero,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-director,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-workbench,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-instruments,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-doctrine,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-teaching {
+    grid-template-columns:1fr;
+  }
+
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-hero h1 {
+    white-space:normal;
+    font-size:clamp(36px,7vw,62px);
+  }
+
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-proofline,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-scale-grid,
+  [data-trfmc-page="rf-physics-sapienza-v86"] .rf86-modebar {
+    grid-template-columns:1fr;
+  }
+}

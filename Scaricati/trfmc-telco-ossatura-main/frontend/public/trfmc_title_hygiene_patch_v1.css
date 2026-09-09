@@ -1,0 +1,264 @@
+/* ============================================================
+   TRFMC A5R3 · Unified Visual Layout Polish
+   Scope: V6R3 official + major leaf pages.
+   Safety: visual only. No RF TX. No C2. No backend writes.
+   ============================================================ */
+
+:root {
+  --a5r3-gap-xs: 4px;
+  --a5r3-gap-s: 8px;
+  --a5r3-gap-m: 12px;
+  --a5r3-gap-l: 16px;
+  --a5r3-radius: 8px;
+
+  --a5r3-title-font: clamp(21px, 1.28vw, 34px);
+  --a5r3-leaf-title-font: clamp(23px, 1.45vw, 38px);
+  --a5r3-subtitle-font: clamp(11px, .74vw, 13px);
+  --a5r3-chip-font: clamp(10px, .62vw, 12px);
+}
+
+html[data-trfmc-a5r3="true"],
+html[data-trfmc-a5r3="true"] body {
+  min-width: 0 !important;
+  overflow-x: hidden !important;
+}
+
+html[data-trfmc-a5r3="true"] *,
+html[data-trfmc-a5r3="true"] *::before,
+html[data-trfmc-a5r3="true"] *::after {
+  box-sizing: border-box !important;
+}
+
+/* Flex/grid safety: without min-width:0 many panels refuse to shrink. */
+html[data-trfmc-a5r3="true"] main,
+html[data-trfmc-a5r3="true"] section,
+html[data-trfmc-a5r3="true"] article,
+html[data-trfmc-a5r3="true"] aside,
+html[data-trfmc-a5r3="true"] header,
+html[data-trfmc-a5r3="true"] nav,
+html[data-trfmc-a5r3="true"] footer,
+html[data-trfmc-a5r3="true"] .panel,
+html[data-trfmc-a5r3="true"] .card,
+html[data-trfmc-a5r3="true"] .tile,
+html[data-trfmc-a5r3="true"] .grid,
+html[data-trfmc-a5r3="true"] .layout,
+html[data-trfmc-a5r3="true"] .content,
+html[data-trfmc-a5r3="true"] .viewport,
+html[data-trfmc-a5r3="true"] .workspace,
+html[data-trfmc-a5r3="true"] [class*="panel" i],
+html[data-trfmc-a5r3="true"] [class*="card" i],
+html[data-trfmc-a5r3="true"] [class*="grid" i],
+html[data-trfmc-a5r3="true"] [class*="layout" i],
+html[data-trfmc-a5r3="true"] [class*="content" i],
+html[data-trfmc-a5r3="true"] [class*="viewport" i],
+html[data-trfmc-a5r3="true"] [class*="workspace" i] {
+  min-width: 0 !important;
+}
+
+/* Title normalization */
+html[data-trfmc-a5r3="true"] h1,
+html[data-trfmc-a5r3="true"] h2,
+html[data-trfmc-a5r3="true"] h3,
+html[data-trfmc-a5r3="true"] .title,
+html[data-trfmc-a5r3="true"] .trfmc-a5r3-title,
+html[data-trfmc-a5r3="true"] [class*="title" i],
+html[data-trfmc-a5r3="true"] [class*="headline" i] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  line-height: 1.12 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  hyphens: auto !important;
+}
+
+html[data-trfmc-a5r3="true"] .trfmc-a5r3-primary-title,
+html[data-trfmc-a5r3="true"] h1:first-of-type {
+  font-size: var(--a5r3-leaf-title-font) !important;
+  line-height: 1.04 !important;
+  letter-spacing: .055em !important;
+  margin-block: 8px 10px !important;
+  padding-top: 0 !important;
+  transform: none !important;
+  translate: none !important;
+  position: relative !important;
+  top: auto !important;
+}
+
+/* Subtitle/description: readable, never crossing into title. */
+html[data-trfmc-a5r3="true"] .subtitle,
+html[data-trfmc-a5r3="true"] .description,
+html[data-trfmc-a5r3="true"] .kicker,
+html[data-trfmc-a5r3="true"] .trfmc-a5r3-subtitle,
+html[data-trfmc-a5r3="true"] [class*="subtitle" i],
+html[data-trfmc-a5r3="true"] [class*="description" i],
+html[data-trfmc-a5r3="true"] [class*="kicker" i] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  font-size: var(--a5r3-subtitle-font) !important;
+  line-height: 1.32 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* Toolbars/chips/buttons: wrap instead of colliding with titles. */
+html[data-trfmc-a5r3="true"] button,
+html[data-trfmc-a5r3="true"] .btn,
+html[data-trfmc-a5r3="true"] a.btn,
+html[data-trfmc-a5r3="true"] .chip,
+html[data-trfmc-a5r3="true"] .badge,
+html[data-trfmc-a5r3="true"] .pill,
+html[data-trfmc-a5r3="true"] select {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
+  font-size: var(--a5r3-chip-font) !important;
+  line-height: 1.12 !important;
+  text-overflow: ellipsis !important;
+}
+
+html[data-trfmc-a5r3="true"] .toolbar,
+html[data-trfmc-a5r3="true"] .actions,
+html[data-trfmc-a5r3="true"] .button-row,
+html[data-trfmc-a5r3="true"] .quick-load,
+html[data-trfmc-a5r3="true"] .trfmc-a5r3-toolbar,
+html[data-trfmc-a5r3="true"] [class*="toolbar" i],
+html[data-trfmc-a5r3="true"] [class*="actions" i] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: var(--a5r3-gap-s) !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: fit-content !important;
+  overflow: visible !important;
+}
+
+/* Host page: keep the V6R3 shell readable and do not compress loaded leaves. */
+body[data-trfmc-page="v6r3-official-host"] {
+  --a5r3-title-font: clamp(20px, 1.25vw, 31px);
+}
+
+body[data-trfmc-page="v6r3-official-host"] h1:first-of-type,
+body[data-trfmc-page="v6r3-official-host"] .trfmc-a5r3-primary-title {
+  font-size: var(--a5r3-title-font) !important;
+  letter-spacing: .065em !important;
+  margin-block: 4px 5px !important;
+}
+
+body[data-trfmc-page="v6r3-official-host"] iframe {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Leaf pages: create a breathing zone under the top title bars. */
+body[data-trfmc-page="master-console"],
+body[data-trfmc-page="fft-gapless"],
+body[data-trfmc-page="rf-antenna-wall"],
+body[data-trfmc-page="rf-3d-visual-twin"] {
+  padding-top: 10px !important;
+}
+
+/* Master Console: real improvement in direct and embedded mode. */
+body[data-trfmc-page="master-console"] {
+  --a5r3-leaf-title-font: clamp(22px, 1.35vw, 34px);
+}
+
+body[data-trfmc-page="master-console"] h1:first-of-type,
+body[data-trfmc-page="master-console"] .trfmc-a5r3-primary-title {
+  margin-top: 12px !important;
+  margin-bottom: 14px !important;
+  min-height: 38px !important;
+}
+
+body[data-trfmc-page="master-console"] .title,
+body[data-trfmc-page="master-console"] .trfmc-a5r3-title {
+  min-height: 30px !important;
+  padding-block: 5px !important;
+  margin-block: 8px !important;
+}
+
+body[data-trfmc-page="master-console"] [class*="domain" i],
+body[data-trfmc-page="master-console"] [class*="mission" i] {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+
+/* FFT Gapless: larger title area and calmer KPI/action row. */
+body[data-trfmc-page="fft-gapless"] {
+  --a5r3-leaf-title-font: clamp(23px, 1.45vw, 36px);
+}
+
+body[data-trfmc-page="fft-gapless"] h1:first-of-type,
+body[data-trfmc-page="fft-gapless"] .trfmc-a5r3-primary-title {
+  margin-top: 10px !important;
+  margin-bottom: 12px !important;
+  max-width: min(100%, 760px) !important;
+}
+
+body[data-trfmc-page="fft-gapless"] button,
+body[data-trfmc-page="fft-gapless"] .btn {
+  min-height: 30px !important;
+}
+
+/* RF/Antenna wall: title no longer dominates or collides with KPI row. */
+body[data-trfmc-page="rf-antenna-wall"] {
+  --a5r3-leaf-title-font: clamp(24px, 1.5vw, 38px);
+}
+
+body[data-trfmc-page="rf-antenna-wall"] h1:first-of-type,
+body[data-trfmc-page="rf-antenna-wall"] .trfmc-a5r3-primary-title {
+  max-width: 430px !important;
+  margin-top: 8px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 3D renderer: preserve WebGL/canvas geometry, only clean title/toolbar. */
+body[data-trfmc-page="rf-3d-visual-twin"] {
+  --a5r3-leaf-title-font: clamp(22px, 1.3vw, 34px);
+}
+
+body[data-trfmc-page="rf-3d-visual-twin"] canvas {
+  max-width: 100% !important;
+}
+
+/* Tables/logs/formulas remain readable. */
+html[data-trfmc-a5r3="true"] pre,
+html[data-trfmc-a5r3="true"] code,
+html[data-trfmc-a5r3="true"] table,
+html[data-trfmc-a5r3="true"] .log,
+html[data-trfmc-a5r3="true"] .event-stream,
+html[data-trfmc-a5r3="true"] [class*="log" i],
+html[data-trfmc-a5r3="true"] [class*="event" i] {
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+}
+
+html[data-trfmc-a5r3="true"] pre,
+html[data-trfmc-a5r3="true"] code {
+  white-space: pre-wrap !important;
+}
+
+/* Responsive pressure relief */
+@media (max-width: 1500px) {
+  html[data-trfmc-a5r3="true"] .trfmc-a5r3-primary-title,
+  html[data-trfmc-a5r3="true"] h1:first-of-type {
+    font-size: clamp(20px, 1.35vw, 30px) !important;
+    letter-spacing: .045em !important;
+  }
+
+  html[data-trfmc-a5r3="true"] button,
+  html[data-trfmc-a5r3="true"] .btn,
+  html[data-trfmc-a5r3="true"] .chip,
+  html[data-trfmc-a5r3="true"] .badge,
+  html[data-trfmc-a5r3="true"] .pill {
+    padding-inline: 8px !important;
+  }
+}
+
+@media (max-width: 1180px) {
+  html[data-trfmc-a5r3="true"] .trfmc-a5r3-primary-title,
+  html[data-trfmc-a5r3="true"] h1:first-of-type {
+    font-size: 20px !important;
+  }
+}

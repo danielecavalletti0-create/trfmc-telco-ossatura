@@ -1,0 +1,205 @@
+/* TRFMC v0.72B - Visual Chaos Containment / Clean Governance */
+
+/*
+  Obiettivo:
+  - contenere il caos introdotto da troppi layer globali;
+  - eliminare badge, rail e strip invasivi;
+  - rendere pulita la preview iframe della QA matrix;
+  - mantenere una sola shell dominante.
+*/
+
+body.trfmc-v72b-clean-governance {
+  --v72b-bg: #020713;
+  --v72b-cyan: #8ff0ff;
+  --v72b-green: #42f56f;
+  --v72b-line: rgba(143,240,255,.26);
+  --v72b-panel: rgba(3,12,26,.86);
+  overflow-x: hidden !important;
+}
+
+/* 1) Stop elementi floating invasivi */
+body.trfmc-v72b-clean-governance .trfmc-v70-blade,
+body.trfmc-v72b-clean-governance .trfmc-v70-rail,
+body.trfmc-v72b-clean-governance .v70b-definition-strip,
+body.trfmc-v72b-clean-governance .v72-remediation-badge {
+  display: none !important;
+}
+
+/* 2) La shell resta, ma più sobria */
+body.trfmc-v72b-clean-governance .trfmc-v70-shell {
+  top: 10px !important;
+  left: 14px !important;
+  right: 14px !important;
+  min-height: 58px !important;
+  padding: 8px 12px !important;
+  border-radius: 22px !important;
+  grid-template-columns: 300px 1fr 300px !important;
+  background:
+    radial-gradient(circle at 9% 0%, rgba(143,240,255,.10), transparent 32%),
+    linear-gradient(135deg, rgba(6,24,46,.90), rgba(3,9,22,.96)) !important;
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.36),
+    0 0 34px rgba(143,240,255,.08),
+    inset 0 0 30px rgba(143,240,255,.035) !important;
+}
+
+body.trfmc-v72b-clean-governance .trfmc-v70-brand b {
+  font-size: 10px !important;
+  letter-spacing: .14em !important;
+}
+
+body.trfmc-v72b-clean-governance .trfmc-v70-brand span {
+  font-size: 9px !important;
+}
+
+body.trfmc-v72b-clean-governance .trfmc-v70-orb {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+body.trfmc-v72b-clean-governance .trfmc-v70-nav a {
+  padding: 6px 8px !important;
+  font-size: 9px !important;
+}
+
+body.trfmc-v72b-clean-governance .trfmc-v70-status span {
+  padding: 6px 7px !important;
+  font-size: 8px !important;
+}
+
+/* 3) Header locali: non devono combattere con la shell */
+body.trfmc-v72b-clean-governance:not(.trfmc-preview-embedded) header:not(.trfmc-v70-shell):not(.v71-top),
+body.trfmc-v72b-clean-governance:not(.trfmc-preview-embedded) .topbar:not(.trfmc-v70-shell):not(.v71-top),
+body.trfmc-v72b-clean-governance:not(.trfmc-preview-embedded) .v69-topbar,
+body.trfmc-v72b-clean-governance:not(.trfmc-preview-embedded) .v66-topbar,
+body.trfmc-v72b-clean-governance:not(.trfmc-preview-embedded) .top-shell {
+  display: none !important;
+}
+
+/* 4) Preview iframe pulita: niente shell dentro shell */
+body.trfmc-preview-embedded .trfmc-v70-shell,
+body.trfmc-preview-embedded .trfmc-v70-blade,
+body.trfmc-preview-embedded .trfmc-v70-rail,
+body.trfmc-preview-embedded .v70b-definition-strip,
+body.trfmc-preview-embedded .v72-remediation-badge,
+body.trfmc-preview-embedded .v72b-clean-badge,
+body.trfmc-preview-embedded .topbar,
+body.trfmc-preview-embedded header,
+body.trfmc-preview-embedded .v69-topbar,
+body.trfmc-preview-embedded .v66-topbar,
+body.trfmc-preview-embedded .top-shell {
+  display: none !important;
+}
+
+body.trfmc-preview-embedded {
+  padding-top: 0 !important;
+  overflow-x: hidden !important;
+}
+
+body.trfmc-preview-embedded main,
+body.trfmc-preview-embedded .dashboard,
+body.trfmc-preview-embedded .v69-app,
+body.trfmc-preview-embedded .v66-layout,
+body.trfmc-preview-embedded .v71-layout {
+  margin-top: 0 !important;
+  top: 0 !important;
+}
+
+/* 5) Riduzione aggressività v72A: meno ombre, meno effetto "gonfio" */
+body.trfmc-v72b-clean-governance .panel,
+body.trfmc-v72b-clean-governance article,
+body.trfmc-v72b-clean-governance aside,
+body.trfmc-v72b-clean-governance section,
+body.trfmc-v72b-clean-governance .hero,
+body.trfmc-v72b-clean-governance .v69-hero,
+body.trfmc-v72b-clean-governance .left-panel,
+body.trfmc-v72b-clean-governance .right-panel,
+body.trfmc-v72b-clean-governance .event-panel,
+body.trfmc-v72b-clean-governance .bottom-panel,
+body.trfmc-v72b-clean-governance .matrix-panel,
+body.trfmc-v72b-clean-governance .side,
+body.trfmc-v72b-clean-governance .preview,
+body.trfmc-v72b-clean-governance .v66-viewport-panel,
+body.trfmc-v72b-clean-governance .v66-side-panel,
+body.trfmc-v72b-clean-governance .detail-panel,
+body.trfmc-v72b-clean-governance .tower-panel,
+body.trfmc-v72b-clean-governance .site-panel,
+body.trfmc-v72b-clean-governance .scene-panel {
+  box-shadow:
+    0 18px 58px rgba(0,0,0,.30),
+    inset 0 0 28px rgba(143,240,255,.030) !important;
+}
+
+/* 6) Le card restano oggetti, ma non devono sembrare bolle casuali */
+body.trfmc-v72b-clean-governance .metric-grid article,
+body.trfmc-v72b-clean-governance .mini-card,
+body.trfmc-v72b-clean-governance .criteria div,
+body.trfmc-v72b-clean-governance .next-steps div,
+body.trfmc-v72b-clean-governance .v65-kpis div,
+body.trfmc-v72b-clean-governance .v66-kpi-grid div,
+body.trfmc-v72b-clean-governance .v66-status div,
+body.trfmc-v72b-clean-governance .v50-index-link {
+  border-radius: 22px !important;
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.20),
+    inset 0 0 16px rgba(143,240,255,.025) !important;
+}
+
+/* 7) QA Matrix: preview leggibile e non compressa da overlay interni */
+body.trfmc-v72b-clean-governance.v71-shell .preview iframe {
+  border-radius: 24px !important;
+  background: #020713 !important;
+}
+
+body.trfmc-v72b-clean-governance.v71-shell .preview {
+  min-height: 280px !important;
+}
+
+/* 8) Badge piccolo, solo sulla pagina reale, non in preview */
+.v72b-clean-badge {
+  position: fixed;
+  right: 18px;
+  bottom: 14px;
+  z-index: 2147483300;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border: 1px solid rgba(66,245,111,.28);
+  border-radius: 999px;
+  background: rgba(3,12,26,.78);
+  color: var(--v72b-green);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 14px 44px rgba(0,0,0,.30);
+}
+
+.v72b-clean-badge i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--v72b-green);
+  box-shadow: 0 0 12px rgba(66,245,111,.70);
+}
+
+/* 9) Modalità audit: riattiva strumenti solo quando richiesto */
+body.trfmc-v72b-audit .trfmc-v70-blade,
+body.trfmc-v72b-audit .trfmc-v70-rail,
+body.trfmc-v72b-audit .v70b-definition-strip,
+body.trfmc-v72b-audit .v72-remediation-badge {
+  display: block !important;
+}
+
+/* 10) Low motion */
+body.trfmc-v72b-calibrated * {
+  animation-duration: .001ms !important;
+  transition-duration: .001ms !important;
+}
+
+@media(max-width: 1300px) {
+  body.trfmc-v72b-clean-governance .trfmc-v70-shell {
+    grid-template-columns: 1fr !important;
+  }
+}

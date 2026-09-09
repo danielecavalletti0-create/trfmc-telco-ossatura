@@ -1,0 +1,222 @@
+/* TRFMC v0.53A - Final Visual Alignment Pass */
+
+body.trfmc-enterprise-shell.v53-final-aligned {
+  --v53-cyan: #58d6f9;
+  --v53-green: #3fb950;
+  --v53-amber: #d29922;
+  --v53-line: rgba(88,214,249,.24);
+  overflow-x: hidden;
+}
+
+/* Global page rhythm */
+.v53-final-aligned main,
+.v53-final-aligned .page,
+.v53-final-aligned .container {
+  max-width: 1660px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Make first screen feel intentional */
+.v53-final-aligned .hero {
+  border-radius: 28px !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.v53-final-aligned .hero h1 {
+  max-width: 1180px;
+}
+
+.v53-final-aligned .hero p {
+  color: rgba(237,248,255,.66) !important;
+}
+
+/* Navigation: useful, but not dominant */
+.v53-final-aligned .v47-section-nav {
+  border-radius: 18px !important;
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.22),
+    0 0 28px rgba(88,214,249,.08) !important;
+}
+
+.v53-final-aligned .v47-section-nav-head b {
+  font-size: 10px !important;
+}
+
+.v53-final-aligned .v47-section-nav-head span {
+  font-size: 8px !important;
+}
+
+/* Review band: make it a control strip, not another dashboard */
+.v53-final-aligned .v51-review-band {
+  border-radius: 18px !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.22),
+    inset 0 0 22px rgba(88,214,249,.030) !important;
+}
+
+.v53-final-aligned .v51-review-band h2 {
+  color: var(--v53-green) !important;
+}
+
+/* Milestone: compact and editorial */
+.v53-final-aligned .v50-release-milestone {
+  border-radius: 24px !important;
+  box-shadow:
+    0 24px 62px rgba(0,0,0,.30),
+    0 0 42px rgba(88,214,249,.10),
+    inset 0 0 36px rgba(88,214,249,.040) !important;
+}
+
+.v53-final-aligned .v50-release-milestone::before {
+  opacity: .46 !important;
+  animation-duration: 18s !important;
+}
+
+.v53-final-aligned .v50-master-head h2,
+.v53-final-aligned .v49-rf-head h2,
+.v53-final-aligned .v48-command-head h2,
+.v53-final-aligned .v46-cluster-head h2,
+.v53-final-aligned .v43-entry-head h2,
+.v53-final-aligned .v42-evidence-head h2 {
+  letter-spacing: 1.05px !important;
+}
+
+.v53-final-aligned .v50-master-head p,
+.v53-final-aligned .v49-rf-head p,
+.v53-final-aligned .v48-command-head p {
+  max-width: 1050px;
+}
+
+/* Release chain should be a compact audit trail */
+.v53-final-aligned .v50-release-chain {
+  max-height: 430px;
+}
+
+.v53-final-aligned .v50-chain-list {
+  max-height: 214px !important;
+  scrollbar-width: thin;
+}
+
+.v53-final-aligned .v50-chain-list::-webkit-scrollbar,
+.v53-final-aligned pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.v53-final-aligned .v50-chain-list::-webkit-scrollbar-thumb,
+.v53-final-aligned pre::-webkit-scrollbar-thumb {
+  background: rgba(88,214,249,.22);
+  border-radius: 999px;
+}
+
+/* RF/Telco and Scenario become the main operational core */
+.v53-final-aligned .v49-rf-intel-strip,
+.v53-final-aligned .v48-scenario-command {
+  border-color: rgba(88,214,249,.40) !important;
+  box-shadow:
+    0 30px 84px rgba(0,0,0,.34),
+    0 0 64px rgba(88,214,249,.13),
+    inset 0 0 44px rgba(88,214,249,.045) !important;
+}
+
+.v53-final-aligned .v49-rf-head h2,
+.v53-final-aligned .v48-command-head h2 {
+  color: var(--v53-cyan) !important;
+  text-shadow: 0 0 20px rgba(88,214,249,.36);
+}
+
+.v53-final-aligned .v49-rf-kpi b,
+.v53-final-aligned .v48-status-tile b,
+.v53-final-aligned .v46-kpi-tile b,
+.v53-final-aligned .v50-master-kpi b {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Improve button visual consistency */
+.v53-final-aligned a,
+.v53-final-aligned button {
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background-color .18s ease,
+    color .18s ease,
+    box-shadow .18s ease;
+}
+
+.v53-final-aligned a:hover,
+.v53-final-aligned button:hover {
+  transform: translateY(-1px);
+}
+
+/* Section labels: final editorial style */
+.v53-final-aligned .v47-section-label {
+  background:
+    linear-gradient(90deg, transparent, rgba(88,214,249,.12), transparent),
+    rgba(2,9,20,.78) !important;
+  border-color: rgba(88,214,249,.30) !important;
+  color: rgba(237,248,255,.72) !important;
+}
+
+/* Hide noisy advanced blocks in Executive View */
+.v53-final-aligned.v51-exec-view .v51-advanced-runtime,
+.v53-final-aligned.v51-exec-view .advanced,
+.v53-final-aligned.v51-exec-view .debug,
+.v53-final-aligned.v51-exec-view [data-debug="true"] {
+  display: none !important;
+}
+
+/* Engineering view remains readable */
+.v53-final-aligned.v51-engineering-view pre,
+.v53-final-aligned.v51-engineering-view code {
+  max-height: 540px;
+  overflow: auto;
+}
+
+/* Reduce text overflow issues */
+.v53-final-aligned .v50-index-link,
+.v53-final-aligned .v49-rf-kpi,
+.v53-final-aligned .v48-scenario-button,
+.v53-final-aligned .v43-hub-column,
+.v53-final-aligned .v42-status-tile {
+  overflow-wrap: anywhere;
+}
+
+/* Final footer */
+.v53-final-aligned footer {
+  opacity: .76;
+  letter-spacing: .6px;
+}
+
+/* Stronger responsive behavior */
+@media(max-width:1450px) {
+  .v53-final-aligned .v50-master-grid,
+  .v53-final-aligned .v49-rf-grid,
+  .v53-final-aligned .v48-command-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .v53-final-aligned .v50-index-grid {
+    grid-template-columns: repeat(2, minmax(160px, 1fr)) !important;
+  }
+
+  .v53-final-aligned .v49-spectrum-window {
+    height: 190px !important;
+  }
+}
+
+@media(max-width:820px) {
+  .v53-final-aligned .hero h1 {
+    font-size: 24px !important;
+  }
+
+  .v53-final-aligned .v50-index-grid,
+  .v53-final-aligned .v48-scenario-buttons,
+  .v53-final-aligned .v49-rf-kpi-grid,
+  .v53-final-aligned .v50-master-kpis {
+    grid-template-columns: 1fr !important;
+  }
+}

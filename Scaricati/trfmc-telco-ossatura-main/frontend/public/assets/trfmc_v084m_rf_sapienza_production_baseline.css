@@ -1,0 +1,215 @@
+/* ============================================================
+   TRFMC v0.84M - RF Sapienza Production Baseline Candidate
+   Obiettivo: baseline stabile, più autorevole, meno demo.
+   ============================================================ */
+
+body.v84m-baseline {
+  --m-bg:#01040b;
+  --m-panel:#061426;
+  --m-cyan:#8ff0ff;
+  --m-green:#42f56f;
+  --m-amber:#fbbf24;
+  --m-red:#ff3b5c;
+  --m-blue:#2ea7ff;
+}
+
+/* shell più professionale */
+body.v84m-baseline {
+  background:
+    radial-gradient(circle at 15% 4%, rgba(143,240,255,.08), transparent 28%),
+    radial-gradient(circle at 88% 15%, rgba(66,245,111,.055), transparent 30%),
+    linear-gradient(180deg,#01040b,#00030a) !important;
+}
+
+/* topbar meno affollata */
+body.v84m-baseline .topbar,
+body.v84m-baseline header:first-child {
+  min-height:42px !important;
+}
+
+body.v84m-baseline nav a,
+body.v84m-baseline .nav a,
+body.v84m-baseline .topbar a {
+  font-size:9px !important;
+  padding:5px 8px !important;
+  border-radius:999px !important;
+  letter-spacing:.08em !important;
+}
+
+body.v84m-baseline .hero {
+  min-height:138px !important;
+  padding:22px 24px !important;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(143,240,255,.15), transparent 30%),
+    radial-gradient(circle at 86% 20%, rgba(66,245,111,.075), transparent 30%),
+    linear-gradient(135deg, rgba(4,25,43,.98), rgba(1,5,13,.99)) !important;
+}
+
+body.v84m-baseline h1 {
+  font-size:clamp(36px,4.4vw,68px) !important;
+  letter-spacing:.045em !important;
+  text-shadow:
+    0 0 12px rgba(143,240,255,.55),
+    0 0 42px rgba(143,240,255,.14) !important;
+}
+
+body.v84m-baseline .hero p {
+  max-width:1120px !important;
+  color:rgba(232,250,255,.72) !important;
+}
+
+/* Director: ancora più cockpit, meno blocco */
+body.v84m-baseline .sapienza-director {
+  margin:6px 8px 8px !important;
+  padding:7px !important;
+  border-radius:18px !important;
+  grid-template-columns:190px minmax(440px,1fr) 320px !important;
+  gap:7px !important;
+  border-color:rgba(143,240,255,.28) !important;
+  background:
+    linear-gradient(145deg, rgba(5,22,38,.90), rgba(1,6,14,.98)) !important;
+}
+
+body.v84m-baseline .director-modes button {
+  height:44px !important;
+  min-height:44px !important;
+  border-radius:13px !important;
+  font-size:9px !important;
+}
+
+body.v84m-baseline .director-readout {
+  padding:8px !important;
+}
+
+body.v84m-baseline .sapienza-director p {
+  font-size:9.5px !important;
+}
+
+/* Evidence chain: nuova riga vera, non decorativa */
+.sapienza-evidence-chain {
+  margin:6px 8px 10px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.sapienza-evidence-chain article {
+  border:1px solid rgba(143,240,255,.26);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(143,240,255,.065), transparent 34%),
+    linear-gradient(145deg,rgba(6,24,42,.82),rgba(1,6,14,.96));
+  padding:10px 12px;
+  min-height:70px;
+  box-shadow:0 16px 52px rgba(0,0,0,.30), inset 0 0 20px rgba(143,240,255,.022);
+}
+
+.sapienza-evidence-chain b {
+  display:block;
+  color:var(--m-cyan);
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+.sapienza-evidence-chain span {
+  display:block;
+  color:rgba(232,250,255,.66);
+  font-size:10px;
+  line-height:1.42;
+}
+
+.sapienza-evidence-chain article.ok {
+  border-color:rgba(66,245,111,.34);
+}
+
+.sapienza-evidence-chain article.warn {
+  border-color:rgba(251,191,36,.34);
+}
+
+.sapienza-evidence-chain article.critical {
+  border-color:rgba(255,59,92,.30);
+}
+
+/* canvas: mappa più leggibile, meno lavata */
+body.v84m-baseline #fieldCanvas {
+  filter:saturate(1.00) brightness(1.04) contrast(1.18) !important;
+}
+
+body.v84m-baseline .stage {
+  border-color:rgba(143,240,255,.42) !important;
+  box-shadow:
+    0 22px 78px rgba(0,0,0,.42),
+    inset 0 0 32px rgba(143,240,255,.032) !important;
+}
+
+body.v84m-baseline .stage-head {
+  min-height:38px !important;
+  background:linear-gradient(90deg,rgba(1,5,13,.96),rgba(5,27,45,.78)) !important;
+}
+
+/* pannelli strumenti: leggibilità superiore */
+body.v84m-baseline .instruments article {
+  min-height:330px !important;
+}
+
+body.v84m-baseline .instruments canvas {
+  height:258px !important;
+  filter:brightness(1.08) contrast(1.12);
+}
+
+body.v84m-baseline .instruments h2,
+body.v84m-baseline .truth-row h2,
+body.v84m-baseline .doctrine h2 {
+  color:var(--m-cyan) !important;
+  letter-spacing:.15em !important;
+}
+
+/* right interpretation: più leggibile */
+body.v84m-baseline .right,
+body.v84m-baseline .master,
+body.v84m-baseline aside {
+  font-size:11px !important;
+}
+
+body.v84m-baseline .score strong {
+  color:var(--m-green) !important;
+}
+
+/* Clean mode davvero pulita */
+body.v84m-baseline.mode-clean .sapienza-evidence-chain {
+  display:none !important;
+}
+
+body.v84m-baseline.mode-clean .sapienza-director {
+  opacity:.72;
+}
+
+/* Teach mode evidenzia la catena */
+body.v84m-baseline.mode-teach .sapienza-evidence-chain article {
+  box-shadow:
+    0 0 0 1px rgba(66,245,111,.10),
+    0 16px 52px rgba(0,0,0,.30),
+    inset 0 0 24px rgba(66,245,111,.030);
+}
+
+/* 4D mode: chain resta visibile ma non disturba */
+body.v84m-baseline.mode-4d .sapienza-evidence-chain {
+  opacity:.86;
+}
+
+/* footer più sobrio */
+body.v84m-baseline footer {
+  color:rgba(232,250,255,.48) !important;
+}
+
+@media(max-width:1500px){
+  body.v84m-baseline .sapienza-director {
+    grid-template-columns:1fr !important;
+  }
+
+  .sapienza-evidence-chain {
+    grid-template-columns:1fr;
+  }
+}

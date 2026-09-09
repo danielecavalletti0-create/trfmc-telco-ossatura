@@ -1,0 +1,1393 @@
+{
+  "version": "TRFMC v0.86E",
+  "generated_at": "2026-05-16T21:24:44",
+  "purpose": "Theory Spine / Formula Governance / Promotion Traceability",
+  "policy": {
+    "no_iframe": true,
+    "no_cdn": true,
+    "no_backend_change": true,
+    "new_parallel_page_only": true,
+    "promotion_mode": "small batch only"
+  },
+  "totals": {
+    "pages": 66,
+    "domains": 8,
+    "p0": 24,
+    "p1": 9,
+    "p2": 6,
+    "p3": 0,
+    "p4": 27
+  },
+  "domain_counts": {
+    "General / Legacy": 27,
+    "Field Engineering": 1,
+    "Infrastructure / Digital Twin": 1,
+    "RF Physics / Sapienza": 24,
+    "RF Propagation": 1,
+    "Theory / Knowledge": 2,
+    "Governance / QA": 8,
+    "RF Visualization / Vegetation": 2
+  },
+  "priority_counts": {
+    "P4": 27,
+    "P2": 6,
+    "P1": 9,
+    "P0": 24
+  },
+  "records": [
+    {
+      "file": "evidence_vault_console_v20.html",
+      "title": "TRFMC v0.20 Evidence Vault",
+      "size_kb": 8.3,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "executive_mission_dashboard_v40.html",
+      "title": "TRFMC v0.40 Executive Mission Dashboard",
+      "size_kb": 43.9,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "executive_mission_dashboard_v_next.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.59A · Executive Dashboard Next Enterprise Production Layer",
+      "size_kb": 12.9,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "field_engineering_mode_v64.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.65B · Field Telemetry on GPU Runtime",
+      "size_kb": 5.2,
+      "domain": "Field Engineering",
+      "priority": "P2",
+      "role": "Antenna line, VSWR, RET/AISG, backhaul, power, live troubleshooting",
+      "formulas": [
+        "VSWR = (1 + |Γ|) / (1 - |Γ|)",
+        "Return Loss[dB] = -20log10(|Γ|)",
+        "Fresnel radius ≈ sqrt(nλd1d2/(d1+d2))"
+      ],
+      "measurements": [
+        "VSWR",
+        "RET state",
+        "AISG state",
+        "backhaul loss",
+        "fiber state",
+        "sector health"
+      ],
+      "promotion_rule": "Promuovere se diventa procedura diagnostica, non solo dashboard."
+    },
+    {
+      "file": "global_mission_scenario_launcher_v39.html",
+      "title": "TRFMC v0.39 Global Mission Scenario Launcher",
+      "size_kb": 15.0,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "infrastructure_digital_twin_v63.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.63B · Infrastructure Digital Twin Visual Upgrade",
+      "size_kb": 5.4,
+      "domain": "Infrastructure / Digital Twin",
+      "priority": "P1",
+      "role": "Tower, antenna, RRU, RET/AISG, backhaul, shelter, power chain",
+      "formulas": [
+        "Antenna electrical tilt + mechanical tilt → coverage footprint",
+        "VSWR = (1 + |Γ|) / (1 - |Γ|)",
+        "Availability = MTBF / (MTBF + MTTR)"
+      ],
+      "measurements": [
+        "RET angle",
+        "VSWR",
+        "-48V DC",
+        "RRU temperature",
+        "backhaul state",
+        "site readiness"
+      ],
+      "promotion_rule": "Promuovere se oggetti fisici e KPI operativi sono leggibili e correlati."
+    },
+    {
+      "file": "mission_graph_console_v15.html",
+      "title": "TRFMC v0.15 Correlation Engine & Mission Graph",
+      "size_kb": 10.4,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "network_journey_world_map_v37.html",
+      "title": "TRFMC v0.37 Network Journey World Map",
+      "size_kb": 14.1,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "observability_console_v13.html",
+      "title": "TRFMC v0.13 Observability & Evidence Console",
+      "size_kb": 8.7,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "operational_backup_console_v21.html",
+      "title": "TRFMC v0.21 Operational Backup Control",
+      "size_kb": 7.7,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "operator_handbook_console_v23.html",
+      "title": "TRFMC v0.27 Operator Handbook Interactive Console",
+      "size_kb": 11.2,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "portal_index_v19.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.30 Portal Index Golden Check Integration",
+      "size_kb": 18.9,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "restore_readiness_console_v22.html",
+      "title": "TRFMC v0.22 Restore Readiness",
+      "size_kb": 7.4,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "rf_instrumentation_signal_cockpit_v38.html",
+      "title": "TRFMC v0.38 RF Instrumentation & Signal Analysis Cockpit",
+      "size_kb": 16.3,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "rf_physics_sapienza_console_v86a.html",
+      "title": "TRFMC v0.86A · RF Physics Sapienza Console",
+      "size_kb": 9.8,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_propagation_sandbox_v62.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.62B · RF Propagation Sandbox Visual Upgrade",
+      "size_kb": 5.5,
+      "domain": "RF Propagation",
+      "priority": "P2",
+      "role": "Reflection, diffraction, scattering, penetration, NLOS and multipath",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "Received field = direct path + reflected paths + diffracted paths",
+        "Delay spread RMS = sqrt(E[τ²] - E[τ]²)"
+      ],
+      "measurements": [
+        "path loss",
+        "delay spread",
+        "multipath",
+        "NLOS state",
+        "coverage margin"
+      ],
+      "promotion_rule": "Promuovere se ogni ostacolo modifica percorso, perdita o qualità canale."
+    },
+    {
+      "file": "rf_sapienza_console_v84b.html",
+      "title": "TRFMC v0.84B · RF Sapienza Console",
+      "size_kb": 6.8,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84c.html",
+      "title": "TRFMC v0.84C · RF Sapienza Console R2 R2",
+      "size_kb": 6.8,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84d.html",
+      "title": "TRFMC v0.84D · RF Sapienza Truth Palette R2",
+      "size_kb": 6.9,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84e.html",
+      "title": "TRFMC v0.84E · RF Sapienza Instrument Truth View",
+      "size_kb": 7.5,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84f.html",
+      "title": "TRFMC v0.84F · RF Instrument Dark Field Discipline",
+      "size_kb": 7.6,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84g.html",
+      "title": "TRFMC v0.84G · RF Topographic Instrument View",
+      "size_kb": 7.7,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84h.html",
+      "title": "TRFMC v0.84H · RF Atlas Instrument View",
+      "size_kb": 7.7,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84i.html",
+      "title": "TRFMC v0.84I · RF Vector Cartography Console",
+      "size_kb": 7.8,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84j.html",
+      "title": "TRFMC v0.84J · RF 4D Measurement Theater",
+      "size_kb": 8.0,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84k.html",
+      "title": "TRFMC v0.84K · RF Sapienza Layer Director",
+      "size_kb": 8.2,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84l.html",
+      "title": "TRFMC v0.84L · RF Sapienza Director Cockpit",
+      "size_kb": 8.4,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_sapienza_console_v84m.html",
+      "title": "TRFMC v0.84M · RF Sapienza Production Baseline",
+      "size_kb": 8.7,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "rf_telco_component_library_v76.html",
+      "title": "TRFMC v0.76A · RF/Telco Component Object Library",
+      "size_kb": 4.5,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "rf_telco_knowledge_modules_v61.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.61A · RF/Telco Knowledge Modules",
+      "size_kb": 6.9,
+      "domain": "Theory / Knowledge",
+      "priority": "P2",
+      "role": "RF/Telco theory, Maxwell, Fourier, IQ, OFDM, measurement method",
+      "formulas": [
+        "∇×E = -∂B/∂t",
+        "∇×H = J + ∂D/∂t",
+        "s(t) = I(t)cos(2πfct) - Q(t)sin(2πfct)",
+        "OFDM symbol = IFFT{subcarrier symbols}"
+      ],
+      "measurements": [
+        "E/H field",
+        "FFT",
+        "I/Q",
+        "subcarrier spacing",
+        "EVM",
+        "spectral mask"
+      ],
+      "promotion_rule": "Promuovere se la teoria è agganciata a una pagina operativa."
+    },
+    {
+      "file": "rf_telco_knowledge_os_v60.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.60A · RF/Telco Knowledge Operating System",
+      "size_kb": 6.2,
+      "domain": "Theory / Knowledge",
+      "priority": "P2",
+      "role": "RF/Telco theory, Maxwell, Fourier, IQ, OFDM, measurement method",
+      "formulas": [
+        "∇×E = -∂B/∂t",
+        "∇×H = J + ∂D/∂t",
+        "s(t) = I(t)cos(2πfct) - Q(t)sin(2πfct)",
+        "OFDM symbol = IFFT{subcarrier symbols}"
+      ],
+      "measurements": [
+        "E/H field",
+        "FFT",
+        "I/Q",
+        "subcarrier spacing",
+        "EVM",
+        "spectral mask"
+      ],
+      "promotion_rule": "Promuovere se la teoria è agganciata a una pagina operativa."
+    },
+    {
+      "file": "rf_telco_mission_portal_v35.html",
+      "title": "TRFMC v0.35 RF/Telco Mission Portal",
+      "size_kb": 9.2,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "rf_telco_visual_cockpit_v36.html",
+      "title": "TRFMC v0.36 RF/Telco Visual Scenario Cockpit",
+      "size_kb": 11.8,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "runtime_golden_check_console_v29.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.29 Runtime Golden Check Console",
+      "size_kb": 9.2,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "sapienza_master_template_doctrine_v85a.html",
+      "title": "TRFMC v0.85A · Sapienza Master Template Doctrine",
+      "size_kb": 7.3,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "scenario_report_console_v17.html",
+      "title": "TRFMC v0.17 Scenario Evidence Report Export",
+      "size_kb": 8.2,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "scenario_runner_console_v16.html",
+      "title": "TRFMC v0.16 Scenario Runner & Mission Playbooks",
+      "size_kb": 8.4,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "security_console_v18.html",
+      "title": "TRFMC v0.18 Security Baseline & Access Guard",
+      "size_kb": 7.9,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "timeline_console_v14.html",
+      "title": "TRFMC v0.14 Evidence Timeline & Mission Replay",
+      "size_kb": 9.0,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "trfmc_performance_gpu_gate_v86b.html",
+      "title": "TRFMC v0.86B · Performance GPU Binding Gate",
+      "size_kb": 7.5,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "trfmc_performance_gpu_gate_v86b_r1.html",
+      "title": "TRFMC v0.86B-R1 · Performance GPU Binding Gate R1",
+      "size_kb": 7.7,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "trfmc_portal_registry_v86c.html",
+      "title": "TRFMC v0.86C · Portal Registry Navigation Spine",
+      "size_kb": 5.8,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "trfmc_portal_registry_v86c_r1.html",
+      "title": "TRFMC v0.86C-R1 · Portal Registry Navigation Spine R1",
+      "size_kb": 5.8,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "trfmc_unified_shell_noiframe_v86d_r1.html",
+      "title": "TRFMC v0.86D-R1 · No-IFrame Route Console",
+      "size_kb": 5.9,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "trfmc_unified_shell_prototype_v86d.html",
+      "title": "TRFMC v86D Quarantine · Route Locked",
+      "size_kb": 5.8,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "trfmc_visual_qa_matrix_v71.html",
+      "title": "TRFMC v0.71A · Page-by-Page Visual QA Matrix",
+      "size_kb": 3.8,
+      "domain": "Governance / QA",
+      "priority": "P1",
+      "role": "Runtime health, HTTP state, scope, promotion gate, visual governance",
+      "formulas": [
+        "Promotion = HTTP200 ∧ noGlobalPatch ∧ noIframe ∧ scopedAssets ∧ rollbackReady",
+        "Readiness score = weighted(HTTP, scope, identity, route, evidence)"
+      ],
+      "measurements": [
+        "HTTP 200",
+        "git dirty",
+        "route status",
+        "scope JSON",
+        "FPS",
+        "frame budget"
+      ],
+      "promotion_rule": "Promuovere solo per batch piccoli e con rollback."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v66.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.66A · WebGL RF Heatmap Engine",
+      "size_kb": 4.3,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v67.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.67A · Urban Shadowing & Clutter Engine",
+      "size_kb": 4.4,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v68.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.68A · Seasonal Vegetation Clutter Engine",
+      "size_kb": 5.6,
+      "domain": "RF Visualization / Vegetation",
+      "priority": "P2",
+      "role": "Foliage attenuation, clutter, seasonal absorption, wet canopy loss",
+      "formulas": [
+        "Weissberger MED d≤14m: L = 0.45·f^0.284·d",
+        "Weissberger MED d>14m: L = 1.33·f^0.284·d^0.588",
+        "Ltotal = Lpath + Lvegetation + Lshadow + Lfade"
+      ],
+      "measurements": [
+        "foliage loss",
+        "season factor",
+        "coverage contraction",
+        "outage risk"
+      ],
+      "promotion_rule": "Promuovere solo se la vegetazione produce attenuazione coerente, non alone grafico."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v68_surgical_v81.html",
+      "title": "TRFMC v0.81C-R2 · Seasonal Vegetation Clutter Engine · Cinematic Surgical Rebuild",
+      "size_kb": 8.2,
+      "domain": "RF Visualization / Vegetation",
+      "priority": "P2",
+      "role": "Foliage attenuation, clutter, seasonal absorption, wet canopy loss",
+      "formulas": [
+        "Weissberger MED d≤14m: L = 0.45·f^0.284·d",
+        "Weissberger MED d>14m: L = 1.33·f^0.284·d^0.588",
+        "Ltotal = Lpath + Lvegetation + Lshadow + Lfade"
+      ],
+      "measurements": [
+        "foliage loss",
+        "season factor",
+        "coverage contraction",
+        "outage risk"
+      ],
+      "promotion_rule": "Promuovere solo se la vegetazione produce attenuazione coerente, non alone grafico."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v69.html",
+      "title": "TRFMC v0.70A Unified Shell · TRFMC v0.69A · UE Mobility & Handover Dynamics",
+      "size_kb": 6.0,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v82_native_lab.html",
+      "title": "TRFMC v0.82A · Native WebGL RF Vegetation Lab",
+      "size_kb": 6.5,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v82b_native_lab.html",
+      "title": "TRFMC v0.82B · Native WebGL RF Field Refinement",
+      "size_kb": 7.7,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v82c_mission_replay.html",
+      "title": "TRFMC v0.82C · Native WebGL Mission Replay",
+      "size_kb": 7.9,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_heatmap_engine_v82c_r2_mission_replay.html",
+      "title": "TRFMC v0.82C-R2 · Native WebGL Mission Replay Layout Fix",
+      "size_kb": 8.2,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v83.html",
+      "title": "TRFMC v0.83A · RF Physics Calibrated 4D Engine",
+      "size_kb": 8.5,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v83b.html",
+      "title": "TRFMC v0.83B · RF Precision Scale + Probe Diagnostics",
+      "size_kb": 8.6,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v83c.html",
+      "title": "TRFMC v0.83C · RF Sanity Calibration + SINR-Aware Coverage",
+      "size_kb": 8.6,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v83d.html",
+      "title": "TRFMC v0.83D · Instrument Layout + Link Budget Inspector",
+      "size_kb": 8.9,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v83e.html",
+      "title": "TRFMC v0.83E · Instrument Readability + Vector Governance",
+      "size_kb": 9.1,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v83f.html",
+      "title": "TRFMC v0.83F · Dual Instrument View + RSRP/SINR Profile",
+      "size_kb": 9.3,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v85b_sapienza_baseline.html",
+      "title": "TRFMC v0.85B · Sapienza Physics Baseline + RSRP/SINR Profile",
+      "size_kb": 9.5,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v85c_sapienza_identity.html",
+      "title": "TRFMC v0.85C · Sapienza Physics Baseline + RSRP/SINR Profile",
+      "size_kb": 9.6,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v85d_runtime_identity_lock.html",
+      "title": "TRFMC v0.85D · Sapienza Physics Baseline + RSRP/SINR Profile",
+      "size_kb": 9.8,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_physics_engine_v85e_viewport_discipline.html",
+      "title": "TRFMC v0.85E · Sapienza Physics Baseline + RSRP/SINR Profile",
+      "size_kb": 9.8,
+      "domain": "RF Physics / Sapienza",
+      "priority": "P0",
+      "role": "Formula-driven RF field, RSRP/SINR, best-server, measurement discipline",
+      "formulas": [
+        "FSPL[dB] = 32.44 + 20log10(fMHz) + 20log10(dkm)",
+        "PL[dB] = PL(d0) + 10nlog10(d/d0) + Xσ",
+        "Prx[dBm] = EIRP + Gsector - PL - Lveg - Lshadow - Lfade",
+        "SINR[dB] = Prx_serving - Prx_interferer - margin"
+      ],
+      "measurements": [
+        "RSRP",
+        "SINR",
+        "EVM",
+        "PDP",
+        "H(f)",
+        "link budget",
+        "best-server"
+      ],
+      "promotion_rule": "Promuovere solo se colore, formula, misura e decisione coincidono."
+    },
+    {
+      "file": "webgl_rf_tm_supreme_console_v84a.html",
+      "title": "TRFMC v0.84A · RF T&M Supreme Console",
+      "size_kb": 5.8,
+      "domain": "General / Legacy",
+      "priority": "P4",
+      "role": "Unclassified candidate requiring domain assignment",
+      "formulas": [
+        "No formula assigned yet",
+        "Needs geometry → channel → signal → decision mapping"
+      ],
+      "measurements": [
+        "unknown",
+        "manual review required"
+      ],
+      "promotion_rule": "Hold: classificare prima di promuovere."
+    }
+  ]
+}

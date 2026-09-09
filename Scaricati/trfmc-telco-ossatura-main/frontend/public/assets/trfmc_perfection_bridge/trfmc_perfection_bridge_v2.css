@@ -1,0 +1,144 @@
+/*
+ TRFMC Perfection Bridge V2
+ Leaf-only remediation module.
+ No navbar. No iframe. No CDN.
+*/
+
+.trfmc-perfection-bridge-v2{
+  position:relative;
+  z-index:1;
+  margin:8px;
+  padding:9px;
+  border:1px solid rgba(0,229,255,.38);
+  border-radius:14px;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(0,229,255,.16), transparent 32%),
+    radial-gradient(circle at 12% 90%, rgba(117,255,91,.06), transparent 26%),
+    linear-gradient(145deg, rgba(2,18,30,.94), rgba(1,7,13,.95));
+  box-shadow:
+    0 0 38px rgba(0,229,255,.16),
+    inset 0 0 26px rgba(0,229,255,.06),
+    0 18px 54px rgba(0,0,0,.46);
+  color:#dffaff;
+  font-family:ui-monospace,Consolas,monospace;
+}
+
+.trfmc-perfection-bridge-v2 *{
+  box-sizing:border-box;
+}
+
+.trfmc-b2-head{
+  display:grid;
+  grid-template-columns:1fr minmax(420px,.7fr);
+  gap:10px;
+  align-items:start;
+  border-bottom:1px solid rgba(0,229,255,.18);
+  padding-bottom:8px;
+  margin-bottom:8px;
+}
+
+.trfmc-b2-title{
+  color:#00e5ff;
+  font-size:13px;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  text-shadow:0 0 16px rgba(0,229,255,.42);
+}
+
+.trfmc-b2-sub{
+  color:#8fb8c8;
+  font-size:10px;
+  line-height:1.45;
+  margin-top:4px;
+}
+
+.trfmc-b2-kpis{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:6px;
+}
+
+.trfmc-b2-kpi{
+  border:1px solid rgba(0,229,255,.26);
+  background:rgba(0,229,255,.045);
+  border-radius:8px;
+  padding:6px;
+}
+
+.trfmc-b2-kpi small{
+  display:block;
+  color:#8fb8c8;
+  font-size:8px;
+  text-transform:uppercase;
+}
+
+.trfmc-b2-kpi b{
+  display:block;
+  color:#75ff5b;
+  font-size:13px;
+  margin-top:2px;
+}
+
+.trfmc-b2-grid{
+  display:grid;
+  grid-template-columns:1fr .92fr;
+  gap:8px;
+}
+
+.trfmc-b2-asset{
+  min-height:360px;
+}
+
+.trfmc-b2-side{
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  gap:8px;
+}
+
+.trfmc-b2-card{
+  border:1px solid rgba(0,229,255,.22);
+  background:rgba(0,229,255,.035);
+  border-radius:10px;
+  padding:8px;
+}
+
+.trfmc-b2-card h3{
+  color:#ffd84d;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin:0 0 6px 0;
+}
+
+.trfmc-b2-formulas{
+  color:#dffaff;
+  font-size:10px;
+  line-height:1.48;
+  white-space:pre-wrap;
+}
+
+.trfmc-b2-scope{
+  width:100%;
+  height:150px;
+  display:block;
+  border:1px solid rgba(0,229,255,.20);
+  border-radius:9px;
+  background:#010409;
+}
+
+.trfmc-b2-pill{
+  display:inline-block;
+  border:1px solid rgba(117,255,91,.34);
+  background:rgba(117,255,91,.07);
+  color:#75ff5b;
+  border-radius:6px;
+  padding:2px 6px;
+  margin:2px 3px 2px 0;
+  font-size:9px;
+}
+
+@media(max-width:1250px){
+  .trfmc-b2-head{grid-template-columns:1fr}
+  .trfmc-b2-grid{grid-template-columns:1fr}
+  .trfmc-b2-kpis{grid-template-columns:repeat(2,1fr)}
+}

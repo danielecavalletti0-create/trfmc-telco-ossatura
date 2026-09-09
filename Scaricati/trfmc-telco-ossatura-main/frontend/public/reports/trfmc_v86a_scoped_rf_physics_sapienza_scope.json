@@ -1,0 +1,41 @@
+{
+  "version": "TRFMC v0.86A",
+  "page": "rf_physics_sapienza_console_v86a.html",
+  "mission": "Create a new fully scoped RF Physics Sapienza console without touching v85E and without reusing failed v85F global styling.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "source_baseline": "v0.85e-rf-physics-viewport-discipline",
+  "failed_page_not_used": "webgl_rf_physics_engine_v85f_instrument_discipline.html",
+  "scoping_rules": [
+    "all CSS under [data-trfmc-page='rf-physics-sapienza-v86']",
+    "all selectors use rf86-* classes",
+    "no section:first-of-type",
+    "no global article selector",
+    "no global aside selector",
+    "no global canvas selector",
+    "no aggressive MutationObserver DOM rewriting",
+    "no CDN",
+    "no backend changes"
+  ],
+  "features": [
+    "scoped shellbar",
+    "RF hero",
+    "mode director",
+    "formula-driven RF canvas",
+    "RSRP/SINR operational scale",
+    "IQ constellation canvas",
+    "PDP canvas",
+    "H(f) response canvas",
+    "formula doctrine cards",
+    "teaching chain"
+  ],
+  "acceptance": [
+    "v85E remains untouched",
+    "v86A page returns HTTP 200",
+    "v86A CSS and JS return HTTP 200",
+    "backend health remains HTTP 200",
+    "worktree clean after commit"
+  ]
+}

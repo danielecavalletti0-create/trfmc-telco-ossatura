@@ -1,0 +1,25 @@
+{
+  "version": "TRFMC v0.84F",
+  "page": "rf_sapienza_console_v84f.html",
+  "mission": "Dark field discipline: remove filled red fields, preserve red only as localized diagnostic contour, make the canvas behave as an instrument surface.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "native_canvas": true,
+  "based_on": "v0.84E RF Instrument Truth View",
+  "critical_fix": [
+    "critical fill changed from red to dark neutral",
+    "red preserved only as thin diagnostic contour",
+    "critical threshold made less spatially dominant",
+    "canvas saturation reduced",
+    "field surface made subordinate to IQ/PDP/H(f)/budget"
+  ],
+  "acceptance": [
+    "no red curtain",
+    "objects remain readable",
+    "field is a measurement surface",
+    "instrument panels carry the technical truth",
+    "teacher note explains causal diagnosis"
+  ]
+}

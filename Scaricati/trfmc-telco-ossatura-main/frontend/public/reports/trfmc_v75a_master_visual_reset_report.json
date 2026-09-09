@@ -1,0 +1,80 @@
+[
+  {
+    "file": "frontend/public/executive_mission_dashboard_v_next.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/webgl_rf_heatmap_engine_v69.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/webgl_rf_heatmap_engine_v68.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/webgl_rf_heatmap_engine_v67.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/webgl_rf_heatmap_engine_v66.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/field_engineering_mode_v64.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/infrastructure_digital_twin_v63.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/rf_propagation_sandbox_v62.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/rf_telco_knowledge_os_v60.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/rf_telco_knowledge_modules_v61.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/runtime_golden_check_console_v29.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/portal_index_v19.html",
+    "status": "patched",
+    "removed_old_global_refs": 8,
+    "changed": true
+  },
+  {
+    "file": "frontend/public/trfmc_visual_qa_matrix_v71.html",
+    "status": "patched",
+    "removed_old_global_refs": 4,
+    "changed": true
+  }
+]

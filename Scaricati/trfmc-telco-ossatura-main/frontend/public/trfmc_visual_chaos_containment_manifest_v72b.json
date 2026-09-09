@@ -1,0 +1,17 @@
+{
+  "version": "TRFMC v0.72B",
+  "name": "Visual Chaos Containment / Clean Governance",
+  "reason": "v0.72A created excessive fixed overlays, duplicated shells, badge stacking and dirty iframe previews.",
+  "actions": [
+    "hide invasive fixed overlays by default",
+    "keep one compact enterprise shell",
+    "hide legacy local headers where a unified shell exists",
+    "force iframe preview mode with ?preview=1",
+    "remove shell, badge and rail overlays inside preview iframes",
+    "make audit overlays opt-in with ALT+A"
+  ],
+  "controls": {
+    "ALT+A": "toggle audit overlays",
+    "ALT+C": "toggle calibrated low-motion mode"
+  }
+}

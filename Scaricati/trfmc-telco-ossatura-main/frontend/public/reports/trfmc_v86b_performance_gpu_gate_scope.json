@@ -1,0 +1,31 @@
+{
+  "version": "TRFMC v0.86B",
+  "page": "trfmc_performance_gpu_gate_v86b.html",
+  "mission": "Instrument runtime GPU binding, WebGL/WebGPU renderer identity, FPS, frame-time, canvas DPR/backing size and portal promotion gates before broad portal integration.",
+  "new_page_only": true,
+  "production_overwrite": false,
+  "backend_change": false,
+  "cdn_used": false,
+  "based_on": "v0.86A-R2 scoped RF Physics Sapienza console",
+  "preserves": [
+    "rf_physics_sapienza_console_v86a.html",
+    "webgl_rf_physics_engine_v85e_viewport_discipline.html"
+  ],
+  "features": [
+    "WebGL vendor/renderer probe",
+    "unmasked WebGL renderer probe when extension is available",
+    "WebGPU high-performance adapter probe",
+    "FPS and frame-time gate",
+    "quality modes safe/balanced/supreme",
+    "canvas DPR/backing-size measurement",
+    "runtime JSON export",
+    "portal integration sequence table"
+  ],
+  "guardrails": [
+    "all CSS scoped under [data-trfmc-page='performance-gpu-gate-v86b']",
+    "no CDN",
+    "no global body/html/canvas styling",
+    "no MutationObserver",
+    "no backend change"
+  ]
+}
