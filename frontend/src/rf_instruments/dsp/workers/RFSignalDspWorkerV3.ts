@@ -29,6 +29,21 @@ let average: Float32Array | null = null;
 
 const PI2 = Math.PI * 2;
 
+// ============================================================================
+// COSTANTI DI CALIBRAZIONE STRUMENTO (documentate esplicitamente)
+//
+// Questo e' un generatore simulato, non un ricevitore reale: la potenza FFT
+// grezza non ha un riferimento dBm fisico. Come qualunque spectrum analyzer
+// reale (che richiede una "reference level" e uno "span" impostati
+// dall'operatore), scegliamo qui due costanti di riferimento fisse e le
+// applichiamo in modo coerente a tutte le metriche derivate, cosi' i numeri
+// restano internamente consistenti (rapporti/log corretti) anche se il punto
+// zero e' una scelta di calibrazione dichiarata, non una misura assoluta.
+// ============================================================================
+const REF_SPAN_MHZ = 20; // span simulato dell'analizzatore, Nyquist = 10 MHz
+const REF_LEVEL_DBM = -10; // livello di riferimento per la conversione potenza->dBm
+const DB_FLOOR = -140; // pavimento numerico per evitare log(0)
+
 function blackmanHarris(length: number) {
   const window = new Float32Array(length);
 
@@ -44,9 +59,11 @@ function blackmanHarris(length: number) {
 }
 
 function applyWindow(samples: Float32Array, window: Float32Array) {
+  const out = new Float32Array(samples.length);
   for (let i = 0; i < samples.length; i++) {
-    samples[i] *= window[i];
+    out[i] = samples[i] * window[i];
   }
+  return out;
 }
 
 function createBitReversal(length: number) {
@@ -108,7 +125,27 @@ function fft(real: Float32Array, imag: Float32Array) {
   }
 }
 
-function generateTimeDomainSignal(t: number, length: number) {
+// ---------------------------------------------------------------------------
+// Generatore di rumore gaussiano (Box-Muller). Necessario per iniettare un
+// rumore additivo quantificato (AWGN) con una varianza nota, in modo che
+// SNR/EVM misurati a valle abbiano un riferimento di verita' rispetto a cui
+// essere confrontati (esattamente come si fa calibrando un generatore RF
+// reale con un noise floor noto prima di misurarlo con l'analizzatore).
+// ---------------------------------------------------------------------------
+function gaussianNoise(): number {
+  let u1 = 0;
+  let u2 = 0;
+  while (u1 === 0) u1 = Math.random();
+  u2 = Math.random();
+  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(PI2 * u2);
+}
+
+/**
+ * Segnale portante deterministico (senza rumore): somma di toni fissi piu'
+ * deriva lenta di fase, per simulare un multiplex a banda stretta con
+ * qualche struttura spettrale riconoscibile (picchi).
+ */
+function carrierSignal(t: number, length: number) {
   const real = new Float32Array(length);
   const phaseDrift = t * 0.00015;
 
@@ -140,6 +177,41 @@ function generateTimeDomainSignal(t: number, length: number) {
   }
 
   return real;
+}
+
+/**
+ * SNR "di verita'" del canale simulato: varia lentamente nel tempo, come un
+ * vero link RF soggetto a fading/interferenza lenta. Questo NON e' il numero
+ * mostrato all'utente: e' il parametro nascosto che il rumore iniettato
+ * rispetta, e che le metriche calcolate a valle devono ricostruire misurando
+ * il segnale risultante (proprio come farebbe uno strumento reale).
+ */
+function groundTruthSnrDb(t: number): number {
+  return 26 + 7 * Math.sin(t * 0.00007) + 2 * Math.sin(t * 0.00023 + 1.3);
+}
+
+/**
+ * Genera il segnale nel tempo con rumore gaussiano additivo iniettato alla
+ * potenza necessaria per ottenere lo SNR di verita' richiesto, misurato
+ * rispetto alla potenza media del segnale portante.
+ */
+function generateTimeDomainSignal(t: number, length: number) {
+  const carrier = carrierSignal(t, length);
+
+  let signalPower = 0;
+  for (let n = 0; n < length; n++) signalPower += carrier[n] * carrier[n];
+  signalPower /= length;
+
+  const snrDb = groundTruthSnrDb(t);
+  const noisePower = signalPower / Math.pow(10, snrDb / 10);
+  const noiseStd = Math.sqrt(noisePower);
+
+  const out = new Float32Array(length);
+  for (let n = 0; n < length; n++) {
+    out[n] = carrier[n] + gaussianNoise() * noiseStd;
+  }
+
+  return out;
 }
 
 function normalizeTrace(trace: Float32Array) {
@@ -180,37 +252,114 @@ function extractMarkers(spectrum: Float32Array) {
   return markers;
 }
 
-function computeMetrics(spectrum: Float32Array) {
-  let peak = 0;
-  let sum = 0;
-  const floorValues: number[] = [];
+function toDb(power: number): number {
+  return Math.max(DB_FLOOR, 10 * Math.log10(Math.max(power, 1e-12)));
+}
 
-  for (let i = 0; i < spectrum.length; i++) {
-    const value = spectrum[i];
-    peak = Math.max(peak, value);
-    sum += value;
-    if (value < 0.18) floorValues.push(value);
+/**
+ * Metriche derivate dallo spettro di potenza a piena risoluzione (prima
+ * della decimazione ai bin di visualizzazione) e dal segnale nel tempo
+ * grezzo. Ogni misura e' calcolata con la formula standard corrispondente,
+ * non con un'approssimazione cosmetica:
+ *
+ * - OBW: metodo della banda al 99% della potenza (standard per spectrum
+ *   analyzer: banda che esclude lo 0.5% di potenza da ciascun lato).
+ * - Channel power / noise floor: integrazione di potenza in banda / mediana
+ *   dei bin fuori banda.
+ * - SNR: derivato come channel power - noise floor (non una formula
+ *   indipendente), esattamente come misurerebbe uno strumento reale.
+ * - ACLR: rapporto di potenza tra banda adiacente e banda principale.
+ * - Crest factor: picco/RMS reale sul segnale nel tempo non finestrato.
+ */
+function computeSpectrumMetrics(
+  powerSpectrum: Float32Array,
+  timeSignal: Float32Array
+) {
+  const half = powerSpectrum.length;
+
+  let totalPower = 0;
+  for (let k = 0; k < half; k++) totalPower += powerSpectrum[k];
+
+  const sideTarget = totalPower * 0.005;
+
+  let cumulative = 0;
+  let lowIndex = 0;
+  for (let k = 0; k < half; k++) {
+    cumulative += powerSpectrum[k];
+    if (cumulative >= sideTarget) {
+      lowIndex = k;
+      break;
+    }
   }
 
-  const mean = sum / spectrum.length;
-  const floor = floorValues.length ? floorValues.reduce((a, b) => a + b, 0) / floorValues.length : 0.12;
-  const snr = Math.max(12, Math.min(42, 24 + (peak - floor) * 38));
-  const evm = Math.max(1.0, 4.2 - (snr - 20) * 0.08);
-  const obw = 9.5 + peak * 6.5 + (frame % 120) * 0.01;
-  const aclr = -50 - (snr - 24) * 0.4;
+  cumulative = 0;
+  let highIndex = half - 1;
+  for (let k = half - 1; k >= 0; k--) {
+    cumulative += powerSpectrum[k];
+    if (cumulative >= sideTarget) {
+      highIndex = k;
+      break;
+    }
+  }
+  if (highIndex < lowIndex) highIndex = lowIndex;
+
+  let channelPower = 0;
+  for (let k = lowIndex; k <= highIndex; k++) channelPower += powerSpectrum[k];
+
+  const bandWidth = highIndex - lowIndex + 1;
+  const adjLowStart = Math.max(0, lowIndex - bandWidth);
+  const adjHighEnd = Math.min(half - 1, highIndex + bandWidth);
+
+  let adjLowPower = 0;
+  for (let k = adjLowStart; k < lowIndex; k++) adjLowPower += powerSpectrum[k];
+
+  let adjHighPower = 0;
+  for (let k = highIndex + 1; k <= adjHighEnd; k++) adjHighPower += powerSpectrum[k];
+
+  const outOfBand: number[] = [];
+  for (let k = 0; k < half; k++) {
+    if (k < lowIndex || k > highIndex) outOfBand.push(powerSpectrum[k]);
+  }
+  outOfBand.sort((a, b) => a - b);
+  const noiseFloorPower = outOfBand.length
+    ? outOfBand[Math.floor(outOfBand.length / 2)]
+    : 1e-9;
+
+  const channelPowerDbm = toDb(channelPower) + REF_LEVEL_DBM;
+  const noiseFloorDbm = toDb(noiseFloorPower) + REF_LEVEL_DBM;
+  // SNR confronta grandezze comparabili: potenza totale in banda (somma su
+  // bandWidth bin) contro potenza di rumore nella STESSA banda (densita' per
+  // bin moltiplicata per il numero di bin), non densita' contro totale.
+  const noisePowerInChannelBw = noiseFloorPower * bandWidth;
+  const snrDb = Math.max(
+    0,
+    10 * Math.log10(Math.max(channelPower, 1e-12) / Math.max(noisePowerInChannelBw, 1e-12))
+  );
+
+  const aclrLowDb = 10 * Math.log10(Math.max(adjLowPower, 1e-12) / Math.max(channelPower, 1e-12));
+  const aclrHighDb = 10 * Math.log10(Math.max(adjHighPower, 1e-12) / Math.max(channelPower, 1e-12));
+
+  const obwFractionOfNyquist = (highIndex - lowIndex + 1) / half;
+  const obwMHz = obwFractionOfNyquist * (REF_SPAN_MHZ / 2);
+
+  let peak = 0;
+  let sumSq = 0;
+  for (let n = 0; n < timeSignal.length; n++) {
+    const abs = Math.abs(timeSignal[n]);
+    peak = Math.max(peak, abs);
+    sumSq += timeSignal[n] * timeSignal[n];
+  }
+  const rms = Math.sqrt(sumSq / timeSignal.length) || 1e-9;
+  const crestFactorDb = 20 * Math.log10(peak / rms);
 
   return {
-    snr: Number(snr.toFixed(1)),
-    evm: Number(evm.toFixed(2)),
-    mer: Number((snr + 3.1).toFixed(1)),
-    obw: Number(obw.toFixed(2)),
-    aclrLow: Number(aclr.toFixed(1)),
-    aclrHigh: Number((aclr - 0.9).toFixed(1)),
-    channelPower: Number((-19.5 + mean * 16).toFixed(1)),
-    noiseFloor: Number((-102 + floor * 22).toFixed(1)),
-    crestFactor: Number((8.8 + peak * 2.2).toFixed(1)),
-    classifier: frame % 180 < 90 ? "64QAM/OFDM" : "FHSS/QPSK",
-    evidence: frame % 180 < 90 ? "software-defined receiver lab" : "adaptive burst scan"
+    snrDb,
+    channelPowerDbm,
+    noiseFloorDbm,
+    aclrLowDb,
+    aclrHighDb,
+    obwMHz,
+    crestFactorDb
   };
 }
 
@@ -218,21 +367,30 @@ function computeFFTTrace(t: number, binsCount: number) {
   const fftSize = Math.max(1024, binsCount * 4);
   const timeSignal = generateTimeDomainSignal(t, fftSize);
   const window = blackmanHarris(fftSize);
-  applyWindow(timeSignal, window);
+  const windowed = applyWindow(timeSignal, window);
 
   const imag = new Float32Array(fftSize);
-  const real = timeSignal;
+  const real = windowed;
 
   fft(real, imag);
 
-  const spectrum = new Float32Array(binsCount);
   const half = fftSize / 2;
   const scale = 2 / fftSize;
 
+  // Spettro di potenza a piena risoluzione (per le metriche - vedi
+  // computeSpectrumMetrics), separato dalla traccia decimata per la sola
+  // visualizzazione grafica (che non necessita della stessa precisione).
+  const fullPower = new Float32Array(half);
+  for (let k = 0; k < half; k++) {
+    const mag = Math.sqrt(real[k] * real[k] + imag[k] * imag[k]) * scale;
+    fullPower[k] = mag * mag;
+  }
+
+  const spectrum = new Float32Array(binsCount);
   let max = 0;
   for (let i = 0; i < binsCount; i++) {
     const index = Math.floor((i / binsCount) * half);
-    const value = Math.sqrt(real[index] * real[index] + imag[index] * imag[index]) * scale;
+    const value = Math.sqrt(fullPower[index]);
     spectrum[i] = value;
     max = Math.max(max, value);
   }
@@ -241,66 +399,122 @@ function computeFFTTrace(t: number, binsCount: number) {
     spectrum[i] = Math.max(0, Math.min(1, spectrum[i] / (max || 1)));
   }
 
-  return spectrum;
+  return { spectrum, fullPower, rawTimeSignal: timeSignal };
 }
 
-function generateIQ(t: number, count = 320): IQPoint[] {
-  const baseSymbols = [
-    [-0.75, -0.75],
-    [-0.75, -0.25],
-    [-0.25, -0.75],
-    [-0.25, -0.25],
-    [0.25, 0.25],
-    [0.25, 0.75],
-    [0.75, 0.25],
-    [0.75, 0.75]
-  ];
+// ---------------------------------------------------------------------------
+// Costellazioni standard (posizioni esatte, non punti sparsi a caso). Il
+// tipo realmente generato viene riportato in metrics.classifier: non e' un
+// "classificatore" nel senso di riconoscimento cieco del segnale (che
+// richiederebbe una pipeline di demodulazione reale, fuori scopo qui), ma
+// la verita' nota del simulatore - la stessa distinzione che un banco di
+// test dichiara quando genera un segnale di riferimento noto.
+// ---------------------------------------------------------------------------
+const QPSK_SYMBOLS: Array<[number, number]> = ([
+  [1, 1],
+  [1, -1],
+  [-1, 1],
+  [-1, -1]
+] as Array<[number, number]>).map(([i, q]) => [i / Math.SQRT2, q / Math.SQRT2]);
 
-  const pts: IQPoint[] = [];
-  const scale = 0.38;
-  const jitterPhase = t * 0.0012;
+const QAM16_LEVELS = [-3, -1, 1, 3];
+const QAM16_SYMBOLS: Array<[number, number]> = [];
+for (const i of QAM16_LEVELS) {
+  for (const q of QAM16_LEVELS) {
+    QAM16_SYMBOLS.push([i / Math.sqrt(10), q / Math.sqrt(10)]);
+  }
+}
 
-  for (let i = 0; i < count; i++) {
-    const symbol = baseSymbols[i % baseSymbols.length];
-    const noise = 0.04 + 0.018 * Math.abs(Math.sin(jitterPhase + i * 0.13));
-    const err = 0.06 + Math.abs(Math.cos(jitterPhase * 0.8 + i * 0.21)) * 0.14;
-    const disturbance = 0.015 * Math.sin(i * 1.7 + jitterPhase * 3.1);
+function groundTruthEvmPercent(t: number): number {
+  return 3.2 + 1.6 * Math.sin(t * 0.00013 + 1.7);
+}
 
-    pts.push({
-      i: symbol[0] * scale + Math.sin(i * 0.93 + jitterPhase) * noise + disturbance,
-      q: symbol[1] * scale + Math.cos(i * 1.1 + jitterPhase * 0.9) * noise + disturbance,
-      err: Math.min(0.28, err)
-    });
+function activeModulation(t: number): { symbols: Array<[number, number]>; label: string } {
+  // Alterna modulazione ogni ~20s (t in ms) - cambio lento e deliberato,
+  // non un contatore di frame usato come sostituto di un classificatore.
+  const cycle = Math.floor(t / 20000) % 2;
+  return cycle === 0
+    ? { symbols: QPSK_SYMBOLS, label: "QPSK" }
+    : { symbols: QAM16_SYMBOLS, label: "16-QAM" };
+}
+
+function generateIQ(t: number, count = 320): { points: IQPoint[]; evmPercent: number; merDb: number; label: string } {
+  const { symbols, label } = activeModulation(t);
+  const evmTarget = groundTruthEvmPercent(t);
+
+  let idealPowerSum = 0;
+  let errorPowerSum = 0;
+  const points: IQPoint[] = [];
+
+  for (let n = 0; n < count; n++) {
+    const symbol = symbols[n % symbols.length];
+    const idealI = symbol[0];
+    const idealQ = symbol[1];
+    const symbolRms = Math.sqrt(idealI * idealI + idealQ * idealQ);
+
+    // Rumore gaussiano 2D calibrato per ottenere, in aggregato sul burst,
+    // un EVM misurato vicino a evmTarget (stesso principio della catena
+    // spettro/SNR sopra: verita' nota -> rumore iniettato -> misura).
+    const perAxisStd = (evmTarget / 100) * symbolRms * 0.7071; // 1/sqrt(2)
+    const errI = gaussianNoise() * perAxisStd;
+    const errQ = gaussianNoise() * perAxisStd;
+
+    const i = idealI + errI;
+    const q = idealQ + errQ;
+
+    idealPowerSum += idealI * idealI + idealQ * idealQ;
+    errorPowerSum += errI * errI + errQ * errQ;
+
+    points.push({ i, q, err: Math.sqrt(errI * errI + errQ * errQ) });
   }
 
-  return pts;
+  const evmRms = Math.sqrt(errorPowerSum / idealPowerSum);
+  const evmPercent = evmRms * 100;
+  const merDb = -20 * Math.log10(Math.max(evmRms, 1e-6));
+
+  return { points, evmPercent, merDb, label };
 }
 
 function tick() {
   const t = performance.now();
-  const primary = computeFFTTrace(t, bins);
+  const { spectrum, fullPower, rawTimeSignal } = computeFFTTrace(t, bins);
 
   if (!maxHold || maxHold.length !== bins) {
-    maxHold = primary.slice();
-    average = primary.slice();
+    maxHold = spectrum.slice();
+    average = spectrum.slice();
   } else {
     for (let i = 0; i < bins; i++) {
-      maxHold[i] = Math.max(maxHold[i] * 0.995, primary[i]);
-      average![i] = average![i] * 0.92 + primary[i] * 0.08;
+      maxHold[i] = Math.max(maxHold[i] * 0.995, spectrum[i]);
+      average![i] = average![i] * 0.92 + spectrum[i] * 0.08;
     }
   }
 
-  const iq = generateIQ(t);
-  const metrics = computeMetrics(primary);
-  const markers = extractMarkers(primary);
+  const spectrumMetrics = computeSpectrumMetrics(fullPower, rawTimeSignal);
+  const constellation = generateIQ(t);
+
+  const metrics = {
+    snr: Number(spectrumMetrics.snrDb.toFixed(1)),
+    evm: Number(constellation.evmPercent.toFixed(2)),
+    mer: Number(constellation.merDb.toFixed(1)),
+    obw: Number(spectrumMetrics.obwMHz.toFixed(2)),
+    aclrLow: Number(spectrumMetrics.aclrLowDb.toFixed(1)),
+    aclrHigh: Number(spectrumMetrics.aclrHighDb.toFixed(1)),
+    channelPower: Number(spectrumMetrics.channelPowerDbm.toFixed(1)),
+    noiseFloor: Number(spectrumMetrics.noiseFloorDbm.toFixed(1)),
+    crestFactor: Number(spectrumMetrics.crestFactorDb.toFixed(1)),
+    classifier: constellation.label,
+    evidence: "simulatore: costellazione e canale noti (non rilevamento cieco)"
+  };
+
+  const markers = extractMarkers(spectrum);
 
   postMessage({
     type: "rf-frame",
     frame,
-    primary,
+    primary: spectrum,
     maxHold: maxHold.slice(),
     average: average!.slice(),
-    iq,
+    iq: constellation.points,
     metrics,
     markers
   });
