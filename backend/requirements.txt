@@ -4,3 +4,12 @@ pydantic==2.10.5
 pydantic-settings==2.7.1
 python-multipart==0.0.20
 httpx==0.28.1
+
+# Authentication (backend/app/core/auth.py, backend/app/domains/auth/)
+python-jose[cryptography]==3.5.0
+passlib==1.7.4
+bcrypt==4.0.1
+
+# Structured logging (backend/app/core/logging.py)
+structlog==26.1.0
+python-json-logger==4.2.0

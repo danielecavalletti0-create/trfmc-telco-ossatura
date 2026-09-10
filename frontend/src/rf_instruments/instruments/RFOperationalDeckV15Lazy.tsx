@@ -27,7 +27,7 @@ const RFBridgeReadinessV9 = lazy(() =>
 );
 
 const RFEvidenceFlightRecorderV10 = lazy(() =>
-  import("../evidence/RFEvidenceFlightRecorderV10").then((module) => ({
+  import("../vault/RFEvidenceFlightRecorderV10").then((module) => ({
     default: module.RFEvidenceFlightRecorderV10
   }))
 );

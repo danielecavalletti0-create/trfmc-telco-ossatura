@@ -13,8 +13,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
+from app.core.logging import configure_logging, get_logger
+from app.core.middleware import RequestLoggingMiddleware
 from app.persistence.bootstrap import bootstrap_database
 
+from app.domains.auth.api import router as auth_router
 from app.domains.mission.api import router as mission_router
 from app.domains.events.api import router as events_router
 from app.domains.scientific_core.api import router as scientific_router
@@ -25,7 +28,7 @@ from app.domains.telco_mns.api import router as telco_mns_router
 from app.domains.assets.api import router as assets_router
 from app.domains.access_trust.api import router as access_trust_router
 from app.domains.soc_noc.api import router as soc_noc_router
-from app.domains.evidence.api import router as evidence_router
+# evidence_router rimosso: dominio rinominato in evidence_vault (vedi import sopra), riferimento pendente corretto qui
 from app.domains.restricted.api import router as restricted_router
 from app.persistence.api import router as persistence_router
 from app.domains.time_cursor.api import router as time_cursor_router
@@ -33,6 +36,9 @@ from app.domains.uav.api import router as uav_router
 from app.domains.core_network.api import router as core_network_router
 from app.domains.autonomous_vehicles.api import router as autonomous_vehicles_router
 from app.domains.sdr.api import router as sdr_router
+
+configure_logging(env=settings.env)
+logger = get_logger(__name__)
 
 bootstrap_database()
 
@@ -42,9 +48,16 @@ app = FastAPI(
     description="Telco RF Mission Control Platform — portal index golden check integration.",
 )
 
+app.add_middleware(RequestLoggingMiddleware)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
+    allow_origins=[
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
+        "http://127.0.0.1:8080",
+        "http://localhost:8080",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -65,6 +78,7 @@ def health():
     }
 
 
+app.include_router(auth_router)
 app.include_router(mission_router)
 app.include_router(events_router)
 app.include_router(scientific_router)
@@ -75,7 +89,6 @@ app.include_router(telco_mns_router)
 app.include_router(assets_router)
 app.include_router(access_trust_router)
 app.include_router(soc_noc_router)
-app.include_router(evidence_router)
 app.include_router(restricted_router)
 app.include_router(persistence_router)
 app.include_router(time_cursor_router)
@@ -99,22 +112,6 @@ app.include_router(docs_portal_router)
 # ============================================================
 # TRFMC CORE LIVE ROUTER
 # ============================================================
-try:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[
-            "http://127.0.0.1:5173",
-            "http://localhost:5173",
-            "http://127.0.0.1:8080",
-            "http://localhost:8080",
-        ],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
-except Exception:
-    pass
-
 try:
     from app.domains.core_live.api import router as trfmc_core_live_router
     app.include_router(trfmc_core_live_router)

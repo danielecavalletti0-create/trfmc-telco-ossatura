@@ -4,7 +4,7 @@ import { RFInstrumentSuiteV5 } from "./RFInstrumentSuiteV5";
 import { RFSourceBridgePanelV7 } from "../sources/RFSourceBridgePanelV7";
 import { RFSourceRuntimeProbeV8 } from "../sources/RFSourceRuntimeProbeV8";
 import { RFBridgeReadinessV9 } from "../telemetry/RFBridgeReadinessV9";
-import { RFEvidenceFlightRecorderV10 } from "../evidence/RFEvidenceFlightRecorderV10";
+import { RFEvidenceFlightRecorderV10 } from "../vault/RFEvidenceFlightRecorderV10";
 import { RFRenderGovernorHeadlessV14 } from "../telemetry/RFRenderGovernorHeadlessV14";
 
 type DeckTab =
