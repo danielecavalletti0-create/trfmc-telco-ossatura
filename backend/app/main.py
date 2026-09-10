@@ -18,6 +18,7 @@ from app.core.middleware import RequestLoggingMiddleware
 from app.persistence.bootstrap import bootstrap_database
 
 from app.domains.auth.api import router as auth_router
+from app.domains.satellite.api import router as satellite_router
 from app.domains.mission.api import router as mission_router
 from app.domains.events.api import router as events_router
 from app.domains.scientific_core.api import router as scientific_router
@@ -79,6 +80,7 @@ def health():
 
 
 app.include_router(auth_router)
+app.include_router(satellite_router)
 app.include_router(mission_router)
 app.include_router(events_router)
 app.include_router(scientific_router)
