@@ -1,6 +1,8 @@
 .env
 .env.*
 .venv/
+venv/
+backend/venv/
 __pycache__/
 *.pyc
 node_modules/
@@ -25,3 +27,7 @@ _archive/
 callgraph_streaming.json
 candidate_report.html
 evidence_matrix.json
+
+# TRFMC cleanup 2026-09-10: rimossi perche' finiti nel repo per errore
+/Scaricati/
+/5g_lab_portal_spatial/

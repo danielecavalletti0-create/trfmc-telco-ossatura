@@ -1,2 +1,0 @@
-La vecchia rotta non era presente nel filesystem del branch corrente.
-HTTP poteva rispondere 200 per dev-server/fallback/cache/altro root.

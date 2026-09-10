@@ -3,7 +3,12 @@ import sqlite3
 from pathlib import Path
 from contextlib import contextmanager
 
-DEFAULT_DB_PATH = "/runtime/trfmc.db"
+# Path relativo alla cartella backend/ (backend/runtime/trfmc.db), funziona per
+# qualsiasi utente in esecuzione diretta (senza Docker, senza privilegi root).
+# Per il deploy via docker-compose, TRFMC_SQLITE_PATH e' impostata esplicitamente
+# a /runtime/trfmc.db (vedi docker-compose.yml), dove /runtime e' il volume montato.
+_BACKEND_ROOT = Path(__file__).resolve().parent.parent.parent
+DEFAULT_DB_PATH = str(_BACKEND_ROOT / "runtime" / "trfmc.db")
 
 
 def get_db_path() -> Path:

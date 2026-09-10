@@ -8,6 +8,7 @@ services:
       - TRFMC_ENV=dev
       - TRFMC_OPERATIONAL_MODE=SIMULATION_ONLY
       - TRFMC_RESTRICTED_ENABLED=false
+      - TRFMC_SQLITE_PATH=/runtime/trfmc.db
     volumes:
       - ./backend:/app
       - ./runtime:/runtime
