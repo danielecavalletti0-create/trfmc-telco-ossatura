@@ -20,6 +20,10 @@ body{margin:0;background:var(--bg);color:#e7fbff;font-family:'Segoe UI',Inter,Ar
   text-transform:uppercase;letter-spacing:.04em;color:var(--dim)}
 .badge.ok{border-color:var(--ok);color:var(--ok)}
 .badge.bad{border-color:var(--bad);color:var(--bad)}
+.backlink{display:inline-flex;align-items:center;gap:6px;color:var(--dim);text-decoration:none;
+  font-size:12px;margin-bottom:10px;border:1px solid var(--border);border-radius:999px;
+  padding:5px 12px;transition:color .15s,border-color .15s}
+.backlink:hover{color:var(--accent);border-color:var(--accent)}
 
 .main{width:min(97vw,1900px);margin:0 auto 40px;display:grid;grid-template-columns:340px 1fr 360px;gap:12px}
 .panel{border:1px solid var(--border);border-radius:16px;background:var(--panel);overflow:hidden}
@@ -65,6 +69,7 @@ table.readout td:last-child{text-align:right;font-weight:600}
 <body>
 
 <section class="header">
+  <a class="backlink" href="/">&larr; Torna al portale TRFMC</a>
   <h1>Urban UAV Corridor &middot; TLC / ECM / EECM Engineering Console</h1>
   <div class="sub">
     Link budget C2 UAV attraverso un canyon urbano, con perdita da diffrazione da ostacolo singolo

@@ -15,6 +15,18 @@ export const workingPages: WorkingPage[] =
 [
   {
     "status": "ACTIVE_REAL_PAGE",
+    "category": "ecm-eecm",
+    "title": "Urban UAV Corridor · TLC/ECM/EECM Engineering Console",
+    "url": "/urban_uav_ecm_masterclass_v1.html",
+    "file": "frontend/public/urban_uav_ecm_masterclass_v1.html",
+    "domCanvas": 0,
+    "sourceCanvas": 0,
+    "rfHits": 111,
+    "scriptTags": 1,
+    "rootLinks": 1
+  },
+  {
+    "status": "ACTIVE_REAL_PAGE",
     "category": "3d-visual",
     "title": "TRFMC Domain Registry V1",
     "url": "/trfmc_domain_registry_v1.html",
