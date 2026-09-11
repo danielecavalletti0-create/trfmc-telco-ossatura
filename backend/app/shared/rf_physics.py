@@ -35,6 +35,70 @@ def fspl_db(distance_m: float, frequency_hz: float) -> float:
     return 20.0 * math.log10(4.0 * math.pi * distance_m * frequency_hz / SPEED_OF_LIGHT_M_S)
 
 
+def knife_edge_diffraction_loss_db(
+    obstacle_height_above_los_m: float,
+    distance_tx_to_obstacle_m: float,
+    distance_obstacle_to_rx_m: float,
+    frequency_hz: float,
+) -> float:
+    """
+    Perdita per diffrazione da ostacolo singolo (modello "knife-edge"),
+    formula standard ITU-R Recommendation P.526 - lo stesso modello usato
+    nei tool di pianificazione cellulare reali (Atoll, Pathloss, ecc.) per
+    stimare la perdita quando un edificio ostruisce parzialmente o
+    totalmente la linea di vista diretta.
+
+    Parametro di diffrazione (adimensionale):
+        v = h * sqrt(2/lambda * (1/d1 + 1/d2))
+    dove h e' l'altezza della cima dell'ostacolo SOPRA la linea retta
+    tx-rx (h negativo se la linea passa sopra l'ostacolo, libera).
+
+    Perdita approssimata (valida per v > -0.78, ITU-R P.526):
+        J(v) = 6.9 + 20*log10( sqrt((v-0.1)^2 + 1) + v - 0.1 )   dB
+        J(v) = 0                                                  per v <= -0.78
+
+    Valori di riferimento noti per verifica (citati in ogni manuale che
+    tratta questo modello):
+        v=0    (cima ostacolo esattamente sulla linea di vista) -> J~=6.02dB
+        v=-0.78 (limite di prima zona di Fresnel quasi libera)  -> J~=0dB
+        v=1                                                      -> J~=13.9dB
+    """
+    wavelength_m = SPEED_OF_LIGHT_M_S / frequency_hz
+    d1 = max(distance_tx_to_obstacle_m, 1e-3)
+    d2 = max(distance_obstacle_to_rx_m, 1e-3)
+
+    v = obstacle_height_above_los_m * math.sqrt(
+        (2.0 / wavelength_m) * (1.0 / d1 + 1.0 / d2)
+    )
+
+    if v <= -0.78:
+        return 0.0
+
+    j = 6.9 + 20.0 * math.log10(
+        math.sqrt((v - 0.1) ** 2 + 1.0) + v - 0.1
+    )
+    return max(0.0, j)
+
+
+def fresnel_zone_radius_m(
+    distance_tx_to_point_m: float,
+    distance_point_to_rx_m: float,
+    frequency_hz: float,
+    zone: int = 1,
+) -> float:
+    """
+    Raggio della n-esima zona di Fresnel in un punto lungo il percorso
+    (formula standard): r_n = sqrt(n * lambda * d1 * d2 / (d1 + d2)).
+    Usata per valutare quanto margine di clearance serve perche' un
+    ostacolo non causi diffrazione significativa (regola pratica: 60%
+    della prima zona libera -> perdita da diffrazione trascurabile).
+    """
+    wavelength_m = SPEED_OF_LIGHT_M_S / frequency_hz
+    d1 = max(distance_tx_to_point_m, 1e-3)
+    d2 = max(distance_point_to_rx_m, 1e-3)
+    return math.sqrt(zone * wavelength_m * d1 * d2 / (d1 + d2))
+
+
 def eirp_dbw(tx_power_dbw: float, tx_antenna_gain_dbi: float) -> float:
     """EIRP (Equivalent Isotropically Radiated Power) = Pt + Gt, in dB."""
     return tx_power_dbw + tx_antenna_gain_dbi

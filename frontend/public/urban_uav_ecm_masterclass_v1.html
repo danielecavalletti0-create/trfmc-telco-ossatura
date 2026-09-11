@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TRFMC · Urban UAV Corridor · TLC / ECM / EECM Masterclass</title>
+<style>
+:root{
+  --bg:#020611; --panel:#071522; --border:#124b5c; --accent:#00e5ff;
+  --ok:#36ff7d; --warn:#ffd166; --bad:#ff5f7a; --dim:#7fb2c6;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#e7fbff;font-family:'Segoe UI',Inter,Arial,sans-serif}
+.header{width:min(97vw,1900px);margin:16px auto 10px;border:1px solid var(--border);border-radius:18px;
+  background:linear-gradient(180deg,#071522,#050d16);padding:16px 20px}
+.header h1{margin:0 0 4px;font-size:19px;letter-spacing:.02em}
+.header .sub{color:var(--dim);font-size:12.5px;line-height:1.5}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{border:1px solid var(--border);border-radius:999px;padding:4px 11px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--dim)}
+.badge.ok{border-color:var(--ok);color:var(--ok)}
+.badge.bad{border-color:var(--bad);color:var(--bad)}
+
+.main{width:min(97vw,1900px);margin:0 auto 40px;display:grid;grid-template-columns:340px 1fr 360px;gap:12px}
+.panel{border:1px solid var(--border);border-radius:16px;background:var(--panel);overflow:hidden}
+.panel h2{margin:0;padding:10px 14px;background:rgba(0,229,255,.07);border-bottom:1px solid var(--border);
+  font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--accent)}
+.body{padding:14px}
+
+label{display:flex;flex-direction:column;gap:4px;color:var(--dim);font-size:10px;text-transform:uppercase;
+  letter-spacing:.03em;margin-bottom:9px}
+input,select{width:100%;background:#020a11;color:#e7fbff;border:1px solid #16627a;border-radius:8px;
+  padding:7px 9px;font-size:12.5px}
+input[type=range]{padding:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+fieldset{border:1px solid #123c55;border-radius:10px;padding:9px 10px;margin:0 0 12px}
+legend{color:var(--accent);font-size:10.5px;text-transform:uppercase;padding:0 6px}
+.toggle{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.toggle input{width:auto}
+
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi{border:1px solid #16445b;border-radius:10px;background:#020a11;padding:9px}
+.kpi span{display:block;color:var(--dim);font-size:9.5px;text-transform:uppercase}
+.kpi b{display:block;font-size:16px;margin-top:5px;color:var(--ok)}
+.kpi.bad b{color:var(--bad)}
+.kpi.warn b{color:var(--warn)}
+
+svg{width:100%;background:#02040a;border:1px solid #0f4058;border-radius:12px;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:8px 4px 0;font-size:10.5px;color:var(--dim)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.swatch{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+.note{font-size:11.5px;color:var(--dim);line-height:1.6;padding:10px 14px;border-top:1px solid var(--border)}
+.note b{color:#e7fbff}
+.errbox{background:#3a0d18;border:1px solid var(--bad);border-radius:10px;padding:10px;color:#ffb3c2;
+  font-size:12px;margin-top:8px}
+.small{font-size:10.5px;color:var(--dim)}
+table.readout{width:100%;border-collapse:collapse;font-size:12px}
+table.readout td{padding:4px 2px;border-bottom:1px solid rgba(127,178,198,.14)}
+table.readout td:first-child{color:var(--dim)}
+table.readout td:last-child{text-align:right;font-weight:600}
+</style>
+</head>
+<body>
+
+<section class="header">
+  <h1>Urban UAV Corridor &middot; TLC / ECM / EECM Engineering Console</h1>
+  <div class="sub">
+    Link budget C2 UAV attraverso un canyon urbano, con perdita da diffrazione da ostacolo singolo
+    (ITU-R&nbsp;P.526 knife-edge) quando un edificio blocca la linea di vista diretta. ECM (jamming)
+    ed EECM (frequency hopping) opzionali, calcolati con le stesse formule standard usate nei tool di
+    pianificazione cellulare e nei corsi di comunicazioni satellitari/spread-spectrum.
+  </div>
+  <div class="badges">
+    <span class="badge ok">SIMULATION ONLY</span>
+    <span class="badge ok">NO RF TX</span>
+    <span class="badge">ITU-R P.526 knife-edge</span>
+    <span class="badge">Friis / link budget</span>
+    <span class="badge" id="gateBadge">ECM gate: —</span>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- ===================== LEFT: SCENARIO CONTROLS ===================== -->
+  <aside class="panel">
+    <h2>Scenario</h2>
+    <div class="body">
+
+      <fieldset>
+        <legend>Link C2 UAV</legend>
+        <div class="row2">
+          <label>Frequenza MHz<input id="freqMHz" value="2440"></label>
+          <label>Banda kHz<input id="bwKHz" value="1000"></label>
+        </div>
+        <div class="row2">
+          <label>Potenza TX stazione dBW<input id="txPower" value="-10"></label>
+          <label>Guadagno antenna UAV dBi<input id="uavGain" value="2"></label>
+        </div>
+        <label>Soglia C/N richiesta dB<input id="reqCn" value="10"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Edificio A</legend>
+        <div class="row3">
+          <label>X m<input id="bAx" value="200"></label>
+          <label>Larghezza m<input id="bAw" value="60"></label>
+          <label>Altezza m<input id="bAh" value="70"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Edificio B</legend>
+        <div class="row3">
+          <label>X m<input id="bBx" value="400"></label>
+          <label>Larghezza m<input id="bBw" value="50"></label>
+          <label>Altezza m<input id="bBh" value="45"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Posizione UAV (esplora dal vivo)</legend>
+        <label>Distanza orizzontale: <span id="uavXVal">300</span> m
+          <input type="range" id="uavX" min="10" max="580" value="300">
+        </label>
+        <label>Quota: <span id="uavZVal">40</span> m
+          <input type="range" id="uavZ" min="2" max="120" value="40">
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>ECM &middot; Jammer</legend>
+        <div class="toggle"><input type="checkbox" id="jamEnabled"><span class="small">Abilita jammer (richiede restricted_enabled sul backend)</span></div>
+        <div class="row2">
+          <label>Tipo<select id="jamType"><option value="barrage">Barrage</option><option value="spot">Spot</option><option value="sweep">Sweep</option></select></label>
+          <label>EIRP dBW<input id="jamEirp" value="35"></label>
+        </div>
+        <div class="row2">
+          <label>Posizione X m<input id="jamX" value="230"></label>
+          <label>Banda jammer kHz<input id="jamBw" value="5000"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>EECM &middot; Frequency Hopping</legend>
+        <div class="toggle"><input type="checkbox" id="fhssEnabled"><span class="small">Il link C2 usa FHSS</span></div>
+        <label>Banda totale di hopping MHz<input id="hopBw" value="10"></label>
+      </fieldset>
+
+    </div>
+  </aside>
+
+  <!-- ===================== CENTER: DIAGRAM ===================== -->
+  <section class="panel">
+    <h2>Sezione verticale &middot; linea di vista &amp; zona di Fresnel</h2>
+    <div class="body">
+      <svg id="sideView" viewBox="0 0 1000 420"></svg>
+      <div class="legend">
+        <span><span class="swatch" style="background:#3a4a55"></span>Edifici</span>
+        <span><span class="swatch" style="background:#36ff7d"></span>Linea di vista (link OK)</span>
+        <span><span class="swatch" style="background:#ff5f7a"></span>Linea di vista (bloccata)</span>
+        <span><span class="swatch" style="background:rgba(0,229,255,.18)"></span>1&#170; zona di Fresnel</span>
+        <span><span class="swatch" style="background:#ffd166"></span>Jammer (ECM)</span>
+      </div>
+      <div id="errArea"></div>
+    </div>
+    <h2 style="margin-top:0">Vista dall'alto</h2>
+    <div class="body">
+      <svg id="topView" viewBox="0 0 1000 160"></svg>
+    </div>
+  </section>
+
+  <!-- ===================== RIGHT: LIVE READOUT ===================== -->
+  <aside class="panel">
+    <h2>Link Budget &middot; Live</h2>
+    <div class="body">
+      <div class="kpis">
+        <div class="kpi" id="kpiLink"><span>Link</span><b id="vLink">—</b></div>
+        <div class="kpi" id="kpiCn"><span>C/N</span><b id="vCn">—</b></div>
+        <div class="kpi"><span>Diffrazione</span><b id="vDiff">—</b></div>
+      </div>
+      <table class="readout">
+        <tr><td>Distanza 3D</td><td id="tDist">—</td></tr>
+        <tr><td>LOS bloccata da</td><td id="tBlock">—</td></tr>
+        <tr><td>Perdita diffrazione</td><td id="tDiffLoss">—</td></tr>
+        <tr><td>FSPL</td><td id="tFspl">—</td></tr>
+        <tr><td>EIRP</td><td id="tEirp">—</td></tr>
+        <tr><td>Potenza ricevuta</td><td id="tPr">—</td></tr>
+        <tr><td>Rumore termico</td><td id="tNoise">—</td></tr>
+        <tr><td>C/N</td><td id="tCn">—</td></tr>
+      </table>
+    </div>
+    <h2>ECM / EECM</h2>
+    <div class="body" id="ecmBody">
+      <div class="small">Abilita il jammer per vedere l'effetto sul link.</div>
+    </div>
+    <div class="note">
+      <b>Come leggere questo pannello.</b> La perdita da diffrazione non &egrave; una costante da
+      tabella: dipende dalla geometria esatta (quanto la cima dell'edificio supera la retta
+      stazione&ndash;drone). Alzando la quota del drone con lo slider, la perdita scende con
+      continuit&agrave; fino a diventare trascurabile quando la 1&#170; zona di Fresnel torna
+      sufficientemente libera &mdash; esattamente il criterio che si usa nella pianificazione
+      cellulare reale (Atoll, Pathloss) per decidere l'altezza minima di un ripetitore o, qui,
+      la quota minima operativa di un link C2 UAV in ambiente urbano.
+    </div>
+  </aside>
+
+</main>
+
+<script>
+const API = '/trfmc-api/backend/api';
+const $ = id => document.getElementById(id);
+
+async function api(path, opt) {
+  const res = await fetch(API + path, { headers: {'Content-Type':'application/json'}, ...(opt||{}) });
+  const text = await res.text();
+  let json = null;
+  try { json = JSON.parse(text); } catch(e) {}
+  return { ok: res.ok, status: res.status, json, text };
+}
+
+// Specchio client-side di rf_physics.fresnel_zone_radius_m, solo per il
+// disegno della zona di Fresnel (il numero autorevole per il link budget
+// viene sempre dal backend, mai ricalcolato qui).
+function fresnelRadius(d1, d2, freqHz, n=1){
+  const c = 299792458;
+  const lambda = c/freqHz;
+  return Math.sqrt(n*lambda*d1*d2/(d1+d2));
+}
+
+function scenario(){
+  const freqHz = (+$('freqMHz').value)*1e6;
+  const buildings = [
+    {building_id:'A', x_m:+$('bAx').value, y_m:0, width_m:+$('bAw').value, depth_m:30, height_m:+$('bAh').value},
+    {building_id:'B', x_m:+$('bBx').value, y_m:0, width_m:+$('bBw').value, depth_m:30, height_m:+$('bBh').value},
+  ];
+  const gs = {x_m:0, y_m:0, z_m:10, tx_power_dbw:+$('txPower').value, antenna_gain_dbi:6};
+  const uav = {x_m:+$('uavX').value, y_m:0, z_m:+$('uavZ').value};
+
+  const req = {
+    frequency_hz: freqHz,
+    bandwidth_hz: (+$('bwKHz').value)*1e3,
+    rx_noise_temp_k: 400,
+    uav_antenna_gain_dbi: +$('uavGain').value,
+    required_cn_db: +$('reqCn').value,
+    buildings, ground_station: gs, path: [uav],
+  };
+
+  if ($('jamEnabled').checked){
+    req.jammer = {
+      enabled: true,
+      jammer_type: $('jamType').value,
+      x_m: +$('jamX').value, y_m: 0,
+      eirp_dbw: +$('jamEirp').value,
+      bandwidth_hz: (+$('jamBw').value)*1e3,
+    };
+    if ($('fhssEnabled').checked){
+      req.hopping_bandwidth_hz = (+$('hopBw').value)*1e6;
+    }
+  }
+  return {req, freqHz, buildings, gs, uav};
+}
+
+function fmt(v, unit, digits=2){
+  if (v===undefined || v===null) return '—';
+  return v.toFixed(digits) + ' ' + unit;
+}
+
+function drawSideView(buildings, gs, uav, freqHz, point){
+  const svg = $('sideView');
+  const W=1000,H=420,PAD=44,MAXX=600,MAXZ=130;
+  const sx = x => PAD + (x/MAXX)*(W-2*PAD);
+  const sz = z => H-PAD - (z/MAXZ)*(H-2*PAD);
+  let s = '';
+
+  // suolo
+  s += `<line x1="${PAD}" y1="${sz(0)}" x2="${W-PAD}" y2="${sz(0)}" stroke="#123c55" stroke-width="1.5"/>`;
+
+  // zona di Fresnel (poligono campionato lungo la retta GS->UAV)
+  const totalHoriz = Math.abs(uav.x_m-gs.x_m);
+  const steps=24; let top=[], bot=[];
+  for(let i=0;i<=steps;i++){
+    const t=i/steps;
+    const x = gs.x_m + (uav.x_m-gs.x_m)*t;
+    const zline = gs.z_m + (uav.z_m-gs.z_m)*t;
+    const d1 = Math.max(totalHoriz*t,1), d2=Math.max(totalHoriz*(1-t),1);
+    const r = i===0||i===steps ? 0 : fresnelRadius(d1,d2,freqHz);
+    top.push([sx(x), sz(zline+r)]);
+    bot.push([sx(x), sz(zline-r)]);
+  }
+  const poly = top.map(p=>p.join(',')).join(' ') + ' ' + bot.reverse().map(p=>p.join(',')).join(' ');
+  s += `<polygon points="${poly}" fill="rgba(0,229,255,.14)" stroke="rgba(0,229,255,.25)"/>`;
+
+  // edifici
+  for(const b of buildings){
+    const x0=sx(b.x_m-b.width_m/2), x1=sx(b.x_m+b.width_m/2);
+    const yTop=sz(b.height_m), yBot=sz(0);
+    s += `<rect x="${x0}" y="${yTop}" width="${x1-x0}" height="${yBot-yTop}" fill="#2c3e46" stroke="#4a6572"/>`;
+    s += `<text x="${(x0+x1)/2}" y="${yTop-6}" fill="#83b4c8" font-size="10" text-anchor="middle">${b.building_id} &middot; ${b.height_m}m</text>`;
+  }
+
+  // linea di vista
+  const losColor = point && point.link_ok ? '#36ff7d' : '#ff5f7a';
+  s += `<line x1="${sx(gs.x_m)}" y1="${sz(gs.z_m)}" x2="${sx(uav.x_m)}" y2="${sz(uav.z_m)}" stroke="${losColor}" stroke-width="2" stroke-dasharray="${point&&point.line_of_sight_blocked?'6,4':'0'}"/>`;
+
+  // stazione di terra
+  s += `<circle cx="${sx(gs.x_m)}" cy="${sz(gs.z_m)}" r="5" fill="#00e5ff"/>`;
+  s += `<text x="${sx(gs.x_m)}" y="${sz(gs.z_m)+18}" fill="#00e5ff" font-size="10" text-anchor="middle">GS</text>`;
+
+  // uav
+  s += `<circle cx="${sx(uav.x_m)}" cy="${sz(uav.z_m)}" r="6" fill="#fff" stroke="${losColor}" stroke-width="2"/>`;
+  s += `<text x="${sx(uav.x_m)}" y="${sz(uav.z_m)-12}" fill="#fff" font-size="10" text-anchor="middle">UAV ${uav.z_m}m</text>`;
+
+  // jammer
+  if ($('jamEnabled').checked){
+    const jx=+$('jamX').value;
+    s += `<circle cx="${sx(jx)}" cy="${sz(2)}" r="5" fill="#ffd166"/>`;
+    s += `<text x="${sx(jx)}" y="${sz(2)+18}" fill="#ffd166" font-size="10" text-anchor="middle">JAM</text>`;
+  }
+
+  svg.innerHTML = s;
+}
+
+function drawTopView(buildings, gs, uav){
+  const svg = $('topView');
+  const W=1000,H=160,PAD=40,MAXX=600,MAXY=100;
+  const sx = x => PAD + (x/MAXX)*(W-2*PAD);
+  const sy = y => H/2 - (y/MAXY)*(H/2-PAD/2);
+  let s = '';
+  s += `<line x1="${PAD}" y1="${H/2}" x2="${W-PAD}" y2="${H/2}" stroke="#123c55" stroke-dasharray="4,4"/>`;
+  for(const b of buildings){
+    const x0=sx(b.x_m-b.width_m/2), x1=sx(b.x_m+b.width_m/2);
+    const y0=sy(b.depth_m/2), y1=sy(-b.depth_m/2);
+    s += `<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="#2c3e46" stroke="#4a6572"/>`;
+  }
+  s += `<line x1="${sx(gs.x_m)}" y1="${sy(0)}" x2="${sx(uav.x_m)}" y2="${sy(0)}" stroke="#5c8ea0" stroke-width="1.5"/>`;
+  s += `<circle cx="${sx(gs.x_m)}" cy="${sy(0)}" r="5" fill="#00e5ff"/>`;
+  s += `<circle cx="${sx(uav.x_m)}" cy="${sy(0)}" r="5" fill="#fff"/>`;
+  if ($('jamEnabled').checked){
+    s += `<circle cx="${sx(+$('jamX').value)}" cy="${sy(0)}" r="5" fill="#ffd166"/>`;
+  }
+  svg.innerHTML = s;
+}
+
+function kpiClass(el, ok){
+  el.className = 'kpi' + (ok===true?'':ok===false?' bad':' warn');
+}
+
+async function refresh(){
+  $('uavXVal').textContent = $('uavX').value;
+  $('uavZVal').textContent = $('uavZ').value;
+
+  const {req, freqHz, buildings, gs, uav} = scenario();
+  $('errArea').innerHTML = '';
+
+  const r = await api('/urban-uav/corridor', {method:'POST', body: JSON.stringify(req)});
+
+  if (!r.ok){
+    drawSideView(buildings, gs, uav, freqHz, null);
+    drawTopView(buildings, gs, uav);
+    const msg = (r.json && r.json.detail) ? r.json.detail : r.text;
+    $('errArea').innerHTML = `<div class="errbox">HTTP ${r.status}: ${msg}</div>`;
+    $('gateBadge').textContent = 'ECM gate: BLOCCATO (403)';
+    $('gateBadge').className = 'badge bad';
+    return;
+  }
+
+  $('gateBadge').textContent = $('jamEnabled').checked ? 'ECM gate: ABILITATO' : 'ECM gate: n/a';
+  $('gateBadge').className = 'badge ' + ($('jamEnabled').checked ? 'ok' : '');
+
+  const p = r.json.points[0];
+  drawSideView(buildings, gs, uav, freqHz, p);
+  drawTopView(buildings, gs, uav);
+
+  $('vLink').textContent = p.link_ok ? 'OK' : 'DEGRADATO';
+  kpiClass($('kpiLink'), p.link_ok);
+  $('vCn').textContent = p.cn_db.toFixed(1)+' dB';
+  kpiClass($('kpiCn'), p.cn_db >= req.required_cn_db);
+  $('vDiff').textContent = p.diffraction_loss_db.toFixed(1)+' dB';
+
+  $('tDist').textContent = fmt(p.distance_3d_m, 'm', 1);
+  $('tBlock').textContent = p.blocking_building_id || 'nessuno (LOS libera)';
+  $('tDiffLoss').textContent = fmt(p.diffraction_loss_db, 'dB');
+  $('tFspl').textContent = fmt(p.fspl_db, 'dB');
+  $('tEirp').textContent = fmt(p.eirp_dbw, 'dBW');
+  $('tPr').textContent = fmt(p.received_power_dbw, 'dBW');
+  $('tNoise').textContent = fmt(p.noise_power_dbw, 'dBW');
+  $('tCn').textContent = fmt(p.cn_db, 'dB');
+
+  const ecmBody = $('ecmBody');
+  if (p.jammer){
+    const j = p.jammer;
+    let html = `<table class="readout">
+      <tr><td>J/S effettivo</td><td>${fmt(j.js_effective_db,'dB')}</td></tr>
+      <tr><td>Interferenza al ricevitore</td><td>${fmt(j.interference_power_dbw,'dBW')}</td></tr>
+      <tr><td>CINR (con jamming)</td><td>${fmt(j.cinr_db,'dB')}</td></tr>
+      <tr><td>Link sotto jamming</td><td style="color:${j.link_ok_under_jamming?'#36ff7d':'#ff5f7a'}">${j.link_ok_under_jamming?'OK':'DISTRUTTO'}</td></tr>`;
+    if (j.fhss_hit_probability !== undefined){
+      html += `<tr><td>EECM &middot; P(hit) hopping</td><td>${(j.fhss_hit_probability*100).toFixed(1)}%</td></tr>
+        <tr><td>EECM &middot; CINR atteso con hopping</td><td>${fmt(j.fhss_expected_cinr_db,'dB')}</td></tr>`;
+    }
+    html += `</table>`;
+    ecmBody.innerHTML = html;
+  } else {
+    ecmBody.innerHTML = '<div class="small">Abilita il jammer per vedere l\'effetto sul link.</div>';
+  }
+}
+
+['freqMHz','bwKHz','txPower','uavGain','reqCn','bAx','bAw','bAh','bBx','bBw','bBh',
+ 'uavX','uavZ','jamEnabled','jamType','jamEirp','jamX','jamBw','fhssEnabled','hopBw']
+  .forEach(id => $(id).addEventListener('input', refresh));
+
+refresh();
+</script>
+</body>
+</html>

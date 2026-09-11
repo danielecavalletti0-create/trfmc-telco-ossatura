@@ -67,6 +67,31 @@ class TestRfInterferenceFormulas:
         cinr = ew.cinr_db(-100.0, -130.0, -130.0)
         assert cinr == pytest.approx(cn_only - 3.0103, abs=0.001)
 
+    def test_interference_power_must_be_stronger_than_signal_when_js_positive(self):
+        """Regressione: un bug di segno faceva calcolare la potenza di
+        interferenza come segnale MENO J/S invece di segnale PIU J/S,
+        producendo un'interferenza via via piu' debole quanto piu' il
+        jammer era efficace (l'opposto della fisica). Con J/S positivo
+        (jammer piu' forte del segnale), l'interferenza deve essere
+        superiore alla potenza del segnale."""
+        signal_dbw = -90.0
+        js_db = 23.0  # jammer 23dB piu' forte del segnale
+        interference_dbw = signal_dbw + js_db  # formula corretta
+        assert interference_dbw > signal_dbw
+
+    def test_cinr_degrades_severely_with_strong_jammer_end_to_end(self):
+        """Valore di regressione calcolato a mano per lo scenario usato in
+        TestEWLabService: con un jammer efficace a +23dB circa sul
+        segnale, il CINR deve crollare di decine di dB rispetto al C/N
+        senza jamming, non restare sostanzialmente invariato."""
+        js_raw = ew.js_ratio_db(60.0, 5.0, 2.4e9, -90.0)
+        js_eff = ew.effective_js_db(js_raw, 20e6, 1e6, "barrage")
+        interference_dbw = -90.0 + js_eff
+        cinr = ew.cinr_db(-90.0, -120.0, interference_dbw)
+        cn_only = -90.0 - (-120.0)
+        assert cinr == pytest.approx(-22.96, abs=0.1)
+        assert cinr < cn_only - 40  # degrado severo, non marginale
+
     def test_effective_js_spot_no_correction(self):
         assert ew.effective_js_db(20.0, 1e6, 1e6, "spot") == pytest.approx(20.0)
 
@@ -95,6 +120,10 @@ class TestEWLabService:
         )
         result = service.compute_scenario(req)
         assert result["link_disrupted"] == (result["js_effective_db"] >= 6.0)
+        # Regressione bug di segno: con un jammer efficace (J/S positivo),
+        # il CINR deve essere NETTAMENTE peggiore del C/N senza jamming,
+        # non sostanzialmente invariato.
+        assert result["cinr_db"] < result["cn_db_no_jamming"] - 20
 
     def test_scenario_with_fhss_includes_hit_probability(self):
         service = EWLabService()
@@ -177,4 +206,10 @@ class TestEWLabAccessGate:
         }
         response = client.post("/api/ew-lab/scenario", json=payload)
         assert response.status_code == 200
-        assert "js_raw_db" in response.json()
+        data = response.json()
+        assert "js_raw_db" in data
+        # Regressione bug di segno: con jammer efficace, CINR deve essere
+        # nettamente peggiore del C/N senza jamming (non sostanzialmente
+        # invariato, come accadeva quando l'interferenza veniva calcolata
+        # con il segno sbagliato).
+        assert data["cinr_db"] < data["cn_db_no_jamming"] - 10

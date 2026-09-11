@@ -3477,6 +3477,24 @@ export const portalOSModules: PortalOSModule[] =
     "description": "reference-only-risk"
   },
   {
+    "id": "urban-uav-ecm-masterclass-v1",
+    "title": "Urban UAV Corridor · TLC/ECM/EECM Masterclass",
+    "category": "fft-dsp-signal",
+    "source": "frontend/public/urban_uav_ecm_masterclass_v1.html",
+    "route": "#urban-uav-ecm-masterclass-v1",
+    "status": "promoted",
+    "mode": "SIMULATION_ONLY",
+    "priority": "P1_FLAGSHIP",
+    "promotionScore": 95,
+    "shellScore": 1,
+    "canvas": 0,
+    "iframe": 0,
+    "script": 1,
+    "risks": [],
+    "target": "flagship-engineering-demo",
+    "description": "Link budget C2 UAV in ambiente urbano con diffrazione knife-edge ITU-R P.526, ECM (jamming) ed EECM (frequency hopping) - backend app.domains.urban_uav + app.domains.ew_lab"
+  },
+  {
     "id": "uav-fhss-v584",
     "title": "RF PRO v5.8.4 · UAV FHSS / Burst",
     "category": "fft-dsp-signal",

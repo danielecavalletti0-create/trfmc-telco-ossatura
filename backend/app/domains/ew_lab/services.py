@@ -40,7 +40,11 @@ class EWLabService:
 
         # Potenza di interferenza equivalente al ricevitore, per il CINR:
         # J_effective_dBW = Pr_segnale - J/S_effettivo (per definizione di J/S)
-        interference_dbw = req.signal_received_power_dbw - js_effective
+        # J/S = potenza_jammer - potenza_segnale (per definizione, vedi
+        # rf_interference.js_ratio_db). Quindi potenza_jammer = segnale + J/S
+        # (non segnale - J/S: quello darebbe un jammer piu' debole quanto
+        # piu' e' efficace, l'opposto della realta').
+        interference_dbw = req.signal_received_power_dbw + js_effective
 
         cinr = ew.cinr_db(
             req.signal_received_power_dbw,
