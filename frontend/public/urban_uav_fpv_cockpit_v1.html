@@ -375,6 +375,22 @@ function buildingFacadeTexture(widthM, heightM) {
       ctx.fillRect(c * cw + cw * 0.15, r * rh + rh * 0.15, cw * 0.7, rh * 0.7);
     }
   }
+
+  // Fascia "piano terra" distinta (senza finestre, colore diverso): rompe
+  // deliberatamente la simmetria verticale della texture. Senza questo,
+  // un drone che vola a meta' altezza di un edificio molto alto vede la
+  // stessa griglia di finestre sia sopra che sotto di se' e la scena
+  // sembra "riflessa" - non e' un bug di rendering, e' solo una texture
+  // troppo ripetitiva. La riga viene disegnata sul bordo INFERIORE del
+  // canvas (v=0 nella mappatura UV standard di BoxGeometry = base
+  // dell'edificio).
+  ctx.fillStyle = '#0c1519';
+  ctx.fillRect(0, 256 - 256 / rows * 1.3, 256, 256 / rows * 1.3);
+  ctx.fillStyle = '#3a5560';
+  for (let c = 0; c < cols; c += 2) {
+    ctx.fillRect(c * cw + cw * 0.25, 256 - 256 / rows * 0.9, cw * 0.5, 256 / rows * 0.5);
+  }
+
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.wrapS = THREE.RepeatWrapping;
@@ -423,6 +439,9 @@ function rebuildBuildings() {
   scene.add(buildingMeshes.A, buildingMeshes.B);
 }
 rebuildBuildings();
+
+// Hook di debug (innocuo, utile per ispezione esterna della scena)
+window.__DEBUG__ = { scene, buildingMeshes, camera, state };
 
 // ---- Stazione di terra ----
 const gsGroup = new THREE.Group();
@@ -719,7 +738,13 @@ function animate(t) {
   rotors.forEach((r) => { r.rotation.y += dt * 40; });
 
   // camera FPV: agganciata al drone, leggero tilt verso il basso in stile racing
-  const camOffset = new THREE.Vector3(0, 0.15, 0);
+  // La camera FPV sta sul "muso" del drone, non al suo centro geometrico -
+  // esattamente come una vera action-cam montata avanti sul telaio, per
+  // non inquadrare le proprie eliche (che sui bracci diagonali arrivano
+  // a ±0.8 unita' dal centro: una camera centrata le vedrebbe a meno di
+  // un metro di distanza, enormi e sfocate ai bordi del campo visivo).
+  const forwardVec = new THREE.Vector3(Math.cos(state.heading), 0, Math.sin(state.heading));
+  const camOffset = forwardVec.multiplyScalar(1.4).add(new THREE.Vector3(0, 0.22, 0));
   const worldPos = drone.position.clone().add(camOffset);
   camera.position.copy(worldPos);
   const lookDir = new THREE.Vector3(Math.cos(state.heading), -0.12, Math.sin(state.heading));
