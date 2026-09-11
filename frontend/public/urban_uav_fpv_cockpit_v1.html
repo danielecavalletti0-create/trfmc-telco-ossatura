@@ -108,6 +108,29 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:'Sego
 
 .controls-hint{position:fixed;bottom:150px;left:50%;transform:translateX(-50%);font-size:10px;
   color:var(--dim);text-align:center;z-index:20;pointer-events:none}
+
+/* ===== Minimappa (visione totale dall'alto) ===== */
+.minimap-panel{position:absolute;top:64px;right:24px;width:190px;
+  border:1px solid rgba(0,229,255,.4);border-radius:10px;background:rgba(2,6,17,.6);
+  backdrop-filter:blur(4px);padding:8px}
+.minimap-panel .mm-head{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);margin-bottom:5px}
+.minimap-panel .mm-heading{font-size:15px;color:var(--accent);font-weight:700;
+  text-shadow:0 0 6px rgba(0,229,255,.6)}
+.minimap-panel svg{display:block;width:100%;height:auto}
+
+/* ===== Telemetria estesa: due colonne ===== */
+.telemetry-stacks{position:absolute;bottom:180px;left:24px;display:flex;gap:22px}
+.telemetry-stacks .stack{font-size:10.5px;line-height:1.85;text-shadow:0 0 6px rgba(0,229,255,.5)}
+.telemetry-stacks .stack-title{color:var(--accent);font-size:9px;text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:4px;opacity:.85}
+.telemetry-stacks .row{display:flex;gap:8px}
+.telemetry-stacks .k{color:var(--dim);min-width:108px;text-transform:uppercase;
+  letter-spacing:.03em;font-size:9px}
+.telemetry-stacks .v{color:var(--accent);font-weight:700}
+.telemetry-stacks .v.bad{color:var(--bad)}
+.telemetry-stacks .v.ok{color:var(--ok)}
+.telemetry-stacks .v.warn{color:var(--warn)}
 </style>
 </head>
 <body>
@@ -129,17 +152,29 @@ html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:'Sego
 
   <div class="alert-banner" id="alertBanner">SEGNALE DISTURBATO — LINK COMPROMESSO</div>
 
-  <div class="compass">
-    <span>HEADING</span>
-    <b id="hudHeading">000&deg;</b>
+  <div class="minimap-panel">
+    <div class="mm-head"><span>Vista totale</span><span class="mm-heading" id="mmHeading">000&deg;</span></div>
+    <svg id="minimapSvg" viewBox="0 0 170 170"></svg>
   </div>
 
-  <div class="telemetry">
-    <div class="row"><span class="k">Quota</span><span class="v" id="hudAlt">—</span></div>
-    <div class="row"><span class="k">Distanza da GS</span><span class="v" id="hudDist">—</span></div>
-    <div class="row"><span class="k">LOS</span><span class="v" id="hudLos">—</span></div>
-    <div class="row"><span class="k">Perdita diffrazione</span><span class="v" id="hudDiff">—</span></div>
-    <div class="row"><span class="k">FSPL</span><span class="v" id="hudFspl">—</span></div>
+  <div class="telemetry-stacks">
+    <div class="stack">
+      <div class="stack-title">Cinematica</div>
+      <div class="row"><span class="k">Quota</span><span class="v" id="hudAlt">—</span></div>
+      <div class="row"><span class="k">X / Y</span><span class="v" id="hudXY">—</span></div>
+      <div class="row"><span class="k">Distanza da GS</span><span class="v" id="hudDist">—</span></div>
+      <div class="row"><span class="k">Velocit&agrave;</span><span class="v" id="hudSpeed">—</span></div>
+    </div>
+    <div class="stack">
+      <div class="stack-title">Link RF</div>
+      <div class="row"><span class="k">LOS</span><span class="v" id="hudLos">—</span></div>
+      <div class="row"><span class="k">Diffrazione</span><span class="v" id="hudDiff">—</span></div>
+      <div class="row"><span class="k">FSPL</span><span class="v" id="hudFspl">—</span></div>
+      <div class="row"><span class="k">EIRP (TX)</span><span class="v" id="hudEirp">—</span></div>
+      <div class="row"><span class="k">Potenza RX</span><span class="v" id="hudRx">—</span></div>
+      <div class="row"><span class="k">Rumore termico</span><span class="v" id="hudNoise">—</span></div>
+      <div class="row"><span class="k">ECM</span><span class="v" id="hudEcm">OFF</span></div>
+    </div>
   </div>
 
   <div class="signal">
@@ -276,7 +311,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x030711);
 scene.fog = new THREE.Fog(0x030711, 60, 520);
 
-const camera = new THREE.PerspectiveCamera(98, window.innerWidth / window.innerHeight, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(84, window.innerWidth / window.innerHeight, 0.1, 2000);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -293,10 +328,15 @@ window.addEventListener('resize', () => {
 });
 
 // Luci
-scene.add(new THREE.HemisphereLight(0x335577, 0x050810, 1.1));
+scene.add(new THREE.HemisphereLight(0x335577, 0x050810, 1.3));
 const sun = new THREE.DirectionalLight(0x9fd8ff, 1.4);
 sun.position.set(120, 260, 80);
 scene.add(sun);
+const fill = new THREE.DirectionalLight(0x2a4a5c, 0.6);
+fill.position.set(-150, 120, -100);
+scene.add(fill);
+const ambient = new THREE.AmbientLight(0x1a2a33, 0.5);
+scene.add(ambient);
 
 // Suolo: strada del canyon urbano
 const ground = new THREE.Mesh(
@@ -315,38 +355,58 @@ scene.add(grid);
 // ---- Edifici (letti dagli input dello scenario) ----
 let buildingMeshes = { A: null, B: null };
 
-function buildingMaterial() {
-  return new THREE.MeshStandardMaterial({ color: 0x1c2c36, roughness: 0.85, metalness: 0.05, emissive: 0x03141c, emissiveIntensity: 0.4 });
+function buildingFacadeTexture(widthM, heightM) {
+  // Texture di facciata generata su canvas 2D: molto più robusta di
+  // centinaia di istanze 3D separate (niente gotcha di instanceMatrix,
+  // niente rischio di transform non inizializzati).
+  const canvas = document.createElement('canvas');
+  canvas.width = 256; canvas.height = 256;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#16232c';
+  ctx.fillRect(0, 0, 256, 256);
+
+  const cols = Math.max(4, Math.floor(widthM / 5));
+  const rows = Math.max(4, Math.floor(heightM / 5));
+  const cw = 256 / cols, rh = 256 / rows;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (Math.random() < 0.4) continue;
+      ctx.fillStyle = Math.random() < 0.18 ? '#7fe8ff' : '#254a58';
+      ctx.fillRect(c * cw + cw * 0.15, r * rh + rh * 0.15, cw * 0.7, rh * 0.7);
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  return tex;
 }
 
 function makeBuilding(xM, widthM, heightM) {
   const depthM = 40;
   const geo = new THREE.BoxGeometry(widthM, heightM, depthM);
-  const mesh = new THREE.Mesh(geo, buildingMaterial());
+
+  const baseMat = new THREE.MeshStandardMaterial({ color: 0x141f27, roughness: 0.95, metalness: 0.02 });
+  const facadeTex = buildingFacadeTexture(widthM, heightM);
+  const facadeMat = new THREE.MeshStandardMaterial({
+    map: facadeTex, roughness: 0.6, metalness: 0.1,
+    emissiveMap: facadeTex, emissive: 0xffffff, emissiveIntensity: 0.35,
+  });
+
+  // Ordine gruppi materiale di BoxGeometry: +x,-x,+y(alto),-y(basso),+z,-z.
+  // Il drone vola lungo X con GS ed edifici sulla stessa quota laterale
+  // (Z=0), quindi le facce PIU' probabilmente visibili in volo sono le 4
+  // pareti verticali (+x,-x,+z,-z) - applichiamo la facciata li', non solo
+  // su una faccia a caso.
+  const mesh = new THREE.Mesh(geo, [facadeMat, facadeMat, baseMat, baseMat, facadeMat, facadeMat]);
   mesh.position.set(xM, heightM / 2, 0);
 
-  // finestre accese, per dare vita/scala alla facciata
-  const winMat = new THREE.MeshBasicMaterial({ color: 0x1a3a44 });
-  const rows = Math.max(2, Math.floor(heightM / 6));
-  const cols = Math.max(2, Math.floor(widthM / 6));
-  const winGeo = new THREE.PlaneGeometry(1.6, 2.2);
-  const windows = new THREE.InstancedMesh(winGeo, winMat, rows * cols);
-  let idx = 0;
-  const dummy = new THREE.Object3D();
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      if (Math.random() < 0.35) continue;
-      dummy.position.set(
-        -widthM / 2 + 3 + c * (widthM / cols),
-        -heightM / 2 + 3 + r * (heightM / rows),
-        depthM / 2 + 0.05
-      );
-      dummy.updateMatrix();
-      windows.setMatrixAt(idx++, dummy.matrix);
-    }
-  }
-  windows.count = idx;
-  mesh.add(windows);
+  // Contorni netti: garantiscono una silhouette sempre corretta e nitida
+  // indipendentemente da qualunque problema di luci/materiali - anche
+  // esteticamente coerente con lo stile HUD/tecnico richiesto.
+  const edges = new THREE.EdgesGeometry(geo);
+  const outline = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x5fb8d6, transparent: true, opacity: 0.8 }));
+  mesh.add(outline);
 
   return mesh;
 }
@@ -480,10 +540,18 @@ async function fetchTelemetry() {
     try { json = JSON.parse(text); } catch (e) {}
 
     if (!res.ok) {
-      $('gateChip').textContent = res.status === 403 ? 'ECM GATE BLOCCATO (403)' : `ERRORE ${res.status}`;
+      if (res.status === 404) {
+        $('gateChip').textContent = '404 · BACKEND NON AGGIORNATO?';
+      } else if (res.status === 403) {
+        $('gateChip').textContent = 'ECM GATE BLOCCATO (403)';
+      } else {
+        $('gateChip').textContent = `ERRORE ${res.status}`;
+      }
       $('gateChip').className = 'chip bad';
       $('alertBanner').classList.remove('show');
       jammerMesh.visible = false;
+      ['hudDist', 'hudLos', 'hudDiff', 'hudFspl', 'hudEirp', 'hudRx', 'hudNoise'].forEach((id) => { $(id).textContent = '—'; });
+      $('hudEcm').textContent = '—';
       fetchInFlight = false;
       return;
     }
@@ -492,25 +560,33 @@ async function fetchTelemetry() {
     $('gateChip').className = 'chip' + ($('jamEnabled').checked ? ' ok' : '');
 
     const p = json.points[0];
-    $('hudAlt').textContent = state.z.toFixed(0) + ' m';
     $('hudDist').textContent = p.distance_3d_m.toFixed(0) + ' m';
     $('hudLos').textContent = p.line_of_sight_blocked ? ('BLOCCATA · ' + p.blocking_building_id) : 'LIBERA';
     $('hudLos').className = 'v ' + (p.line_of_sight_blocked ? 'bad' : 'ok');
     $('hudDiff').textContent = p.diffraction_loss_db.toFixed(1) + ' dB';
     $('hudFspl').textContent = p.fspl_db.toFixed(1) + ' dB';
+    $('hudEirp').textContent = p.eirp_dbw.toFixed(1) + ' dBW';
+    $('hudNoise').textContent = p.noise_power_dbw.toFixed(1) + ' dBW';
 
     let cnForBars = p.cn_db;
     let jammed = false;
+    let rxPower = p.received_power_dbw;
 
     if (p.jammer) {
       cnForBars = p.jammer.cinr_db;
       jammed = !p.jammer.link_ok_under_jamming;
       jammerMesh.visible = true;
       jammerMesh.position.set(+$('jamX').value, 8, 0);
+
+      $('hudEcm').textContent = $('jamType').value.toUpperCase() + ' · J/S ' + p.jammer.js_effective_db.toFixed(1) + 'dB';
+      $('hudEcm').className = 'v bad';
     } else {
       jammerMesh.visible = false;
+      $('hudEcm').textContent = 'OFF';
+      $('hudEcm').className = 'v';
     }
 
+    $('hudRx').textContent = rxPower.toFixed(1) + ' dBW';
     $('hudCn').textContent = cnForBars.toFixed(1) + ' dB';
     $('hudCn').className = 'cn-value' + (cnForBars < +$('reqCn').value ? ' bad' : '');
     updateSignalBars(cnForBars, +$('reqCn').value);
@@ -583,9 +659,51 @@ function applyKeyboard() {
 }
 
 // ============================================================
+// MINIMAPPA (vista totale dall'alto - GS, edifici, drone, jammer)
+// ============================================================
+function drawMinimap() {
+  const svg = $('minimapSvg');
+  const W = 170, H = 170, PAD = 10;
+  const MAXX = 600, MAXY = 140; // range corridoio (x) e laterale (y)
+  const sx = (x) => PAD + (x / MAXX) * (W - 2 * PAD);
+  const sy = (y) => H / 2 - (y / MAXY) * (H / 2 - PAD);
+
+  let s = '';
+  s += `<rect x="0" y="0" width="${W}" height="${H}" fill="none"/>`;
+  s += `<line x1="${PAD}" y1="${H / 2}" x2="${W - PAD}" y2="${H / 2}" stroke="#123c55" stroke-dasharray="2,3"/>`;
+
+  const ax = +$('bAx').value, aw = +$('bAw').value;
+  const bx = +$('bBx').value, bw = +$('bBw').value;
+  for (const [bxv, bwv] of [[ax, aw], [bx, bw]]) {
+    const x0 = sx(bxv - bwv / 2), x1 = sx(bxv + bwv / 2);
+    const y0 = sy(20), y1 = sy(-20);
+    s += `<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" fill="#1c2c36" stroke="#4a7a8c" stroke-width="0.6"/>`;
+  }
+
+  // stazione di terra
+  s += `<circle cx="${sx(0)}" cy="${sy(0)}" r="3" fill="#00e5ff"/>`;
+
+  // jammer
+  if ($('jamEnabled').checked) {
+    s += `<circle cx="${sx(+$('jamX').value)}" cy="${sy(0)}" r="3" fill="#ffd166"/>`;
+  }
+
+  // drone: triangolo orientato secondo l'heading corrente
+  const dx = sx(state.x), dy = sy(state.y);
+  const hd = -state.heading; // heading matematico -> orientamento SVG (y invertita)
+  const p1 = [dx + Math.cos(hd) * 6, dy - Math.sin(hd) * 6];
+  const p2 = [dx + Math.cos(hd + 2.5) * 4, dy - Math.sin(hd + 2.5) * 4];
+  const p3 = [dx + Math.cos(hd - 2.5) * 4, dy - Math.sin(hd - 2.5) * 4];
+  s += `<polygon points="${p1.join(',')} ${p2.join(',')} ${p3.join(',')}" fill="#36ff7d"/>`;
+
+  svg.innerHTML = s;
+}
+
+// ============================================================
 // LOOP PRINCIPALE
 // ============================================================
 let lastT = performance.now();
+let lastSpeedSample = { x: state.x, y: state.y, z: state.z, t: performance.now() };
 
 function animate(t) {
   requestAnimationFrame(animate);
@@ -607,7 +725,22 @@ function animate(t) {
   const lookDir = new THREE.Vector3(Math.cos(state.heading), -0.12, Math.sin(state.heading));
   camera.lookAt(worldPos.clone().add(lookDir));
 
-  $('hudHeading').innerHTML = String(Math.round(((state.heading * 180 / Math.PI) % 360 + 360) % 360)).padStart(3, '0') + '&deg;';
+  const headingDeg = String(Math.round(((state.heading * 180 / Math.PI) % 360 + 360) % 360)).padStart(3, '0') + '&deg;';
+  $('mmHeading').innerHTML = headingDeg;
+  $('hudAlt').textContent = state.z.toFixed(0) + ' m';
+  $('hudXY').textContent = state.x.toFixed(0) + ' / ' + state.y.toFixed(0) + ' m';
+
+  // velocita': campionata ogni ~250ms per una lettura stabile (non a
+  // ogni frame, che darebbe un numero che trema troppo per essere letto)
+  if (t - lastSpeedSample.t > 250) {
+    const dist3d = Math.hypot(state.x - lastSpeedSample.x, state.y - lastSpeedSample.y, state.z - lastSpeedSample.z);
+    const dtS = (t - lastSpeedSample.t) / 1000;
+    const speedMs = dist3d / dtS;
+    $('hudSpeed').textContent = speedMs.toFixed(1) + ' m/s';
+    lastSpeedSample = { x: state.x, y: state.y, z: state.z, t };
+  }
+
+  drawMinimap();
 
   if (t - lastFetch > FETCH_INTERVAL_MS) {
     lastFetch = t;
