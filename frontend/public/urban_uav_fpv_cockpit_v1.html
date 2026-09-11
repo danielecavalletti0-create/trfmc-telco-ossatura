@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TRFMC · Urban UAV FPV Cockpit · ECM/EECM</title>
+<style>
+:root{
+  --accent:#00e5ff; --ok:#36ff7d; --warn:#ffd166; --bad:#ff3b5c; --dim:#7fb2c6;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:'Segoe UI',Inter,Arial,sans-serif;color:#e7fbff}
+#scene{position:fixed;inset:0}
+#scene canvas{display:block;width:100%;height:100%}
+
+.backlink{position:fixed;top:14px;left:14px;z-index:50;display:inline-flex;align-items:center;gap:6px;
+  color:var(--dim);text-decoration:none;font-size:11.5px;border:1px solid rgba(0,229,255,.35);
+  border-radius:999px;padding:6px 13px;background:rgba(2,6,17,.55);backdrop-filter:blur(4px);
+  transition:color .15s,border-color .15s}
+.backlink:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ===== HUD ===== */
+.hud{position:fixed;inset:0;pointer-events:none;z-index:20}
+.hud *{pointer-events:none}
+
+.crosshair{position:absolute;top:50%;left:50%;width:28px;height:28px;margin:-14px 0 0 -14px}
+.crosshair::before,.crosshair::after{content:'';position:absolute;background:var(--ok);
+  box-shadow:0 0 6px var(--ok),0 0 12px rgba(54,255,125,.5)}
+.crosshair::before{left:50%;top:0;width:2px;height:100%;margin-left:-1px}
+.crosshair::after{top:50%;left:0;height:2px;width:100%;margin-top:-1px}
+.crosshair .gap{position:absolute;top:50%;left:50%;width:8px;height:8px;margin:-4px 0 0 -4px;background:#000}
+
+.corner{position:absolute;width:46px;height:46px;border-color:rgba(0,229,255,.55);opacity:.85}
+.corner.tl{top:16px;left:16px;border-top:2px solid;border-left:2px solid}
+.corner.tr{top:16px;right:16px;border-top:2px solid;border-right:2px solid}
+.corner.bl{bottom:16px;left:16px;border-bottom:2px solid;border-left:2px solid}
+.corner.br{bottom:16px;right:16px;border-bottom:2px solid;border-right:2px solid}
+
+.top-strip{position:absolute;top:16px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center}
+.chip{border:1px solid rgba(0,229,255,.4);border-radius:999px;padding:4px 12px;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--dim);background:rgba(2,6,17,.55);backdrop-filter:blur(4px)}
+.chip.ok{color:var(--ok);border-color:var(--ok);text-shadow:0 0 6px rgba(54,255,125,.6)}
+.chip.bad{color:var(--bad);border-color:var(--bad);text-shadow:0 0 8px rgba(255,59,92,.7);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.35}}
+
+.alert-banner{position:absolute;top:64px;left:50%;transform:translateX(-50%);
+  border:1px solid var(--bad);color:var(--bad);background:rgba(30,4,10,.75);
+  padding:6px 18px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.08em;
+  text-shadow:0 0 8px rgba(255,59,92,.8);box-shadow:0 0 16px rgba(255,59,92,.35);
+  display:none}
+.alert-banner.show{display:block;animation:blink .7s infinite}
+
+.telemetry{position:absolute;bottom:180px;left:24px;font-size:11px;line-height:1.9;
+  text-shadow:0 0 6px rgba(0,229,255,.5)}
+.telemetry .row{display:flex;gap:8px}
+.telemetry .k{color:var(--dim);min-width:120px;text-transform:uppercase;letter-spacing:.04em;font-size:9.5px}
+.telemetry .v{color:var(--accent);font-weight:700}
+.telemetry .v.bad{color:var(--bad)}
+.telemetry .v.ok{color:var(--ok)}
+
+.signal{position:absolute;bottom:180px;right:24px;text-align:right}
+.signal .label{font-size:9.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.bars{display:flex;gap:3px;justify-content:flex-end;align-items:flex-end;height:26px}
+.bars i{display:block;width:6px;background:#123c55;border-radius:1px}
+.bars i:nth-child(1){height:25%}
+.bars i:nth-child(2){height:45%}
+.bars i:nth-child(3){height:65%}
+.bars i:nth-child(4){height:85%}
+.bars i:nth-child(5){height:100%}
+.bars i.on{background:var(--ok);box-shadow:0 0 6px var(--ok)}
+.bars i.on.warn{background:var(--warn);box-shadow:0 0 6px var(--warn)}
+.bars i.on.bad{background:var(--bad);box-shadow:0 0 6px var(--bad)}
+.cn-value{font-size:13px;color:var(--accent);margin-top:4px;font-weight:700}
+
+.compass{position:absolute;top:64px;right:24px;font-size:11px;color:var(--dim);text-align:right}
+.compass b{display:block;font-size:18px;color:var(--accent);text-shadow:0 0 8px rgba(0,229,255,.6)}
+
+/* ===== Joystick (radiocomando virtuale) ===== */
+.sticks{position:fixed;bottom:20px;left:0;right:0;display:flex;justify-content:space-between;
+  padding:0 26px;z-index:30;pointer-events:none}
+.stick-zone{width:120px;height:120px;border-radius:50%;border:1px solid rgba(0,229,255,.3);
+  background:radial-gradient(circle at 50% 50%,rgba(0,229,255,.06),rgba(2,6,17,.5) 70%);
+  position:relative;pointer-events:auto;touch-action:none}
+.stick-cap{position:absolute;width:46px;height:46px;border-radius:50%;left:50%;top:50%;
+  margin:-23px 0 0 -23px;background:radial-gradient(circle at 35% 30%,#0af,#036);
+  border:1px solid var(--accent);box-shadow:0 0 14px rgba(0,229,255,.55);cursor:grab}
+.stick-label{position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-size:9.5px;
+  color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+
+/* ===== Pannello impostazioni (a scomparsa) ===== */
+.settings-toggle{position:fixed;top:14px;right:14px;z-index:60;border:1px solid rgba(0,229,255,.4);
+  background:rgba(2,6,17,.6);color:var(--accent);border-radius:8px;padding:8px 12px;font-size:11px;
+  cursor:pointer;backdrop-filter:blur(4px)}
+.settings-panel{position:fixed;top:0;right:-360px;width:340px;height:100%;background:rgba(4,10,20,.92);
+  border-left:1px solid rgba(0,229,255,.3);backdrop-filter:blur(8px);z-index:55;padding:60px 18px 18px;
+  overflow-y:auto;transition:right .25s ease;font-size:12px}
+.settings-panel.open{right:0}
+.settings-panel fieldset{border:1px solid #123c55;border-radius:10px;padding:9px 10px;margin:0 0 12px}
+.settings-panel legend{color:var(--accent);font-size:10px;text-transform:uppercase;padding:0 6px}
+.settings-panel label{display:flex;flex-direction:column;gap:4px;color:var(--dim);font-size:9.5px;
+  text-transform:uppercase;margin-bottom:8px}
+.settings-panel input,.settings-panel select{background:#020a11;color:#e7fbff;border:1px solid #16627a;
+  border-radius:7px;padding:6px 8px;font-size:12px;width:100%}
+.settings-panel .row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.settings-panel .toggle{display:flex;align-items:center;gap:8px;margin-bottom:8px;color:var(--dim);font-size:11px}
+.settings-panel .toggle input{width:auto}
+.hint{font-size:10.5px;color:var(--dim);line-height:1.6;margin-top:6px}
+
+.controls-hint{position:fixed;bottom:150px;left:50%;transform:translateX(-50%);font-size:10px;
+  color:var(--dim);text-align:center;z-index:20;pointer-events:none}
+</style>
+</head>
+<body>
+
+<a class="backlink" href="/">&larr; Torna al portale TRFMC</a>
+<button class="settings-toggle" id="settingsToggle">SCENARIO &amp; ECM</button>
+
+<div id="scene"></div>
+
+<div class="hud">
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+  <div class="crosshair"><span class="gap"></span></div>
+
+  <div class="top-strip">
+    <span class="chip" id="modeChip">SIMULATION ONLY</span>
+    <span class="chip" id="gateChip">ECM GATE —</span>
+  </div>
+
+  <div class="alert-banner" id="alertBanner">SEGNALE DISTURBATO — LINK COMPROMESSO</div>
+
+  <div class="compass">
+    <span>HEADING</span>
+    <b id="hudHeading">000&deg;</b>
+  </div>
+
+  <div class="telemetry">
+    <div class="row"><span class="k">Quota</span><span class="v" id="hudAlt">—</span></div>
+    <div class="row"><span class="k">Distanza da GS</span><span class="v" id="hudDist">—</span></div>
+    <div class="row"><span class="k">LOS</span><span class="v" id="hudLos">—</span></div>
+    <div class="row"><span class="k">Perdita diffrazione</span><span class="v" id="hudDiff">—</span></div>
+    <div class="row"><span class="k">FSPL</span><span class="v" id="hudFspl">—</span></div>
+  </div>
+
+  <div class="signal">
+    <div class="label">Link Quality (C/N)</div>
+    <div class="bars" id="signalBars"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="cn-value" id="hudCn">— dB</div>
+  </div>
+
+  <div class="controls-hint">RADIOCOMANDO: stick sinistro = quota / rotazione &middot; stick destro = avanti-indietro / laterale &middot; oppure tastiera WASD + frecce</div>
+</div>
+
+<div class="sticks">
+  <div class="stick-zone" id="stickLeftZone">
+    <div class="stick-cap" id="stickLeftCap"></div>
+    <div class="stick-label">Quota / Rotazione</div>
+  </div>
+  <div class="stick-zone" id="stickRightZone">
+    <div class="stick-cap" id="stickRightCap"></div>
+    <div class="stick-label">Avanti / Laterale</div>
+  </div>
+</div>
+
+<div class="settings-panel" id="settingsPanel">
+  <fieldset>
+    <legend>Link C2 UAV</legend>
+    <div class="row2">
+      <label>Frequenza MHz<input id="freqMHz" value="2440"></label>
+      <label>Banda kHz<input id="bwKHz" value="1000"></label>
+    </div>
+    <div class="row2">
+      <label>Potenza TX dBW<input id="txPower" value="-10"></label>
+      <label>Guadagno UAV dBi<input id="uavGain" value="2"></label>
+    </div>
+    <label>Soglia C/N richiesta dB<input id="reqCn" value="10"></label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Edificio A</legend>
+    <div class="row2">
+      <label>X m<input id="bAx" value="200"></label>
+      <label>Larghezza m<input id="bAw" value="60"></label>
+      <label>Altezza m<input id="bAh" value="70"></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Edificio B</legend>
+    <div class="row2">
+      <label>X m<input id="bBx" value="400"></label>
+      <label>Larghezza m<input id="bBw" value="50"></label>
+      <label>Altezza m<input id="bBh" value="45"></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>ECM &middot; Jammer</legend>
+    <div class="toggle"><input type="checkbox" id="jamEnabled"><span>Abilita jammer (richiede restricted_enabled sul backend)</span></div>
+    <div class="row2">
+      <label>Tipo<select id="jamType"><option value="barrage">Barrage</option><option value="spot">Spot</option><option value="sweep">Sweep</option></select></label>
+      <label>EIRP dBW<input id="jamEirp" value="35"></label>
+    </div>
+    <div class="row2">
+      <label>Posizione X m<input id="jamX" value="230"></label>
+      <label>Banda jammer kHz<input id="jamBw" value="5000"></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>EECM &middot; Frequency Hopping</legend>
+    <div class="toggle"><input type="checkbox" id="fhssEnabled"><span>Il link C2 usa FHSS</span></div>
+    <label>Banda totale hopping MHz<input id="hopBw" value="10"></label>
+  </fieldset>
+
+  <div class="hint">
+    I numeri del HUD sono calcolati dal vero backend TRFMC (diffrazione ITU-R P.526,
+    link budget, ECM/EECM) ad ogni spostamento del drone &mdash; non sono animazioni
+    scriptate.
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "/vendor/three/three.module.js"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const API = '/trfmc-api/backend/api';
+const $ = (id) => document.getElementById(id);
+
+// ============================================================
+// STATO VOLO
+// ============================================================
+const state = { x: 300, y: 0, z: 40, heading: 0 };
+const sticks = { left: { x: 0, y: 0 }, right: { x: 0, y: 0 } };
+
+const SPEED_MS = 22;   // velocita' orizzontale max, m/s
+const CLIMB_MS = 12;   // velocita' verticale max, m/s
+const TURN_RAD_S = 1.3; // velocita' di rotazione, rad/s
+
+const BOUNDS = { xMin: 10, xMax: 590, yMin: -60, yMax: 60, zMin: 2, zMax: 150 };
+
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+// Fisica di volo verificata numericamente prima dell'integrazione (vedi
+// note di sessione): stick sinistro = quota (Y) + rotazione (X), stick
+// destro = avanti/indietro (Y) + laterale (X), relativo all'heading
+// corrente.
+function stepPhysics(dt) {
+  state.heading += sticks.left.x * TURN_RAD_S * dt;
+
+  const forwardDir = { x: Math.cos(state.heading), y: Math.sin(state.heading) };
+  const rightDir = { x: Math.sin(state.heading), y: -Math.cos(state.heading) };
+
+  const forward = sticks.right.y;
+  const strafe = sticks.right.x;
+
+  const dx = (forwardDir.x * forward + rightDir.x * strafe) * SPEED_MS * dt;
+  const dy = (forwardDir.y * forward + rightDir.y * strafe) * SPEED_MS * dt;
+
+  state.x = clamp(state.x + dx, BOUNDS.xMin, BOUNDS.xMax);
+  state.y = clamp(state.y + dy, BOUNDS.yMin, BOUNDS.yMax);
+  state.z = clamp(state.z + sticks.left.y * CLIMB_MS * dt, BOUNDS.zMin, BOUNDS.zMax);
+}
+
+// ============================================================
+// SCENA THREE.JS
+// ============================================================
+const container = $('scene');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x030711);
+scene.fog = new THREE.Fog(0x030711, 60, 520);
+
+const camera = new THREE.PerspectiveCamera(98, window.innerWidth / window.innerHeight, 0.1, 2000);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+container.appendChild(renderer.domElement);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Luci
+scene.add(new THREE.HemisphereLight(0x335577, 0x050810, 1.1));
+const sun = new THREE.DirectionalLight(0x9fd8ff, 1.4);
+sun.position.set(120, 260, 80);
+scene.add(sun);
+
+// Suolo: strada del canyon urbano
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(1400, 400),
+  new THREE.MeshStandardMaterial({ color: 0x060c14, roughness: 1 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.position.set(300, 0, 0);
+scene.add(ground);
+
+// Griglia leggera per percezione del movimento
+const grid = new THREE.GridHelper(1400, 70, 0x0d3347, 0x081a26);
+grid.position.set(300, 0.05, 0);
+scene.add(grid);
+
+// ---- Edifici (letti dagli input dello scenario) ----
+let buildingMeshes = { A: null, B: null };
+
+function buildingMaterial() {
+  return new THREE.MeshStandardMaterial({ color: 0x1c2c36, roughness: 0.85, metalness: 0.05, emissive: 0x03141c, emissiveIntensity: 0.4 });
+}
+
+function makeBuilding(xM, widthM, heightM) {
+  const depthM = 40;
+  const geo = new THREE.BoxGeometry(widthM, heightM, depthM);
+  const mesh = new THREE.Mesh(geo, buildingMaterial());
+  mesh.position.set(xM, heightM / 2, 0);
+
+  // finestre accese, per dare vita/scala alla facciata
+  const winMat = new THREE.MeshBasicMaterial({ color: 0x1a3a44 });
+  const rows = Math.max(2, Math.floor(heightM / 6));
+  const cols = Math.max(2, Math.floor(widthM / 6));
+  const winGeo = new THREE.PlaneGeometry(1.6, 2.2);
+  const windows = new THREE.InstancedMesh(winGeo, winMat, rows * cols);
+  let idx = 0;
+  const dummy = new THREE.Object3D();
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (Math.random() < 0.35) continue;
+      dummy.position.set(
+        -widthM / 2 + 3 + c * (widthM / cols),
+        -heightM / 2 + 3 + r * (heightM / rows),
+        depthM / 2 + 0.05
+      );
+      dummy.updateMatrix();
+      windows.setMatrixAt(idx++, dummy.matrix);
+    }
+  }
+  windows.count = idx;
+  mesh.add(windows);
+
+  return mesh;
+}
+
+function rebuildBuildings() {
+  if (buildingMeshes.A) scene.remove(buildingMeshes.A);
+  if (buildingMeshes.B) scene.remove(buildingMeshes.B);
+
+  const ax = +$('bAx').value, aw = +$('bAw').value, ah = +$('bAh').value;
+  const bx = +$('bBx').value, bw = +$('bBw').value, bh = +$('bBh').value;
+
+  buildingMeshes.A = makeBuilding(ax, aw, ah);
+  buildingMeshes.B = makeBuilding(bx, bw, bh);
+  scene.add(buildingMeshes.A, buildingMeshes.B);
+}
+rebuildBuildings();
+
+// ---- Stazione di terra ----
+const gsGroup = new THREE.Group();
+const gsMast = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 10, 8), new THREE.MeshStandardMaterial({ color: 0x2a3f4a }));
+gsMast.position.y = 5;
+const gsDish = new THREE.Mesh(new THREE.ConeGeometry(1.6, 1.2, 16), new THREE.MeshStandardMaterial({ color: 0x00e5ff, emissive: 0x004450, emissiveIntensity: 0.6 }));
+gsDish.rotation.x = Math.PI;
+gsDish.position.y = 10.6;
+gsGroup.add(gsMast, gsDish);
+gsGroup.position.set(0, 0, 0);
+scene.add(gsGroup);
+
+// ---- Jammer marker (ECM) ----
+const jammerMesh = new THREE.Mesh(
+  new THREE.OctahedronGeometry(2.2, 0),
+  new THREE.MeshStandardMaterial({ color: 0xffd166, emissive: 0xff5f1c, emissiveIntensity: 0.9, wireframe: false })
+);
+jammerMesh.visible = false;
+scene.add(jammerMesh);
+
+// ---- Drone (costruito da primitive, nessun asset esterno) ----
+const drone = new THREE.Group();
+const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1a1f24, roughness: 0.4, metalness: 0.6 });
+const accentMat = new THREE.MeshStandardMaterial({ color: 0x00e5ff, emissive: 0x00e5ff, emissiveIntensity: 1.6 });
+
+const body = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.28, 1.1), bodyMat);
+drone.add(body);
+
+const rotors = [];
+const armOffsets = [[0.8, 0.8], [-0.8, 0.8], [0.8, -0.8], [-0.8, -0.8]];
+for (const [ax, az] of armOffsets) {
+  const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, Math.hypot(ax, az) * 1.15, 6), new THREE.MeshStandardMaterial({ color: 0x222 }));
+  arm.rotation.z = Math.PI / 2;
+  arm.rotation.y = Math.atan2(az, ax);
+  arm.position.set(ax / 2, 0, az / 2);
+  drone.add(arm);
+
+  const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.03, 10), new THREE.MeshStandardMaterial({ color: 0x0a0a0a, transparent: true, opacity: 0.55 }));
+  rotor.position.set(ax, 0.05, az);
+  drone.add(rotor);
+  rotors.push(rotor);
+
+  const light = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 8), accentMat);
+  light.position.set(ax, 0, az);
+  drone.add(light);
+}
+scene.add(drone);
+
+// ============================================================
+// TELEMETRIA (chiamata reale al backend, non simulata)
+// ============================================================
+let lastFetch = 0;
+const FETCH_INTERVAL_MS = 220;
+let fetchInFlight = false;
+
+function scenarioPayload() {
+  const req = {
+    frequency_hz: (+$('freqMHz').value) * 1e6,
+    bandwidth_hz: (+$('bwKHz').value) * 1e3,
+    rx_noise_temp_k: 400,
+    uav_antenna_gain_dbi: +$('uavGain').value,
+    required_cn_db: +$('reqCn').value,
+    buildings: [
+      { building_id: 'A', x_m: +$('bAx').value, y_m: 0, width_m: +$('bAw').value, depth_m: 30, height_m: +$('bAh').value },
+      { building_id: 'B', x_m: +$('bBx').value, y_m: 0, width_m: +$('bBw').value, depth_m: 30, height_m: +$('bBh').value },
+    ],
+    ground_station: { x_m: 0, y_m: 0, z_m: 10, tx_power_dbw: +$('txPower').value, antenna_gain_dbi: 6 },
+    path: [{ x_m: state.x, y_m: state.y, z_m: state.z }],
+  };
+  if ($('jamEnabled').checked) {
+    req.jammer = {
+      enabled: true,
+      jammer_type: $('jamType').value,
+      x_m: +$('jamX').value, y_m: 0,
+      eirp_dbw: +$('jamEirp').value,
+      bandwidth_hz: (+$('jamBw').value) * 1e3,
+    };
+    if ($('fhssEnabled').checked) req.hopping_bandwidth_hz = (+$('hopBw').value) * 1e6;
+  }
+  return req;
+}
+
+function updateSignalBars(cn, reqCn) {
+  const bars = document.querySelectorAll('#signalBars i');
+  let level = 0;
+  if (cn >= reqCn + 15) level = 5;
+  else if (cn >= reqCn + 8) level = 4;
+  else if (cn >= reqCn + 3) level = 3;
+  else if (cn >= reqCn) level = 2;
+  else if (cn >= reqCn - 8) level = 1;
+  else level = 0;
+
+  bars.forEach((bar, i) => {
+    bar.className = '';
+    if (i < level) {
+      bar.classList.add('on');
+      if (level <= 1) bar.classList.add('bad');
+      else if (level <= 2) bar.classList.add('warn');
+    }
+  });
+}
+
+async function fetchTelemetry() {
+  if (fetchInFlight) return;
+  fetchInFlight = true;
+  try {
+    const req = scenarioPayload();
+    const res = await fetch(`${API}/urban-uav/corridor`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req),
+    });
+    const text = await res.text();
+    let json = null;
+    try { json = JSON.parse(text); } catch (e) {}
+
+    if (!res.ok) {
+      $('gateChip').textContent = res.status === 403 ? 'ECM GATE BLOCCATO (403)' : `ERRORE ${res.status}`;
+      $('gateChip').className = 'chip bad';
+      $('alertBanner').classList.remove('show');
+      jammerMesh.visible = false;
+      fetchInFlight = false;
+      return;
+    }
+
+    $('gateChip').textContent = $('jamEnabled').checked ? 'ECM GATE ABILITATO' : 'ECM GATE N/A';
+    $('gateChip').className = 'chip' + ($('jamEnabled').checked ? ' ok' : '');
+
+    const p = json.points[0];
+    $('hudAlt').textContent = state.z.toFixed(0) + ' m';
+    $('hudDist').textContent = p.distance_3d_m.toFixed(0) + ' m';
+    $('hudLos').textContent = p.line_of_sight_blocked ? ('BLOCCATA · ' + p.blocking_building_id) : 'LIBERA';
+    $('hudLos').className = 'v ' + (p.line_of_sight_blocked ? 'bad' : 'ok');
+    $('hudDiff').textContent = p.diffraction_loss_db.toFixed(1) + ' dB';
+    $('hudFspl').textContent = p.fspl_db.toFixed(1) + ' dB';
+
+    let cnForBars = p.cn_db;
+    let jammed = false;
+
+    if (p.jammer) {
+      cnForBars = p.jammer.cinr_db;
+      jammed = !p.jammer.link_ok_under_jamming;
+      jammerMesh.visible = true;
+      jammerMesh.position.set(+$('jamX').value, 8, 0);
+    } else {
+      jammerMesh.visible = false;
+    }
+
+    $('hudCn').textContent = cnForBars.toFixed(1) + ' dB';
+    $('hudCn').className = 'cn-value' + (cnForBars < +$('reqCn').value ? ' bad' : '');
+    updateSignalBars(cnForBars, +$('reqCn').value);
+
+    $('alertBanner').classList.toggle('show', jammed || !p.link_ok);
+  } catch (err) {
+    $('gateChip').textContent = 'OFFLINE';
+    $('gateChip').className = 'chip bad';
+  } finally {
+    fetchInFlight = false;
+  }
+}
+
+// ============================================================
+// RADIOCOMANDO VIRTUALE (joystick trascinabili, doppio stick)
+// ============================================================
+function setupStick(zoneId, capId, target) {
+  const zone = $(zoneId);
+  const cap = $(capId);
+  const radius = 37;
+  let dragging = false;
+
+  function setFromEvent(clientX, clientY) {
+    const rect = zone.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    let dx = clientX - cx;
+    let dy = clientY - cy;
+    const dist = Math.hypot(dx, dy);
+    if (dist > radius) { dx = (dx / dist) * radius; dy = (dy / dist) * radius; }
+    cap.style.transform = `translate(${dx}px, ${dy}px)`;
+    target.x = dx / radius;
+    target.y = -dy / radius;
+  }
+
+  function reset() {
+    cap.style.transform = 'translate(0,0)';
+    target.x = 0; target.y = 0;
+  }
+
+  zone.addEventListener('pointerdown', (e) => { dragging = true; zone.setPointerCapture(e.pointerId); setFromEvent(e.clientX, e.clientY); });
+  zone.addEventListener('pointermove', (e) => { if (dragging) setFromEvent(e.clientX, e.clientY); });
+  zone.addEventListener('pointerup', () => { dragging = false; reset(); });
+  zone.addEventListener('pointercancel', () => { dragging = false; reset(); });
+}
+setupStick('stickLeftZone', 'stickLeftCap', sticks.left);
+setupStick('stickRightZone', 'stickRightCap', sticks.right);
+
+// ---- Tastiera (WASD + frecce), stessa fisica dei joystick ----
+const keys = new Set();
+window.addEventListener('keydown', (e) => keys.add(e.key.toLowerCase()));
+window.addEventListener('keyup', (e) => keys.delete(e.key.toLowerCase()));
+
+function applyKeyboard() {
+  const kb = { leftX: 0, leftY: 0, rightX: 0, rightY: 0 };
+  if (keys.has('arrowleft') || keys.has('q')) kb.leftX -= 1;
+  if (keys.has('arrowright') || keys.has('e')) kb.leftX += 1;
+  if (keys.has('arrowup') || keys.has('r')) kb.leftY += 1;
+  if (keys.has('arrowdown') || keys.has('f')) kb.leftY -= 1;
+  if (keys.has('w')) kb.rightY += 1;
+  if (keys.has('s')) kb.rightY -= 1;
+  if (keys.has('a')) kb.rightX -= 1;
+  if (keys.has('d')) kb.rightX += 1;
+
+  const kbActive = kb.leftX || kb.leftY || kb.rightX || kb.rightY;
+  if (kbActive) {
+    sticks.left.x = kb.leftX; sticks.left.y = kb.leftY;
+    sticks.right.x = kb.rightX; sticks.right.y = kb.rightY;
+  }
+}
+
+// ============================================================
+// LOOP PRINCIPALE
+// ============================================================
+let lastT = performance.now();
+
+function animate(t) {
+  requestAnimationFrame(animate);
+  const dt = Math.min(0.05, (t - lastT) / 1000);
+  lastT = t;
+
+  applyKeyboard();
+  stepPhysics(dt);
+
+  // drone: (x_m, y_m, z_m) -> Three.js (X=x, Y=z altitudine, Z=y laterale)
+  drone.position.set(state.x, state.z, state.y);
+  drone.rotation.y = -state.heading;
+  rotors.forEach((r) => { r.rotation.y += dt * 40; });
+
+  // camera FPV: agganciata al drone, leggero tilt verso il basso in stile racing
+  const camOffset = new THREE.Vector3(0, 0.15, 0);
+  const worldPos = drone.position.clone().add(camOffset);
+  camera.position.copy(worldPos);
+  const lookDir = new THREE.Vector3(Math.cos(state.heading), -0.12, Math.sin(state.heading));
+  camera.lookAt(worldPos.clone().add(lookDir));
+
+  $('hudHeading').innerHTML = String(Math.round(((state.heading * 180 / Math.PI) % 360 + 360) % 360)).padStart(3, '0') + '&deg;';
+
+  if (t - lastFetch > FETCH_INTERVAL_MS) {
+    lastFetch = t;
+    fetchTelemetry();
+  }
+
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(animate);
+
+// ============================================================
+// PANNELLO IMPOSTAZIONI
+// ============================================================
+$('settingsToggle').addEventListener('click', () => $('settingsPanel').classList.toggle('open'));
+['bAx', 'bAw', 'bAh', 'bBx', 'bBw', 'bBh'].forEach((id) => $(id).addEventListener('change', rebuildBuildings));
+</script>
+</body>
+</html>
